@@ -1,4 +1,4 @@
-edzer.github.io
+edzer.github.io/r-spatial
 ===============
 
-the [web site](http://edzer.github.io/) or [file](http://htmlpreview.github.com/?https://github.com/edzer/edzer.github.io/blob/master/index.html)
+the [web site](https://edzer.github.io/r-spatial/)
