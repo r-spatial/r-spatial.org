@@ -13,7 +13,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "/r-spatial" # the subpath of your site, e.g. /blog
 url: "https://edzer.github.io" # the base hostname & protocol for your site
 twitter_username: edzerpebesma
-github_username:  edzer
+github_username:  edzer/r-spatial
 
 # Build settings
 markdown: kramdown
