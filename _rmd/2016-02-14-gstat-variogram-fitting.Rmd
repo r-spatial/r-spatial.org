@@ -5,6 +5,7 @@ date:   2016-02-14 11:00:00 +0100
 comments: true
 categories: r
 ---
+DOWNLOADHERE
 
 Fitting variogram functions with R package
 [gstat](https://cran.r-project.org/package=gstat) has become more

@@ -6,6 +6,9 @@ comments: true
 categories: r
 ---
 
+[download
+Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-02-14-gstat-variogram-fitting.Rmd)
+
 Fitting variogram functions with R package
 [gstat](https://cran.r-project.org/package=gstat) has become more
 flexible, and hopefully more user friendly. Up to now, after loading
