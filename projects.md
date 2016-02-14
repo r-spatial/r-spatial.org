@@ -26,3 +26,7 @@ A (not exhaustive!) list of R packages under development on GitHub but not on CR
 * [mss](https://github.com/edzer/mss), a package with methods and classes that enable doing meaningful spatial statistics
 * [rgdal2](https://github.com/thk686/rgdal2), a package with R proxies to spatial objects living in GDAL
 * [spnetwork](https://github.com/edzer/spnetwork), provides classes and methods for road networks, using sp and igraph
+
+Please add to this list by [pull
+request](https://github.com/edzer/r-spatial/blob/gh-pages/projects.md),
+open an issue, or by sending me email.
