@@ -126,13 +126,22 @@ Default initial parameter values are chosen from the sample variogram,
 where:
 
 -   the range parameter is taken as 1/3 of the maximum sample variogram
-    distance
+    distance,
 -   the nugget parameter is taken as the mean of the first three sample
     variogram values, and
 -   the partial sill is taken as the mean of the last five sample
     variogram values.
 
-This happen under the hood (undocumented):
+<!-- -->
+
+    vgm("Sph")
+
+    ##   model psill range
+    ## 1   Nug    NA     0
+    ## 2   Sph    NA    NA
+
+contains `NA` values for the numeric parameters, and under the hood
+(undocumented)
 
     gstat:::vgm_fill_na(vgm("Sph"), v)
 
@@ -140,7 +149,9 @@ This happen under the hood (undocumented):
     ## 1   Nug 0.2141508   0.0000
     ## 2   Sph 0.6200691 514.4008
 
-Providing a list of unparameterized models to `vgm` creates a list,
+fills the `NA` values with the initial values.
+
+Providing more than one model to `vgm` returns a list,
 
     vgm(c("Sph", "Exp"))
 
@@ -157,7 +168,7 @@ Providing a list of unparameterized models to `vgm` creates a list,
     ## attr(,"class")
     ## [1] "variogramModelList" "list"
 
-which `fit.variogram` will iterate over, returning the best fit.
+which `fit.variogram` iterates over, returning the best fitting model.
 
 Comparison to automap
 ---------------------

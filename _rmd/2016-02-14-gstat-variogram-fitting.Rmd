@@ -86,20 +86,25 @@ fit.variogram(v0, vgm(c("Exp", "Ste", "Sph")), fit.kappa = seq(.3,5,.01))
 ## How it works
 Default initial parameter values are chosen from the sample variogram, where:
 
-* the range parameter is taken as 1/3 of the maximum sample variogram distance
+* the range parameter is taken as 1/3 of the maximum sample variogram distance,
 * the nugget parameter is taken as the mean of the first three sample variogram values, and
 * the partial sill is taken as the mean of the last five sample variogram values.
 
-This happen under the hood (undocumented):
-
+```{r}
+vgm("Sph")
+```
+contains `NA` values for the numeric parameters, and 
+under the hood (undocumented)
 ```{r}
 gstat:::vgm_fill_na(vgm("Sph"), v)
 ```
-Providing a list of unparameterized models to `vgm` creates a list,
+fills the `NA` values with the initial values.
+
+Providing more than one model to `vgm` returns a list,
 ```{r}
 vgm(c("Sph", "Exp"))
 ```
-which `fit.variogram` will iterate over, returning the best fit. 
+which `fit.variogram` iterates over, returning the best fitting model. 
 
 ## Comparison to automap
 
