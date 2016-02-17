@@ -4,10 +4,10 @@ title: Projects
 permalink: /projects/
 ---
  
-# CRAN packages
+# CRAN R-spatial packages
 
 * R packages for spatial data analysis on [CRAN](https://cran.r-project.org/) are described and listed in the [Spatial Task View](https://cran.r-project.org/web/views/Spatial.html)
-* R packages for spatio-temporal data analysis on [CRAN](https://cran.r-project.org/) are described and listed in the [Spatial Task View](https://cran.r-project.org/web/views/SpatioTemporal.html)
+* R packages for spatio-temporal data analysis on [CRAN](https://cran.r-project.org/) are described and listed in the [Spatio-Temporal Task View](https://cran.r-project.org/web/views/SpatioTemporal.html)
 * CRAN packages with a development tree on GitHub include
   [ggmap](https://github.com/dkahle/ggmap),
   [gstat](https://github.com/edzer/gstat),
@@ -17,9 +17,9 @@ permalink: /projects/
   [stplanr](https://github.com/ropensci/stplanr),
   [trajectories](https://github.com/edzer/trajectories),
 
-# Packages on GitHub, not on CRAN
+# R-spatial packages on GitHub, but not on CRAN
 
-A (not exhaustive!) list of R packages under development on GitHub but not on CRAN are:
+A (not exhaustive!) list of R packages (typically) under development on GitHub but not on CRAN are:
 
 * [ArcGIS-R bridge](https://github.com/R-ArcGIS/r-bridge), a bridge between ArcGIS and R, developed by [ESRI](http://www.esri.com/) (contains binary code)
 * [fuzzyMM](https://github.com/ngort01/fuzzyMM), a package for fuzzy map matching
