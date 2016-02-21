@@ -22,12 +22,16 @@ Type        |Example (WKT)
             |`POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10),`
             |`(20 30, 35 35, 30 20, 20 30))`
 
-Today, simple features are everywhere where spatial data is
+where the second `POLYGON` consists of an outer ring (boundary)
+followed by an inner ring (hole) -- an important feature of real
+polygon data.
+
+Today, simple features are practically everywhere where spatial data is
 moved across systems. For instance, [PostGIS](http://www.postgis.net/)
 uses it to store geometry in spatial tables, the
 [geoJSON](https://datatracker.ietf.org/doc/draft-ietf-geojson/?include_text=1)
-draft standard is based on it, the data model of the ubiquitous
-[GDAL/OGR](http://www.gdal.org/) library is based on it.
+draft standard is based on it, the vector data model of the ubiquitous
+[GDAL/OGR](http://www.gdal.org/) library is entirely based on it.
 
 The way R handles feature data (notably by the
 [sp](https://cran.r-project.org/package=sp) package and it's
@@ -46,9 +50,9 @@ Simple Feature type            | sp class                | dimension
 
 Although this ``still works'' for many practical cases, it means that
 
-* certain classes, such as `LineString` and `Polygon` can be read into R, but would written back as a different type (as `MultiLineString` or `MultiPolygon`)
+* certain classes, such as `LineString` and `Polygon` can be read into R, but are written back to a different type (as `MultiLineString` or `MultiPolygon`, respectively)
 * many simple feature types (`GeometryCollection`, `CircularString`, `CompoundCurve`, `CurvePolygon`, `MultiCurve`, `MultiSurface`, `Curve`, `Surface`, `PolyhedralSurface`, `TIN`, `Triangle`) have no equivalence in R (or have one, but lack an interface)
-* most three-dimensional geometries (`XYZ`) and all geometries with coordinate-attributes (`XYM`) cannot be read in or written from R.
+* most three-dimensional geometries (`XYZ`) and all geometries with coordinate-attributes (`XYM`) cannot be read into or written from R.
 
 We developed an [ISC proposal](https://www.r-consortium.org/about/isc/proposals) to
 bring simple features to R. The proposal can be read [here](https://github.com/edzer/sfr).
