@@ -8,14 +8,32 @@ permalink: /projects/
 
 * R packages for spatial data analysis on [CRAN](https://cran.r-project.org/) are described and listed in the [Spatial Task View](https://cran.r-project.org/web/views/Spatial.html)
 * R packages for spatio-temporal data analysis on [CRAN](https://cran.r-project.org/) are described and listed in the [Spatio-Temporal Task View](https://cran.r-project.org/web/views/SpatioTemporal.html)
-* CRAN packages with a development tree on GitHub include
-  [ggmap](https://github.com/dkahle/ggmap),
-  [gstat](https://github.com/edzer/gstat),
-  [mapview](https://github.com/environmentalinformatics-marburg/mapview),
-  [sp](https://github.com/edzer/sp),
-  [spacetime](https://github.com/edzer/spacetime),
-  [stplanr](https://github.com/ropensci/stplanr),
-  [trajectories](https://github.com/edzer/trajectories),
+* CRAN packages mentioned in these task views with a development tree on GitHub include
+[diveMove](https://github.com/spluque/diveMove),
+[ggmap](https://github.com/dkahle/ggmap),
+[googleVis](https://github.com/mages/googleVis#googlevis),
+[Grid2Polygons](https://github.com/jfisher-usgs/Grid2Polygons),
+[gstat](https://github.com/edzer/gstat),
+[leafletR](https://github.com/chgrl/leafletR),
+[lme4](https://github.com/lme4/lme4/),
+[mapview](https://github.com/environmentalinformatics-marburg/mapview),
+[moveHMM](https://github.com/TheoMichelot/moveHMM),
+[mvtsplot](http://github.com/rdpeng/mvtsplot),
+[rangeMapper](https://github.com/valcu/rangeMapper),
+[rasterVis](http://oscarperpinan.github.io/rastervis),
+[rmatio](https://github.com/stewid/rmatio),
+[RSurvey](https://github.com/jfisher-usgs/RSurvey),
+[rworldmap](https://github.com/AndySouth/rworldmap),
+[solaR](http://oscarperpinan.github.io/solar),
+[sp](https://github.com/edzer/sp),
+[spacetime](https://github.com/edzer/spacetime),
+[stplanr](https://github.com/ropensci/stplanr),
+[trajectories](https://github.com/edzer/trajectories),
+[tripEstimation](https://github.com/mdsumner/tripEstimation),
+[vardiag](https://github.com/edzer/vardiag),
+[vegan](http://cran.r-project.org, https://github.com/vegandevs/vegan),
+[wildlifeDI](http://jedalong.github.io/wildlifeDI) and
+[wkb](https://github.com/ianmcook/wkb)
 
 # R-spatial packages on GitHub, but not on CRAN
 
