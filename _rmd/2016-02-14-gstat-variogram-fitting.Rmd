@@ -60,7 +60,7 @@ plot(variogramLine(vgm(1, "Mat", 1, kappa = 4), 10), type = 'l')
 
 where at distance 1, 0.05 of the sill is reached
 (and the model, up till there, is nearly linear or
-parabolic, leading singularity during fit). A different
+parabolic, leading to a singularity during fit). A different
 parameterisation of the Matern model, given in [Michael Stein's
 book](https://www.springer.com/gp/book/9780387986296), is the
 following

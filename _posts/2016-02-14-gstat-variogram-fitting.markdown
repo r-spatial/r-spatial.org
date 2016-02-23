@@ -89,10 +89,10 @@ range parameter, as illustrated by
 ![](/images/vgm1-1.png)
 
 where at distance 1, 0.05 of the sill is reached (and the model, up till
-there, is nearly linear or parabolic, leading singularity during fit). A
-different parameterisation of the Matern model, given in [Michael
-Stein's book](https://www.springer.com/gp/book/9780387986296), is the
-following
+there, is nearly linear or parabolic, leading to a singularity during
+fit). A different parameterisation of the Matern model, given in
+[Michael Stein's book](https://www.springer.com/gp/book/9780387986296),
+is the following
 
     plot(variogramLine(vgm(1, "Ste", 1, kappa = 4), 10), type = 'l')
 
