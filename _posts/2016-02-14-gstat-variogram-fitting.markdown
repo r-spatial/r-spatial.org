@@ -86,7 +86,7 @@ range parameter, as illustrated by
 
     plot(variogramLine(vgm(1, "Mat", 1, kappa = 4), 10), type = 'l')
 
-![](/r-spatial/images/vgm1-1.png)
+![](images/vgm1-1.png)
 
 where at distance 1, 0.05 of the sill is reached (and the model, up till
 there, is nearly linear or parabolic, leading singularity during fit). A
@@ -96,7 +96,7 @@ following
 
     plot(variogramLine(vgm(1, "Ste", 1, kappa = 4), 10), type = 'l')
 
-![](/r-spatial/images/vgm2-1.png)
+![](images/vgm2-1.png)
 
 This one has the same smoothness, but reaches the sill much closer to
 the range value. As a consequence it fits easier, that is, without
