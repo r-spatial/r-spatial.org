@@ -70,7 +70,7 @@ different sample variogram, where Matern is chosen, as in:
 we see that the kappa value is 0.5, which is a default value that was
 not fit. We can fit kappa by specifying `fit.kappa = TRUE`, as in
 
-    options(warn = -1)
+    options(warn = -1) # don't print warnings
     fit.variogram(v0, vgm(c("Exp", "Mat", "Sph")), fit.kappa = TRUE)
 
     ##   model    psill    range kappa
@@ -78,11 +78,11 @@ not fit. We can fit kappa by specifying `fit.kappa = TRUE`, as in
     ## 2   Mat 176455.5 456.4375   0.4
 
 where the best fitting kappa from the range 0.3, 0.4, 0.5,...,5 is
-chosen. I've set warnings off here, to suppress around 20 warnings
-happening in case of crazy initial values. This is usual for Matern
-models: larger kappa values have effective ranges (the distance value at
-which the model reaches, say, 95% of its sill) much larger than the
-range parameter, as illustrated by
+chosen. I suppressed warnings here, as around 20 warnings were printed
+in cases with crazy initial values. This is usual for Matern models:
+larger kappa values have effective ranges (the distance value at which
+the model reaches, say, 95% of its sill) much larger than the range
+parameter, as illustrated by
 
     plot(variogramLine(vgm(1, "Mat", 1, kappa = 4), 10), type = 'l')
 
@@ -102,7 +102,7 @@ This one has the same smoothness, but reaches the sill much closer to
 the range value. As a consequence it fits easier, that is, without
 warnings:
 
-    options(warn = 0) # normal
+    options(warn = 0) # set back to normal
     fit.variogram(v0, vgm(c("Exp", "Ste", "Sph")), fit.kappa = TRUE)
 
     ##   model    psill    range kappa
@@ -112,7 +112,6 @@ warnings:
 For those you need a more precise estimate of the optimal kappa value,
 you can iterate over steps of e.g. 0.01 by
 
-    options(warn = 0) # normal
     fit.variogram(v0, vgm(c("Exp", "Ste", "Sph")), fit.kappa = seq(.3,5,.01))
 
     ##   model       psill    range kappa

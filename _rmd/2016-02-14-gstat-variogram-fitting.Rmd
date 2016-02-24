@@ -45,12 +45,12 @@ fit.variogram(v0, vgm(c("Exp", "Mat", "Sph")))
 we see that the kappa value is 0.5, which is a default value that was not fit. We can
 fit kappa by specifying `fit.kappa = TRUE`, as in
 ```{r}
-options(warn = -1)
+options(warn = -1) # don't print warnings
 fit.variogram(v0, vgm(c("Exp", "Mat", "Sph")), fit.kappa = TRUE)
 ```
 where the best fitting kappa from the range 0.3, 0.4, 0.5,...,5 is
-chosen. I've set warnings off here, to suppress around 20 warnings
-happening in case of crazy initial values. This is usual for Matern 
+chosen. I suppressed warnings here, as around 20 warnings were printed
+in cases with crazy initial values. This is usual for Matern 
 models: larger kappa values have effective ranges (the distance
 value at which the model reaches, say, 95% of its sill) much larger than
 the range parameter, as illustrated by
@@ -74,13 +74,12 @@ to the range value. As a consequence it fits easier, that is,
 without warnings:
 
 ```{r}
-options(warn = 0) # normal
+options(warn = 0) # set back to normal
 fit.variogram(v0, vgm(c("Exp", "Ste", "Sph")), fit.kappa = TRUE)
 ```
 For those you need a more precise estimate of the optimal kappa value,
 you can iterate over steps of e.g. 0.01 by
 ```{r}
-options(warn = 0) # normal
 fit.variogram(v0, vgm(c("Exp", "Ste", "Sph")), fit.kappa = seq(.3,5,.01))
 ```
 ## How it works
