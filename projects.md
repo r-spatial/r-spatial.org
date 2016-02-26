@@ -14,6 +14,7 @@ permalink: /projects/
 [geonames](https://github.com/ropensci/geonames),
 [ggmap](https://github.com/dkahle/ggmap),
 [googleVis](https://github.com/mages/googleVis#googlevis),
+[graticule](https://github.com/mdsumner/graticule),
 [Grid2Polygons](https://github.com/jfisher-usgs/Grid2Polygons),
 [gstat](https://github.com/edzer/gstat),
 [igraph](https://github.com/igraph/igraph),
