@@ -3,9 +3,9 @@ layout: page
 title: About
 permalink: about/
 ---
-r-spatial is a website and blog for those interested in using
-[R](http://www.r-project.org/) to analyse spatial or spatio-temporal
-data.
+[r-spatial.org](http://r-spatial.org/) is a website and blog for
+those interested in using [R](http://www.r-project.org/) to analyse
+spatial or spatio-temporal data.
 
 Contributors:
 
