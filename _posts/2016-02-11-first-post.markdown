@@ -44,4 +44,6 @@ tutorials, and discussion pieces from the those inclined
 to contribute, and that it will collect contributions that are
 valuable to this community. Contributions can be sent to me by email
 (in plain text, markdown, or R-markdown), or as pull request to
-[github](https://github.com/edzer/r-spatial/).
+[github](https://github.com/edzer/r-spatial/). Posts containing code
+segments and table or figure output need to come with data and be 100% 
+reproducible.
