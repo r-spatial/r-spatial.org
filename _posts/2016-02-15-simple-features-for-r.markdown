@@ -3,6 +3,7 @@ layout: post
 title:  "Simple features for R"
 date:   2016-02-15 10:00:00 +0100
 comments: true
+author: Edzer Pebesma
 categories: r
 ---
 
