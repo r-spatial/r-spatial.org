@@ -45,11 +45,12 @@ permalink: /projects/
 
 A (not exhaustive!) list of R packages (typically) under development on GitHub but not on CRAN are:
 
-* [ArcGIS-R bridge](https://github.com/R-ArcGIS/r-bridge), a bridge between ArcGIS and R, developed by [ESRI](http://www.esri.com/) (contains binary code)
+* [ArcGIS-R bridge](https://github.com/R-ArcGIS/r-bridge), a bridge between ArcGIS and R, developed by [ESRI](https://blogs.esri.com/esri/esri-insider/2015/07/20/building-a-bridge-to-the-r-community/) (contains binary code)
 * [fuzzyMM](https://github.com/ngort01/fuzzyMM), a package for fuzzy map matching
 * [mss](https://github.com/edzer/mss), a package with methods and classes that enable doing meaningful spatial statistics
 * [rgdal2](https://github.com/thk686/rgdal2), a package with R proxies to spatial objects living in GDAL
 * [spnetwork](https://github.com/edzer/spnetwork), provides classes and methods for road networks, using sp and igraph
+* [geohash](https://github.com/chk1/geohash), R support for [geohashes](https://en.wikipedia.org/wiki/Geohash)
 
 Please add to this list by [pull
 request](https://github.com/edzer/r-spatial/blob/gh-pages/projects.md),
