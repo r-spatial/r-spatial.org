@@ -36,7 +36,7 @@ box()
 # 4:
 library(MASS)
 k = kde2d(x, y)
-contour(k, nlevels = 5, drawlabels=FALSE, xaxs = "i", yaxs = "i")
+contour(k, nlevels = 5, drawlabels=FALSE, xaxs = "i", yaxs = "i", axes = FALSE)
 box()
 
 # 5:
@@ -65,7 +65,7 @@ m = maps2sp(c(-130,-20), c(10,75))
 sp = SpatialPoints(rbind(c(-121,9), c(-121,75), c(-19,9), c(-19,75)), CRS("+init=epsg:4326"))
 laea = CRS("+proj=laea +lat_0=30 +lon_0=-40")
 m.laea = spTransform(m, laea)
-plot(as(m.laea, "Spatial"), expandBB = c(-.05, -.2, -.0, -.05), , xaxs = "i", yaxs = "i")
+plot(as(m.laea, "Spatial"), expandBB = c(.0, -.2, -.1, -.1), , xaxs = "i", yaxs = "i")
 plot(m.laea, col = grey(.4), add = TRUE)
 gl = gridlines(sp, easts = c(-120,-100,-80,-60,-40,-20), norths = c(10,20,30,40,50,60,70))
 gl.laea = spTransform(gl, laea)
@@ -73,8 +73,8 @@ plot(gl.laea, add = TRUE, col = grey(.8))
 
 library(trajectories)
 data(storms)
-plot(as(spTransform(storms[2][1:6], laea), "SpatialLines"), add = TRUE, 
-	col = brewer.pal(6, "Set2"), lwd = 3)
+plot(as(spTransform(storms[1][1:12], laea), "SpatialLines"), add = TRUE, 
+	col = brewer.pal(12, "Paired"), lwd = 3)
 box()
 
 dev.off()
