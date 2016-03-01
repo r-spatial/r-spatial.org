@@ -75,5 +75,6 @@ library(trajectories)
 data(storms)
 plot(as(spTransform(storms[2][1:6], laea), "SpatialLines"), add = TRUE, 
 	col = brewer.pal(6, "Set2"), lwd = 3)
+box()
 
 dev.off()
