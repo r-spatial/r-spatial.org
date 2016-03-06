@@ -7,3 +7,4 @@ permalink: blogroll/
 * [planetR](http://planetr.stderr.org/)
 * [simplystatistics](http://simplystatistics.org/)
 * [from the bottom of the heap](http://www.fromthebottomoftheheap.net/)
+* [Zev Ross](http://zevross.com/blog/)
