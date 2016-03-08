@@ -51,6 +51,8 @@ A (not exhaustive!) list of R packages (typically) under development on GitHub b
 * [rgdal2](https://github.com/thk686/rgdal2), a package with R proxies to spatial objects living in GDAL
 * [spnetwork](https://github.com/edzer/spnetwork), provides classes and methods for road networks, using sp and igraph
 * [geohash](https://github.com/chk1/geohash), R support for [geohashes](https://en.wikipedia.org/wiki/Geohash)
+* [sinkr](https://github.com/marchtaylor/sinkr), a collection of functions with emphasis on multivariate methods and handling of geographic datasets
+
 
 Please add to this list by [pull
 request](https://github.com/edzer/r-spatial/blob/gh-pages/projects.md),
