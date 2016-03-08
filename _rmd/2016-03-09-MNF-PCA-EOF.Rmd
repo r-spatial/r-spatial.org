@@ -1,0 +1,156 @@
+---
+layout: post
+title:  "MNF/MAF, PCA, and EOFs of time series, spatial and spatio-temporal data"
+date:   2016-03-08 11:00:00 +0100
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+DOWNLOADHERE
+
+### Introduction
+
+The Maximum Noise Fraction (MNF, Green et al., 1988) transform tries to split a multivariate signal into a factors that have an increasing signal-to-noise ratio. The model it underlies is that the covariance of a signal $Z$, $\Sigma$, can be decomposed into two independent covariance components, $$\Sigma = \Sigma_N + \Sigma_S$$. MNF factors are obtained by projecting the data on the eigenvectors of $\Sigma_N \Sigma_S^{-1}$. The challenge is to obtain $\Sigma_N$. One way is by computing the covariance of the first order differences, assuming the noise is *temporally* uncorrelated. This way, the MNF transform is identical to Min/Max Autocorrelation Factors (MAFs, Switzer and Green, 1984).
+
+### Time Series: noise in one band
+
+When noise it is unevenly distributed over the bands, MNF isolates
+the noise in its first band(s). We create three identical, temporally
+correlated signals, and add (a lot of) noise to the third:
+
+```{r fig=TRUE, fig.path = "images/", label="mnf1"}
+set.seed(13531) # reproducible
+s1 = arima.sim(list(ma = rep(1,20)), 500)
+s2 = arima.sim(list(ma = rep(1,20)), 500)
+s3 = arima.sim(list(ma = rep(1,20)), 500)
+s3 = s3 + rnorm(500, sd = 10)
+d = cbind(s1,s2,s3)
+plot(d)
+```
+
+Next, we can compute the MNF transform using the `mnf` method in package `spacetime` [1.2-0, devel](https://github.com/edzer/spacetime/),
+
+```{r fig=TRUE, fig.path = "images/", label="mnf2"}
+library(spacetime)
+m = mnf(d)
+plot(predict(m))
+```
+
+which reveals that the first MNF component (MAF) captures the noise,
+the remaining two the signals.  The autocorrelation functions of
+the MNF components confirms this:
+
+```{r fig=TRUE, fig.path = "images/", label="mnf3"}
+acf(predict(m))
+```
+
+and also confirms that the last component has the strongest autocorrelation.
+
+### Interpretation of eigenvectors
+
+```{r}
+class(m)
+m$values
+m
+summary(m)
+```
+
+The eigenvalues `m$values` reflect the noise fraction, $\sigma^2_n /
+\sigma^2$, for the corresponding component. Reading the `Cumulative
+Proportion`, we can see that the first component takes care of 90% of
+the noise, the first two of 96% of the  noise. Importance is measured
+in terms of noise fraction, which decreases with component number.
+
+### Time Series: correlated noise in multiple bands
+
+When noise it is unevenly distributed over the bands, MNF isolates
+the noise in its first band(s). We create three identical, temporally
+correlated signals, and add (a lot of) noise to the third. We see
+that all noise is captured in the first MNF component, and consequent
+components have increasing autocorrelation:
+
+```{r fig=TRUE, fig.path = "images/", label="mnf4"}
+n1 = rnorm(500, sd = 10)
+s1 = arima.sim(list(ma = rep(1,20)), 500) + n1
+s2 = arima.sim(list(ma = rep(0.5,20)), 500) + n1
+s3 = arima.sim(list(ma = rep(1,10)), 500)
+d = cbind(s1,s2,s3)
+plot(d)
+m = mnf(d)
+plot(predict(m))
+acf(predict(m))
+```
+
+### Principal Components on the same series
+
+PCA does a very differnt thing: it also captures the (correlated)
+noise signal in component 1, but does not rank the following
+components according to increasing autocorrelation:
+
+```{r fig=TRUE, fig.path = "images/", label="mnf5"}
+acf(predict(prcomp(d)))
+```
+
+### Spatial data
+
+We generate four fields with strong spatial correlation and strong
+cross correlation, and noise in one band:
+
+```{r fig=TRUE, fig.path = "images/", label="mnf6"}
+library(sp)
+grd = SpatialPoints(expand.grid(x=1:100, y=1:100))
+gridded(grd) = TRUE
+fullgrid(grd) = TRUE
+pts = spsample(grd, 50, "random")
+pts$z = rnorm(50)
+library(gstat)
+v = vgm(1, "Sph", 90)
+out = krige(z~1, pts, grd, v, nmax = 20, nsim = 4)
+out[[3]] = 0.5 * out[[3]] + 0.5 * rnorm(1e4)
+out[[4]] = rnorm(1e4)
+spplot(out, as.table = TRUE)
+```
+
+Then, MNFs are obtained by
+```{r fig=TRUE, fig.path = "images/", label="mnf7"}
+m = mnf(out)
+m
+summary(m)
+```
+
+and can be plotted by
+
+```{r fig=TRUE, fig.path = "images/", label="mnf8"}
+spplot(predict(m), as.table = TRUE)
+```
+
+We see that `MNF4` is an inversion of the signal in `sim1` and
+`sim2`.  The variograms of the MNFs show a clear increase in spatial
+correlation, from MNF1 to MNF4.
+
+```{r fig=TRUE, fig.path = "images/", label="mnf9"}
+pr = predict(m)
+g = gstat(NULL, "MNF1", MNF1~1, pr)
+g = gstat(g,    "MNF2", MNF2~1, pr)
+g = gstat(g,    "MNF3", MNF3~1, pr)
+g = gstat(g,    "MNF4", MNF4~1, pr)
+plot(variogram(g))
+```
+
+The following methods have been implemented for `mnf` in `spacetime`:
+```{r}
+methods(mnf)
+```
+
+### EOFs
+
+Empirical Orthogonal Functions are eigenvectors
+for spatio-temporal data.  An example of there
+use is found in section 7.4 of the `spacetime`
+[vignette](https://cran.r-project.org/web/packages/spacetime/vignettes/jss816.pdf).
+
+### Literature
+
+* Green, A.A., Berman, M., Switzer, P. and Craig, M.D., 1988. A transformation for ordering multispectral data in terms of image quality with implications for noise removal. Geoscience and Remote Sensing, IEEE Transactions on, 26(1), pp.65-74.
+* Switzer, P. and Green, A., 1984. Min/max autocorrelation factors for multivariate spatial imagery: Dept. of Statistics. Stanford University, Tech. Rep. 6.
+

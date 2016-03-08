@@ -1,4 +1,6 @@
-NAME	= 2016-03-08-plotting-spatial-grids
+# NAME	= 2016-03-08-plotting-spatial-grids
+
+NAME	= 2016-03-09-MNF-PCA-EOF
 
 all:
 	vi $(NAME).Rmd
@@ -6,5 +8,5 @@ all:
 	Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document(preserve_yaml = TRUE))'
 	sed 's/images\//\/images\//g' xx.md | sed 's/TOC/\* TOC \n\{\:toc\}/g' > ../_posts/$(NAME).markdown
 	rm -fr xx.md xx.Rmd
-	cp -r images/* ../images
+	cp -rf images/* ../images
 	rm -fr images
