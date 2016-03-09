@@ -55,13 +55,18 @@ m
 summary(m)
 ```
 
-According to Green et al. (1988), the eigenvalues `m$values`
-reflect the noise fraction, $\sigma^2_n / \sigma^2$ of the
-corresponding component. How should we interpret a value larger
-than one? Reading the `Cumulative Proportion`, it suggests that the
-first component takes care of 90% of the noise, the first two of 96%
-of the  noise. Importance is measured in terms of noise fraction,
-which decreases with component number.
+In contrast to both Switzer and Green (1984) and Green et al. (1988)
+we used $0.5 Cov(Z(x)-Z(x+\Delta))$ to estimate $\Sigma_N$,
+rather than $Cov(Z(x)-Z(x+\Delta))$. This does not affect the
+eigenvectors, but ensures that eigenvalues stay between 0 and 1,
+where under the proportional covariance model they have the more
+natural interpretation as approximate estimators of the noise
+fraction for each component. One minus the value is the lag one
+autocorrelation of the corresponding component.
+
+The `Cumulative Proportion` suggests that the first component takes
+care of 90% of the noise, the first two of 96% of the noise. MAF
+Components are ordered by decreasing noise fraction.
 
 ### Time Series: correlated noise in multiple bands
 
@@ -79,6 +84,7 @@ s3 = arima.sim(list(ma = rep(1,10)), 500)
 d = cbind(s1,s2,s3)
 plot(d)
 m = mnf(d)
+m$values
 plot(predict(m))
 acf(predict(m))
 ```
@@ -151,7 +157,7 @@ for spatio-temporal data.  An example of there
 use is found in section 7.4 of the `spacetime`
 [vignette](https://cran.r-project.org/web/packages/spacetime/vignettes/jss816.pdf).
 
-### Literature
+### References
 
 * Green, A.A., Berman, M., Switzer, P. and Craig, M.D., 1988. A transformation for ordering multispectral data in terms of image quality with implications for noise removal. Geoscience and Remote Sensing, IEEE Transactions on, 26(1), pp.65-74.
 * Switzer, P. and Green, A., 1984. Min/max autocorrelation factors for multivariate spatial imagery: Dept. of Statistics. Stanford University, Tech. Rep. 6.

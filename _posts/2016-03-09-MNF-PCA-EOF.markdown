@@ -69,12 +69,12 @@ autocorrelation.
 
     m$values
 
-    ## [1] 1.44899159 0.10374082 0.06091852
+    ## [1] 0.72449579 0.05187041 0.03045926
 
     m
 
     ## Standard deviations:
-    ## [1] 1.2037407 0.3220882 0.2468168
+    ## [1] 0.8511732 0.2277508 0.1745258
     ## 
     ## Rotation:
     ##              [,1]        [,2]        [,3]
@@ -85,18 +85,23 @@ autocorrelation.
     summary(m)
 
     ## Importance of components:
-    ##                         [,1]    [,2]    [,3]
-    ## Standard deviation     1.204 0.32209 0.24682
-    ## Proportion of Variance 0.898 0.06429 0.03775
-    ## Cumulative Proportion  0.898 0.96225 1.00000
+    ##                          [,1]    [,2]    [,3]
+    ## Standard deviation     0.8512 0.22775 0.17453
+    ## Proportion of Variance 0.8980 0.06429 0.03775
+    ## Cumulative Proportion  0.8980 0.96225 1.00000
 
-According to Green et al. (1988), the eigenvalues `m$values` reflect the
-noise fraction, *σ*<sub>*n*</sub><sup>2</sup>/*σ*<sup>2</sup> of the
-corresponding component. How should we interpret a value larger than
-one? Reading the `Cumulative Proportion`, it suggests that the first
-component takes care of 90% of the noise, the first two of 96% of the
-noise. Importance is measured in terms of noise fraction, which
-decreases with component number.
+In contrast to both Switzer and Green (1984) and Green et al. (1988) we
+used 0.5*C**o**v*(*Z*(*x*)−*Z*(*x* + *Δ*)) to estimate
+*Σ*<sub>*N*</sub>, rather than *C**o**v*(*Z*(*x*)−*Z*(*x* + *Δ*)). This
+does not affect the eigenvectors, but ensures that eigenvalues stay
+between 0 and 1, where under the proportional covariance model they have
+the more natural interpretation as approximate estimators of the noise
+fraction for each component. One minus the value is the lag one
+autocorrelation of the corresponding component.
+
+The `Cumulative Proportion` suggests that the first component takes care
+of 90% of the noise, the first two of 96% of the noise. MAF Components
+are ordered by decreasing noise fraction.
 
 ### Time Series: correlated noise in multiple bands
 
@@ -116,6 +121,10 @@ components have increasing autocorrelation:
 ![](/images/mnf4-1.png)
 
     m = mnf(d)
+    m$values
+
+    ## [1] 1.02487353 0.08970645 0.06573597
+
     plot(predict(m))
 
 ![](/images/mnf4-2.png)
@@ -164,7 +173,7 @@ Then, MNFs are obtained by
     m
 
     ## Standard deviations:
-    ## [1] 1.4123850 1.2789662 0.4855257 0.2409993
+    ## [1] 0.9987070 0.9043657 0.3433185 0.1704122
     ## 
     ## Rotation:
     ##               [,1]        [,2]        [,3]        [,4]
@@ -177,7 +186,7 @@ Then, MNFs are obtained by
 
     ## Importance of components:
     ##                          [,1]   [,2]    [,3]   [,4]
-    ## Standard deviation     1.4124 1.2790 0.48553 0.2410
+    ## Standard deviation     0.9987 0.9044 0.34332 0.1704
     ## Proportion of Variance 0.5083 0.4168 0.06007 0.0148
     ## Cumulative Proportion  0.5083 0.9251 0.98520 1.0000
 
@@ -216,7 +225,7 @@ Empirical Orthogonal Functions are eigenvectors for spatio-temporal
 data. An example of there use is found in section 7.4 of the `spacetime`
 [vignette](https://cran.r-project.org/web/packages/spacetime/vignettes/jss816.pdf).
 
-### Literature
+### References
 
 -   Green, A.A., Berman, M., Switzer, P. and Craig, M.D., 1988. A
     transformation for ordering multispectral data in terms of image
