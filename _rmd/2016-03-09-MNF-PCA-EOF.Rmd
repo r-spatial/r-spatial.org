@@ -46,7 +46,7 @@ acf(predict(m))
 
 and also confirms that the last component has the strongest autocorrelation.
 
-### Interpretation of eigenvectors
+### Interpretation of eigenvalues
 
 ```{r}
 class(m)
@@ -55,11 +55,13 @@ m
 summary(m)
 ```
 
-The eigenvalues `m$values` reflect the noise fraction, $\sigma^2_n /
-\sigma^2$, for the corresponding component. Reading the `Cumulative
-Proportion`, we can see that the first component takes care of 90% of
-the noise, the first two of 96% of the  noise. Importance is measured
-in terms of noise fraction, which decreases with component number.
+According to Green et al. (1988), the eigenvalues `m$values`
+reflect the noise fraction, $\sigma^2_n / \sigma^2$ of the
+corresponding component. How should we interpret a value larger
+than one? Reading the `Cumulative Proportion`, it suggests that the
+first component takes care of 90% of the noise, the first two of 96%
+of the  noise. Importance is measured in terms of noise fraction,
+which decreases with component number.
 
 ### Time Series: correlated noise in multiple bands
 

@@ -61,7 +61,7 @@ components confirms this:
 and also confirms that the last component has the strongest
 autocorrelation.
 
-### Interpretation of eigenvectors
+### Interpretation of eigenvalues
 
     class(m)
 
@@ -90,11 +90,12 @@ autocorrelation.
     ## Proportion of Variance 0.898 0.06429 0.03775
     ## Cumulative Proportion  0.898 0.96225 1.00000
 
-The eigenvalues `m$values` reflect the noise fraction,
-*σ*<sub>*n*</sub><sup>2</sup>/*σ*<sup>2</sup>, for the corresponding
-component. Reading the `Cumulative Proportion`, we can see that the
-first component takes care of 90% of the noise, the first two of 96% of
-the noise. Importance is measured in terms of noise fraction, which
+According to Green et al. (1988), the eigenvalues `m$values` reflect the
+noise fraction, *σ*<sub>*n*</sub><sup>2</sup>/*σ*<sup>2</sup> of the
+corresponding component. How should we interpret a value larger than
+one? Reading the `Cumulative Proportion`, it suggests that the first
+component takes care of 90% of the noise, the first two of 96% of the
+noise. Importance is measured in terms of noise fraction, which
 decreases with component number.
 
 ### Time Series: correlated noise in multiple bands
