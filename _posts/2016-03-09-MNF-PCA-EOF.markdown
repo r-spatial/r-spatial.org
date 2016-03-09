@@ -1,12 +1,14 @@
 ---
-layout: post
-title:  "MNF/MAF, PCA, and EOFs of time series, spatial and spatio-temporal data"
-date:   2016-03-08 11:00:00 +0100
-comments: true
 author: Edzer Pebesma
 categories: r
+comments: True
+date: 09 March, 2016
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"09 March, 2016","author":"Edzer Pebesma","comments":true,"title":"MNF/MAF, PCA, and EOFs of time series, spatial and spatio-temporal data"}
+title: MNF/MAF, PCA, and EOFs of time series, spatial and spatio-temporal data
 ---
 
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 [view raw
 Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-03-09-MNF-PCA-EOF.Rmd)
 
@@ -15,15 +17,17 @@ Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-03-09-
 The Maximum Noise Fraction (MNF, Green et al., 1988) transform tries to
 split a multivariate signal into a factors that have an increasing
 signal-to-noise ratio. The model it underlies is that the covariance of
-a signal *Z*, *Σ*, can be decomposed into two independent covariance
-components,
-*Σ* = *Σ*<sub>*N*</sub> + *Σ*<sub>*S*</sub>
-. MNF factors are obtained by projecting the data on the eigenvectors of
-*Σ*<sub>*N*</sub>*Σ*<sub>*S*</sub><sup>−1</sup>. The challenge is to
-obtain *Σ*<sub>*N*</sub>. One way is by computing the covariance of the
-first order differences, assuming the noise is *temporally*
-uncorrelated. This way, the MNF transform is identical to Min/Max
-Autocorrelation Factors (MAFs, Switzer and Green, 1984).
+a signal \\(Z\\), \\(\Sigma\\), can be decomposed into two independent
+covariance components,
+
+\\[\Sigma = \Sigma_N + \Sigma_S.\\]
+
+MNF factors are obtained by projecting the data on the eigenvectors of
+\\(\Sigma_N \Sigma_S^{-1}\\). The challenge is to obtain \\(\Sigma_N\\).
+One way is by computing the covariance of the first order differences,
+assuming the noise is *temporally* uncorrelated. This way, the MNF
+transform is identical to Min/Max Autocorrelation Factors (MAFs, Switzer
+and Green, 1984).
 
 ### Time Series: noise in one band
 
@@ -91,13 +95,13 @@ autocorrelation.
     ## Cumulative Proportion  0.8980 0.96225 1.00000
 
 In contrast to both Switzer and Green (1984) and Green et al. (1988) we
-used 0.5*C**o**v*(*Z*(*x*)−*Z*(*x* + *Δ*)) to estimate
-*Σ*<sub>*N*</sub>, rather than *C**o**v*(*Z*(*x*)−*Z*(*x* + *Δ*)). This
-does not affect the eigenvectors, but ensures that eigenvalues stay
-between 0 and 1, where under the proportional covariance model they have
-the more natural interpretation as approximate estimators of the noise
-fraction for each component. One minus the value is the lag one
-autocorrelation of the corresponding component.
+used \\(0.5 Cov(Z(x)-Z(x+\Delta))\\) to estimate \\(\Sigma_N\\), rather
+than \\(Cov(Z(x)-Z(x+\Delta))\\). This does not affect the eigenvectors,
+but ensures that eigenvalues stay between 0 and 1, where under the
+proportional covariance model they have the more natural interpretation
+as approximate estimators of the noise fraction for each component. One
+minus the value is the lag one autocorrelation of the corresponding
+component.
 
 The `Cumulative Proportion` suggests that the first component takes care
 of 90% of the noise, the first two of 96% of the noise. MAF Components
@@ -205,9 +209,7 @@ from MNF1 to MNF4.
     g = gstat(g,    "MNF2", MNF2~1, pr)
     g = gstat(g,    "MNF3", MNF3~1, pr)
     g = gstat(g,    "MNF4", MNF4~1, pr)
-    plot(variogram(g))
-
-![](/images/mnf9-1.png)
+    #plot(variogram(g))
 
 The following methods have been implemented for `mnf` in `spacetime`:
 
