@@ -6,14 +6,8 @@ comments: true
 author: Edzer Pebesma
 categories: r
 ---
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-<!-- This is to remind myself how to do $$\LaTeX$$ stuff in markdown, found [here](http://gastonsanchez.com/opinion/2014/02/16/Mathjax-with-jekyll/) 
-
-Some math: $$S \times T \Rightarrow Q$$
--->
-
-[r-spatial](https://r-spatial.org/) is a new [blog](https://en.wikipedia.org/wiki/Blog).
+[r-spatial](http://r-spatial.org/) is a new [blog](https://en.wikipedia.org/wiki/Blog).
 
 R has been used for the analysis of spatial data since the early
 days of R. Initiated by Roger Bivand, structured community efforts
