@@ -1,6 +1,6 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
-NAME	= 2016-03-09-MNF-PCA-EOF
+NAME	= 2016-03-17-the-new-R-way
 
 all:
 	vi $(NAME).Rmd
