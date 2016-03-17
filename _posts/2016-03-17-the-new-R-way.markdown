@@ -2,9 +2,9 @@
 author: Edzer Pebesma
 categories: r
 comments: True
-date: 18 March, 2016
+date: 17 March, 2016
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"18 March, 2016","author":"Edzer Pebesma","comments":true,"title":"Do long tables make my code tidier?"}
+meta-json: {"layout":"post","categories":"r","date":"17 March, 2016","author":"Edzer Pebesma","comments":true,"title":"Do long tables make my code tidier?"}
 title: Do long tables make my code tidier?
 ---
 
