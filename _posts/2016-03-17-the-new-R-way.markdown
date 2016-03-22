@@ -2,9 +2,9 @@
 author: Edzer Pebesma
 categories: r
 comments: True
-date: 17 March, 2016
+date: 23 March, 2016
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"17 March, 2016","author":"Edzer Pebesma","comments":true,"title":"Do long tables make my code tidier?"}
+meta-json: {"layout":"post","categories":"r","date":"23 March, 2016","author":"Edzer Pebesma","comments":true,"title":"Do long tables make my code tidier?"}
 title: Do long tables make my code tidier?
 ---
 
@@ -53,9 +53,6 @@ exercise. Then came Teresa's script to do all this.
 ### The hard way
 
     library(SpatialEpi)
-
-    ## Loading required package: sp
-
     library(tidyr)
     library(dplyr)
 
@@ -195,6 +192,22 @@ data](http://cran.uni-muenster.de/web/views/SpatioTemporal.html).
 Operating R [the new way, using dplyr, tidyr and
 friends](https://github.com/ropensci/unconf16/issues/22) is a cool idea.
 Writing code that obfuscates simplicity is not.
+
+### Is it better to use less packages?
+
+The *easy way* solution above used base R without the need to load
+packages; the *hard way* required three packages to be loaded first. The
+*new R way* critically relies on, and promotes using packages for many
+tasks that can also be solved by base R.
+
+Packages are there to be helpful. Some of them are also highly dynamic,
+get modified (improved!) over time, get abandoned, or replaced by
+others. I often ask myself \`\`will this code still run in 10 years from
+now, with the R version we will use by then?'' -- or 20, or 50 years? Of
+course, by that time one could try to compile historic R versions and
+install historic packages, but that might be non-trivial and require
+historic compilers or run-time environments. I've been using R for
+nearly 2 decades, and S-Plus before that, and know where I put my bets.
 
 This year the geostat summer school will be in
 [Albacete](http://geostat-course.org/), hosted by Virgilio. Of the 106
