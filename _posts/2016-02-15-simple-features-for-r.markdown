@@ -57,3 +57,5 @@ Although this ``still works'' for many practical cases, it means that
 
 We developed an [ISC proposal](https://www.r-consortium.org/about/isc/proposals) to
 bring simple features to R. The proposal can be read [here](https://github.com/edzer/sfr).
+
+Update: the proposal has been [granted](https://www.r-consortium.org/news/announcement/2016/03/r-consortium-funds-technical-initiatives-community-events-and-training).
