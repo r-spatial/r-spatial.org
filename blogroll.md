@@ -6,6 +6,7 @@ permalink: blogroll/
 Alphabetically:
 
 * [from the bottom of the heap](http://www.fromthebottomoftheheap.net/)
+* [mdsumner's blog](https://mdsumner.github.io/blog/)
 * [me nugget](http://menugget.blogspot.de/)
 * [planetR](http://planetr.stderr.org/)
 * [r-bloggers](http://www.r-bloggers.com/)
