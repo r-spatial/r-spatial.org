@@ -1,0 +1,128 @@
+---
+layout: post
+title:  "Reproducible research is not hard. Why do so few researchers do it?"
+date:   2016-04-29 11:00:00 +0100
+comments: true
+author: Edzer Pebesma, Daniel Nüst
+categories: r
+---
+
+In this question we refer to reproduction of computational
+aspects of reproducing scientific work, not to the repetition
+(or replication) of for instance lab or field experiments.
+Four years ago, we wrote an [EOS forum
+piece](http://dx.doi.org/10.1029/2012EO160003), where we explain
+how R can help reproducible geoscientific research. Why does the
+large majority of scientific papers published still come without any
+reproduction materials (data, scripts)? 
+
+A lot has been written about reasons why scientists are not
+very keen on sharing data and computational procedures when
+publishing their research results. The answers range from
+fear for discovery of errors, loss of competitional advantage,
+additional efforts required, and the lack of tangible benefits or
+rewards. 
+
+Scientists increasingly publish software, shown by [exponential
+growth](http://blog.revolutionanalytics.com/2016/04/a-segmented-model-of-cran-package-growth.html)
+of the number of CRAN packages, and submit more papers about
+this, as we witness in the number of manuscripts submitted to the
+[Journal of Statistical Software](https://www.jstatsoft.org/),
+but the number of regular research papers that come with data and
+scripts does not take off.
+
+In the [DFG](http://www.dfg.de/en/)-funded project ``[Opening
+Reproducible Research](http://o2r.info)'' (O2R), we asked the
+question why few papers are reproducible, and address three
+sub-questions:
+
+1. How can we make reproducibility easy? 
+2. How can we make reproducible papers interactive? 
+3. How can we help researchers to long-term archiving their research?
+
+The
+[poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
+we presented last week at [EGU](http://egu2016.eu/) addresses them.
+
+### How can we make reproducibility easy? 
+
+How do we submit reproduction material along with a manuscript of
+a scientific paper to a journal? Journals are usually quite
+unspecific about requirements (create a zip file? on github? in a data
+repository? on [runmycode](http://runmycode.org/)?), and as a
+consequence both editors and reviewers are faced with a strong
+heterogeneity in submitted material, leading to an increase in
+review efforts or the ignorance of the supplementary material.
+
+Our project [O2R](http://o2r.info/) will propose a (simple)
+standard and develop tools to helps authors, editors, reviewers,
+and later on readers to prepare, review, understand and use the
+submitted reproduction material. The review circle in 
+[this poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
+explains how this works.
+
+Structuring requirements for reproduction material makes life easier
+for everyone, and will help uptake it in the publication cycle.
+
+### How can we make reproducible papers interactive? 
+
+Have you ever wondered why diagrams and graphs in an arbitray on-line
+newspaper are interactive, but those in scientific papers are not? If
+we demand scientific manuscripts papers to provide their data in a
+structured form, it is rather trivial to develop tools that present
+this data in interactive graphs or maps, without requiring from
+scientists that they understand anything from javascript.
+
+Other forms of interaction that become possible with the reproduction
+material is the modification of (input) parameters, or input data:
+a simple user interface could be developed automatically that allows
+a viewer of the paper to modify a parameter (or exchange input data),
+and see how it affects the resulting graphs. This could lead to
+earlier and further uptake of the research, new papers from the
+reader, and more citations for the author.
+
+Creating interactive papers may be, or may become an incentive for
+researchers to prepare their reproduction material in a structured
+way, and enable new ways of doing science.
+
+### How can we help researchers to long-term archive data?
+
+According to many regulations from research funding
+agencies (such as the [DFG guidelines on good scientific
+practice](http://www.dfg.de/foerderung/grundlagen_rahmenbedingungen/gwp/)),
+researchers are required to keep scientific data for at least 10
+years. But where and how should they do that?
+
+University libraries know what is involved in long-term archiving, and
+have their own [standards](https://en.wikipedia.org/wiki/BagIt) and
+[workflows](https://en.wikipedia.org/wiki/Open_Archival_Information_System)
+for this. Our [university library](http://ulb.uni-muenster.de/)
+is full (funded) partner in O2R, and wants to develop an offering
+to researchers for long-term archiving their research material.
+This involves development of tools, workflows, an archiving system,
+metadata management, and training of library employees.
+
+Simple tools for the creation of long-term archives will be an
+incentive for researchers to actually create and use them.
+
+### The future
+
+Right now, publishers are undecided what they can, and should offer
+to enable reproducibility, and we, scientists, should tell them
+what to do. Editors are not very decided, and are often from the
+generation that oversee Today's technical possibilities.  Researchers
+are, ehm, pretty often inert when something takes them additional time.
+
+In the O2R project, two publishers,
+[Elsevier](http://www.elsevier.com/) and
+[Copernicus](http://www.copernicus.org) are involved as external
+partners, and will join in a workshop on May 17 where we will decide
+on requirements for the first year. Both are highly interested in
+the possibilities and potential of the project.
+
+The O2R project started in 2016, is funded for two years and employs
+three full-time researchers and three student assistants. A second
+phase of three additional years of funding may be requested when the
+first two years make believe that we can develop production-ready
+infrastructure during the second phase for the open access
+transformation beyond our university.
