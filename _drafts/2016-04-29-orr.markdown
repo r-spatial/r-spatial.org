@@ -11,8 +11,9 @@ In this question we refer to reproduction of computational
 aspects of reproducing scientific work, not to the repetition
 (or replication) of for instance lab or field experiments.
 Four years ago, we wrote an [EOS forum
-piece](http://dx.doi.org/10.1029/2012EO160003) (together with [Roger Bivand](https://www.nhh.no/en/research-faculty/department-of-economics/sam/cv/bivand--roger-s.aspx)), where we explain
-how R can help reproducible geoscientific research. Why does the
+piece](http://dx.doi.org/10.1029/2012EO160003) (together with 
+[Roger Bivand](https://www.nhh.no/en/research-faculty/department-of-economics/sam/cv/bivand--roger-s.aspx)), 
+where we explain how R can help reproducible geoscientific research. Why does the
 large majority of scientific papers published still come without any
 reproduction materials (data, scripts)?
 
@@ -59,7 +60,10 @@ standard and develop tools to helps authors, editors, reviewers,
 and later on readers to prepare, review, understand and use the
 submitted reproduction material. The publication cycle in 
 [our EGU poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
-explains how this works.
+explains how this works. The duality of (a) an open specification how 
+data and code should be packaged, and (b) the tools to create, share 
+and execute such packages will turn formely supplementary material 
+into core components of a scientific paper.
 
 Structuring requirements for reproduction material makes life easier
 for everyone, and will increase uptake in the publication cycle.
@@ -91,7 +95,8 @@ According to many regulations from research funding
 agencies (such as the [DFG guidelines on good scientific
 practice](http://www.dfg.de/foerderung/grundlagen_rahmenbedingungen/gwp/)),
 researchers are required to keep scientific data for at least 10
-years. But where and how should they do that?
+years. But where and how should they do that? What is the data worth
+without accompanying software to document and analyze it?
 
 University libraries know what is involved in long-term archiving, and
 have their own [standards](https://en.wikipedia.org/wiki/BagIt) and
@@ -102,8 +107,8 @@ to researchers for long-term archiving their research material.
 This involves development of tools, workflows, an archiving system,
 metadata management, and training of library employees.
 
-Simple tools for the creation of long-term archives will be an
-incentive for researchers to actually create and use them.
+Simple tools for the creation of long-term archivable research packages 
+will be an incentive for researchers to actually create and use them.
 
 ### The future
 
@@ -112,6 +117,9 @@ to enable reproducibility, and we, scientists, should tell them
 what to do. Editors are not very decided, and are often from the
 generation that oversee Today's technical possibilities. Researchers
 are, ehm, pretty often inert when something takes them additional time.
+Librarians are aware of the challenges in archival of digital information,
+but need collaborations with scientists to go beyond mere byte streams, 
+texts and images to keep the meaning of research alive.
 
 In the O2R project, two publishers,
 [Elsevier](http://www.elsevier.com/) and
