@@ -11,10 +11,11 @@ In this question we refer to reproduction of computational
 aspects of reproducing scientific work, not to the repetition
 (or replication) of for instance lab or field experiments.
 Four years ago, we wrote an [EOS forum
-piece](http://dx.doi.org/10.1029/2012EO160003), where we explain
-how R can help reproducible geoscientific research. Why does the
+piece](http://dx.doi.org/10.1029/2012EO160003) (together with 
+[Roger Bivand](https://www.nhh.no/en/research-faculty/department-of-economics/sam/cv/bivand--roger-s.aspx)), 
+where we explain how R can help reproducible geoscientific research. Why does the
 large majority of scientific papers published still come without any
-reproduction materials (data, scripts)? 
+reproduction materials (data, scripts)?
 
 A lot has been written about reasons why scientists are not
 very keen on sharing data and computational procedures when
@@ -38,7 +39,7 @@ sub-questions:
 
 1. How can we make reproducibility easy? 
 2. How can we make reproducible papers interactive? 
-3. How can we help researchers to long-term archiving their research?
+3. How can we help researchers to long-term archive their research?
 
 The
 [poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
@@ -48,7 +49,7 @@ we presented last week at [EGU](http://egu2016.eu/) addresses them.
 
 How do we submit reproduction material along with a manuscript of
 a scientific paper to a journal? Journals are usually quite
-unspecific about requirements (create a zip file? on github? in a data
+unspecific about requirements (create a zip file? publish in a GitHub project? upload in a data
 repository? on [runmycode](http://runmycode.org/)?), and as a
 consequence both editors and reviewers are faced with a strong
 heterogeneity in submitted material, leading to an increase in
@@ -57,21 +58,24 @@ review efforts or the ignorance of the supplementary material.
 Our project [O2R](http://o2r.info/) will propose a (simple)
 standard and develop tools to helps authors, editors, reviewers,
 and later on readers to prepare, review, understand and use the
-submitted reproduction material. The review circle in 
-[this poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
-explains how this works.
+submitted reproduction material. The publication cycle in 
+[our EGU poster](http://presentations.copernicus.org/EGU2016-7396_presentation.pdf)
+explains how this works. The duality of (a) an open specification how 
+data and code should be packaged, and (b) the tools to create, share 
+and execute such packages will turn formely supplementary material 
+into core components of a scientific paper.
 
 Structuring requirements for reproduction material makes life easier
-for everyone, and will help uptake it in the publication cycle.
+for everyone, and will increase uptake in the publication cycle.
 
 ### How can we make reproducible papers interactive? 
 
 Have you ever wondered why diagrams and graphs in an arbitray on-line
 newspaper are interactive, but those in scientific papers are not? If
-we demand scientific manuscripts papers to provide their data in a
+we demand scientific manuscripts to provide their data in a
 structured form, it is rather trivial to develop tools that present
 this data in interactive graphs or maps, without requiring from
-scientists that they understand anything from javascript.
+scientists that they understand anything of JavaScript.
 
 Other forms of interaction that become possible with the reproduction
 material is the modification of (input) parameters, or input data:
@@ -91,7 +95,8 @@ According to many regulations from research funding
 agencies (such as the [DFG guidelines on good scientific
 practice](http://www.dfg.de/foerderung/grundlagen_rahmenbedingungen/gwp/)),
 researchers are required to keep scientific data for at least 10
-years. But where and how should they do that?
+years. But where and how should they do that? What is the data worth
+without accompanying software to document and analyze it?
 
 University libraries know what is involved in long-term archiving, and
 have their own [standards](https://en.wikipedia.org/wiki/BagIt) and
@@ -102,23 +107,29 @@ to researchers for long-term archiving their research material.
 This involves development of tools, workflows, an archiving system,
 metadata management, and training of library employees.
 
-Simple tools for the creation of long-term archives will be an
-incentive for researchers to actually create and use them.
+Simple tools for the creation of long-term archivable research packages 
+will be an incentive for researchers to actually create and use them.
 
 ### The future
 
 Right now, publishers are undecided what they can, and should offer
 to enable reproducibility, and we, scientists, should tell them
 what to do. Editors are not very decided, and are often from the
-generation that oversee Today's technical possibilities.  Researchers
+generation that oversee Today's technical possibilities. Researchers
 are, ehm, pretty often inert when something takes them additional time.
+Librarians are aware of the challenges in archival of digital information,
+but need collaborations with scientists to go beyond mere byte streams, 
+texts and images to keep the meaning of research alive.
 
 In the O2R project, two publishers,
 [Elsevier](http://www.elsevier.com/) and
 [Copernicus](http://www.copernicus.org) are involved as external
 partners, and will join in a workshop on May 17 where we will decide
 on requirements for the first year. Both are highly interested in
-the possibilities and potential of the project.
+the possibilities and potential of the project. To learn about the
+workshop results and future project outcomes, follow the 
+[project blog](http://o2r.info/), [Twitter account](https://twitter.com/o2r_project)
+ and [GitHub org](https://github.com/o2r-project).
 
 The O2R project started in 2016, is funded for two years and employs
 three full-time researchers and three student assistants. A second
