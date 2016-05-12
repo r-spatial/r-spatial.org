@@ -810,4 +810,4 @@ This blog post is a follow-up on our [EGU
 poster](http://presentations.copernicus.org/EGU2016-11780_presentation.pdf),
 and acknowledgments go to Florian Lahn, Wouter Buytaert,
 and Simon Moulds.  The original R-markdown file is found
-[here](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/2016-05-11-scalable-earth-observation-analytics.Rmd).
+[here](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-05-11-scalable-earth-observation-analytics.Rmd).
