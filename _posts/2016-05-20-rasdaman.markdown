@@ -1,0 +1,75 @@
+---
+layout: post
+title:  "Does rasdaman CE solve an open source geospatial problem?"
+date:   2016-05-20 11:00:00 +0100
+comments: true
+author: Edzer Pebesma
+---
+This post has little to do with R directly, but links to
+the problem of doing reproducible, [Scalable Earth Observation
+analytics](http://r-spatial.org/r/2016/05/11/scalable-earth-observation-analytics.html)
+with open source software, and to the problem whether [rasdaman](http://rasdaman.org/) should become an [OSGeo](http://www.osgeo.org/) project. I posted it to the
+[OSGeo-discuss](https://lists.osgeo.org/mailman/listinfo/discuss)
+mailing list, as there the issue of rasdaman incubation
+was heavily discussed. The discussion focused mainly
+on the provenance of rasdaman open source, but I
+tried to take a step back.  What follows is [my original
+post](https://lists.osgeo.org/pipermail/discuss/2016-May/016153.html),
+but with links added in-line.
+
+As a scientist, I teach my students that for doing science it is a
+requirement to work with open source software, because only then
+workflows are fully transparent and can be reproduced by other
+scientists without prohibitive license costs. Currently, working
+with large amounts of earth observation (EO) or climate model data
+typically requires to download these data tile by tile, stitch them
+together, and go through all of them. Array databases may simplify
+this substantially: after ingesting the tiles, they can directly
+work on the whole data as a multi-dimensinal array ("data cube").
+Computations on these array are typically embarassingly parallel,
+and scale up with the number of cores in a cluster.
+
+[Rasdaman](http://rasdaman.com/) is an array data base that
+comes in two flavours, the open source community edition
+([CE](http://rasdaman.org/)) and the commercial enterprise edition
+([EE](http://rasdaman.com/)). The differences between the two
+[are clear](http://rasdaman.org/wiki/Features).  When I want to
+use rasdaman CE (open source) for scalable image analysis, I get
+stuck waiting for one core to finish everything. This is not going
+to solve any problems related to computing on large data, and is
+not scalable. The [bold claim](http://rasdaman.org/) that rasdaman.org opens with ("This
+worldwide leading array analytics engine distinguishes itself by
+its flexibility, performance, and scalability") is not true for the
+CE advertised. This has been mentioned in the past on mailing lists
+([here](https://lists.osgeo.org/pipermail/incubator/2014-October/002540.html)
+and
+[here](https://groups.google.com/forum/#!topic/rasdaman-users/66XL3tmDDQI)),
+but the typical answer from Peter Baumann diverts into
+other arguments. Also the benchmark graph ([photo from an AGU
+poster](https://lists.osgeo.org/pipermail/discuss/attachments/20160515/49200cd4/attachment.jpg))
+that Peter sent [this
+week](https://lists.osgeo.org/pipermail/discuss/2016-May/016099.html)
+must refer to the enterprise edition, since
+Spark and Hive both scale, but rasdaman CE [does
+not](https://groups.google.com/forum/#!topic/rasdaman-users/66XL3tmDDQI).
+
+I assume that on the discussions on
+[OSGeo-discuss](https://lists.osgeo.org/pipermail/discuss/2016-May/thread.html),
+ONLY the open source community edition is considered, compared,
+and discussed, as a potential future OSGeo project.
+
+OSGeo supports [the needs of the open source geospatial
+community](http://www.osgeo.org/content/faq/foundation_faq.html).
+
+Given
+
+ * the bold claims and continuing confusion about whether,
+   and which, rasdaman is scalable,
+ * the need for OSGeo to give good advice to prospective users
+   about technologies that do scale EO data analysis,
+ * the current (unfilled!) needs of scientists for good, open source
+   software for such analysis, and
+ * the [potential conflict of interest of its creator](https://lists.osgeo.org/pipermail/discuss/2016-May/016045.html),
+
+I wonder whether OSGeo should recommend rasdaman CE to the open
+source geospatial community.
