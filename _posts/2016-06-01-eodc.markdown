@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "Breaking down barriers in the scientific use of EO data"
+date:   2016-06-01 11:00:00 +0100
+comments: true
+author: Edzer Pebesma
+---
+I gave a talk earlier Today with this title, at the
+[EODC](https://www.eodc.eu/) Forum. Slides are found
+[here](http://ifgi.uni-muenster.de/~epebe_01/eodc_pebesma.pdf).
+
+The idea of an earth observation data center is really cool, and has
+the potential to become the place where students or early career
+scientists without big hardware budgets can compute on big earth
+observation data, with open source software. The question is whether
+this center will take that opportunity, or remain a business for
+other businesses, with its 25.000 euro paywall around it. Also, will
+it make its architecture transparent, so that other centers could
+follow this and finally make earth observation research somewhat
+[reproducible](http://r-spatial.org/r/2016/05/11/scalable-earth-observation-analytics.html)?
+
+I had a couple of nice and long talks with Noel
+Gorelick, one of the key scientists behind [Google Earth
+Engine](https://earthengine.google.com/), including about
+whether making a business and developing open source software
+can really go together. I had mentioned Earth Engine in [this
+post](https://lists.osgeo.org/pipermail/discuss/2016-May/016170.html).
+Noel claims that now everyone thinks I'm an open source
+fundamentalist. Am I the last one to believe I'm not?
+
+The forum ended with an excursion to the Viena Scientific Cluster,
+the shared super computer on which EODC will work. VSC-3 is the
+latest, oil-cooled super computer:
+
+![](/images/eodc.jpg)
+
