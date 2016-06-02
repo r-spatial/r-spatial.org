@@ -21,9 +21,15 @@ follow this and finally make earth observation research somewhat
 
 I had a couple of nice and long talks with Noel
 Gorelick, one of the key scientists behind [Google Earth
-Engine](https://earthengine.google.com/), including about
-whether making a business and developing open source software
-can really go together. I had mentioned Earth Engine in [this
+Engine](https://earthengine.google.com/). Noel corrected my statement
+(in my slides) where I suggest that the code space agencies use
+to convert raw signals into level 0-3 products is open source;
+he sais that for US agencies this is not the case.  We also
+talked about whether making a business and developing open source
+software can really go together well, where I mentioned [boundless
+geo](http://boundlessgeo.com/), [52North](http://www.52north.org/)
+and [mundialis](http://www.mundialis.de/).
+I had mentioned Earth Engine earlier in [this
 post](https://lists.osgeo.org/pipermail/discuss/2016-May/016170.html).
 Noel claims that now everyone thinks I'm an open source
 fundamentalist. Am I the last one to believe I'm not?
