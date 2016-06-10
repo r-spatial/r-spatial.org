@@ -1,0 +1,193 @@
+---
+layout: post
+title:  "Does R understand physical quantities?"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+### Stevens's measurement scales 
+
+S.S. Stevens's classical 1946
+[paper](http://psychology.okstate.edu/faculty/jgrice/psyc3214/Stevens_FourScales_1946.pdf)
+_On the Theory of Scales of Measurement_ tells us there are four
+measurement scales:
+
+* nominal,
+* ordinal,
+* interval, and
+* ratio.
+
+R is pretty good at representing the first two by using `factor` and
+`ordered`, 
+```{r}
+(f = factor(c("d", "a", "b", "c", "a", "b")))
+(o = ordered(c("d", "a", "b", "c", "a", "b")))
+```
+which give warnings about meaningless operations, like
+```{r}
+(e = f * 2)
+```
+and R combines interval and ratio into `numeric` variables. Having
+different representations between these different measurement scales
+has, in my opinion, always been a major advantage of R. It prevents you
+from doing things that are  _statistically_ not meaningful.
+
+### Why physical units?
+
+In physics class, we learned that every physical quantity has a
+[measurement unit](https://en.wikipedia.org/wiki/Units_of_measurement).
+If `a` represents speed, with unit `m/s`, we can't add it
+meaningfully to `b` which has unit seconds, but we can add it to `c`
+measured in `km/h` after proper unit conversion.  [Dimensional
+analysis](https://en.wikipedia.org/wiki/Dimensional_analysis)
+tracks units of measurements of variables when computations are
+performed. It is used to determine the unit of measure of the result,
+but also catches computations that aren't  _physically_ meaningful.
+Can this be automated?
+
+### Physical unit databases, and conversion software
+
+[The Unified Code for Units of Measure](http://unitsofmeasure.org/trac), or UCUM,
+is based on the _ISO 80000: 2009 Quantities and Units_ standards series
+that specify the use of System International (SI). UCUM comes with
+a BNF grammar and a machine-readable (XML) document with all the
+units, or all those that are useful -- the amount of derivable
+units is infinite.
+
+Being rather formal, and close to ISO, it is no surprise that UCUM
+has been recommended for encoding units of measures by many [open
+geospatial consortium](http://www.opengeospatial.org/) standards
+for spatial data.
+
+A more pragmatic and practical approach is taken
+by [udunits](https://www.unidata.ucar.edu/software/udunits/),
+developed by the geo/atmospheric scientists of
+[UCAR/unidata](https://www.unidata.ucar.edu/). Udunits not only
+consists of an XML file with all the units, their names and
+symbols, but also of a software library that can validate units,
+check whether they are convertible (like km/h and m/s) and _carry
+out this conversion_.  James Hiebert wrote an R package,
+[udunits2](https://cran.r-project.org/package=udunits2), which
+interfaces to this software library, but does little more than
+exposing its functions as R functions.
+
+### Using physical units in R: the units package
+
+I have always wondered why R has no support for dimensions built
+in, or at least have a package that does this. `Date` and `POSIXt`
+objects have implicit units (1 day, 1 second), but only time 
+difference `difftime` objects have explicit, and modifiable units:
+```{r}
+t = Sys.time() + 0:3 * 3600
+(deltat = diff(t))
+units(deltat) = "mins"
+deltat
+```
+
+When I discovered the
+[udunits2](https://cran.r-project.org/package=udunits2)
+R package, I couldn't resist writing the
+[units](https://cran.r-project.org/package=units) R package, which
+works similarly to `difftime`, but for all physical units supported
+by udunits2. Thus, after
+```{r}
+library(units)
+(a = as.units(1:5, "m/s"))
+```
+we can do simple arithmetic:
+```{r}
+2 * a
+a + a
+a * a
+```
+but also automatic unit conversion
+```{r}
+b = as.units(1:5, "km/h")
+a + b
+b + a
+a / b
+a * b
+```
+as you can see, units are propagated and converted to that of
+the first argument when needed, but not simplified. Wrong units trigger
+an error:
+```{r}
+s = as.units(1:5, "s")
+e = try(x <- a + s)
+attr(e, "condition")[[1]]
+```
+We can also do comparison and apply basic functions, subset, or concatenate
+```{r}
+signif(a^2.5, 3)
+a[2:4]
+c(a,b)
+c(b,a)
+```
+Conversion to and from `difftime`, use in `data.frame`s
+or `matrix` objects is illustrated in the package
+[vignette](https://cran.r-project.org/web/packages/units/vignettes/units.html).
+
+
+## The further future
+
+When dealing with measurement unit rigorously, the
+output of linear regression of two variables, `zinc` with units
+`ppm` and `dist` with units `m` would ideally contain them:
+```
+> library(sp)
+> data(meuse)
+> summary(lm(zinc ~ dist, meuse))
+
+Call:
+lm(formula = zinc ~ dist, data = meuse)
+
+Residuals (ppm):
+    Min      1Q  Median      3Q     Max 
+-475.20 -189.94  -52.94  120.15 1088.80 
+
+Coefficients:
+            Estimate Units Std. Error t value Pr(>|t|)    
+(Intercept)   756.70   ppm      35.66   21.22   <2e-16 ***
+dist        -1195.67 ppm/m     114.84  -10.41   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 281.7 ppm on 153 degrees of freedom
+Multiple R-squared:  0.4147,	Adjusted R-squared:  0.4109 
+F-statistic: 108.4 on 1 and 153 DF,  p-value: < 2.2e-16
+```
+I'm convinced this would help understand what residuals, regression
+coefficient estimates, and standard errors mean.
+
+Getting output like this automatically may not happen any time soon:
+when solving the normal equations, each entry of the cross product
+matrix $X'X$ would need to store its own physical unit, and matrix
+product and solve routines would need to propagate them.
+
+## The near future
+
+It is of course good to know whether R variables are stored
+as `factor` or `character`, as `integer` or `double`, but it
+doesn't prevent you from adding apples and oranges. Verifying
+compatibility of physical units does.  [Dimensional
+analysis](https://en.wikipedia.org/wiki/Dimensional_analysis)
+helps here, and helps understanding and verifying meaningfulness
+of results.
+
+I would be more than happy to hear of any use cases using the units
+package, be it for educational or operational projects, and also
+for suggestions how (or pull requests) to improve this package. My
+wish list right now:
+
+* add units by default to axis labels of plots
+* support log-units handling of udunits
+* integrate with spatial and temporal reference systems in R
+* link this to our work on [meaningful spatial statistics](http://www.sciencedirect.com/science/article/pii/S1364815213001977) and provenance of [data generation](http://ifgi.uni-muenster.de/~epebe_01/generativealgebra.pdf)
+

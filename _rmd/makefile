@@ -1,6 +1,6 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
-NAME	= 2016-03-17-the-new-R-way
+NAME	= 2016-06-10-units
 
 all:
 	vi $(NAME).Rmd
