@@ -117,14 +117,6 @@ similarly to `difftime`, but for all physical units supported by
 udunits2. Thus, after
 
     library(units)
-
-    ## 
-    ## Attaching package: 'units'
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     quantile
-
     (a = as.units(1:5, "m/s"))
 
     ## Units: m/s
