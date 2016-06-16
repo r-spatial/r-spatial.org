@@ -14,7 +14,7 @@ the potential to become the place where students or early career
 scientists without big hardware budgets can compute on big earth
 observation data, with open source software. The question is whether
 this center will take that opportunity, or remain a business for
-other businesses, with its 25.000 euro paywall around it. Also, will
+other businesses, with its 25.000 euro paywall around it (but see below). Also, will
 it make its architecture transparent, so that other centers could
 follow this and finally make earth observation research somewhat
 [reproducible](http://r-spatial.org/r/2016/05/11/scalable-earth-observation-analytics.html)?
@@ -40,3 +40,9 @@ latest, oil-cooled super computer:
 
 ![](/images/eodc.jpg)
 
+Post Scriptum (Jun 16, 2016): to be more precise, EODC has other membership options:
+
+1. a smaller level with 10.000 euro (with less IT resources, but also full data access)
+2. individual developers with an individual price level, which EODC wants to establish in the next months. Within this individual solution the plan is to offer a 0 euro contribution for selected activities that contribute to the general idea. 
+
+So the EODC paywall is of a varied height: from 0 to 25K depending upon the partnership level.
