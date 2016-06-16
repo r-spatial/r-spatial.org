@@ -42,9 +42,9 @@ latest, oil-cooled super computer:
 
 ### Post Scriptum (Jun 16, 2016)
 
-EODC has other membership options:
+EODC contacted me, and mentions that it has other membership options:
 
-1. a smaller level with 10.000 euro (with less IT resources, but also full data access)
+1. institutional membership with 10.000 euro per year (with less IT resources, but also full data access)
 2. individual developers with an individual price level, which EODC wants to establish in the next months. Within this individual solution the plan is to offer a 0 euro contribution for selected activities that contribute to the general idea. 
 
 So the EODC paywall is of a varied height: from 0 to 25K depending upon the partnership level.
