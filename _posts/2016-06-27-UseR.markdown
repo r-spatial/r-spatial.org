@@ -14,12 +14,6 @@ Data_](http://user2016.org/tutorials/09.html):
 * [R markdown source file](https://raw.githubusercontent.com/edzer/UseR2016/master/tutorial.Rmd)
 * [zip file including static figures](http://pebesma.staff.ifgi.de/tutorial.zip)
 
-Many mac and windows users had trouble getting the [units and
-udunits2](http://r-spatial.org/r/2016/06/10/units.html) packages
-installed, or getting it to work. I suggest removing the whole
-section dealing on measurment units now, and hope to sort this
-issue out with James Hiebert later this week.
-
 The workshop was attended well, with around 50 participants. A lot
 of good questions came up from people working in all kind of areas.
 Thanks to everyone!
