@@ -253,7 +253,7 @@ then they can be combined in a `sfc` object. This object
     ## [1] "sfc"
     ## 
     ## $type
-    ## [1] "MULTILINESTRING"
+    ## [1] "LINESTRING"
     ## 
     ## $epsg
     ## [1] 4326
@@ -271,7 +271,7 @@ then they can be combined in a `sfc` object. This object
     ## [1] "sfc"
     ## 
     ## $type
-    ## [1] "MULTILINESTRING"
+    ## [1] "LINESTRING"
     ## 
     ## $epsg
     ## [1] 4326
@@ -303,18 +303,18 @@ by
     roads.sf = sf(roads)
     roads.sf
 
-    ##   widths                               geom
-    ## 1    5.0 MULTILINESTRING((2 2, 3 3, 3 2 ...
-    ## 2    4.5 MULTILINESTRING((5 5, 4 1, 1 2 ...
+    ##   widths                      geom
+    ## 1    5.0 LINESTRING(2 2, 3 3, 3 2)
+    ## 2    4.5 LINESTRING(5 5, 4 1, 1 2)
 
     summary(roads.sf)
 
-    ##      widths                   geom  
-    ##  Min.   :4.500   MULTILINESTRING:2  
-    ##  1st Qu.:4.625   epsg:4326      :0  
-    ##  Median :4.750   +init=epsg...  :0  
-    ##  Mean   :4.750                      
-    ##  3rd Qu.:4.875                      
+    ##      widths                 geom  
+    ##  Min.   :4.500   LINESTRING   :2  
+    ##  1st Qu.:4.625   epsg:4326    :0  
+    ##  Median :4.750   +init=epsg...:0  
+    ##  Mean   :4.750                    
+    ##  3rd Qu.:4.875                    
     ##  Max.   :5.000
 
     attributes(roads.sf)
@@ -424,17 +424,17 @@ The following works for me, with PostGIS installed and data loaded:
 
     (s = read.sf("PG:dbname=postgis", "meuse2"))[1:5,]
 
-    ##   zinc                      geom
-    ## 1 1022 MULTIPOINT(181072 333611)
-    ## 2 1141 MULTIPOINT(181025 333558)
-    ## 3  640 MULTIPOINT(181165 333537)
-    ## 4  257 MULTIPOINT(181298 333484)
-    ## 5  269 MULTIPOINT(181307 333330)
+    ##   zinc                 geom
+    ## 1 1022 POINT(181072 333611)
+    ## 2 1141 POINT(181025 333558)
+    ## 3  640 POINT(181165 333537)
+    ## 4  257 POINT(181298 333484)
+    ## 5  269 POINT(181307 333330)
 
     summary(s)
 
     ##       zinc                   geom    
-    ##  Min.   : 113.0   MULTIPOINT   :155  
+    ##  Min.   : 113.0   POINT        :155  
     ##  1st Qu.: 198.0   epsg:NA      :  0  
     ##  Median : 326.0   +proj=ster...:  0  
     ##  Mean   : 469.7                      
