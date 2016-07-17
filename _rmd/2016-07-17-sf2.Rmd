@@ -211,7 +211,7 @@ summary(s)
 
 # Still to do
 
-The following items still need to be done:
+The following things still need to be done, or be decided upon:
 
 * rgdal2 needs to be extended to also read `XYZ`, `XYM`, and `XYZM` geometries - my feeling is that this will be easier than modifying `rgdal`
 * reprojection of sf objects: build on `rgdal2`? use well-known-text SRS? use PROJ.4 directly?
