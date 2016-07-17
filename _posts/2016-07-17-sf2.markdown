@@ -420,7 +420,7 @@ reads simple features through GDAL:
 This also shows the abbreviation of long geometries when printed or
 summarized, provided by the `format` methods.
 
-The following works for me, with PostGIS installed:
+The following works for me, with PostGIS installed and data loaded:
 
     (s = read.sf("PG:dbname=postgis", "meuse2"))[1:5,]
 
@@ -461,5 +461,6 @@ The following items still need to be done:
 -   improve documentation, add tutorial (vignettes, paper)
 -   add plot functions (base, grid)
 -   write simple features through GDAL (using rgdal2)
+-   explore direct WKB - sf conversion, without GDAL
 
 Please let me know if you have any comments, suggestions or questions!
