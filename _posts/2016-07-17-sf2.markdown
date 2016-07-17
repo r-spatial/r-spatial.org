@@ -1,0 +1,465 @@
+---
+author: Edzer Pebesma
+categories: r
+comments: True
+date: 17 July, 2016
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"17 July, 2016","author":"Edzer Pebesma","comments":true,"title":"Simple features for R, part 2"}
+title: Simple features for R, part 2
+---
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+* TOC 
+{:toc}
+
+\[[view raw
+Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-07-17-sf2.Rmd)\]
+
+What happened so far?
+=====================
+
+-   in an earlier [blog
+    post](http://r-spatial.org/r/2016/02/15/simple-features-for-r.html)
+    I introduced the idea of having simple features mapped directly into
+    simple R objects
+-   an R Consortium [ISC
+    proposal](https://github.com/edzer/sfr/blob/master/PROPOSAL.md) to
+    implement this got
+    [granted](https://www.r-consortium.org/news/announcement/2016/03/r-consortium-funds-technical-initiatives-community-events-and-training)
+-   during [UseR!
+    2016](https://user2016.sched.org/event/7BRR/spatial-data-in-r-simple-features-and-future-perspectives)
+    I presented this proposal
+    ([slides](http://pebesma.staff.ifgi.de/pebesma_sfr.pdf)), which we
+    followed up with an open discussion on future directions
+-   first steps to implement this in the
+    [sf](https://github.com/edzer/sfr/) package have finished, and are
+    described below
+
+This blog post describes current progress.
+
+Install & test
+==============
+
+You can install package `sf` directly from github:
+
+    library(devtools) # maybe install first?
+    install_github("edzer/sfr")
+
+if you want to try out `read.sf`, which reads through GDAL 2.0, you also
+need my fork of the R package
+[rgdal2](https://github.com/thk686/rgdal2), installed by
+
+    install_github("edzer/rgdal2")
+
+this, obviously, requires that GDAL 2.0 or later is installed, along
+with development files.
+
+After installing, a vignette contains some basic operations, and is
+shown by
+
+    library(sf)
+    vignette("basic")
+
+How does it work?
+=================
+
+Basic design ideas and constraints have been written in [this
+document](https://github.com/edzer/sfr/blob/master/DESIGN.md).
+
+Simple features are one of the following [17
+types](https://en.wikipedia.org/wiki/Well-known_text): Point,
+LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon,
+GeometryCollection, CircularString, CompoundCurve, CurvePolygon,
+MultiCurve, MultiSurface, Curve, Surface, PolyhedralSurface, TIN,
+Triangle. Each type can have 2D points (XY), 3D points (XYZ), 2D points
+with measure (XYM) and 3D points with measure (XYZM). This leads to 17 x
+4 = 68 combinations.
+
+The first seven of these are most common, and *have been implemented*,
+allowing for XY, XYZ, XYM and XYZM geometries.
+
+Simple feature instances: `sfi`
+-------------------------------
+
+A single simple feature is created by calling the constructor function,
+along with a modifier in case a three-dimensional geometry has measure
+"M" as its third dimension:
+
+    library(sf)
+    POINT(c(2,3))
+
+    ## [1] "POINT(2 3)"
+
+    POINT(c(2,3,4))
+
+    ## [1] "POINT Z(2 3 4)"
+
+    POINT(c(2,3,4), "M")
+
+    ## [1] "POINT M(2 3 4)"
+
+    POINT(c(2,3,4,5))
+
+    ## [1] "POINT ZM(2 3 4 5)"
+
+what is printed is a [well kown
+text](https://en.wikipedia.org/wiki/Well-known_text) representation of
+the object; the data itself is however stored as a regular R vector or
+matrix:
+
+    str(POINT(c(2,3,4), "M"))
+
+    ## Classes 'POINT M', 'sfi'  num [1:3] 2 3 4
+
+    str(LINESTRING(rbind(c(2,2), c(3,3), c(3,2))))
+
+    ##  LINESTRING [1:3, 1:2] 2 3 3 2 3 2
+    ##  - attr(*, "class")= chr [1:2] "LINESTRING" "sfi"
+
+By using the two simple rules that
+
+1.  sets of points are kept in a `matrix`
+2.  other sets are kept in a `list`
+
+we end up with the following structures, with increasing complexity:
+
+### Sets of points (matrix):
+
+    str(LINESTRING(rbind(c(2,2), c(3,3), c(3,2))))
+
+    ##  LINESTRING [1:3, 1:2] 2 3 3 2 3 2
+    ##  - attr(*, "class")= chr [1:2] "LINESTRING" "sfi"
+
+    str(MULTIPOINT(rbind(c(2,2), c(3,3), c(3,2))))
+
+    ##  MULTIPOINT [1:3, 1:2] 2 3 3 2 3 2
+    ##  - attr(*, "class")= chr [1:2] "MULTIPOINT" "sfi"
+
+### Sets of sets of points:
+
+    str(MULTILINESTRING(list(rbind(c(2,2), c(3,3), c(3,2)), rbind(c(2,1),c(0,0)))))
+
+    ## List of 2
+    ##  $ : num [1:3, 1:2] 2 3 3 2 3 2
+    ##  $ : num [1:2, 1:2] 2 0 1 0
+    ##  - attr(*, "class")= chr [1:2] "MULTILINESTRING" "sfi"
+
+    outer = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)
+    hole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)
+    hole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)
+    str(POLYGON(list(outer, hole1, hole2)))
+
+    ## List of 3
+    ##  $ : num [1:5, 1:2] 0 10 10 0 0 0 0 10 10 0
+    ##  $ : num [1:5, 1:2] 1 1 2 2 1 1 2 2 1 1
+    ##  $ : num [1:5, 1:2] 5 5 6 6 5 5 6 6 5 5
+    ##  - attr(*, "class")= chr [1:2] "POLYGON" "sfi"
+
+### Sets of sets of sets of points:
+
+    pol1 = list(outer, hole1, hole2)
+    pol2 = list(outer + 12, hole1 + 12)
+    pol3 = list(outer + 24)
+    mp = MULTIPOLYGON(list(pol1,pol2,pol3))
+    str(mp)
+
+    ## List of 3
+    ##  $ :List of 3
+    ##   ..$ : num [1:5, 1:2] 0 10 10 0 0 0 0 10 10 0
+    ##   ..$ : num [1:5, 1:2] 1 1 2 2 1 1 2 2 1 1
+    ##   ..$ : num [1:5, 1:2] 5 5 6 6 5 5 6 6 5 5
+    ##  $ :List of 2
+    ##   ..$ : num [1:5, 1:2] 12 22 22 12 12 12 12 22 22 12
+    ##   ..$ : num [1:5, 1:2] 13 13 14 14 13 13 14 14 13 13
+    ##  $ :List of 1
+    ##   ..$ : num [1:5, 1:2] 24 34 34 24 24 24 24 34 34 24
+    ##  - attr(*, "class")= chr [1:2] "MULTIPOLYGON" "sfi"
+
+### Sets of sets of sets of sets of points:
+
+    str(GEOMETRYCOLLECTION(list(MULTIPOLYGON(list(pol1,pol2,pol3)), POINT(c(2,3)))))
+
+    ## List of 2
+    ##  $ :List of 3
+    ##   ..$ :List of 3
+    ##   .. ..$ : num [1:5, 1:2] 0 10 10 0 0 0 0 10 10 0
+    ##   .. ..$ : num [1:5, 1:2] 1 1 2 2 1 1 2 2 1 1
+    ##   .. ..$ : num [1:5, 1:2] 5 5 6 6 5 5 6 6 5 5
+    ##   ..$ :List of 2
+    ##   .. ..$ : num [1:5, 1:2] 12 22 22 12 12 12 12 22 22 12
+    ##   .. ..$ : num [1:5, 1:2] 13 13 14 14 13 13 14 14 13 13
+    ##   ..$ :List of 1
+    ##   .. ..$ : num [1:5, 1:2] 24 34 34 24 24 24 24 34 34 24
+    ##   ..- attr(*, "class")= chr [1:2] "MULTIPOLYGON" "sfi"
+    ##  $ :Classes 'POINT', 'sfi'  num [1:2] 2 3
+    ##  - attr(*, "class")= chr [1:2] "GEOMETRYCOLLECTION" "sfi"
+
+where this is of course a worst case: `GEOMETRYCOLLECTION` objects with
+simpler elements have less nesting.
+
+### Methods for `sfi`
+
+The following methods have been implemented for `sfi` objects:
+
+    methods(class = "sfi")
+
+    ## [1] as.WKT format print 
+    ## see '?methods' for accessing help and source code
+
+### Alternatives to this implementation
+
+1.  Package [rgdal](https://github.com/thk686/rgdal2) reads point sets
+    not in a matrix, but into a list with numeric vectors named `x` and
+    `y`. This is closer to the GDAL (OGR) data model, and would allow
+    for easier disambiguation of the third dimension (`m` or `z`) in
+    case of three-dimensional points. It is more difficult to select a
+    single point, and requires validation of vector lenghts
+    being identical. I'm inclined to stick to the `matrix` for
+    point sets.
+2.  Currently, `POINT Z` is of class `c("POINT Z", "sfi")`. An
+    alternative would be to have it derive from `POINT`, i.e. give it
+    class `c("POINT Z", "POINT", "sfi")`. This would make it easier to
+    write methods for XYZ, XYM and XYZM geometries. I'm inclined to try
+    this out.
+
+Simple feature list columns: `sfc`
+----------------------------------
+
+Collections of simple features can be added together into a list. If all
+elements of this list
+
+-   are of identical type (have identical class), or are a mix of `X`
+    and `MULTIX` (with `X` being one of `POINT`, `LINESTRING` or
+    `POLYGON`)
+-   have an identical coordinate reference system
+
+then they can be combined in a `sfc` object. This object
+
+-   converts, if needed, `X` into `MULTIX` (this is also what PostGIS
+    does),
+-   registers the coordinate reference system in attributes `epsg` and
+    `proj4string`,
+-   has the bounding box in attribute `bbox`, and updates it after
+    subsetting
+
+<!-- -->
+
+    ls1 = LINESTRING(rbind(c(2,2), c(3,3), c(3,2)))
+    ls2 = LINESTRING(rbind(c(5,5), c(4,1), c(1,2)))
+    sfc = sfc(list(ls1, ls2), epsg = 4326)
+    attributes(sfc)
+
+    ## $class
+    ## [1] "sfc"
+    ## 
+    ## $type
+    ## [1] "MULTILINESTRING"
+    ## 
+    ## $epsg
+    ## [1] 4326
+    ## 
+    ## $bbox
+    ## xmin xmax ymin ymax 
+    ##    1    5    1    5 
+    ## 
+    ## $proj4string
+    ## [1] "+init=epsg:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+    attributes(sfc[1])
+
+    ## $class
+    ## [1] "sfc"
+    ## 
+    ## $type
+    ## [1] "MULTILINESTRING"
+    ## 
+    ## $epsg
+    ## [1] 4326
+    ## 
+    ## $bbox
+    ## xmin xmax ymin ymax 
+    ##    2    3    2    3 
+    ## 
+    ## $proj4string
+    ## [1] "+init=epsg:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+The following methods have been implemented for `sfc` simple feature
+list columns:
+
+    methods(class = "sfc")
+
+    ## [1] bbox    format  [       summary
+    ## see '?methods' for accessing help and source code
+
+data.frames with simple features: `sf`
+--------------------------------------
+
+Typical spatial data contain attribute values and attribute geometries.
+When combined in a table, they can be converted into `sf` objects, e.g.
+by
+
+    roads = data.frame(widths = c(5, 4.5))
+    roads$geom = sfc
+    roads.sf = sf(roads)
+    roads.sf
+
+    ##   widths                               geom
+    ## 1    5.0 MULTILINESTRING((2 2, 3 3, 3 2 ...
+    ## 2    4.5 MULTILINESTRING((5 5, 4 1, 1 2 ...
+
+    summary(roads.sf)
+
+    ##      widths                   geom  
+    ##  Min.   :4.500   MULTILINESTRING:2  
+    ##  1st Qu.:4.625   epsg:4326      :0  
+    ##  Median :4.750   +init=epsg...  :0  
+    ##  Mean   :4.750                      
+    ##  3rd Qu.:4.875                      
+    ##  Max.   :5.000
+
+    attributes(roads.sf)
+
+    ## $names
+    ## [1] "widths" "geom"  
+    ## 
+    ## $row.names
+    ## [1] 1 2
+    ## 
+    ## $class
+    ## [1] "sf"         "data.frame"
+    ## 
+    ## $sf_column
+    ## geom 
+    ##    2
+
+The following methods have been implemented for `sfc` simple feature
+list columns:
+
+    methods(class = "sf")
+
+    ## [1] geometry
+    ## see '?methods' for accessing help and source code
+
+Coercion to and from `sp`
+-------------------------
+
+Points, MultiPoints, Lines, MultiLines, Polygons and MultiPolygons can
+be converted between `sf` and
+[sp](https://cran.r-project.org/web/packages/sp/index.html), both ways.
+A round trip is demonstrated by:
+
+    df = data.frame(a=1)
+    df$geom = sfc(list(mp))
+    sf = sf(df)
+    library(methods)
+    a = as(sf, "Spatial")
+    class(a)
+
+    ## [1] "SpatialPolygonsDataFrame"
+    ## attr(,"package")
+    ## [1] "sp"
+
+    b = as.sf(a)
+    all.equal(sf, b) # round-trip sf-sp-sf
+
+    ## [1] TRUE
+
+    a2 = as(a, "SpatialPolygonsDataFrame")
+    all.equal(a, a2) # round-trip sp-sf-sp
+
+    ## [1] TRUE
+
+Reading through GDAL
+--------------------
+
+Function `read.sf` works, if `rgdal2` is installed (see above), and
+reads simple features through GDAL:
+
+    (s = read.sf(system.file("shapes/", package="maptools"), "sids"))[1:5,]
+
+    ##    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74
+    ## 0 0.114     1.442  1825    1825        Ashe 37009  37009        5  1091
+    ## 1 0.061     1.231  1827    1827   Alleghany 37005  37005        3   487
+    ## 2 0.143      1.63  1828    1828       Surry 37171  37171       86  3188
+    ## 3  0.07     2.968  1831    1831   Currituck 37053  37053       27   508
+    ## 4 0.153     2.206  1832    1832 Northampton 37131  37131       66  1421
+    ##   SID74 NWBIR74 BIR79 SID79 NWBIR79                               geom
+    ## 0     1      10  1364     0      19 MULTIPOLYGON(((-81.47275543212 ...
+    ## 1     0      10   542     3      12 MULTIPOLYGON(((-81.23989105224 ...
+    ## 2     5     208  3616     6     260 MULTIPOLYGON(((-80.45634460449 ...
+    ## 3     1     123   830     2     145 MULTIPOLYGON(((-76.00897216796 ...
+    ## 4     9    1066  1606     3    1197 MULTIPOLYGON(((-77.21766662597 ...
+
+    summary(s)
+
+    ##       AREA      PERIMETER      CNTY_       CNTY_ID          NAME   
+    ##  0.118  : 4   1.307  : 2   1825   : 1   1825   : 1   Alamance : 1  
+    ##  0.091  : 3   1.601  : 2   1827   : 1   1827   : 1   Alexander: 1  
+    ##  0.143  : 3   1.68   : 2   1828   : 1   1828   : 1   Alleghany: 1  
+    ##  0.07   : 2   1.791  : 2   1831   : 1   1831   : 1   Anson    : 1  
+    ##  0.078  : 2   0.999  : 1   1832   : 1   1832   : 1   Ashe     : 1  
+    ##  0.08   : 2   1      : 1   1833   : 1   1833   : 1   Avery    : 1  
+    ##  (Other):84   (Other):90   (Other):94   (Other):94   (Other)  :94  
+    ##       FIPS        FIPSNO      CRESS_ID      BIR74        SID74   
+    ##  37001  : 1   37001  : 1   1      : 1   1027   : 1   0      :13  
+    ##  37003  : 1   37003  : 1   10     : 1   1035   : 1   4      :13  
+    ##  37005  : 1   37005  : 1   100    : 1   1091   : 1   1      :11  
+    ##  37007  : 1   37007  : 1   11     : 1   11158  : 1   5      :11  
+    ##  37009  : 1   37009  : 1   12     : 1   1143   : 1   2      : 8  
+    ##  37011  : 1   37011  : 1   13     : 1   1173   : 1   3      : 6  
+    ##  (Other):94   (Other):94   (Other):94   (Other):94   (Other):38  
+    ##     NWBIR74       BIR79        SID79       NWBIR79             geom    
+    ##  736    : 3   10432  : 1   2      :10   1161   : 2   MULTIPOLYGON:100  
+    ##  1      : 2   1059   : 1   0      : 9   5      : 2   epsg:NA     :  0  
+    ##  10     : 2   1141   : 1   1      : 9   10     : 1                     
+    ##  1243   : 2   11455  : 1   4      : 9   1023   : 1                     
+    ##  134    : 2   1157   : 1   5      : 9   1033   : 1                     
+    ##  930    : 2   1173   : 1   3      : 6   104    : 1                     
+    ##  (Other):87   (Other):94   (Other):48   (Other):92
+
+This also shows the abbreviation of long geometries when printed or
+summarized, provided by the `format` methods.
+
+The following works for me, with PostGIS installed:
+
+    (s = read.sf("PG:dbname=postgis", "meuse2"))[1:5,]
+
+    ##   zinc                      geom
+    ## 1 1022 MULTIPOINT(181072 333611)
+    ## 2 1141 MULTIPOINT(181025 333558)
+    ## 3  640 MULTIPOINT(181165 333537)
+    ## 4  257 MULTIPOINT(181298 333484)
+    ## 5  269 MULTIPOINT(181307 333330)
+
+    summary(s)
+
+    ##       zinc                   geom    
+    ##  Min.   : 113.0   MULTIPOINT   :155  
+    ##  1st Qu.: 198.0   epsg:NA      :  0  
+    ##  Median : 326.0   +proj=ster...:  0  
+    ##  Mean   : 469.7                      
+    ##  3rd Qu.: 674.5                      
+    ##  Max.   :1839.0
+
+Still to do
+===========
+
+The following items still need to be done:
+
+-   rgdal2 needs to be extended to also read `XYZ`, `XYM`, and `XYZM`
+    geometries - my feeling is that this will be easier than modifying
+    `rgdal`
+-   reprojection of sf objects: build on `rgdal2`? use well-known-text
+    SRS? use PROJ.4 directly?
+-   when subsetting `sf` objects, make geometry sticky (sp like), or
+    drop geometry and return `data.frame` (data.frame behaviour)?
+-   link to GEOS, using GEOS functions: GDAL with GEOS enabled (and
+    `rgdal2`) has some of this, but not for instance `rgeos::gRelate`
+-   writing to GDAL, and using gdal geometry functions in `rgdal2`
+-   develop better and more complete test cases; also check the OGC
+    [test suite](http://cite.opengeospatial.org/teamengine/)
+-   improve documentation, add tutorial (vignettes, paper)
+-   add plot functions (base, grid)
+-   write simple features through GDAL (using rgdal2)
+
+Please let me know if you have any comments, suggestions or questions!
