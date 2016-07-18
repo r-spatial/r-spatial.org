@@ -168,9 +168,9 @@ summary(roads.sf)
 attributes(roads.sf)
 ```
 here, attribute `relation_to_geometry` allows documenting how
-attributes relate to the geometry: are the constant (field),
-aggregated over the geometry (lattice), or refer to individual
-entities (buildings, parcels etc.)?
+attributes relate to the geometry: are they constant (field),
+aggregated over the geometry (lattice), or do they identify 
+individual entities (buildings, parcels etc.)?
 
 The following methods have been implemented for `sfc` simple feature list columns:
 ```{r}
