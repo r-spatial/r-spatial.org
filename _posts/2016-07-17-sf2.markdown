@@ -2,9 +2,9 @@
 author: Edzer Pebesma
 categories: r
 comments: True
-date: 17 July, 2016
+date: 18 July, 2016
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"17 July, 2016","author":"Edzer Pebesma","comments":true,"title":"Simple features for R, part 2"}
+meta-json: {"layout":"post","categories":"r","date":"18 July, 2016","author":"Edzer Pebesma","comments":true,"title":"Simple features for R, part 2"}
 title: Simple features for R, part 2
 ---
 
@@ -70,7 +70,7 @@ Simple features are one of the following [17
 types](https://en.wikipedia.org/wiki/Well-known_text): Point,
 LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon,
 GeometryCollection, CircularString, CompoundCurve, CurvePolygon,
-MultiCurve, MultiSurface, Curve, Surface, PolyhedralSurface, TIN,
+MultiCurve, MultiSurface, Curve, Surface, PolyhedralSurface, TIN, and
 Triangle. Each type can have 2D points (XY), 3D points (XYZ), 2D points
 with measure (XYM) and 3D points with measure (XYZM). This leads to 17 x
 4 = 68 combinations.
@@ -208,19 +208,18 @@ The following methods have been implemented for `sfi` objects:
 
 ### Alternatives to this implementation
 
-1.  Package [rgdal](https://github.com/thk686/rgdal2) reads point sets
+1.  Package [rgdal2](https://github.com/thk686/rgdal2) reads point sets
     not in a matrix, but into a list with numeric vectors named `x` and
     `y`. This is closer to the GDAL (OGR) data model, and would allow
     for easier disambiguation of the third dimension (`m` or `z`) in
     case of three-dimensional points. It is more difficult to select a
     single point, and requires validation of vector lenghts
-    being identical. I'm inclined to stick to the `matrix` for
-    point sets.
+    being identical. I'm inclined to keep using `matrix` for point sets.
 2.  Currently, `POINT Z` is of class `c("POINT Z", "sfi")`. An
     alternative would be to have it derive from `POINT`, i.e. give it
     class `c("POINT Z", "POINT", "sfi")`. This would make it easier to
-    write methods for XYZ, XYM and XYZM geometries. I'm inclined to try
-    this out.
+    write methods for XYZ, XYM and XYZM geometries. This may be worth
+    trying out.
 
 Simple feature list columns: `sfc`
 ----------------------------------
@@ -330,7 +329,17 @@ by
     ## 
     ## $sf_column
     ## geom 
-    ##    2
+    ##    2 
+    ## 
+    ## $relation_to_geometry
+    ## widths 
+    ##   <NA> 
+    ## Levels: field lattice entity
+
+here, attribute `relation_to_geometry` allows documenting how attributes
+relate to the geometry: are the constant (field), aggregated over the
+geometry (lattice), or refer to individual entities (buildings, parcels
+etc.)?
 
 The following methods have been implemented for `sfc` simple feature
 list columns:
@@ -441,26 +450,32 @@ The following works for me, with PostGIS installed and data loaded:
     ##  3rd Qu.: 674.5                      
     ##  Max.   :1839.0
 
-Still to do
-===========
+Still to do/to be decided
+=========================
 
-The following things still need to be done, or be decided upon:
+The following issues need to be decided upon:
 
--   rgdal2 needs to be extended to also read `XYZ`, `XYM`, and `XYZM`
-    geometries - my feeling is that this will be easier than modifying
-    `rgdal`
--   reprojection of sf objects: build on `rgdal2`? use well-known-text
-    SRS? use PROJ.4 directly?
--   when subsetting `sf` objects, make geometry sticky (sp like), or
-    drop geometry and return `data.frame` (data.frame behaviour)?
+-   reproject sf objects through `rgdal2`? support well-known-text for
+    CRS? or use PROJ.4 directly?
+-   when subsetting attributes from an `sf` objects, make geometry
+    sticky (like sp does), or drop geometry and return `data.frame`
+    (data.frame behaviour)?
+
+The following things still need to be done:
+
+-   write simple features through GDAL (using rgdal2)
+-   using gdal geometry functions in `rgdal2`
+-   extend rgdal2 to also read `XYZ`, `XYM`, and `XYZM` geometries - my
+    feeling is that this will be easier than modifying `rgdal`
+-   reprojection of sf objects
 -   link to GEOS, using GEOS functions: GDAL with GEOS enabled (and
     `rgdal2`) has some of this, but not for instance `rgeos::gRelate`
--   writing to GDAL, and using gdal geometry functions in `rgdal2`
 -   develop better and more complete test cases; also check the OGC
     [test suite](http://cite.opengeospatial.org/teamengine/)
 -   improve documentation, add tutorial (vignettes, paper)
 -   add plot functions (base, grid)
--   write simple features through GDAL (using rgdal2)
 -   explore direct WKB - sf conversion, without GDAL
+-   explore how meaningfulness of operations can be verified when for
+    attributes their `relation_to_geometry` has been specified
 
 Please let me know if you have any comments, suggestions or questions!
