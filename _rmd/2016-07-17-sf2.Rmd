@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Simple features for R, part 2"
-date:  "`r format(Sys.time(), '%d %B, %Y')`"
+date:  "Jul 18, 2016"
 comments: true
 author: Edzer Pebesma
 categories: r
@@ -26,7 +26,7 @@ This blog post describes current progress.
 You can install package `sf` directly from github:
 ```{r eval=FALSE}
 library(devtools) # maybe install first?
-install_github("edzer/sfr")
+install_github("edzer/sfr", ref = "16e205f54976bee75c72ac1b54f117868b6fafbc")
 ```
 if you want to try out `read.sf`, which reads through GDAL 2.0, 
 you also need my fork of the R package [rgdal2](https://github.com/thk686/rgdal2), installed by

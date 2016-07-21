@@ -2,9 +2,9 @@
 author: Edzer Pebesma
 categories: r
 comments: True
-date: 18 July, 2016
+date: Jul 18, 2016
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"18 July, 2016","author":"Edzer Pebesma","comments":true,"title":"Simple features for R, part 2"}
+meta-json: {"layout":"post","categories":"r","date":"Jul 18, 2016","author":"Edzer Pebesma","comments":true,"title":"Simple features for R, part 2"}
 title: Simple features for R, part 2
 ---
 
@@ -43,7 +43,7 @@ Install & test
 You can install package `sf` directly from github:
 
     library(devtools) # maybe install first?
-    install_github("edzer/sfr")
+    install_github("edzer/sfr", ref = "16e205f54976bee75c72ac1b54f117868b6fafbc")
 
 if you want to try out `read.sf`, which reads through GDAL 2.0, you also
 need my fork of the R package
