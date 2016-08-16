@@ -1,0 +1,139 @@
+---
+author: Edzer Pebesma
+categories: r
+comments: True
+date: 16 August, 2016
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"16 August, 2016","author":"Edzer Pebesma","comments":true,"title":"Measurement units in R now simplify"}
+title: Measurement units in R now simplify
+---
+
+* TOC 
+{:toc}
+
+\[[view raw
+Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-08-16-units2.Rmd)\]
+
+I wrote earlier about the
+[units](https://cran.r-project.org/web/packages/units/index.html) R
+package in [this blog
+post](http://r-spatial.org/r/2016/06/10/units.html). Last weekend I was
+happily surprised by two large pull requests
+([1](https://github.com/edzer/units/pull/2),
+[2](https://github.com/edzer/units/pull/3)), from [Thomas
+Mailund](http://www.mailund.dk/index.php/about/). He discusses his
+contribution in [this
+blog](http://www.mailund.dk/index.php/2016/08/14/adding-units-as-types-to-numbers-in-r/).
+
+Essentially, the pull requests enable
+
+-   the handling and definition of user-defined units in R, and
+-   automatic simplification of units
+
+### How it works
+
+Units now have to be created explicitly, e.g. by
+
+    library(units)
+    m = make_unit("m")
+    s = make_unit("s")
+    (a = 1:10 * m/s)
+
+    ## Units: m/s
+    ##  [1]  1  2  3  4  5  6  7  8  9 10
+
+The units of the
+[udunits2](https://cran.r-project.org/web/packages/udunits2/index.html)
+package are no longer loaded automatically; they are in a database
+(list) called `ud_untis`, which is lazyloaded, so after
+
+    rm("m", "s")
+
+two clean solutions to use them are either
+
+    (a = 1:10 * ud_units$m / ud_units$s)
+
+    ## Units: m/s
+    ##  [1]  1  2  3  4  5  6  7  8  9 10
+
+or
+
+    (with(ud_units, a <- 1:10 * m / s))
+
+    ## Units: m/s
+    ##  [1]  1  2  3  4  5  6  7  8  9 10
+
+and one much less clean solution is to first attach the whole database:
+
+    attach(ud_units)
+
+    ## The following object is masked _by_ .GlobalEnv:
+    ## 
+    ##     a
+
+    ## The following object is masked from package:datasets:
+    ## 
+    ##     npk
+
+    ## The following objects are masked from package:base:
+    ## 
+    ##     F, T
+
+    (a = 1:10 * m / s)
+
+    ## Units: m/s
+    ##  [1]  1  2  3  4  5  6  7  8  9 10
+
+### Simplification
+
+Simplification not only works when identical units appear in both
+numerator and denominator:
+
+    a = 1:10 * m / s
+    a * (10 * s)
+
+    ## Units: m
+    ##  [1]  10  20  30  40  50  60  70  80  90 100
+
+but also when a unit in the numerator and denominator are convertible:
+
+    a = 1:10 * m / s
+    a * (10 * min)
+
+    ## Units: m
+    ##  [1]  600 1200 1800 2400 3000 3600 4200 4800 5400 6000
+
+    a / (0.1 * km)
+
+    ## Units: 1/s
+    ##  [1] 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10
+
+### New units
+
+New units can be created on the fly, and are simplified:
+
+    apple = make_unit("apple")
+    euro = make_unit("euro")
+    (nr = c(5, 10, 15) * apple)
+
+    ## Units: apple
+    ## [1]  5 10 15
+
+    (cost_per_piece = 0.57 * euro / apple)
+
+    ## 0.57 euro/apple
+
+    (cost = nr * cost_per_piece)
+
+    ## Units: euro
+    ## [1] 2.85 5.70 8.55
+
+### Limitations
+
+Two limitations of the current
+[implementation](https://github.com/edzer/units) are
+
+1.  automatic conversion of user-implemented units into other
+    user-defined units or to and from units in the `ud_units` database
+    is not supported,
+2.  non-integer powers are no (longer) supported.

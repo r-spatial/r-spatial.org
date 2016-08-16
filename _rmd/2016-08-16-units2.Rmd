@@ -1,0 +1,88 @@
+---
+layout: post
+title:  "Measurement units in R now simplify"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+
+TOC
+
+[DOWNLOADHERE]
+
+I wrote earlier about the [units](https://cran.r-project.org/web/packages/units/index.html) R package in [this blog post](http://r-spatial.org/r/2016/06/10/units.html). Last weekend I was happily surprised by two large pull requests ([1](https://github.com/edzer/units/pull/2), [2](https://github.com/edzer/units/pull/3)), from [Thomas Mailund](http://www.mailund.dk/index.php/about/). He discusses his contribution in [this blog](http://www.mailund.dk/index.php/2016/08/14/adding-units-as-types-to-numbers-in-r/).
+
+Essentially, the pull requests enable
+
+* the handling and definition of user-defined units in R, and
+* automatic simplification of units
+
+### How it works
+
+Units now have to be created explicitly, e.g. by
+
+```{r}
+library(units)
+m = make_unit("m")
+s = make_unit("s")
+(a = 1:10 * m/s)
+```
+
+The units of the [udunits2](https://cran.r-project.org/web/packages/udunits2/index.html) package are no longer loaded automatically; they are in a database (list) called `ud_untis`, which is lazyloaded, so after 
+
+```{r}
+rm("m", "s")
+```
+
+two clean solutions to use them are  either
+
+```{r}
+(a = 1:10 * ud_units$m / ud_units$s)
+```
+
+or
+
+```{r}
+(with(ud_units, a <- 1:10 * m / s))
+```
+
+and one much less clean solution is to first attach the whole database:
+
+```{r}
+attach(ud_units)
+(a = 1:10 * m / s)
+```
+
+### Simplification
+
+Simplification not only works when identical units appear in both numerator and
+denominator:
+```{r}
+a = 1:10 * m / s
+a * (10 * s)
+```
+but also when a unit in the numerator and denominator are convertible:
+```{r}
+a = 1:10 * m / s
+a * (10 * min)
+a / (0.1 * km)
+```
+
+### New units
+
+New units can be created on the fly, and are simplified:
+```{r}
+apple = make_unit("apple")
+euro = make_unit("euro")
+(nr = c(5, 10, 15) * apple)
+(cost_per_piece = 0.57 * euro / apple)
+(cost = nr * cost_per_piece)
+```
+
+### Limitations
+
+Two limitations of the current [implementation](https://github.com/edzer/units) are
+
+1. automatic conversion of user-implemented units into other user-defined units or to and from units in the `ud_units` database is not supported,
+1. non-integer powers are no (longer) supported.
