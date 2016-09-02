@@ -1,0 +1,127 @@
+---
+layout: post
+title: "Reading well-known-binary into R"
+date:   2016-09-01 10:00:00 +0100
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+
+This blog post describes ways to read binary simple feature data
+into R, and compares them.
+
+WKB ([well-known-binary](https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary)) is the ([ISO](http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=40114)) standard binary serialization for [simple features](http://r-spatial.org/r/2016/02/15/simple-features-for-r.html). You see it often printed in hexadecimal notation , e.g. in spatially extended databases such as [PostGIS](http://postgis.net/):
+
+    postgis=# SELECT 'POINT(1 2)'::geometry;
+                      geometry                  
+    --------------------------------------------
+     0101000000000000000000F03F0000000000000040
+    (1 row)
+
+where the alternative form is the human-readable text (Well-known text) form:
+
+    postgis=# SELECT ST_AsText('POINT(1 2)'::geometry);
+     st_astext  
+    ------------
+     POINT(1 2)
+    (1 row)
+
+In fact, the WKB is the way databases store features in BLOBs
+(binary large objects). This means that, unlike [well-known
+text](https://en.wikipedia.org/wiki/Well-known_text), reading
+well-known binary involves 
+
+* no loss of precision caused by text <--> binary conversion,
+* no conversion of data needed at all (provided the [endianness](https://en.wikipedia.org/wiki/Endianness)
+is native)
+
+As a consequence, it should be possible to do this blazingly
+fast. Also with R? And large data sets?
+
+### Three software scenarios
+
+I compared three software implementations:
+
+1. `sf::st_as_sfc` (of package [sf](http://github.com/edzer/sfr)) using C++ to read WKB
+2. `sf::st_as_sfc` (of package [sf](http://github.com/edzer/sfr)) using pure R to read WKB (but C++ to compute bounding box)
+3. `wkb::readWKB` (of package [wkb](http://cran.r-project.org/package=wkb)) using pure R to read features into [sp](http://cran.r-project.org/package=sp)-compatible objects
+
+Note that the results below were obtained after profiling, and
+implementing expensive parts in C++.
+
+### Three geometries
+
+I created three different (sets of) simple features to compare read performance: one large and simple line, one data set with many small lines, and one multi-part line containing many sub-lines:
+
+1. *single LINESTRING with many points*: a single LINESTRING with one million nodes (pionts) is read into a single simple feature
+2. *many LINESTRINGs with few points*: half a million simple features of type LINESTRING are read, each having two nodes (points)
+3. *single MULTILINESTRING with many short lines*: a single simple feature of type MULTILINESTRING is read, consisting of half a million line segments, each line segment consisting of two points.
+
+A reproducible demo-script is found in the [sf](http://github.com/edzer/sfr) package [here](https://github.com/edzer/sfr/blob/master/demo/bm_wkb.R), and can be run by
+
+    devtools::install_github("edzer/sfr")
+    demo(bm_wkb)
+
+Reported run times are in seconds, and were obtained by `system.time()`. 
+
+### single LINESTRING with many points
+
+expression                      | user   | system | elapsed 
+--------------------------------|-------:|-------:|-------:
+`sf::st_as_sfc(.)`              |  0.032 | 0.000  |  0.031 
+`sf::st_as_sfc(., pureR = TRUE)`|  0.096 | 0.012  |  0.110 
+`wkb::readWKB(.)`               |  8.276 | 0.000  |  8.275 
+
+We see that for this case both `sf` implementations are comparable;
+this is due to the fact that the whole line of 16 Mb is read into
+R with a single `readBin` call: C++ can't do this much faster.
+
+I suspect `wkb::readWKB` is slower here  because instead of
+reading a complete matrix in one step it makes a million calls to
+`readPoint`, and then merges the points read in R. This adds a few
+million function calls.  Since only a single `Line` is created,
+not much overhead from `sp` can take place here.
+
+Function calls, as John Chambers explains in [Extending
+R](http://r-spatial.org/r/2016/08/17/XR.html), have a constant
+overhead of about 1000 instructions. Having lots of them may become
+expensive, if each of them does relatively little.
+
+### many LINESTRINGs with few points
+
+expression                      | user   | system | elapsed 
+--------------------------------|-------:|-------:|-------:
+`sf::st_as_sfc(.)`              | 1.244  | 0.000  | 1.243 
+`sf::st_as_sfc(., pureR = TRUE)`| 55.004 | 0.056  | 55.063 
+`wkb::readWKB(.)`               | 257.092| 0.192  | 257.291 
+
+Here we see a strong performance gain of the C++ implementation:
+all the object creation is done in C++, without R function
+calls. `wkb::readWKB` slowness may be largely due to overhead caused
+by sp: creating `Line` and `Lines` objects, object validation,
+computing bounding box.
+
+I made the C++ and "pureR" implementations considerably faster by
+moving the bounding box calculation to C++. The C++ implementation
+was further optimized by moving the type check to C++: if a mix of
+types is read from a set of WKB objects, sfc will coerce them to
+a single type (e.g., a set of LINESTRING and MULTILINESTRING will
+be coerced to all MULTILINESTRING.)
+
+### single MULTILINESTRING with many short lines
+
+expression                      | user   | system | elapsed 
+--------------------------------|-------:|-------:|-------:
+`sf::st_as_sfc(.)`              | 0.348  | 0.000  |  0.348 
+`sf::st_as_sfc(., pureR = TRUE)`| 24.088 | 0.008  | 24.100 
+`wkb::readWKB(.)`               | 87.072 | 0.004  | 87.074 
+
+Here we see again the cost of function calls: both "pureR" in sf
+and `wkb::readWKB` are much slower due to the many function calls;
+the latter also due to object management and validation in sp.
+
+## Discussion
+
+Reading well-known binary spatial data into R can be done pretty
+elegantly by R, but in many scenarios can be much faster using C++.
+We observe speed gains up to a factor 250.
