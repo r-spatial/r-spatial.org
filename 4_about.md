@@ -10,7 +10,7 @@ spatial or spatio-temporal data.
 Contributors:
 
 * [Edzer Pebesma](http://www.uni-muenster.de/Geoinformatics/en/institute/staff/index.php/119/Edzer_Pebesma) is professor at the [institute for geoinformatics](http://ifgi.uni-muenster.de/en) of the [University of Münster](http://www.uni-muenster.de/en/), and has research interests in computational and statistical modelling of spatio-temporal phenomena, at the geographical scale.
-* [Roger Bivand](https://www.nhh.no/en/research-faculty/department-of-economics/sam/cv/bivand--roger-s.aspx) is professor at the Department of Economics, Norwegian School of Economics, Bergen, Norway. 
-* [Michael Sumner](https://github.com/mdsumner) is software and database engineer at the Australian Antarctic Division, Kingston Tasmania, Australia.
+* Marius Appel, PhD student, Institute for geoinformatics, University of Münster
+* Daniel Nuest, PhD student, Institute for geoinformatics, University of Münster
 
 Guest contributions are very [welcome](https://github.com/edzer/r-spatial/)!
