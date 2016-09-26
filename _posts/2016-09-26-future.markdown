@@ -1,0 +1,103 @@
+---
+layout: post
+title: "The future of R spatial"
+date:   2016-09-26 09:00:00 +0100
+comments: true
+author: Edzer Pebesma, Robert Hijmans
+categories: r
+---
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+Last week's [geostat summer school](http://geostat-course.org/2016)
+in Albacete was a lot of fun, with about 60 participants and
+10 lecturers. Various courses were given on handling, analyzing
+and modelling spatial and spatiotemporal data, using open source
+software. Participants came from all kind of directions, not only
+geosciences but also antropology, epidemiology and surprisingly
+many from biology and ecology. Tom Hengl invited us to discuss _the
+future of spatial and spatiotemporal analysis_ on day 2:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/edzerpebesma">@edzerpebesma</a> talking about the future of spatial and spatiotemporal analysis at <a href="https://twitter.com/hashtag/geostat2016?src=hash">#geostat2016</a> <a href="https://twitter.com/uclm_inter">@uclm_inter</a> <a href="https://t.co/yfQL2vb5ii">pic.twitter.com/yfQL2vb5ii</a></p>&mdash; Rubén G. Mateo (@RubenGMateo) <a href="https://twitter.com/RubenGMateo/status/778244873384230912">September 20, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+In the background of the screen, you see the first [appveyor](https://www.appveyor.com/) (= windows) build of [sf](https://github.com/edzer/sfr), the _simple features for R_ package. It means that thanks to Jeroen Ooms and [rwinlib](https://github.com/rwinlib), windows users can now build binary packages that link to [GDAL 2.1](https://github.com/rwinlib/gdal2), [GEOS](https://github.com/rwinlib/geos) and [Proj.4](https://github.com/rwinlib/proj):
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Windows users with Rtools installed can now build and install sfr. Opens the way for others to directly Rcpp into gdal2. Ta2 <a href="https://twitter.com/opencpu">@opencpu</a> !</p>&mdash; Edzer Pebesma (@edzerpebesma) <a href="https://twitter.com/edzerpebesma/status/778477385054294016">September 21, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Thanks to the efficient [well-known-binary](http://r-spatial.org/r/2016/09/01/bm.html) interface of sf, and thanks to using C++ and Rcpp, compared to sp the sf package now reads large feature sets much (18 x) faster into much (4 x) smaller objects (benchmark [shapefile](https://www.geofabrik.de/data/shapefiles_toulouse.zip) provided by Robin Lovelace):
+
+    > system.time(r <- rgdal::readOGR(".", "gis.osm_buildings_v06"))
+    OGR data source with driver: ESRI Shapefile 
+    Source: ".", layer: "gis.osm_buildings_v06"
+    with 487576 features
+    It has 6 fields
+       user  system elapsed 
+     90.312   0.744  91.053 
+    > object.size(r)
+    1556312104 bytes
+    > system.time(s <- sf::st_read(".", "gis.osm_buildings_v06"))
+    Reading layer gis.osm_buildings_v06 from data source . using driver "ESRI Shapefile"
+    features:       487576
+    fields:         6
+    converted into: MULTIPOLYGON
+    proj4string:    +proj=longlat +datum=WGS84 +no_defs 
+       user  system elapsed 
+      5.100   0.092   5.191 
+    > object.size(s)
+    410306448 bytes
+
+## Raster data
+
+Currently, R package [raster](https://cran.r-project.org/package=raster) is gradually being ported to C++ for efficiency reasons. For reading and writing data through GDAL, it uses rgdal, so when going through a big (cached) raster in C++ it has to go through C++ 
+\\(\rightarrow\\) 
+R 
+\\(\rightarrow\\) 
+rgdal 
+\\(\rightarrow\\) 
+R 
+\\(\rightarrow\\) 
+C++ for every chunk of data. The current set of raster classes 
+
+    library(raster)
+    Loading required package: sp
+    > showClass("Raster")
+    Virtual Class "Raster" [package "raster"]
+    
+    Slots:
+                                                                                
+    Name:      title    extent   rotated  rotation     ncols     nrows       crs
+    Class: character    Extent   logical .Rotation   integer   integer       CRS
+                              
+    Name:    history         z
+    Class:      list      list
+    
+    Extends: "BasicRaster"
+    
+    Known Subclasses: 
+    Class "RasterLayer", directly
+    Class "RasterBrick", directly
+    Class "RasterStack", directly
+    Class ".RasterQuad", directly
+    Class "RasterLayerSparse", by class "RasterLayer", distance 2
+    Class ".RasterBrickSparse", by class "RasterBrick", distance 2
+
+has grown somewhat ad hoc, and should be replaced by a single class that supports
+
+* one or more layers (bands, attributes)
+* time as a dimension
+* altitude or depth as a dimension (possibly expressed as pressure level)
+
+## The future
+
+So, how does the future of R spatial look like?
+
+1. vector data use simple features, now in package [sf](https://github.com/edzer/sfr)
+2. raster data get a single, flexible class that generalizes all `Raster*` classes now in `raster` and integrates with simple features 
+3. vector and raster data share a clear and consistent interface, no more conflicting function names
+4. raster computing directly links to GDAL, but supports distributed computing back ends provided e.g. by [SciDB](http://r-spatial.org/r/2016/05/11/scalable-earth-observation-analytics.html), [Google Earth Engine](https://earthengine.google.com/) or [rasdaman](http://rasdaman.org/)
+5. spatiotemporal classes in [spacetime](https://cran.r-project.org/package=spacetime) and [trajectories](https://cran.r-project.org/package=trajectories) build on simple features or raster
+6. support for [measurement units](https://github.com/edzer/units)
+7. support for strong typing that encourages [meaningful computation](http://www.tandfonline.com/doi/abs/10.1080/13658816.2016.1151520?journalCode=tgis20).
+
+Exciting times are ahead of us. We need your help!
