@@ -93,8 +93,9 @@ simple, in the sense that users can directly address sensors and
 observation times and work with composites rather than having to
 comb through the raw data consisting of large collections of files
 ("scenes"). The computational back-end however is not transparent,
-and doesn't allow users to do simple things like changing the common
-projection or modifying the way scenes are composited.
+it lets the user execute functions as far as they are provided
+by the API, but not inspect the source code of these function,
+or modify them.
 
 How then can we make progress out of a world of currently incompatible,
 isolated Earth Observation data center efforts? Learning from the
