@@ -2,8 +2,8 @@
 author: Edzer Pebesma, Wolfgang Wagner, Jan Verbesselt, Erwin Goor, Christian Briese, Markus Neteler
 categories:
 comments: True
-date: 2016-11-25 00:00
-meta-json: {"layout":"post","categories":"r","date":"2 November, 2016","author":"Edzer Pebesma","comments":true,"title":"OpenEO: a GDAL for Earth Observation Analytics"}
+date: 2016-11-29 00:00
+meta-json: {"layout":"post","categories":"r","date":"29 November, 2016","author":"Edzer Pebesma","comments":true,"title":"OpenEO: a GDAL for Earth Observation Analytics"}
 layout: post
 title: "OpenEO: a GDAL for Earth Observation Analytics"
 ---
