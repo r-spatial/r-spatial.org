@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Automatic units in axis labels"
-date:  "`r format(Sys.time(), '%d %B, %Y')`"
+date:  "Sep 29, 2016; updated Dec 2, 2016"
 comments: true
 author: Edzer Pebesma
 categories: r
@@ -134,6 +134,28 @@ ggplot() + geom_point(aes(x = displacement, y = consumption))
 
 ?
 
+## Update of Dec 2, 2016 
+
+Thanks to ggguru [Thomas Lin
+Pedersen](https://github.com/thomasp85), automatic units
+in axis labels of ggplots are now provided by CRAN package
+[ggforce](https://cran.r-project.org/package=ggforce): 
+
+```{r,fig=TRUE, fig.path = "images/", label="plot-units6"}
+library(ggforce)
+ggplot() + geom_point(aes(x = displacement, y = consumption))
+```
+
+and see [this vignette](https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html#units) for more examples.
+In addition to printing units in default axes labels, it allows for on-the-fly unit conversion in ggplot expressions:
+
+```{r,fig=TRUE, fig.path = "images/", label="plot-units7"}
+dm = with(ud_units, dm)
+gallon = with(ud_units, gallon)
+mi = with(ud_units, mi)
+ggplot() + geom_point(aes(x = displacement, y = consumption)) +
+    scale_x_unit(unit = dm^3) + scale_y_unit(unit = mi/gallon)
+```
 
 ## Related posts/articles
 
