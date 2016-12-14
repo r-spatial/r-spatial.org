@@ -6,6 +6,10 @@ permalink: /events/
  
 # R-spatial events
 
+### 2017
+
+* from 13 - 17 March 2017 the GIScience group of the Friedrich-Schiller-University Jena, Germany, hosts a spring school on "Statistical Analysis of Hyperspectral and High-Dimensional Remote-Sensing Data" using R. See [this](http://tinyurl.com/MSCJLIFE) link.
+
 ### 2016
 
 * Oct 12-14: [European R users meeting](http://erum.ue.poznan.pl/) in Poznan, Poland, with two spatial workshops: Small Area Estimation with R - Virgilio Gómez-Rubio; Visualising spatial data with R: from 'base' to 'shiny' - Robin Lovelace
