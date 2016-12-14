@@ -8,7 +8,8 @@ permalink: /events/
 
 ### 2017
 
-* from 13 - 17 March 2017 the GIScience group of the Friedrich-Schiller-University Jena, Germany, hosts a spring school on "Statistical Analysis of Hyperspectral and High-Dimensional Remote-Sensing Data" using R. See [this](http://tinyurl.com/MSCJLIFE) link.
+* from 13 - 17 March 2017 the GIScience group of the Friedrich-Schiller-University Jena, Germany, hosts a spring school on "Statistical Analysis of Hyperspectral and High-Dimensional Remote-Sensing Data" using R. See [this](http://tinyurl.com/MSCJLIFE) link or
+[this](http://tinyurl.com/MSCJ-Flyer) document.
 
 ### 2016
 
