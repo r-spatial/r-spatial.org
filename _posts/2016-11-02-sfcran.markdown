@@ -169,3 +169,8 @@ CRAN flavors is a great asset that teaches you problems of all kinds
 at an early stage.  Without it, users would have run at some stage
 into problems that are now caught up front. Thanks to the tremendous
 effort of the CRAN team!!
+
+### UPDATE, Dec 21, 2016
+
+* Thanks to Roger Bivand, Simon Urbanek and Brian Ripley for constructive help,
+the MacOSX-mavericks binary build is now [on CRAN](https://cran.r-project.org/package=sf), the issue is described [here](https://github.com/edzer/sfr/issues/40#issuecomment-268620603)
