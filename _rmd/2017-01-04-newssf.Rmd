@@ -1,0 +1,310 @@
+---
+layout: post
+title:  sf - plot, graticule, transform, units, cast, is
+date:  "Jan 12, 2017"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+This year began with the [R Consortium blog](https://www.r-consortium.org/blog/2017/01/03/simple-features-now-on-cran) on simple features:
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> A new post by Edzer Pebesma reviews the status of the R Consortium&#39;s Simple Features project: <a href="https://t.co/W8YqH3WQVJ">https://t.co/W8YqH3WQVJ</a></p>&mdash; Joseph Rickert (@RStudioJoe) <a href="https://twitter.com/RStudioJoe/status/816424307106594817">January 3, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+This blog post describes changes of sf 0.2-8 and upcoming 0.2-9, compared to 0.2-7, in more detail.
+
+## Direct linking to Proj.4
+
+Since 0.2-8, sf links directly to the [Proj.4](http://proj4.org/) library:
+```{r echo=FALSE}
+library(methods)
+suppressPackageStartupMessages(library(dplyr))
+```
+```{r}
+library(sf)
+```
+before that, it would use the projection interface of GDAL, which
+uses Proj.4, but exposes only parts of it. The main reason for switching
+to Proj.4 is the ability for stronger error checking. For instance,
+where GDAL would interpret any unrecognized field for `+datum` as
+`WGS84`:
+
+```
+# sf 0.2-7:
+> st_crs("+proj=longlat +datum=NAD26")
+$epsg
+[1] NA
+
+$proj4string
+[1] "+proj=longlat +ellps=WGS84 +no_defs"
+
+attr(,"class")
+[1] "crs"
+```
+
+Now, with sf 0.2-8 we get a proper error in case of an unrecognized `+datum` field:
+```{r}
+t = try(st_crs("+proj=longlat +datum=NAD26"))
+attr(t, "condition")
+```
+
+## plotting
+The default `plot` method for `sf` objects (simple features
+with attributes, or `data.frame`s with a simple feature geometry
+list-column) now plots the set of maps, one for each attribute,
+with automatic color scales:
+
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews1", fig.width=14, fig.height=12}
+nc = st_read(system.file("gpkg/nc.gpkg", package="sf"), quiet = TRUE)
+plot(nc)
+```
+
+well, that is all there is, basically. For plotting a single map,
+select the appropriate attribute
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews2"}
+plot(nc["SID79"])
+```
+
+or only the geometry:
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews3"}
+plot(st_geometry(nc))
+```
+
+
+## graticules
+
+Package sf gained a function `st_graticule` to generate graticules,
+grids formed by lines with constant longitude or latitude. Suppose we
+want to project `nc` to the state plane, and plot it with a longitude
+latitude graticule in NAD27 (the original datum of `nc`):
+
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews4"}
+nc_sp = st_transform(nc["SID79"], 32119) # NC state plane, m
+plot(nc_sp, graticule = st_crs(nc), axes = TRUE)
+```
+
+The underlying function, `st_graticule`, can be used directly to
+generate a simple object with graticules, but is rather meant to
+be used by plotting functions that benefit from a graticule in the
+background, such as `plot` or `ggplot`. The function provides the
+end points of graticules and the angle at which they end; an example
+for using Lambert equal area on the USA is found in the help page of
+`st_graticule`:
+
+```{r fig=TRUE, echo=FALSE, fig.path = "images/", label="plot-sfnews5"}
+library(sp)
+library(maps)
+
+m = map('usa', plot = FALSE, fill = TRUE)
+ID0 <- sapply(strsplit(m$names, ":"), function(x) x[1])
+
+suppressPackageStartupMessages(library(maptools))
+m <- map2SpatialPolygons(m, IDs=ID0, proj4string = CRS("+init=epsg:4326"))
+
+library(sf)
+
+laea = st_crs("+proj=laea +lat_0=30 +lon_0=-95") # Lambert equal area
+m <- st_transform(st_as_sf(m), laea)
+
+bb = st_bbox(m)
+bbox = st_linestring(rbind(c( bb[1],bb[2]),c( bb[3],bb[2]),
+   c( bb[3],bb[4]),c( bb[1],bb[4]),c( bb[1],bb[2])))
+
+g = st_graticule(m)
+plot(m, xlim = 1.2 * c(-2450853.4, 2186391.9))
+plot(g[1], add = TRUE, col = 'grey')
+plot(bbox, add = TRUE)
+points(g$x_start, g$y_start, col = 'red')
+points(g$x_end, g$y_end, col = 'blue')
+
+invisible(lapply(seq_len(nrow(g)), function(i) {
+if (g$type[i] == "N" && g$x_start[i] - min(g$x_start) < 1000)
+	text(g[i,"x_start"], g[i,"y_start"], labels = parse(text = g[i,"degree_label"]), 
+		srt = g$angle_start[i], pos = 2, cex = .7)
+if (g$type[i] == "E" && g$y_start[i] - min(g$y_start) < 1000)
+	text(g[i,"x_start"], g[i,"y_start"], labels = parse(text = g[i,"degree_label"]), 
+		srt = g$angle_start[i] - 90, pos = 1, cex = .7)
+if (g$type[i] == "N" && g$x_end[i] - max(g$x_end) > -1000)
+	text(g[i,"x_end"], g[i,"y_end"], labels = parse(text = g[i,"degree_label"]), 
+		srt = g$angle_end[i], pos = 4, cex = .7)
+if (g$type[i] == "E" && g$y_end[i] - max(g$y_end) > -1000)
+	text(g[i,"x_end"], g[i,"y_end"], labels = parse(text = g[i,"degree_label"]), 
+		srt = g$angle_end[i] - 90, pos = 3, cex = .7)
+}))
+```
+
+
+The default plotting method for simple features with
+longitude/latitude coordinates is the [equirectangular
+projection](https://en.wikipedia.org/wiki/Equirectangular_projection),
+(also called geographic projection, or equidistant cylindrical (`eqc`) projection)
+which linearly maps longitude and latitude into $x$ and $y$, transforming
+$y$ such that in the center of the map 1 km easting equals 1 km
+northing.  This is also the default for `sp::plot`, `sp::spplot`
+and ``ggplot2::coord_quickmap``. The official `Proj.4` transformation
+for this is found [here](http://proj4.org/projections/eqc.html).
+
+We can obtain e.g. a plate carrée projection (with one degree latitude
+equaling one degree longitude) with
+
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews6"}
+caree = st_crs("+proj=eqc")
+plot(st_transform(nc[1], caree), graticule = st_crs(nc), axes=TRUE, lon = -84:-76)
+```
+
+and we see indeed that the lon/lat grid is formed of squares.
+
+The _usual_ R plot for `nc` obtained by
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews8"}
+plot(nc[1], graticule = st_crs(nc), axes = TRUE)
+```
+
+corrects for latitude. The equivalent, _officially_ projected map is
+obtained by using the `eqc` projection with the correct latitude:
+
+```{r fig=TRUE, fig.path = "images/", label="plot-sfnews7"}
+mean(st_bbox(nc)[c(2,4)])
+eqc = st_crs("+proj=eqc +lat_ts=35.24")
+plot(st_transform(nc[1], eqc), graticule = st_crs(nc), axes=TRUE)
+```
+
+so that in the center of these (identical) maps, 1 km east equals 1 km north.
+
+
+## geosphere and units support
+
+`sf` now uses functions in package
+[geosphere](https://cran.r-project.org/package=geosphere) to compute
+distances or areas on the sphere. This is only possible for points
+and not for arbitrary feature geometries:
+
+```{r}
+centr = st_centroid(nc)
+st_distance(centr[c(1,10)])[1,2]
+```
+As a comparison, we can compute distances in two similar projections,
+each having a different measurement unit:
+```{r}
+centr.sp = st_transform(centr, 32119) # NC state plane, m
+(m <- st_distance(centr.sp[c(1,10)])[1,2])
+centr.ft = st_transform(centr,  2264) # NC state plane, US feet
+(ft <- st_distance(centr.ft[c(1,10)])[1,2])
+```
+and we see that the units are reported, by using package [units](https://cran.r-project.org/package=units).
+To verify that the distances are equivalent, we can compute
+```{r}
+ft/m
+```
+which does automatic unit conversion before computing the
+ratio. (Here, `1 1` should be read as _one, unitless (with unit 1)_).
+
+For spherical distances, `sf` uses `geosphere::distGeo`. It passes
+on the parameters of the datum, as can be seen from
+```{r}
+st_distance(centr[c(1,10)])[1,2]                     # NAD27
+st_distance(st_transform(centr, 4326)[c(1,10)])[1,2] # WGS84
+```
+
+Other measures come with units too, e.g. `st_area`
+```{r}
+st_area(nc[1:5,])
+```
+
+units vectors can be coerced to numeric by
+```{r}
+as.numeric(st_area(nc[1:5,]))
+```
+
+## type casting
+
+With help from Mike Sumner and Etienne Racine, we managed to get
+a working `st_cast`, which helps converting one geometry in another.
+
+### casting individual geometries (`sfg`)
+Casting individual geometries will close polygons when needed:
+
+```{r}
+st_point(c(0,1)) %>% st_cast("MULTIPOINT")
+st_linestring(rbind(c(0,1), c(5,6))) %>% st_cast("MULTILINESTRING")
+st_linestring(rbind(c(0,0), c(1,0), c(1,1))) %>% st_cast("POLYGON")
+```
+
+and will warn on loss of information:
+
+```{r}
+st_linestring(rbind(c(0,1), c(5,6))) %>% st_cast("POINT")
+st_multilinestring(list(matrix(1:4,2), matrix(1:6,,2))) %>% st_cast("LINESTRING")
+```
+
+### casting sets of geometries (`sfc`)
+
+Casting `sfc` objects can group or ungroup geometries:
+```{r}
+# group:
+st_sfc(st_point(0:1), st_point(2:3), st_point(4:5)) %>% 
+	st_cast("MULTIPOINT", ids = c(1,1,2))
+# ungroup:
+st_sfc(st_multipoint(matrix(1:4,,2))) %>% st_cast("POINT")
+```
+
+`st_cast` with no `to` argument will convert mixes of `GEOM` and `MULTIGEOM` to
+`MULTIGEOM`, where `GEOM` is `POINT`, `LINESTRING` or `POLYGON`, e.g.
+```{r}
+st_sfc(
+    st_multilinestring(list(matrix(5:8,,2))), 
+	st_linestring(matrix(1:4,2))
+  ) %>% st_cast()
+```
+or unpack geometry collections:
+
+```{r}
+x <- st_sfc(
+    st_multilinestring(list(matrix(5:8,,2))), 
+	st_point(c(2,3))
+  ) %>% st_cast("GEOMETRYCOLLECTION")
+x
+x %>% st_cast()
+```
+
+### casting on `sf` objects
+
+The casting of `sf` objects works in principle identical, except that for
+ungrouping, attributes are repeated (and might give rise to warning messages),
+```{r}
+# ungroup:
+st_sf(a = 1, geom = st_sfc(st_multipoint(matrix(1:4,,2)))) %>% 
+	st_cast("POINT")
+```
+
+and for grouping, attributes are aggregated, which requires an aggregation function
+```{r}
+# group:
+st_sf(a = 1:3, geom = st_sfc(st_point(0:1), st_point(2:3), st_point(4:5))) %>% 
+	st_cast("MULTIPOINT", ids = c(1,1,2), FUN = mean)
+```
+
+## type selection
+
+In case we have a mix of geometry types, we can select those of
+a particular geometry type by the new helper function `st_is`. As
+an example we create a mix of polygons, lines and points:
+```{r}
+g = st_makegrid(n=c(2,2), offset = c(0,0), cellsize = c(2,2))
+s = st_sfc(st_polygon(list(rbind(c(1,1), c(2,1),c(2,2),c(1,2),c(1,1)))))
+i = st_intersection(st_sf(a=1:4, geom = g), st_sf(b = 2, geom = s))
+i
+```
+and can select using `dplyr::filter`, or directly using `st_is`:
+```{r}
+filter(i, st_is(geometry, c("POINT")))
+filter(i, st_is(geometry, c("POINT", "LINESTRING")))
+st_is(i, c("POINT", "LINESTRING"))
+```
+
+
