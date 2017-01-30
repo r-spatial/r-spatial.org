@@ -45,7 +45,7 @@ what_we_created <- leaflet() %>%
 ```
 
 
-![screenshot of mapedit with blank leaflet map](/images/edit_map_screenshot.gif)
+![screenshot of mapedit with blank leaflet map](images/edit_map_screenshot.gif)
 
 
 `edit_map` returns a `list` with drawn, edited, deleted, and finished features as [`GeoJSON`](https://tools.ietf.org/html/rfc7946).  In this case, if we would like to see our finished creation we can focus on `what_we_created$finished`.  Since this is `GeoJSON`, the easiest way to see what we just created will be to use the `addGeoJSON` function from `leaflet`.  This works well with polylines, polygons, rectangles, and points, but circles will be treated as points without some additional code. In future versions of the API it is likely that `mapedit` will return [simple features gemometries](https://github.com/edzer/sfr) rather than geojson by default.
@@ -84,7 +84,7 @@ new_borders <- mapview(border)@map %>%
   edit_map("border")
 ```
 
-![screenshot of mapedit with existing features](/images/edit_map_draw_new_borders.gif)
+![screenshot of mapedit with existing features](images/edit_map_draw_new_borders.gif)
 
 Now, we can quickly inspect our new borders and then send the coordinates to the wall construction company.
 
@@ -95,7 +95,7 @@ leaflet() %>%
   addGeoJSON(new_borders$drawn)
 ```
 
-![screenshot of map with drawn and deleted features](/images/edit_map_new_borders.png)
+![screenshot of map with drawn and deleted features](images/edit_map_new_borders.png)
 
 ### Disclaimers
 
@@ -156,7 +156,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![screenshot of mapedit with crosstalk select](/images/select_crosstalk_mapedit.png)
+![screenshot of mapedit with crosstalk select](images/select_crosstalk_mapedit.png)
 
 With `mapedit`, we would like to enhance the geospatial `crosstalk` integration to extend beyond `leaflet::addCircleMarkers`.  In addition, we would like to provide an interactive interface to the geometric operations of `sf`, such as `st_intersects()`, `st_difference()`, and `st_contains()`.
 
@@ -215,7 +215,7 @@ select_map(
 )
 ```
 
-![screenshot of mapedit selecting states](/images/select_map_screenshot.git)
+![screenshot of mapedit selecting states](images/select_map_screenshot.gif)
 
 The `select_map()` function will return a `data.frame` with an `id`/group column and a `selected` column.  `select_map()` will work with nearly all leaflet overlays and offers the ability to customize the styling of selected and unselected features.
 
@@ -236,7 +236,7 @@ edited_features <- runGitHub(
 )
 ```
 
-![screenshot of geojson.io integrated in shiny](mapedit_attribute_edit.gif)
+![screenshot of geojson.io integrated in shiny](images/mapedit_attribute_edit.gif)
 
 
 ## Conclusion

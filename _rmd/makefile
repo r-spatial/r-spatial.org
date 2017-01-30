@@ -1,6 +1,6 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
-NAME	= 2017-01-04-newssf
+NAME	= 2017-01-30-mapedit_intro
 
 all:
 	vi $(NAME).Rmd
