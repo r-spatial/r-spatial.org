@@ -39,6 +39,7 @@ To run the code in the following discussion, please install with
 functionality is strictly a proof of concept, and the API will change
 rapidly and dramatically.
 
+    devtools::install_github("bhaskarvk/leaflet.extras")
     devtools::install_github("r-spatial/mapedit")
 
 Drawing, Editing, Deleting Features
