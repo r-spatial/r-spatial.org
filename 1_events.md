@@ -8,6 +8,7 @@ permalink: /events/
 
 ### 2017
 
+* Jul 4, 2017, [UseR! 2017](https://user2017.brussels/), Brussels; two workshops will be held [Geospatial visualization using R](http://rpubs.com/bhaskarvk/userR2017-tutorial_proposal) by Bhaskar V. Karambelkar, and _Spatial data in R: new directions_, by Edzer Pebesma
 * from 13 - 17 March 2017 the GIScience group of the Friedrich-Schiller-University Jena, Germany, hosts a spring school on "Statistical Analysis of Hyperspectral and High-Dimensional Remote-Sensing Data" using R. See [this](http://tinyurl.com/MSCJLIFE) link or
 [this](http://tinyurl.com/MSCJ-Flyer) document.
 
