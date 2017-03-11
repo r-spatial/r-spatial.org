@@ -332,8 +332,6 @@ rf.predfun <- function(object, newdata, fac = NULL) {
 }
 ```
 
-Running `sperrorest()` takes some time here (Test machine: 3,2 Ghz Intel I-5 with 4 physical cores). 
-
 ```{r sperro-rf}
 res.rf.sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
                           model.fun = randomForest,
