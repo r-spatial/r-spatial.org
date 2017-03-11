@@ -307,37 +307,6 @@ summary(res.lda.sp$error.rep)
 ## test.count     7.71e+03 0.00000 7.71e+03 0.00000
 ```
 
-<!-- In order to speed up the calculation on a multicore CPU, we can use `parsperrorest()`. Here an example using two cores: -->
-<!-- ```{r} -->
-
-<!-- #### läuft nicht, da 'out.of.bounds' error wenn partition.factor.cv + custom pred.fun -->
-
-<!-- res.lda.sp.par <- parsperrorest(fo, data = maipo, coords = c("utmx","utmy"), -->
-<!--                                 model.fun = lda, -->
-<!--                                 pred.fun = lda.predfun, -->
-<!--                                 pred.args = list(fac = "field"), -->
-<!--                                 smp.fun = partition.factor.cv, -->
-<!--                                 smp.args = list(fac = "field", repetition = 1:6, nfold = 5), -->
-<!--                                 par.args = list(par.units = 2, par.mode = 2), -->
-<!--                                 error.rep = TRUE, error.fold = TRUE, -->
-<!--                                 benchmark = TRUE) -->
-<!-- res.lda.sp.par$benchmark$runtime.performance -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- res.lda.par <- parsperrorest(fo, data = maipo, coords = c("utmx","utmy"),  -->
-<!--                                model.fun = lda, -->
-<!--                                pred.fun = lda.predfun,  -->
-<!--                                pred.args = list(fac = "field"), -->
-<!--                                smp.fun = partition.cv, -->
-<!--                                smp.args = list(repetition = 1:6, nfold = 5), -->
-<!--                                par.args = list(par.units = 2, par.mode = 2), -->
-<!--                                error.rep = TRUE, error.fold = TRUE, -->
-<!--                                benchmark = TRUE) -->
-<!-- res.lda.par$benchmark$runtime.performance -->
-<!-- ``` -->
-
 ## RandomForest
 
 In the case of Random Forest, the customized `pred.fun` looks as follows; it is only required because of the majority filter, without it, we could just omit the `pred.fun` and `pred.args` arguments below. 
