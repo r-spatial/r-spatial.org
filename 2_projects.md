@@ -27,19 +27,22 @@ permalink: /projects/
 [rangeMapper](https://github.com/valcu/rangeMapper),
 [rasterVis](http://oscarperpinan.github.io/rastervis),
 [rmatio](https://github.com/stewid/rmatio),
+[RQGIS](https://github.com/jannes-m/RQGIS),
+[RSAGA](https://github.com/debangs/RSAGA),
 [RSurvey](https://github.com/jfisher-usgs/RSurvey),
 [rworldmap](https://github.com/AndySouth/rworldmap),
 [solaR](http://oscarperpinan.github.io/solar),
 [sp](https://github.com/edzer/sp),
 [spacetime](https://github.com/edzer/spacetime),
 [spatstat](https://github.com/spatstat/spatstat),
+[sperrorest](https://github.com/pat-s/sperrorest),
 [stplanr](https://github.com/ropensci/stplanr),
 [trajectories](https://github.com/edzer/trajectories),
 [tripEstimation](https://github.com/mdsumner/tripEstimation),
 [vardiag](https://github.com/edzer/vardiag),
 [vegan](http://cran.r-project.org, https://github.com/vegandevs/vegan),
 [wildlifeDI](http://jedalong.github.io/wildlifeDI) and
-[wkb](https://github.com/ianmcook/wkb)
+[wkb](https://github.com/ianmcook/wkb).
 
 # R-spatial packages on GitHub, but not on CRAN
 
@@ -56,4 +59,4 @@ A (not exhaustive!) list of R packages (typically) under development on GitHub b
 
 Please add to this list by [pull
 request](https://github.com/edzer/r-spatial/blob/gh-pages/projects.md),
-open an issue, or by sending me email.
+open an issue, or by sending me an email.
