@@ -1,6 +1,7 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
-NAME	= 2017-01-30-mapedit_intro
+# NAME	= 2017-01-30-mapedit_intro
+NAME	= 2017-03-08-sperrorest-update
 
 all:
 	vi $(NAME).Rmd
@@ -11,5 +12,5 @@ all:
 		sed 's/TOC/\* TOC \n\{\:toc\}/g' > \
 		../_posts/$(NAME).markdown
 	rm -fr xx.md xx.Rmd
-	cp -rf images/* ../images
-	rm -fr images
+	#cp -rf images/* ../images
+	#rm -fr images
