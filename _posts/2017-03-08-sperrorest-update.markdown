@@ -596,9 +596,7 @@ Bagging Trees.” *Computational Statistics & Data Analysis* 49 (4).
 Elsevier BV: 1068–78.
 doi:[10.1016/j.csda.2004.06.019](https://doi.org/10.1016/j.csda.2004.06.019).
 
-James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
-2013. *An Introduction to Statistical Learning*. Springer New York.
-doi:[10.1007/978-1-4614-7138-7](https://doi.org/10.1007/978-1-4614-7138-7).
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. *An Introduction to Statistical Learning*. Springer New York.  doi:[10.1007/978-1-4614-7138-7](https://doi.org/10.1007/978-1-4614-7138-7).
 
 Knudby, Anders, Alexander Brenning, and Ellsworth LeDrew. 2010. “New
 Approaches to Modelling Fishhabitat Relationships.” *Ecological
