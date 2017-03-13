@@ -275,7 +275,7 @@ resamp <- partition.factor.cv(maipo, nfold = 5, repetition = 1:1, fac = "field")
 plot(resamp, maipo, coords = c("utmx","utmy"))
 ```
 
-![](https://raw.githubusercontent.com/pat-s/sperrorest/master/inst/figure/resamp-plot.png)
+![](../images/resamp-plot.png)
 
 Subsequently, we have to specify the location of the fields (`fac = "field"`) in the prediction arguments (`pred.args`) and sampling arguments (`smp.args`) in `sperrorest()`.
 
