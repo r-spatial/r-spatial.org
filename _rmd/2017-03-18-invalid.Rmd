@@ -94,7 +94,7 @@ st_make_valid(p)
 ```
 A well-known "trick", which may be your only alternative if is to buffer the geometries with zero distance:
 ```{r}
-st_buffer(p[!is.na(valid)], 0)
+st_buffer(p[!is.na(valid)], 0.0)
 ```
 but we see that, apart from the fact that this only works for non-corrupt geometries, we end up with different results.
 
@@ -135,7 +135,7 @@ st_dimension(st_sfc(lin, pol, poi, p0, pol0))
 and see that empty geometries return `NA`.
 
 The standard however prescribes that an empty polygon still has dimension two, and we
-can override the `NA` convenience to get standard-complient dimensions by
+can override the `NA` convenience to get standard-compliant dimensions by
 ```{r}
 st_dimension(st_sfc(lin, pol, poi, p0, pol0), NA_if_empty = FALSE)
 ```
@@ -150,7 +150,7 @@ When you analyse your spatial data with `sf` and you don't get any warnings or e
 3. invalid geometries, using `any(na.omit(st_is_valid(x)) == FALSE)`; in case of corrupt and/or invalid geometries, 
 4. in case of invalid geometries, query the reason for invalidity by `st_is_valid(x, reason = TRUE)`
 5. you may be succesful in making geometries valid using `st_make_valid(x)` or, if `st_make_valid` is not supported by
-6. `st_buffer(st_geometry(x), 0)` (but beware of the bowtie example above, where `st_buffer` removes one half). 
+6. `st_buffer(x, 0.0)` on non-corrupt geometries (but beware of the bowtie example above, where `st_buffer` removes one half). 
 7. After succesful a `st_make_valid`, you may want to select a particular type subset using `st_is`,  or cast `GEOMETRYCOLLECTIONS` to `MULTIPOLYGON` by
 ```{r}
 st_make_valid(p) %>% st_cast("MULTIPOLYGON")

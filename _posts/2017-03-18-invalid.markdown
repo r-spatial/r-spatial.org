@@ -152,7 +152,7 @@ valid:
 A well-known "trick", which may be your only alternative if is to buffer
 the geometries with zero distance:
 
-    st_buffer(p[!is.na(valid)], 0)
+    st_buffer(p[!is.na(valid)], 0.0)
 
     ## Geometry set for 6 features 
     ## geometry type:  POLYGON
@@ -248,7 +248,7 @@ and see that empty geometries return `NA`.
 
 The standard however prescribes that an empty polygon still has
 dimension two, and we can override the `NA` convenience to get
-standard-complient dimensions by
+standard-compliant dimensions by
 
     st_dimension(st_sfc(lin, pol, poi, p0, pol0), NA_if_empty = FALSE)
 
@@ -268,8 +268,8 @@ curious, you can check for
     `st_is_valid(x, reason = TRUE)`
 5.  you may be succesful in making geometries valid using
     `st_make_valid(x)` or, if `st_make_valid` is not supported by
-6.  `st_buffer(st_geometry(x), 0)` (but beware of the bowtie example
-    above, where `st_buffer` removes one half).
+6.  `st_buffer(x, 0.0)` on non-corrupt geometries (but beware of the
+    bowtie example above, where `st_buffer` removes one half).
 7.  After succesful a `st_make_valid`, you may want to select a
     particular type subset using `st_is`, or cast `GEOMETRYCOLLECTIONS`
     to `MULTIPOLYGON` by
