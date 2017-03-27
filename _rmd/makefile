@@ -1,7 +1,7 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
 # NAME	= 2017-01-30-mapedit_intro
-NAME	= 2017-03-18-invalid
+NAME	= 2017-03-25-first-openeo-hackaton
 
 all:
 	vi $(NAME).Rmd
