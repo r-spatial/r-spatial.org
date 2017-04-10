@@ -8,7 +8,7 @@ meta-json: {"layout":"post","categories":"r","date":"09 March, 2016","author":"E
 title: MNF/MAF, PCA, and EOFs of time series, spatial and spatio-temporal data
 ---
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 [view raw
 Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-03-09-MNF-PCA-EOF.Rmd)
 
