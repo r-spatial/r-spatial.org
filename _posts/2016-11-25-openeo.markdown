@@ -7,7 +7,7 @@ meta-json: {"layout":"post","categories":"r","date":"29 November, 2016","author"
 layout: post
 title: "OpenEO: a GDAL for Earth Observation Analytics"
 ---
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 Earth observation data, or satellite imagery, is one of the richest
 sources to find out how our Earth is changing. The amount of Earth

@@ -8,7 +8,7 @@ meta-json: {"layout":"post","categories":"r","date":"Jul 18, 2016","author":"Edz
 title: Simple features for R, part 2
 ---
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 * TOC 
 {:toc}
 
