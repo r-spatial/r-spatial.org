@@ -1,0 +1,139 @@
+---
+author: Edzer Pebesma, Christoph Paulik, Daniel Nuest, Marius Appel, Meng Lu
+biblio-style: apalike
+bibliography: ../bibs/invalid.bib
+categories: r
+comments: True
+date: 19 April, 2017
+layout: post
+link-citations: True
+meta-json: {"layout":"post","link-citations":true,"bibliography":"../bibs/invalid.bib","categories":"r","date":"19 April, 2017","author":"Edzer Pebesma, Christoph Paulik, Daniel Nuest, Marius Appel, Meng Lu","comments":true,"title":"First openEO hackaton report","biblio-style":"apalike"}
+title: First openEO hackaton report
+---
+
+* TOC 
+{:toc}
+
+### Introduction
+
+As announced earlier,
+
+<blockquote markdown="1" class="twitter-tweet" data-lang="en">
+<p markdown="1" lang="en" dir="ltr">
+First <a href="https://twitter.com/hashtag/OpenEO?src=hash">\#OpenEO</a>
+hackaton will be held @ ifgi on Mar 23-24. Let me know if you're
+interested to participate!
+<a href="https://t.co/v6cr7cnasQ">https://t.co/v6cr7cnasQ</a>
+</p>
+— Edzer Pebesma ((<span class="citeproc-not-found"
+data-reference-id="edzerpebesma">**???**</span>))
+<a href="https://twitter.com/edzerpebesma/status/822460648365916160">January
+20, 2017</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+the first openEO hackaton was held a few weeks ago. A short report
+follows.
+
+### OpenEO
+
+OpenEO is an initiative to define an open API for accessing cloud-based
+Earth observation data processing engines, explained in [this blog
+post](http://r-spatial.org/2016/11/29/openeo.html).
+
+Five participants took part in the hackaton: [Christoph
+Paulik](https://github.com/cpaulik) from the [TU
+Wien](https://rs.geo.tuwien.ac.at/), and the following people from from
+[ifgi](http://ifgi.uni-muenster.de/en/): [Meng
+Lu](https://github.com/mengluchu), [Daniel
+Nuest](https://github.com/nuest), [Marius
+Appel](https://github.com/appelmar) and [me](https://github.com/edzer).
+
+The [EODC](http://www.eodc.eu/) had been so kind to set us up with
+access to a virtual machine in their data center, and this illustrates
+the problem with remote sensing data is that there are many and they are
+big. Part of the archive we looked at was found here:
+
+    xxxxxxxx@openeo1:~$ df -h /eodc/products/
+    Filesystem               Size  Used Avail Use% Mounted on
+    XX.XXX.XX.XXX:/products  1.4P  1.3P  159T  89% /eodc/products
+
+How big is 1.3 petabyte? I often try to relate to the latest fixed-size
+digital medium we used, the CD-R:
+
+![](/images/cd.jpg)
+
+How many? Mmm.
+
+    1.3 * 1024^5 / (700 * 1024^2)
+
+    ## [1] 1994092
+
+2 Million: a stack of 2.4 km, or 10 km when we put them in a case.
+
+APIs
+====
+
+We first talked quite a while about what RESTful APIs are, how they
+work, their verbs (GET, PUT, POST, etc), resources, what microservices
+are, and how they can be standardised e.g. following the [Open API
+initiative](https://www.openapis.org/). Then, we tried to define a
+simple challenge that uses REST, and uses Earth observation data.
+
+Challenge
+=========
+
+In the challenge, We didn't want to work with the large amounts of data
+straight away. Instead, we tried to a challenge as simple as possible,
+namely adding two bands from a particular Sentinel-2 scene, and
+returning the result as a GeoTIFF.
+
+We worked in three teams:
+
+-   team 1 worked on a JavaScript solution, with the imagery in a SciDB
+    backend
+-   team 2 worked on a Python solution,
+-   team 3 worked on a pure R solution.
+
+After around 3-4 hours, all teams had managed to get a RESTfull service
+doing this:
+
+-   team 1 had most man power, but also most work to do; the
+    [solution](https://github.com/nuest/openeo_hackathon) was in the end
+    the fastest, because the SciDB backend is highly scalable, using 24
+    cores or so
+
+-   team 2, Christoph's Python
+    [solution](https://gitlab.com/cpaulik/s2_add) uses
+    [flask](http://flask.pocoo.org/) for web requests, gdal from osgeo
+    to read data, and numpy to add to images--the resulting image was
+    not georeferenced.
+
+-   team 3 (Edzer) used the
+    [plumber](https://github.com/trestletech/plumber) R package to set
+    up web services, and `rgdal` and `sp` to read and write raster maps.
+    Solution found [here](https://github.com/edzer/openeo_hackaton).
+
+### Road ahead
+
+We discussed quite at length what it will take to realize the OpenEO
+ambition. Adding two bands is easy, handling large collections of scenes
+is not. My respect for what the people from [Google Earth
+Engine](https://earthengine.google.com/) have realized has grown, their
+[award from
+ASPRS](https://www.asprs.org/press-releases/asprs-outstanding-technical-achievement-award-announced.html)
+is more than deserved. Nevertheless, it is isolated, closed source,
+practically impossible to verify.
+
+We also drafted service calls, discussed coordinate reference systems of
+tile/scene collections, and looked at
+[covjson](https://covjson.org/playground/). And one of the most
+attractive ideas (for some of us): to submit your Python or R function
+to the imagery server, and have it work, in parallel, over the scenes,
+returning the requested summary.
+
+Certain terms (scene, tile, pixel) reoccurred many times, seemingly
+stretching across the different used back-ends but there were slight
+differences - a huge challenge for an API intending to be useful to
+many. Discussing the API design, we struggled with the user perspective:
+is the user the analyst, or the developer? Who do we accommodate with
+the used terms?
