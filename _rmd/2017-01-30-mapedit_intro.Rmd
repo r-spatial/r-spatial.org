@@ -21,10 +21,14 @@ The R ecosystem offers a powerful set of packages for geospatial analysis.  For 
 
 ## Install mapedit
 
-To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.
+To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.  Also [`mapview`]
 
 ```
 devtools::install_github("r-spatial/mapedit")
+# although not necessary for mapedit,
+#  mapview will also be very helpful, and
+#  and we will use throughout this post
+devtools::install_github("r-spatial/mapview")
 ```
 
 ## Drawing, Editing, Deleting Features
@@ -36,25 +40,21 @@ We would like to set up an easy process for CRUD (create, read, update, and dele
 To see how we might add some features, let's start with a blank map, and then feel free to draw, edit, and delete with the `Leaflet.Draw` toolbar on the map. Once finished drawing simply press "Done".
 
 ```
-library(leaflet)
+library(mapview)
 library(mapedit)
 
-what_we_created <- leaflet() %>%
-  addTiles() %>%
-editMap()
+what_we_created <- mapview() %>%
+  editMap()
 ```
 
-
-![screenshot of mapedit with blank leaflet map](images/editMap_screenshot.gif)
-
-
-`editMap` returns a `list` with drawn, edited, deleted, and finished features as [`GeoJSON`](https://tools.ietf.org/html/rfc7946).  In this case, if we would like to see our finished creation we can focus on `what_we_created$finished`.  Since this is `GeoJSON`, the easiest way to see what we just created will be to use the `addGeoJSON` function from `leaflet`.  This works well with polylines, polygons, rectangles, and points, but circles will be treated as points without some additional code. In future versions of the API it is likely that `mapedit` will return [simple features gemometries](https://github.com/edzer/sfr) rather than geojson by default.
+`editMap` returns a `list` with drawn, edited, deleted, and finished features as [simple features](https://github.com/edzer/sfr).  In this case, if we would like to see our finished creation we can focus on `what_we_created$finished`.  Since the return value is simple features, the easiest way to interactively explore what we just created will be to use `mapview`.
 
 ```
-leaflet() %>%
-  addTiles() %>%
-  addGeoJSON(what_we_created$finished)
+mapview(what_we_created$finished)
 ```
+
+![screenshot of mapedit with blank leaflet map](images/edit_map_screenshot.gif)
+
 
 ### Proof of Concept 2 | Edit and Delete Existing Features
 
@@ -73,14 +73,13 @@ border <- st_as_sfc(
 plot(border)
 ```
 
-Since we are Trump, we can do what we want, so let's edit the line to our liking.  We will use `mapview` for our interactive map since it by default gives us an OpenTopoMap layer and the `develop` branch includes preliminary simple features support.  With our new border and fence, we will avoid the difficult mountains and get a little extra beachfront.
+Since we are Trump, we can do what we want, so let's edit the line to our liking.  We will use `mapview` for our interactive map since it by default gives us an OpenTopoMap layer.  With our new border and fence, we will avoid the difficult mountains and get a little extra beachfront.
 
 ```
-# use develop branch of mapview with simple features support
-# devtools::install_github("environmentalinformatics-marburg/mapview@develop")
 library(mapview)
+library(mapedit)
 
-new_borders <- mapview(border)@map %>%
+new_borders <- mapview(border) %>%
   editMap("border")
 ```
 
@@ -89,10 +88,7 @@ new_borders <- mapview(border)@map %>%
 Now, we can quickly inspect our new borders and then send the coordinates to the wall construction company.
 
 ```
-leaflet() %>%
-  addTiles() %>%
-  fitBounds(-120, 35, -104, 25) %>%
-  addGeoJSON(new_borders$drawn)
+mapview(new_borders$drawn)
 ```
 
 ![screenshot of map with drawn and deleted features](images/editMap_new_borders.png)
