@@ -102,7 +102,7 @@ If you played enough with the border example, you might notice a couple of glitc
 
 ## Selecting Regions
 
-The newest version of `leaflet` provides [`crosstalk`](https://rstudio.github.io/crosstalk/) support, but support is currently limited to `addCircleMarkers`.  This functionality is enhanced by the `sf` use of list columns and integration with `dplyr` verbs.  Here is a quick example with the `breweries91` data from `mapview`.
+The newest version of `leaflet` provides [`crosstalk`](https://rstudio.github.io/crosstalk/) support, but support is currently limited to `addCircleMarkers`.  This functionality is enhanced by the `sf` use of list columns and integration with `dplyr` verbs.  Here is a quick example with the `breweries91` data from `leaflet`.
 
 ```
 library(crosstalk)
@@ -209,8 +209,8 @@ bounds <- c(-125, 24 ,-75, 45)
 # test out selectMap with albers example
 selectMap(
   lf,
-  style_false = list(weight = 1),
-  style_true = list(weight = 4)
+  styleFalse = list(weight = 1),
+  styleTrue = list(weight = 4)
 )
 ```
 
