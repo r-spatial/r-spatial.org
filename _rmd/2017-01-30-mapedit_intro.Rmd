@@ -83,7 +83,7 @@ new_borders <- mapview(border) %>%
   editMap("border")
 ```
 
-![screenshot of mapedit with existing features](images/editMap_draw_new_borders.gif)
+![screenshot of mapedit with existing features](images/edit_map_draw_new_borders.gif)
 
 Now, we can quickly inspect our new borders and then send the coordinates to the wall construction company.
 
@@ -91,7 +91,7 @@ Now, we can quickly inspect our new borders and then send the coordinates to the
 mapview(new_borders$drawn)
 ```
 
-![screenshot of map with drawn and deleted features](images/editMap_new_borders.png)
+![screenshot of map with drawn and deleted features](images/edit_map_new_borders.png)
 
 ### Disclaimers
 
@@ -211,7 +211,7 @@ selectMap(
 )
 ```
 
-![screenshot of mapedit selecting states](images/selectMap_screenshot.gif)
+![screenshot of mapedit selecting states](images/select_map_screenshot.gif)
 
 The `selectMap()` function will return a `data.frame` with an `id`/group column and a `selected` column.  `selectMap()` will work with nearly all leaflet overlays and offers the ability to customize the styling of selected and unselected features.
 
