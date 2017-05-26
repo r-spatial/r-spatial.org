@@ -21,7 +21,7 @@ The R ecosystem offers a powerful set of packages for geospatial analysis.  For 
 
 ## Install mapedit
 
-To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.  Also [`mapview`]
+To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.  Also `mapedit's` older sibling [`mapview`](https://github.com/r-spatial/maview) will greatly enhance our abilities, so we strongly recommend installing it even though `mapview` is not a requirement.
 
 ```
 devtools::install_github("r-spatial/mapedit")
