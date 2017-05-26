@@ -21,14 +21,17 @@ The R ecosystem offers a powerful set of packages for geospatial analysis.  For 
 
 ## Install mapedit
 
-To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.  Also `mapedit's` older sibling [`mapview`](https://github.com/r-spatial/maview) will greatly enhance our abilities, so we strongly recommend installing it even though `mapview` is not a requirement.
+To run the code in the following discussion, please install with `devtools::install_github`.  Please be aware that the current functionality is strictly a proof of concept, and the API will change rapidly and dramatically.  Also `mapedit's` older sibling [`mapview`](https://github.com/r-spatial/maview) will greatly enhance our abilities, so we strongly recommend installing it even though `mapview` is not a requirement.  `mapedit` depends on [`leaflet.extras`](https://github.com/bhaskarvk/leaflet.extras), which is currently not on CRAN, so we will also need to install it.
 
 ```
 devtools::install_github("r-spatial/mapedit")
+
 # although not necessary for mapedit,
 #  mapview will also be very helpful, and
 #  and we will use throughout this post
 devtools::install_github("r-spatial/mapview")
+
+devtools::install_github("bhaskarvk/leaflet.extras")
 ```
 
 ## Drawing, Editing, Deleting Features
