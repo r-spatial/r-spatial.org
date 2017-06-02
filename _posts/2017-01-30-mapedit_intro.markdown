@@ -11,6 +11,7 @@ title: mapedit - interactively edit spatial data in R
 * TOC 
 {:toc}
 
+---
 \[[view raw
 Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2017-01-30-mapedit_intro.Rmd)\]
 
@@ -37,17 +38,28 @@ Install mapedit
 To run the code in the following discussion, please install with
 `devtools::install_github`. Please be aware that the current
 functionality is strictly a proof of concept, and the API will change
-rapidly and dramatically.
+rapidly and dramatically. Also `mapedit's` older sibling
+[`mapview`](https://github.com/r-spatial/maview) will greatly enhance
+our abilities, so we strongly recommend installing it even though
+`mapview` is not a requirement. `mapedit` depends on
+[`leaflet.extras`](https://github.com/bhaskarvk/leaflet.extras), which
+is currently not on CRAN, so we will also need to install it.
+
+    devtools::install_github("r-spatial/mapedit")
+
+    # although not necessary for mapedit,
+    #  mapview will also be very helpful, and
+    #  and we will use throughout this post
+    devtools::install_github("r-spatial/mapview")
 
     devtools::install_github("bhaskarvk/leaflet.extras")
-    devtools::install_github("r-spatial/mapedit")
 
 Drawing, Editing, Deleting Features
 -----------------------------------
 
 We would like to set up an easy process for CRUD (create, read, update,
-and delete) of map features. The function `edit_map` demonstrates a
-first step toward this goal.
+and delete) of map features. The function `editMap` demonstrates a first
+step toward this goal.
 
 ### Proof of Concept 1 | Draw on Blank Map
 
@@ -55,30 +67,23 @@ To see how we might add some features, let's start with a blank map, and
 then feel free to draw, edit, and delete with the `Leaflet.Draw` toolbar
 on the map. Once finished drawing simply press "Done".
 
-    library(leaflet)
+    library(mapview)
     library(mapedit)
 
-    what_we_created <- leaflet() %>%
-      addTiles() %>%
-      edit_map()
+    what_we_created <- mapview() %>%
+      editMap()
+
+`editMap` returns a `list` with drawn, edited, deleted, and finished
+features as [simple features](https://github.com/edzer/sfr). In this
+case, if we would like to see our finished creation we can focus on
+`what_we_created$finished`. Since the return value is simple features,
+the easiest way to interactively explore what we just created will be to
+use `mapview`.
+
+    mapview(what_we_created$finished)
 
 ![screenshot of mapedit with blank leaflet
 map](/images/edit_map_screenshot.gif)
-
-`edit_map` returns a `list` with drawn, edited, deleted, and finished
-features as [`GeoJSON`](https://tools.ietf.org/html/rfc7946). In this
-case, if we would like to see our finished creation we can focus on
-`what_we_created$finished`. Since this is `GeoJSON`, the easiest way to
-see what we just created will be to use the `addGeoJSON` function from
-`leaflet`. This works well with polylines, polygons, rectangles, and
-points, but circles will be treated as points without some additional
-code. In future versions of the API it is likely that `mapedit` will
-return [simple features gemometries](https://github.com/edzer/sfr)
-rather than geojson by default.
-
-    leaflet() %>%
-      addTiles() %>%
-      addGeoJSON(what_we_created$finished)
 
 ### Proof of Concept 2 | Edit and Delete Existing Features
 
@@ -103,16 +108,14 @@ might be able to ease construction.
 
 Since we are Trump, we can do what we want, so let's edit the line to
 our liking. We will use `mapview` for our interactive map since it by
-default gives us an OpenTopoMap layer and the `develop` branch includes
-preliminary simple features support. With our new border and fence, we
+default gives us an OpenTopoMap layer. With our new border and fence, we
 will avoid the difficult mountains and get a little extra beachfront.
 
-    # use develop branch of mapview with simple features support
-    # devtools::install_github("environmentalinformatics-marburg/mapview@develop")
     library(mapview)
+    library(mapedit)
 
-    new_borders <- mapview(border)@map %>%
-      edit_map("border")
+    new_borders <- mapview(border) %>%
+      editMap("border")
 
 ![screenshot of mapedit with existing
 features](/images/edit_map_draw_new_borders.gif)
@@ -120,10 +123,7 @@ features](/images/edit_map_draw_new_borders.gif)
 Now, we can quickly inspect our new borders and then send the
 coordinates to the wall construction company.
 
-    leaflet() %>%
-      addTiles() %>%
-      fitBounds(-120, 35, -104, 25) %>%
-      addGeoJSON(new_borders$drawn)
+    mapview(new_borders$drawn)
 
 ![screenshot of map with drawn and deleted
 features](/images/edit_map_new_borders.png)
@@ -136,8 +136,8 @@ reminder that this is alpha and intended as a proof of concept. Please
 provide feedback, so that we can insure a quality final product. In this
 case, the older version of `Leaflet.Draw` in RStudio Viewer has some
 bugs, so clicking an existing point creates a new one rather than
-allowing editing of that point. Also, the returned `list` from
-`edit_map` has no knowledge of the provided features.
+allowing editing of that point. Also, the returned `list` from `editMap`
+has no knowledge of the provided features.
 
 Selecting Regions
 -----------------
@@ -147,7 +147,7 @@ The newest version of `leaflet` provides
 is currently limited to `addCircleMarkers`. This functionality is
 enhanced by the `sf` use of list columns and integration with `dplyr`
 verbs. Here is a quick example with the `breweries91` data from
-`mapview`.
+`leaflet`.
 
     library(crosstalk)
     library(mapview)
@@ -258,20 +258,20 @@ package.
     )
 
 
-    # test out select_map with albers example
-    select_map(
+    # test out selectMap with albers example
+    selectMap(
       lf,
-      style_false = list(weight = 1),
-      style_true = list(weight = 4)
+      styleFalse = list(weight = 1),
+      styleTrue = list(weight = 4)
     )
 
 ![screenshot of mapedit selecting
 states](/images/select_map_screenshot.gif)
 
-The `select_map()` function will return a `data.frame` with an
-`id`/group column and a `selected` column. `select_map()` will work with
-nearly all leaflet overlays and offers the ability to customize the
-styling of selected and unselected features.
+The `selectMap()` function will return a `data.frame` with an `id`/group
+column and a `selected` column. `selectMap()` will work with nearly all
+leaflet overlays and offers the ability to customize the styling of
+selected and unselected features.
 
 Editing Attributes
 ------------------
