@@ -1,0 +1,75 @@
+---
+layout: post
+title:  mapedit - updates in 0.2.0
+date:  "Jun 9, 2017"
+comments: true
+author: Tim Appelhans and Kenton Russell
+categories: r
+---
+
+TOC
+
+[DOWNLOADHERE]
+
+`mapedit` has progressed substantially since the introduction to `mapedit` [post](http://r-spatial.org/r/2017/01/30/mapedit_intro.html).  `mapedit 0.2.0` offers improvements and incorporates changes based on much appreciated feedback from the R geospatial community.  `mapedit` is still in rapid development, but the API is stabilizing.  We are targeting a CRAN release prior to [useR 2017](https://user2017.brussels/), and Tim Appelhans will demonstrate `mapedit` in his useR [talk](https://user2017.sched.com/event/Axqo?iframe=no).
+
+In this post, we will highlight some of the recent improvements and changes to `mapedit`.  These updates can be categorized as
+
+1. better integration with [simple features(https://github.com/edzer/sfr)] and
+
+2. addition of [Shiny modules](https://shiny.rstudio.com/articles/modules.html).
+
+## Simple Features
+
+R geo is rapidly moving toward the RConsortium-sponsored `sf` package, and `mapedit` plans to fully adopt and incorporate simple features like `leaflet`, `mapview`, `geojsonio`, `plotly`, and `ggplot2`.  `sf` can greatly improve geospatial workflows in R.  `mapedit` now returns simple features by default with `editMap()` and includes a new function `selectFeatures()` for interactive selection of simple features.  Let's take a quick look at this new functionality.
+
+### editMap returns sf
+
+`editMap()` looks the same, but the output is very different.
+
+```
+library(mapedit)
+library(mapview)
+library(sf)
+
+crud <- editMap(mapview())
+```
+
+Now, since the return value is simple features and `mapview` added `addFeatures()`, we can see the drawn features with a one-liner.  This collaboration greatly increases the efficiency of the editing workflow.
+
+```
+mapview(crud$finished)
+```
+
+### selectFeatures makes selecting features easy
+
+Let's use the `sf` example with North Carolina county data to give us some simple features to select with the new `selectFeatures()`.
+
+```
+library(mapview)
+library(mapedit)
+library(sf)
+
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+selected <- selectFeatures(nc)
+```
+
+As before, we can now take advantage of `mapview` to plot our selection.
+
+```
+mapview(selected)
+```
+
+We also changed the underlying `selectMap()` function to use the RStudio Viewer by default.  This allows us to include `selectMap()` in a workflow or pipeline.
+
+```
+library(mapview)
+library(mapedit)
+library(sf)
+
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+selectFeatures(nc) %>%
+  st_union() %>%
+  mapview()
+```
+
