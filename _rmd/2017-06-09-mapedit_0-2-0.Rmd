@@ -21,13 +21,13 @@ In this post, we will highlight some of the recent improvements and changes to `
 
 ## Simple Features
 
-R geo is rapidly moving toward the RConsortium-sponsored `sf` package, and `mapedit` plans to fully adopt and incorporate simple features like `leaflet`, `mapview`, `geojsonio`, `plotly`, and `ggplot2`.  `sf` can greatly improve geospatial workflows in R.  `mapedit` now returns simple features by default with `editMap()` and includes a new function `selectFeatures()` for interactive selection of simple features.  Let's take a quick look at this new functionality.
+The R geo community is moving radidly toward the RConsortium-sponsored `sf` package, and `mapedit` plans to fully adopt and incorporate simple features like `leaflet`, `mapview`, `geojsonio`, `plotly`, and `ggplot2`.  `sf` can greatly improve geospatial workflows in R.  `mapedit` now returns simple features by default with `editMap()` and includes a new function `selectFeatures()` for interactive selection of simple features.  Let's take a quick look at this new functionality.
 
 ### editMap returns sf
 
 `editMap()` looks the same, but the output is very different.
 
-```
+```{r eval = FALSE}
 library(mapedit)
 library(mapview)
 library(sf)
@@ -37,15 +37,17 @@ crud <- editMap(mapview())
 
 Now, since the return value is simple features and `mapview` added `addFeatures()`, we can see the drawn features with a one-liner.  This collaboration greatly increases the efficiency of the editing workflow.
 
-```
+```{r eval = FALSE}
 mapview(crud$finished)
 ```
+
+![screenshot of mapedit editMap](images/mapedit_020_editMap_sf.gif)
 
 ### selectFeatures makes selecting features easy
 
 Let's use the `sf` example with North Carolina county data to give us some simple features to select with the new `selectFeatures()`.
 
-```
+```{r eval = FALSE}
 library(mapview)
 library(mapedit)
 library(sf)
@@ -56,13 +58,15 @@ selected <- selectFeatures(nc)
 
 As before, we can now take advantage of `mapview` to plot our selection.
 
-```
+```{r eval = FALSE}
 mapview(selected)
 ```
 
+![screenshot of mapedit editMap](images/mapedit_020_selectFeatures.gif)
+
 We also changed the underlying `selectMap()` function to use the RStudio Viewer by default.  This allows us to include `selectMap()` in a workflow or pipeline.
 
-```
+```{r eval = FALSE}
 library(mapview)
 library(mapedit)
 library(sf)
@@ -72,6 +76,8 @@ selectFeatures(nc) %>%
   st_union() %>%
   mapview()
 ```
+
+Stay tuned for an `editFeatures()` equivalent.
 
 ## Shiny Modules
 
@@ -84,7 +90,7 @@ In this example, we will demonstrate analysis of the `quakes` data in `R` along 
 
 First we will convert the `quakes` to simple features.
 
-```
+```{r eval = FALSE}
 library(sf)
 
 # make the coordinates a numeric matrix
@@ -97,7 +103,7 @@ qk_sf <- st_sf(st_cast(st_sfc(qk_mp), "POINT"), quakes, crs=4326)
 
 Now let's use the very helpful `sf::st_make_grid()` function, and then filter the grid to only those that contain quakes points.
 
-```
+```{r eval = FALSE}
 # make a grid
 grd <- st_set_crs(st_make_grid(qk_sf), 4326)
 # only keep grid polygons that contain at least one quake point
@@ -106,7 +112,7 @@ grd <- grd[which(sapply(st_contains(st_sf(grd), qk_sf),length)>0)]
 
 With our grid, we can build a Shiny app for some interactive analysis of quake magnitude.
 
-```
+```{r eval = FALSE}
 library(mapview)
 library(mapedit)
 library(shiny)
@@ -178,11 +184,13 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+![screenshot of mapedit editMap](images/mapedit_020_selectModules_shiny.gif)
+
 ### Edit as Shiny Module
 
 Since we have the quake data, we will use it to show the edit module in a simple application.  Instead of the grid, let's draw polygons to select quakes.
 
-```
+```{r eval = FALSE}
 # run select demo for the quake data
 #  we will need the qk_sf
 #  to test
@@ -222,6 +230,8 @@ server <- function(input, output, session) {
 }
 shinyApp(ui, server)
 ```
+
+![screenshot of mapedit editMap](images/mapedit_020_editModule_shiny.gif)
 
 ## Next Steps
 
