@@ -19,9 +19,19 @@ In this post, we will highlight some of the recent improvements and changes to `
 
 2. addition of [Shiny modules](https://shiny.rstudio.com/articles/modules.html).
 
+## Install
+
+We are moving quickly, so please install the development versions of `mapview`, `leaflet.extras`, and `mapview` as shown below.
+
+```{r eval = FALSE}
+devtools::install_github("r-spatial/mapview@develop")
+devtools::install_github("bhaskarvk/leaflet.extras")
+devtools::install_github("r-spatial/mapedit")
+```
+
 ## Simple Features
 
-The R geo community is moving radidly toward the RConsortium-sponsored `sf` package, and `mapedit` plans to fully adopt and incorporate simple features like `leaflet`, `mapview`, `geojsonio`, `plotly`, and `ggplot2`.  `sf` can greatly improve geospatial workflows in R.  `mapedit` now returns simple features by default with `editMap()` and includes a new function `selectFeatures()` for interactive selection of simple features.  Let's take a quick look at this new functionality.
+The R geo community is radidly embracing the RConsortium-sponsored `sf` package, and `mapedit` plans to fully adopt and incorporate simple features like `leaflet`, `mapview`, `geojsonio`, `plotly`, and `ggplot2`.  `sf` can greatly improve geospatial workflows in R.  `mapedit` now returns simple features by default with `editMap()` and includes a new function `selectFeatures()` for interactive selection of simple features.  Let's take a quick look at this new functionality.
 
 ### editMap returns sf
 
