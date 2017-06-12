@@ -11,7 +11,6 @@ title: mapedit - interactively edit spatial data in R
 * TOC 
 {:toc}
 
----
 \[[view raw
 Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2017-01-30-mapedit_intro.Rmd)\]
 
@@ -244,10 +243,10 @@ package.
           ))) %>%
       fitBounds(bounds[1], bounds[2], bounds[3], bounds[4]) %>%
       setMaxBounds(bounds[1], bounds[2], bounds[3], bounds[4]) %>%
-      addPolygons(
+      mapview::addFeatures(
         data=spdf, weight = 1, color = "#000000",
         # adding group necessary for identification
-        group = ~iso_3166_2,
+        layerId = ~iso_3166_2,
         fillColor=~pal(pop_2014),
         fillOpacity=0.7,
         label=~stringr::str_c(name,' ', format(pop_2014, big.mark=",")),
