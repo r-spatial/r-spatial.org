@@ -208,14 +208,14 @@ Also, at this point we should highlight that the observations in this data set a
 First, we need to create a wrapper predict method for LDA for `sperrorest()`. This is necessary in order to accomodate the majority filter, and also because class predictions from `lda`'s predict method are hidden in the `$class` component of the returned object.
 
 ```{r}
-lda.predfun <- function(object, newdata, fac = NULL) {
+lda_predfun <- function(object, newdata, fac = NULL) {
   
   p_load(nnet)
   majority <- function(x) {
     levels(x)[which.is.max(table(x))]
   }
   
-  majority.filter <- function(x, fac) {
+  majority_filter <- function(x, fac) {
     for (lev in levels(fac)) {
       x[fac == lev] <- majority(x[fac == lev])
     }
@@ -223,43 +223,42 @@ lda.predfun <- function(object, newdata, fac = NULL) {
   }
   
   pred <- predict(object, newdata = newdata)$class
-  if (!is.null(fac)) pred <- majority.filter(pred, newdata[, fac]) 
+  if (!is.null(fac)) pred <- majority_filter(pred, newdata[, fac]) 
   return(pred)
 }
 ```
 
-To ensure that custom predict-functions do also work with `parsperrorest()`, we need to define all custom functions in one step. Otherwise, the `foreach()` package in `par.mode = 2` of `parsperrorest()` will throw errors because of the way how it loads functions of the parent environment. 
+To ensure that custom predict-functions will work with `sperrorest()`, we need to wrap all custom functions in one single function. Otherwise, `sperrorest()` might fail during execution.
 
-Finally, we can run `sperrorest()` with a non-spatial sampling setup (`partition.cv()`). In this example we use a '50 repetitions - 5 folds' setup. To make your results more independent of particular random partitioning, you may want to use 100 repetitions or even more in practice. 
+Finally, we can run `sperrorest()` with a non-spatial sampling setting (`partition_cv()`). In this example we use a '100 repetitions - 5 folds' setup to reduce the influence of random partitioning.
 
 ```{r}
-res.lda.nsp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
-                          model.fun = lda,
-                          pred.fun = lda.predfun, 
-                          pred.args = list(fac = "field"),
-                          smp.fun = partition.cv, 
-                          smp.args = list(repetition = 1:50, nfold = 5),
-                          error.rep = TRUE, error.fold = TRUE,
+res_lda_nsp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
+                          model_fun = lda,
+                          pred_fun = lda_predfun, 
+                          pred_args = list(fac = "field"),
+                          smp_fun = partition_cv, 
+                          smp_args = list(repetition = 50, nfold = 5),
                           progress = FALSE)
 ```
 
 ```{r}
-summary(res.lda.nsp$error.rep)
+summary(res_lda_nsp$error_rep)
 ```
 
 ```
 ##                    mean    sd   median   IQR
-## train.error    3.40e-02 0.001 3.40e-02 0.001
-## train.accuracy 9.66e-01 0.001 9.66e-01 0.001
-## train.events   4.69e+03 0.000 4.69e+03 0.000
-## train.count    3.09e+04 0.000 3.09e+04 0.000
-## test.error     4.00e-02 0.002 4.00e-02 0.002
-## test.accuracy  9.60e-01 0.002 9.60e-01 0.002
-## test.events    1.17e+03 0.000 1.17e+03 0.000
-## test.count     7.71e+03 0.000 7.71e+03 0.000
+## train_error    3.40e-02 0.001 3.40e-02 0.001
+## train_accuracy 9.66e-01 0.001 9.66e-01 0.001
+## train_events   4.69e+03 0.000 4.69e+03 0.000
+## train_count    3.09e+04 0.000 3.09e+04 0.000
+## test_error     4.00e-02 0.002 4.00e-02 0.002
+## test_accuracy  9.60e-01 0.002 9.60e-01 0.002
+## test_events    1.17e+03 0.000 1.17e+03 0.000
+## test_count     7.71e+03 0.000 7.71e+03 0.000
 ```
 
-To run a spatial cross-validation at the field level, we can use `partition.factor.cv()` as the sampling function. Since we are using 5 folds, we get a coarse 80/20 split of our data. 80% will be used for training, 20% for testing our trained model.
+To run a spatial cross-validation at the field level, we can use `partition_factor_cv()` as the sampling function. Since we are using 5 folds, we get a coarse 80/20 split of our data. 80% will be used for training, 20% for testing our trained model.
 
 To take a look where our training and tests sets will be partitioned on each fold, we can plot them. The red colored points represent the test set in each fold, the black colored points the training set. Note that because we plotted over 7000 points, overplotting occurs and since the red crosses are plotted after the black ones, it seems visually that way more than ~20% of red points exist than it is really the case. 
 
@@ -271,55 +270,54 @@ dev.off()
 ```
 
 ```{r }
-resamp <- partition.factor.cv(maipo, nfold = 5, repetition = 1:1, fac = "field")
+resamp <- partition_factor_cv(maipo, nfold = 5, repetition = 1:1, fac = "field")
 plot(resamp, maipo, coords = c("utmx","utmy"))
 ```
 
 ![](../images/resamp-plot.png)
 
-Subsequently, we have to specify the location of the fields (`fac = "field"`) in the prediction arguments (`pred.args`) and sampling arguments (`smp.args`) in `sperrorest()`.
+Subsequently, we have to specify the location of the fields (`fac = "field"`) in the prediction arguments (`pred_args`) and sampling arguments (`smp_args`) in `sperrorest()`.
 
 ```{r sperro-lda}
-res.lda.sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
-                         model.fun = lda,
-                         pred.fun = lda.predfun, 
-                         pred.args = list(fac = "field"),
-                         smp.fun = partition.factor.cv,
-                         smp.args = list(fac = "field", repetition = 1:50, nfold = 5),
-                         error.rep = TRUE, error.fold = TRUE, 
+res_lda_sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
+                         model_fun = lda,
+                         pred_fun = lda_predfun, 
+                         pred_args = list(fac = "field"),
+                         smp_fun = partition_factor_cv,
+                         smp_args = list(fac = "field", repetition = 1:50, nfold = 5),
                          benchmark = TRUE, progress = FALSE)
-res.lda.sp$benchmark$runtime.performance
+res_lda_sp$benchmark$runtime_performance
 ```
 
 ```{r}
-summary(res.lda.sp$error.rep)
+summary(res_lda_sp$error_rep)
 ```
 
 ```
 ##                    mean      sd   median     IQR
-## train.error    2.95e-02 0.00177 2.97e-02 0.00261
-## train.accuracy 9.70e-01 0.00177 9.70e-01 0.00261
-## train.events   4.69e+03 0.00000 4.69e+03 0.00000
-## train.count    3.09e+04 0.00000 3.09e+04 0.00000
-## test.error     6.65e-02 0.00807 6.59e-02 0.01083
-## test.accuracy  9.33e-01 0.00807 9.34e-01 0.01083
-## test.events    1.17e+03 0.00000 1.17e+03 0.00000
-## test.count     7.71e+03 0.00000 7.71e+03 0.00000
+## train_error    2.95e-02 0.00177 2.97e-02 0.00261
+## train_accuracy 9.70e-01 0.00177 9.70e-01 0.00261
+## train_events   4.69e+03 0.00000 4.69e+03 0.00000
+## train_count    3.09e+04 0.00000 3.09e+04 0.00000
+## test_error     6.65e-02 0.00807 6.59e-02 0.01083
+## test_accuracy  9.33e-01 0.00807 9.34e-01 0.01083
+## test_events    1.17e+03 0.00000 1.17e+03 0.00000
+## test_count     7.71e+03 0.00000 7.71e+03 0.00000
 ```
 
 ## RandomForest
 
-In the case of Random Forest, the customized `pred.fun` looks as follows; it is only required because of the majority filter, without it, we could just omit the `pred.fun` and `pred.args` arguments below. 
+In the case of Random Forest, the customized `pred_fun` looks as follows; it is only required because of the majority filter, without it, we could just omit the `pred_fun` and `pred_args` arguments below. 
 
 ```{r def-rf-predfun}
-rf.predfun <- function(object, newdata, fac = NULL) {
+rf_predfun <- function(object, newdata, fac = NULL) {
   
   p_load(nnet)
   majority <- function(x) {
     levels(x)[which.is.max(table(x))]
   }
   
-  majority.filter <- function(x, fac) {
+  majority_filter <- function(x, fac) {
     for (lev in levels(fac)) {
       x[fac == lev] <- majority(x[fac == lev])
     }
@@ -327,21 +325,20 @@ rf.predfun <- function(object, newdata, fac = NULL) {
   }
   
   pred <- predict(object, newdata = newdata)
-  if (!is.null(fac)) pred <- majority.filter(pred, newdata[,fac]) 
+  if (!is.null(fac)) pred <- majority_filter(pred, newdata[,fac]) 
   return(pred)
 }
 ```
 
 ```{r sperro-rf}
-res.rf.sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
-                          model.fun = randomForest,
-                          pred.fun = rf.predfun,
-                          pred.args = list(fac = "field"),
-                          smp.fun = partition.factor.cv,
-                          smp.args = list(fac = "field",
-                                          repetition = 1:50, nfold = 5),
-                          error.rep = TRUE, error.fold = TRUE,
-                          benchmark = TRUE, progress = 2)
+res_rf_sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
+                        model_fun = randomForest,
+                        pred_fun = rf_predfun,
+                        pred_args = list(fac = "field"),
+                        smp_fun = partition_factor_cv,
+                        smp_args = list(fac = "field",
+                                        repetition = 1:50, nfold = 5),
+                        benchmark = TRUE, progress = 2)
 ```
 
 ```
@@ -397,13 +394,12 @@ res.rf.sp <- sperrorest(fo, data = maipo, coords = c("utmx","utmy"),
 ## Mon Feb 27 21:51:21 2017 Repetition 50 
 ## Mon Feb 27 21:52:27 2017 Done.
 
-res.rf.sp$benchmark$runtime.performance
+res_rf_sp$benchmark$runtime_performance
 ## Time difference of 56.4 mins
 ```
 
-
 ```{r}
-summary(res.rf.sp$error.rep$test.error)
+summary(res_rf_sp$error_rep$test_error)
 ```
 
 ```
@@ -411,9 +407,8 @@ summary(res.rf.sp$error.rep$test.error)
 ##  0.0630  0.0827  0.0871  0.0868  0.0928  0.1100
 ```
 
-
 ```{r}
-summary(res.rf.sp$error.rep$test.accuracy)
+summary(res_rf_sp$error_rep$test_accuracy)
 ```
 
 ```
@@ -421,132 +416,15 @@ summary(res.rf.sp$error.rep$test.accuracy)
 ##   0.890   0.907   0.913   0.913   0.917   0.937
 ```
 
-
 What a surprise! RandomForest classification isn't that good after all, if we acknowledge that in 'real life' we wouldn't be making predictions in situations where the class membership of other grid cells in the same field is known in the training stage. So spatial dependence does matter.
-
-## Parallelized Cross-Validation
-
-To speed things up, we can use `parsperrorest()` and inspect the runtime difference. Note that we have two parallel modes to choose from!  
-In this example we will use both `par.mode = 1` and `par.mode = 2` to show you the runtime differences.
-
-**Details of argument `par.mode`**
-
-The advantage of `par.mode = 1` compared to `par.mode = 2` is its speed. However, `par.mode = 1` is somewhat less stable. This means that `par.mode = 1` will throws errors for some models (e.g. LDA) while `par.mode = 2` does not. `par.mode = 1` uses either a `parallel::mclapply()` (Unix) or `parallel::parApply()` (Windows) while `par.mode = 2` is running on a `foreach` backend. 
-
-While traditional `mclapply()` approaches have the downside that no progress report can be printed, the `pbapply` package implemented in `parsperrorest()` provides progress output (showing a progress bar) and does even work cross-platform. `par.mode = 1` does not show a progress bar but prints fold and/or repetition information to the console.
-
-```{r parsperro-rf-mode1}
-res.rf.sp.par1 <- parsperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
-                               model.fun = randomForest,
-                               pred.fun = rf.predfun,
-                               pred.args = list(fac = "field"),
-                               smp.fun = partition.factor.cv,
-                               smp.args = list(fac = "field", 
-                                               repetition = 1:50, nfold = 5),
-                               par.args = list(par.units = 4, par.mode = 1),
-                               error.rep = TRUE, error.fold = TRUE,
-                               benchmark = TRUE, progress = FALSE)
-```
-
-```{r}
-res.rf.sp.par1$benchmarks$runtime.performance
-```
-
-```
-## Time difference of 18 mins
-```
-
-```{r parsperro-rf-mode2}
-res.rf.sp.par2 <- parsperrorest(fo, data = maipo, coords = c("utmx","utmy"), 
-                                model.fun = randomForest,
-                                pred.fun = rf.predfun,
-                                pred.args = list(fac = "field"),
-                                smp.fun = partition.factor.cv,
-                                smp.args = list(fac = "field", 
-                                                repetition = 1:50, nfold = 5),
-                                par.args = list(par.units = 4, par.mode = 2),
-                                error.rep = TRUE, error.fold = TRUE,
-                                benchmark = TRUE, progress = FALSE)
-```
-
-```{r}
-res.rf.sp.par2$benchmarks$runtime.performance
-```
-
-```
-## Time difference of 19.9 mins
-```
-
-
-Both the differences of the parallel methods (`parsperrorest()`) compared to the sequential one (`sperrorest()`) and between the parallel modes themselves can be seen as variance among the repetitions. If you would use more repetitions (e.g. 100), this difference would converge towards zero. 
-
-### Results of par.mode = 1
-
-```{r}
-summary(res.rf.sp.par1$error.rep$test.error)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  0.0744  0.0813  0.0852  0.0862  0.0903  0.1090
-```
-
-```{r}
-summary(res.rf.sp.par1$error.rep$test.accuracy)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.891   0.910   0.915   0.914   0.919   0.926
-```
-
-### Results of par.mode = 2
-
-```{r}
-summary(res.rf.sp.par2$error.rep$test.error)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  0.0638  0.0832  0.0874  0.0872  0.0926  0.1130
-```
-
-```{r}
-summary(res.rf.sp.par2$error.rep$test.accuracy)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.887   0.907   0.913   0.913   0.917   0.936
-```
 
 # Usage Advices
 
-Given all the different sampling functions and the custom predict function (`rf.predfun()`) you might be a little confused which function to use for your use case.  
-If you want to do a "normal", i.e. **non-spatial cross-validation** we recommend to use `partition.cv()` as `smp.fun` in `sperrorest()` or `parsperrorest()`.  
-If you want to perform a **spatial cross-validation** and you do not have a grouping structure like fields in our example, you should use `partition.kmeans()` as `smp.fun`. This creates a spatial k-means clustering within your cross-validation runs.  
+Given all the different sampling functions and the required custom predict functions (e.g. `rf_predfun()`) in this example, you might be a little confused which function to use for your use case.  
+If you want to do a "normal", i.e. **non-spatial cross-validation** we recommend to use `partition_cv()` as `smp_fun` in `sperrorest()`. 
+If you want to perform a **spatial cross-validation** (and you do not have a grouping structure like fields in this example), `partition_kmeans()` takes care of spatial partitioning. 
+In most cases you can simply use the generic `predict()` method for your model (= skip this argument in `sperrorest()`). Check our "custom model and predict functions" vignette for more information on cases where adjustments are needed.
 
-Most often you can simply use the generic `predict()` method for your model. Only in cases where you want to do prediction based on some factor level like in this vignette, you need to write your own prediction function. 
-
-**Wrapper functions**
-
-Another point to be aware of is that some model functions do use a different argument naming/order than the `model.fun()` argument of `sperrorest()` expects (formula + data). For example, the formula argument of `glmmPQL()` is named `fixed` instead of `formula`.  
-Also sometimes you may encounter errors when providing spatial correlation structures to your model using `model.args`. If this happens, also try to provide the correlation structure within a wrapper function.
-
-```{r}
-my_glmmPQL <- function(formula, data) {
-  
-  # calculate spatial correlation structure
-  correlation = corSpatial(value = c(5024, 0.25), form = ~ry + rx, nugget = TRUE,
-                           fixed = FALSE, type = "spherical")
-  correlation = Initialize(correlation, data = data)
-  
-  # actual model.fun
-  glmmPQL(fixed = formula, data = data, correlation = correlation)
-}
-```
-
-For all further questions, please feel free to open an issue at our [Github repo](https://github.com/pat-s/sperrorest).
-
+For further questions/issues, please open an issue at our [Github repo](https://github.com/pat-s/sperrorest).
 
 # References
