@@ -194,7 +194,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![screenshot of mapedit editMap](images/mapedit_020_selectModules_shiny.gif)
+![screenshot of mapedit editMap](images/mapedit_020_selectModule_shiny.gif)
 
 ### Edit as Shiny Module
 
