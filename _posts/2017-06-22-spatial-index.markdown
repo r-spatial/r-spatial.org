@@ -1,10 +1,10 @@
 ---
-author: Edzer Pebesma
+author: Edzer Pebesma and Roger Bivand
 categories: r
 comments: True
 date: Jun 22, 2017
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"Jun 22, 2017","author":"Edzer Pebesma","comments":true,"title":"Spatial indexes coming to sf"}
+meta-json: {"layout":"post","categories":"r","date":"Jun 22, 2017","author":"Edzer Pebesma and Roger Bivand","comments":true,"title":"Spatial indexes coming to sf"}
 title: Spatial indexes coming to sf
 ---
 
@@ -29,13 +29,13 @@ Antecedents
 -----------
 
 There have been attempts to use spatial planar indices, including 
-enhancement issue [sfr:79](https://github.com/edzer/sfr/issues/76). 
+enhancement issue [sfr:76](https://github.com/edzer/sfr/issues/76). 
 In rgeos, GEOS STRtrees were used in 
 [rgeos/src/rgeos_poly2nb.c](https://r-forge.r-project.org/scm/viewvc.php/pkg/src/rgeos_poly2nb.c?view=markup&root=rgeos), which is mirrored in a modern Rcpp setting 
 [sf/src/geos.cpp, around lines 276 and 551](https://github.com/edzer/sfr/blob/master/src/geos.cpp). 
 The STRtree is constructed by building envelopes (bounding boxes) of input entities, 
 which are then queried for intersection with envelopes of another set of entities 
-(in rgeos, R functions gUnarySTRtreeQuery() and gBinarySTRtreeQuery(). The use case
+(in rgeos, R functions `gUnarySTRtreeQuery` and `gBinarySTRtreeQuery`). The use case
 was to find neighbours of all the about 90,000 US Census entities in Los Angeles, via
 spdep::poly2nb(), which received an argument to enter the candidate neighbours found
 by Unary querying the STRtree of entities by the same entities. 
@@ -93,8 +93,8 @@ On which argument is an index built?
 The R-tree is built on the first argument (`x`), and used to
 match all geometries over the second argument (`y`) of binary
 functions.  This could give runtime differences, but for instance
-for the dataset that triggered this development in [sf issue
-394](https://github.com/edzer/sfr/issues/394), we see hardly
+for the dataset that triggered this development in
+[sfr:394](https://github.com/edzer/sfr/issues/394), we see hardly
 any difference:
 
     library(sf)
@@ -126,8 +126,8 @@ it easier to run benchmarks, and I strongly doubt anyone ever sets
 `prepare = FALSE`. This may change, to have them always built.
 
 It would be nice to also have them on `st_relate` and
-`st_relate_pattern`, e.g. for [rook or queen neighborhood
-selections](https://github.com/edzer/sfr/issues/234), but this
+`st_relate_pattern`, e.g. for rook or queen neighborhood
+selections ([sfr:234](https://github.com/edzer/sfr/issues/234)), but this
 still requires some work, since two non-intersecting geometries
 have a predictable but not a constant relationship.
 
