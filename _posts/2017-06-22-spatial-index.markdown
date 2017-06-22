@@ -57,18 +57,20 @@ Spatial indexes are available in the
 [GEOS](https://trac.osgeo.org/geos) library used by `sf`, through the
 [functions](https://geos.osgeo.org/doxygen/geos__c_8h_source.html)
 starting with `STRtree`. The algorithm
-implements an R-tree, according to the [JTS
+implements a Sort-Tile-Recursive R-tree, according to the [JTS
 documentation](https://locationtech.github.io/jts/javadoc/org/locationtech/jts/index/strtree/STRtree.html)
 described in  _P. Rigaux, Michel Scholl and Agnes Voisard. Spatial
 Databases With Application To GIS. Morgan Kaufmann, San Francisco,
 2002_.
 
 The [sf implementation](https://github.com/edzer/sfr/commit/96d82b0409254c5c6f852f4b87df8d31049e35a7)
-(some commits to follow this one) excludes the binary operations
-`st_disjoint`, `st_distance`, `st_relate`, and `st_relate_pattern`, as
-these all need to go through all combinations, rather than a subset
-found by checking for overlapping bounding boxes.
-`st_equals_exact` and `st_equals` are excluded for other reasons.
+(some commits to follow this one) excludes some binary operations.
+`st_distance`, `st_relate`, and `st_relate_pattern`, as these all
+need to go through all combinations, rather than a subset found
+by checking for overlapping bounding boxes.  `st_equals_exact` and
+`st_equals` are excluded because they do not have an implementation
+for `prepared` geometries.  `st_disjoint` could benefit from the
+search tree, but needs a dedicated own implementation.
 
 On which argument is an index built?
 ================================
@@ -98,7 +100,7 @@ any difference:
 
 The resulting feature sets `int1` and `int2` are identical, only
 the order of the features (records) and of the attribute columns
-(variables) differs.
+(variables) differs. Runtime without index is more than an hour.
 
 Is the spatial index always built?
 =================================
