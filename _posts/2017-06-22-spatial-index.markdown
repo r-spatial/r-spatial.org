@@ -116,7 +116,8 @@ any difference:
 
 The resulting feature sets `int1` and `int2` are identical, only
 the order of the features (records) and of the attribute columns
-(variables) differs. Runtime without index is more than an hour.
+(variables) differs. (Runtime without index is 35 minutes, 20 times
+as long.)
 
 Is the spatial index always built?
 =================================
