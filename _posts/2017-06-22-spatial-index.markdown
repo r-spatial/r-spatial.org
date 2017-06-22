@@ -25,6 +25,22 @@ join features, and `aggregate` or `summarise` using `union` to union
 aggregated feature geometries, are also affected by this speedup.
 
 
+Antecedents
+-----------
+
+There have been attempts to use spatial planar indices, including 
+enhancement issue [sfr:79](https://github.com/edzer/sfr/issues/76). 
+In rgeos, GEOS STRtrees were used in 
+[rgeos/src/rgeos_poly2nb.c](https://r-forge.r-project.org/scm/viewvc.php/pkg/src/rgeos_poly2nb.c?view=markup&root=rgeos), which is mirrored in a modern Rcpp setting 
+[sf/src/geos.cpp, around lines 276 and 551](https://github.com/edzer/sfr/blob/master/src/geos.cpp). 
+The STRtree is constructed by building envelopes (bounding boxes) of input entities, 
+which are then queried for intersection with envelopes of another set of entities 
+(in rgeos, R functions gUnarySTRtreeQuery() and gBinarySTRtreeQuery(). The use case
+was to find neighbours of all the about 90,000 US Census entities in Los Angeles, via
+spdep::poly2nb(), which received an argument to enter the candidate neighbours found
+by Unary querying the STRtree of entities by the same entities. 
+
+
 Benchmark
 ---------
 
@@ -105,7 +121,7 @@ Is the spatial index always built?
 In the current implemenation it is always built of logical predicates
 when argument `prepare = TRUE`, which means by default. This made
 it easier to run benchmarks, and I strongly doubt anyone ever sets
-`prepar = FALSE`. This may change, to have them always built.
+`prepare = FALSE`. This may change, to have them always built.
 
 It would be nice to also have them on `st_relate` and
 `st_relate_pattern`, e.g. for [rook or queen neighborhood
