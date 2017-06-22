@@ -84,8 +84,7 @@ The [sf implementation](https://github.com/edzer/sfr/commit/96d82b0409254c5c6f85
 `st_distance`, `st_relate`, and `st_relate_pattern`, as these all
 need to go through all combinations, rather than a subset found
 by checking for overlapping bounding boxes.  `st_equals_exact` and
-`st_equals` are excluded because they do not have an implementation
-for `prepared` geometries.  `st_disjoint` could benefit from the
+`st_equals` are excluded. `st_disjoint` could benefit from the
 search tree, but needs a dedicated own implementation.
 
 On which argument is an index built?
@@ -116,8 +115,8 @@ any difference:
 
 The resulting feature sets `int1` and `int2` are identical, only
 the order of the features (records) and of the attribute columns
-(variables) differs. (Runtime without index is 35 minutes, 20 times
-as long.)
+(variables) differs. Runtime without index is 35 minutes, 20 times
+as long.
 
 Is the spatial index always built?
 =================================
@@ -134,8 +133,7 @@ have a predictable but not a constant relationship.
 
 What about `prepared` geometries?
 ================================
-[Prepared
-geometries](https://trac.osgeo.org/geos/wiki/PreparedGeometry)
+[Prepared geometries](https://trac.osgeo.org/geos/wiki/PreparedGeometry)
 in GEOS are essentially indexes over single geometries and not
 over sets of geometries; they speed things up in particular when
 single geometries are very complex, and only for a single geometry
