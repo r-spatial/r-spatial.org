@@ -81,11 +81,10 @@ Databases With Application To GIS. Morgan Kaufmann, San Francisco,
 
 The [sf implementation](https://github.com/edzer/sfr/commit/96d82b0409254c5c6f852f4b87df8d31049e35a7)
 (some commits to follow this one) excludes some binary operations.
-`st_distance`, `st_relate`, and `st_relate_pattern`, as these all
-need to go through all combinations, rather than a subset found
-by checking for overlapping bounding boxes.  `st_equals_exact` and
-`st_equals` are excluded. `st_disjoint` could benefit from the
-search tree, but needs a dedicated own implementation.
+`st_distance`, and `st_relate` without pattern, are excluded as
+these need to go through all combinations, returning a dense
+matrix. `st_equals_exact` is excluded as approximate matches are
+sought, without constraining the degree of approximation.
 
 On which argument is an index built?
 ================================
