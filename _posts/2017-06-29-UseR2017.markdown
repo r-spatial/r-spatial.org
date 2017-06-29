@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "UseR! 2017 Spatial Tutorials"
+date:   2017-06-29
+comments: true
+author: Edzer Pebesma
+---
+
+This year's [UseR!](https://user2017.brussels/tutorials) (next week Tuesday!!) will have two spatial tutorials:
+
+### 1. Geospatial visualization using R (morning)
+
+Bashkar Karambelkar
+[posted](https://twitter.com/bhaskar_vk/status/879109886424043521)
+earlier that attendees should download his docker image by Jul 1, by
+
+    docker pull bhaskarvk/rgeodataviz
+
+### 2. Spatial data in R: new directions (afternoon)
+
+My tutorial deals mostly with [sf](https://edzer.github.io/sfr/),
+the material (html, R markdown) is found at here:
+[https://edzer.github.io/UseR2017/](https://edzer.github.io/UseR2017/)
+
+I'm looking forward to it!
+
+### Related posts:
+
+[UseR! 2016 tutorial](http://r-spatial.org/2016/06/27/UseR.html)
