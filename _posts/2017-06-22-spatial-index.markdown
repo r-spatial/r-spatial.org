@@ -137,7 +137,7 @@ bounding boxes before the expensive pairwise comparison takes place.
 
 Script used
 -----------
-The followinig script was used to create the benchmark plots.
+The followinig script was used to create the benchmark plots. It no longer works; in the version where it worked, `prepared = FALSE` would take a branch where no trees were built, this is no longer the case.
 
      library(sf)
      sizes = c(10, 20, 50, 100, 160, 200)
