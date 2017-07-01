@@ -119,16 +119,11 @@ as long.
 
 Is the spatial index always built?
 =================================
-In the current implemenation it is always built of logical predicates
-when argument `prepare = TRUE`, which means by default. This made
-it easier to run benchmarks, and I strongly doubt anyone ever sets
-`prepare = FALSE`. This may change, to have them always built.
-
-It would be nice to also have them on `st_relate` and
-`st_relate_pattern`, e.g. for rook or queen neighborhood
-selections ([sfr:234](https://github.com/edzer/sfr/issues/234)), but this
-still requires some work, since two non-intersecting geometries
-have a predictable but not a constant relationship.
+In the current implemenation (version >= 0.5-1) the index is always
+built, except for `st_distance`, and `st_relate` without pattern.
+This means it is also built e.g. for rook or queen neighborhood
+selections ([sfr:234](https://github.com/edzer/sfr/issues/234)),
+which use `st_relate` with a specified pattern.
 
 What about `prepared` geometries?
 ================================
