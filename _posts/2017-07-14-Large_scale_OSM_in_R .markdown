@@ -1,3 +1,12 @@
+---
+author: Konstantin Klemmer, Imperial College London
+categories:
+comments: True
+date: 2017-07-14 00:00
+meta-json: {"layout":"post","categories":"r","date":"29 November, 2016","author":"Edzer Pebesma","comments":true,"title":"Setting up large scale OSM environments for R using Osmosis and PostgreSQL with PostGIS"}
+layout: post
+title: "Setting up large scale OSM environments for R using Osmosis and PostgreSQL with PostGIS"
+---
 Importing **OpenStreetMap (OSM)** data into *R* can sometimes be rather
 difficult, especially when it comes to processing large datasets. There
 are some packages that aim at easy integration of OSM data, including
