@@ -1,0 +1,327 @@
+---
+author: Edzer Pebesma
+biblio-style: apalike
+bibliography: ../bibs/invalid.bib
+categories: r
+comments: True
+date: 19 March, 2017
+layout: post
+link-citations: True
+meta-json: {"layout":"post","link-citations":true,"bibliography":"../bibs/invalid.bib","categories":"r","date":"19 March, 2017","author":"Edzer Pebesma","comments":true,"title":"Tidying feature geometries with sf","biblio-style":"apalike"}
+title: Tidying feature geometries with sf
+---
+
+* TOC 
+{:toc}
+
+[view raw
+Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2017-03-18-invalid.Rmd)
+
+### Introduction
+
+Spatial line and polygon data are often messy; although *simple
+features* formally follow a standard, there is no guarantee that data is
+clean when imported in R. This blog shows how we can identify,
+(de)select, or repair broken and invalid geometries. We also show how
+empty geometries arise, and can be dealt with. Literature on invalid
+polygons and correcting them is found in Ramsey
+([2010](#ref-ramsey2010postgis)), Ledoux, Ohori, and Meijers
+([2014](#ref-ledoux)), Ledoux, Ohori, and Meijers
+([2012](#ref-ledoux2012automatically)), and Van Oosterom, Quak, and
+Tijssen ([2005](#ref-oosterom)); all these come with excelent figures
+illustrating the problem cases.
+
+We see that from version 0.4-0, `sf` may be linked to `lwgeom`,
+
+    library(sf)
+
+    ## Linking to GEOS 3.5.1, GDAL 2.1.3, proj.4 4.9.2, lwgeom 2.3.1 r15264
+
+where `lwgeom` stands for the *light-weight geometry* library that
+powers postgis. This library is not present on CRAN, so binary packages
+installed from CRAN will not come with it. It is only linked to `sf`
+when it is detected during a build from source. When `lwgeom` is
+present, we will have a working version of `st_make_valid`, which is
+essentially identical to PostGIS' `ST_makeValid`.
+
+### Corrup or invalid geometries?
+
+There are two types of things that can go wrong when dealing with
+geometries in `sf`. First, a geometry can be corrupt, which is for
+instance the case for a `LINESTRING` with one point, or a `POLYGON` with
+more than zero and less than 4 points:
+
+    l0 = st_linestring(matrix(1:2,1,2))
+    p0 = st_polygon(list(rbind(c(0,0),c(1,1),c(0,0))))
+
+These cases *could* of course be easily caught by the respective
+constructor functions, but they are not because we want to see what
+happens. Also, if we would catch them, it would not prevent us from
+running into them, because the majority of spatial data enters R through
+GDAL, and `sf`'s binary interface (reading [well-known
+binary](https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary)).
+Also, for many purposes corrupt may not be a problem, e.g. if we only
+want to plot them. In case we want to use them however in geometrical
+operations, we'll typically see a message like:
+
+      IllegalArgumentException: Invalid number of points in LinearRing found 3 - must be 0 or >= 4
+
+which points to GEOS not accepting a geometry as a possible geometry.
+Such an error message however does not point us to *which* geometry
+caused this. We could of course write a loop over all geometries to find
+this out, but can also use `st_is_valid` which returns by default `NA`
+on corrupt geometries:
+
+    l0 = st_linestring(matrix(1:2,1,2))
+    p0 = st_polygon(list(rbind(c(0,0),c(1,1),c(0,0))))
+    p = st_point(c(0,1)) # not corrupt
+    st_is_valid(st_sfc(l0, p0, p))
+
+    ## [1]   NA   NA TRUE
+
+Simple feature *validity* refers to a number of properties that polygons
+should have, such as non-self intersecting, holes being inside polygons.
+A number of different examples for invalid geometries are found in
+Ledoux, Ohori, and Meijers ([2014](#ref-ledoux)), and were taken from
+their [prepair](https://github.com/tudelft3d/prepair) github repo:
+
+    # A 'bowtie' polygon:
+    p1 = st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
+    # Square with wrong orientation:
+    p2 = st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
+    # Inner ring with one edge sharing part of an edge of the outer ring:
+    p3 = st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2,5 7,10 7, 10 2, 5 2))")
+    # Dangling edge:
+    p4 = st_as_sfc("POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))")
+    # Outer ring not closed:
+    p5 = st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10))")
+    # Two adjacent inner rings:
+    p6 = st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))")
+    # Polygon with an inner ring inside another inner ring:
+    p7 = st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
+    p = c(p1, p2, p3, p4, p5, p6, p7)
+    (valid = st_is_valid(p))
+
+    ## [1] FALSE  TRUE FALSE FALSE    NA FALSE FALSE
+
+Interestingly, GEOS considers `p5` as corrupt (`NA`) and `p2` as valid.
+
+To query GEOS for the reason of invalidity, we can use the
+`reason = TRUE` argument to `st_is_valid`:
+
+    st_is_valid(p, reason = TRUE)
+
+    ## [1] "Self-intersection[5 5]"  "Valid Geometry"         
+    ## [3] "Self-intersection[10 2]" "Self-intersection[10 0]"
+    ## [5] NA                        "Self-intersection[3 1]" 
+    ## [7] "Holes are nested[3 3]"
+
+### Making invalid polygons valid
+
+As mentioned above, in case `sf` was linked to `lwgeom`, which is
+confirmed by
+
+    sf_extSoftVersion()["lwgeom"]
+
+    ##         lwgeom 
+    ## "2.3.1 r15264"
+
+not printing a `NA`, we can use `st_make_valid` to make geometries
+valid:
+
+    st_make_valid(p)
+
+    ## Geometry set for 7 features 
+    ## geometry type:  GEOMETRY
+    ## dimension:      XY
+    ## bbox:           xmin: 0 ymin: 0 xmax: 15 ymax: 10
+    ## epsg (SRID):    NA
+    ## proj4string:    NA
+    ## First 5 geometries:
+
+    ## MULTIPOLYGON(((0 0, 0 10, 5 5, 0 0)), ((5 5, 10...
+
+    ## POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))
+
+    ## GEOMETRYCOLLECTION(POLYGON((10 7, 10 2, 10 0, 0...
+
+    ## GEOMETRYCOLLECTION(POLYGON((10 0, 0 0, 0 10, 10...
+
+    ## POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))
+
+A well-known "trick", which may be your only alternative if is to buffer
+the geometries with zero distance:
+
+    st_buffer(p[!is.na(valid)], 0.0)
+
+    ## Geometry set for 6 features 
+    ## geometry type:  POLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 0 ymin: 0 xmax: 10 ymax: 10
+    ## epsg (SRID):    NA
+    ## proj4string:    NA
+    ## First 5 geometries:
+
+    ## POLYGON((0 0, 0 10, 5 5, 0 0))
+
+    ## POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))
+
+    ## POLYGON((0 0, 0 10, 10 10, 10 7, 5 7, 5 2, 10 2...
+
+    ## POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))
+
+    ## POLYGON((0 0, 0 10, 10 10, 10 0, 0 0), (1 1, 3 ...
+
+but we see that, apart from the fact that this only works for
+non-corrupt geometries, we end up with different results.
+
+A larger example from the prepair site is this:
+
+    x = read_sf("/home/edzer/git/prepair/data/CLC2006_2018418.geojson")
+    st_is_valid(x)
+
+    ## [1] FALSE
+
+    st_is_valid(st_make_valid(x))
+
+    ## [1] TRUE
+
+    plot(x, col = 'grey', axes = TRUE, graticule = TRUE)
+
+![](/images/invalid1-1.png)
+
+The corresponding paper, Ledoux, Ohori, and Meijers
+([2012](#ref-ledoux2012automatically)) zooms in on problematic points.
+The authors argue to use constrained triangulation instead of the (less
+documented) approach taken by `lwgeom`; Mike Sumner also explores this
+[here](https://github.com/r-gris/sfdct). It builds upon
+[RTriangle](https://cran.r-project.org/package=RTriangle), which cannot
+be integrated in `sf` as it is distributed under license with a
+non-commercial clause. Ledoux uses [CGAL](http://cgal.org/), which would
+be great to have an interface to from R!
+
+### Empty geometries
+
+Empty geometries exist, and can be thought of as zero-length vectors,
+`data.frame`s without rows, or `NULL` values in lists: in essence,
+there's place for information, but there is no information. An empty
+geometry arises for instance if we ask for the intersection of two
+non-intersecting geometries:
+
+    st_intersection(st_point(0:1), st_point(1:2))
+
+    ## GEOMETRYCOLLECTION()
+
+In principle, we could have designed `sf` such that empty geometries
+were represented a `NULL` value, but the standard prescrives that every
+geometry type has an empty instance:
+
+    st_linestring()
+
+    ## LINESTRING()
+
+    st_polygon()
+
+    ## POLYGON()
+
+    st_point()
+
+    ## POINT(NA NA)
+
+and thus the empty geometry is typed. This guarantees clean roundtrips
+from a database to R back into a database: no information (on type) gets
+lost in case of presence of empty geometries.
+
+How can we detect, and filter on empty geometries? We can do that with
+`st_dimension`:
+
+    lin = st_linestring(rbind(c(0,0),c(1,1)))
+    pol = st_polygon(list(rbind(c(0,0),c(1,1),c(0,1),c(0,0))))
+    poi = st_point(c(1,1))
+    p0 = st_point()
+    pol0 = st_polygon()
+    st_dimension(st_sfc(lin, pol, poi, p0, pol0))
+
+    ## [1]  1  2  0 NA NA
+
+and see that empty geometries return `NA`.
+
+The standard however prescribes that an empty polygon still has
+dimension two, and we can override the `NA` convenience to get
+standard-compliant dimensions by
+
+    st_dimension(st_sfc(lin, pol, poi, p0, pol0), NA_if_empty = FALSE)
+
+    ## [1] 1 2 0 0 2
+
+### Tidying feature geometries
+
+When you analyse your spatial data with `sf` and you don't get any
+warnings or error messages, all may be fine. In case you do, or your are
+curious, you can check for
+
+1.  empty geometries, using `any(is.na(st_dimension(x)))`
+2.  corrupt geometries, using `any(is.na(st_is_valid(x)))`
+3.  invalid geometries, using `any(na.omit(st_is_valid(x)) == FALSE)`;
+    in case of corrupt and/or invalid geometries,
+4.  in case of invalid geometries, query the reason for invalidity by
+    `st_is_valid(x, reason = TRUE)`
+5.  you may be succesful in making geometries valid using
+    `st_make_valid(x)` or, if `st_make_valid` is not supported by
+6.  `st_buffer(x, 0.0)` on non-corrupt geometries (but beware of the
+    bowtie example above, where `st_buffer` removes one half).
+7.  After succesful a `st_make_valid`, you may want to select a
+    particular type subset using `st_is`, or cast `GEOMETRYCOLLECTIONS`
+    to `MULTIPOLYGON` by
+
+<!-- -->
+
+    st_make_valid(p) %>% st_cast("MULTIPOLYGON")
+
+    ## Warning in st_cast.GEOMETRYCOLLECTION(X[[i]], ...): only first part of
+    ## geometrycollection is retained
+
+    ## Warning in st_cast.GEOMETRYCOLLECTION(X[[i]], ...): only first part of
+    ## geometrycollection is retained
+
+    ## Warning in st_cast.GEOMETRYCOLLECTION(X[[i]], ...): only first part of
+    ## geometrycollection is retained
+
+    ## Geometry set for 7 features 
+    ## geometry type:  MULTIPOLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 0 ymin: 0 xmax: 10 ymax: 10
+    ## epsg (SRID):    NA
+    ## proj4string:    NA
+    ## First 5 geometries:
+
+    ## MULTIPOLYGON(((0 0, 0 10, 5 5, 0 0)), ((5 5, 10...
+
+    ## MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))
+
+    ## MULTIPOLYGON(((10 7, 10 2, 10 0, 0 0, 0 10, 10 ...
+
+    ## MULTIPOLYGON(((10 0, 0 0, 0 10, 10 10, 10 0)))
+
+    ## MULTIPOLYGON(((0 0, 10 0, 10 10, 0 10, 0 0)))
+
+For longer explanations about what makes a polygons invalid, do read one
+of the references below, all are richly illustrated
+
+### References [references]
+
+Ledoux, Hugo, Ken Arroyo Ohori, and Martijn Meijers. 2012.
+“Automatically Repairing Invalid Polygons with a Constrained
+Triangulation.” In. Agile.
+<https://3d.bk.tudelft.nl/ken/files/12_agile.pdf>.
+
+———. 2014. “A Triangulation-Based Approach to Automatically Repair GIS
+Polygons.” *Computers & Geosciences* 66: 121–31.
+<https://pdfs.semanticscholar.org/d9ec/b32a7844b436fcd4757958e5eeca9563fcd2.pdf>.
+
+Ramsey, Paul. 2010. “PostGIS-Tips for Power Users.” *Presentation on:
+FOSS4G*. <http://2010.foss4g.org/presentations/3369.pdf>.
+
+Van Oosterom, Peter, Wilko Quak, and Theo Tijssen. 2005. “About Invalid,
+Valid and Clean Polygons.” In *Developments in Spatial Data Handling*,
+1–16. Springer. <http://excerpts.numilog.com/books/3540267727.pdf>.

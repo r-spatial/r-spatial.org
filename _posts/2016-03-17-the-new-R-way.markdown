@@ -11,7 +11,7 @@ title: Do long tables make my code tidier?
 [view raw
 Rmd](https://raw.githubusercontent.com/edzer/r-spatial/gh-pages/_rmd/2016-03-17-the-new-R-way.Rmd)
 
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 Last August, at the [geostat summer
 school](http://www.geostat-course.org) organized by [Barry
 Rowlingson](http://barry.rowlingson.com/) in Lancaster, I took the

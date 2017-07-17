@@ -1,0 +1,99 @@
+---
+author: Edzer Pebesma
+categories: r
+comments: True
+date: 17 August, 2016
+layout: post
+title: "Book review: Extending R"
+---
+
+["Extending
+R"](https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717),
+by [John M. Chambers](https://statweb.stanford.edu/~jmc4/);
+Paperback $69.95, May 24, 2016 by Chapman and Hall/CRC; 364 Pages -
+7 B/W Illustrations;
+
+[R](http://www.r-project.org/) is a free software environment
+for statistical computing and graphics. It started as a free
+implementation of the S language, which was back then commercially
+available as S-Plus, and has since around ten years become the
+_lingua franca_ of statistics, the main language people use to
+communicate statistical computation.  R's popularity stems partly
+from the fact that it is free and open source, partly from the fact
+that it is easily _extendible_: through add-on packages that follow a
+clearly defined structure, new statistical ideas can be implemented,
+shared, and used by others.  Using R, the computational aspects of
+research can be communicated in a reproducible way, understood by
+a large audience.
+
+Written between 1984 and 1998, John Chambers is (co-)author of
+the four leading -- "[brown](https://www.amazon.com/Interactive-Environment-Analysis-Graphics-Competencies/dp/053403313X)", "[blue](https://www.amazon.com/New-Language-Programming-Environment-Wadsworth/dp/053409192X/ref=sr_1_1?s=books&ie=UTF8&qid=1471455602&sr=1-1&keywords=The+New+S+Language)", "[white](https://www.amazon.de/Statistical-Models-D-R-Cox/dp/041283040X/ref=sr_1_fkmr2_1?ie=UTF8&qid=1471455410&sr=8-1-fkmr2&keywords=statistical+models+with+s+chambers)", "[green](https://www.amazon.de/Programming-Data-Language-Chambers-Jul-2004/dp/B00MK2RDD8/ref=sr_1_3?ie=UTF8&qid=1471455450&sr=8-3&keywords=programming+with+data+chambers)" -- books
+that describe the S language as it evolved and as it is now. He
+has designed it, implemented it, and improved it in all its phases.
+Being part of the R core team, he is author of the `methods` package,
+part of every R installation, providing the S4 approach to object
+orientation.
+
+This book, _Extending R_, appeared as a volume in "[The R
+Series](https://www.crcpress.com/go/the-r-series)". The book is
+organized in four parts:
+
+1. Understanding R,
+2. Programming with R, 
+3. Object-oriented programming, and
+4. Interfaces.
+
+The first part starts with explaining three principles underlying R: 
+
+* Everything that exists in R is an object
+* Everything that happens in R is a function call
+* Interfaces to other software are part of R.
+
+These principle form the basis for parts II, III and IV. The first
+chapter introduces them. Chapter two, "Evolution", describes the
+history of the S language, from its earliest days to Today: the
+coming and going of S-Plus, the arrival of R and its dominance
+Today. It also describes the evolution of functional S, and the
+evolution of object-oriented programming in S. Chapter 3, "R in
+action", explains a number of basics of R, such as how function calls
+work, how objects are implemented, and how the R evaluator works.
+
+Part II, "Programming with R", discusses functions in depth,
+explains what objects are and how they are managed, and explains
+what extension packages do to the R environment. It discusses small,
+medium and large programming exercises, and what they demand.
+
+Part III, "Object-oriented programming", largely focuses on the
+difference between functional object oriented programming (as
+implemented in S4) and encapsulated object oriented programming
+as implemented in reference classes (similar to C++ and java),
+and shows examples for which purpose each paradigm is most useful.
+
+Part IV, "Interfaces", explains the potential and challenges
+of interfacing R with other programming languages. It discusses
+several of such interfaces, and describes a general framework for
+creating such interfaces. As instances of this framework it provides
+interfaces to the Python and Julia languages, and discusses the
+existing Rcpp framework.
+
+For who was this book written? It is clearly not an
+introductory text, nor a how-to or hands-on book for learning
+how to program R or write R packages, and it refers to the
+two volumes [Advanced R](http://adv-r.had.co.nz/) and [R
+packages](http://r-pkgs.had.co.nz/), both written by [Hadley
+Wickham](http://hadley.nz/). For those with a bit of experience
+with R programming and a general interest in the language, this book
+may give a number of new insights and a deeper, often evolutionary
+motivated understanding.
+
+Not surprisingly, the book also gives clear advice on how software
+development should take place: object-oriented with formally defined
+classes (S4 or reference classes), and it argues why this is a good
+idea. One of these arguments is the ability to do method dispatch
+based on more than one argument. This needs all arguments to be
+evaluated, and does not work well with non-standard evaluation. Many
+R packages currently promoted by Hadley Wickham and many others
+("tidyverse") often favor non-standard evaluation, and constrain
+to S3. I think that both arguments have some merit, and would look
+forward to a good user study that compares the usability of the
+two approaches.

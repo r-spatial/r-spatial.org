@@ -7,8 +7,9 @@
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>{{ site.title }}</li>
+          <!-- <li>{{ site.title }}</li> -->
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+		  <li> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img class="CC" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a> </li>
         </ul>
       </div>
 
@@ -22,9 +23,9 @@
 
           {% if site.twitter_username %}
           <li>
-            <!-- {% include icon-twitter.html username=site.twitter_username %} -->
+            {% include icon-twitter.html username=site.twitter_username %}
 			<!-- <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img class="CC" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a> -->
-		  license: <a href="http://creativecommons.org/licenses/by/4.0/">CC-BY</a>
+		  <!-- license: <a href="http://creativecommons.org/licenses/by/4.0/">CC-BY</a> -->
           </li>
           {% endif %}
         </ul>

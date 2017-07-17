@@ -73,7 +73,7 @@ plot(gl.laea, add = TRUE, col = grey(.8))
 
 library(trajectories)
 data(storms)
-plot(as(spTransform(storms[1][1:12], laea), "SpatialLines"), add = TRUE, 
+plot(spTransform(as(storms[1][1:12], "SpatialLines"), laea), add = TRUE, 
 	col = brewer.pal(12, "Paired"), lwd = 3)
 box()
 

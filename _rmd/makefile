@@ -1,6 +1,7 @@
 # NAME	= 2016-03-08-plotting-spatial-grids
 
-NAME	= 2016-03-17-the-new-R-way
+# NAME	= 2017-01-30-mapedit_intro
+NAME	= 2017-06-09-mapedit_0-2-0
 
 all:
 	vi $(NAME).Rmd
@@ -12,4 +13,4 @@ all:
 		../_posts/$(NAME).markdown
 	rm -fr xx.md xx.Rmd
 	cp -rf images/* ../images
-	rm -fr images
+	# rm -fr images
