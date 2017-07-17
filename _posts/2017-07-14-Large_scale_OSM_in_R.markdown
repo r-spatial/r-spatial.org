@@ -80,7 +80,7 @@ commands:
 
 ![](https://konstantinklemmer.github.io/images/blog/OSM_in_R/postgre_script.png)
 
-These extensions should now show up when openng the `Extensions` path in
+These extensions should now show up when opening the `Extensions` path in
 our `London OSM` database.
 
 Setting up Osmosis and importing the data
