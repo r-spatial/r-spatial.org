@@ -257,7 +257,7 @@ final `PostgreSQL` query, we close the connection using the
     ## [1] TRUE
 
     #SET CRS
-    lines <- st_as_sf(lines, wkt="geom") %>% `st_crs<-`(4326)
+    lines <- st_as_sf(lines, wkt="geom") %>% st_set_crs(4326)
     #SUBSET CYCLEWAYS
     cycleways <- lines %>% filter(highway=="cycleway")
     #SUBSET OTHER STREETS
