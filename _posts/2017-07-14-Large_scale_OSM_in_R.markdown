@@ -222,7 +222,9 @@ projection:
 
     #SET COORDINATE SYSTEM
     require(sf)
-    points <- st_as_sf(points, wkt="geom") %>% `st_crs<-`(4326)
+    points <- st_as_sf(points, wkt="geom") %>% st_set_crs(4326)
+
+(an alternative, potentially faster route would have been to leave the `wkb_geometry` column in, and use `st_as_sf` without the `wkt` argument.)
 
 We can now scrape our dataset for the data we are looking for, e.g. all
 bicycle parking spots (see
@@ -255,7 +257,7 @@ final `PostgreSQL` query, we close the connection using the
     ## [1] TRUE
 
     #SET CRS
-    lines <- st_as_sf(lines, wkt="geom") %>% `st_crs<-`(4326)
+    lines <- st_as_sf(lines, wkt="geom") %>% st_set_crs(4326)
     #SUBSET CYCLEWAYS
     cycleways <- lines %>% filter(highway=="cycleway")
     #SUBSET OTHER STREETS
