@@ -16,14 +16,12 @@ geometries to linear in the number of geometries.  A recent
 [commit](https://github.com/edzer/sfr/commit/96d82b0409254c5c6f852f4b87df8d31049e35a7)
 brings spatial indexes to sf for the binary logical predicates
 (`intersects`, `touches`, `crosses`, `within`, `contains`,
-`contains_properly`, `overlaps`, `covers`, `covered_by`), as well
-as the binary predicates that yield geometries (`intersection`,
-`union`, `difference`, `sym_difference`).
+`contains_properly`, `overlaps`, `covers`, `covered_by`,
+`relate_pattern`, `equals`, `disjoint`), as well as `intersection`,
+which returns intersecting geometries.
 
-The spatial join function `st_join` using a logical predicate to
-join features, and `aggregate` or `summarise` using `union` to union
-aggregated feature geometries, are also affected by this speedup.
-
+The spatial join function `st_join` uses a logical predicate to
+join features, and is also also affected by this speedup.
 
 Antecedents
 -----------
