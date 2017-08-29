@@ -11,6 +11,8 @@ meta-json: {"layout":"post","link-citations":true,"bibliography":"../bibs/Biblio
 title: Spatial Modeling Using Statistical Learning Techniques
 ---
 
+*- This post was updated to sperrorest v2.0.0 in July 2017 -*
+
 Introduction
 ============
 
