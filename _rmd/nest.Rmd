@@ -1,0 +1,159 @@
+---
+layout: post
+output: html_document
+comments: true
+categories: r
+---
+
+DOWNLOADHERE
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+rm("storms")
+```
+
+### The storms dataset in dplyr
+
+I'm not sure whether this is a good time to talk about storm trajectories, but am pretty sure that many have seen some [pretty visualisations](https://www.nytimes.com/interactive/2017/08/24/us/hurricane-harvey-texas.html) of them. In R, [many packages provide or analyse trajectory data](https://cran.r-project.org/web/views/SpatioTemporal.html), but how is this done in the tidyverse? This blog post explores some options, I would be happy to improve it after your feedback.
+
+```{r}
+library(tidyverse)
+```
+Since version 0.7-0, `dplyr` comes with a nice spatiotemporal dataset on storm tracks,
+obtained from the atlantic hurricane database [HURDAT2](http://www.nhc.noaa.gov/data/#hurdat):
+```{r}
+storms
+```
+the script to import this dataset in R derives new variables and converts some measurement units and is found [here](https://github.com/tidyverse/dplyr/blob/master/data-raw/storms.R); I could get it to work after two rather trivial modifications.
+
+The dataset is given in an unstructured tibble and as is quite typical, longitude and latitude are placed in two columns. They are of course compound values: by knowing one you can do very little without knowing the other. We can bind longitude and latitude together into `POINT` simple feature geometries, and define the datum (the reference system of the coordinates).  This is done by converting the tibble into a simple features tibble:
+
+```{r}
+library(sf)
+storms.sf <- storms %>% 
+	st_as_sf(coords = c("long", "lat"), crs = 4326) 
+class(storms.sf)
+```
+We select a few columns only to also show some of the `POINT`s:
+```{r}
+storms.sf %>% select(name, year, geometry)
+```
+
+We can create proper time values and drop some components now obsolete:
+
+```{r}
+storms.sf <- storms.sf %>% 
+	mutate(time = as.POSIXct(paste(paste(year,month,day, sep = "-"), 
+								   paste(hour, ":00", sep = "")))) %>% 
+	select(-month, -day, -hour)
+storms.sf %>% select(name, time, geometry)
+```
+
+We now have a `POINT` dataset that, when plotted, still shows unstructured points:
+
+```{r}
+cls <- storms.sf %>% pull(status)
+cls <- factor(cls, levels = unique(cls))
+col = sf.colors(length(levels(cls)))
+plot(st_geometry(storms.sf), cex = .2, axes = TRUE, graticule = TRUE, 
+	 col = col[cls])
+legend("topleft", legend = levels(cls), col = col, pch = 1)
+```
+
+(note that we're using base plot, since `ggplot` is still [undeveloped for simple feature points](https://github.com/tidyverse/ggplot2/issues/2037))
+
+### Storm summary properties
+
+What we just saw is storm observations, colored by severity. What we lack is the connections between points of individual storms. We can obtain these by grouping points by name and year (names are being re-used), and nesting them:
+```{r}
+(storms.nest <- storms.sf %>% group_by(name, year) %>% nest)
+```
+For each nested `data.frame` in the `data` list-column, we can combine the points into a line by mapping this function:
+```{r}
+to_line <- function(tr) st_cast(st_combine(tr), "LINESTRING") %>% .[[1]] 
+```
+to the list-column:
+```{r}
+(tracks <- storms.nest %>% pull(data) %>% map(to_line) %>% st_sfc(crs = 4326))
+```
+and combining these storm-based geometries to the storm-based attributes:
+```{r}
+(storms.tr <- storms.nest %>% select(-data) %>% st_sf(geometry = tracks))
+```
+We can now plot tracks by storm:
+```{r}
+storms.tr %>% 
+	ggplot(aes(color = name)) + geom_sf() + theme(legend.position="none")
+storms.tr %>% ggplot(aes(color = year)) + geom_sf()
+```
+
+An interactive plot is obtained using mapview; click on a track to see name and year:
+```{r}
+library(mapview)
+mapview(storms.tr, zcol = "year", legend = TRUE)
+```
+
+We could easily have aggregated other quantities that vary over a single storm track (category, wind speed, size) and add those to each track, but what we did loose is these properties _at_ individual storm points. 
+
+### Variations along a storm track
+
+Let's try to plot wind speed as it varies along a storm track.  For this, we will have to create line segments from each point to the next, and add the attributes to those segments. 
+
+A function that creates n-1 `LINESTRING` geometries from n subsequent points is
+```{r}
+to_lines <- function(tr) { 
+	g = st_geometry(tr)
+	hd = head(g, -1)
+	tl = tail(g, -1)
+	map2(hd, tl, function(x,y) st_combine(st_sfc(x, y, crs = 4326))) %>% 
+		map(function(x) st_cast(x, "LINESTRING"))
+}
+```
+we map this function to each storm track in `storms.nest`:
+```{r}
+trs <- storms.nest %>% 
+	pull(data) %>% 
+	map(to_lines) %>% 
+	unlist(recursive = FALSE) %>% 
+	do.call(c, .)
+```
+and combine with the attributes, by first the last attribute record for each track
+```{r}
+fn = function(x) head(x, -1) %>% as.data.frame %>% select(-geometry)
+storms.nest <- storms.nest %>% mutate(data = map(data, fn))
+```
+and then adding the `LINESTRING` geometries to these attributes, plotting wind speed:
+```{r}
+storms.tr2 <- storms.nest %>% unnest %>% st_set_geometry(trs)
+nrow(storms.tr2)
+storms.tr2 %>% ggplot(aes(color = wind)) + geom_sf()
+```
+
+Here, we used the attributes of each starting point to color the line segment to the next point.
+Alternatively, we could have taken the attributes of the end points of line segments, or averaged them. 
+
+In the following plot, you can query the location-specific properties of each storm track by clicking a line segment:
+```{r}
+mapview(storms.tr2, zcol = "wind", legend = TRUE)
+```
+
+The wind speed variation is easier to appreciate when fewer tracks are plotted, and a larger line width is used:
+
+```{r}
+storms.tr3 <- storms.tr2 %>% 
+	filter(time >= as.POSIXct("2010-01-01")) 
+mapview(storms.tr3, zcol = "wind", lwd = 4)
+```
+
+### Plotting points and lines
+
+Using base plot, it quite easy to plot both lines and points:
+
+```{r}
+plot(storms.tr3["wind"], type = 'p', cex = .2, pch = 16, axes = TRUE,
+	 graticule = TRUE)
+plot(storms.tr3["wind"], type = 'l', add = TRUE)
+```
+
+but much harder to get a proper legend for the wind values. I don't whether or how this can be done with `mapview` or `ggplot2`.

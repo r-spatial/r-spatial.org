@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Tidy storm trajectories"
+author: "Edzer Pebesma"
+date: "August 28, 2017"
+output: html_document
+comments: true
+categories: r
+---
+{% include storm_tracks.html %}
