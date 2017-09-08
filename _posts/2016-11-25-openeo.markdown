@@ -163,3 +163,11 @@ Earlier posts related to this:
 * [The future of R spatial](http://r-spatial.org/r/2016/09/26/future.html)
 * [Scalable Earth Observation analytics with R and SciDB](http://r-spatial.org/r/2016/05/11/scalable-earth-observation-analytics.html)
 * [Does rasdaman CE solve an open source geospatial problem?](http://r-spatial.org/2016/05/20/rasdaman.html)
+
+## We got funded!
+
+News:
+
+* the openEO project proposal mentioned above got 2M H2020 funding!
+* information on the project can be found at http://openeo.org/
+* the github organisation is found at https://github.com/open-eo/
