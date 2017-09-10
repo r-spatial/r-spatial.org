@@ -3,6 +3,7 @@ layout: post
 output: html_document
 comments: true
 categories: r
+always_allow_html: yes
 ---
 
 DOWNLOADHERE
@@ -156,4 +157,11 @@ plot(storms.tr3["wind"], type = 'p', cex = .2, pch = 16, axes = TRUE,
 plot(storms.tr3["wind"], type = 'l', add = TRUE)
 ```
 
-but much harder to get a proper legend for the wind values. I don't whether or how this can be done with `mapview` or `ggplot2`.
+With mapview, this is done by
+```{r}
+mapview(storms.tr3, zcol = "wind", lwd = 4, legend = TRUE) %>%
+  mapview(st_cast(storms.tr3, "POINT"), map = ., zcol = "wind", cex = 4)
+```
+
+but much harder to get a proper legend for the wind values. I don't
+know how this can be done with `ggplot2`.
