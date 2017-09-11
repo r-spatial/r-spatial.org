@@ -3,10 +3,9 @@ layout: post
 output: html_document
 comments: true
 categories: r
-always_allow_html: yes
 ---
 
-DOWNLOADHERE
+[view raw Rmd](https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/nest.Rmd)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

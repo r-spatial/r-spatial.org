@@ -5,7 +5,7 @@ NAME	= nest
 
 all:
 	vi $(NAME).Rmd
-	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/edzer\/r-spatial\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
+	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/\/r-spatial\/r-spatial.org\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
 	Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document("markdown_mmd"))'
 	awk -f dash.awk xx.md | \
 		sed 's/images\//\/images\//g' | \
@@ -16,7 +16,7 @@ all:
 	# rm -fr images
 
 storms:
-	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/edzer\/r-spatial\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
+	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/\/r-spatial\/r-spatial.org\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
 	Rscript -e 'library(rmarkdown); render("xx.Rmd", "html_document")'
 	mv xx.html ../_includes/storm_tracks.html
 	rm -fr xx.Rmd
