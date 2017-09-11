@@ -16,11 +16,14 @@ earlier that attendees should download his docker image by Jul 1, by
 
     docker pull bhaskarvk/rgeodataviz
 
+The video recording is found [here](https://channel9.msdn.com/events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/Geospatial-visualization-using-R?term=spatial%20R)
+
 ### 2. Spatial data in R: new directions (afternoon)
 
 My tutorial deals mostly with [sf](https://edzer.github.io/sfr/),
-the material (html, R markdown) is found at here:
-[https://edzer.github.io/UseR2017/](https://edzer.github.io/UseR2017/)
+the material (html with link to R-markdown file) is found at here:
+[https://edzer.github.io/UseR2017/](https://edzer.github.io/UseR2017/).
+The video recording is found [here](https://channel9.msdn.com/Search?term=spatial%20R#pubDate=year&ch9Search&lang-en=en)
 
 I'm looking forward to it!
 
