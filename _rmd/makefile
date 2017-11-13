@@ -1,7 +1,4 @@
-# NAME	= 2016-03-08-plotting-spatial-grids
-
-# NAME	= 2017-01-30-mapedit_intro
-NAME	= nest
+NAME	= 2017-11-02-stars1
 
 all:
 	vi $(NAME).Rmd
@@ -13,7 +10,7 @@ all:
 		../_posts/$(NAME).markdown
 	rm -fr xx.md xx.Rmd
 	cp -rf images/* ../images
-	# rm -fr images
+	rm -fr images
 
 storms:
 	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/\/r-spatial\/r-spatial.org\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd

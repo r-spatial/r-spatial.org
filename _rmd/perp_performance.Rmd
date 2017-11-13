@@ -1,0 +1,464 @@
+---
+layout: post
+title: "Using data.table and Rcpp to scale geo-spatial analysis with sf"
+author: "Tim Appelhans"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+comments: true
+categories: r
+---
+
+[view raw Rmd](https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/perp_performance.Rmd)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+### The background
+
+At the beginning of 2017 I left academia to work in the industry. Luckily, I found a great job as a geo-spatial data analyst at [GfK Geomarketing](http://www.gfk-geomarketing.de/en/home.html) where we do all sorts of spatial data analyses, including [micro-geographic studies](http://www.gfk-geomarketing.com/en/market_data/microgeographic_data.html). These micro-geographic projects can be challenging, because data sets can grow very large very quickly and thus performance becomes an important issue. 
+
+### The tweet
+
+Recently, I tweeted about some success I had in combining R packages **sf**, **data.table** and **Rcpp** to enable speedy geo-spatial analysis and Matt Harris kindly suggested that a write up of this would be well received.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">A blog post about that would process be well received!</p>&mdash; Matt Harris (@Md_Harris) <a href="https://twitter.com/Md_Harris/status/923660068545015810?ref_src=twsrc%5Etfw">October 26, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+So here we go.
+
+<hr>
+
+### The scenario
+
+The project that stimulated my tweet is aiming at mapping certain administrative polygon attributes to road network linestrings. For lines located within polygons this can easily be done with a (potentially weighted) spatial join - `st_join` from package **sf**. Frequently, however, administrative borders follow roads/streets which means that the two sides of a road will fall into two different administrative areas. This is where the challenge begins. How can we map different attributes from both sides to one linestring?
+
+<hr>
+
+### The challenge
+
+We need to come up with a way of extracting the correct administrative feature data for each road in our area of interest, regardless whether the road is located entirely within one or marks a border between two administrative areas. One important piece of information here is that road segments are defined as the (multi-)linestring between two intersections. This means that we can represent the road segments as points onto which we can map the polygon feature attributes. This approach, however, still leaves us with the problem of mapping data from two different administrative areas onto one road segment point whenever that represents a road along an administrative border. The idea to solve this is to establish perpendicular points on either side of the road at the location of the point representing the road segment. 
+
+The calculation of these perpendicular points is what I referred to in my tweet and will be the scope of this blog post.
+
+<hr>
+
+### The plan of action
+
+What are the steps necessary to calculate perpendicular points for a set of line strings at a given location? We can break this down into four major steps:
+
+  1. identify the point that represents a road segment - we're going to take the center point (the line "centroid")
+  2. identify the line segment that this point falls on
+  3. calculate the bearing (angle to projected north) of this line segment 
+  4. calculate the two points at 90 degree angles on either side of this line segment for a given distance from the line at the location of the center point
+  
+Note that the underlying assumption to all that follows is that we do our calculations in 2-D euclidean space, hence we need projected coordinates not longlat!
+
+<hr>
+
+### The code
+
+Let's tackle this. We will develop our solution using data that comes with package **mapview** and later test its performance on a largish road network from OpenStreetMap. 
+
+I have uploaded a few helper functions as gists to do Pythagorean calculations in the 2-D plane in both [r code](https://gist.github.com/tim-salabim/387c6179faf826f810938a542d1f55ca) and [c++ code](https://gist.github.com/tim-salabim/561afd611fea2acdd14b4b6acce1bc8e). 
+
+First of all, let's load the packages and source the functions we need to do all the calculations. Note that the R version of the functions will be in *snake_case* and the C++ version will be *lowerCamelCase*.
+ 
+```{r libs, message=FALSE}
+library(mapview)
+library(sf)
+library(data.table)
+library(devtools)
+
+### read and save cpp functions from github gist
+cpp_functions = readLines(
+  "https://gist.githubusercontent.com/tim-salabim/561afd611fea2acdd14b4b6acce1bc8e/raw/32e914d26b117714039f78acb99189467eddfddd/perpPoints.cpp"
+)
+
+fname = file.path(tempdir(), "perpPoints.cpp")
+writeLines(cpp_functions, fname)
+
+### now source cpp file to get functionality
+Rcpp::sourceCpp(file = fname)
+
+### source R version of the functions directly from gist
+devtools::source_gist("387c6179faf826f810938a542d1f55ca", filename = "perp_points.R")
+```
+
+<hr>
+
+#### 1. R function to calculate perpendicular points
+
+A common approach to problems like this one is to create a function that calculates the desired outcome for a single object and then apply that function iteratively to all objects as necessary. In many cases functions can be written so that they are vectorised, however, in our case this will turn out to be a challenge. In any case, we will first create a function that calculates perpendicular points of a single linestring purely written in R to understand the process. We will enable an additional argument called `perp_dist` to supply the distance of the perpendicular points away from the line in units of the projection.
+
+```{r st_perp_points_r}
+st_perp_points_r = function(line, perp_dist = 10) {
+
+  ## calculate line centroid coordinates
+  mp_crds = sf::st_coordinates(sf::st_line_sample(line, n = 1))
+
+  ## identify start node of centroid segment via cumulative sum of segment lengths
+  crd = sf::st_coordinates(line)
+  cs = cumsum(calc_len(c(0, diff(crd[, "X"])),
+                       c(0, diff(crd[, "Y"]))))
+  mx = which((cs / max(cs)) < 0.5)
+  idx = mx[length(mx)]
+  
+  ## calculate perpendicular points
+  diff_x = mp_crds[, "X"] - crd[idx, "X"]
+  diff_y = mp_crds[, "Y"] - crd[idx, "Y"]
+  
+  perp_r_offset = calc_perp_point_r(diff_x, diff_y, perp_dist)
+  rownames(perp_r_offset) = NULL
+  perp_l_offset = calc_perp_point_l(diff_x, diff_y, perp_dist)
+  rownames(perp_l_offset) = NULL
+  
+  prx = crd[idx, "X"] + perp_r_offset[, 1]
+  pry = crd[idx, "Y"] + perp_r_offset[, 2]
+  plx = crd[idx, "X"] + perp_l_offset[, 1]
+  ply = crd[idx, "Y"] + perp_l_offset[, 2]
+  
+  ## right side
+  perp_r = data.frame(L1 = unique(crd[, "L1"]), 
+                      prx = prx, 
+                      pry = pry)
+  names(perp_r) = c("ID", "X", "Y")
+  perp_r$side = "R"
+  rownames(perp_r) = NULL
+  
+  ## left side
+  perp_l = data.frame(L1 = unique(crd[, "L1"]), 
+                      plx = plx, 
+                      ply = ply)
+  names(perp_l) = c("ID", "X", "Y")
+  perp_l$side = "L"
+  rownames(perp_l) = NULL
+  
+  ## center
+  m = data.frame(L1 = unique(crd[, "L1"]), 
+                 ptx = mp_crds[, "X"], 
+                 pty = mp_crds[, "Y"])
+  names(m) = c("ID", "X", "Y")
+  rownames(m) = NULL
+  m$side = "C"
+  
+  res = rbind(m, perp_r, perp_l)
+  res = sf::st_as_sf(res,
+                     coords = c("X", "Y"),
+                     crs = sf::st_crs(lines))
+  
+  return(res)
+}
+```
+
+Let's check whether this works
+
+```{r st_perp_points_r_check}
+lines = sf::st_cast(trails, "LINESTRING")
+line = lines[7, ]
+
+pp = st_perp_points_r(line, perp_dist = 10)
+
+plot(sf::st_geometry(line))
+plot(pp, add = TRUE)
+```
+
+Sweet! So now we have a function to calculate perpendicular points for a given linestring. However, we want to be able to do this for objects of multiple linestrings. For this we need to loop through those line by line as we rely on calculations based on the coordinates of the individual line vertices and there is no way of vectorising this (correct me if I'm wrong).
+
+Let's see how long this will take for the entire trails data set (979 linestrings when cast).
+
+```{r st_perp_points_r_multiple}
+(duration_r = system.time({
+  pp_r = do.call(rbind, lapply(seq(nrow(lines)), function(i) {
+    st_perp_points_r(lines[i, ], perp_dist = 10)
+  }))
+}))
+```
+
+**`r as.vector(duration_r["elapsed"])`** seconds for about 1000 linestrings is unacceptably slow, especially given that we want to do this calculation for road networks of entire countries! It is hardly surprising that this approach is slow as we are looping through our data line by line in R using `lapply`. There is some additional overhead by converting the result of each iteration to a `sf` object instead of doing this in one fell swoop after we have processed all linestrings.
+
+Thus, we need a different approach. In particular, we need to get rid of the `do.call(rbind, lapply(...` approach in order to speed things up!
+
+<hr>
+
+#### 2. Using data.table
+
+One known and well tested remedy for such situations is to use package **data.table** to do group-wise calculations. So let's write a function that takes not only a single linestring as input but an object of any number of linestrings and does the looping internally.
+
+```{r datatable}
+st_perp_points_dt = function(lines, perp_dist = 10) {
+
+  mp_crds = sf::st_coordinates(sf::st_line_sample(lines, n = 1))
+
+  crd = data.table::data.table(sf::st_coordinates(lines))
+  data.table::setkey(crd, L1)
+
+  crd[, id := 1:nrow(crd)]
+  crd[, cs := cumsum(
+    calc_len(c(0, diff(X)), c(0, diff(Y)))
+  ), by = data.table::rleid(L1)]
+  crd[, mx := max(cs), by = data.table::rleid(L1)]
+  crd[, fr := cs / mx, by = data.table::rleid(L1)]
+  tmp = crd[fr < 0.5, ]
+  data.table::setkey(tmp, L1)
+
+  tmp = tmp[J(unique(L1)), mult = "last"]
+  tmp$ptx = mp_crds[, "X"]
+  tmp$pty = mp_crds[, "Y"]
+  tmp$dx = tmp$ptx - tmp$X
+  tmp$dy = tmp$pty - tmp$Y
+
+  perp_r_offset = calc_perp_point_r(tmp$dx, tmp$dy, perp_dist)
+  perp_l_offset = calc_perp_point_l(tmp$dx, tmp$dy, perp_dist)
+
+  tmp$prx = tmp$X + perp_r_offset[, 1]
+  tmp$pry = tmp$Y + perp_r_offset[, 2]
+  tmp$plx = tmp$X + perp_l_offset[, 1]
+  tmp$ply = tmp$Y + perp_l_offset[, 2]
+
+  ## right side
+  perp_r = tmp[, c("L1", "prx", "pry")]
+  names(perp_r) = c("ID", "X", "Y")
+  perp_r$side = "R"
+
+  ## left side
+  perp_l = tmp[, c("L1", "plx", "ply")]
+  names(perp_l) = c("ID", "X", "Y")
+  perp_l$side = "L"
+
+  ## center
+  m = tmp[, c("L1", "ptx", "pty")]
+  names(m) = c("ID", "X", "Y")
+  m$side = "C"
+
+  res = rbind(m, perp_r, perp_l)
+  res = sf::st_as_sf(data.table::setorder(res, ID),
+                     coords = c("X", "Y"),
+                     crs = sf::st_crs(lines))
+
+  return(res)
+}
+
+
+(duration_dt = system.time({
+  pp_dt = st_perp_points_dt(lines, perp_dist = 10)
+}))
+```
+
+**`r as.vector(duration_dt["elapsed"])`** seconds is a huge improvement! 
+
+Still, why stop here? Maybe there is a way to make this even faster? Let's take a look at the call stack to figure out where most of the time is spent when executing this function. For this we are going to use the **profvis** package.
+
+```{r profvis1}
+profvis::profvis({
+  st_perp_points_dt(lines, perp_dist = 10)
+  Sys.sleep(0.1)
+})
+```
+
+<br>
+
+It turns out that about 60% of the time is spent on identifying the line centroids via `st_line_sample` and within that we see an `lapply` call and some conversions using the **units** package. `st_line_sample` is a very flexible function to allow for sampling points along a line in many different ways at pretty much any combination of distances (or intervals). In our case, however, we are only interested in one point sample in the center of the line, so maybe we can get rid of some of the sugar that provides flexibility we don't need and optimise it for our purposes. 
+
+<hr>
+
+#### 3. Optimising the function
+
+The source code of `st_line_sample` is found [here](https://github.com/r-spatial/sf/blob/9da496d5a8d20aa7158b2d98c9c44a3f356ba633/R/geom.R#L901). Turns out we really only need 3 lines of `st_line_sample` for our purposes.
+
+```{r st_line_centroid}
+st_line_centroid = function(x) {
+  l = sf::st_length(x) * 0.5
+  x = sf::st_geometry(x)
+  sf::st_sfc(sf:::CPL_gdal_linestring_sample(x, l), crs = sf::st_crs(x))
+}
+```
+
+So let's put this all together and see how much performance we can gain. Note that we also use the C++ Pythagorean functions in this final optimised version. We shall call it `st_perp_points`.
+
+```{r optimised}
+st_perp_points = function(lines, perp_dist = 10) {
+  
+  mp_crds = sf::st_coordinates(st_line_centroid(lines))
+
+  crd = data.table::data.table(sf::st_coordinates(lines))
+  data.table::setkey(crd, L1)
+
+  crd[, id := 1:nrow(crd)]
+  crd[, cs := cumsum(
+    calcLen(c(0, diff_cpp(X)), c(0, diff_cpp(Y)))
+  ), by = data.table::rleid(L1)]
+  crd[, mx := max(cs), by = data.table::rleid(L1)]
+  crd[, fr := cs / mx, by = data.table::rleid(L1)]
+  tmp = crd[fr < 0.5, ]
+  data.table::setkey(tmp, L1)
+
+  tmp = tmp[J(unique(L1)), mult = "last"]
+  tmp$ptx = mp_crds[, "X"]
+  tmp$pty = mp_crds[, "Y"]
+  tmp$dx = tmp$ptx - tmp$X
+  tmp$dy = tmp$pty - tmp$Y
+
+  perp_r_offset = calcPerpPointR(tmp$dx, tmp$dy, perp_dist)
+  perp_l_offset = calcPerpPointL(tmp$dx, tmp$dy, perp_dist)
+
+  tmp$prx = tmp$X + perp_r_offset[, 1]
+  tmp$pry = tmp$Y + perp_r_offset[, 2]
+  tmp$plx = tmp$X + perp_l_offset[, 1]
+  tmp$ply = tmp$Y + perp_l_offset[, 2]
+
+  ## right side
+  perp_r = tmp[, c("L1", "prx", "pry")]
+  names(perp_r) = c("ID", "X", "Y")
+  perp_r$side = "R"
+
+  ## left side
+  perp_l = tmp[, c("L1", "plx", "ply")]
+  names(perp_l) = c("ID", "X", "Y")
+  perp_l$side = "L"
+
+  ## center
+  m = tmp[, c("L1", "ptx", "pty")]
+  names(m) = c("ID", "X", "Y")
+  m$side = "C"
+
+  ## combine and convert to sf
+  res = rbind(m, perp_r, perp_l)
+  res = sf::st_as_sf(data.table::setorder(res, ID),
+                     coords = c("X", "Y"),
+                     crs = sf::st_crs(lines))
+
+  return(res)
+}
+
+
+(duration = system.time({
+  pp = st_perp_points(lines, perp_dist = 10)
+}))
+```
+
+**`r as.vector(duration["elapsed"])`** seconds means that by using this optimised version of `st_line_sample` we've decreased computation time by a factor of about 2.5. `st_line_centroid` now only accounts for about 15% of the call stack.
+
+```{r profvis2}
+profvis::profvis({
+  st_perp_points(lines, perp_dist = 10)
+  Sys.sleep(0.1)
+})
+```
+
+<br>
+<hr>
+
+### The tweet revisited (QED)
+
+So what about my tweeted claim that we can process about 600k linestrings in less than 2 minutes? Well, let's try... Note, for acceptable running time when knitting this document we're going to test performance on a slightly smaller road network of about 230k roads. Yet, this will give us a good enough impression on performance. The road network data used here can be downloaded from [geofabrik.de](https://www.geofabrik.de) a great resource for pre-processed OpenStreetMap data. The code chunk below will download the relevant data set into a temporary file, unzip the contents into a temporary folder, read the relevant layer and delete everything afterwards.
+
+```{r download_of}
+## download Oberfanken OSM data from geofabrik.de and unzip
+url = "http://download.geofabrik.de/europe/germany/bayern/oberfranken-latest-free.shp.zip"
+tmpfile = tempfile()
+download.file(url, tmpfile)
+unzip(tmpfile, exdir = file.path(tempdir(), "shp_files"))
+unlink(tmpfile, recursive = TRUE, force = TRUE)
+
+## read and transform roads
+roads = sf::st_read(file.path(tempdir(), "shp_files", "gis.osm_roads_free_1.shp"))
+roads = sf::st_transform(roads, crs = 3068)
+unlink(file.path(tempdir(), "shp_files"), recursive = TRUE, force = TRUE)
+
+## time perp point performance
+(elapsed = system.time({
+  st_perp_points(roads)
+}))
+```
+
+**`r as.vector(elapsed["elapsed"])`** seconds is about the same as it took for the calculation of about 1k perpendicular points using our first implementation. So we have come quite far since then.
+
+Also, I think we can agree that we can safely say
+
+> **quod erat demonstrandum**
+
+<hr>
+
+### The wrap up
+
+To wrap it up, let's compare our methods on this largish data set. Running 3 replications will give us timings approximating my claim regarding 600k linestrings. I dare not include the slow R `lapply` based implementation, but if you are curious and have a lot of time you can simply un-comment the first line in the `benchmark` call to include these timings.
+
+<hr>
+
+#### 1. Calculation benchmark
+
+```{r benchmark}
+library(rbenchmark)
+
+benchmark(
+  # r_result <<- st_perp_points_r(roads),
+  dt_result <<- st_perp_points_dt(roads),
+  op_result <<- st_perp_points(roads),
+  replications = 3,
+  columns = c("test", "replications", "elapsed", "relative")
+)
+```
+
+We see that the optimised function using our minimalistic `st_line_centroid` is about 4 times as fast as using `st_line_sample`.
+
+<br>
+
+Finally, we're going to check whether the results are equal.
+
+```{r equal}
+all.equal(dt_result, op_result)
+```
+
+<br>
+
+And we also visually inspect the result.
+
+```{r view, fig.width=6.83}
+mapview(head(roads)) + 
+  mapview(head(op_result, 18), zcol = "side", legend = TRUE)
+```
+
+<br>
+
+Looks as expected!
+
+<hr>
+
+#### 2. Write benchmark
+
+Given that this post is concerned with performance issues of geo-spatial analysis, let's go the whole nine yards (even though I'm a big fan of SI units). There has been a rather lengthy and very enlightening discussion at https://github.com/r-spatial/sf/issues/470 about write speed comparisons between the popular shapefile format and the much more modern [geopackage format](http://www.geopackage.org) which resulted in an update of [gdal_write.cpp](https://github.com/r-spatial/sf/commit/46aa370c0ca27c435dca8820204c41a9703f22c2) the function that is used under the hood in `st_write`. This has tremendously increased write speed for the geopackage driver so that it is now on par and for large data sets even outperforming the shapefile driver. Let's benchmark this for our `op_result`.
+
+```{r write, warning=FALSE}
+fldr = tempdir()
+shp_dsn = file.path(fldr, "result.shp")
+gpkg_dsn = file.path(fldr, "result.gpkg")
+
+benchmark(
+  sf_shp = st_write(op_result, shp_dsn, delete_dsn = TRUE, quiet = TRUE),
+  sf_gpkg = st_write(op_result, gpkg_dsn, delete_dsn = TRUE, quiet = TRUE),
+  replications = 3,
+  columns = c("test", "replications", "elapsed", "relative")
+)
+```
+
+```{r cleanup, echo=FALSE}
+## clean up
+unlink(shp_dsn)
+unlink(gpkg_dsn)
+```
+
+There are [many reasons](http://switchfromshapefile.org) to switch from shapefile to more modern geo-spatial file formats like geopackage and write speed performance should no longer be holding us back from making this switch.
+
+<hr>
+
+#### 3. Final considerations
+
+It may seem silly to compare a `lapply` based R implementation of a function that loops through features with **data.table** and C++ implementations, but I think the path we've taken here resembles quite nicely a standard approach of tackling a problem in R. Implement the desired functionality in R, test whether it scales, if it doesn't profile and optimise performance by identifying and addressing bottlenecks.
+
+I am in no way claiming that the presented final solution is the most performant implementation that can possibly be coded. In fact, I'd love to see even better performing variants, so if people can come up with even better performing solutions, I'd love to hear about them.
+
+```{r sessinfo}
+sessionInfo()
+```
