@@ -1,0 +1,263 @@
+---
+layout: post
+title: "Spatiotemporal arrays for R - blog one"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+ev = TRUE
+set.seed(131)
+```
+
+## Summary 
+
+This is the first blog on the
+[stars](https://github.com/r-spatial/stars) project, an R-Consortium
+funded project for _spatiotemporal tidy arrays with R_.  It shows
+how `stars` combines bands and/or subdatasets of GDAL datasets (data
+cubes) into R arrays with well-referenced space and time dimensions,
+how it deals with affine (rotated) grids, and how it interfaces to
+packages `dplyr`, `sf` and `raster`. An artificial example shows
+the creation of an origin-destination matrix by travel mode and time.
+
+## Introduction
+
+The goals of the stars project are
+
+* to handle raster data in a way that integrates well with the [sf](https://github.com/r-spatial/sf) project and with the [tidyverse](https://www.tidyverse.org/)
+* to handle array data (time series, or otherwise functional data) where time and space are among the dimensions
+* to do this in a scalable way, i.e. deal with cases where data are too large to fit in memory or on disk
+* to think about a migration path for the large and famous [raster](https://cran.r-project.org/package=raster) in the same directions
+
+In its current stage `stars` and (as planned) does not have
+
+* scalability to large data sets; everything is still in memory
+* writing data back to disk
+
+The package is loaded by
+```{r}
+# devtools::install_github("r-spatial/stars")
+library(stars)
+```
+The `stars` package links natively to GDAL; all I/O is done through
+direct calls to GDAL functions, without using `sf` or `rgdal`.
+Spatiotemporal arrays are stored in objects of class `stars`, and 
+methods for class `stars` currently include:
+
+``` {r}
+methods(class = "stars")
+```
+Note that _everything_  in the `stars` api may still be subject to change in the next few months.
+
+## Reading a satellite image
+
+We can read a satellite image through GDAL, e.g. from a GeoTIFF file in the package:
+```{r fig.path = "images/", label="stars1-1"}
+tif = system.file("tif/L7_ETMs.tif", package = "stars")
+x <- tif %>% st_stars 
+par(mar = rep(0,4))
+image(x, col = grey((4:10)/10))
+```
+
+From the following output, we can see that the image is geographically referenced, and that the object returned (`x`) has three dimensions: `x`, `y` and `band`, and one attribute:
+```{r}
+x
+```
+
+Each dimension has a name; the meaning of the fields of a single dimension are:
+
+|*field* |*meaning*                             |
+|--------|--------------------------------------|
+| from   | the origin index (1)                 |
+| to     | the final index (dim(x)[i])          |
+| offset | the start value for this dimension   |
+| delta  | the step size for this dimension     |
+| refsys | the reference system, or proj4string |
+| point  | logical; whether cells refer to points, or intervals |
+| values | the sequence of values for this dimension (e.g., geometries) |
+
+This means that for an index i (starting at $i=1$) along a certain dimension, the corresponding dimension value (coordinate, time) is $\mbox{offset} + (i-1) \times \mbox{delta}$. This value then refers to the start (edge) of the cell or interval; in order to get the interval middle or cell centre, one needs to add half an offset. 
+
+Dimension `band` is a simple sequence from 1 to 6. Although bands refer to colors, their wavelength (color) values are not available.
+
+For this particular dataset (and most other raster datasets), we see that offset for dimension `y` is negative: this means that consecutive array values have decreasing $y$ values: cells are ordered from top to bottom, opposite the direction of the $y$ axis.
+
+`st_stars` reads all bands from a raster dataset, or a set of raster datasets, into a single `stars` array structure. While doing so, raster values (often UINT8 or UINT16) are converted to double (numeric) values, and scaled back to their original values if needed.
+
+The data structure `stars` resembles the `tbl_cube` found in `dplyr`; we can convert to that by
+```{r}
+as.tbl_cube(x)
+```
+
+In contrast to `stars` objects, `tbl_cube` objects 
+
+* do not explicitly handle _regular_ dimensions (offset, delta)
+* do not register reference systems (unless they are a single dimension property)
+* do not cope with affine grids (see below)
+* do not cope with dimensions represented by a list (e.g. simple features, see below)
+* do not register whether attribute values (measurements) refer to point or interval values, on each dimension
+
+## Affine grids
+
+The GDAL model can deal also with spatial rasters that are regular but not aligned with $x$ and $y$: affine grids. An example is given here:
+
+```{r fig.path = "images/", label="stars1-2"}
+par(cex.axis = .7) # font size axis tic labels 
+geomatrix = system.file("tif/geomatrix.tif", package = "stars")
+geomatrix %>% st_stars %>% st_as_sf(as_points = FALSE) %>%
+  plot(axes =TRUE, main = "geomatrix.tif", graticule = TRUE)
+```
+
+Looking at the dimensions
+```{r}
+geomatrix %>% st_stars %>% st_dimensions
+```
+
+further reveals that we now have a `geotransform` field shown in the dimension table; this is only displayed when the affine parameters are non-zero. The geotransform field has six parameters, $gt_1,...,gt_6$ 
+that are used to transform internal raster coordinates (column pixel $i$ and row pixel $j$) 
+to world coordinates ($x$, $y$):
+
+$$x = gt_1 + (i-1) gt_2 + (j-1) gt_3$$
+    
+$$y = gt_4 + (i-1) gt_5 + (j-1) gt_6$$
+    
+When $gt_3$ and $gt_5$ are zero, the $x$ and $y$ are parallel to $i$ and $j$, which makes it appear unrotated.
+
+## Reading a raster time series: netcdf
+
+Another example is when we read raster time series model outputs in a NetCDF file, e.g. by
+```{r eval=ev}
+prec = st_stars("data/full_data_daily_2013.nc")
+```
+
+(Note that this 380 Mb file is not included; data are described [here](ftp://ftp.dwd.de/pub/data/gpcc/html/fulldata-daily_v1_doi_download.html), and were downloaded from [here](ftp://ftp.dwd.de/pub/data/gpcc/full_data_daily_V1/full_data_daily_2013.nc.gz)).
+
+We see that
+```{r eval=ev}
+prec
+```
+
+For this dataset we can see that
+
+* variables have units associated
+* time is now a dimension, with proper units and time steps
+* missing values for the fourth variable were not taken care off correctly
+
+### Reading datasets from multiple files
+
+Model data are often spread across many files. An example of a 0.25 degree grid, global daily sea surface temperature product is found [here](ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/); a subset of the 1981 data was downloaded from [here](ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/1981/AVHRR/).
+
+We read the data by giving `st_stars` a vector with character names:
+```{r}
+x = c(
+"avhrr/avhrr-only-v2.19810901.nc",
+"avhrr/avhrr-only-v2.19810902.nc",
+"avhrr/avhrr-only-v2.19810903.nc",
+"avhrr/avhrr-only-v2.19810904.nc",
+"avhrr/avhrr-only-v2.19810905.nc",
+"avhrr/avhrr-only-v2.19810906.nc",
+"avhrr/avhrr-only-v2.19810907.nc",
+"avhrr/avhrr-only-v2.19810908.nc",
+"avhrr/avhrr-only-v2.19810909.nc"
+)
+
+(y = st_stars(x, quiet = TRUE))
+```
+
+Next, we select sea surface temperature (`sst`), and drop the singular `zlev` (depth) dimension using `adrop`:
+```{r eval=ev}
+library(abind)
+z <- y %>% select(sst) %>% adrop
+```
+
+We can now graph the sea surface temperature (SST) using `ggplot`, which needs data in a long table form, and without units:
+```{r fig.path = "images/", label="stars1-3"}
+df = as.data.frame(z)
+df$sst = unclass(df$sst)
+library(ggplot2)
+library(viridis)
+library(ggthemes)
+ggplot() +  
+  geom_tile(data=df, aes(x=x, y=y, fill=sst), alpha=0.8) + 
+  facet_wrap("time") +
+  scale_fill_viridis() +
+  coord_equal() +
+  theme_map() +
+  theme(legend.position="bottom") +
+  theme(legend.key.width=unit(2, "cm"))
+```
+
+## More complex arrays 
+
+Like `tbl_cube`, `stars` arrays have no limits to the number of dimensions they handle. An example is the origin-destination (OD) matrix, by time and travel mode.
+
+### OD: space x space x travel mode x time x time
+
+We create a 5-dimensional matrix of traffic between regions, by day, by time of day, and by travel mode. Having day and time of day each as dimension is an advantage when we want to compute patters over the day, for a certain period.
+
+```{r}
+nc = read_sf(system.file("gpkg/nc.gpkg", package="sf")) 
+to = from = st_geometry(nc) # 100 polygons: O and D regions
+mode = c("car", "bike", "foot") # travel mode
+day = 1:100 # arbitrary
+library(units)
+units(day) = make_unit("days since 2015-01-01")
+hour = set_units(0:23, h) # hour of day
+dims = st_dimensions(origin = from, destination = to, mode = mode, day = day, hour = hour)
+(n = dim(dims))
+traffic = array(rpois(prod(n), 10), dim = n) # simulated traffic counts
+(st = st_stars(list(traffic = traffic),  dimensions = dims))
+```
+
+This array has the feature geometries as dimensions for origin and destination, so that we can directly plot every slice without additional table joins. If we want to represent such an array as a `tbl_cube`, the simple feature geometry dimensions get lost and are replaced by indexes:
+```{r}
+st %>% as.tbl_cube 
+```
+
+The following demonstrates how `dplyr` can filter bike travel, and compute mean bike traffic by hour of day:
+```{r fig.path = "images/", label="stars1-4"}
+b <- st %>% as.tbl_cube %>%
+  filter(mode == "bike") %>%
+  group_by(hour) %>%
+  summarise(traffic = mean(traffic)) %>%
+  as.data.frame()
+require(ggforce)
+ggplot() +  
+  geom_line(data=b, aes(x=hour, y=traffic))
+```
+
+## Raster layers and bricks
+
+As a proof of concept, we can convert stars objects to and from raster layers (2D) or raster bricks (3D), e.g.
+```{r}
+z.raster = as(z, "Raster")
+z2 = st_as_stars(z.raster)
+all.equal(z, z2, check.attributes = FALSE)
+```
+(differences concern variable names, units, and dimension names)
+
+## Next steps
+
+The next steps in the stars project include:
+
+* we need to learn whether this data structure fits the needs, and is "fit" for the harder steps, involving scalability and remote computing
+* develop scalable versions, where `stars` objects proxy large arrays, locally, or on a remote server
+* implement subset, crop, apply methods in a more generic way than `filter` and `summarize` now do
+* create examples where we run a time-series model over each pixel
+* write easy plot methods
+* develop interactions with `mapview`
+
+## Reactions
+
+Reactions, questions, discussion etc. are all very welcome: either here, as issue on the [project page](https://github.com/r-spatial/stars/), on twitter, or by direct email.
