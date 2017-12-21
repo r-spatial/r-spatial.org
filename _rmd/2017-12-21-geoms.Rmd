@@ -13,7 +13,7 @@ TOC
 
 [DOWNLOADHERE]
 
-Suppose you have the following geometry, consisting of three overlapping polygons:
+Suppose you have the following geometry, consisting of three overlapping square polygons:
 
 ```{r echo=TRUE, fig=TRUE, fig.path = "images/", label="geoms1"}
 library(sf)
@@ -23,8 +23,8 @@ par(mar = rep(0, 4))
 plot(b, col = NA)
 ```
 
-and you are interested in the area where all circles overlap (green),
-or where exactly two circles overlap (orange):
+and you are interested in the area where all squares overlap (green),
+or where exactly two squares overlap (orange):
 
 ```{r echo=TRUE, fig=TRUE, fig.path = "images/", label="geoms2"}
 i = st_intersection(st_sf(b))
