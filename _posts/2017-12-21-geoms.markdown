@@ -16,7 +16,7 @@ title: Higher-order geometry differences and intersections
 Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2017-12-21-geoms.Rmd)\]
 
 Suppose you have the following geometry, consisting of three overlapping
-polygons:
+square polygons:
 
     library(sf)
     ## Loading required package: methods
@@ -28,8 +28,8 @@ polygons:
 
 ![](/images/geoms1-1.png)
 
-and you are interested in the area where all circles overlap (green), or
-where exactly two circles overlap (orange):
+and you are interested in the area where all squares overlap (green), or
+where exactly two squares overlap (orange):
 
     i = st_intersection(st_sf(b))
     par(mar = rep(0, 4))
