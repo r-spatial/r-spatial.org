@@ -1,0 +1,82 @@
+---
+layout: post
+title: "Higher-order geometry differences and intersections"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+Suppose you have the following geometry, consisting of three overlapping polygons:
+
+```{r echo=TRUE, fig=TRUE, fig.path = "images/", label="geoms1"}
+library(sf)
+pol = st_polygon(list(rbind(c(0,0), c(1,0), c(1,1), c(0,1), c(0,0))))
+b = st_sfc(pol, pol + c(.8, .2), pol + c(.2, .8))
+par(mar = rep(0, 4))
+plot(b, col = NA)
+```
+
+and you are interested in the area where all circles overlap (green),
+or where exactly two circles overlap (orange):
+
+```{r echo=TRUE, fig=TRUE, fig.path = "images/", label="geoms2"}
+i = st_intersection(st_sf(b))
+par(mar = rep(0, 4))
+cl = sf.colors(3, categorical = TRUE)
+plot(b)
+plot(i[i$n.overlaps == 3,2], col = cl[1], add = TRUE)
+plot(i[i$n.overlaps == 2,2], col = cl[2], add = TRUE)
+```
+
+So far, with package `sf` or `rgeos` you could only get
+pairwise intersections, meaning you would have to go through
+all pairwise intersections and see whether they are intersected
+by others geometries or intersections. In [this StackOverflow
+question](https://stackoverflow.com/questions/44631044/efficient-extraction-of-all-sub-polygons-generated-by-self-intersecting-features)
+you can get an idea how ugly this can get.
+
+## st\_intersection
+
+Now, inspired by a meticulously prepared [pull
+request](https://github.com/r-spatial/sf/pull/598) by [Jeffrey
+Hanson](http://jeffrey-hanson.com/), it suffices to do
+```{r}
+(i = st_intersection(b))
+```
+to get all the unique pieces, for each unique piece the number
+of contributing geometries, and a list-column with indexes of the
+geometries that contribute (overlap) for a particular piece.
+
+## st\_difference
+
+The pull request Jeffrey wrote was to remove (erase) all overlapping
+pieces, which you now get by
+
+```{r echo=TRUE, fig=TRUE, fig.path = "images/", label="geoms3"}
+d = st_difference(b)
+plot(d, col = cl)
+```
+
+For this latter approach, obviously the input order matters: what is returned
+are non-empty geometries with $x_1$, $x_2 - x_1$, $x_3 - x_2 - x_1$ etc.
+
+To prove that these intersections or differences do not have any overlaps, we
+can compute overlaps by
+```{r}
+st_overlaps(i)
+st_overlaps(d)
+```
+
+## Further reading
+
+Jeffrey's [pull request](https://github.com/r-spatial/sf/pull/598)
+is worth reading; the sf [pkgdown
+site](https://r-spatial.github.io/sf/reference/geos_binary_ops.html)
+contains some further examples with squares.

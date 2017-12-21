@@ -1,4 +1,4 @@
-NAME	= 2017-11-22-stars1
+NAME	= 2017-12-21-geoms
 
 all:
 	vi $(NAME).Rmd
