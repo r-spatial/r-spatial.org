@@ -1,4 +1,4 @@
-NAME	= 2017-12-21-geoms
+NAME	= 2018-01-07-sf-0.6-0
 
 all:
 	vi $(NAME).Rmd

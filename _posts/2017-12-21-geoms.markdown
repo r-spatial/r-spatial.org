@@ -19,8 +19,11 @@ Suppose you have the following geometry, consisting of three overlapping
 square polygons:
 
     library(sf)
+
     ## Loading required package: methods
+
     ## Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
+
     pol = st_polygon(list(rbind(c(0,0), c(1,0), c(1,1), c(0,1), c(0,0))))
     b = st_sfc(pol, pol + c(.8, .2), pol + c(.2, .8))
     par(mar = rep(0, 4))
@@ -63,10 +66,15 @@ Hanson](http://jeffrey-hanson.com/), it suffices to do
     ## epsg (SRID):    NA
     ## proj4string:    NA
     ## First 5 geometries:
+
     ## POLYGON ((1 0.2, 1 0, 0 0, 0 1, 0.2 1, 0.2 0.8,...
+
     ## POLYGON ((1 0.8, 1 0.2, 0.8 0.2, 0.8 0.8, 1 0.8))
+
     ## POLYGON ((1.2 1.2, 1.8 1.2, 1.8 0.2, 1 0.2, 1 0...
+
     ## POLYGON ((0.2 1, 0.8 1, 0.8 0.8, 0.2 0.8, 0.2 1))
+
     ## POLYGON ((0.8 1, 1 1, 1 0.8, 0.8 0.8, 0.8 1))
 
 to get all the unique pieces, for each unique piece the number of
