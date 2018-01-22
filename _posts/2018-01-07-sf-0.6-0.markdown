@@ -70,8 +70,8 @@ cases with holes:
     ## POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0), (0.25 0.25, 0.25 0.75, 0.75 0.75, 0.75 0.25, 0.25 0.25))
 
     opar = par(mfrow = c(1, 2), mar = rep(0, 4))
-    plot(pol1, col = grey(.8)) # role = "evenodd"
-    plot(pol2, col = grey(.8)) # role = "evenodd"
+    plot(pol1, col = grey(.8)) # rule = "evenodd"
+    plot(pol2, col = grey(.8)) # rule = "evenodd"
 
 ![](/images/pol2-1.png)
 
@@ -131,11 +131,11 @@ however, it comes at some computational cost.
 Spherical geometry functions were formerly taken from R package
 `geosphere`; with the new `sf` they use package
 [lwgeom](https://cran.r-project.org/web/packages/lwgeom/index.html),
-which interfaces liblwgeom, the library that also PostGIS uses. (and the
+which interfaces liblwgeom, the library that is also used by PostGIS. (and the
 development of which was funded by
 [palantir](https://www.directionsmag.com/article/1638)).
 
-Liblwgeom functions `st_make_valid`, `st_geohash`, `st_plit`, which were
+Liblwgeom functions `st_make_valid`, `st_geohash`, `st_split`, which were
 formerly in `sf` have now been moved to `lwgeom`. Other functions in
 `lwgeom` enable the following functions to work with geographic
 coordinates: `st_length`, `st_area` `st_distance`,
