@@ -180,10 +180,10 @@ Hausdorff and Frechet distance
 ------------------------------
 
 For two-dimensional (flat) geometries, `st_distance` now has the option
-to compute [Hausdorff
+of computing [Hausdorff
 distances](https://en.wikipedia.org/wiki/Hausdorff_distance), and (if
-`sf` was linked to GEOS 3.7.0) also [Frechet
-distance](https://en.wikipedia.org/wiki/Fr%C3%A9chet_distance).
+`sf` was linked to GEOS 3.7.0) [Frechet
+distances](https://en.wikipedia.org/wiki/Fr%C3%A9chet_distance).
 
 snap!
 -----
