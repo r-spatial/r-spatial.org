@@ -1,0 +1,188 @@
+---
+layout: post
+title: "A practical guide to performance estimation of machine-learning models for spatial data using mlr"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Patrick Schratz
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+# Introduction
+
+Recently we started to integrate the spatial partitioning methods of [sperrorest] into [mlr]. 
+mlr is a unified interface to conduct all kind of modeling (similar to caret), currently supporting more than 80 modeling packages.
+In comparison to sperrorest it excelaertes by providing the option to easily tune hyperparameters.
+We started with the most common spatial partitioning approach which uses k-means clustering (see Brenning2012).
+In this blog post I will give a practical guide on how to perform a nested spatial cross-validation in mlr.
+I will use a SVM as the algorithm because it is a widely know and used algorithm that always needs to be tuned to achieve good performance.
+Although the tuning effect of models with meaningful default hyperparameter values such as Random Forest is not high, one should always conduct a hyperparameter tuning as the specific effect is not known a priori. 
+
+Everything in mlr is build upon the following steps: Create a task, (tune hyperparameters), train your model, predict to a new data set.
+When the model performance is to be estimated, this procedure is done hundreds of times to reduce the variance among different traing + predict arangements. 
+It essentially mimics the situation that you would apply your fitted model on 500 different unkown test data sets.
+You will get a different performance on each.
+However, usually you have no in-situ data to check whether your model 
+
+
+# Creating a task
+
+The task essentially stores all information around your data set: Type of the response variable, supervised/unsupervised, spatial or non-spatial and many more.
+
+I will use the example data set for spatial applications `ecuador` that was added to mlr. 
+This data set from Jannes Muenchow also comes with sperrorest.
+Since the integration is quite new, we need to use the development version of mlr from Github.
+
+```{r, results='hide'}
+devtools::install_github(mlr)
+
+library(mlr)
+```
+
+First, we need to create a task.
+Luckily the built-in data sets of mlr are already in a task structure.
+Check sections [Task] in the mlr-tutorial if you need to build one from scratch.
+To make it a spatial task, you need to provide the coordinates of the data set in argument `coordinates` of the task.
+They will later be used for the spatial partitioning of the data set in the spatial cross-validation.
+
+```{r}
+data("spatial.task")
+spatial.task
+#> Supervised task: ecuador
+#> Type: classif
+#> Target: slides
+#> Observations: 751
+#> Features:
+#>    numerics     factors     ordered functionals 
+#>          10           0           0           0 
+#> Missings: FALSE
+#> Has weights: FALSE
+#> Has blocking: FALSE
+#> Has coordinates: TRUE
+#> Classes: 2
+#> FALSE  TRUE 
+#>   251   500 
+#> Positive class: TRUE
+```
+
+We are dealing with a supervisd classication problem that has 751 observations, 10 numeric predicors, the response is "slides" and has a distribution of 251 positive detections
+
+Now that we have the task, we need to set up everything for the nested spatial cross-validation.
+Here I'll go for a 5 fold 100 times repeated cross-validation in the outer level (in which the performance is estimated) and again a five fold partitioning in the inner level (where the hyperparameter tuning is done).
+
+# Specify the learner
+
+I prefer the SVM implementation in the `kernlab` package as it comes with more kernel options than its competetor `e1071`.
+
+Let's create the learner:
+
+```{r}
+learner_svm = makeLearner("classif.ksvm", predict.type = "prob")
+```
+
+The syntax is always the samke in `mlr`: The prefix always specifies the response type, e.g. "classif" or "regr". 
+There are even more that you can choose from, see ???
+
+As we have a binary response variable in this example, we set `predict.type = "prob"` to tell the algorithm that we want to have probabilities as outcomes.
+
+# Set the tuning method and its space
+
+For the tuning we need to do two things: 
+1. Select the tuning method
+2. Set the limits of the tuning space
+
+There are multiple options in mlr, see the section on [tuning](https://pat-s.github.io/mlr/articles/tutorial/devel/tune.html#specifying-the-optimization-algorithm) in the mlr-tutorial.
+
+Random search is usually a good choice as it outperforms grid search in high-dimensional settings (i.e. if a lot hyperparameters have to be optimized) and has no disadvantages in low-dimensional optimization cases @Bergstra2012.
+
+```{r}
+tuning_method = makeTuneControlRandom(maxit = 50)
+```
+
+We set a budget of 50 which means that 50 different combinations of `C` and `sigma` are checked for each fold of the CV.
+Depending on your computational power you are of course free to use more. 
+There is no rule of thumb because because it always depends on the size of the tuning space but you should not use less than 50.
+
+Next, we set the tuning limits of the hyperparameters `C` and `sigma` that we want to optimize:
+
+```{r}
+ps = makeParamSet(
+  makeDiscreteParam("C", values = 2^(-2:2)),
+  makeDiscreteParam("sigma", values = 2^(-2:2))
+)
+```
+
+Also here, no strict limits exist in which a tuning should be performed. 
+@Hastie recommends XY which we will use here. 
+thus problems applies to all machine-learning models.
+@Richter has a nice idea of establishing a data base that shows which limits were chosen by other users.
+This can then serve as a reference point when starting with a new algorithm.
+
+# Set the resampling method
+
+Now that we have chosen the tuning method and the limits of the hyperparameter to be optimized within, we need to set the resampling method for CV that should be used.
+
+This needs to be done twice:
+
+1. For the performance estimation level (outer level)
+2. For the tuning leevel (inner level) in which the hyperparameters for the outer level are optimized
+
+
+In both cases we want to use spatial cross-validation (`SpCV`). 
+First, we set it for the tuning level.
+
+```{r}
+inner = makeResampleDesc("SpCV", iters = 5)
+```
+
+This setting means the following: We will use 5 folds (`iters = 5`) and as we specified no repetition argument, one repetition will be used.
+That means in practice that every random combination of hyperparameters is applied on each fold (5 in total) once.
+The performance of all folds is stored and the combination with the best mean value across all folds will be chosen as the winner.
+
+It will be then used on the respective fold of the performance estimation level that we still need to specify.
+For this level, we want to use again five folds but we want to repeat it 100 times to reduce variance introduced by partitioning.
+
+```{r}
+outer = makeResampleDesc("RepSpCV", iters = 5, rep = 100)
+```
+
+Next, we need to create a wrapper function that uses the learner we specified and tells `mlr` that a tuning should be performed. 
+This function is then plugged in to the actual `resample()` call of `mlr`.
+Luckily, `mlr` already comes with such a wrapper function:
+
+```{r}
+lrn = makeTuneWrapper(learner_svm, resampling = inner, par.set = ps, 
+                      control = tuning_method, show.info = TRUE)
+```
+
+### Excuting everything in parallel
+
+Now we have everything ready to execute the nested cross-validation.
+To reduce runtime, we want to run it in parallel.
+`mlr` comes with an integrated parallel function in the `parallelMap` package.
+It lets us not only choose the type of parallelism ("socket", "multicore", etc.) but also the level that we want to parallelize.
+This means we can choose whether the hyperparameter tuning should be parallelized or the performance estimation in the outer level.
+ 
+
+r = resample(lrn, iris.task, resampling = outer, extract = getTuneResult, show.info = FALSE)
+
+r
+
+# Notes
+
+As I experienced that a lot of people are confused about the difference between cross-validation, its purpose and its relation to the actual prediction that one wants to do on a new data set:
+
+Everything that has been done here is only a performance estimate of 500 different training + prediction runs.
+I results can be visualized in a boxplot or similar or one can take the median or mean value to make a statement about the average performance of the model.
+
+The actual part of training a model and predicting it to a new data set is a completely different step.
+There, one model is trained on the complete data set. 
+The hyperparameters again are estimated in a new tuning procedure and the winning setting is used for the training.
+There is no relation to the tuning part of the cross-validation.
+
+
