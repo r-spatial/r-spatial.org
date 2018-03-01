@@ -122,7 +122,12 @@ There are three main functions: `quantities<-` and `set_quantities`, to
 set and convert measurement units and errors on R vectors, arrays and
 matrices, and `quantities`, to retrieve them.
 
-    suppressPackageStartupMessages(library(quantities))
+    library(quantities)
+
+    ## Loading required package: units
+
+    ## Loading required package: errors
+
     set.seed(1234)
 
     # time
