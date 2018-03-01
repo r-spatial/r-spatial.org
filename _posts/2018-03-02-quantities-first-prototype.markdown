@@ -2,9 +2,9 @@
 author: Iñaki Ucar
 categories: r
 comments: True
-date: 01 marzo, 2018
+date: 01 March, 2018
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"01 marzo, 2018","author":"Iñaki Ucar","comments":true,"title":"Quantities for R -- First working prototype"}
+meta-json: {"layout":"post","categories":"r","date":"01 March, 2018","author":"Iñaki Ucar","comments":true,"title":"Quantities for R -- First working prototype"}
 title: Quantities for R -- First working prototype
 ---
 
@@ -28,9 +28,8 @@ large segments of the R Community. This second round includes
 *Future Minimal API: Specification with Backend Conformance Test Suite*,
 proposed by Henrik Bengtsson; *An Earth data processing backend for
 testing and evaluating stars*, proposed by Edzer Pebesma, and our
-*Quantities for R*,
-[proposed](https://github.com/r-quantities/proposal), with the generous
-assistance of Edzer Pebesma.
+*Quantities for R* [proposal](https://github.com/r-quantities/proposal),
+which was supported by Edzer Pebesma.
 
 Quantity Calculus for R vectors
 -------------------------------
@@ -65,7 +64,7 @@ and the C++ `measurement` class included in
 [Boost.Units](http://www.boost.org/doc/libs/1_65_0/doc/html/boost_units.html).
 Building on the existing `units` and `errors` packages, the new
 `quantities` package will provide a unified framework to consistently
-work with units and errors in R.
+work with both, units and errors, in R.
 
 First steps
 -----------
@@ -76,11 +75,11 @@ such as the existing CRAN packages
 [`units`](https://github.com/r-quantities/units),
 [`errors`](https://github.com/r-quantities/errors) and
 [`constants`](https://github.com/r-quantities/constants), as well as the
-new [`quantities`](https://github.com/r-quantities/quantities). This
-division becomes an advantage, because it enables separate development
-and maintenance of each distinct feature. But at the same time, these
-packages required many changes to play nicely together. The integration
-stage required [14 PR on
+new [`quantities`](https://github.com/r-quantities/quantities) R
+package. This division becomes an advantage, because it enables separate
+development and maintenance of each distinct feature. But at the same
+time, these packages required many changes to play nicely together. The
+integration stage required [14 PR on
 `units`](https://github.com/r-quantities/units/pulls?q=is%3Apr+is%3Aclosed+author%3AEnchufa2+)
 that Edzer carefully revised and merged, as well as some changes on
 `errors`. Nonetheless, we still have to learn all the cornerstones that
