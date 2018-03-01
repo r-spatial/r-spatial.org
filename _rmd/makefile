@@ -1,4 +1,4 @@
-NAME	= 2018-01-07-sf-0.6-0
+NAME	= 2018-03-02-quantities-first-prototype
 
 all:
 	vi $(NAME).Rmd
