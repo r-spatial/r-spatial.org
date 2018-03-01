@@ -1,0 +1,150 @@
+---
+layout: post
+title: "Quantities for R -- First working prototype"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Iñaki Ucar
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+One week ago, the R Consortium ISC [announced](https://www.r-consortium.org/announcement/2018/02/22/announcing-second-round-isc-funded-projects-2017) the second round of [ISC Funded Projects](https://www.r-consortium.org/projects/awarded-projects) under the 2017 edition (and [the opening of the Spring 2018 call](https://www.r-consortium.org/announcement/2018/01/31/r-consortium-call-proposals-february-2018)). As you may know, this program provides financial support for projects that enhance the infrastructure of the R ecosystem or which benefit large segments of the R Community. This second round includes _Refactoring and updating the SWIG R module_, proposed by Richard Beare; _Future Minimal API: Specification with Backend Conformance Test Suite_, proposed by Henrik Bengtsson; _An Earth data processing backend for testing and evaluating stars_, proposed by Edzer Pebesma, and our _Quantities for R_ [proposal](https://github.com/r-quantities/proposal), which was supported by Edzer Pebesma.
+
+## Quantity Calculus for R vectors
+
+As we stated in our project presentation,
+
+> The [`units`](https://cran.r-project.org/package=units) package has become the reference for quantity calculus in R, with a wide and welcoming response from the R Community. Along the same lines, the [`errors`](https://cran.r-project.org/package=errors) package integrates and automatises uncertainty propagation and representation for R vectors. A significant fraction of R users, both practitioners and researchers, use R to analyse measurements, and would benefit from a joint processing of quantity values with errors.
+> 
+> This project not only aims at orchestrating units and errors in a new data type, but will also extend the existing frameworks (compatibility with base R as well as other frameworks such as the tidyverse) and standardise how to import/export data with units and errors.
+
+Our long-term goal is to build a robust architecture following the principles established by David Flater in his [_Architecture for Software-Assisted Quantity Calculus_](https://doi.org/10.6028/NIST.TN.1943). As this technical note states, there are many software libraries and packages that implement "quantities with units" in many languages, but they differ in how they address several issues and uncertainty (if they deal with it at all). Regarding the latter, there are few but notable examples, such as the [Wolfram's closed-source units framework](http://reference.wolfram.com/language/tutorial/UnitsOverview.html), and the C++ `measurement` class included in [Boost.Units](http://www.boost.org/doc/libs/1_65_0/doc/html/boost_units.html). Building on the existing `units` and `errors` packages, the new `quantities` package will provide a unified framework to consistently work with both, units and errors, in R.
+
+## First steps
+
+To this end, the [r-quantities](https://github.com/r-quantities/) organisation on GitHub serves as a hub for all the related packages, such as the existing CRAN packages [`units`](https://github.com/r-quantities/units), [`errors`](https://github.com/r-quantities/errors) and [`constants`](https://github.com/r-quantities/constants), as well as the new [`quantities`](https://github.com/r-quantities/quantities) R package. This division becomes an advantage, because it enables separate development and maintenance of each distinct feature. But at the same time, these packages required many changes to play nicely together. The integration stage required [14 PR on `units`](https://github.com/r-quantities/units/pulls?q=is%3Apr+is%3Aclosed+author%3AEnchufa2+) that Edzer carefully revised and merged, as well as some changes on `errors`. Nonetheless, we still have to learn all the cornerstones that must be preserved to further enhance them in the future without breaking the work done.
+
+This process has led us to some interesting challenges. The first one had to do with S3 method dispatching of generics that accept a variable number of arguments through dots. More especifically, it was about the concatenation method `c(...)`, and the issue arises when you need to modify some arguments (i.e., convert units) and forward the dispatch to the next method in the stack (errors). This problem is fully explained in [this repository](https://github.com/Enchufa2/dispatchS3dots), examples included, and apparently this is not possible in general. Fortunately, we found a workaround (included in the repo) that reinitialises the dispatch stack by calling the generic again if any argument was modified, and finally calls `NextMethod` cleanly.
+
+The other challenge had to do with `rbind` and `cbind`. These are S3 generics, but they are special _in a way_: as the documentation states, **method dispatching is _not_ done via `UseMethod`**, but by C-internal dispatching. This fact poses a serious obstacle if you need to rely on other S3 method. The final solution required to retrieve it using `getS3method` and a local assignment to override the generic ([here](https://github.com/r-quantities/quantities/blob/master/R/misc.R#L171), for those interested) and forward the dispatch.
+
+## First working prototype
+
+A first working prototype of `quantities` can be found [on GitHub](https://github.com/r-quantities/quantities). To test it, also development versions of `units` and `errors` are required. They can be installed using `devtools` or the `remotes` package:
+
+```{r, eval=FALSE}
+remotes::install_github(paste("r-quantities", c("units", "errors", "quantities"), sep="/"))
+```
+
+There are three main functions: `quantities<-` and `set_quantities`, to set and convert measurement units and errors on R vectors, arrays and matrices, and `quantities`, to retrieve them. 
+
+```{r}
+library(quantities)
+set.seed(1234)
+
+# time
+t_e <- rnorm(10, 0, 0.01)
+t_x <- 1:10 + t_e
+quantities(t_x) <- list("s", 0.01)
+t_x
+
+# position
+xb <- (1:10)^3
+x <- set_quantities(xb + abs(rnorm(10, 0, xb * 0.01)) * sign(t_e), m, xb * 0.01)
+x
+```
+
+From this point on, you can operate normally with these vectors as if they were plain numeric vectors. 
+
+```{r, error=TRUE}
+# non-sensical operation
+x + t_x
+
+# speed
+t_v <- (t_x[-1] - diff(t_x) / set_quantities(2))
+v <- diff(x) / diff(t_x)
+v
+
+# acceleration
+t_a <- t_x[-c(1, length(t_x))]
+a <- diff(v) / diff(t_v)
+a
+```
+
+A certain class hierarchy is set and maintained in order to ensure a proper dispatch order. If units or errors are dropped, the object falls back to be handled by the corresponding package. Furthermore, compatibility methods are provided (`units<-.errors` and `errors<-.units`) to be able to restore them seamlessly.
+
+```{r}
+class(x)
+
+u <- units(x)
+e <- errors(x)
+
+# drop units (equivalent to 'drop_units(x)')
+units(x) <- NULL
+class(x)
+x
+# restore them
+units(x) <- u
+class(x)
+x
+
+# drop errors (equivalent to 'drop_errors(x)')
+errors(x) <- NULL
+class(x)
+x
+# restore them
+errors(x) <- e
+class(x)
+x
+
+# drop everything (equivalent to 'quantities(x) <- NULL')
+drop_quantities(x)
+```
+
+There are mathematical operations that are not meaningful for certain units. They drop units and issue a warning.
+
+```{r, error=TRUE}
+exp(x)
+cos(x)
+
+x2 <- x^2
+x2
+sqrt(x)
+sqrt(x2)
+```
+
+Finally, measurements must be correctly expressed. Quantities are properly formatted individually or in data frames, and units and errors are automatically represented in base graphics.
+
+```{r, fig=TRUE, fig.path="images/", label=plot-quantities}
+x
+x[1]; x[2]; x[3]
+
+data.frame(
+  t = t_a, 
+  x = x[-c(1, length(x))],
+  a = set_units(a, km/h/s)  # conversions propagate errors too
+)
+
+plot(t_a, a)
+abline(lm(drop_quantities(a) ~ drop_quantities(t_a)))
+```
+
+## Next steps
+
+There is plenty to do! Apart from adding documentation and tests, we will next focus on how to import and export data with units and errors. But to this aim, we first need to identify which are the typical formats that can be found out there, e.g.:
+
+- Units and errors are provided for each value, as in the table above.
+- Errors are provided for each value, but units are included in the header of the table.
+- Separate columns are provided for values and errors, and units are included in the header of the table.
+- ...
+
+Any input on this from the community would be very welcome. Also there are ongoing efforts to enhance the `units` package to make it work with user-defined units seamlessly. The current implementation is limited by the functionality of the `udunits2` package. There are [several branches](https://github.com/r-quantities/units/branches) exploring different alternatives just in case `udunits2` cannot grow as `units` will need in the future.
+
+## Acknowledgements
+
+This project gratefully acknowledges financial support from the R Consortium. Also I would like to thank Edzer Pebesma for his kind support and collaboration, and of course for hosting this article.
