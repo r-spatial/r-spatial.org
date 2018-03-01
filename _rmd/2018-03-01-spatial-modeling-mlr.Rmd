@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A practical guide to performance estimation of machine-learning models for spatial data using `mlr`"
+title: "A practical guide to performance estimation of spatially tuned machine-learning models for spatial data using `mlr`"
 date:  "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: "../bibs/spatial_modeling_`mlr`.bib"
 biblio-style: apalike
