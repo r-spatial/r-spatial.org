@@ -44,7 +44,7 @@ remotes::install_github(paste("r-quantities", c("units", "errors", "quantities")
 There are three main functions: `quantities<-` and `set_quantities`, to set and convert measurement units and errors on R vectors, arrays and matrices, and `quantities`, to retrieve them. 
 
 ```{r}
-suppressPackageStartupMessages(library(quantities))
+library(quantities)
 set.seed(1234)
 
 # time
