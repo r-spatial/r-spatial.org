@@ -6,10 +6,9 @@ categories: r
 comments: True
 date: 03 March, 2018
 layout: post
----
+title: "A practical guide to performance estimation of spatially tuned machine-learning models for spatial data using mlr"
 link-citations: True
-title: A practical guide to performance estimation of spatially tuned
-  machine-learning models for spatial data using `mlr`
+---
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 * TOC 
@@ -49,19 +48,19 @@ hundreds of times to reduce variance among different training + predict
 arrangements. It essentially mimics the situation of applying the fitted
 model on hundreds of different unknown test datasets. A different
 performance will be returned for each try. However, in reality usually
-no in-situ data exists for so many test datasets. That’s the reason thy
-the existing dataset is split into subsets for which validation
+no in-situ data exists for so many test datasets. That is the reason 
+why the existing dataset is split into subsets for which validation
 information is available.
 
 Creating a task
 ===============
 
 The “Task” in `mlr` essentially stores all information around your
-dataset: The type of the response variable, whether its a
+dataset: The type of the response variable, whether it is a
 supervised/unsupervised classification problem (if it is a
 classification one), whether the “Task” is spatial or non-spatial
 (i.e. whether it contains a spatial reference, i.e. coordinates) and
-many more information.
+much more information.
 
 The example “Task” for spatial applications in `mlr` used the `ecuador`
 dataset. This dataset from [Jannes
@@ -110,9 +109,9 @@ observations, 10 numeric predictors, the response is “slides” and has a
 distribution of 500 positive and 251 negative detections.
 
 Now that task has been created, we need to set up everything for the
-nested spatial cross-validation. We will use a 5-fold 100 times repeated
-cross-validation in the outer level (in which the performance is
-estimated) and again a five folds for partitioning in the inner level
+nested spatial cross-validation. We will repeat a 5-fold cross validation 100 times
+in the outer level (in which the performance is
+estimated) and again use a five fold cross validation for partitioning in the inner level
 (where the hyperparameter tuning is conducted).
 
 Specification of the learner
