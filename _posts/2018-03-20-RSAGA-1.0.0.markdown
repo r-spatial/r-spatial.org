@@ -1,0 +1,47 @@
+---
+author: Marc Becker
+categories: r
+comments: True
+date: 20 März, 2018
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"20 März, 2018","author":"Marc Becker","comments":true,"title":"RSAGA 1.0.0"}
+title: RSAGA 1.0.0
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+\[[view raw
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2018-03-04-RSAGA-1.0.0.Rmd)\]
+
+RSAGA 1.0.0 has been released on CRAN. The RSAGA package provides an
+interface between R and the open-source geographic information system
+SAGA, which offers a variety of geoscientific methods to analyse spatial
+data. SAGA GIS is supported on Windows, Linux, Mac OS and FreeBSD and is
+available from
+[sourceforge](https://sourceforge.net/projects/saga-gis/).
+
+After a long break in the development, RSAGA now supports SAGA GIS 2.3
+LTS to 6.2.0. The main issue with the maintenance of RSAGA lies in the
+changing names of the parameters used by the SAGA command line program.
+These parameters are essential to provide the user with wrapper
+functions like `rsaga.slope.asp.curv` and `rsaga.wetness.index`. We were
+able to update all parameter names, while keeping the support for older
+SAGA versions.
+
+RSAGA is able to find SAGA installations on Windows, Linux and Mac OS
+automatically again with the build-in function `rsaga.env`. For new
+users we would like to refer to the updated
+[vignette](https://cran.r-project.org/web/packages/RSAGA/vignettes/RSAGA.html).
+
+Further development will go into the integration of Travis CI to test
+new SAGA versions automatically. We would like to reduce the effort of
+maintaining the list of parameter names. A solution could be the
+collaboration with the recently started
+[Rsagacmd](https://github.com/stevenpawley/Rsagacmd) project, which uses
+the html help files of SAGA GIS to get the parameter names.
+
+The development of RSAGA is now integrated into the r-spatial.org
+community. If you find any bugs please report them at our new
+development repository
+[r-spatial/RSAGA](https://github.com/r-spatial/RSAGA). We are happy
+about every project that involves RSAGA. Please help us with bug
+reports, new ideas and feedback. Stay tuned for further updates.
