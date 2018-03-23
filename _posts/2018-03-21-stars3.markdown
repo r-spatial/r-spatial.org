@@ -23,13 +23,13 @@ This is the third blog on the
 funded project for *spatiotemporal tidy arrays with R*. It shows how
 `stars` can be used in a client/server setup, where large amounts of
 Earth observation data are held on a server, and an (R) client is used
-to query the data, process it on ther server side, and retrieve a
+to query the data, process it on the server side, and retrieve a
 (small) portion, for example to plot.
 
-This blog is a proof of concept, and was developed the use case of
+This blog is a proof of concept, and was developed for the use case of
 remotely processing a set of [Sentinel
 2](https://en.wikipedia.org/wiki/Sentinel-2) images; no serious effort
-has been made so far to generalize this to other images. We use the
+has been made so far to generalize this to other image sources. We use the
 `stars` package both on server and client side.
 
 The data
@@ -47,7 +47,7 @@ come with overview (downsampled) levels fo 20, 40, 80 and 160 m. That is
 convenient, because for plotting it does not make much sense to
 transport more pixels than our screen has.
 
-I downloaded the data from ESA's
+The data were downloaded from ESA's
 [SciHub](https://scihub.copernicus.eu/), which first looks cumbersome
 but in the end it was quite easy using `aria2c`. (The aria2 file
 contains my user credentials.)
@@ -107,9 +107,9 @@ it:
       plumber::forward()
     }
 
-The final two functions do the real work: they read an expression, and
-evaluate it and return the result, or they store the result locally (on
-the server side):
+The final two functions do the real work: they read an expression, 
+evaluate it and return the result (get), or they store the result on
+the server side (put):
 
     # plumber REST end points /data:
     #* @get  /data
@@ -158,9 +158,9 @@ On the client side, we need to also do some work:
         PUT(url, body = list(name = name, value = value), encode = "json")
     }
 
-It's somewhat unlucky I gave these the same name as on the server side,
-but these are in a different R session (the one you interact with
-directly: the client). For `get_data`, the return value is decoded and
+Somewhat confusingly I gave these the same name as on the server side,
+but these exist in a different R session: the one you interact with
+directly, the client. For `get_data`, the return value is decoded and
 unserialized to get a copy of the original R object on the server. This
 R object may have been present at the server, or may have been created
 on the server: since the server uses `eval`, it takes arbitrary R
@@ -237,7 +237,7 @@ Process: `st_apply`, NDVI
 -------------------------
 
 This way, we can also create new variables on the server side and show
-them. As an example, we can `st_apply` which does `apply` to the arrays
+them. As an example, we can use `st_apply` which does an `apply` to the arrays
 in a stars object (and takes care of the dimensions afterwards!), and
 define an
 [NDVI](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index)
@@ -271,7 +271,7 @@ single-band (NDVI) image:
 ![](/images/stars3-2-1.png)
 
 The diagonal line is caused by the fact that we combine imagery from
-different satellite overpasses, all of the with mostly clouds.
+different satellite overpasses, of which most are pretty cloudy.
 
 Computing NDVI is just one example; the [Index
 database](https://www.indexdatabase.de/db/s-single.php?id=96) contains
@@ -280,13 +280,13 @@ database](https://www.indexdatabase.de/db/s-single.php?id=96) contains
 Limitations and lessons learned
 -------------------------------
 
--   As a prototype, this implementation has massive limitations. To use
+-   As a prototype, this implementation has strong limitations. To use
     this in an architecture with multiple, concurrent users would
     require authentication, user management, and concurrent R sessions.
 -   if we try to read one full 10 m scene with 4 bands from the server,
     we see the error `long vectors not supported`, indicating that the
     encoded data is over 2 Gb; file download and upload will be needed
-    for larger data sizes, or more clever interaction patterns such as
+    for larger data sizes, or more clever interaction patterns such as a
     [web map service](https://en.wikipedia.org/wiki/Web_Map_Service) or
     [tile map service](https://en.wikipedia.org/wiki/Tile_Map_Service).
 -   to pass R objects, we need to `serialize` them, `base64_enc` that,
@@ -295,8 +295,8 @@ Limitations and lessons learned
 -   never try to put an R expression or its base64 encoding in a url
     (using `GET`) - use `POST` and put it in the message body; `GET`
     will do funny things with funny characters (even `=`).
--   the way we pass submit expressions looks pretty messy using
-    character strings, there must be a more tidy way to do this
+-   the way we submit expressions looks pretty messy using
+    character strings, there must be a more tidy way to do this.
 
 Try this at home
 ----------------
@@ -313,11 +313,11 @@ and keep this running! On the client session, run
 
     source(system.file("plumber/client.R", package = "stars"),, echo = TRUE)
 
-and watch for the logs from the server. You can then
+and watch for the logs from the server. In the client, you can now
 
     plot(xx)
 
-which was read in the server session.
+to see an object that was read in the server session.
 
 The way forward
 ---------------
@@ -332,10 +332,10 @@ compute on these data, given access to a cloud back-end machine. The R
 Consortium has sponsored the [Earth data processing backend for testing
 and evaluating
 stars](https://github.com/r-spatial/stars/blob/master/documents/stars_data.md)
-project, which has funding for a storage and/or compute back-end for
+project, which has a budget for a storage and/or compute back-end for
 evaluation purposes.
 
-[openEO](http://openeo.org/) is a project I am involved in that develops
+[openEO](http://openeo.org/) is a project that develops
 an open API to connect R, python and javascript clients to big Earth
 observation cloud back-ends in a simple and unified way. That is a
 similar ambition, but larger. openEO uses a process graph (directed,
