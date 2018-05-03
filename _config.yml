@@ -17,3 +17,7 @@ github_username:  r-spatial
 
 # Build settings
 markdown: kramdown
+
+# Plugin for redirects
+plugins:
+  - jekyll-redirect-from
