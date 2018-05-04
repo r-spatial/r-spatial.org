@@ -64,7 +64,7 @@ The first thing that came to my mind to address the problem above was *regex*. B
 
 I gave it a try, and the resulting parser was something like the following:
 
-```{C++, eval=FALSE}
+```{Rcpp, eval=FALSE}
 bool r = boost::spirit::qi::phrase_parse(
   first, last,
   -char_('(') >> ( LHS_ || RHS_ ) >> -err_ >> -char_(')') >> -exp_,

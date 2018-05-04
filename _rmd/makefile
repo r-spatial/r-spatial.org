@@ -1,4 +1,4 @@
-NAME	= 2018-03-21-stars3
+NAME	= 2018-05-03-parsing-quantities
 
 all:
 	vi $(NAME).Rmd
