@@ -4,7 +4,7 @@ categories: r
 comments: True
 date: 07 May, 2018
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"05 May, 2018","author":"Iñaki Ucar","comments":true,"title":"Using quantities to parse data with units and errors"}
+meta-json: {"layout":"post","categories":"r","date":"07 May, 2018","author":"Iñaki Ucar","comments":true,"title":"Using quantities to parse data with units and errors"}
 title: Using quantities to parse data with units and errors
 ---
 
@@ -13,7 +13,7 @@ title: Using quantities to parse data with units and errors
 {:toc}
 
 \[[view raw
-Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2018-05-03-parsing-quantities.Rmd)\]
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2018-05-07-parsing-quantities.Rmd)\]
 
 This is the second blog post on
 [`quantities`](https://github.com/r-quantities/quantities), an
@@ -261,3 +261,11 @@ they are automatically guessed and used behind the scenes.
 Unfortunately, this would require some work on `readr` to expose part of
 the C++ API, and to provide some means to register parsers and column
 types. We will definitely look into that!
+
+Next steps
+----------
+
+For the next milestone, we will investigate the compatibility with
+existing data processing workflows (base R functions, tidyverse,
+`data.table`...). We will document the issues found and try to extend
+the integration with such tools.

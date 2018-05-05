@@ -144,3 +144,7 @@ parse_quantities(c("36.5(1) km/h", "12.34(2) m/s"))
 ```
 
 All these parsers have been deliberately implemented closely following `readr`'s style, because it would be nice to extend it in a way that they are automatically guessed and used behind the scenes. Unfortunately, this would require some work on `readr` to expose part of the C++ API, and to provide some means to register parsers and column types. We will definitely look into that!
+
+## Next steps
+
+For the next milestone, we will investigate the compatibility with existing data processing workflows (base R functions, tidyverse, `data.table`...). We will document the issues found and try to extend the integration with such tools.
