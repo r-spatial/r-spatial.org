@@ -2,9 +2,9 @@
 author: Iñaki Ucar
 categories: r
 comments: True
-date: 04 May, 2018
+date: 07 May, 2018
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"04 May, 2018","author":"Iñaki Ucar","comments":true,"title":"Using quantities to parse data with units and errors"}
+meta-json: {"layout":"post","categories":"r","date":"05 May, 2018","author":"Iñaki Ucar","comments":true,"title":"Using quantities to parse data with units and errors"}
 title: Using quantities to parse data with units and errors
 ---
 
@@ -24,7 +24,7 @@ with automatic propagation, conversion, derivation and simplification of
 magnitudes and uncertainties. This article describes and demonstrates
 recent developments to load and parse rectangular data (i.e., delimited
 files, such as CSV files) with units and errors. The previous article,
-which discussed a first working prototype can be found
+which discussed a first working prototype, can be found
 [here](https://www.r-spatial.org/r/2018/03/01/quantities-first-prototype.html).
 
 Reporting quantities
@@ -96,8 +96,8 @@ combine the columns:
     ##           d
     ##   <[(err)]>
     ## 1   1.02(5)
-    ## 2   1.02(5)
-    ## 3   1.02(5)
+    ## 2   2.51(1)
+    ## 3    3.2(1)
 
 Then, units can be added with `units`, or both operations may be done at
 the same time with the `quantities` method. So far, so good. Problems

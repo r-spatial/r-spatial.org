@@ -13,7 +13,7 @@ TOC
 
 [DOWNLOADHERE]
 
-This is the second blog post on [`quantities`](https://github.com/r-quantities/quantities), an R-Consortium funded project for quantity calculus with R. It is aimed at providing integration of the 'units' and 'errors' packages for a complete quantity calculus system for R vectors, matrices and arrays, with automatic propagation, conversion, derivation and simplification of magnitudes and uncertainties. This article describes and demonstrates recent developments to load and parse rectangular data (i.e., delimited files, such as CSV files) with units and errors. The previous article, which discussed a first working prototype can be found [here](https://www.r-spatial.org/r/2018/03/01/quantities-first-prototype.html).
+This is the second blog post on [`quantities`](https://github.com/r-quantities/quantities), an R-Consortium funded project for quantity calculus with R. It is aimed at providing integration of the 'units' and 'errors' packages for a complete quantity calculus system for R vectors, matrices and arrays, with automatic propagation, conversion, derivation and simplification of magnitudes and uncertainties. This article describes and demonstrates recent developments to load and parse rectangular data (i.e., delimited files, such as CSV files) with units and errors. The previous article, which discussed a first working prototype, can be found [here](https://www.r-spatial.org/r/2018/03/01/quantities-first-prototype.html).
 
 ## Reporting quantities
 
