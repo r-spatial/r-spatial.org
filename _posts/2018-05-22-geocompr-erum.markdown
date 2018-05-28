@@ -8,7 +8,6 @@ meta-json: {"layout":"post","categories":"r","date":"22 May, 2018","author":"Rob
 title: "Geocomputation with R: workshop at eRum"
 ---
 
-
 This is a guest post by Robin Lovelace, Jakub Nowosad and Jannes
 Muenchow. Together we're writing an open source book called
 *Geocomputation with R*. The project aims to introducing people to R's
@@ -43,7 +42,7 @@ term is unambiguous: it's about using computing techniques to do new
 things with geographic data, as indicated in Section
 [1.1](http://geocompr.robinlovelace.net/intro.html#what-is-geocomputation)
 of the book. Our approach differs in one way from the early conception
-of geocompuation, however:
+of geocomputation, however:
 
 > Unlike early works in the field all the work presented in this book is
 > reproducible using code and example data supplied alongside the book
@@ -91,8 +90,9 @@ the [Spatial task
 view](https://cran.r-project.org/web/views/Spatial.html) alone listed
 177 packages, many of them recently contributed and in-development.
 
-In this context it helps to have an understanding of the history. Like
-in politics, knowing the past can help navigate the future. More
+In this context it helps to have an understanding of the history
+(Bivand, Pebesma, and Gómez-Rubio [2013](#ref-bivand_applied_2013)).
+Like in politics, knowing the past can help navigate the future. More
 specifically, knowing which packages are mature or up-and-coming can
 help decide which one to use!
 
@@ -124,7 +124,7 @@ Spatial vector data are best used for objects that represent discrete
 borders such as bus stops (points), streets (lines) and houses
 (polygons). For instance, we can represent 'Budapest' (the city where
 eRum 2018 was held) as a spatial point with the help of the `sf` package
-as follows:
+(Pebesma [2018](#ref-pebesma_simple_2018)) as follows:
 
     budapest_df = data.frame(
       name = "Budapest",
@@ -188,7 +188,8 @@ containing information about its spatial location. It has rows and
 columns, each cell has a value (it could be `NA`) and its spatial
 properties are described by the cell resolution (`res`), outer borders
 (bounding box - `xmn`, `xmx`, `ymn`, `ymx`), and coordinate reference
-system (`crs`):
+system (`crs`). In R the **raster** package supports the spatial raster
+format (Hijmans [2017](#ref-R-raster)).
 
     library(raster)
     elev = raster(nrow = 6, ncol = 6, 
@@ -361,7 +362,7 @@ end of summer 2018, meaning *Geocomputation with R* will be published
 before the end of the year. The target audience is broad but we think it
 will be especially useful to post and under-graduate students, R users
 wanting to work with spatial data, and GIS users wanting to get to grips
-with command-line statical modelling software. A reason for publishing
+with command-line statistical modeling software. A reason for publishing
 the article here is that we have around 3 months (until the end of
 August) to gather as much feedback on the book as possible before it's
 published. We plan to keep the code and prose up-to-date after that but
@@ -387,11 +388,22 @@ and check-out the in-progress chapters at
 References
 ==========
 
+Bivand, Roger S., Edzer Pebesma, and Virgilio Gómez-Rubio. 2013.
+*Applied Spatial Data Analysis with R*. 2nd ed. 2013 edition. New York:
+Springer.
+
 Chambers, John M. 2016. *Extending R*. CRC Press.
+
+Hijmans, Robert J. 2017. *Raster: Geographic Data Analysis and
+Modeling*. <https://CRAN.R-project.org/package=raster>.
 
 Longley, Paul, Michael Goodchild, David Maguire, and David Rhind. 2015.
 *Geographic Information Science & Systems*. Fourth edition. Hoboken, NJ:
 Wiley.
+
+Pebesma, Edzer. 2018. “Simple Features for R: Standardized Support for
+Spatial Vector Data.” *The R Journal*.
+<https://journal.r-project.org/archive/2018/RJ-2018-009/index.html>.
 
 [1] Note also that **RPyGeo** provides access to
 [ArcMap](http://desktop.arcgis.com/en/arcmap/) which is a commercial
