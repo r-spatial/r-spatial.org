@@ -2,9 +2,9 @@
 author: "Robin Lovelace, Jakub Nowosad and Jannes Muenchow"
 categories: r
 comments: True
-date: 22 May, 2018
+date: 31 May, 2018
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"22 May, 2018","author":"Robin Lovelace, Jakub Nowosad and Jannes Muenchow","comments":true,"title":"Geocomputation with R: workshop at eRum"}
+meta-json: {"layout":"post","categories":"r","date":"31 May, 2018","author":"Robin Lovelace, Jakub Nowosad and Jannes Muenchow","comments":true,"title":"Geocomputation with R: workshop at eRum"}
 title: "Geocomputation with R: workshop at eRum"
 ---
 
