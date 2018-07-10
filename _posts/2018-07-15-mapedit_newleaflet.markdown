@@ -2,9 +2,9 @@
 author: Tim Appelhans and Kenton Russell
 categories: r
 comments: True
-date: July 15, 2018
+date: 15 July, 2018
 layout: post
-meta-json: {"date":"July 15, 2018","author":"Tim Appelhans and Kenton Russell","comments":true,"title":"mapedit and leaflet.js &gt; 1.0","layout":"post","categories":"r"}
+meta-json: {"date":"15 July, 2018","author":"Tim Appelhans and Kenton Russell","comments":true,"title":"mapedit and leaflet.js &gt; 1.0","layout":"post","categories":"r"}
 title: mapedit and leaflet.js &gt; 1.0
 ---
 

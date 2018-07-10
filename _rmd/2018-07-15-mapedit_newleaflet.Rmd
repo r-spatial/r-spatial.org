@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  mapedit and leaflet.js > 1.0
-date:  "July 15, 2018"
+date:  15 July, 2018
 comments: true
 author: Tim Appelhans and Kenton Russell
 categories: r
