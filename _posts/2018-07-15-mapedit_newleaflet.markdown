@@ -142,7 +142,7 @@ We welcomed the challenge and responded with this
 [example](https://github.com/timelyportfolio/mapedit/blob/master/experiments/select_crosstalk.R)
 crosstalking mapedit/leaflet with Plotly and DT.
 
-![screenshot of geojson.io integrated in shiny](//images/mapedit3-2.gif)
+![screenshot of geojson.io integrated in shiny](/images/mapedit3-2.gif)
 
 While the example mostly works, there is far too high a burden on the
 user. We will try to reduce this down to a couple of lines of code.
