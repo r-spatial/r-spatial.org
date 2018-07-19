@@ -89,7 +89,7 @@ building on top of [geojson.io](http://geojson.io) from [Tom
 Macwright](https://macwright.org/).
 
 ![screenshot of geojson.io integrated in
-shiny](//images/mapedit_attribute_edit.gif)
+shiny](/images/mapedit_attribute_edit.gif)
 
 Rather than build on top of geojson.io, we would like to tightly
 integrate attribute editing into `mapedit`. We will track progress on
