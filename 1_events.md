@@ -10,6 +10,7 @@ permalink: /events/
 
 * May 14-16, 2018, [ERUM Budapest](http://2018.erum.io/), with two spatial workshops and a keynote by Roger Bivand
 * Aug 19-26, 2018, Geostat summer school, Prague. More information [here](http://geostat-course.org/2018)
+* Dec 3-8, 2018, PhD level spatial data analysis course in Bergen, Norway; see [R-sig-geo posting](https://stat.ethz.ch/pipermail/r-sig-geo/2018-August/026777.html)
 
 ### 2017
 
