@@ -1,4 +1,4 @@
-NAME	= 2018-06-27-wrangling-quantities
+NAME	= 2018-08-31-quantities-final
 
 all:
 	vi $(NAME).Rmd
