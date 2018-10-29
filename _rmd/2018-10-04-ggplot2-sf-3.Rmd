@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2  - Part 3: Layouts"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 : Part 3: Layouts"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
@@ -40,16 +40,20 @@ library("ggrepel")
 ## Tutorial #3
 library("grid")
 library("cowplot")
+library("dplyr")
+library("viridis")
 ```
 
 
+# Drawing beautiful maps programmatically with R, `sf` and `ggplot2`
+
 This tutorial is the third part in a series of three:
 
-* [General concepts illustrated with the world map](Tutorial_1.html)
+* [General concepts illustrated with the world Map] (Tutorial_1.html)
 * [Adding additional layers: an example with points and polygons](Tutorial_2.html)
 * Positioning and layout for complex maps (this document)
 
-After the presentation of the basic map concepts, and the flexible approach in layer implemented in `ggplot2`, this part illustrates how to achieve complex layouts, for instance with map insets, or several maps combined. Depending on the visual information that needs to be displayed, maps and their corresponding data might need to be arranged to create easy to read graphical representations. This tutorial will provide different approaches to arranges maps in the plot, in order to make the information portrayed more aesthetically appealing, and most importantly, convey the information better.
+After the presentation of the basic map concepts, and the flexible approach in layer implemented in `ggplot2`, this section will illustrate how to achieve complex layouts, for instance with map insets, or several maps combined. Depending on the visual information that needs to be displayed, maps and their corresponding data might need to be arranged to create easy to read graphical representations. This tutorial will provide different approaches to arranges maps in the plot, in order to make the information portrayed more aesthetically appealing, and most importantly, convey the information better.
 
 
 ## Getting started
@@ -88,10 +92,10 @@ class(world)
 
 # General concepts
 
-There are 2 solutions to combine sub-maps:
+2 solutions:
 
-* using Grobs (graphic objects, allow plots only in plot region, based on coordinates), which directly use `ggplot2`
-* using `ggdraw` (allows plots anywhere, including outer margins, based on relative position) from package `cowplot`
+* Grobs (graphic objects, allow plots only in plot region, based on coordinates): directly using `ggplot2`
+* `ggdraw` (allows plots anywhere, including outer margins, based on relative position): package `cowplot`
 
 Example illustrating the difference between the two, and their use:
 
@@ -130,24 +134,27 @@ Using `ggdraw` (note: used to build on top of initial plot; could be left empty 
 
 ```{r inset-example-ggdraw}
 ggdraw(g1) +
-    draw_plot(g1_void, width = 0.25, height = 0.5, x = 0.02, y = 0.48) +
-    draw_plot(g1_void, width = 0.5, height = 0.25, x = 0.75, y = 0.09)
+    draw_plot(g1_void, width = 0.25, height = 0.5, x = 0.15, y = 0.45) +
+    draw_plot(g1_void, width = 0.5, height = 0.25, x = 0.50, y = 0.09)
 ```
+
+
+
 
 
 # Several maps side by side or on a grid
  
-Having a way show in a visualization, a specific area can be very useful. Many scientists usually create maps for each specific area individually. This is fine, but there are simpler ways to display what is needed for a report, or publication. 
+Having a way show in a visualization, a specific area can be very useful. Many scientists usually create maps for each specific area manually. This is fine, but there are simpler ways to display what is needed for a report, or publication. 
 
 This exmaple is using two maps side by side, including the legend of the first one. It illustrates how to use a custom grid, which can be made a lot more complex with different elements.
 
-First, simplify `REGION` for the legend:
+First simplify `REGION` for the legend:
 
 ```{r grid-region}
 levels(world$REGION)[7] <- "South America"
 ```
 
-Prepare the subplots, #1 world map:
+Prepare the subplots, #1 world:
 
 ```{r grid-world, fig.width = 12, fig.height = 5, out.width = "90%"}
 (gworld <- ggplot(data = world) +
@@ -159,7 +166,7 @@ Prepare the subplots, #1 world map:
          panel.border = element_rect(fill = NA)))
 ```
 
-And #2 Gulf map :
+And #2 Gulf:
 
 ```{r grid-gulf}
 (ggulf <- ggplot(data = world) +
@@ -175,7 +182,7 @@ And #2 Gulf map :
 
 The command `ggplotGrob` signals to `ggplot` to take each created map, and how to arrange each map. The argument `coord_equal` can specify the length, `ylim`, and width, `xlim`, for the entire plotting area. Where as in `annotation_custom`, each maps'  `xmin`, `xmax`, `ymin`, and `ymax` can be specified to allow for complete customization. 
 
-```{r empty-grobs, fig.width = 15, fig.height = 5, out.width = "90%"}
+```{rr empty-grobs, fig.width = 15, fig.height = 5, out.width = "90%"}
 
 #Creating a faux empty data frame
 df <- data.frame()
@@ -205,8 +212,7 @@ ggplot() +
     theme_void()
 ```
 
-In the second approach,
-using `cowplot::plot_grid` to arrange `ggplot` figures, is quite versatile. Any `ggplot` figure can be arranged just like the figure above. There are many commands that allow for the map to have different placements, such as `nrow=1` means that the figure will only occupy one row and multiple columns, and `ncol=1` means the figure will be plotted on one column and multiple rows. The command `rel_widths` establishes the width of each map, meaning that the first map `gworld` will have a relative width of `2.3`, and the map `ggulf` has the relative width of `1`. 
+Using `plot_grid(cowplot)` to arrange `ggplot` figures, is versatile. Any `ggplot` figure can be arranged just like the figure above. There are many commands that allow for the map to have different placements, such as `nrow=1` means that the figure will only occpuy one row and muitple columns, and `ncol=1` means the figure will be plotted on one column and multiple rows. The command `rel_widths` establishes the width of each map, meaning that the first map `gworld` will have a relative width of `2.3`, and the map `ggulf` has the relative width of `1`. 
 
 ```{r grid-plot-grid, fig.width = 15, fig.height = 5, out.width = "90%"}
 library("cowplot")
@@ -215,11 +221,11 @@ theme_set(theme_bw())
 plot_grid(gworld, ggulf, nrow = 1, rel_widths = c(2.3, 1))
 ```
 
-Some other commands can adjust the position of the figures such as adding `align=v` to align vertically, and `align=h` to align horiztonally. 
+Some other commands can adjust the position of the figures such as adding `align=v` to align vertically on the left axis, and `align=h` to align horiztonally. 
 
 Note also the existence of `get_legend` (`cowplot`), and that the legend can be used as any object.
 
-This map can be save using,`ggsave`:
+`ggsave` is OK to be used here.
  
 ```{r, eval = FALSE}
 ggsave("grid.pdf", width = 15, height =  5)
@@ -243,7 +249,7 @@ usa <- subset(world, ADMIN == "United States of America")
          730000)))
 ```
 
-Alaska map (note: `datum = NA` removes graticules and coordinates):
+Alaska (note: `datum = NA` removes graticules and coordinates):
 
 ```{r inset-alaska, fig.width = 10, fig.height = 6}
 ## Alaska: NAD83(NSRS2007) / Alaska Albers (3467)
@@ -254,7 +260,7 @@ Alaska map (note: `datum = NA` removes graticules and coordinates):
          2500000), expand = FALSE, datum = NA))
 ```
 
-Hawaii map:
+Hawaii:
 
 ```{r inset-hawaii, fig.width = 10, fig.height = 7}
 ## Hawaii: Old Hawaiian (4135)
@@ -278,13 +284,13 @@ ggdraw(mainland) +
         x = 0.3, y = 0.05)
 ```
 
-This plot can be saved using `ggsave`:
+`ggsave` is OK to use:
 
 ```{r inset-ggdraw-save, eval = FALSE}
 ggsave("map-us-ggdraw.pdf", width = 10, height = 6)
 ```
 
-The same kind of plot can be created using grobs, with `ggplotGrob`, (note the use of xdiff/ydiff and arbitrary ratios):
+Same using grobs (note the use of xdiff/ydiff and arbitrary ratios):
 
 ```{r inset-grobs, fig.width = 10, fig.height = 6, out.width = "90%"}
 mainland +
@@ -304,7 +310,7 @@ mainland +
     )
 ```
 
-This plot can be saved using `ggsave`:
+Save OK with `ggsave`:
 
 ```{r inset-grobs-save, eval = FALSE}
 ggsave("map-inset-grobs.pdf", width = 10, height = 6)
@@ -313,7 +319,7 @@ ggsave("map-inset-grobs.pdf", width = 10, height = 6)
 
 The `print` command can also be used place multiple maps in one plotting area. 
 
-To specify where each plot is displayed with the  `print` function, the argument `viewport` needs to include the maximum width and height of each map, and the minimum x and y coordinates of where the maps are located in the plotting area. The argument `just` will make a position on how the secondary maps will be displayed. All maps are defaulted the same size, until the sizes are adjusted with `width` and `height`.
+To specify where each plot is displayed with the  `print` function, the argument `viewport` needs to specify the maximum width and height of each map, and the minimum x and y coordinates of where the maps are located in the plotting area. The argument `just` will make a position on how the secondary maps will be displayed. All maps are defaulted the same size, until the sizes are adjusted with `width` and `height`.
 
 ```{r print_vp}
 vp <- viewport(width = 0.37, height = 0.10, x = 0.20, y =0.25, just = c("bottom")) 
@@ -331,9 +337,9 @@ print(hawaii, vp=vp1)
 
 # Several maps connected with arrows
 
-To bring about a more lively map arrangement, arrows can be used to bring the viewers eyes to specific areas in the plot. The next example will create a map with zoomed in areas, pointed to by arrows. 
+To bring about a more lively map arrangement, arrows can be used to bring the viewers eyes to specific areas in the plotting area. The next example will create a map with zoomed in areas, pointed to by arrows. 
 
-Firstly, we will create our main map, and then our zoomed in areas. 
+Firstly, we will create our main maps, and then our zoomed in map areas. 
 
 Site coordinates, same as Tutorial #1:
 
@@ -357,8 +363,8 @@ Mainlaind map of Florida, #1:
          size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
          panel.border = element_rect(fill = NA)))
 ```
-
-A map for site A is created by layering the map and points we created earlier. `ggplot` layers `geom_sf` objects and plot them spatially. 
+  
+Site A, #2:
 
 ```{r map-arrows-sitea, fig.width = 3, fig.height = 3, out.width = "35%"}
 (siteA <- ggplot(data = world) +
@@ -371,8 +377,8 @@ A map for site A is created by layering the map and points we created earlier. `
          size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
          panel.border = element_rect(fill = NA)))
 ```
-
-A map for site B:
+  
+Site B, #3:
 
 ```{r map-arrows-siteb, fig.width = 3, fig.height = 3, out.width = "35%"}
 (siteB <- ggplot(data = world) + 
@@ -386,14 +392,14 @@ A map for site B:
          panel.border = element_rect(fill = NA)))
 ```
 
-Coordinates of the two arrows will need to be specified before plotting. The argumemnts `x1`, and `x2` will plot the arrow line from a specific starting x-axis location,`x1`, and ending in a specific x-axis,`x2`. The same applies for `y1` and `y2`, with the y-axis respectively:
+Coordinates of the 2 arrows will need to be specified before plotting. The argumemnts `x1`, and `x2` will plot the arrow line from a specific starting x-axis location,`x1`, and ending in a specific x-axis,`x2`. The same applies for `y1` and `y2`, with the y-axis respectively:
 
 ```{r map-arrows-arrows}
 arrowA <- data.frame(x1 = 18.5, x2 = 23, y1 = 9.5, y2 = 14.5)
 arrowB <- data.frame(x1 = 18.5, x2 = 23, y1 = 8.5, y2 = 6.5)
 ```
 
-Final map using (`ggplot` only). The argument `geom_segment`, will be the coordinates created in the previous script, to plot line segments ending with an arrow using `arrow=arrow()`:
+Final map using (`ggplot` only). The argument `geom_segment`, are the coordinates created in the previous script, to plot line segments ending with an arrow using `arrow=arrow()`:
 
 ```{r map-arrows-plot, fig.width = 10, fig.height = 7, out.width = "90%"}
 ggplot() +
@@ -411,7 +417,7 @@ ggplot() +
     theme_void()
 ```
 
-This plot can be saved using `ggsave`:
+`ggsave` works OK for this map.
 
 ```{r, eval = FALSE}
 ggsave("florida-sites.pdf", width = 10, height = 7)
@@ -429,3 +435,55 @@ ggdraw(xlim = c(0, 28), ylim = c(0, 20)) +
     geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2), data = arrowB, 
         arrow = arrow(), lineend = "round")
 ```
+
+# Faceting
+## `ggplot` faceting
+
+The package `ggplot` has a faceting option, to plot multiple variables of a dataset, at once, without specifying the location of the figure in the plot area. In order to successfully `facet_wrap`, the `sf` data has to have columns with variables, that can be faceted. Normally, this argument can work with any data frame, but it can also be useful in mapping objects, especially is there is additional information represented per region, such as population estimate in the example below.
+
+```{r ggplot_usa, fig.width = 12, fig.height = 9, out.width = "100%"}
+
+library("dplyr")
+library("viridis")
+
+world<- world %>% 
+  filter(!is.na(REGION)) 
+
+ggplot(data = world, aes(fill= POP_EST)) +
+     geom_sf() +
+     theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
+         size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
+         panel.border = element_rect(fill = NA),
+         axis.text.x = element_text(angle = 90)) +
+  facet_wrap(~continent, ncol=2) 
+
+
+```
+
+  
+## `rnatural` package for map data
+The package `rnatural` can also be used to download map data. There are options to retrieve coastlines, countries, and map units. The data gather can be transformed in an "sp" and/or"sf" in the argument `returnclass=  " " `.  In the example below. The map data is faceted with `ggplot` and filled with the income group of each region. This package data can be easily used with `ggplot`. Regardless of the data, `ggplot` faceting has some limitations and much less flexible with the type of data it can plot. 
+
+```{r rnatural_pacakge, fig.width = 12, fig.height = 9, out.width = "100%"}
+
+library("rnaturalearth")
+
+countries<-ne_countries(scale = 110, type = c("countries", "map_units", "sovereignty",
+"tiny_countries"),returnclass = "sf")
+
+
+ggplot(data = countries, aes(fill= income_grp)) +
+     geom_sf() +
+     theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
+         size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
+         panel.border = element_rect(fill = NA),
+         axis.text.x = element_text(angle = 90)) +
+  facet_wrap(~continent, ncol=2) 
+
+```
+
+
+
+
+---
+
