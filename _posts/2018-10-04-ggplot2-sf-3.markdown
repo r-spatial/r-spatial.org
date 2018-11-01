@@ -26,6 +26,7 @@ provide different approaches to arranges maps in the plot, in order to
 make the information portrayed more aesthetically appealing, and most
 importantly, convey the information better.
 
+
 Getting started
 ---------------
 
@@ -35,7 +36,7 @@ R packages. The full list of packages necessary for this series of
 tutorials can be installed with:
 
     install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-        "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata"))
 
 We start by loading the basic packages necessary for all maps, i.e.
 `ggplot2` and `sf`. We also suggest to use the classic dark-on-light
@@ -45,28 +46,16 @@ theme for `ggplot2` (`theme_bw`), which is more appropriate for maps:
     theme_set(theme_bw())
     library("sf")
 
-The package `rworldmap` provides a map of countries of the entire world;
-a map with higher resolution is available in the package `rworldxtra`.
-We use the function `getMap` to extract the world map (the resolution
-can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
 
-    library("rworldmap")
-    library("rworldxtra")
-    world <- getMap(resolution = "high")
+    library("rnaturalearth")
+    library("rnaturalearthdata")
+
+    world <- ne_countries(scale='medium',returnclass = 'sf')
     class(world)
 
-    ## [1] "SpatialPolygonsDataFrame"
-    ## attr(,"package")
-    ## [1] "sp"
-
-The world map is available as a `SpatialPolygonsDataFrame` from the
-package `sp`; we thus convert it to a simple feature using `st_as_sf`
-from package `sf`:
-
-    world <- st_as_sf(world)
-    class(world)
-
-    ## [1] "sf"         "data.frame"
+    ## [1] "sf"  
+    ## [1] "data.frame"
 
 General concepts
 ================
@@ -134,14 +123,10 @@ This exmaple is using two maps side by side, including the legend of the
 first one. It illustrates how to use a custom grid, which can be made a
 lot more complex with different elements.
 
-First, simplify `REGION` for the legend:
-
-    levels(world$REGION)[7] <- "South America"
-
 Prepare the subplots, \#1 world map:
 
     (gworld <- ggplot(data = world) +
-         geom_sf(aes(fill = REGION)) +
+         geom_sf(aes(fill = region_wb)) +
          geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
              fill = NA, colour = "black", size = 1.5) +
          scale_fill_viridis_d(option = "plasma") +
@@ -153,7 +138,7 @@ Prepare the subplots, \#1 world map:
 And \#2 Gulf map :
 
     (ggulf <- ggplot(data = world) +
-         geom_sf(aes(fill = REGION)) +
+         geom_sf(aes(fill = region_wb)) +
          annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
              fontface = "italic", color = "grey22", size = 6) +
          coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE) +
@@ -241,7 +226,7 @@ Map example using map of the 50 states of the US, including Alaska and
 Hawaii (note: not to scale for the latter), using reference projections
 for US maps. First map (continental states) use a 10/6 figure:
 
-    usa <- subset(world, ADMIN == "United States of America")
+    usa <- subset(world, admin == "United States of America")
     ## US National Atlas Equal Area (2163)
     ## http://spatialreference.org/ref/epsg/us-national-atlas-equal-area/
     (mainland <- ggplot(data = usa) +
@@ -450,6 +435,27 @@ This plot can be saved using `ggsave`:
             arrow = arrow(), lineend = "round")
 
 <img src="/images/figure-markdown_mmd/map-arrows-ggdraw-1.png" width="90%" />
+  
+Faceting 
+==================================
+
+ggplot2 for faceting
+---------------
+    
+The package rnatural can also be used to download map data. There are options to retrieve coastlines, countries, and map units. The data gather can be transformed in an "sp" and/or"sf" in the argument returnclass=  " ". In the example below. The map data is faceted with ggplot and filled with the income group of each region. This package data can be easily used with ggplot. Regardless of the data, ggplot faceting has some limitations and much less flexible with the type of data it can plot.  
+
+  
+    library("rnaturalearth")
+
+    countries<-ne_countries(scale = 110, type = c("countries", "map_units", "sovereignty",
+"tiny_countries"),returnclass = "sf")
 
 
+    ggplot(data = countries, aes(fill= income_grp)) +
+     geom_sf() +
+     theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
+         size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
+         panel.border = element_rect(fill = NA),
+         axis.text.x = element_text(angle = 90)) +
+      facet_wrap(~continent, ncol=2) 
 

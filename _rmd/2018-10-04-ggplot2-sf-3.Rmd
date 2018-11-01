@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2 : Part 3: Layouts"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 : Part 3- Layouts"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
@@ -29,8 +29,8 @@ knitr::opts_chunk$set(
 ## Tutorial #1
 library("ggplot2")
 library("sf")
-library("rworldmap")
-library("rworldxtra")
+library("rnaturalearth")
+library("rnaturalearthdata")
 library("ggspatial")
 ## Tutorial #2
 library("maps")
@@ -62,7 +62,7 @@ Many R packages are available from [CRAN](https://cran.r-project.org/), the Comp
 
 ```{r pkg-install-all, eval = FALSE}
 install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-    "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata"))
 ```
 
 We start by loading the basic packages necessary for all maps, i.e. `ggplot2` and `sf`. We also suggest to use the classic dark-on-light theme for `ggplot2` (`theme_bw`), which is more appropriate for maps:
@@ -73,19 +73,13 @@ theme_set(theme_bw())
 library("sf")
 ```
 
-The package `rworldmap` provides a map of countries of the entire world; a map with higher resolution is available in the package `rworldxtra`. We use the function `getMap` to extract the world map (the resolution can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
 
-```{r pkg-rworldmap}
-library("rworldmap")
-library("rworldxtra")
-world <- getMap(resolution = "high")
-class(world)
-```
+```{r pkg-rnaturalearth}
+library("rnaturalearth")
+library("rnaturalearthdata")
 
-The world map is available as a `SpatialPolygonsDataFrame` from the package `sp`; we thus convert it to a simple feature using `st_as_sf` from package `sf`:
-
-```{r world-sf}
-world <- st_as_sf(world)
+world <- ne_countries(scale='medium',returnclass = 'sf')
 class(world)
 ```
 
@@ -139,26 +133,17 @@ ggdraw(g1) +
 ```
 
 
-
-
-
 # Several maps side by side or on a grid
  
 Having a way show in a visualization, a specific area can be very useful. Many scientists usually create maps for each specific area manually. This is fine, but there are simpler ways to display what is needed for a report, or publication. 
 
 This exmaple is using two maps side by side, including the legend of the first one. It illustrates how to use a custom grid, which can be made a lot more complex with different elements.
 
-First simplify `REGION` for the legend:
-
-```{r grid-region}
-levels(world$REGION)[7] <- "South America"
-```
-
 Prepare the subplots, #1 world:
 
 ```{r grid-world, fig.width = 12, fig.height = 5, out.width = "90%"}
 (gworld <- ggplot(data = world) +
-     geom_sf(aes(fill = REGION)) +
+     geom_sf(aes(fill = region_wb)) +
      geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
          fill = NA, colour = "black", size = 1.5) +
      scale_fill_viridis_d(option = "plasma") +
@@ -170,7 +155,7 @@ And #2 Gulf:
 
 ```{r grid-gulf}
 (ggulf <- ggplot(data = world) +
-     geom_sf(aes(fill = REGION)) +
+     geom_sf(aes(fill = region_wb)) +
      annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
          fontface = "italic", color = "grey22", size = 6) +
      coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE) +
@@ -240,7 +225,7 @@ For map insets directly on the background map, both solutions are viable (and on
 Map example using map of the 50 states of the US, including Alaska and Hawaii (note: not to scale for the latter), using reference projections for US maps. First map (continental states) use a 10/6 figure:
 
 ```{r inset-usa, fig.width = 10, fig.height = 6, out.width = "90%"}
-usa <- subset(world, ADMIN == "United States of America")
+usa <- subset(world, admin == "United States of America")
 ## US National Atlas Equal Area (2163)
 ## http://spatialreference.org/ref/epsg/us-national-atlas-equal-area/
 (mainland <- ggplot(data = usa) +
@@ -437,35 +422,11 @@ ggdraw(xlim = c(0, 28), ylim = c(0, 20)) +
 ```
 
 # Faceting
-## `ggplot` faceting
-
-The package `ggplot` has a faceting option, to plot multiple variables of a dataset, at once, without specifying the location of the figure in the plot area. In order to successfully `facet_wrap`, the `sf` data has to have columns with variables, that can be faceted. Normally, this argument can work with any data frame, but it can also be useful in mapping objects, especially is there is additional information represented per region, such as population estimate in the example below.
-
-```{r ggplot_usa, fig.width = 12, fig.height = 9, out.width = "100%"}
-
-library("dplyr")
-library("viridis")
-
-world<- world %>% 
-  filter(!is.na(REGION)) 
-
-ggplot(data = world, aes(fill= POP_EST)) +
-     geom_sf() +
-     theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
-         size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
-         panel.border = element_rect(fill = NA),
-         axis.text.x = element_text(angle = 90)) +
-  facet_wrap(~continent, ncol=2) 
-
-
-```
-
   
-## `rnatural` package for map data
+## `ggplot2` for faceting
 The package `rnatural` can also be used to download map data. There are options to retrieve coastlines, countries, and map units. The data gather can be transformed in an "sp" and/or"sf" in the argument `returnclass=  " " `.  In the example below. The map data is faceted with `ggplot` and filled with the income group of each region. This package data can be easily used with `ggplot`. Regardless of the data, `ggplot` faceting has some limitations and much less flexible with the type of data it can plot. 
 
 ```{r rnatural_pacakge, fig.width = 12, fig.height = 9, out.width = "100%"}
-
 library("rnaturalearth")
 
 countries<-ne_countries(scale = 110, type = c("countries", "map_units", "sovereignty",
@@ -481,8 +442,6 @@ ggplot(data = countries, aes(fill= income_grp)) +
   facet_wrap(~continent, ncol=2) 
 
 ```
-
-
 
 
 ---
