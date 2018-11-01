@@ -31,8 +31,8 @@ knitr::opts_chunk$set(
 ## Tutorial #1
 library("ggplot2")
 library("sf")
-library("rworldmap")
-library("rworldxtra")
+library("rnaturalearth")
+library("rnaturalearthdata")
 library("ggspatial")
 ```
 
@@ -80,7 +80,7 @@ Many R packages are available from [CRAN](https://cran.r-project.org/), the Comp
 
 ```{r pkg-install-all, eval = FALSE}
 install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-    "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata")
 ```
 
 We start by loading the basic packages necessary for all maps, i.e. `ggplot2` and `sf`. We also suggest to use the classic dark-on-light theme for `ggplot2` (`theme_bw`), which is appropriate for maps:
@@ -91,19 +91,13 @@ theme_set(theme_bw())
 library("sf")
 ```
 
-The package `rworldmap` provides a map of countries of the entire world; a map with higher resolution is available in the package `rworldxtra`. We use the function `getMap` to extract the world map (the resolution can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
 
-```{r pkg-rworldmap}
-library("rworldmap")
-library("rworldxtra")
-world <- getMap(resolution = "high")
-class(world)
-```
+```{r pkg-rnatural}
+library("rnaturalearth")
+library("rnaturalearthdata")
 
-The world map is available as a `SpatialPolygonsDataFrame` from the package `sp`; we thus convert it to a simple feature using `st_as_sf` from package `sf`:
-
-```{r world-sf}
-world <- st_as_sf(world)
+world <- ne_countries(scale='medium',returnclass = 'sf')
 class(world)
 ```
 
@@ -146,11 +140,11 @@ ggplot(data = world) +
     geom_sf(color = "black", fill = "lightgreen")
 ```
 
-The package `ggplot2` allows the use of more complex color schemes, such as a gradient on one variable of the data. Here is another example that shows the population of each country. In this example, we use the "viridis" colorblind-friendly palette for the color gradient (with `option = "plasma"` for the plasma variant), using the square root of the population (which is stored in the variable `POP_EST` of the `world` object):
+The package `ggplot2` allows the use of more complex color schemes, such as a gradient on one variable of the data. Here is another example that shows the population of each country. In this example, we use the "viridis" colorblind-friendly palette for the color gradient (with `option = "plasma"` for the plasma variant), using the square root of the population (which is stored in the variable `pop_est` of the `world` object):
 
 ```{r world-colors-pop, fig.width = 10, fig.height = 5, out.width = "90%"}
 ggplot(data = world) +
-    geom_sf(aes(fill = POP_EST)) +
+    geom_sf(aes(fill = pop_est)) +
     scale_fill_viridis_c(option = "plasma", trans = "sqrt")
 ```
 
@@ -192,7 +186,6 @@ Several packages are available to create a scale bar on a map (e.g. `prettymapr`
 
 `scale_bar` that allows to add simultaneously the north symbol and a scale bar into the `ggplot` map. Five arguments need to be set manually: `lon`, `lat`, `distance_lon`, `distance_lat`, and `distance_legend`. The location of the scale bar has to be specified in longitude/latitude in the `lon` and `lat` arguments. The shaded distance inside the scale bar is controlled by the `distance_lon` argument. while its width is determined by `distance_lat`. Additionally, it is possible to change the font size for the legend of the scale bar (argument `legend_size`, which defaults to 3). The North arrow behind the "N" north symbol can also be adjusted for its length (`arrow_length`), its distance to the scale (`arrow_distance`), or the size the N north symbol itself (`arrow_north_size`, which defaults to 6). Note that all distances (`distance_lon`, `distance_lat`, `distance_legend`, `arrow_length`, `arrow_distance`) are set to `"km"` by default in `distance_unit`; they can also be set to nautical miles with "nm", or miles with "mi".
 
-<!-- Rework using annotation_scale and annotation_north_arrow from ggspatial! ggspatial is on CRAN, which makes the entire tutorial only rely on CRAN package! Describe useful arguments used below -->
 
 ```{r world-scale-north, message = TRUE}
 library("ggspatial")
@@ -210,26 +203,28 @@ Note the warning of the inaccurate scale bar: since the map use unprojected data
 
 ## Country names and other names (`geom_text` and `annotate`)
 
-The `world` data set already contains country names and the coordinates of the centroid of each country (among more information). We can use this information to plot country names, using `world` as a regular `data.frame` in `ggplot2`. We first check the country name information:
-
-```{r world-names}
-head(world[, c("NAME", "LON", "LAT")])
-```
-
-The function `geom_text` can be used to add a layer of text to a map using geographic coordinates. The function requires the data needed to enter the country names, which is the same data as the world map. Again, we have a very flexible control to adjust the text at will on many aspects:
+The `world` data set already contains country names and the coordinates of the centroid of each country (among more information). We can use this information to plot country names, using `world` as a regular `data.frame` in `ggplot2`. The function `geom_text` can be used to add a layer of text to a map using geographic coordinates. The function requires the data needed to enter the country names, which is the same data as the world map. Again, we have a very flexible control to adjust the text at will on many aspects:
 
 * The size (argument `size`);
 * The alignment, which is centered by default on the coordinates provided. The text can be adjusted horizontally or vertically using the arguments `hjust` and `vjust`, which can either be a number between 0 (right/bottom) and 1 (top/left) or a character ("left", "middle", "right", "bottom", "center", "top"). The text can also be offset horizontally or vertically with the argument `nudge_x` and `nudge_y`;
 * The font of the text, for instance its color (argument `color`) or the type of font (`fontface`);
-* The overlap of labels, using the argument `check_overlap`, which removes overlapping text. Alternatively, when there is a lot of overlapping labels, the package `ggrepel` provides a `geom_text_repel` function that moves label around so that they do not overlap.
+* The overlap of labels, using the argument `check_overlap`, which removes overlapping text. Alternatively, when there is a lot of overlapping labels, the package `ggrepel` provides a `geom_text_repel` function that moves label around so that they do not overlap. 
+* For the text labels, we are defining the centroid of the counties with `st_centroid`, from the package `sf`. Then we combined the coordinates with the centroid, in the `geometry` of the spatial data frame. The package `sf` is necessary for the command `st_centroid`.
 
 Additionally, the `annotate` function can be used to add a single character string at a specific location, as demonstrated here to add the Gulf of Mexico:
 
 ```{r world-country}
+library("sf")
+
+world_points<- st_centroid(world)
+
+world_points <- cbind(world, st_coordinates(st_centroid(world$geometry)))
+
+
 ggplot(data = world) +
     geom_sf() +
-    geom_text(aes(LON, LAT, label = NAME), size = 4, hjust = "left", 
-        color = "darkblue", fontface = "bold", check_overlap = TRUE) +
+    geom_text(data= world_points,aes(x=X, y=Y, label=name),
+        color = "darkblue", fontface = "bold", check_overlap = FALSE) +
     annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
         fontface = "italic", color = "grey22", size = 6) +
     coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE)
@@ -247,9 +242,9 @@ Now to make the final touches, the theme of the map can be edited to make it mor
 
 ```{r world-florida-final}
 ggplot(data = world) +
-    geom_sf(fill = "antiquewhite1") +
-    geom_text(aes(LON, LAT, label = NAME), size = 4, hjust = "left",
-        color = "darkblue", fontface = "bold", check_overlap = TRUE) +
+    geom_sf(fill= "antiquewhite") +
+    geom_text(data= world_points,aes(x=X, y=Y, label=name),
+        color = "darkblue", fontface = "bold", check_overlap = FALSE) +
     annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
         fontface = "italic", color = "grey22", size = 6) +
     annotation_scale(location = "bl", width_hint = 0.5) +

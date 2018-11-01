@@ -28,8 +28,8 @@ knitr::opts_chunk$set(
 ## Tutorial #1
 library("ggplot2")
 library("sf")
-library("rworldmap")
-library("rworldxtra")
+library("rnaturalearth")
+library("rnaturalearthdata")
 library("ggspatial")
 ## Tutorial #2
 library("maps")
@@ -53,7 +53,7 @@ Many R packages are available from [CRAN](https://cran.r-project.org/), the Comp
 
 ```{r pkg-install-all, eval = FALSE}
 install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-    "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata"))
 ```
 
 We start by loading the basic packages necessary for all maps, i.e. `ggplot2` and `sf`. We also suggest to use the classic dark-on-light theme for `ggplot2` (`theme_bw`), which is more appropriate for maps:
@@ -64,22 +64,15 @@ theme_set(theme_bw())
 library("sf")
 ```
 
-The package `rworldmap` provides a map of countries of the entire world; a map with higher resolution is available in the package `rworldxtra`. We use the function `getMap` to extract the world map (the resolution can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
 
-```{r pkg-rworldmap}
-library("rworldmap")
-library("rworldxtra")
-world <- getMap(resolution = "high")
+```{r pkg-rnaturalearth}
+library("rnaturalearth")
+library("rnaturalearthdata")
+
+world <- ne_countries(scale='medium',returnclass = 'sf')
 class(world)
 ```
-
-The world map is available as a `SpatialPolygonsDataFrame` from the package `sp`; we thus convert it to a simple feature using `st_as_sf` from package `sf`:
-
-```{r world-sf}
-world <- st_as_sf(world)
-class(world)
-```
-
 
 # Adding additional layers: an example with points and polygons
 
