@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2 : Part 3- Layouts"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 — Part 3: Layouts"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
@@ -44,13 +44,12 @@ library("dplyr")
 library("viridis")
 ```
 
-
-# Drawing beautiful maps programmatically with R, `sf` and `ggplot2`
+*EDIT: Following a suggestion Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
 
 This tutorial is the third part in a series of three:
 
-* [General concepts illustrated with the world Map] (Tutorial_1.html)
-* [Adding additional layers: an example with points and polygons](Tutorial_2.html)
+* [General concepts illustrated with the world Map](ggplot2-sf.html)
+* [Adding additional layers: an example with points and polygons](ggplot2-sf-2.html)
 * Positioning and layout for complex maps (this document)
 
 After the presentation of the basic map concepts, and the flexible approach in layer implemented in `ggplot2`, this section will illustrate how to achieve complex layouts, for instance with map insets, or several maps combined. Depending on the visual information that needs to be displayed, maps and their corresponding data might need to be arranged to create easy to read graphical representations. This tutorial will provide different approaches to arranges maps in the plot, in order to make the information portrayed more aesthetically appealing, and most importantly, convey the information better.
