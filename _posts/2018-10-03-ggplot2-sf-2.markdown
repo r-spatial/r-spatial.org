@@ -8,7 +8,7 @@ date: 25 October, 2018
 layout: post
 ---
 
-[view raw Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2018-10-03-ggplot2-sf-2.Rmd)
+[view raw Rmd](https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/2018-10-03-ggplot2-sf-2.Rmd)
 
 This tutorial is the second part in a series of three:
 
@@ -42,12 +42,16 @@ theme for `ggplot2` (`theme_bw`), which is more appropriate for maps:
     theme_set(theme_bw())
     library("sf")
 
-The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
+The package `rnaturalearth` provides a map of countries of the entire
+world. Use `ne_countries` to pull country data and choose the scale
+(`rnaturalearthhires` is necessary for `scale = "large"`). The
+function can return `sp` classes (default) or directly `sf` classes,
+as defined in the argument `returnclass`:
 
     library("rnaturalearth")
     library("rnaturalearthdata")
 
-    world <- ne_countries(scale='medium',returnclass = 'sf')
+    world <- ne_countries(scale = "medium", returnclass = "sf")
     class(world)
 
     ## [1] "sf"  

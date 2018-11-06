@@ -40,9 +40,9 @@ library("ggrepel")
 
 This tutorial is the second part in a series of three:
 
-* [General concepts illustrated with the world map](Tutorial_1.html)
+* [General concepts illustrated with the world map](ggplot2-sf.html)
 * Adding additional layers: an example with points and polygons (this document)
-* [Positioning and layout for complex maps](Tutorial_3.html)
+* [Positioning and layout for complex maps](ggplot2-sf-3.html)
 
 In the previous part, we presented general concepts with a map with little information (country borders only). The modular approach of `ggplot2` allows to successively add additional layers, for instance study sites or administrative delineations, as will be illustrated in this part.
 
@@ -64,13 +64,13 @@ theme_set(theme_bw())
 library("sf")
 ```
 
-The package `rnaturalearth` provides a map of countries of the entire world. Using `ne_counties` to pull the country data and,choose the scale. For `returnclass`, the setting can for be 'sf' and/or 'sp':
+The package `rnaturalearth` provides a map of countries of the entire world. Use `ne_countries` to pull country data and choose the scale (`rnaturalearthhires` is necessary for `scale = "large"`). The function can return `sp` classes (default) or directly `sf` classes, as defined in the argument `returnclass`:
 
 ```{r pkg-rnaturalearth}
 library("rnaturalearth")
 library("rnaturalearthdata")
 
-world <- ne_countries(scale='medium',returnclass = 'sf')
+world <- ne_countries(scale = "medium", returnclass = "sf")
 class(world)
 ```
 
