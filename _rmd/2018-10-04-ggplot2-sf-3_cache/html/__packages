@@ -1,0 +1,13 @@
+base
+ggplot2
+sf
+rnaturalearth
+rnaturalearthdata
+ggspatial
+maps
+googleway
+ggrepel
+cowplot
+dplyr
+viridisLite
+viridis
