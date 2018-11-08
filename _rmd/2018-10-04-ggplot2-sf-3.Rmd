@@ -167,6 +167,12 @@ The second map is very similar, but centered on the Gulf of Mexico (using `coord
          panel.border = element_rect(fill = NA)))
 ```
 
+The command `ggplotGrob` signals to `ggplot` to take each created map,
+and how to arrange each map. The argument `coord_equal` can specify the
+length, `ylim`, and width, `xlim`, for the entire plotting area. Where
+as in `annotation_custom`, each maps' `xmin`, `xmax`, `ymin`, and `ymax`
+can be specified to allow for complete customization.  
+
 Finally, we just need to arrange these two maps, which can be easily done with `annotation_custom`. Note that in this case, we use an empty call to `ggplot` to position the two maps on an empty background (of size 3.3 × 1): 
 
 ```{r grid-ggplot, fig.width = 15, fig.height = 5, out.width = "90%"} 
@@ -187,8 +193,7 @@ theme_set(theme_bw())
 
 plot_grid(gworld, ggulf, nrow = 1, rel_widths = c(2.3, 1))
 ```
-
-The argument `align` allows to align subplots horizontally (`align = "h"`), vertically (`align = "v"`), or both (`align = "hv"`), so that the axes and plot region match each other. Note also the existence of `get_legend` (`cowplot`), which extract the legend of a plot, which can then be used as any object (for instance, to place it precisely somewhere on the map).  
+ 
 Both maps created above (using `ggplot` and `annotation_custom`, or using `cowplot` and `plot_grid`) can be saved as usual using `ggsave` (to be used after plotting the desired map):
  
 ```{r grid-save, eval = FALSE}
@@ -294,15 +299,13 @@ print(hawaii, vp=vp1)
 
 To bring about a more lively map arrangement, arrows can be used to direct the viewer's eyes to specific areas in the plot. The next example will create a map with zoomed in areas, connected by arrows.
 
-We start by creating the general map, here a map of Florida, (see Tutorial 2 for the details):
+We start by creating the general map, here a map of Florida with the site locations, (see Tutorial 2 for the details):
 
 ```{r map-arrows}
 sites <- st_as_sf(data.frame(longitude = c(-80.15, -80.1), latitude = c(26.5, 
     26.8)), coords = c("longitude", "latitude"), crs = 4326, 
     agr = "constant")
 ```
-
-We then prepare two study sites (simply called `A` and `B` here):
 
 ```{r map-arrows-florida}
 (florida <- ggplot(data = world) +
@@ -317,6 +320,8 @@ We then prepare two study sites (simply called `A` and `B` here):
          panel.border = element_rect(fill = NA)))
 ```
 
+
+We then prepare two study sites (simply called `A` and `B` here):
 
 ```{r map-arrows-sitea, fig.width = 3, fig.height = 3, out.width = "35%"}
 (siteA <- ggplot(data = world) +
