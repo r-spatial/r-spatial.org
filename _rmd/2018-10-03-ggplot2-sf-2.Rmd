@@ -38,6 +38,8 @@ library("googleway")
 library("ggrepel")
 ```
 
+*EDIT: Following a suggestion from Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
+
 This tutorial is the second part in a series of three:
 
 * [General concepts illustrated with the world map](ggplot2-sf.html)

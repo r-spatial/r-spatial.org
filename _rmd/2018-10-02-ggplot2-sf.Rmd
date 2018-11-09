@@ -36,7 +36,7 @@ library("rnaturalearthdata")
 library("ggspatial")
 ```
 
-*EDIT: Following a suggestion Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
+*EDIT: Following a suggestion from Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
 
 This tutorial is the first part in a series of three:
 
