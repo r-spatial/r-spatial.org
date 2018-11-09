@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2  - Part 3: Layouts"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 — Part 3: Layouts"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
@@ -46,7 +46,7 @@ library("dplyr")
 library("viridis")
 ```
 
-# Drawing beautiful maps programmatically with R, `sf` and `ggplot2`
+*EDIT: Following a suggestion from Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`. We also largely edited the text.*
 
 This tutorial is the third part in a series of three:
 
@@ -126,12 +126,13 @@ g1 +
     )
 ```
 
-An alternative using the function `ggdraw` from the package `cowplot` allows to use relative positioning in the entire plot device. In this case, we build the graph on top of `g1`, but the initial call to `ggdraw` could actually be left empty to arrange subplots on an empty plot. Width and height of the subplots are relative from 0 to 1, as well x and y coordinates ([0,0] being the lower-left corner, [1,1] being the upper-right corner).
+An alternative using the function `ggdraw` from the package `cowplot` allows to use relative positioning in the entire plot device. In this case, we build the graph on top of `g1`, but the initial call to `ggdraw` could actually be left empty to arrange subplots on an empty plot. Width and height of the subplots are relative from 0 to 1, as well x and y coordinates ([0,0] being the lower-left corner, [1,1] being the upper-right corner). Note that in this case, subplots are not limited to the actual plot region, but can be added anywhere on the device:
 
 ```{r inset-example-cowplot}
+library("cowplot")
 ggdraw(g1) +
-    draw_plot(g1_void, width = 0.25, height = 0.5, x = 0.15, y = 0.45) +
-    draw_plot(g1_void, width = 0.45, height = 0.25, x = 0.50, y = 0.12)
+    draw_plot(g1_void, width = 0.25, height = 0.5, x = 0.02, y = 0.48) +
+    draw_plot(g1_void, width = 0.5, height = 0.25, x = 0.75, y = 0.09)
 ```
 
 
@@ -139,7 +140,7 @@ ggdraw(g1) +
  
 In this section, we present a way to arrange several maps side by side on a grid. While this could be achieved manually after exporting each individual map, this allows to 1) have reproducible code to this end; 2) full control on how individual maps are positioned.
 
-This exmaple is using two maps side by side, including the legend of the first one. It illustrates how to use a custom grid, which can be made a lot more complex with different elements.
+In this example, a zoom in on the Gulf of Mexico is placed on the side of the world map (including its legend). This illustrates how to use a custom grid, which can be made a lot more complex with more elements.
 
 We now prepare the subplots, starting by the world map with a rectangle around the Gulf of Mexico (see Section 1 and 2 for the details of how to prepare this map):
 
@@ -167,12 +168,6 @@ The second map is very similar, but centered on the Gulf of Mexico (using `coord
          panel.border = element_rect(fill = NA)))
 ```
 
-The command `ggplotGrob` signals to `ggplot` to take each created map,
-and how to arrange each map. The argument `coord_equal` can specify the
-length, `ylim`, and width, `xlim`, for the entire plotting area. Where
-as in `annotation_custom`, each maps' `xmin`, `xmax`, `ymin`, and `ymax`
-can be specified to allow for complete customization.  
-
 Finally, we just need to arrange these two maps, which can be easily done with `annotation_custom`. Note that in this case, we use an empty call to `ggplot` to position the two maps on an empty background (of size 3.3 × 1): 
 
 ```{r grid-ggplot, fig.width = 15, fig.height = 5, out.width = "90%"} 
@@ -188,51 +183,44 @@ ggplot() +
 The second approach using the function `plot_grid` from `cowplot` to arrange `ggplot` figures, is quite versatile. Any `ggplot` figure can be arranged just like the figure above. Several arguments adjust map placement, such as `nrow` and `ncol` which define the number of row and columns, respectively, and `rel_widths` which establishes the relative width of each map. In our case, we want both maps on a single row, the first map `gworld` to have a relative width of `2.3`, and the map `ggulf` a relative width of `1`. 
 
 ```{r grid-cowplot, fig.width = 15, fig.height = 5, out.width = "90%"}
-library("cowplot")
-theme_set(theme_bw())
-
 plot_grid(gworld, ggulf, nrow = 1, rel_widths = c(2.3, 1))
 ```
  
+The argument `align` can be used to align subplots horizontally (`align = "h"`), vertically (`align = "v"`), or both (`align = "hv"`), so that the axes and plot region match each other. Note also the existence of `get_legend` (`cowplot`), which extract the legend of a plot, which can then be used as any object (for instance, to place it precisely somewhere on the map).
+
 Both maps created above (using `ggplot` and `annotation_custom`, or using `cowplot` and `plot_grid`) can be saved as usual using `ggsave` (to be used after plotting the desired map):
  
 ```{r grid-save, eval = FALSE}
 ggsave("world_grid.pdf", width = 15, height =  5)
 ```
 
----
 
 # Map insets
+
 To inset maps directly on a background map, both solutions presented earlier are viable (and one might prefer one or the other depending on relative or absolute coordinates). We will illustrate this using a map of the 50 states of the United States, including Alaska and Hawaii (note: both Alaska and Hawaii will not be to scale).
 
-We start by preparing the continental states first, using the reference US National Atlas Equal Area projection. The main trick is to find the right coordinates, in the projection used, and this may cause some fine tuning at each step. Here, we enlarge the extent of the plot region on purpose to give some room for the insets: 
+We start by preparing the continental states first, using the reference [US National Atlas Equal Area projection](http://spatialreference.org/ref/epsg/us-national-atlas-equal-area/) (CRS 2163). The main trick is to find the right coordinates, in the projection used, and this may cause some fine tuning at each step. Here, we enlarge the extent of the plot region on purpose to give some room for the insets: 
 
 ```{r inset-usa, fig.width = 10, fig.height = 6, out.width = "90%"}
 usa <- subset(world, admin == "United States of America")
-## US National Atlas Equal Area (2163)
-## http://spatialreference.org/ref/epsg/us-national-atlas-equal-area/
 (mainland <- ggplot(data = usa) +
      geom_sf(fill = "cornsilk") +
      coord_sf(crs = st_crs(2163), xlim = c(-2500000, 2500000), ylim = c(-2300000, 
          730000)))
 ```
 
-The Alaska map is plotted using the reference Alaska Albers projection (note that graticules and coordinates are removed with `datum = NA`):
+The Alaska map is plotted using the reference [Alaska Albers projection](http://www.spatialreference.org/ref/epsg/3467/) (CRS 3467). Nnote that graticules and coordinates are removed with `datum = NA`:
 
 ```{r inset-alaska, fig.width = 10, fig.height = 6}
-## Alaska: NAD83(NSRS2007) / Alaska Albers (3467)
-## http://www.spatialreference.org/ref/epsg/3467/
 (alaska <- ggplot(data = usa) +
      geom_sf(fill = "cornsilk") +
      coord_sf(crs = st_crs(3467), xlim = c(-2400000, 1600000), ylim = c(200000, 
          2500000), expand = FALSE, datum = NA))
 ```
 
-And now the map of Hawaii, plotted using the reference Old Hawaiian projection:
+And now the map of Hawaii, plotted using the reference [Old Hawaiian projection](http://www.spatialreference.org/ref/epsg/4135/) (CRS 4135):
 
 ```{r inset-hawaii, fig.width = 10, fig.height = 7}
-## Hawaii: Old Hawaiian (4135)
-## http://www.spatialreference.org/ref/epsg/4135/
 (hawaii  <- ggplot(data = usa) +
      geom_sf(fill = "cornsilk") +
      coord_sf(crs = st_crs(4135), xlim = c(-161, -154), ylim = c(18, 
@@ -278,36 +266,17 @@ Again, both plots can be saved using `ggsave`:
 ggsave("us-alaska-hawaii.pdf", width = 10, height = 6)
 ```
 
-The `print` command can also be used place multiple maps in one plotting area. 
-
-To specify where each plot is displayed with the  `print` function, the argument `viewport` needs to specify the maximum width and height of each map, and the minimum x and y coordinates of where the maps are located in the plotting area. The argument `just` will make a position on how the secondary maps will be displayed. All maps are defaulted the same size, until the sizes are adjusted with `width` and `height`.
-
-```{r print_vp}
-vp <- viewport(width = 0.37, height = 0.10, x = 0.20, y =0.25, just = c("bottom")) 
-vp1<- viewport(width = 0.37, height = 0.10, x = 0.35, y =0.25, just = c("bottom")) 
-```
-
-The`print` function uses the previous specifications that were listed in each plots' respective `viewport`, with `vp=`.
-
-```{r print_finalmap}
-print(mainland)
-print(alaska, vp=vp)
-print(hawaii, vp=vp1)
-```
 
 # Several maps connected with arrows
 
 To bring about a more lively map arrangement, arrows can be used to direct the viewer's eyes to specific areas in the plot. The next example will create a map with zoomed in areas, connected by arrows.
 
-We start by creating the general map, here a map of Florida with the site locations, (see Tutorial 2 for the details):
+We start by creating the general map, here a map of Florida with the site locations (see Tutorial 2 for the details):
 
-```{r map-arrows}
+```{r map-arrows-florida}
 sites <- st_as_sf(data.frame(longitude = c(-80.15, -80.1), latitude = c(26.5, 
     26.8)), coords = c("longitude", "latitude"), crs = 4326, 
     agr = "constant")
-```
-
-```{r map-arrows-florida}
 (florida <- ggplot(data = world) +
      geom_sf(fill = "antiquewhite1") +
      geom_sf(data = sites, size = 4, shape = 23, fill = "darkred") +
@@ -319,7 +288,6 @@ sites <- st_as_sf(data.frame(longitude = c(-80.15, -80.1), latitude = c(26.5,
          size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
          panel.border = element_rect(fill = NA)))
 ```
-
 
 We then prepare two study sites (simply called `A` and `B` here):
 
@@ -333,8 +301,7 @@ We then prepare two study sites (simply called `A` and `B` here):
      theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
          size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
          panel.border = element_rect(fill = NA)))
-```
-  
+```  
 
 ```{r map-arrows-siteb, fig.width = 3, fig.height = 3, out.width = "35%"}
 (siteB <- ggplot(data = world) + 
@@ -391,29 +358,3 @@ Again, both plot can be saved using `ggsave`:
 ```{r map-arrows-save, eval = FALSE}
 ggsave("florida-sites.pdf", width = 10, height = 7)
 ```
-
-# Faceting
-  
-## `ggplot2` for faceting
-In the example below. The map data is faceted with `ggplot` and filled with the income group of each region. Regardless of the data, `ggplot` faceting has some limitations and much less flexible with the type of data it can plot. For `ggplot` to plot using `facet_wrap`, all data must exist in a single data frame, and be arranged in a long format. 
-
-```{r rnatural_pacakge, fig.width = 12, fig.height = 9, out.width = "100%"}
-library("rnaturalearth")
-
-countries<-ne_countries(scale = 110, type = c("countries", "map_units", "sovereignty",
-"tiny_countries"),returnclass = "sf")
-
-
-ggplot(data = countries, aes(fill= income_grp)) +
-     geom_sf() +
-     theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
-         size = 0.5), panel.background = element_rect(fill = "aliceblue"), 
-         panel.border = element_rect(fill = NA),
-         axis.text.x = element_text(angle = 90)) +
-  facet_wrap(~continent, ncol=2) 
-
-```
-
-
----
-
