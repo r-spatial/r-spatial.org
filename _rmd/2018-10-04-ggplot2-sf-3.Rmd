@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2 — Part 3: Layouts"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 - Part 3: Layouts"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
