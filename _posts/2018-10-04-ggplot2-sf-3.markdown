@@ -8,7 +8,7 @@ date: 25 October, 2018
 layout: post
 ---
 
-[view raw Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2018-10-04-ggplot2-sf-3.Rmd)
+[view raw Rmd](https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/2018-10-04-ggplot2-sf-3.Rmd)
 
 *EDIT: Following a suggestion from Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`. We also largely edited the text.*
 
