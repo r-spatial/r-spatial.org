@@ -1,5 +1,5 @@
 ---
-title: "Drawing beautiful maps programmatically with R, sf and ggplot2 — Part 2: Layers"
+title: "Drawing beautiful maps programmatically with R, sf and ggplot2 - Part 2: Layers"
 author: "Mel Moreno and Mathieu Basille"
 output:
   html_document:
@@ -28,8 +28,8 @@ knitr::opts_chunk$set(
 ## Tutorial #1
 library("ggplot2")
 library("sf")
-library("rworldmap")
-library("rworldxtra")
+library("rnaturalearth")
+library("rnaturalearthdata")
 library("ggspatial")
 ## Tutorial #2
 library("maps")
@@ -38,11 +38,13 @@ library("googleway")
 library("ggrepel")
 ```
 
+*EDIT: Following a suggestion from Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
+
 This tutorial is the second part in a series of three:
 
-* [General concepts illustrated with the world map](Tutorial_1.html)
+* [General concepts illustrated with the world map](ggplot2-sf.html)
 * Adding additional layers: an example with points and polygons (this document)
-* [Positioning and layout for complex maps](Tutorial_3.html)
+* [Positioning and layout for complex maps](ggplot2-sf-3.html)
 
 In the previous part, we presented general concepts with a map with little information (country borders only). The modular approach of `ggplot2` allows to successively add additional layers, for instance study sites or administrative delineations, as will be illustrated in this part.
 
@@ -53,7 +55,7 @@ Many R packages are available from [CRAN](https://cran.r-project.org/), the Comp
 
 ```{r pkg-install-all, eval = FALSE}
 install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-    "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata"))
 ```
 
 We start by loading the basic packages necessary for all maps, i.e. `ggplot2` and `sf`. We also suggest to use the classic dark-on-light theme for `ggplot2` (`theme_bw`), which is more appropriate for maps:
@@ -64,22 +66,15 @@ theme_set(theme_bw())
 library("sf")
 ```
 
-The package `rworldmap` provides a map of countries of the entire world; a map with higher resolution is available in the package `rworldxtra`. We use the function `getMap` to extract the world map (the resolution can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire world. Use `ne_countries` to pull country data and choose the scale (`rnaturalearthhires` is necessary for `scale = "large"`). The function can return `sp` classes (default) or directly `sf` classes, as defined in the argument `returnclass`:
 
-```{r pkg-rworldmap}
-library("rworldmap")
-library("rworldxtra")
-world <- getMap(resolution = "high")
+```{r pkg-rnaturalearth}
+library("rnaturalearth")
+library("rnaturalearthdata")
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
 class(world)
 ```
-
-The world map is available as a `SpatialPolygonsDataFrame` from the package `sp`; we thus convert it to a simple feature using `st_as_sf` from package `sf`:
-
-```{r world-sf}
-world <- st_as_sf(world)
-class(world)
-```
-
 
 # Adding additional layers: an example with points and polygons
 

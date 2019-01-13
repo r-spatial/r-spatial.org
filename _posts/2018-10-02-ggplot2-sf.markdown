@@ -11,8 +11,18 @@ layout: post
 
 [view raw Rmd](https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/2018-10-02-ggplot2-sf.Rmd)
 
-Beautiful maps in a beautiful world
-===================================
+*EDIT: Following a suggestion Adriano Fantini and code from Andy South, we replaced `rworlmap` by `rnaturalearth`.*
+
+
+This tutorial is the first part in a series of three:
+
+* General concepts illustrated with the world Map (this document)
+* [Adding additional layers: an example with points and polygons](ggplot2-sf-2.html)
+* [Positioning and layout for complex maps](ggplot2-sf-3.html)
+
+In this part, we will cover the fundamentals of mapping using `ggplot2`
+associated to `sf`, and presents the basics elements and parameters we
+can play with to prepare a map.
 
 Maps are used in a variety of fields to express data in an appealing and
 interpretive way. Data can be expressed into simplified patterns, and
@@ -90,19 +100,6 @@ from the package `sf` as layers in a graph[^1]. The combination of
 using the grammar of graphics, just as informative or visually appealing
 as traditional GIS software.
 
-Drawing beautiful maps programmatically with R, `sf` and `ggplot2`
-------------------------------------------------------------------
-
-This tutorial is the first part in a series of three:
-
--   General concepts illustrated with the world Map (this document)
--   [Adding additional layers: an example with points and
-    polygons](ggplot2-sf-2.html)
--   [Positioning and layout for complex maps](ggplot2-sf-3.html)
-
-In this part, we will cover the fundamentals of mapping using `ggplot2`
-associated to `sf`, and presents the basics elements and parameters we
-can play with to prepare a map.
 
 Getting started
 ---------------
@@ -113,7 +110,7 @@ R packages. The full list of packages necessary for this series of
 tutorials can be installed with:
 
     install.packages(c("cowplot", "googleway", "ggplot2", "ggrepel", 
-        "ggspatial", "libwgeom", "sf", "rworldmap", "rworldxtra"))
+    "ggspatial", "libwgeom", "sf", "rnaturalearth", "rnaturalearthdata")
 
 We start by loading the basic packages necessary for all maps, i.e.
 `ggplot2` and `sf`. We also suggest to use the classic dark-on-light
@@ -123,28 +120,21 @@ theme for `ggplot2` (`theme_bw`), which is appropriate for maps:
     theme_set(theme_bw())
     library("sf")
 
-The package `rworldmap` provides a map of countries of the entire world;
-a map with higher resolution is available in the package `rworldxtra`.
-We use the function `getMap` to extract the world map (the resolution
-can be set to `"low"`, if preferred):
+The package `rnaturalearth` provides a map of countries of the entire
+world. Use `ne_countries` to pull country data and choose the scale
+(`rnaturalearthhires` is necessary for `scale = "large"`). The
+function can return `sp` classes (default) or directly `sf` classes,
+as defined in the argument `returnclass`:
 
-    library("rworldmap")
-    library("rworldxtra")
-    world <- getMap(resolution = "high")
+    library("rnaturalearth")
+    library("rnaturalearthdata")
+
+    world <- ne_countries(scale = "medium", returnclass = "sf")
     class(world)
 
-    ## [1] "SpatialPolygonsDataFrame"
-    ## attr(,"package")
-    ## [1] "sp"
+    ## [1] "sf"  
+    ## [1] "data.frame"
 
-The world map is available as a `SpatialPolygonsDataFrame` from the
-package `sp`; we thus convert it to a simple feature using `st_as_sf`
-from package `sf`:
-
-    world <- st_as_sf(world)
-    class(world)
-
-    ## [1] "sf"         "data.frame"
 
 General concepts illustrated with the world map
 ===============================================
@@ -217,7 +207,7 @@ the population (which is stored in the variable `POP_EST` of the `world`
 object):
 
     ggplot(data = world) +
-        geom_sf(aes(fill = POP_EST)) +
+        geom_sf(aes(fill = pop_est)) +
         scale_fill_viridis_c(option = "plasma", trans = "sqrt")
 
 <img src="/images/figure-markdown_mmd/world-colors-pop-1.png" width="90%" />
@@ -291,7 +281,6 @@ adjusted for its length (`arrow_length`), its distance to the scale
 `arrow_distance`) are set to `"km"` by default in `distance_unit`; they
 can also be set to nautical miles with "nm", or miles with "mi".
 
-<!-- Rework using annotation_scale and annotation_north_arrow from ggspatial! ggspatial is on CRAN, which makes the entire tutorial only rely on CRAN package! Describe useful arguments used below -->
     library("ggspatial")
     ggplot(data = world) +
         geom_sf() +
@@ -318,28 +307,7 @@ Country names and other names (`geom_text` and `annotate`)
 The `world` data set already contains country names and the coordinates
 of the centroid of each country (among more information). We can use
 this information to plot country names, using `world` as a regular
-`data.frame` in `ggplot2`. We first check the country name information:
-
-    head(world[, c("NAME", "LON", "LAT")])
-
-    ## Simple feature collection with 6 features and 3 fields
-    ## geometry type:  MULTIPOLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: -70.06164 ymin: -18.0314 xmax: 74.89231 ymax: 60.48075
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-    ##          NAME       LON       LAT                       geometry
-    ## 1       Aruba -69.97345  12.51678 MULTIPOLYGON (((-69.87609 1...
-    ## 2 Afghanistan  66.00845  33.83627 MULTIPOLYGON (((71.02458 38...
-    ## 3      Angola  17.56405 -12.32934 MULTIPOLYGON (((13.98233 -5...
-    ## 4    Anguilla -63.05667  18.22432 MULTIPOLYGON (((-63.0369 18...
-    ## 5     Albania  20.05399  41.14258 MULTIPOLYGON (((20.06496 42...
-    ## 6       Aland  19.94429  60.22851 MULTIPOLYGON (((19.91892 60...
-
-The function `geom_text` can be used to add a layer of text to a map
-using geographic coordinates. The function requires the data needed to
-enter the country names, which is the same data as the world map. Again,
-we have a very flexible control to adjust the text at will on many
+`data.frame` in `ggplot2`. The function `geom_text` can be used to add a layer of text to a map using geographic coordinates. The function requires the data needed to enter the country names, which is the same data as the world map. Again, we have a very flexible control to adjust the text at will on many
 aspects:
 
 -   The size (argument `size`);
@@ -357,18 +325,21 @@ aspects:
     overlapping labels, the package `ggrepel` provides a
     `geom_text_repel` function that moves label around so that they do
     not overlap.
+-   For the text labels, we are defining the centroid of the counties with `st_centroid`, from the package `sf`. Then we combined the coordinates with the centroid, in the           `geometry` of the spatial data frame. The package `sf` is necessary for the command `st_centroid`.
 
-Additionally, the `annotate` function can be used to add a single
-character string at a specific location, as demonstrated here to add the
-Gulf of Mexico:
+Additionally, the `annotate` function can be used to add a single character string at a specific location, as demonstrated here to add the Gulf of Mexico:
+
+    library("sf")
+    world_points<- st_centroid(world)
+    world_points <- cbind(world, st_coordinates(st_centroid(world$geometry)))
 
     ggplot(data = world) +
-        geom_sf() +
-        geom_text(aes(LON, LAT, label = NAME), size = 4, hjust = "left", 
-            color = "darkblue", fontface = "bold", check_overlap = TRUE) +
-        annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
-            fontface = "italic", color = "grey22", size = 6) +
-        coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE)
+    geom_sf() +
+    geom_text(data= world_points,aes(x=X, y=Y, label=name),
+        color = "darkblue", fontface = "bold", check_overlap = FALSE) +
+    annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
+        fontface = "italic", color = "grey22", size = 6) +
+    coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE)
 
 <img src="/images/figure-markdown_mmd/world-country-1.png" width="65%" />
 
@@ -396,24 +367,22 @@ to get to the final outcome:
     long to cover here. We refer the reader to the documentation for the
     function `theme`.
 
-<!-- -->
-
     ggplot(data = world) +
-        geom_sf(fill = "antiquewhite1") +
-        geom_text(aes(LON, LAT, label = NAME), size = 4, hjust = "left",
-            color = "darkblue", fontface = "bold", check_overlap = TRUE) +
-        annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
-            fontface = "italic", color = "grey22", size = 6) +
-        annotation_scale(location = "bl", width_hint = 0.5) +
-        annotation_north_arrow(location = "bl", which_north = "true", 
-            pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
-            style = north_arrow_fancy_orienteering) +
-        coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE) +
-        xlab("Longitude") + ylab("Latitude") +
-        ggtitle("Map of the Gulf of Mexico and the Caribbean Sea") +
-        theme(panel.grid.major = element_line(color = gray(.5),
-            linetype = "dashed", size = 0.5),
-            panel.background = element_rect(fill = "aliceblue"))
+      geom_sf(fill= "antiquewhite") +
+      geom_text(data= world_points,aes(x=X, y=Y, label=name),
+        color = "darkblue", fontface = "bold", check_overlap = FALSE) +
+      annotate(geom = "text", x = -90, y = 26, label = "Gulf of Mexico", 
+        fontface = "italic", color = "grey22", size = 6) +
+      annotation_scale(location = "bl", width_hint = 0.5) +
+      annotation_north_arrow(location = "bl", which_north = "true", 
+        pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
+        style = north_arrow_fancy_orienteering) +
+      coord_sf(xlim = c(-102.15, -74.12), ylim = c(7.65, 33.97), expand = FALSE) +
+      xlab("Longitude") + ylab("Latitude") +
+      ggtitle("Map of the Gulf of Mexico and the Caribbean Sea") +
+      theme(panel.grid.major = element_line(color = gray(.5),
+        linetype = "dashed", size = 0.5),
+        panel.background = element_rect(fill = "aliceblue"))
 
 <img src="/images/figure-markdown_mmd/world-florida-final-1.png" width="65%" />
 
