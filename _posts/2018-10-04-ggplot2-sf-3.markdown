@@ -198,7 +198,7 @@ And now the map of Hawaii, plotted using the reference [Old Hawaiian projection]
 
 The final map can be created using ggplot2 only, with the help of the function annotation_custom. In this case, we use arbitrary ratios based on the size of the subsets above (note the difference based on maximum minus minimum x/y coordinates):
 
-  mainland +
+    mainland +
      annotation_custom(
           grob = ggplotGrob(alaska),
           xmin = -2750000,
