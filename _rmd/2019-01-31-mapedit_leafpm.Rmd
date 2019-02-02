@@ -43,7 +43,7 @@ pts1 = list(outer1, hole1, hole2)
 pts2 = list(outer2)
 pl1 = st_sf(geom = st_sfc(st_polygon(pts1)))
 pl2 = st_sf(geom = st_sfc(st_polygon(pts2)))
-mpl = st_sf(geom = st_combine(rbind(pl1, pl2)))
+mpl = st_sf(geom = st_combine(rbind(pl1, pl2)), crs=4326)
 tst = editFeatures(mpl, editor = "leafpm")
 # look at our creation
 mapview(tst)
@@ -68,7 +68,7 @@ editFeatures(franconia[5,], editor="leafpm")
 
 ![screenshot of snapping](../images/mapedit-leafpm-2.gif)
 
-Snapping is enabled by default.  Turn snapping off by setting `snappable = FALSE` in `pmCutOptions()`, `pmEditOptions()`, and/or `pmDrawOptions()`.  `snapDistance` with these `pm*Options()` functions adjusts the sensitivity of the snapping.
+Snapping is enabled by default.
 
 
 ## Fixes For Lingering Issues
@@ -76,13 +76,16 @@ Snapping is enabled by default.  Turn snapping off by setting `snappable = FALSE
 ### GeoJSON Precision
 
 > [Robin Lovelace](http://www.robinlovelace.net/) discovered that at leaflet zoom level > 17 we lose coordinate precision.  Of course, this is not good enough, so we will prioritize a fix as discussed in [issue](https://github.com/r-spatial/mapedit/issues/63).  Hopefully, this leaflet.js [pull request](https://github.com/Leaflet/Leaflet/pull/5444) will make this fix fairly straightforward.
+
 I am happy to report that we have found a solution for the loss of precision.  Please let us know if you discover any remaining problems.
 
 
 ## Mulitlinestring Editing
 
 > Leaflet.js and multilinestrings don't get along as [Tim Appelhans](https://github.com/tim-salabim) reported in [issue](https://github.com/r-spatial/mapedit/issues/48#issuecomment-314853140).  For complete support of `sf`, `mapedit` should work with multilinestring, so we have promoted this to [issue 62](https://github.com/r-spatial/mapedit/issues/62).
-We sort of backed into a solution with `MULTILINESTRING` since `Leaflet.pm`'s approach fits better with `MULTI*` features.  As an example, let's edit one of the `trails` from `mapview`.
+
+
+We backed into a solution with `MULTILINESTRING` since `Leaflet.pm`'s approach fits better with `MULTI*` features.  As an example, let's edit one of the `trails` from `mapview`.
 
 ```{r eval = FALSE}
 library(sf)
