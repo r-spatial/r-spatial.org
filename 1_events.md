@@ -6,9 +6,15 @@ permalink: /events/
  
 # R-spatial events
 
+### 2018
+
+* May 14-16, 2018, [ERUM Budapest](http://2018.erum.io/), with two spatial workshops and a keynote by Roger Bivand
+* Aug 19-26, 2018, Geostat summer school, Prague. More information [here](http://geostat-course.org/2018)
+* Dec 3-8, 2018, PhD level spatial data analysis course in Bergen, Norway; see [R-sig-geo posting](https://stat.ethz.ch/pipermail/r-sig-geo/2018-August/026777.html)
+
 ### 2017
 
-* Aug 13-20, 2016, Geostat summer school 2017, Split, Croatia. More information will appear [here](http://geostat-course.org/2017)
+* Aug 13-20, 2017, Geostat summer school 2017, Split, Croatia. More information will appear [here](http://geostat-course.org/2017)
 * Jul 4, 2017, [UseR! 2017](https://user2017.brussels/), Brussels, Belgium; two workshops will be held [Geospatial visualization using R](http://rpubs.com/bhaskarvk/userR2017-tutorial_proposal) by Bhaskar V. Karambelkar, and _Spatial data in R: new directions_, by Edzer Pebesma
 * from 13 - 17 March 2017 the GIScience group of the Friedrich-Schiller-University Jena, Germany, hosts a spring school on "Statistical Analysis of Hyperspectral and High-Dimensional Remote-Sensing Data" using R. See [this](http://tinyurl.com/MSCJLIFE) link or
 [this](http://tinyurl.com/MSCJ-Flyer) document.

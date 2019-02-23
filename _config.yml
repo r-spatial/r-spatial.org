@@ -11,9 +11,13 @@ email: edzer.pebesma@uni-muenster.de
 description: > # this means to ignore newlines until "baseurl:"
    R Spatial software blogs and ideas
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://r-spatial.org/" # the base hostname & protocol for your site
+url: "https://www.r-spatial.org/" # the base hostname & protocol for your site
 twitter_username: edzerpebesma
 github_username:  r-spatial
 
 # Build settings
 markdown: kramdown
+
+# Plugin for redirects
+plugins:
+  - jekyll-redirect-from

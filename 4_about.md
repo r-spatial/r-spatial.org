@@ -3,8 +3,8 @@ layout: page
 title: About
 permalink: about/
 ---
-[r-spatial.org](http://r-spatial.org/) is a website and blog for
-those interested in using [R](http://www.r-project.org/) to analyse
+[r-spatial.org](https://www.r-spatial.org/) is a website and blog for
+those interested in using [R](https://www.r-project.org/) to analyse
 spatial or spatio-temporal data.
 
 Contributors:

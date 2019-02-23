@@ -15,6 +15,10 @@ title: Spatiotemporal arrays for R - blog one
 \[[view raw
 Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2017-11-22-stars1.Rmd)\]
 
+Update
+------
+Since this blog post, the `stars` API has changed; a version of this blog post that has been kept up-to-date with the software is found [here](https://github.com/r-spatial/stars/blob/master/vignettes/blog1.Rmd), or available from the package as `vignette("blog1")`.
+
 Summary
 -------
 

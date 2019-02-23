@@ -1,0 +1,155 @@
+---
+layout: post
+title: "Plotting and subsetting stars objects"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Edzer Pebesma
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+ev = TRUE
+set.seed(131)
+```
+
+## Summary 
+
+This is the second blog on the
+[stars](https://github.com/r-spatial/stars) project, an R-Consortium
+funded project for _spatiotemporal tidy arrays with R_.
+It shows how `stars` plots look (now), how subsetting works, and how
+conversion to `Raster` and `ST` (spacetime) objects works.  
+
+I will try to make up for the lack of figures in the last two
+r-spatial blogs!
+
+## Plots of raster data
+
+We've become accustomed to using the `raster` package for plotting
+raster data, as in:
+
+```{r fig.path = "images/", label="stars2-2"}
+library(raster)
+tif = system.file("tif/L7_ETMs.tif", package = "stars")
+(r = stack(tif))
+plot(r)
+```
+
+`stars` does a similar layout, but chooses quite a few different defaults:
+
+```{r fig.path = "images/", label="stars2-1"}
+library(stars)
+(x = read_stars(tif))
+plot(x)
+```
+
+The defaults include:
+
+* the plots receive a joint legend, rather than a legend for each layer;
+where `raster` considers the bands as independent layers, `stars`
+treats them as a single variable that varies over the dimension
+`band`;
+* the plot layout (rows $\times$ columns) is chosen such that the plotting space is filled maximally with sub-plots;
+* a legend is placed on the side where the most white space was left;
+* color breaks are chosen by `classInt::classIntervals` using the quantile method, to get maximum spread of colors;
+* a grey color pallete is used;
+* grey lines separate the sub-plots.
+
+Optimisations that were implemented to avoid long plotting times include:
+
+* the data is subsampled to a resolution such that not _substantially_ more array values are plotted than the pixels available on the plotting device (`dev.size("px")`);
+* the quantiles are computed from maximally 10000 values, regularly sampled from the array.
+
+If we want to maximize space, a space-filling plot for band 1 is obtained by
+```{r fig.path = "images/", label="stars2-3", fig.width=5, fig.height=5}
+plot(x[,,,1], main = NULL, key.pos = NULL)
+```
+
+A more dense example with climate data, which came up [here](https://github.com/r-spatial/stars/issues/12), looks like this:
+
+![](https://user-images.githubusercontent.com/520851/33336221-879035e4-d46f-11e7-9037-c5ec845e28dd.png)
+
+Tim has done some cool experiments with plotting stars objects with `mapview`, and interacting with them - that will have to be a subject of a follow-up blog post.
+
+## Subsetting
+
+This brings us to subsetting! `stars` objects are collections (lists)
+of R arrays with a dimension (metadata, array labels) table in
+the attributes. R arrays have a powerful subsetting mechanism with
+`[`, e.g. where `x[,,10,]` takes the 10-th slice along the third
+dimension of a four-dimensional array. I wanted a `[` method for my
+own class, which has an arbitrary number of dimensions, but using
+`[.array`. I tried it with _base R_, as well as with `rlang`. Both
+are a bit of an adventure, you essentially build your custom `call`,
+and then call it. Hadley Wickham's [Advanced
+R](http://adv-r.had.co.nz/) book helped a lot!
+
+Anyway, we can now, as we saw, subset `stars` objects by
+```{r}
+x[,,,1]
+```
+but hey, this was a three-dimensional array, right? Indeed, but we may
+also want to select the array in question (`stars` objects are a list
+of arrays), and this is done with the first index. 
+
+In addition to this, we can crop an image by using a polygon as first
+index. For instance, by taking a circle around the centroid of the image:
+```{r fig.path = "images/", label="stars2-4"}
+pol <- x %>% st_bbox() %>% st_as_sfc() %>% st_centroid() %>% st_buffer(300)
+x <- x[,,,1]
+plot(x[pol])
+```
+This creates a circular "clip"; in practice, the grid is cropped
+(or cut back) to the bounding box of the circular polygon, and values
+outside the polygon are assigned `NA` values.
+
+Doing all this with `filter` (for dimensions) and `select` (for
+arrays) is next on my list.
+
+## Conversions: raster, spacetime
+
+A round-trip through `Raster` (in-memory!) is shown for the L7 dataset:
+```{r}
+library(raster)
+(x.r = as(x, "Raster"))
+st_as_stars(x.r)
+```
+
+A round-trip through `spacetime` is e.g. done with an example NetCDF file (it
+needs to have time!):
+```{r fig.path = "images/", label="stars2-5"}
+library(stars)
+nc = read_stars(system.file("nc/tos_O1_2001-2002.nc", package = "stars"))
+plot(nc)
+s = as(nc, "STFDF")
+library(spacetime)
+stplot(s) # uses lattice!
+```
+
+This has flattened 2-D space to 1-dimensional set of features (`SpatialPixels`):
+```{r}
+dim(s)
+s[1, 1, drop = FALSE]
+```
+
+## Easier set-up
+
+I decided to move all code in `stars` that depends on the GDAL
+library to package `sf`. This not only makes maintainance lighter
+(both for me and for CRAN), but also makes `stars` easier to install,
+e.g. using `devtools::install_github`.  Also, binary installs will
+no longer require to have _two_ local copies of the complete GDAL
+library (and everything it links to) on every machine.
+
+## Earlier stars blogs
+
+* [first](https://www.r-spatial.org/r/2017/11/23/stars1.html) stars blog
