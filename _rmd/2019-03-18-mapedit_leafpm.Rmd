@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  mapedit 0.5.0 and Leaflet.pm
-date:  20 January, 2019
+date:  18 March, 2019
 comments: true
 author: Tim Appelhans and Kenton Russell
 categories: r
