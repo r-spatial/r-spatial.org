@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  mapedit 0.5.0 and Leaflet.pm
-date:  18 March, 2019
+date:  31 March, 2019
 comments: true
 author: Tim Appelhans and Kenton Russell
 categories: r
@@ -100,4 +100,4 @@ editFeatures(trails[4,], editor="leafpm")
 
 ## Conclusion and Thanks
 
-As of this post we have reached the end of the extremely generous [RConsortium](https://www.r-consortium.org/) funding of `mapedit`. Although the funding is over, we still expect to actively maintain and improve `mapedit`. One feature that we had hoped to implement as part of the `mapedit` toolset was editing of feature attributes. This turned out to be very ambitious and unfortunately we were not able to implement a satisfactory solution for this feature during the funding period. We plan, however, to develop a solution in the future.  In this future, your participation, ideas, and feedback are as vital as ever. Thanks to all those who have contributed so far and thanks to all open source contributors in the R and JavaScript communities.
+As of this post we have reached the end of the extremely generous [RConsortium](https://www.r-consortium.org/) funding of `mapedit`. Although the funding is over, we still expect to actively maintain and improve `mapedit`. One feature that we had hoped to implement as part of the `mapedit` toolset was editing of feature attributes. This turned out to be very ambitious, and unfortunately we were not able to implement a satisfactory solution for this feature during the funding period. We plan, however, to develop a solution.  Your participation, ideas, and feedback are as vital as ever, so please continue to engage. Thanks to all those who have contributed so far and thanks to all open source contributors in the R and JavaScript communities.
