@@ -1,4 +1,4 @@
-NAME	= 2018-10-04-ggplot2-sf-3
+NAME	= 2019-03-11-stars4
 
 all:
 	vi $(NAME).Rmd

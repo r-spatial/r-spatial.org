@@ -1,0 +1,66 @@
+---
+layout: post
+title: "Wrapping up the stars project"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: "Edzer Pebesma"
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+TOC
+
+[DOWNLOADHERE]
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+ev = TRUE
+set.seed(131)
+```
+
+## Summary 
+
+This is the fourth blog on the
+[stars](https://github.com/r-spatial/stars) project,
+an it completes the R-Consortium funded project for
+_spatiotemporal tidy arrays with R_. It reports on the current
+status of the project, and current development directions.
+Although this project ends, with the release of stars 0.3 on
+[CRAN](https://cran.r-project.org/web/packages/stars/index.html),
+the adoption, update, enthusiasm and participation in the development
+of the stars project have really only started, and will without doubt
+increase and continue.
+
+## Status
+
+The stars package has now five
+[vignettes](https://r-spatial.github.io/stars/) (called "Articles"
+on the pkgdown site) that explain its main features. Besides writing
+these vignettes, a lot of work over the past few months went into
+
+* writing support for `stars_proxy` objects, objects for which the metadata has been read but for which the payload is still on disk. This allows handling raster files or data cubes that do not fit into memory. Manipulating them uses lazy evaluation:  only when pixel values are really needed they are read and processed: this is for instance when a `plot` is needed, or results are to be written with `write_stars`. In case of plotting, no more pixels are processed than can be seen on the device.
+* making rectilinear and curvilinear grids work, by better parsing NetCDF files directly (rather than through GDAL), reading their bounds, and by writing conversions to `sf` objects so that they can be plotted;
+* writing a tighter integration with GDAL, e.g. for warping grids, contouring grids, and rasterizing polygons;
+* supporting 360-day and 365-day (noleap) calendars, which are used often in climate model data;
+* providing an off-cran `starsdata` package, with around 1 Gb of real imagery, too large for submitting to CRAN or GitHub, but used for testing and demonstration;
+* resolving issues (we're at 154 now) and managing pull requests;
+* adding `stars` support to [`gstat`](https://cran.r-project.org/web/packages/gstat/index.html), a package for spatial and spatiotemporal geostatistical modelling, interpolation and simulation.
+
+I have used `stars` and `sf` successfully last week in a two-day course at [Munich Re](https://www.munichre.com/) on _Spatial Data Science with R_ ([online material](https://edzer.github.io/MunichRe/)), focusing on data handling and geostatistics. Both packages worked out beautifully (with a minor amount of rough edges), in particular in conjunction with each other and with the `tidyverse`.
+
+Further resources on the status of the project are found in
+
+* the [video](https://resources.rstudio.com/rstudio-conf-2019/spatial-data-science-in-the-tidyverse) of my rstudio::conf presentation on "Spatial data science in the Tidyverse"
+* [chapter 4](https://keen-swartz-3146c4.netlify.com/raster.html) of the Spatial Data Science book (under development)
+
+## Future
+
+Near future development will entail experiments with _very large_ datasets, such as the entire [Sentinel-2 archive](https://registry.opendata.aws/sentinel-2/). We secured earlier some [funding](https://github.com/r-spatial/stars/blob/master/documents/stars_data.md) from the R Consortium for doing this, and first outcomes will be presented shortly in a follow-up blog. A large challenge here is the handling of multi-resolution imagery, imagery spread over different coordinate reference systems (e.g., crossing multiple UTM zones) and the temporal resampling needed to form space-time raster cubes. This is being handled gracefully by the [gdalcubes](https://github.com/appelmar/gdalcubes_R) C++ library and R package developed by Marius Appel. The gdalcubes package has been submitted to CRAN.
+
+## Earlier stars blogs
+
+* [first](https://www.r-spatial.org/r/2017/11/23/stars1.html) stars blog
+* [second](https://www.r-spatial.org/r/2018/03/22/stars2.html) stars blog
+* [third](https://www.r-spatial.org/r/2018/03/23/stars3.html) stars blog

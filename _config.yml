@@ -19,5 +19,5 @@ github_username:  r-spatial
 markdown: kramdown
 
 # Plugin for redirects
-plugins:
+plugins_dir:
   - jekyll-redirect-from
