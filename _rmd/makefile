@@ -1,4 +1,4 @@
-NAME	= 2019-03-11-stars4
+NAME	= 2019-03-31-mapedit_leafpm
 
 all:
 	vi $(NAME).Rmd

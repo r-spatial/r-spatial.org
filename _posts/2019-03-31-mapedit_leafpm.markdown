@@ -1,17 +1,20 @@
+---
 author: Tim Appelhans and Kenton Russell
 categories: r
 comments: True
 date: 31 March, 2019
 layout: post
+meta-json: {"layout":"post","categories":"r","date":"31 March, 2019","author":"Tim Appelhans and Kenton Russell","comments":true,"title":"mapedit 0.5.0 and Leaflet.pm"}
 title: mapedit 0.5.0 and Leaflet.pm
+---
 
-TOC
+* TOC 
 {:toc}
 
 \[[view raw
 Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2019-03-31-mapedit_leafpm.Rmd)\]
 
-In our last post [mapedit and leaflet.js \>
+In our last post [mapedit and leaflet.js &gt;
 1.0](https://www.r-spatial.org/r/2018/07/15/mapedit_newleaflet.html) we
 discussed remaining tasks for the
 [RConsortium](https://www.r-consortium.org/) funded project
@@ -24,7 +27,7 @@ the original editor in `mapedit` provided by `leaflet.extras`, is a
 wonderful tool but struggles with snapping and those pesky holes that we
 commonly face in geospatial tasks. Depending on the task, a user might
 prefer to continue using `Leaflet.draw`, so we will maintain full
-support for both editors. We’ll spend the rest of the post demonstrating
+support for both editors. We'll spend the rest of the post demonstrating
 where `Leaflet.pm` excels to help illustrate when you might want to
 choose `editor = "leafpm"`.
 
@@ -35,38 +38,34 @@ At a minimum, to follow along with the rest of this post, please update
 `mapedit` and install the new standalone package `leafpm`. While we are
 it, we highly recommend updating your other geospatial dependencies.
 
-``` r
-install.packages(c("sf", "leaflet", "leafpm", "mapview", "mapedit"))
-# lwgeom is optional but nice when working with holes in leaflet.pm
-# install.packages("lwgeom")
-```
+    install.packages(c("sf", "leaflet", "leafpm", "mapview", "mapedit"))
+    # lwgeom is optional but nice when working with holes in leaflet.pm
+    # install.packages("lwgeom")
 
 Holes
 -----
 
-`mapedit` now supports holes. Let’s look at a quick example in which we
+`mapedit` now supports holes. Let's look at a quick example in which we
 add, edit, and delete holes.
 
-``` r
-library(sf)
-library(leaflet)
-library(mapview)
-library(mapedit)
-library(leafpm)
-# make a contrived polygon with holes for testing
-outer1 = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)
-hole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)
-hole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)
-outer2 = matrix(c(11,0,11,1,12,1,12,0,11,0),ncol=2, byrow=TRUE)
-pts1 = list(outer1, hole1, hole2)
-pts2 = list(outer2)
-pl1 = st_sf(geom = st_sfc(st_polygon(pts1)))
-pl2 = st_sf(geom = st_sfc(st_polygon(pts2)))
-mpl = st_sf(geom = st_combine(rbind(pl1, pl2)), crs=4326)
-tst = editFeatures(mpl, editor = "leafpm")
-# look at our creation
-mapview(tst)
-```
+    library(sf)
+    library(leaflet)
+    library(mapview)
+    library(mapedit)
+    library(leafpm)
+    # make a contrived polygon with holes for testing
+    outer1 = matrix(c(0,0,10,0,10,10,0,10,0,0),ncol=2, byrow=TRUE)
+    hole1 = matrix(c(1,1,1,2,2,2,2,1,1,1),ncol=2, byrow=TRUE)
+    hole2 = matrix(c(5,5,5,6,6,6,6,5,5,5),ncol=2, byrow=TRUE)
+    outer2 = matrix(c(11,0,11,1,12,1,12,0,11,0),ncol=2, byrow=TRUE)
+    pts1 = list(outer1, hole1, hole2)
+    pts2 = list(outer2)
+    pl1 = st_sf(geom = st_sfc(st_polygon(pts1)))
+    pl2 = st_sf(geom = st_sfc(st_polygon(pts2)))
+    mpl = st_sf(geom = st_combine(rbind(pl1, pl2)), crs=4326)
+    tst = editFeatures(mpl, editor = "leafpm")
+    # look at our creation
+    mapview(tst)
 
 ![screenshot of hole editing](//images/mapedit-leafpm-1.gif)
 
@@ -74,14 +73,12 @@ Please note that right mouse click deletes vertexes. For a more real
 world application `franconia[5,]` from `mapview` has a hole. Try to edit
 it with the following code.
 
-``` r
-library(sf)
-library(leaflet)
-library(mapview)
-library(mapedit)
-library(leafpm)
-editFeatures(franconia[5,], editor="leafpm")
-```
+    library(sf)
+    library(leaflet)
+    library(mapview)
+    library(mapedit)
+    library(leafpm)
+    editFeatures(franconia[5,], editor="leafpm")
 
 Snapping
 --------
@@ -101,8 +98,8 @@ Fixes For Lingering Issues
 ### GeoJSON Precision
 
 > [Robin Lovelace](http://www.robinlovelace.net/) discovered that at
-> leaflet zoom level \> 17 we lose coordinate precision. Of course, this
-> is not good enough, so we will prioritize a fix as discussed in
+> leaflet zoom level &gt; 17 we lose coordinate precision. Of course,
+> this is not good enough, so we will prioritize a fix as discussed in
 > [issue](https://github.com/r-spatial/mapedit/issues/63). Hopefully,
 > this leaflet.js [pull
 > request](https://github.com/Leaflet/Leaflet/pull/5444) will make this
@@ -114,25 +111,23 @@ precision. Please let us know if you discover any remaining problems.
 Mulitlinestring Editing
 -----------------------
 
-> Leaflet.js and multilinestrings don’t get along as [Tim
+> Leaflet.js and multilinestrings don't get along as [Tim
 > Appelhans](https://github.com/tim-salabim) reported in
 > [issue](https://github.com/r-spatial/mapedit/issues/48#issuecomment-314853140).
 > For complete support of `sf`, `mapedit` should work with
 > multilinestring, so we have promoted this to [issue
 > 62](https://github.com/r-spatial/mapedit/issues/62).
 
-We backed into a solution with `MULTILINESTRING` since `Leaflet.pm`’s
-approach fits better with `MULTI*` features. As an example, let’s edit
+We backed into a solution with `MULTILINESTRING` since `Leaflet.pm`'s
+approach fits better with `MULTI*` features. As an example, let's edit
 one of the `trails` from `mapview`.
 
-``` r
-library(sf)
-library(leaflet)
-library(mapview)
-library(mapedit)
-library(leafpm)
-editFeatures(trails[4,], editor="leafpm")
-```
+    library(sf)
+    library(leaflet)
+    library(mapview)
+    library(mapedit)
+    library(leafpm)
+    editFeatures(trails[4,], editor="leafpm")
 
 ![screenshot of MULTILINESTRING editing](//images/mapedit-leafpm-3.gif)
 
