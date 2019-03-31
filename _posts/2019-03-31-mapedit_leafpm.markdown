@@ -67,7 +67,7 @@ add, edit, and delete holes.
     # look at our creation
     mapview(tst)
 
-![screenshot of hole editing](//images/mapedit-leafpm-1.gif)
+![screenshot of hole editing](/images/mapedit-leafpm-1.gif)
 
 Please note that right mouse click deletes vertexes. For a more real
 world application `franconia[5,]` from `mapview` has a hole. Try to edit
@@ -88,7 +88,7 @@ want to snap, set `editor = "leafpm"` and snap away. Snapping is
 particular important when drawing/digitizing features from scratch. Here
 is how it looks with the example from above.
 
-![screenshot of snapping](//images/mapedit-leafpm-2.gif)
+![screenshot of snapping](/images/mapedit-leafpm-2.gif)
 
 Snapping is enabled by default.
 
@@ -129,7 +129,7 @@ one of the `trails` from `mapview`.
     library(leafpm)
     editFeatures(trails[4,], editor="leafpm")
 
-![screenshot of MULTILINESTRING editing](//images/mapedit-leafpm-3.gif)
+![screenshot of MULTILINESTRING editing](/images/mapedit-leafpm-3.gif)
 
 Conclusion and Thanks
 ---------------------
