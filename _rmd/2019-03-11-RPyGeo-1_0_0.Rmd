@@ -11,7 +11,9 @@ categories: r
 
 [DOWNLOADHERE]
 
-RPyGeo 1.0.0 has been released on 14.11.2018 on CRAN. The RPyGeo package establishes an interface to the geoprocessing tools of ArcGIS from within R. [ArcGIS](https://www.esri.com/en-us/arcgis/about-arcgis/overview) is the leading commercial geographic information system platform, which is developed by Esri since 1999.
+RPyGeo 1.0.0 has been released on 14.11.2018 on CRAN. 
+The _RPyGeo_ package establishes an interface to the geoprocessing tools of _ArcGIS_ from within R. 
+[ArcGIS](https://www.esri.com/en-us/arcgis/about-arcgis/overview) is one of the leading commercial GIS applications and is being developed by Esri since 1999.
 
 ArcGIS offers access to its geoprocessing tools via a Python site-package called ArcPy. The new version of RPyGeo reads the site-package via the [reticulate](https://cran.r-project.org/web/packages/reticulate/index.html) package into the R session.
 
