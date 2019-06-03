@@ -55,7 +55,7 @@ plot(slope)
 <img src="../images/rpygeo1.jpg", width="100%" style="display: block; margin: auto;" />
 *Figure 1: Slope computed with Slope_3d() and plotted in R.*
 
-Both functions can be chained using the pipe operator. It is also possible to use the pipe operator to chain multiple geoprocessing tools.
+The pipe operator can be used to chain ArcGIS geoprocessing tools and _RPyGeo_ functions.
 
 ```{r, eval=FALSE}
 arcpy$Slope_3d(in_raster = "dem.tif", out_raster = "slope.tif") %>%
