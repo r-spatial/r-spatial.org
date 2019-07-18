@@ -1,0 +1,262 @@
+---
+layout: post
+title: "Processing satellite image collections in R with the gdalcubes package"
+author: "Marius Appel"
+date: "July 18, 2019"
+comments: true
+categories: r
+---
+
+TOC
+
+[DOWNLOADHERE]
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## The problem
+
+Scientists working with collections and time series of satellite imagery quickly run into some of the following problems:
+
+- Images from different areas of the world have different spatial reference systems (e.g., UTM zones).
+- The pixel size of a single image sometimes differs among its spectral bands / variables.
+- Spatially adjacent image tiles often overlap. 
+- Time series of images are often irregular when the area of interest covers spatial areas larger than the extent of a single image.
+- Images from different data products or different satellites are distributed in diverse data formats and structures.
+
+
+[GDAL](https://gdal.org) and the [rgdal R package](https://cran.r-project.org/package=rgdal) _can_ solve most of these difficulties by reading all relevant data formats and implementing _image warping_ to reproject, rescale, resample, and crop images. However, GDAL does not know about _image time series_ and hence there is a lot of manual work needed before data scientists can actually work with these data. Instead of _collections of images_, data users in many cases desire a regular data structure such as a four-dimensional [_raster data cube_](https://r-spatial.github.io/stars/) with dimensions `x`, `y`, `time`, and `band`.  
+
+In R, there is currently no implementation to build regular data cubes from image collections. The [`stars` package](https://cran.r-project.org/package=stars) provides a generic implementation for processing raster and vector data cubes with an arbitrary number of dimensions, but assumes that the data are already organized as an array. 
+
+
+## Introduction and overview of gdalcubes
+
+This blog post introduces the `gdalcubes` R package, aiming at making the work with collections and time series of satellite imagery easier and more interactive. 
+
+The core features of the package are:
+
+- build _regular dense data cubes_ from large satellite image collections based on a user-defined _data cube view_ (spatiotemporal extent, resolution, and map projection of the cube) 
+- apply and chaining operations on data cubes 
+- allow for the execution of user-defined functions on data cubes
+- export data cubes as netCDF files,  making it easy to process further, e.g., with [`stars`](https://cran.r-project.org/package=stars) or [`raster`](https://cran.r-project.org/package=raster).
+
+
+Technically, the R package is a relatively lightweight wrapper around the [gdalcubes C++ library](https://github.com/appelmar/gdalcubes). The library strongly builds on [GDAL](https://gdal.org), [netCDF](https://www.unidata.ucar.edu/software/netcdf/), and [SQLite](https://www.sqlite.org/index.html) (the full list of C++ libraries used by gdalcubes is found [here](https://appelmar.github.io/gdalcubes/credits.html)).
+
+
+This blog post focuses on how to use the R package gdalcubes, more details about the underlying ideas can be found in our recent open access paper in the datacube special issue of [the DATA journal](https://www.mdpi.com/2306-5729/4/3/92).
+
+## Installation
+The package can be installed directly from [CRAN](https://cran.r-project.org/package=gdalcubes):
+
+```{r, eval=FALSE}
+install.packages("gdalcubes")
+```
+
+Some features and functions used in this blog post are still in the development version (which will be submitted to CRAN as version 0.2.0), which currently needs a source install:
+
+```{r, eval=FALSE}
+# install.packages("remotes")
+remotes::install_git("https://github.com/appelmar/gdalcubes_R", ref="dev", args="--recursive")
+```
+
+If this fails with error messages like "no rule to make target ...", please read [here](https://github.com/appelmar/gdalcubes_R/issues/7).
+
+
+## Demo dataset
+
+We use a collection of 180 [Landsat 8](https://landsat.gsfc.nasa.gov/landsat-8) surface reflectance images, covering a small part of the Brazilian Amazon forest. If you would like to work with the dataset on your own (and maybe reproduce some parts of this blog post), you have two options: 
+
+**Option A:** Download the dataset with full resolution (30 meter pixel size) [here](https://uni-muenster.sciebo.de/s/SmiqWcCCeFSwfuY/download) (67 gigabytes compressed; 190 gigabytes unzipped)
+
+**Option B:** Download a _downsampled_ version of the dataset that contains all images at a coarse spatial resolution (300 meter pixel size) [here](https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download) (740 megabytes compressed; 2 gigabytes unzipped)
+
+Except for the spatial resolution of the images, the datasets are identical, meaning that all code samples work for both options but result images may look blurred when using option B. Here is the code to download and unzip the dataset to your current working directory (which might take some time):
+
+```{r download}
+# Option A
+#download.file("https://uni-muenster.sciebo.de/s/SmiqWcCCeFSwfuY/download", destfile = "L8_Amazon.zip")
+
+# Option B
+if (!file.exists("L8_Amazon.zip")) {
+  download.file("https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download", destfile = "L8_Amazon.zip")
+
+  unzip("L8_Amazon.zip", exdir = "L8_Amazon")
+}
+```
+
+## Creating image collections
+
+After extraction of the zip archive, we get one directory per image, where each image contains 10 GeoTIFF files representing the spectral bands and additional per-pixel quality information. As a first step, we must scan all available images once, extract some metadata (e.g. acquisition date/time and spatial extents of images and how the files relate to bands), and store this information in a simple _image collection_ index file. This file does not store any pixel values but only metadata and references to where images can be found.
+
+First, we simply need to find available GeoTIFF files in all subdirectories of our demo dataset:
+
+```{r}
+files = list.files("L8_Amazon", recursive = TRUE, full.names = TRUE, pattern = ".tif")
+length(files)
+head(files)
+```
+
+To understand the structure of particular data products, the package comes with a set of predefined rules (called _collection formats_) that define how required metadata can be derived from the data. These include formats for some Sentinel-2, MODIS, and Landsat products. We can list all available formats with:
+
+```{r}
+library(gdalcubes)
+collection_formats()
+```
+
+
+The "L8_SR" format is what we need for our demo dataset. Next, we must tell gdalcubes to scan the files and build an image collection. Below, we create an image collection from the set of GeoTIFF files, using the "L8_SR" collection format and store the resulting image collection under "L8.db". 
+
+```{r}
+L8.col = create_image_collection(files, "L8_SR", "L8.db")
+L8.col
+```
+
+Internally, the output file is a simple SQLite database. Please notice that our collection does not contain data for all possible bands (see `image_count` column). Depending on particular data download requests, Landsat 8 surface reflectance data may come e.g. with some post-processed bands (like vegetation indexes) that can be used if available.
+
+## Creating and processing data cubes
+
+To create a raster data cube, we need (i) an image collection and (ii) a _data cube view_, defining _how_ we look at the data, i.e., at which spatiotemporal resolution, window, and spatial reference system. For a quick look at the data, we define a cube view with 1km x 1km pixel size, yearly temporal resolution, covering the full spatiotemporal extent of the image collection, and using the web mercator spatial reference system. 
+
+```{r}
+v.overview = cube_view(extent=L8.col, dt="P1Y", dx=1000, dy=1000, srs="EPSG:3857", 
+                       aggregation = "median", resampling = "bilinear")
+raster_cube(L8.col, v.overview)
+```
+
+As specified in our data cube view, the time dimension of the resulting data cube only has 7 values, representing years from 2013 to 2019. The aggregation parameter in the data cube view defines how values from multiple images in the same year shall be combined. In contrast, the selected resampling algorithm is applied when reprojecting and rescaling individual images.  
+
+If we are interested in a smaller area at higher temporal resolution, we simply need to define a data cube view with different parameters, including a specific spatiotemporal extent by passing a list as extent argument to `cube_view`. Below, we define a data cube view for a 100km x 100km area with 50m pixel size at monthly temporal resolution.
+
+```{r}
+v.subarea = cube_view(extent=list(left=-6320000, right=-6220000, bottom=-600000, top=-500000, 
+                      t0="2014-01-01", t1="2018-12-31"), dt="P1M", dx=50, dy=50, srs="EPSG:3857", 
+                      aggregation = "median", resampling = "bilinear")
+
+raster_cube(L8.col, v.subarea)
+```
+
+The `raster_cube` function always returns a proxy object, meaning that neither any expensive computations nor any data reads from disk are started. Instead, gdalcubes delays the execution until the data is really needed when users call `plot()`, or `write_ncdf()`. However, the result of our call to `raster_cube` can be passed to data cube operators. For example, the code below drops all bands except the visible RGB bands and, again, returns a proxy object.
+
+```{r}
+L8.cube.rgb = select_bands(raster_cube(L8.col, v.overview), c("B02","B03","B04")) 
+L8.cube.rgb 
+```
+
+Calling `plot()` will eventually start computationn, and hence might take some time:
+
+```{r, fi}
+system.time(plot(L8.cube.rgb, rgb=3:1, zlim=c(0,1200)))
+```
+
+
+
+
+## Chaining data cube operations
+
+For the remaining examples, we use multiple threads to process data cubes by setting:
+
+```{r}
+gdalcubes_options(threads=4)
+```
+
+We can chain many of the provided data cube operators (e.g., using the pipe `%>%`). The following code will derive the median
+values of the RGB bands over time, producing a single RGB overview image for our selected subarea.
+
+```{r gdalcubes1}
+suppressPackageStartupMessages(library(magrittr)) # use the pipe
+raster_cube(L8.col, v.subarea) %>%
+  select_bands(c("B02","B03","B04")) %>%
+  reduce_time("median(B02)", "median(B03)", "median(B04)") %>%
+  plot(rgb=3:1, zlim=c(0,1200))
+```
+ 
+
+Implemented data cube operators include: 
+
+* `apply_pixel` apply one or more arithmetic expressions on individual data cube pixels, e.g., to derive vegetation indexes.
+* `reduce_time` apply on or more reducers over pixel time series.
+* `reduce_time` apply on or more reducers over spatial slices.
+* `select_bands` subset available bands.
+* `window_time` apply an aggregation function or convolution kernel over moving time series windows.
+* `join_bands` combines the bands of two indentically shaped data cubes.
+* `filter_pixel` filter pixels by a logical expression on band values, e.g., select all pixels with NDVI larger than 0.
+* `write_ncdf` export a data cube as a netCDF file.
+
+
+In a second example, we compute the normalied difference vegetation index (NDVI) with `apply_pixel` and derive its maximum values over time: 
+
+```{r gdalcubes2}
+suppressPackageStartupMessages(library(viridis)) # use colors from viridis package
+
+raster_cube(L8.col, v.subarea) %>%
+  select_bands(c("B04","B05")) %>%
+  apply_pixel(c("(B05-B04)/(B05+B04)"), names="NDVI") %>%
+  reduce_time("max(NDVI)") %>%
+  plot(zlim=c(-0.2,1), col=viridis, key.pos=1)
+```
+
+
+
+
+
+
+## User-defined functions
+
+Previous examples used character expressions to define reducer and arithmetic functions. Operations like `apply_pixel` and `filter_pixel` take character arguments to define the expressions. The reason for this is that expressions are translated to C++ functions and all computations then are purely C++.  However, to give users more flexibility and allow the definition of user-defined functions, `reduce_time` and `apply_pixel` also allow to pass arbitrary R functions as an argument. In the example below, we derive the 0.25, and 0.75 quantiles over NDVI time series. There is of course no limitation what the provided reducer function does and it is thus possible to use functions from other packages. 
+
+```{r gdalcubes3}
+v.16d = cube_view(view=v.overview, dt="P16D")
+raster_cube(L8.col, v.16d) %>%
+  select_bands(c("B04", "B05")) %>%
+  apply_pixel(c("(B05-B04)/(B05+B04)"), names="NDVI") %>%
+  reduce_time(names = c("q1","q3"), FUN = function(x) {
+    quantile(x["NDVI",], probs = c(0.25, 0.75), na.rm = TRUE)
+  }) %>%
+  plot(col=viridis, zlim=c(-0.2,1), key.pos=1)
+```
+
+However, there are some things, users need to keep in mind when working with user-defined functions:
+
+1. Users should provide names of the output bands and make sure that the function always return the same number of elements.
+2. When executed, the function runs in a new R session, meaning that it cannot access variables in the current worskspace and packages must be loaded within the function if needed.
+3. Ideally, users should carefully check for errors. A frequent cause for errors is the presence of NA values, which are abundant in raster data cubes from irregular image collections.
+4. In the current version, only `apply_pixel` and `reduce_time` allow for passing user-defined functions.  
+
+
+
+
+## Interfacing with stars
+
+The `stars` package is much more generic and supports higher dimensional arrays and hence supports e.g. data from climate model output. It also does not assume data to be orthorectified, i.e. it works also with curvilinear grids and hence supports data as from Sentinel-5P.  In contrast, gdalcubes concentrates on multispectral image time series (4d) only. 
+
+gdalcubes currently comes with a simple `as_stars()` function, writing a data cube as a (temporary) netCDF file, which is then opened by `read_stars`. The stars object holds bands as attributes. If needed (e.g. for ggplot below), `st_redimension` converts attributes to a new dimension. 
+
+```{r gdalcubes4,fig.width=10}
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(stars))
+
+x = raster_cube(L8.col, v.overview) %>%
+  select_bands(c("B02","B03","B04")) %>%
+  as_stars()
+x
+
+ggplot() + 
+  geom_stars(data = slice(st_redimension(x), "time", 5)) + 
+  facet_wrap(~new_dim) + 
+  theme_void() +
+  coord_fixed() +
+  scale_fill_viridis(limits=c(0, 2000)) 
+```
+
+## Future work
+
+There are many things, which we didn't cover in this blog post like applying masks during the construction of data cubes. More importantly, a question we are very much interested in at the moment is how far we can go with gdalcubes and stars in cloud computing envrionments, where huge image collections such as the full Sentinel-2 archive are already stored. This will be the topic of another blog post. 
+
+We also have a lot of ideas for future developments but no real schedule. If you would like to contribute, get involved, or if you have further ideas, please get in touch! Development and discussion takes place on GitHub ([R package on GitHub](https://github.com/appelmar/gdalcubes_R), [C++ library on GitHub](https://github.com/appelmar/gdalcubes) ).
+
