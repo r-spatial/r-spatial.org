@@ -12,7 +12,7 @@ title: Processing satellite image collections in R with the gdalcubes package
 {:toc}
 
 \[[view raw
-Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd)\]
+Rmd](https://github.com/r-spatial/r-spatial.org/blob/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd)\]
 
 The problem
 -----------
