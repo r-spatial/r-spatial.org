@@ -86,7 +86,7 @@ However, no extra functionality is added for the R user.
 The _R-ArcGIS_ Bridge cannot run geoprocessing tools from within R, whereas _RPyGeo_ offers almost all geoprocessing tools of _ArcGIS_ directly from the R session. 
 The _R-ArcGIS_ Bridge is developed for users, who want to process their whole workflow from within _ArcGIS_, whereas _RPyGeo_ is developed for R users who want to integrate a geoprocessing tool into their R workflow.
 
-For detailed instructions on how to use _RPyGeo_ we would like to refer to its [vignette](https://cran.r-project.org/web/packages/RPyGeo/RPyGeo.pdf). 
+For detailed instructions on how to use _RPyGeo_ we would like to refer to its [vignette](https://cran.r-project.org/web/packages/RPyGeo/vignettes/RPyGeo.html). 
 It includes a tutorial with all essential _RPyGeo_ functions and the necessary data to run the above examples.
 
 The source code of _RPyGeo_ is now hosted on [Github](https://github.com/r-spatial/RPyGeo) within the [r-spatial](https://github.com/r-spatial/) organization. 
