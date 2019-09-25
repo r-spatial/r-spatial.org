@@ -1,3 +1,13 @@
+---
+title: "Spatial networks in R with sf and tidygraph"
+author: "Lorena Abad, Robin Lovelace & Lucas van der Meer"
+categories: r
+comments: True
+date: September 26, 2019
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"September 26, 2019","author":"Lucas van der Meer, Robin Lovelace & Lorena Abad","comments":true,"title":"Spatial networks in R with sf and tidygraph"}
+---
+
 Spatial networks in R with sf and tidygraph
 ================
 Lucas van der Meer, Robin Lovelace & Lorena Abad
@@ -177,7 +187,7 @@ muenster_center
 ggplot(data = muenster_center) + geom_sf()
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ## From sf to tbl\_graph: a step wise approach
 
@@ -664,7 +674,7 @@ ggplot() +
   geom_sf(data = graph %>% activate(nodes) %>% as_tibble() %>% st_as_sf(), size = 0.5)
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 Or, alternatively, in only a few lines of code, plot the network as an
 interactive map. On this page, the interactive map might show as an
@@ -681,7 +691,7 @@ tm_shape(graph %>% activate(nodes) %>% as_tibble() %>% st_as_sf()) +
 tmap_options(basemaps = 'OpenStreetMap')
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 All nice and well, but these are not things that we necessarily need the
 graph representation for. The added value of tidygraph, is that it opens
@@ -745,7 +755,7 @@ ggplot() +
   scale_size_continuous(range = c(0,4))
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 ggplot() +
@@ -754,7 +764,7 @@ ggplot() +
   scale_size_continuous(range = c(0,4))
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ### Shortest paths
 
@@ -909,7 +919,7 @@ ggplot() +
   geom_sf(data = path_graph %>% activate(nodes) %>% filter(nodeID %in% c(from_node, to_node)) %>% as_tibble() %>% st_as_sf(), size = 2)
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 However, often we will be interested in shortest paths between
 geographical points that are not necessarily nodes in the network. For
@@ -932,7 +942,7 @@ ggplot() +
   geom_sf_label(data = muenster_cathedral, aes(label = 'cathedral'), nudge_x = 0.005)
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 To find the route on the network, we must first identify the nearest
 points on the network. The `nabor` package has a well performing
@@ -990,7 +1000,7 @@ ggplot() +
   geom_sf_label(data = muenster_cathedral, aes(label = 'cathedral'), nudge_x = 0.005)
 ```
 
-![](blogpost_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](https://github.com/spnethack/spnethack/raw/master/blogpost_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 It worked\! We calculated a path from the rail station to the centre, a
 common trip taken by tourists visiting Muenster. Clearly this is not a
