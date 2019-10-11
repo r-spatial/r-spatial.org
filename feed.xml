@@ -18,9 +18,9 @@ layout: null
   {% for post in site.posts limit:10 %}
   <entry>
     <author>
-      <name>{{ post.author }}</name>
+      <name>{{ post.author | xml_escape }}</name>
     </author>
-    <title>{{ post.title }}</title>
+    <title>{{ post.title | xml_escape }}</title>
     <link rel="alternate" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"/>
     <published>{{ post.date | date_to_xmlschema }}</published>
     <id>{{ post.url | prepend: site.baseurl | prepend: site.url }}</id>
