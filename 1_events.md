@@ -6,6 +6,10 @@ permalink: /events/
  
 # R-spatial events
 
+### 2020
+* July 6, 2020, [Geospatial Developer Day at useR! 2020](https://github.com/useR-stl/geospatial-dev-day), full-day dedicated hackathon for spatial packages prior to useR! 2020
+* July 7-10, 2020, [useR! 2020](https://user2020.r-project.org/), first useR! with dedicated Geospatial Track, including tutorials, sessions, and reception, organized by Angela Li
+
 ### 2018
 
 * May 14-16, 2018, [ERUM Budapest](http://2018.erum.io/), with two spatial workshops and a keynote by Roger Bivand
