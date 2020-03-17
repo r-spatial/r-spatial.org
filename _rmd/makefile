@@ -1,7 +1,9 @@
-NAME	= 2019-07-17-gdalcubes1
+NAME	= 2020-03-17-wkt
 
 all:
 	vi $(NAME).Rmd
+	# https://github.com/r-spatial/r-spatial.org/blob/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd
+	# https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd
 	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/\/r-spatial\/r-spatial.org\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
 	Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document("markdown_mmd"))'
 	awk -f dash.awk xx.md | \

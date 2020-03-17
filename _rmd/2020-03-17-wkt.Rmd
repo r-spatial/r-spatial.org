@@ -1,0 +1,165 @@
+---
+layout: post
+title: "R spatial follows GDAL and PROJ development"
+author: "Edzer Pebesma, Roger Bivand"
+date: "Mar 17, 2020"
+comments: true
+categories: r
+---
+
+TOC
+
+[DOWNLOADHERE]
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GDAL and PROJ
+
+[GDAL](https://gdal.org/) and [PROJ](https://proj.org) (formerly
+proj.4) are two libraries that form the basis, if not foundations,
+for most open source geospatial software, including most R packages
+(sf, sp, rgdal, and all their dependencies). The dependency for
+package sf is for instance pictured here:
+
+![dependencies](https://keen-swartz-3146c4.netlify.com/images/sf_deps.png)
+
+Briefly: 
+
+* PROJ provides methods for coordinate conversion (projection)
+and transformation, and
+* GDAL allows reading and writing of spatial raster and vector data
+in a standardised form, and provides a high-level interface to PROJ
+for these data structures
+
+## gdalbarn
+
+Motivated by the need for higher precision handling of
+coordinate transformations and the wish to support for
+a better description of coordinate reference systems
+([WKT2](http://docs.opengeospatial.org/is/12-063r5/12-063r5.html)),
+a succesful [fundraising](https://gdalbarn.com) helped the
+implementation of a large number of changes in GDAL and PROJ,
+most notably:
+
+* PROJ changes from (mostly) a projection library into a full geodetic
+library, taking care of different representations of the shape
+of the Earth (datums)
+* PROJ now has the ability to choose between different transformation
+paths (pipelines), and can report the precision obtained by each
+* rather than distributing datum transformation grids to local users,
+PROJ (7.0.0 and higher) offers access to an [on-line distribution
+network](https://cdn.proj.org/) of free transformation grids,
+thereby allowing for local caching of portions of grids
+* PROJ respects authorities (such as EPSG) for determining whether
+coordinate pairs refer to longitude-latitude (such as 3857), or
+latitude-longitude (such as 4326)
+* GDAL offers the ability to handle coordinate pairs authority-compliant
+(lat-long for 4326), or "traditional" GIS-compliant (long-lat for 4326)
+* use of so-called PROJ4-strings (like `+proj=longlat +datum=WGS84`)
+are discouraged, they no longer offer sufficient description of
+coordinate reference systems
+* PROJ offers access to a large number of vertical reference systems
+and reference systems of authorities different from EPSG
+
+## `crs` objects in `sf`
+
+Pre-0.9 versions of `sf` used `crs` (coordinate reference system) objects
+that had two fields, `epsg` (possibly `NA`) and `proj4string`:
+```
+library(sf) 
+# Linking to GEOS 3.8.0, GDAL 3.0.2, PROJ 6.2.1
+st_crs(4326)
+# Coordinate Reference System:
+#   EPSG: 4326
+#   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+```
+now, with `sf` >= 0.9, `crs` objects have two fields, `input` and `wkt`:
+```{r}
+library(sf)
+(x = st_crs(4326))
+```
+where a `$` method allows for retrieving the `epsg` and `proj4string` values:
+```{r}
+x$epsg
+x$proj4string
+```
+but this means that packages that hard-code for instance
+```{r}
+x[["proj4string"]]
+```
+now fail to get the result wanted.
+
+Many external data sources provide a WKT CRS directly and as such do not
+have an "input" field. In such cases, the `input` field is filled with the
+CRS _name_, which is a user-readable representation
+```{r}
+st = stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars"))
+st_crs(st)$input
+```
+but this representation can not be used as _input_ to a CRS:
+```{r error=TRUE}
+st_crs(st_crs(st)$input)
+```
+however `wkt` fields obviously _can_ be used as input:
+```{r}
+st_crs(st_crs(st)$wkt) == st_crs(st)
+```
+
+## `CRS` objects in `sp`
+
+When equiped with a new ( >= 1.5.6) `rgdal` version, `sp`'s `CRS` objects
+carry a `comment` field with the WKT representation of a CRS:
+```{r}
+# install.packages("rgdal", repos="http://R-Forge.R-project.org")
+library(sp)
+(x = CRS("+proj=longlat"))
+cat(comment(x), "\n")
+```
+and it is this WKT representation that is used to communicate with 
+GDAL and PROJ when using packages `rgdal` or `sf`.
+
+## Axis order
+
+R-spatial packages have, for the past 25 years, pretty
+much assumed that two-dimensional data are XY-ordered, or
+longitude-latitude. Geodesists, on the other hand, typically
+use $(\phy,\lambda)$, or latitude-longitude, as coordinate
+pairs. If we use geocentric coordinates, there is no logical
+ordering.  Axis direction may also vary; the y-axis index of
+images typically increases when going south.  As pointed out
+in [sf/#1033](https://github.com/r-spatial/sf/issues/1033),
+there are powers out there that will bring us spatial data
+with (latitude,longitude) as (X,Y) coordinates. Even stronger,
+_officially_, EPSG:4326 has axis order latitude, longitude (see
+WKT description above).
+
+Package `sf` by default uses a switch in GDAL that brings everything
+in the old, longitude-latitude order, but data may come in [in
+another ordering](https://github.com/r-spatial/sf/issues/1245).
+
+This can now be controlled (to some extent), as `st_axis_order` can
+be used to query, and set whether axis ordering is "GIS style"
+(longitude,latitude; non-authority compliant) or "authority compliant"
+(often: latitude,longitude):
+```{r}
+pt = st_sfc(st_point(c(0, 60)), crs = 4326)
+st_axis_order() # query default: FALSE means interpret pt as (longitude latitude)
+st_transform(pt, 3857)[[1]]
+(old_value = st_axis_order(TRUE)) 
+# now interpret pt as (latitude longitude), as EPSG:4326 prescribes:
+st_axis_order() # query current value
+st_transform(pt, 3857)[[1]]
+st_axis_order(old_value) # set back to old value
+```
+`sf::plot` is sensitive to this and will swap axis if needed, but
+for instance `ggplot2::geom_sf` is not yet aware of this.
+
+## Further reading
+
+* (upcoming) rgdal vignette: [Migration to PROJ6/GDAL3](http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html)
+* Roger's examples for the Snow data set: [slides](https://rsbivand.github.io/ECS530_h19/ECS530_III.html), [video](https://www.youtube.com/playlist?list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0)
+* More on the [gdalbarn](https://gdalbarn.com)
+* Evers, Kristian, and Thomas Knudsen. 2017. [Transformation Pipelines for Proj.4](https://www.fig.net/resources/proceedings/fig_proceedings/fig2017/papers/iss6b/ISS6B_evers_knudsen_9156.pdf)
