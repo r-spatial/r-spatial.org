@@ -1,9 +1,9 @@
 ---
-layout: post
 title: "R spatial follows GDAL and PROJ development"
 author: "Edzer Pebesma, Roger Bivand"
 date: "Mar 17, 2020"
-comments: true
+comments: yes
+layout: post
 categories: r
 ---
 
@@ -28,11 +28,11 @@ package sf is for instance pictured here:
 
 Briefly: 
 
-* PROJ provides methods for coordinate conversion (projection)
-and transformation, and
+* PROJ provides methods for coordinate representation, conversion
+(projection) and transformation, and
 * GDAL allows reading and writing of spatial raster and vector data
 in a standardised form, and provides a high-level interface to PROJ
-for these data structures
+for these data structures, including the representation of coordinate reference systems (CRS)
 
 ## gdalbarn
 
@@ -51,7 +51,7 @@ of the Earth (datums)
 paths (pipelines), and can report the precision obtained by each
 * rather than distributing datum transformation grids to local users,
 PROJ (7.0.0 and higher) offers access to an [on-line distribution
-network](https://cdn.proj.org/) of free transformation grids,
+network (CDN)](https://cdn.proj.org/) of free transformation grids,
 thereby allowing for local caching of portions of grids
 * PROJ respects authorities (such as EPSG) for determining whether
 coordinate pairs refer to longitude-latitude (such as 3857), or
@@ -67,7 +67,7 @@ and reference systems of authorities different from EPSG
 ## `crs` objects in `sf`
 
 Pre-0.9 versions of `sf` used `crs` (coordinate reference system) objects
-that had two fields, `epsg` (possibly `NA`) and `proj4string`:
+represented as lists with two components, `epsg` (possibly set as `NA`) and `proj4string`:
 ```
 library(sf) 
 # Linking to GEOS 3.8.0, GDAL 3.0.2, PROJ 6.2.1
@@ -76,7 +76,7 @@ st_crs(4326)
 #   EPSG: 4326
 #   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ```
-now, with `sf` >= 0.9, `crs` objects have two fields, `input` and `wkt`:
+now, with `sf` >= 0.9, `crs` objects are lists with two components, `input` and `wkt`:
 ```{r}
 library(sf)
 (x = st_crs(4326))
@@ -90,7 +90,14 @@ but this means that packages that hard-code for instance
 ```{r}
 x[["proj4string"]]
 ```
-now fail to get the result wanted.
+now fail to get the result wanted; `NULL` is not a value that would have occurred in legacy code.
+
+Regretably, assignment to a `crs` object component still works, as the objects are lists, so not all downstream legacy code will fail
+```{r, warning=TRUE}
+x$proj4string <- "+proj=longlat +ellps=intl"
+x$proj4string
+```
+Package maintainers and authors of production scripts will need to review their use of `crs` objects.
 
 Many external data sources provide a WKT CRS directly and as such do not
 have an "input" field. In such cases, the `input` field is filled with the
@@ -119,15 +126,32 @@ library(sp)
 cat(comment(x), "\n")
 ```
 and it is this WKT representation that is used to communicate with 
-GDAL and PROJ when using packages `rgdal` or `sf`.
+GDAL and PROJ when using packages `rgdal` or `sf`. At present, `rgdal` generates many warnings about discarded PROJ string keys, intended to alert package maintainers and script authors to the need to review code. It is particularly egregious to assign to the `CRS` object `projargs` slot directly, and this is unfortunately seem in much code in packages.
+
+## Coercion from `CRS` objects to `crs` and back
+
+Because workflows often need to combine packages using `sp` and `sf` representations, coercion methods have been provided from `CRS` to `crs`
+
+```{r}
+(xx <- st_crs(x))
+```
+
+and back again. The `sp` `CRS` constructor has been provided with an additional argument `SRS_string=` which accepts WKT, among other representations
+
+```{r}
+(xxx <- CRS(SRS_string=xx$wkt))
+cat(comment(xxx), "\n")
+all.equal(x, xxx)
+```
+
 
 ## Axis order
 
 R-spatial packages have, for the past 25 years, pretty
 much assumed that two-dimensional data are XY-ordered, or
 longitude-latitude. Geodesists, on the other hand, typically
-use $(\phy,\lambda)$, or latitude-longitude, as coordinate
-pairs. If we use geocentric coordinates, there is no logical
+use $(\phi,\lambda)$, or latitude-longitude, as coordinate
+pairs; the PROJ logo is now PR$\phi$J. If we use geocentric coordinates, there is no logical
 ordering.  Axis direction may also vary; the y-axis index of
 images typically increases when going south.  As pointed out
 in [sf/#1033](https://github.com/r-spatial/sf/issues/1033),
@@ -156,6 +180,15 @@ st_axis_order(old_value) # set back to old value
 ```
 `sf::plot` is sensitive to this and will swap axis if needed, but
 for instance `ggplot2::geom_sf` is not yet aware of this.
+
+Workflows using `sp`/`rgdal` should expect "GIS style" axis order to be preserved
+```{r, warning=TRUE}
+rgdal::get_enforce_xy()
+pt_sp <- as(pt, "Spatial")
+coordinates(pt_sp)
+coordinates(spTransform(pt_sp, CRS(SRS_string="EPSG:3857")))
+```
+
 
 ## Further reading
 
