@@ -1,0 +1,357 @@
+---
+author: Edzer Pebesma, Roger Bivand
+categories: r
+comments: True
+date: Mar 17, 2020
+layout: post
+meta-json: {"layout":"post","categories":"r","date":"Mar 17, 2020","author":"Edzer Pebesma, Roger Bivand","comments":true,"title":"R spatial follows GDAL and PROJ development"}
+title: R spatial follows GDAL and PROJ development
+---
+
+* TOC 
+{:toc}
+
+\[[view raw
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2020-03-17-wkt.Rmd)\]
+
+GDAL and PROJ
+-------------
+
+[GDAL](https://gdal.org/) and [PROJ](https://proj.org) (formerly proj.4)
+are two libraries that form the basis, if not foundations, for most open
+source geospatial software, including most R packages (sf, sp, rgdal,
+and all their dependencies). The dependency for package sf is for
+instance pictured here:
+
+![dependencies](https://keen-swartz-3146c4.netlify.com/images/sf_deps.png)
+
+Briefly:
+
+-   PROJ provides methods for coordinate representation, conversion
+    (projection) and transformation, and
+-   GDAL allows reading and writing of spatial raster and vector data in
+    a standardised form, and provides a high-level interface to PROJ for
+    these data structures, including the representation of coordinate
+    reference systems (CRS)
+
+gdalbarn
+--------
+
+Motivated by the need for higher precision handling of coordinate
+transformations and the wish to support for a better description of
+coordinate reference systems
+([WKT2](http://docs.opengeospatial.org/is/12-063r5/12-063r5.html)), a
+succesful [fundraising](https://gdalbarn.com) helped the implementation
+of a large number of changes in GDAL and PROJ, most notably:
+
+-   PROJ changes from (mostly) a projection library into a full geodetic
+    library, taking care of different representations of the shape of
+    the Earth (datums)
+-   PROJ now has the ability to choose between different transformation
+    paths (pipelines), and can report the precision obtained by each
+-   rather than distributing datum transformation grids to local users,
+    PROJ (7.0.0 and higher) offers access to an [on-line distribution
+    network (CDN)](https://cdn.proj.org/) of free transformation grids,
+    thereby allowing for local caching of portions of grids
+-   PROJ respects authorities (such as EPSG) for determining whether
+    coordinate pairs refer to longitude-latitude (such as 3857), or
+    latitude-longitude (such as 4326)
+-   GDAL offers the ability to handle coordinate pairs
+    authority-compliant (lat-long for 4326), or "traditional"
+    GIS-compliant (long-lat for 4326)
+-   use of so-called PROJ4-strings (like `+proj=longlat +datum=WGS84`)
+    are discouraged, they no longer offer sufficient description of
+    coordinate reference systems; use of `+init=epsg:XXXX` leads to
+    warnings
+-   PROJ offers access to a large number of vertical reference systems
+    and reference systems of authorities different from EPSG
+
+`crs` objects in `sf`
+---------------------
+
+Pre-0.9 versions of `sf` used `crs` (coordinate reference system)
+objects represented as lists with two components, `epsg` (possibly set
+as `NA`) and `proj4string`:
+
+    library(sf) 
+    # Linking to GEOS 3.8.0, GDAL 3.0.2, PROJ 6.2.1
+    st_crs(4326)
+    # Coordinate Reference System:
+    #   EPSG: 4326
+    #   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+
+now, with `sf` &gt;= 0.9, `crs` objects are lists with two components,
+`input` and `wkt`:
+
+    library(sf)
+
+    ## Linking to GEOS 3.8.0, GDAL 3.0.2, PROJ 6.2.1
+
+    (x = st_crs(4326))
+
+    ## Coordinate Reference System:
+    ##   User input: EPSG:4326 
+    ##   wkt:
+    ## GEOGCRS["WGS 84",
+    ##     DATUM["World Geodetic System 1984",
+    ##         ELLIPSOID["WGS 84",6378137,298.257223563,
+    ##             LENGTHUNIT["metre",1]]],
+    ##     PRIMEM["Greenwich",0,
+    ##         ANGLEUNIT["degree",0.0174532925199433]],
+    ##     CS[ellipsoidal,2],
+    ##         AXIS["geodetic latitude (Lat)",north,
+    ##             ORDER[1],
+    ##             ANGLEUNIT["degree",0.0174532925199433]],
+    ##         AXIS["geodetic longitude (Lon)",east,
+    ##             ORDER[2],
+    ##             ANGLEUNIT["degree",0.0174532925199433]],
+    ##     USAGE[
+    ##         SCOPE["unknown"],
+    ##         AREA["World"],
+    ##         BBOX[-90,-180,90,180]],
+    ##     ID["EPSG",4326]]
+
+where a `$` method allows for retrieving the `epsg` and `proj4string`
+values:
+
+    x$epsg
+
+    ## [1] 4326
+
+    x$proj4string
+
+    ## [1] "+proj=longlat +datum=WGS84 +no_defs"
+
+but this means that packages that hard-code for instance
+
+    x[["proj4string"]]
+
+    ## NULL
+
+now fail to get the result wanted; `NULL` is not a value that would have
+occurred in legacy code.
+
+Regretably, assignment to a `crs` object component still works, as the
+objects are lists, so not all downstream legacy code will fail
+
+    x$proj4string <- "+proj=longlat +ellps=intl"
+    x$proj4string
+
+    ## Warning in `$.crs`(x, proj4string): old-style crs object found: please update
+    ## code
+
+    ## [1] "+proj=longlat +ellps=intl +no_defs"
+
+Package maintainers and authors of production scripts will need to
+review their use of `crs` objects.
+
+Many external data sources provide a WKT CRS directly and as such do not
+have an "input" field. In such cases, the `input` field is filled with
+the CRS *name*, which is a user-readable representation
+
+    st = stars::read_stars(system.file("tif/L7_ETMs.tif", package = "stars"))
+    st_crs(st)$input
+
+    ## [1] "UTM Zone 25, Southern Hemisphere"
+
+but this representation can not be used as *input* to a CRS:
+
+    st_crs(st_crs(st)$input)
+
+    ## Error in st_crs.character(st_crs(st)$input): invalid crs: UTM Zone 25, Southern Hemisphere
+
+however `wkt` fields obviously *can* be used as input:
+
+    st_crs(st_crs(st)$wkt) == st_crs(st)
+
+    ## [1] TRUE
+
+`CRS` objects in `sp`
+---------------------
+
+When equiped with a new ( &gt;= 1.5.6) `rgdal` version, `sp`'s `CRS`
+objects carry a `comment` field with the WKT representation of a CRS:
+
+    # install.packages("rgdal", repos="http://R-Forge.R-project.org")
+    library(sp)
+    (x = CRS("+init=epsg:4326")) # or better: CRS(SRS_string='EPSG:4326')
+
+    ## CRS arguments: +proj=longlat +datum=WGS84 +no_defs
+
+    cat(comment(x), "\n")
+
+    ## GEOGCRS["WGS 84",
+    ##     DATUM["World Geodetic System 1984",
+    ##         ELLIPSOID["WGS 84",6378137,298.257223563,
+    ##             LENGTHUNIT["metre",1]],
+    ##         ID["EPSG",6326]],
+    ##     PRIMEM["Greenwich",0,
+    ##         ANGLEUNIT["degree",0.0174532925199433],
+    ##         ID["EPSG",8901]],
+    ##     CS[ellipsoidal,2],
+    ##         AXIS["longitude",east,
+    ##             ORDER[1],
+    ##             ANGLEUNIT["degree",0.0174532925199433,
+    ##                 ID["EPSG",9122]]],
+    ##         AXIS["latitude",north,
+    ##             ORDER[2],
+    ##             ANGLEUNIT["degree",0.0174532925199433,
+    ##                 ID["EPSG",9122]]],
+    ##     USAGE[
+    ##         SCOPE["unknown"],
+    ##         AREA["World"],
+    ##         BBOX[-90,-180,90,180]]]
+
+and it is this WKT representation that is used to communicate with GDAL
+and PROJ when using packages `rgdal` or `sf`. At present, `rgdal`
+generates many warnings about discarded PROJ string keys, intended to
+alert package maintainers and script authors to the need to review code.
+It is particularly egregious to assign to the `CRS` object `projargs`
+slot directly, and this is unfortunately seem in much code in packages.
+
+Coercion from `CRS` objects to `crs` and back
+---------------------------------------------
+
+Because workflows often need to combine packages using `sp` and `sf`
+representations, coercion methods from `CRS` to `crs` have been updated
+to use the WKT information; from `sp` to `sf` one can use
+
+    (x2 <- st_crs(x))
+
+    ## Coordinate Reference System:
+    ##   User input: WGS 84 
+    ##   wkt:
+    ## GEOGCRS["WGS 84",
+    ##     DATUM["World Geodetic System 1984",
+    ##         ELLIPSOID["WGS 84",6378137,298.257223563,
+    ##             LENGTHUNIT["metre",1]],
+    ##         ID["EPSG",6326]],
+    ##     PRIMEM["Greenwich",0,
+    ##         ANGLEUNIT["degree",0.0174532925199433],
+    ##         ID["EPSG",8901]],
+    ##     CS[ellipsoidal,2],
+    ##         AXIS["longitude",east,
+    ##             ORDER[1],
+    ##             ANGLEUNIT["degree",0.0174532925199433,
+    ##                 ID["EPSG",9122]]],
+    ##         AXIS["latitude",north,
+    ##             ORDER[2],
+    ##             ANGLEUNIT["degree",0.0174532925199433,
+    ##                 ID["EPSG",9122]]],
+    ##     USAGE[
+    ##         SCOPE["unknown"],
+    ##         AREA["World"],
+    ##         BBOX[-90,-180,90,180]]]
+
+The `sp` `CRS` constructor has been provided with an additional argument
+`SRS_string=` which accepts WKT, among other representations
+
+    (x3 <- CRS(SRS_string = x2$wkt))
+
+    ## CRS arguments: +proj=longlat +datum=WGS84 +no_defs
+
+but also
+
+    (x4 <- as(x2, "CRS"))
+
+    ## CRS arguments: +proj=longlat +datum=WGS84 +no_defs
+
+uses the WKT information when present.
+
+    all.equal(x, x3)
+
+    ## [1] TRUE
+
+    all.equal(x, x4)
+
+    ## [1] TRUE
+
+Axis order
+----------
+
+R-spatial packages have, for the past 25 years, pretty much assumed that
+two-dimensional data are XY-ordered, or longitude-latitude. Geodesists,
+on the other hand, typically use \\((\phi,\lambda)\\), or
+latitude-longitude, as coordinate pairs; the PROJ logo is now
+PR\\(\phi\\)J. If we use geocentric coordinates, there is no logical
+ordering. Axis direction may also vary; the y-axis index of images
+typically increases when going south. As pointed out in
+[sf/\#1033](https://github.com/r-spatial/sf/issues/1033), there are
+powers out there that will bring us spatial data with
+(latitude,longitude) as (X,Y) coordinates. Even stronger, *officially*,
+EPSG:4326 has axis order latitude, longitude (see WKT description
+above).
+
+Package `sf` by default uses a switch in GDAL that brings everything in
+the old, longitude-latitude order, but data may come in [in another
+ordering](https://github.com/r-spatial/sf/issues/1245).
+
+This can now be controlled (to some extent), as `st_axis_order` can be
+used to query, and set whether axis ordering is "GIS style"
+(longitude,latitude; non-authority compliant) or "authority compliant"
+(often: latitude,longitude):
+
+    pt = st_sfc(st_point(c(0, 60)), crs = 4326)
+    st_axis_order() # query default: FALSE means interpret pt as (longitude latitude)
+
+    ## [1] FALSE
+
+    st_transform(pt, 3857)[[1]]
+
+    ## POINT (0 8399738)
+
+    (old_value = st_axis_order(TRUE)) 
+
+    ## [1] FALSE
+
+    # now interpret pt as (latitude longitude), as EPSG:4326 prescribes:
+    st_axis_order() # query current value
+
+    ## [1] TRUE
+
+    st_transform(pt, 3857)[[1]]
+
+    ## POINT (6679169 0)
+
+    st_axis_order(old_value) # set back to old value
+
+`sf::plot` is sensitive to this and will swap axis if needed, but for
+instance `ggplot2::geom_sf` is not yet aware of this.
+
+Workflows using `sp`/`rgdal` should expect "GIS style" axis order to be
+preserved
+
+    rgdal::get_enforce_xy()
+
+    ## [1] TRUE
+
+    pt_sp <- as(pt, "Spatial")
+    coordinates(pt_sp)
+
+    ##      coords.x1 coords.x2
+    ## [1,]         0        60
+
+    coordinates(spTransform(pt_sp, CRS(SRS_string="EPSG:3857")))
+
+    ## Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO"): Discarded
+    ## ellps WGS 84 in CRS definition: +proj=merc +a=6378137 +b=6378137 +lat_ts=0
+    ## +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs
+
+    ## Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO"): Discarded
+    ## datum WGS_1984 in CRS definition
+
+    ##      coords.x1 coords.x2
+    ## [1,]         0   8399738
+
+Further reading
+---------------
+
+-   (upcoming) rgdal vignette: [Migration to
+    PROJ6/GDAL3](http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html)
+-   Roger's examples for the Snow data set:
+    [slides](https://rsbivand.github.io/ECS530_h19/ECS530_III.html),
+    [video](https://www.youtube.com/playlist?list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0)
+-   More on the [gdalbarn](https://gdalbarn.com)
+-   Evers, Kristian, and Thomas Knudsen. 2017. [Transformation Pipelines
+    for
+    Proj.4](https://www.fig.net/resources/proceedings/fig_proceedings/fig2017/papers/iss6b/ISS6B_evers_knudsen_9156.pdf)
