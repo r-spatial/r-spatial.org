@@ -60,7 +60,7 @@ latitude-longitude (such as 4326)
 (lat-long for 4326), or "traditional" GIS-compliant (long-lat for 4326)
 * use of so-called PROJ4-strings (like `+proj=longlat +datum=WGS84`)
 are discouraged, they no longer offer sufficient description of
-coordinate reference systems
+coordinate reference systems; use of `+init=epsg:XXXX` leads to warnings
 * PROJ offers access to a large number of vertical reference systems
 and reference systems of authorities different from EPSG
 
@@ -122,7 +122,7 @@ carry a `comment` field with the WKT representation of a CRS:
 ```{r}
 # install.packages("rgdal", repos="http://R-Forge.R-project.org")
 library(sp)
-(x = CRS("+proj=longlat"))
+(x = CRS("+init=epsg:4326")) # or better: CRS(SRS_string='EPSG:4326')
 cat(comment(x), "\n")
 ```
 and it is this WKT representation that is used to communicate with 
@@ -130,20 +130,26 @@ GDAL and PROJ when using packages `rgdal` or `sf`. At present, `rgdal` generates
 
 ## Coercion from `CRS` objects to `crs` and back
 
-Because workflows often need to combine packages using `sp` and `sf` representations, coercion methods have been provided from `CRS` to `crs`
+Because workflows often need to combine packages using `sp` and `sf` representations, coercion methods from `CRS` to `crs` have been updated to use the WKT information; from `sp` to `sf` one can use
 
 ```{r}
-(xx <- st_crs(x))
+(x2 <- st_crs(x))
 ```
 
-and back again. The `sp` `CRS` constructor has been provided with an additional argument `SRS_string=` which accepts WKT, among other representations
+The `sp` `CRS` constructor has been provided with an additional argument `SRS_string=` which accepts WKT, among other representations
 
 ```{r}
-(xxx <- CRS(SRS_string=xx$wkt))
-cat(comment(xxx), "\n")
-all.equal(x, xxx)
+(x3 <- CRS(SRS_string = x2$wkt))
 ```
-
+but also
+```{r}
+(x4 <- as(x2, "CRS"))
+```
+uses the WKT information when present.
+```{r}
+all.equal(x, x3)
+all.equal(x, x4)
+```
 
 ## Axis order
 
