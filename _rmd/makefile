@@ -1,4 +1,4 @@
-NAME	= 2020-03-17-wkt
+NAME	= 2020-06-15-s2
 
 all:
 	vi $(NAME).Rmd
