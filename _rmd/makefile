@@ -1,4 +1,4 @@
-NAME	= 2020-03-17-wkt
+NAME	= 2020-06-15-s2
 
 all:
 	vi $(NAME).Rmd
@@ -11,7 +11,7 @@ all:
 		sed 's/TOC/\* TOC \n\{\:toc\}/g' > \
 		../_posts/$(NAME).markdown
 	# rm -fr xx.md xx.Rmd
-	cp -rf xx_files/* ../images
+	cp -rpf xx_files/* ../images
 	#rm -fr xx_images
 
 all0:
