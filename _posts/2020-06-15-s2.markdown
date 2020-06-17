@@ -148,10 +148,8 @@ contains the South Pole:
     pole = st_as_sfc("POINT(0 -90)", crs = 4326)
     st_contains(pol, pole)
 
-    ## although coordinates are longitude/latitude, st_contains assumes that they are planar
-
     ## Sparse geometry binary predicate list of length 1, where the predicate was `contains'
-    ##  1: (empty)
+    ##  1: 1
 
 Where did the ellipsoid go?
 ===========================
@@ -171,17 +169,17 @@ up to 0.5%; here, for areas it is
 
     units::set_units(1) - mean(st_area(nc) / st_area(nc, use_lwgeom = TRUE)) # difference to ellipsoidal
 
-    ## 0 [1]
+    ## 6.446441e-05 [1]
 
 In calls to `s2` measures, the radius of the Earth can be specified:
 
     st_area(nc[1,]) # default radius: 6371010 m
 
-    ## 1137388604 [m^2]
+    ## 1137107793 [m^2]
 
     st_area(nc[1,], radius = units::set_units(1, m)) # unit sphere
 
-    ## 1137388604 [m^2]
+    ## 2.801464e-05 [m^2]
 
 Where did my equirectangular logic go?
 ======================================
