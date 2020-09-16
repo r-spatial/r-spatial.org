@@ -41,7 +41,7 @@ gdalbarn
 Motivated by the need for higher precision handling of coordinate
 transformations and the wish to support for a better description of
 coordinate reference systems
-([WKT2](http://docs.opengeospatial.org/is/12-063r5/12-063r5.html)), a
+([WKT2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html)), a
 succesful [fundraising](https://gdalbarn.com) helped the implementation
 of a large number of changes in GDAL and PROJ, most notably:
 
