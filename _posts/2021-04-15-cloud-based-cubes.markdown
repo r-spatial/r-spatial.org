@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Tidy storm trajectories"
-author: "Edzer Pebesma"
-date: "August 28, 2017"
+title: "Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes"
+author: "Marius Appel, Edzer Pebesma, Matthias Mohr"
+date: "April 15, 2021"
 output: html_document
 comments: true
 categories: r
