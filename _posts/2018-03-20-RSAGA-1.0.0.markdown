@@ -2,9 +2,9 @@
 author: Marc Becker
 categories: r
 comments: True
-date: 20 März, 2018
+date: Mar 20, 2018
 layout: post
-meta-json: {"layout":"post","categories":"r","date":"20 März, 2018","author":"Marc Becker","comments":true,"title":"RSAGA 1.0.0"}
+meta-json: {"layout":"post","categories":"r","date":"Mar 20, 2018","author":"Marc Becker","comments":true,"title":"RSAGA 1.0.0"}
 title: RSAGA 1.0.0
 ---
 
