@@ -1,0 +1,155 @@
+---
+layout: post
+title: "The sftime Package"
+author: "Henning Teickner, Beneditk Gräler, Edzer Pebesma"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+categories: r
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+We are glad to report on the first CRAN release of the `sftime` package [---todo: add link to package]. The aim of `sftime` is to extent simple features from the [`sf`](https://github.com/r-spatial/sf) package to handle (irregular) spatiotemporal data, such as records on earthquakes, accidents, disease or death cases, lightning
+strikes, but also movement data which have further constraints. 
+
+This vignette:
+
+* Explains what gap the `sftime` package intents to fill.
+* Provides two motivating examples.
+* Introduces the format of the `sftime` class.
+
+# What gap does `sftime` fill?
+
+The [`stars`](https://github.com/r-spatial/stars/) package is an extension to `sf` which already handles _regular_ spatiotemporal data --- data cubes with spatial and regular temporal dimensions --- such as gridded temperature values (raster time series) and vector data with temporal records at regular temporal instances (e.g. election results in states). From a historical perspective, `stars` objects replaced the `STF` and `STS` classes in the [`spacetime`](https://cran.r-project.org/web/packages/spacetime/index.html) package.
+
+What `stars` cannot handle are simple features where the spatial and temporal dimension are _irregular_. Irregular spatiotemporal data often arise in research and other applications, for example when analyzing aforementioned cases of earthquakes, accidents, disease or death cases, lightning
+strikes, and movement data. From a historical perspective, `sftime` is intended to replace the `STI` and `STT` (trajectory data) classes in the `spacetime` package.
+
+Even though `sftime` can in principle also handle regular spatiotemporal data, `stars` is the preferred option to handle such data --- `sftime` is not focused on regular spatiotemporal data. Thus, `sftime` complements the capabilities of the `stars` package for irregular spatiotemporal data.
+
+We also note that there already exists a package which leverages `sf` to analyze movement (trajecotry) data: the `sftrack` package. In the future, we plan to ease conversion from and to `sftrack`.
+
+
+# A motivating example
+
+<!--The first example is not as exciting as the second, but easier to follow. [---todo: keep or remove?]-->
+Here, we: 
+
+* provide a first glimpse on the `sftime` class, 
+* show one way to create an `sftime` object from an `sf` object, and 
+* show some visualization possibilities for `sftime` objects. 
+
+To this end, we directly build on top of the [Tidy storm trajectories](https://r-spatial.org/r/2017/08/28/nest.html) which uses the storm trajectory data from the `dplyr` package --- a perfect example for irregular spatiotemporal data.
+
+First, we need to prepare the data and convert it into an `sf` object as described in the [blog post](https://r-spatial.org/r/2017/08/28/nest.html):
+
+```{r}
+# packages
+library(dplyr)
+library(sf)
+library(sftime)
+
+# convert to sf object
+storms_sf <- 
+  storms %>% 
+  st_as_sf(coords = c("long", "lat"), crs = 4326) %>% 
+  mutate(
+    time = 
+      paste(paste(year, month, day, sep = "-"), paste(hour, ":00", sep = "")) %>%
+      as.POSIXct()
+  ) %>% 
+  select(-month, -day, -hour)
+```
+
+Now, `sftime` comes into play:
+
+```{r}
+library(sftime)
+
+# convert to sftime object
+storms_sftime <-
+  storms_sf %>%
+  st_as_sftime()
+
+storms_sftime
+```
+
+
+## Geometrical operations and subsetting
+
+The main aim of `sftime` is to do the bookkeeping when doing any spatial operations. In practice, this means that you can apply all methods which work on `sf` objects also on `sftime` objects. Here are some examples:
+
+```{r}
+# geometrical transformation
+d1 <-
+  st_transform(storms_sftime, crs = 4269)
+
+# spatial filtering: All records within the bounding box for storm "Amy"
+d2 <-
+  storms_sftime %>%
+  st_filter(
+    y = 
+      storms_sftime %>%
+      dplyr::filter(name == "Amy") %>%
+      st_bbox() %>%
+      st_as_sfc(), 
+    .predicate = st_within
+  )
+
+# spatial joining
+
+# ---todo: more examples?
+```
+
+Temporal filtering works the same as for data frames, e.g.:
+
+```{r}
+# temporal filtering: All records before 1990-01-01 00:00:00
+d2 <-
+  storms_sftime %>%
+  filter(time < as.POSIXct("1990-01-01 00:00:00"))
+```
+
+
+## Plotting
+
+`sftime` has a simple plotting method. This will plot the spatial features and color them according to the values of a variable. The time values are assigned to intervals and for each interval, one panel is plotted:
+
+```{r}
+plot(storms_sftime, y = "wind")
+```
+
+For other plots or more elaborated plots, we recommend using `ggplot2`. For example, to plot when different storms (identified by their names) occurred, we can do:
+
+```{r}
+library(ggplot2)
+
+storms_sftime %>%
+  dplyr::slice(1:1000) %>% # select only first 1000 records to keep things compact
+  ggplot(aes (y = name, x = time)) +
+  geom_point()
+```
+
+
+# The `sftime` class
+
+The structure of `sftime` objects is simple when one [already knows `sf`](https://r-spatial.org/r/2016/02/15/simple-features-for-r.html) objects. `sftime` has an attribute `time_column` which defines one column of an `sf` object as active time column.
+
+```{r}
+attributes(head(storms_sftime)) # head() to avoid too long output
+```
+
+
+## Acknowledgment
+
+This project gratefully acknowledges financial [support](https://www.r-consortium.org/projects) from the
+
+<a href="https://www.r-consortium.org/projects/awarded-projects">
+<img src="https://www.r-consortium.org/wp-content/uploads/sites/13/2016/09/RConsortium_Horizontal_Pantone.png" width="300">
+</a>
+
