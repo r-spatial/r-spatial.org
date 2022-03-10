@@ -1,12 +1,15 @@
-NAME	= 2021-04-21-xx
+NAME	= 2022-03-09-evolution
 
 all:
 	vi $(NAME).Rmd
 	# https://github.com/r-spatial/r-spatial.org/blob/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd
 	# https://raw.githubusercontent.com/r-spatial/r-spatial.org/gh-pages/_rmd/2019-07-17-gdalcubes1.Rmd
 	sed "s/DOWNLOADHERE/[view raw Rmd](https:\/\/raw.githubusercontent.com\/\/r-spatial\/r-spatial.org\/gh-pages\/_rmd\/$(NAME).Rmd)/g" $(NAME).Rmd > xx.Rmd
-	Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document("markdown_mmd"))'
-	awk -f dash.awk xx.md | \
+	#Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document("markdown_mmd"))'
+	Rscript -e 'library(rmarkdown); render("xx.Rmd", md_document())'
+	#awk -f dash.awk xx.md |
+	head -8 $(NAME).Rmd > head.md
+	cat head.md xx.md | \
 		sed 's/xx_files\//\/images\//g' | \
 		sed 's/TOC/\* TOC \n\{\:toc\}/g' > \
 		../_posts/$(NAME).markdown
