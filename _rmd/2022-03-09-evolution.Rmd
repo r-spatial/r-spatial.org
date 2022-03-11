@@ -38,27 +38,37 @@ Please note that rgdal will be retired by the end of 2023,
 plan transition to sf/stars/terra functions using GDAL and PROJ
 at your earliest convenience.
 ```
+and `maptools`:
+```
+Please note that 'maptools' will be retired by the end of 2023,
+plan transition at your earliest convenience;
+some functionality will be moved to 'sp'.
 
+```
 The reason that these package will retire are primary that their
 maintainer, Roger Bivand, has retired. In principle someone could
 take over maintenance, but that would be a large effort better
 spent differently. Maintenance of these two packages is hard
-because
-
-1. they link R code to external libraries, in particular
-[GEOS](https://trac.osgeo.org/geos), [GDAL](https://gdal.org/) and
-[PROJ](https://proj.org/), which needs regular adaption when these
-libraries change
-2. building binary package versions for Windows and Mac-OS requires
-frequent communication with the CRAN team members
-3. both packages are nearly 20 years old, contain a lot of code
+because both packages are nearly 20 years old, contain a lot of code
 that is conditional to older versions of the external libraries and
-use the `.Call()` interface which makes code harde to read.
+use the `.Call()` interface which makes code hard to read.
 
-More modern packages like `sf` (since 2016), `stars` (2018) and
+
+More modern packages like `sf` (since 2016), `stars` (2018), `vapour` (2018) and
 `terra` (2020) also link to GDAL, GEOS and PROJ and should be able to
-take over the role that `rgdal` and `rgeos` now have in the future.
-In this blog we describe how we envision this to happen.
+take over the role that `rgdal` and `rgeos` now have in the future. They 
+are also characterised by:
+
+1. linking R/C/C++ code to external libraries, in particular
+[GEOS](https://trac.osgeo.org/geos), [GDAL](https://gdal.org/) and
+[PROJ](https://proj.org/), which needs frequent adaption when these
+libraries change and close monitoring of release candidates and package
+development mailing lists
+2. requiring the building of static binary package versions for Windows 
+and macOS, which in turn requires frequent communication with the CRAN 
+and R-core team members and we are very grateful for their sustained support.
+
+In this blog we describe how we envision this happening.
 
 # Packages depending on `rgeos` and `rgdal`
 
@@ -114,8 +124,17 @@ We already carried out step 3 of the above list of steps. Branch [evolution](htt
 ```
 devtools::install_github("rsbivand/sp@evolution")
 ```
-contains conditional code that prevents `sp` to call code in `rgdal` or `rgeos`. This can be enabled by setting
+contains conditional code that prevents `sp` to call code in `rgdal` or `rgeos`. This can be enabled *before* loading `sp` by setting:
 ```
-Sys.setenv("_SP_EVOLUTION_STATUS_"=2)
+options("sp_evolution_status"=2)
+library(sp)
 ```
-after that, e.g. a call to `CRS("+proj=longlat")` calls `sf::st_crs()` to validate the coordinate reference system and retrieve the WKT representation. All code of the [ASDAR](https://asdar-book.org/) has been verified to run under these conditions. Maintainers of packages depending on `sp` can do this too when checking their packages.
+or for checking packages under status 0, 1 or 2 as an environment variable read when `sp` is loaded:
+```
+_SP_EVOLUTION_STATUS_=2 R CMD check
+```
+after that, e.g. a call to `CRS("+proj=longlat")` calls `sf::st_crs()` to validate the coordinate reference system and retrieve the WKT representation. Evolution status 0 is "business-as-usual", status 1 tries to turn off access to `rgdal` leading to failures indicating problems needing resolution, and status 2 tries to replace calls to `rgdal` for instantiating CRS objects and for datum transformation by calls to similar functions and methods in `sf`. For status 2, the typical choice is to coerce to `"sf"`, undertake the operation, and coerce back to `"Spatial"`.
+
+All code of the [ASDAR](https://asdar-book.org/) has been verified to run under these conditions; updated 2nd edition tests are available on [github](https://github.com/rsbivand/sf_asdar2ed). The `<chapter>_mod.R` scripts for each chapter show how almost all of the book code can be modified to run under evolution status settings 0, 1, and 2. Obviously, adaptation of existing `sp` workflows should not simply rely on `sp` offering all of the existing functionality of `rgdal`, `rgeos` and `maptools` without package or script maintainer intervention, but use of evolution status 2 does get some way forward.
+
+Maintainers of packages depending on `sp` can use evolution status when checking their packages by setting the environment variable.
