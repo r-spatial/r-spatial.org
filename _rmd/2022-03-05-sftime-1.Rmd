@@ -51,6 +51,7 @@ First, we need to prepare the data and convert it into an `sf` object as describ
 library(dplyr)
 library(sf)
 library(sftime)
+library(rnaturalearth)
 
 # convert to sf object
 storms_sf <- 
