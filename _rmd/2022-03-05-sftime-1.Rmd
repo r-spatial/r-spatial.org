@@ -20,8 +20,9 @@ strikes, data from weather stations, but also movement data which have further c
 This vignette:
 
 * Explains what gap the `sftime` package intents to fill.
-* Provides two motivating examples.
+* Provides a motivating example.
 * Introduces the format of the `sftime` class.
+* Gives an outlook to the planned integration with `gstat` and `spcopula` to support spatiotemporal statistical analyses.
 
 # What gap does `sftime` fill?
 
@@ -35,7 +36,6 @@ Even though `sftime` can in principle also handle regular spatiotemporal data, `
 
 # A motivating example
 
-<!--The first example is not as exciting as the second, but easier to follow. [---todo: keep or remove?]-->
 Here, we: 
 
 * provide a first glimpse on the `sftime` class, 
