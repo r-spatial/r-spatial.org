@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 We are glad to report on the first CRAN release of the `sftime` package [---todo: add link to package]. The aim of `sftime` is to extent simple features from the [`sf`](https://github.com/r-spatial/sf) package to handle (irregular) spatiotemporal data, such as records on earthquakes, accidents, disease or death cases, lightning
-strikes, but also movement data which have further constraints. 
+strikes, data from weather stations, but also movement data which have further constraints. 
 
 This vignette:
 
@@ -28,11 +28,9 @@ This vignette:
 The [`stars`](https://github.com/r-spatial/stars/) package is an extension to `sf` which already handles _regular_ spatiotemporal data --- data cubes with spatial and regular temporal dimensions --- such as gridded temperature values (raster time series) and vector data with temporal records at regular temporal instances (e.g. election results in states). From a historical perspective, `stars` objects replaced the `STF` and `STS` classes in the [`spacetime`](https://cran.r-project.org/web/packages/spacetime/index.html) package.
 
 What `stars` cannot handle are simple features where the spatial and temporal dimension are _irregular_. Irregular spatiotemporal data often arise in research and other applications, for example when analyzing aforementioned cases of earthquakes, accidents, disease or death cases, lightning
-strikes, and movement data. From a historical perspective, `sftime` is intended to replace the `STI` and `STT` (trajectory data) classes in the `spacetime` package.
+strikes, data from weather stations, and movement data. From a historical perspective, `sftime` is intended to replace the `STI` and `STT` (trajectory data) classes in the `spacetime` package (in company of more specialized packages for trajectory data, such as [`sftrack`](https://github.com/mablab/sftrack)).
 
 Even though `sftime` can in principle also handle regular spatiotemporal data, `stars` is the preferred option to handle such data --- `sftime` is not focused on regular spatiotemporal data. Thus, `sftime` complements the capabilities of the `stars` package for irregular spatiotemporal data.
-
-We also note that there already exists a package which leverages `sf` to analyze movement (trajecotry) data: the `sftrack` package. In the future, we plan to ease conversion from and to `sftrack`.
 
 
 # A motivating example
@@ -72,9 +70,7 @@ Now, `sftime` comes into play:
 library(sftime)
 
 # convert to sftime object
-storms_sftime <-
-  storms_sf %>%
-  st_as_sftime()
+storms_sftime <- st_as_sftime(storms_sf)
 
 storms_sftime
 ```
@@ -97,20 +93,31 @@ d2 <-
       storms_sftime %>%
       dplyr::filter(name == "Amy") %>%
       st_bbox() %>%
-      st_as_sfc(), 
+      st_as_sfc() %>%
+      st_as_sf(), 
     .predicate = st_within
   )
 
-# spatial joining
-
-# ---todo: more examples?
+# spatial joining: Detect countries within which storm records were made (remove three country polygons with invalid geometries to make the example run)
+d3 <- 
+  storms_sftime %>%
+  st_join(
+    y =
+      rnaturalearth::ne_countries(returnclass = "sf")[-c(7, 54, 136), ] %>% # 
+      mutate(
+        geometry = 
+          s2::s2_rebuild(geometry) %>%
+          sf::st_as_sfc()
+      ), 
+    join = st_within
+  )
 ```
 
 Temporal filtering works the same as for data frames, e.g.:
 
 ```{r}
 # temporal filtering: All records before 1990-01-01 00:00:00
-d2 <-
+d4 <-
   storms_sftime %>%
   filter(time < as.POSIXct("1990-01-01 00:00:00"))
 ```
@@ -143,6 +150,15 @@ The structure of `sftime` objects is simple when one [already knows `sf`](https:
 ```{r}
 attributes(head(storms_sftime)) # head() to avoid too long output
 ```
+
+
+# Outlook
+
+In the upcoming months, `sftime` will be integrated with [`gstat`](https://github.com/r-spatial/gstat) and [`spcopula`](https://github.com/BenGraeler/spcopula) to support spatiotemporal statistics (Kriging, spatiotemporal random fields) using `sftime` objects as input. 
+
+For example, irregular spatiotemporal data from weather stations (e.g. daily temperature records) can be spatiotemporally interpolated to compute a raster time series of temperature values for a certain area. 
+
+The general idea is that in these cases, an `sftime` object is the input for a spatiotemporal interpolation model, and a `stars` object is the output.
 
 
 ## Acknowledgment
