@@ -1,5 +1,5 @@
 ---
 permalink: /book/
 redirect_to:
-  - https://edzer.github.io/sdsr/
+  - https://keen-swartz-3146c4.netlify.app/
 ---
