@@ -1,4 +1,5 @@
-NAME	= 2021-04-21-xx
+#NAME	= 2021-04-21-xx
+NAME	= 2022-03-05-sftime-1
 
 all:
 	vi $(NAME).Rmd

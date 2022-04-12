@@ -5,6 +5,7 @@ author: "Henning Teickner, Beneditk Gräler, Edzer Pebesma"
 date:  "`r format(Sys.time(), '%d %B, %Y')`"
 comments: true
 categories: r
+always_allow_html: true
 ---
 
 ```{r, include = FALSE}
@@ -21,15 +22,14 @@ library(kableExtra)
 We are glad to report on the first CRAN release of the [`sftime`](https://r-spatial.github.io/sftime) package. The aim of `sftime` is to extent simple features from the [`sf`](https://r-spatial.github.io/sf) package to handle (irregular) spatiotemporal data, such as records on earthquakes, accidents, disease or death cases, lightning
 strikes, data from weather stations, but also movement data which have further constraints. 
 
-This vignette:
+This blog post
 
-* Explains what gap the `sftime` package intents to fill.
-* Provides two motivating examples to show how `sftime` objects can be used.
-* Introduces the format of the `sftime` class, conversion methods from and to other classes, and available methods for class `sftime`.
-* Gives an outlook to the planned integration with `gstat` and `spcopula` to support spatiotemporal statistical analyses and future developments of `sftime`.
+* explains what gap the `sftime` package intents to fill,
+* provides two motivating examples to show how `sftime` objects can be used,
+* introduces the format of the `sftime` class, conversion methods from and to other classes, and available methods for class `sftime`,
+* and gives an outlook to the planned integration with `gstat` and `spcopula` to support spatiotemporal statistical analyses and future developments of `sftime`.
 
-
-# What gap does `sftime` fill?
+# Which gap does the `sftime` package fill?
 
 The [`stars`](https://github.com/r-spatial/stars/) package is an extension to `sf` which already handles _regular_ spatiotemporal data --- data cubes with spatial and regular temporal dimensions --- such as gridded temperature values (raster time series) and vector data with temporal records at regular temporal instances (e.g. election results in states). From a historical perspective, `stars` objects replaced the `STF` and `STS` classes in the [`spacetime`](https://cran.r-project.org/web/packages/spacetime/index.html) package.
 
