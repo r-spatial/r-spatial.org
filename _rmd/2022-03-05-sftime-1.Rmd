@@ -2,11 +2,15 @@
 layout: post
 title: "The sftime Package"
 author: "Henning Teickner, Beneditk Gräler, Edzer Pebesma"
-date:  "`r format(Sys.time(), '%d %B, %Y')`"
+date:  "Apr 12, 2022"
 comments: true
 categories: r
 always_allow_html: true
 ---
+
+TOC
+
+[DOWNLOADHERE]
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -133,13 +137,13 @@ d4 <-
 
 `sftime` has a simple plotting method. This will plot the spatial features and color them according to the values of a specified variable. The time values are assigned to intervals and for each interval, one panel is plotted with the panel title indicating the start time of the respective time interval. Here, we plot the storm records colored by their maximum sustained wind speed in knots:
 
-```{r}
+```{r sftime1}
 plot(storms_sftime, y = "wind", key.pos = 4)
 ```
 
 For other plots or more elaborated plots, we recommend using `ggplot2` or `tmap`. For example, to plot when different storms (identified by their names) occurred, we can do:
 
-```{r}
+```{r sftime2}
 library(ggplot2)
 
 storms_sftime %>%
@@ -171,7 +175,7 @@ earthquakes_sftime <-
 
 We want to filter the data for all earthquakes happening in Japan (including 200 km buffer) since 2020-01-01 and create a plot for this using `tmap`:
 
-```{r}
+```{r sftime3}
 # get a polygon for Japan for filtering 
 sf_japan <- 
   rnaturalearth::ne_countries(returnclass = "sf", scale = 'medium') %>% 

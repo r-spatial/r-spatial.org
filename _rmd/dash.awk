@@ -1,5 +1,5 @@
 {
 	if (NR == 1) print("---")
 	print
-	if (NR == 9) print("---")
+	if (NR == 8) print("---")
 }
