@@ -1,0 +1,313 @@
+---
+layout: post
+title: "The sftime Package"
+author: "Henning Teickner, Beneditk Gräler, Edzer Pebesma"
+date:  "Apr 12, 2022"
+comments: true
+categories: r
+always_allow_html: true
+---
+
+TOC
+
+[DOWNLOADHERE]
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# additional packages without user interaction
+library(tibble)
+library(kableExtra)
+```
+
+We are glad to report on the first CRAN release of the [`sftime`](https://r-spatial.github.io/sftime) package. The aim of `sftime` is to extent simple features from the [`sf`](https://r-spatial.github.io/sf) package to handle (irregular) spatiotemporal data, such as records on earthquakes, accidents, disease or death cases, lightning
+strikes, data from weather stations, but also movement data which have further constraints. 
+
+This blog post
+
+* explains what gap the `sftime` package intents to fill,
+* provides two motivating examples to show how `sftime` objects can be used,
+* introduces the format of the `sftime` class, conversion methods from and to other classes, and available methods for class `sftime`,
+* and gives an outlook to the planned integration with `gstat` and `spcopula` to support spatiotemporal statistical analyses and future developments of `sftime`.
+
+# Which gap does the `sftime` package fill?
+
+The [`stars`](https://github.com/r-spatial/stars/) package is an extension to `sf` which already handles _regular_ spatiotemporal data --- data cubes with spatial and regular temporal dimensions --- such as gridded temperature values (raster time series) and vector data with temporal records at regular temporal instances (e.g. election results in states). From a historical perspective, `stars` objects replaced the `STF` and `STS` classes in the [`spacetime`](https://cran.r-project.org/web/packages/spacetime/index.html) package.
+
+What `stars` cannot handle are simple features where the spatial and temporal dimension are _irregular_. Irregular spatiotemporal data often arise in research and other applications, for example when analyzing aforementioned cases of earthquakes, accidents, disease or death cases, lightning
+strikes, data from weather stations, and movement data. From a historical perspective, `sftime` is intended to replace the `STI` and `STT` (trajectory data) classes in the `spacetime` package (in company of more specialized packages for trajectory data, such as [`sftrack`](https://github.com/mablab/sftrack)).
+
+Even though `sftime` can in principle also handle regular spatiotemporal data, `stars` is the preferred option to handle such data --- `sftime` is not focused on regular spatiotemporal data. Thus, `sftime` complements the capabilities of the `stars` package for irregular spatiotemporal data.
+
+
+# A motivating example
+
+Here, we: 
+
+* provide a first glimpse on the `sftime` class, 
+* show one way to create an `sftime` object from an `sf` object, and 
+* show some visualization possibilities for `sftime` objects. 
+
+To this end, we directly build on top of the [Tidy storm trajectories blog post](https://r-spatial.org/r/2017/08/28/nest.html) which uses the storm trajectory data from the `dplyr` package --- a perfect example for irregular spatiotemporal data.
+
+First, we need to prepare the data and convert it into an `sf` object as described in the [blog post](https://r-spatial.org/r/2017/08/28/nest.html):
+
+```{r}
+# packages
+library(dplyr)
+library(sf)
+library(sftime)
+library(rnaturalearth)
+
+# convert to sf object
+storms_sf <- 
+  storms %>% 
+  st_as_sf(coords = c("long", "lat"), crs = 4326) %>% 
+  mutate(
+    time = 
+      paste(paste(year, month, day, sep = "-"), paste(hour, ":00", sep = "")) %>%
+      as.POSIXct()
+  ) %>% 
+  select(-month, -day, -hour)
+```
+
+Now, `sftime` comes into play:
+
+```{r}
+library(sftime)
+
+# convert to sftime object
+storms_sftime <- st_as_sftime(storms_sf)
+
+storms_sftime
+```
+
+
+## Geometrical operations and subsetting
+
+The main aim of `sftime` is to do the bookkeeping when doing any spatial operations. In practice, this means that you can apply all methods which work on `sf` objects also on `sftime` objects. Here are some examples:
+
+```{r}
+# geometrical transformation
+d1 <-
+  st_transform(storms_sftime, crs = 4269)
+
+# spatial filtering: All records within the bounding box for storm "Amy"
+d2 <-
+  storms_sftime %>%
+  st_filter(
+    y = 
+      storms_sftime %>%
+      dplyr::filter(name == "Amy") %>%
+      st_bbox() %>%
+      st_as_sfc() %>%
+      st_as_sf(), 
+    .predicate = st_within
+  )
+
+# spatial joining: Detect countries within which storm records were made (remove three country polygons with invalid geometries to make the example run)
+d3 <- 
+  storms_sftime %>%
+  st_join(
+    y =
+      rnaturalearth::ne_countries(returnclass = "sf")[-c(7, 54, 136), ] %>% # 
+      mutate(
+        geometry = 
+          s2::s2_rebuild(geometry) %>%
+          sf::st_as_sfc()
+      ), 
+    join = st_within
+  )
+```
+
+Temporal filtering works the same as for data frames, e.g.:
+
+```{r}
+# temporal filtering: All records before 1990-01-01 00:00:00
+d4 <-
+  storms_sftime %>%
+  filter(time < as.POSIXct("1990-01-01 00:00:00"))
+```
+
+
+## Plotting
+
+`sftime` has a simple plotting method. This will plot the spatial features and color them according to the values of a specified variable. The time values are assigned to intervals and for each interval, one panel is plotted with the panel title indicating the start time of the respective time interval. Here, we plot the storm records colored by their maximum sustained wind speed in knots:
+
+```{r sftime1}
+plot(storms_sftime, y = "wind", key.pos = 4)
+```
+
+For other plots or more elaborated plots, we recommend using `ggplot2` or `tmap`. For example, to plot when different storms (identified by their names) occurred, we can do:
+
+```{r sftime2}
+library(ggplot2)
+
+storms_sftime %>%
+  dplyr::slice(1:1000) %>% # select only first 1000 records to keep things compact
+  ggplot(aes (y = name, x = time)) +
+  geom_point()
+```
+
+We'll show a `tmap` plotting example in the next example.
+
+
+# Another motivating example: earthquake events
+
+To illustrate `sftime` with another example, we'll use data on earthquakes from the [`geostats`](https://cran.r-project.org/web/packages/geostats/index.html) package.
+
+```{r}
+library(geostats)
+
+# convert `earthquakes` data into an sftime object
+earthquakes_sftime <- 
+  earthquakes %>%
+  dplyr::mutate(
+    time = 
+      paste(paste(year, month, day, sep = "-"), paste(hour, minute, second, sep = ":")) %>%
+      as.POSIXct(format = "%Y-%m-%d %H:%M:%OS")
+  ) %>%
+  st_as_sftime(coords = c("lon", "lat"), time_column_name = "time", crs = 4326)
+```
+
+We want to filter the data for all earthquakes happening in Japan (including 200 km buffer) since 2020-01-01 and create a plot for this using `tmap`:
+
+```{r sftime3}
+# get a polygon for Japan for filtering 
+sf_japan <- 
+  rnaturalearth::ne_countries(returnclass = "sf", scale = 'medium') %>% 
+  dplyr::filter(name == "Japan") %>%
+  st_transform(crs = 2451)
+
+sf_japan_buffer <- 
+  sf_japan %>%
+  st_buffer(dist = 200 * 1000)
+
+# filter the data
+earthquakes_sftime_japan <- 
+  earthquakes_sftime %>%
+  st_transform(crs = 2451) %>%
+  filter(time >= as.POSIXct("2020-01-01 00:00:00")) %>%
+  st_filter(sf_japan_buffer, .predicate = st_within)
+
+# plot with tmap
+library(tmap)
+
+tm_shape(sf_japan_buffer) + 
+  tm_borders(lty = 2) +
+  tm_shape(sf_japan) + 
+  tm_polygons() +
+  tm_shape(earthquakes_sftime_japan) +
+  tm_bubbles(col = "mag", scale = 0.5, title.col = "Magnitude")
+```
+
+
+# The `sftime` class
+
+## Object structure
+
+The structure of `sftime` objects is simple when one [already knows `sf`](https://r-spatial.org/r/2016/02/15/simple-features-for-r.html) objects. `sftime` has an attribute `time_column` which defines one column of an `sf` object as active time column.
+
+```{r}
+attributes(head(storms_sftime)) # head() to avoid too long output
+```
+
+
+## Conversion from and to `sftime`
+
+`sftime` objects can be created from and converted to the following classes:
+
+```{r, echo=FALSE}
+from_sftime <- 
+  tibble::tibble(
+   from = "sftime" %>%
+      paste0("`", ., "`"),
+   from_package = from,
+   to = c("data.frame", "tibble", "stars", "sf") %>%
+      paste0("`", ., "`"),
+   to_package = c("base", "tibble", "stars", "sf") %>%
+      paste0("`", ., "`"),
+   with = c("as.data.frame()", "tibble::as_tibble()", "stars::st_as_stars()", "st_drop_time()") %>%
+      paste0("`", ., "`"),
+   side_effect = c("", "", "", "drops active time column"),
+   example = c("as.data.frame(earthquakes_sftime)", "tibble::as_tibble(earthquakes_sftime)", "stars::st_as_stars(earthquakes_sftime)", "st_drop_time(earthquakes_sftime)") %>%
+      paste0("`", ., "`")
+)
+
+to_sftime <- 
+  tibble::tibble(
+    from = c("sf", "stars", "sftime", "data.frame", "tbl_df", "STI", "STIDF", "Track", "Tracks", "TracksCollection") %>%
+      paste0("`", ., "`"),
+    from_package = c("sf", "stars", "sftime", "base", "tibble", "spacetime", "spacetime", "trajectories", "trajectories", "trajectories") %>%
+      paste0("`", ., "`"),
+    to = "sftime" %>%
+      paste0("`", ., "`"),
+    to_package = to,
+    with = c("`st_as_sftime()`, `st_sftime()`, `st_set_time()`", "`st_as_sftime()`", "`st_as_sftime()`", "`st_as_sftime()`, `st_sftime()`", "`st_as_sftime()`, `st_sftime()`", "`st_as_sftime()`", "`st_as_sftime()`", "`st_as_sftime()`", "`st_as_sftime()`", "`st_as_sftime()`"),
+    side_effect = c("", "", "", "", "", "", "", "", "Adds a column `track_name`.", "Adds columns `track_name` and `tracks_name`."),
+    example = c('See this blogpost.', '`st_as_sftime(stars::st_as_stars(earthquakes_sftime), time_column_name = "time")`', '`st_as_sftime(earthquakes_sftime)`', '`st_as_sftime(as.data.frame(earthquakes_sftime), time_column_name = "time")`;  `st_sftime(as.data.frame(earthquakes_sftime), time_column_name = "time")`', '`st_as_sftime(tibble::as_tibble(earthquakes_sftime), time_column_name = "time")`; `st_sftime(tibble::as_tibble(earthquakes_sftime), time_column_name = "time")`', 'See `?st_as_sftime`', 'See `?st_as_sftime`', 'See `?st_as_sftime`', 'See `?st_as_sftime`', 'See `?st_as_sftime`')
+  )
+
+dplyr::bind_rows(to_sftime, from_sftime) %>%
+  dplyr::mutate(
+    from = 
+      dplyr::case_when(
+        from == "`sftime`" ~ from,
+        TRUE ~ paste0(from, " (package: ", from_package, ")")
+      ),
+    to = 
+      dplyr::case_when(
+        to == "`sftime`" ~ to,
+        TRUE ~ paste0(to, " (package: ", to_package, ")")
+      )
+  ) %>%
+  dplyr::select(-from_package, -to_package) %>%
+  kableExtra::kable(
+    col.names = c("From", "To", "Methods", "Side effects", "Examples")
+  ) %>%
+  kableExtra::kable_paper(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  kableExtra::collapse_rows(columns = 1:2, valign = "middle") %>%
+  kableExtra::pack_rows("To `sftime`", 1, nrow(to_sftime)) %>%
+  kableExtra::pack_rows("From `sftime`", nrow(to_sftime) + 1, nrow(to_sftime) + nrow(from_sftime))
+```
+
+
+
+# Available methods
+
+Currently, the following methods are available for `sftime` objects:
+
+```{r}
+methods(class = "sftime")
+```
+
+
+# Outlook
+
+## `gstat` and `spcopula` integration
+
+In the upcoming months, `sftime` will be integrated with [`gstat`](https://github.com/r-spatial/gstat) and [`spcopula`](https://github.com/BenGraeler/spcopula) to support spatiotemporal statistics (Kriging, spatiotemporal random fields) using `sftime` objects as input. 
+
+For example, irregular spatiotemporal data from weather stations (e.g. daily temperature records) can be spatiotemporally interpolated to compute a raster time series of temperature values for a certain area. 
+
+The general idea is that in these cases, an `sftime` object is the input for a spatiotemporal interpolation model, and a `stars` object is the output.
+
+
+## `sftime`: future developments
+
+Also in the upcoming months, we will further develop the `sftime` package by adding still missing methods applicable to `sf` objects and conversion from `sftrack` and `sftraj` objects from the [`sftrack`](https://github.com/mablab/sftrack)) package.
+
+Any contributions here, including issues and pull requests are welcome.
+
+
+## Acknowledgment
+
+This project gratefully acknowledges financial [support](https://www.r-consortium.org/projects) from the
+
+<a href="https://www.r-consortium.org/projects/awarded-projects">
+<img src="https://www.r-consortium.org/wp-content/uploads/sites/13/2016/09/RConsortium_Horizontal_Pantone.png" width="300">
+</a>
+
