@@ -1,0 +1,57 @@
+---
+title: "Evolution Blog 2"
+author: "Edzer Pebesma, Roger Bivand"
+date:  "Aug 23, 2022"
+comments: false
+layout: post
+categories: r
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+TOC
+
+[DOWNLOADHERE]
+
+**Summary**:
+
+We made a table with packages that call functions from rgeos,
+rgdal and maptools and published this. Methods are not found.
+
+# Package dependency tables
+
+When you turn off recursive, which packages are affected?
+
+Point to tables, which only lists the functions affected, not S3 or S4 methods, like `spTransform`.
+
+[[RB:
+-> Check sp calls, 
+with a/b/c/ installed, use EVOLUTION 0, 1 and 2
+without a/b/c/ installed, use EVOLUTION 0, 1 and 2
+-> six revdeps
+]]
+
+Not write complete set of proxy functions that roundtrip through sf,
+but rather point to functions that should be used now.
+
+Ask those who make an evolution sp -> sf, could you report to how
+to do this? Could you point to a PR or commit that illustrates this, 
+going from _SP_EVOLUTION_STATUS 0 -> 1, 1 -> 2
+
+We need help to identify the problems. If no response comes, we
+can lazy.
+
+## guide pkg authors how to migrate?
+
+TODO
+- bulk email to pkgs affected
+- point to blog & table list
+- point to a new github.com/r-spatial/evalotion issue for centralised/shared discussion
+- email project advisory board with blog draft, ask for reactions, will publish in one week, share in GH issue
+
+
+AFTER BLOG: links to:
+pre-existing wiki in sf
+ASDAR code converted not to use rgeos/rgdal/maptools
