@@ -1,7 +1,7 @@
 ---
 title: "Vector Data Cubes"
 author: "Edzer Pebesma"
-date:  "Aug 15, 2022"
+date:  "Sep 12, 2022"
 comments: false
 layout: post
 categories: r
@@ -19,7 +19,7 @@ TOC
 
 Where raster data cubes refer to data cubes with raster (x- and y-,
 or lon- and lat-) dimensions, **vector data cubes are n-D arrays
-that only have a single spatial dimension that maps to a set of
+that have (at least) a single spatial dimension that maps to a set of
 (2-D) vector geometries.** This post explains what they are used for,
 and how they can be handled with data science and GIS software.
 
