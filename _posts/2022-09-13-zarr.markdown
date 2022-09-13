@@ -296,7 +296,7 @@ semi-regular with gaps (the leap days); POSIXct values are now in the
 
 We can plot the first 49 time slices e.g. by
 
-    plot(r[,,,1:49]) # first 100 time steps
+    plot(r[,,,1:49]) # first 49 time steps
     ## downsample set to 2
 
 ![](/images/figure-markdown_strict/unnamed-chunk-13-1.png)

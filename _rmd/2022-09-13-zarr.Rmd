@@ -202,7 +202,7 @@ the `values` field of the `time` dimension.
 
 We can plot the first 49 time slices e.g. by
 ```{r}
-plot(r[,,,1:49]) # first 100 time steps
+plot(r[,,,1:49]) # first 49 time steps
 ```
 
 ### Reading sub-arrays or strided arrays
