@@ -159,7 +159,7 @@ representation, as printed by `ncdump`, would look like
         double station(station) ;
         double time(time) ;
             time:units = "days since 1970-01-01" ;
-        string color(color) ;
+        string col(color) ;
         double lon(station) ;
             lon:units = "degrees_north" ;
             lon:standard_name = "longitude" ;
@@ -197,7 +197,7 @@ representation, as printed by `ncdump`, would look like
 
      time = 19219, 19220, 19221, 19222, 19223 ;
 
-     color = "R", "G", "B" ;
+     col = "R", "G", "B" ;
 
      lon = 5, 1.3, 8, 2 ;
 
