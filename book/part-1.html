@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Edzer Pebesma, Roger Bivand">
-<meta name="dcterms.date" content="2022-09-02">
 
-<title>Spatial Data Science</title>
+<title>Spatial Data Science - Spatial Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,7 +49,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./part-1.html" rel="next">
+<link href="./01-hello.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -90,7 +89,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Spatial Data Science</h1>
+      <h1 class="quarto-secondary-nav-title">Spatial Data</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -115,12 +114,12 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-1.html" class="sidebar-item-text sidebar-link">Spatial Data</a>
+            <a href="./part-1.html" class="sidebar-item-text sidebar-link active">Spatial Data</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -258,113 +257,38 @@ div.csl-indent {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Spatial Data Science</h1>
-<p class="subtitle lead">with applications in R</p>
+<h1 class="title d-none d-lg-block">Spatial Data</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Edzer Pebesma, Roger Bivand </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 2, 2022</p>
-    </div>
-  </div>
     
   </div>
   
 
 </header>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<div class="cell">
-
-</div>
-<p>Data science is concerned with finding answers to questions on the basis of available data, and communicating that effort. Besides showing the results, this communication involves sharing the data used, but also exposing the path that led to the answers in a comprehensive and reproducible way. It also acknowledges the fact that available data may not be sufficient to answer questions, and that any answers are conditional on the data collection or sampling protocols employed.</p>
-<p> </p>
-<p>This book introduces and explains the concepts underlying <em>spatial</em> data: points, lines, polygons, rasters, coverages, geometry attributes, data cubes, reference systems, as well as higher-level concepts including how attributes relate to geometries and how this affects analysis. The relationship of attributes to geometries is known as support, and changing support also changes the characteristics of attributes. Some data generation processes are continuous in space, and may be observed everywhere. Others are discrete, observed in tesselated containers. In modern spatial data analysis, tesellated methods are often used for all data, extending across the legacy partition into point process, geostatistical and lattice models. It is support (and the understanding of support) that underlies the importance of spatial representation. The book aims at data scientists who want to get a grip on using spatial data in their analysis. To exemplify how to do things, it uses R.</p>
-<p>It is often thought that spatial data boils down to having observations’ longitude and latitude in a dataset, and treating these just like any other variable. This carries the risk of missed opportunities and meaningless analyses. For instance,</p>
-<ul>
-<li>coordinate pairs really are pairs, and lose much of their meaning when treated independently</li>
-<li>rather than having point locations, observations are often associated with spatial lines, areas, or grid cells</li>
-<li>spatial distances between observations are often not well represented by straight-line distances, but by great circle distances, distances through networks, or by measuring the effort it takes getting from A to B</li>
-</ul>
-<p>We introduce the concepts behind spatial data, coordinate reference systems, spatial analysis, and introduce a number of packages, including <code>sf</code> <span class="citation" data-cites="rjsf R-sf">(<a href="references.html#ref-rjsf" role="doc-biblioref">Pebesma 2018</a>, <a href="references.html#ref-R-sf" role="doc-biblioref">2022a</a>)</span>, <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="references.html#ref-R-stars" role="doc-biblioref">Pebesma 2022b</a>)</span>, <code>s2</code> <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>)</span> and <code>lwgeom</code> <span class="citation" data-cites="R-lwgeom">(<a href="references.html#ref-R-lwgeom" role="doc-biblioref">Pebesma 2021</a>)</span>, as well as a number of spatial <code>tidyverse</code> <span class="citation" data-cites="R-tidyverse">(<a href="references.html#ref-R-tidyverse" role="doc-biblioref">Wickham 2021</a>)</span> extensions, and a number of spatial analysis and visualisation packages that can be used with these packages, including <code>gstat</code> <span class="citation" data-cites="R-gstat">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>)</span>, <code>spdep</code> <span class="citation" data-cites="R-spdep">(<a href="references.html#ref-R-spdep" role="doc-biblioref">Bivand 2022</a>)</span>, <code>spatialreg</code> <span class="citation" data-cites="R-spatialreg">(<a href="references.html#ref-R-spatialreg" role="doc-biblioref">Bivand and Piras 2022</a>)</span>, <code>spatstat</code> <span class="citation" data-cites="R-spatstat">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>)</span>, <code>tmap</code> <span class="citation" data-cites="R-tmap">(<a href="references.html#ref-R-tmap" role="doc-biblioref">Tennekes 2022</a>)</span> and <code>mapview</code> <span class="citation" data-cites="R-mapview">(<a href="references.html#ref-R-mapview" role="doc-biblioref">Appelhans et al. 2022</a>)</span>.</p>
-<section id="acknowledgements" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>all GitHub contributors (t.b.d.),</p>
-<p>Sahil Bhandari, Claus Wilke, Jakub Nowosad, SDSWR class summer 2021, all sf and stars authors,</p>
-<div class="cell">
-<p>This work is licensed under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode">Attribution-NonCommercial-NoDerivatives 4.0</a> International License.</p>
+<p>The first part of this book introduces concepts of spatial data science, and uses R only to generate text output or figures. The R code used for this is not shown or explained, as it would distract from the message. The online version of this book contains R code at the place where it is used in sections that can be unfolded on demand and copied into the clipboard for execution and experimenting.</p>
+<div>
+<p>The code sections in the first part are not explained, but can be unfolded by clicking on the “code” button. Some of these (e.g.&nbsp;in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>) contain irrelevant code written to generate figures with R, code sections relevant to data analysis should be easy to follow when understanding R at the level of, say, <a href="http://r4ds.had.co.nz/">R for Data Science</a> <span class="citation" data-cites="r4ds">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span>. More detailed explanation of the R code used starts in Part II of this book.</p>
 </div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-R-mapview" class="csl-entry" role="doc-biblioentry">
-Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2022. <em>Mapview: Interactive Viewing of Spatial Data in r</em>. <a href="https://github.com/r-spatial/mapview">https://github.com/r-spatial/mapview</a>.
-</div>
-<div id="ref-R-spatstat" class="csl-entry" role="doc-biblioentry">
-Baddeley, Adrian, Rolf Turner, and Ege Rubak. 2022. <em>Spatstat: Spatial Point Pattern Analysis, Model- Fitting, Simulation, Tests</em>. <a href="http://spatstat.org/">http://spatstat.org/</a>.
-</div>
-<div id="ref-R-spdep" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger. 2022. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics</em>. <a href="https://CRAN.R-project.org/package=spdep">https://CRAN.R-project.org/package=spdep</a>.
-</div>
-<div id="ref-R-spatialreg" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger, and Gianfranco Piras. 2022. <em>Spatialreg: Spatial Regression Analysis</em>. <a href="https://CRAN.R-project.org/package=spatialreg">https://CRAN.R-project.org/package=spatialreg</a>.
-</div>
-<div id="ref-R-s2" class="csl-entry" role="doc-biblioentry">
-Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2022. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>.
-</div>
-<div id="ref-rjsf" class="csl-entry" role="doc-biblioentry">
-Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
-</div>
-<div id="ref-R-lwgeom" class="csl-entry" role="doc-biblioentry">
-———. 2021. <em>Lwgeom: Bindings to Selected Liblwgeom Functions for Simple Features</em>. <a href="https://github.com/r-spatial/lwgeom/">https://github.com/r-spatial/lwgeom/</a>.
-</div>
-<div id="ref-R-sf" class="csl-entry" role="doc-biblioentry">
-———. 2022a. <em>Sf: Simple Features for r</em>.
-</div>
-<div id="ref-R-stars" class="csl-entry" role="doc-biblioentry">
-———. 2022b. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>.
-</div>
-<div id="ref-R-gstat" class="csl-entry" role="doc-biblioentry">
-Pebesma, Edzer, and Benedikt Graeler. 2022. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://github.com/r-spatial/gstat/">https://github.com/r-spatial/gstat/</a>.
-</div>
-<div id="ref-R-tmap" class="csl-entry" role="doc-biblioentry">
-Tennekes, Martijn. 2022. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/r-tmap/tmap">https://github.com/r-tmap/tmap</a>.
-</div>
-<div id="ref-R-tidyverse" class="csl-entry" role="doc-biblioentry">
-Wickham, Hadley. 2021. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+<div id="ref-r4ds" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, and Garret Grolemund. 2017. <em>R for Data Science</em>. O’Reilly. <a href="http://r4ds.had.co.nz/">http://r4ds.had.co.nz/</a>.
 </div>
 </div>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -467,10 +391,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part-1.html" class="pagination-link">
-        <span class="nav-page-text">Spatial Data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01-hello.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
