@@ -1,7 +1,7 @@
 ---
 title: ""
 author: "Edzer Pebesma, Florian Lahn, Matthias Mohr, Peter Zellner"
-date:  "Jul 16, 2022"
+date:  "Sep 14, 2022"
 comments: false
 layout: post
 categories: r
@@ -13,10 +13,10 @@ TOC
 [DOWNLOADHERE]
 
 **Summary**:
-openEO is an open source community-based API for cloud-based
-processing of Earth Observation data. This blog introduces the R
-openeo client, and demonstrates a sample analysis using [openEO
-Platform](https://openeo.cloud) for processing.
+[openEO](https://openeo.org) is an open source, community-based
+API for cloud-based processing of Earth Observation data. This blog
+introduces the R openeo client, and demonstrates a sample analysis
+using [openEO Platform](https://openeo.cloud) for processing.
 
 
 ```{r}
