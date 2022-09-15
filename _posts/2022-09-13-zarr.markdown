@@ -119,7 +119,7 @@ where
     (WGS84)
 -   we call `st_make_valid()` to make the country boundaries [valid *on
     the
-    spere*](https://keen-swartz-3146c4.netlify.app/spherical.html#validity-on-the-sphere)
+    spere*](https://r-spatial.org/book/04-Spherical.html#validity-on-the-sphere)
 
 ## simple aggregation
 
@@ -159,9 +159,10 @@ values from `xts`:
 
 ![](/images/figure-markdown_strict/unnamed-chunk-6-1.png)
 
+
 The “exact” (or “conservative region”) aggregation in Ryan’s blog is
 obtained by [area-weighted
-interpolation](https://keen-swartz-3146c4.netlify.app/featureattributes.html#area-weighted);
+interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted);
 we have `s2` on to get intersection using spherical coordinates; doing
 this with Cartesian coordinates will not work for half of the globe
 unless we’d recenter the precipitation coordinates from \[0,360\] to

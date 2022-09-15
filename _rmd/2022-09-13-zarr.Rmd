@@ -92,7 +92,7 @@ ne = st_make_valid(ne)
 where
 
 * we set the CRS of the precipitatoin data cube, equal to that of NE (WGS84)
-* we call `st_make_valid()` to make the country boundaries [valid _on the spere_](https://keen-swartz-3146c4.netlify.app/spherical.html#validity-on-the-sphere)
+* we call `st_make_valid()` to make the country boundaries [valid _on the spere_](https://r-spatial.org/book/04-Spherical.html#validity-on-the-sphere)
 
 ## simple aggregation
 
@@ -115,7 +115,7 @@ a.xts |>
 ```
 
 The "exact" (or "conservative region") aggregation in Ryan's blog is obtained by
-[area-weighted interpolation](https://keen-swartz-3146c4.netlify.app/featureattributes.html#area-weighted); we have `s2` on to get intersection using spherical coordinates; doing this with Cartesian coordinates will not work for half of the globe unless we'd recenter the precipitation coordinates from [0,360] to [-180,180]:
+[area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted); we have `s2` on to get intersection using spherical coordinates; doing this with Cartesian coordinates will not work for half of the globe unless we'd recenter the precipitation coordinates from [0,360] to [-180,180]:
 ```{r}
 sf_use_s2() # the default
 ne = st_make_valid(ne)
