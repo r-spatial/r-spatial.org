@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spatial Data Science - R basics</title>
+<title>Spatial Data Science - Appendix B — R basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,8 +112,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./indx.html" rel="next">
-<link href="./30-sp-raster.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./sp-raster.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -152,7 +152,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">R basics</h1>
+      <h1 class="quarto-secondary-nav-title">Appendix B — R basics</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -235,12 +235,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -295,26 +295,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link active">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -324,16 +329,17 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pipes" id="toc-pipes" class="nav-link active" data-scroll-target="#pipes">Pipes</a></li>
-  <li><a href="#data-structures" id="toc-data-structures" class="nav-link" data-scroll-target="#data-structures">Data structures</a>
+  <li><a href="#sec-pipes" id="toc-sec-pipes" class="nav-link active" data-scroll-target="#sec-pipes"><span class="toc-section-number">B.1</span>  Pipes</a></li>
+  <li><a href="#sec-datastructures" id="toc-sec-datastructures" class="nav-link" data-scroll-target="#sec-datastructures"><span class="toc-section-number">B.2</span>  Data structures</a>
   <ul class="collapse">
   <li><a href="#homogeneous-vectors" id="toc-homogeneous-vectors" class="nav-link" data-scroll-target="#homogeneous-vectors">Homogeneous vectors</a></li>
-  <li><a href="#heterogeneous-vectors-list" id="toc-heterogeneous-vectors-list" class="nav-link" data-scroll-target="#heterogeneous-vectors-list">Heterogeneous vectors: list</a></li>
+  <li><a href="#heterogeneous-vectors-list" id="toc-heterogeneous-vectors-list" class="nav-link" data-scroll-target="#heterogeneous-vectors-list">Heterogeneous vectors: <code>list</code></a></li>
+  <li><a href="#null-and-removing-list-elements" id="toc-null-and-removing-list-elements" class="nav-link" data-scroll-target="#null-and-removing-list-elements">NULL and removing list elements</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
-  <li><a href="#various-names-attributes" id="toc-various-names-attributes" class="nav-link" data-scroll-target="#various-names-attributes">various names attributes</a></li>
-  <li><a href="#using-structure" id="toc-using-structure" class="nav-link" data-scroll-target="#using-structure">using <code>structure</code></a></li>
+  <li><a href="#the-names-attributes" id="toc-the-names-attributes" class="nav-link" data-scroll-target="#the-names-attributes">The names attributes</a></li>
+  <li><a href="#using-structure" id="toc-using-structure" class="nav-link" data-scroll-target="#using-structure">Using <code>structure</code></a></li>
   </ul></li>
-  <li><a href="#dissecting-a-multipolygon" id="toc-dissecting-a-multipolygon" class="nav-link" data-scroll-target="#dissecting-a-multipolygon">dissecting a <code>MULTIPOLYGON</code></a></li>
+  <li><a href="#dissecting-a-multipolygon" id="toc-dissecting-a-multipolygon" class="nav-link" data-scroll-target="#dissecting-a-multipolygon"><span class="toc-section-number">B.3</span>  dissecting a <code>MULTIPOLYGON</code></a></li>
   </ul>
 </nav>
     </div>
@@ -342,7 +348,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">R basics</h1>
+<h1 class="title"><span id="sec-rbasics" class="quarto-section-identifier d-none d-lg-block">Appendix B — R basics</span></h1>
 </div>
 
 
@@ -357,8 +363,9 @@ div.csl-indent {
 </header>
 
 <p>This chapter provides some minimal R basics that may make it easier to read this book. A more comprehensive book on R basics is given in <span class="citation" data-cites="advr">(<a href="references.html#ref-advr" role="doc-biblioref">Wickham 2014</a>)</span>, chapter 2.</p>
-<section id="pipes" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="pipes">Pipes</h2>
+<section id="sec-pipes" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="sec-pipes"><span class="header-section-number">B.1</span> Pipes</h2>
+<p></p>
 <p>The <code>|&gt;</code> (pipe) symbols should be read as <em>then</em>: we read</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">|&gt;</span> <span class="fu">b</span>() <span class="sc">|&gt;</span> <span class="fu">c</span>() <span class="sc">|&gt;</span> <span class="fu">d</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -375,11 +382,13 @@ div.csl-indent {
 </div>
 <p>To many, the pipe-form is easier to read because execution order follows reading order, from left to right. Like nested function calls, it avoids the need to choose names for intermediate results, as with nested function calls it is hard to debug intermediate results that diverge from our expectations. Note that the intermediate results do exist in memory, so neither form saves memory allocation. The <code>|&gt;</code> native pipe that appeared in R 4.1.0 as used in this book, can be safely substituted by the <code>%&gt;%</code> pipe of package <code>magrittr</code>.</p>
 </section>
-<section id="data-structures" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="data-structures">Data structures</h2>
+<section id="sec-datastructures" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="sec-datastructures"><span class="header-section-number">B.2</span> Data structures</h2>
+<p></p>
 <p>As pointed out by <span class="citation" data-cites="extending">(<a href="references.html#ref-extending" role="doc-biblioref">Chambers 2016</a>)</span>, <em>everything that exists in R is an object</em>. This includes objects that make things happen, such as language objects or functions, but also the more basic “things”, such as data objects. Some basic R data structures will now be discussed.</p>
-<section id="homogeneous-vectors" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="homogeneous-vectors">Homogeneous vectors</h3>
+<section id="homogeneous-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="homogeneous-vectors">Homogeneous vectors</h3>
+<p></p>
 <p>Data objects contain data, and possibly metadata. Data is always in the form of a vector, which can have different type. We can find the type by <code>typeof</code>, and vector length by <code>length</code>. Vectors are created by <code>c</code>, which combines individual elements:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
@@ -426,8 +435,9 @@ div.csl-indent {
 </div>
 <p>where the difference is that <code>[</code> can operate on an index <em>range</em> (or multiple indexes), and <code>[[</code> operates on a single vector value.</p>
 </section>
-<section id="heterogeneous-vectors-list" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="heterogeneous-vectors-list">Heterogeneous vectors: list</h3>
+<section id="heterogeneous-vectors-list" class="level3">
+<h3 class="anchored" data-anchor-id="heterogeneous-vectors-list">Heterogeneous vectors: <code>list</code></h3>
+<p></p>
 <p>An additional vector type is the <code>list</code>, which can combine any types in its elements:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="cn">TRUE</span>, <span class="st">"foo"</span>)</span>
@@ -496,8 +506,10 @@ div.csl-indent {
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "foo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is convenient, but also requires name look-up in the names attribute (see below).</p>
-<section id="null-and-removing-list-elements" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="null-and-removing-list-elements">NULL and removing list elements</h4>
+</section>
+<section id="null-and-removing-list-elements" class="level3">
+<h3 class="anchored" data-anchor-id="null-and-removing-list-elements">NULL and removing list elements</h3>
+<p></p>
 <p><code>NULL</code> is the null value in R; it is special in the sense that it doesn’t work in simple comparisons:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="cn">NULL</span> <span class="co"># not FALSE!</span></span>
@@ -531,9 +543,9 @@ div.csl-indent {
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "foo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-</section>
-<section id="attributes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="attributes">Attributes</h3>
+<section id="attributes" class="level3">
+<h3 class="anchored" data-anchor-id="attributes">Attributes</h3>
+<p></p>
 <p>We can glue arbitrary metadata objects to data objects, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
@@ -562,8 +574,9 @@ div.csl-indent {
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "foo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A number of attributes are treated specially by R, see e.g.&nbsp;<code>?attributes</code>.</p>
-<section id="object-class-and-class-attribute" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="object-class-and-class-attribute">object class and class attribute</h4>
+<section id="object-class-and-class-attribute" class="level4">
+<h4 class="anchored" data-anchor-id="object-class-and-class-attribute">Object class and class attribute</h4>
+<p> </p>
 <p>Every object in R “has a class”, meaning that <code>class(obj)</code> returns a character vector with the class of <code>obj</code>. Some objects have an <em>implicit</em> class, e.g.&nbsp;vectors</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
@@ -603,7 +616,7 @@ div.csl-indent {
 <p>As a more elaborate example, consider the case where a polygon is made using package sf:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))))</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>p</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># POLYGON ((0 0, 1 0, 1 1, 0 0))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -619,8 +632,9 @@ div.csl-indent {
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [4,]    0    0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="the-dim-attribute" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="the-dim-attribute">the dim attribute</h4>
+<section id="the-dim-attribute" class="level4">
+<h4 class="anchored" data-anchor-id="the-dim-attribute">The <code>dim</code> attribute</h4>
+<p> </p>
 <p>The <code>dim</code> attribute sets the matrix or array dimensions:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span></span>
@@ -651,8 +665,8 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="various-names-attributes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="various-names-attributes">various names attributes</h3>
+<section id="the-names-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="the-names-attributes">The names attributes</h3>
 <p>Named vectors carry their names in a <code>names</code> attribute. We saw examples for lists above, an example for a numeric vector is:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">first =</span> <span class="dv">3</span>, <span class="at">second =</span> <span class="dv">4</span>, <span class="at">last =</span> <span class="dv">5</span>)</span>
@@ -698,8 +712,9 @@ div.csl-indent {
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 2 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="using-structure" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="using-structure">using <code>structure</code></h3>
+<section id="using-structure" class="level3">
+<h3 class="anchored" data-anchor-id="using-structure">Using <code>structure</code></h3>
+<p></p>
 <p>When programming, the pattern of adding or modifying attributes before returning an object is extremely common, an example being:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -718,8 +733,8 @@ div.csl-indent {
 <p>where function <code>structure</code> adds, replaces, or (in case of value <code>NULL</code>) removes attributes from the object in its first argument.</p>
 </section>
 </section>
-<section id="dissecting-a-multipolygon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="dissecting-a-multipolygon">dissecting a <code>MULTIPOLYGON</code></h2>
+<section id="dissecting-a-multipolygon" class="level2" data-number="B.3">
+<h2 data-number="B.3" class="anchored" data-anchor-id="dissecting-a-multipolygon"><span class="header-section-number">B.3</span> dissecting a <code>MULTIPOLYGON</code></h2>
 <p>We can use the above examples to dissect an <code>sf</code> object with <code>MULTIPOLYGON</code>s into pieces. Suppose we use the <code>nc</code> dataset,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
@@ -988,13 +1003,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./30-sp-raster.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span>
+      <a href="./sp-raster.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./indx.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

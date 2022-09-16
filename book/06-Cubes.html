@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -740,6 +745,7 @@ refer to
 <h2 data-number="6.3" class="anchored" data-anchor-id="sec-dcoperations"><span class="header-section-number">6.3</span> Operations on data cubes</h2>
 <section id="slicing-a-cube-filter" class="level3">
 <h3 class="anchored" data-anchor-id="slicing-a-cube-filter">Slicing a cube: filter</h3>
+<p></p>
 <p>Data cubes can be sliced into sub-cubes by fixing a dimension at a particular value. <a href="#fig-cube4filter">Figure&nbsp;<span>6.4</span></a> shows the sub-cubes obtained by doing with each of the dimensions. In this figure, the spatial filtering does not happen by fixing a single spatial dimension at a particular value, but by selecting a particular subregion, which is a more common operation. Fixing <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span> would give a sub-cube along a transect of constant <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>, which can be used to show a Hovmöller diagram, where an attribute is plotted (colored) in the space of one space and one time dimension.</p>
 <div class="cell">
 <details>

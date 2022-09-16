@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -361,16 +366,18 @@ div.csl-indent {
 
 </header>
 
+<p> </p>
 <p>Even though it may be tempting to focus on interpreting the map pattern of an areal support response variable of interest, the pattern may largely derive from covariates (and their functional forms), as well as the respective spatial footprints of the variables in play. Spatial autoregressive models in two dimensions began without covariates and with clear links to time series <span class="citation" data-cites="whittle:54">(<a href="references.html#ref-whittle:54" role="doc-biblioref">Whittle 1954</a>)</span>. Extensions included tests for spatial autocorrelation in linear model residuals, and models applying the autoregressive component to the response or the residuals, where the latter matched the tests for residuals <span class="citation" data-cites="CliffOrd:72 cliff+ord:73">(<a href="references.html#ref-CliffOrd:72" role="doc-biblioref">A. Cliff and Ord 1972</a>; <a href="references.html#ref-cliff+ord:73" role="doc-biblioref">A. D. Cliff and Ord 1973</a>)</span>. These “lattice” models of areal data typically express the dependence between observations using a graph of neighbours in the form of a contiguity matrix.</p>
-<p>Of course, handling a spatial correlation structure in a generalised least squares model or a (generalized) linear or nonlinear mixed effects model such as those provided in the <strong>nlme</strong> and many other packages does not have to use a graph of neighbours <span class="citation" data-cites="R:Pinheiro+Bates:2000">(<a href="references.html#ref-R:Pinheiro+Bates:2000" role="doc-biblioref">Pinheiro and Bates 2000</a>)</span>. These models are also spatial regression models, using functions of the distance between observations, and fitted variograms to model the spatial autocorrelation present; such models have been held to yield a clearer picture of the underlying processes <span class="citation" data-cites="wall:04">(<a href="references.html#ref-wall:04" role="doc-biblioref">Wall 2004</a>)</span>, building on geostatistics. For example, the <strong>glmmTMB</strong> package successfully uses this approach to spatial regression <span class="citation" data-cites="brookesetal:17">(<a href="references.html#ref-brookesetal:17" role="doc-biblioref">Brooks et al. 2017</a>)</span>. Here we will only consider spatial regression using spatial weights matrices.</p>
+<p> Of course, handling a spatial correlation structure in a generalised least squares model or a (generalized) linear or nonlinear mixed effects model such as those provided in the <strong>nlme</strong> and many other packages does not have to use a graph of neighbours <span class="citation" data-cites="R:Pinheiro+Bates:2000">(<a href="references.html#ref-R:Pinheiro+Bates:2000" role="doc-biblioref">Pinheiro and Bates 2000</a>)</span>. These models are also spatial regression models, using functions of the distance between observations, and fitted variograms to model the spatial autocorrelation present; such models have been held to yield a clearer picture of the underlying processes <span class="citation" data-cites="wall:04">(<a href="references.html#ref-wall:04" role="doc-biblioref">Wall 2004</a>)</span>, building on geostatistics. For example, the <strong>glmmTMB</strong> package successfully uses this approach to spatial regression <span class="citation" data-cites="brookesetal:17">(<a href="references.html#ref-brookesetal:17" role="doc-biblioref">Brooks et al. 2017</a>)</span>. Here we will only consider spatial regression using spatial weights matrices.</p>
 <section id="markov-random-field-and-multilevel-models" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="markov-random-field-and-multilevel-models"><span class="header-section-number">16.1</span> Markov random field and multilevel models</h2>
+<p> </p>
 <p>There is a large literature in disease mapping using conditional autoregressive (CAR) and intrinsic CAR (ICAR) models in spatially structured random effects. These extend to multilevel models, in which the spatially structured random effects may apply at different levels of the model <span class="citation" data-cites="bivandetal17a">(<a href="references.html#ref-bivandetal17a" role="doc-biblioref">Roger S. Bivand et al. 2017</a>)</span>. In order to try out some of the variants, we need to remove the no-neighbour observations from the tract level, and from the model output zone aggregated level, in two steps as reducing the tract level induces a no-neighbour outcome at the model output zone level. Many of the model estimating functions take <code>family=</code> arguments, and fit generalized linear mixed effects models with per-observation spatial random effects structured using a Markov random field representation of relationships between neighbours. In the multilevel case, the random effects may be modelled at the group level, which is the case presented in the following examples.</p>
 <p>We follow <span class="citation" data-cites="vgr_clubuc3m:19">Gómez-Rubio (<a href="references.html#ref-vgr_clubuc3m:19" role="doc-biblioref">2019</a>)</span> in summarizing <span class="citation" data-cites="R:Pinheiro+Bates:2000">Pinheiro and Bates (<a href="references.html#ref-R:Pinheiro+Bates:2000" role="doc-biblioref">2000</a>)</span> and <span class="citation" data-cites="mcculloch+searle:2001">McCulloch and Searle (<a href="references.html#ref-mcculloch+searle:2001" role="doc-biblioref">2001</a>)</span> to describe the mixed-effects model representation of spatial regression models. In a Gaussian linear mixed model setting, a random effect <span class="math inline">\(u\)</span> is added to the model, with response <span class="math inline">\(Y\)</span>, fixed covariates <span class="math inline">\(X\)</span>, their coefficients <span class="math inline">\(\beta\)</span> and error term <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2), i=1,\dots, n\)</span>:</p>
 <p><span class="math display">\[
 Y = X \beta + Z u + \varepsilon
 \]</span> <span class="math inline">\(Z\)</span> is a fixed design matrix for the random effects. If there are <span class="math inline">\(n\)</span> random effects, it will be an <span class="math inline">\(n \times n\)</span> identity matrix, if instead the observations are aggregated into <span class="math inline">\(m\)</span> groups, so with <span class="math inline">\(m &lt; n\)</span> random effects, it will be an <span class="math inline">\(n \times m\)</span> matrix showing which group each observation belongs to. The random effects are modelled as a multivariate Normal distribution <span class="math inline">\(u \sim N(0, \sigma^2_u \Sigma)\)</span>, and <span class="math inline">\(\Sigma\)</span> is the square variance-covariance matrix of the random effects.</p>
-<p>A division has grown up, possibly unhelpfully, between scientific fields using CAR models <span class="citation" data-cites="besag:74">(<a href="references.html#ref-besag:74" role="doc-biblioref">Besag 1974</a>)</span>, and simultaneous autoregressive models (SAR) <span class="citation" data-cites="ord:75 hepple:76">(<a href="references.html#ref-ord:75" role="doc-biblioref">Ord 1975</a>; <a href="references.html#ref-hepple:76" role="doc-biblioref">Hepple 1976</a>)</span>. Although CAR and SAR models are closely related, these fields have found it difficult to share experience of applying similar models, often despite referring to key work summarising the models <span class="citation" data-cites="ripley:81 ripley:88 Cressie:1993">(<a href="references.html#ref-ripley:81" role="doc-biblioref">Ripley 1981</a>, <a href="references.html#ref-ripley:88" role="doc-biblioref">1988</a>; <a href="references.html#ref-Cressie:1993" role="doc-biblioref">Cressie 1993</a>)</span>. Ripley gives the SAR variance as <span class="citation" data-cites="ripley:81">(<a href="references.html#ref-ripley:81" role="doc-biblioref">1981, 89</a>)</span>, here shown as the inverse <span class="math inline">\(\Sigma^{-1}\)</span> (also known as the precision matrix):</p>
+<p> A division has grown up, possibly unhelpfully, between scientific fields using CAR models <span class="citation" data-cites="besag:74">(<a href="references.html#ref-besag:74" role="doc-biblioref">Besag 1974</a>)</span>, and simultaneous autoregressive models (SAR) <span class="citation" data-cites="ord:75 hepple:76">(<a href="references.html#ref-ord:75" role="doc-biblioref">Ord 1975</a>; <a href="references.html#ref-hepple:76" role="doc-biblioref">Hepple 1976</a>)</span>. Although CAR and SAR models are closely related, these fields have found it difficult to share experience of applying similar models, often despite referring to key work summarising the models <span class="citation" data-cites="ripley:81 ripley:88 Cressie:1993">(<a href="references.html#ref-ripley:81" role="doc-biblioref">Ripley 1981</a>, <a href="references.html#ref-ripley:88" role="doc-biblioref">1988</a>; <a href="references.html#ref-Cressie:1993" role="doc-biblioref">Cressie 1993</a>)</span>. Ripley gives the SAR variance as <span class="citation" data-cites="ripley:81">(<a href="references.html#ref-ripley:81" role="doc-biblioref">1981, 89</a>)</span>, here shown as the inverse <span class="math inline">\(\Sigma^{-1}\)</span> (also known as the precision matrix):</p>
 <p><span class="math display">\[
 \Sigma^{-1} = [(I - \rho W)'(I - \rho W)]
 \]</span></p>
@@ -484,7 +491,7 @@ Y = X \beta + Z u + \varepsilon
 </section>
 <section id="multilevel-models-of-the-boston-data-set" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="multilevel-models-of-the-boston-data-set"><span class="header-section-number">16.2</span> Multilevel models of the Boston data set</h2>
-<p>The ZN, INDUS, NOX, RAD, TAX and PTRATIO variables show effectively no variability within the TASSIM zones, so in a multilevel model the random effect may absorb their influence.</p>
+<p> The ZN, INDUS, NOX, RAD, TAX and PTRATIO variables show effectively no variability within the TASSIM zones, so in a multilevel model the random effect may absorb their influence.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="fu">log</span>(median) <span class="sc">~</span> CRIM <span class="sc">+</span> ZN <span class="sc">+</span> INDUS <span class="sc">+</span> CHAS <span class="sc">+</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">I</span>((NOX<span class="sc">*</span><span class="dv">10</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(RM<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> AGE <span class="sc">+</span> <span class="fu">log</span>(DIS) <span class="sc">+</span></span>
@@ -493,7 +500,7 @@ Y = X \beta + Z u + \varepsilon
 </div>
 <section id="iid-random-effects-with-lme4" class="level3">
 <h3 class="anchored" data-anchor-id="iid-random-effects-with-lme4">IID random effects with lme4</h3>
-<p>The <strong>lme4</strong> package <span class="citation" data-cites="R-lme4">(<a href="references.html#ref-R-lme4" role="doc-biblioref">Bates et al. 2022</a>)</span> lets us add an independent and identically distributed (IID) unstructured random effect at the model output zone level by updating the model formula with a random effects term:</p>
+<p> The <strong>lme4</strong> package <span class="citation" data-cites="R-lme4">(<a href="references.html#ref-R-lme4" role="doc-biblioref">Bates et al. 2022</a>)</span> lets us add an independent and identically distributed (IID) unstructured random effect at the model output zone level by updating the model formula with a random effects term:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
@@ -507,7 +514,7 @@ Y = X \beta + Z u + \varepsilon
 </section>
 <section id="iid-and-car-random-effects-with-hglm" class="level3">
 <h3 class="anchored" data-anchor-id="iid-and-car-random-effects-with-hglm">IID and CAR random effects with hglm</h3>
-<p>The same model may be estimated using the <strong>hglm</strong> package <span class="citation" data-cites="R-hglm">(<a href="references.html#ref-R-hglm" role="doc-biblioref">Alam, Ronnegard, and Shen 2019</a>)</span>, which also permits the modelling of discrete responses, this time using an extra one-sided formula to express the random effects term:</p>
+<p> The same model may be estimated using the <strong>hglm</strong> package <span class="citation" data-cites="R-hglm">(<a href="references.html#ref-R-hglm" role="doc-biblioref">Alam, Ronnegard, and Shen 2019</a>)</span>, which also permits the modelling of discrete responses, this time using an extra one-sided formula to express the random effects term:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(hglm))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(HGLM_iid <span class="ot">&lt;-</span> <span class="fu">hglm</span>(<span class="at">fixed =</span> form,</span>
@@ -533,7 +540,7 @@ Y = X \beta + Z u + \varepsilon
 </section>
 <section id="iid-and-icar-random-effects-with-r2bayesx" class="level3">
 <h3 class="anchored" data-anchor-id="iid-and-icar-random-effects-with-r2bayesx">IID and ICAR random effects with R2BayesX</h3>
-<p>The <strong>R2BayesX</strong> package <span class="citation" data-cites="R-R2BayesX">(<a href="references.html#ref-R-R2BayesX" role="doc-biblioref">Umlauf et al. 2022</a>)</span> provides flexible support for structured additive regression models, including spatial multilevel models. The models include an IID unstructured random effect at the upper level using the <code>"re"</code> specification in the <code>sx()</code> model term <span class="citation" data-cites="umlaufetal:15">(<a href="references.html#ref-umlaufetal:15" role="doc-biblioref">Umlauf et al. 2015</a>)</span>; we choose the <code>"MCMC"</code> method:</p>
+<p> The <strong>R2BayesX</strong> package <span class="citation" data-cites="R-R2BayesX">(<a href="references.html#ref-R-R2BayesX" role="doc-biblioref">Umlauf et al. 2022</a>)</span> provides flexible support for structured additive regression models, including spatial multilevel models. The models include an IID unstructured random effect at the upper level using the <code>"re"</code> specification in the <code>sx()</code> model term <span class="citation" data-cites="umlaufetal:15">(<a href="references.html#ref-umlaufetal:15" role="doc-biblioref">Umlauf et al. 2015</a>)</span>; we choose the <code>"MCMC"</code> method:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(R2BayesX))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -571,7 +578,7 @@ Y = X \beta + Z u + \varepsilon
 </section>
 <section id="iid-icar-and-leroux-random-effects-with-inla" class="level3">
 <h3 class="anchored" data-anchor-id="iid-icar-and-leroux-random-effects-with-inla">IID, ICAR and Leroux random effects with INLA</h3>
-<p><span class="citation" data-cites="JSSv063i20">R. Bivand, Gómez-Rubio, and Rue (<a href="references.html#ref-JSSv063i20" role="doc-biblioref">2015</a>)</span> and <span class="citation" data-cites="gómez2020bayesian">Gómez-Rubio (<a href="references.html#ref-gómez2020bayesian" role="doc-biblioref">2020</a>)</span> present the use of the <strong>INLA</strong> package <span class="citation" data-cites="R-INLA">(<a href="references.html#ref-R-INLA" role="doc-biblioref">Rue, Lindgren, and Teixeira Krainski 2022</a>)</span> and the <code>inla()</code> model fitting function with spatial regression models:</p>
+<p> <span class="citation" data-cites="JSSv063i20">R. Bivand, Gómez-Rubio, and Rue (<a href="references.html#ref-JSSv063i20" role="doc-biblioref">2015</a>)</span> and <span class="citation" data-cites="gómez2020bayesian">Gómez-Rubio (<a href="references.html#ref-gómez2020bayesian" role="doc-biblioref">2020</a>)</span> present the use of the <strong>INLA</strong> package <span class="citation" data-cites="R-INLA">(<a href="references.html#ref-R-INLA" role="doc-biblioref">Rue, Lindgren, and Teixeira Krainski 2022</a>)</span> and the <code>inla()</code> model fitting function with spatial regression models:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(INLA))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -613,7 +620,7 @@ Y = X \beta + Z u + \varepsilon
 </section>
 <section id="icar-random-effects-with-mgcvgam" class="level3">
 <h3 class="anchored" data-anchor-id="icar-random-effects-with-mgcvgam">ICAR random effects with mgcv::gam()</h3>
-<p>In a very similar way, the <code>gam()</code> function in the <strong>mgcv</strong> package <span class="citation" data-cites="R-mgcv">(<a href="references.html#ref-R-mgcv" role="doc-biblioref">S. Wood 2022</a>)</span> can take an <code>"mrf"</code> term using a suitable <code>"nb"</code> object for the upper level. In this case the <code>"nb"</code> object needs to have the contents of the <code>"region.id"</code> attribute copied as the names of the neighbour list components, and the indexing variable needs to be a factor <span class="citation" data-cites="wood:17">(<a href="references.html#ref-wood:17" role="doc-biblioref">S. N. Wood 2017</a>)</span>:</p>
+<p> In a very similar way, the <code>gam()</code> function in the <strong>mgcv</strong> package <span class="citation" data-cites="R-mgcv">(<a href="references.html#ref-R-mgcv" role="doc-biblioref">S. Wood 2022</a>)</span> can take an <code>"mrf"</code> term using a suitable <code>"nb"</code> object for the upper level. In this case the <code>"nb"</code> object needs to have the contents of the <code>"region.id"</code> attribute copied as the names of the neighbour list components, and the indexing variable needs to be a factor <span class="citation" data-cites="wood:17">(<a href="references.html#ref-wood:17" role="doc-biblioref">S. N. Wood 2017</a>)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nb_q_93) <span class="ot">&lt;-</span> <span class="fu">attr</span>(nb_q_93, <span class="st">"region.id"</span>)</span>

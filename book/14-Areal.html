@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -356,7 +361,7 @@ div.csl-indent {
 
 <p>Areal units of observation are very often used when simultaneous observations are aggregated within non-overlapping boundaries. The boundaries may be those of administrative entities, and may be related to underlying spatial processes, such as commuting flows, but are usually arbitrary. If they do not match the underlying and unobserved spatial processes in one or more variables of interest, proximate areal units will contain parts of the underlying processes, engendering spatial autocorrelation. By proximity, we mean <em>closeness</em> in ways that make sense for the data generation processes thought to be involved. In cross-sectional geostatistical analysis with point support, measured distance makes sense for typical data generation processes. In similar analysis of areal data, sharing a border may make more sense, because that is what we do know, but we cannot measure the distance between the areas in as adequate a way.</p>
 <p> </p>
-<p>By support of data we mean the physical size (length, area, volume) associated with an individual observational unit (measurement; see <span class="citation" data-cites="featureattributes">(<a href="references.html#ref-featureattributes" role="doc-biblioref"><strong>featureattributes?</strong></a>)</span>). It is possible to represent the support of areal data by a point, despite the fact that the data have polygonal support. The centroid of the polygon may be taken as a representative point, or the centroid of the largest polygon in a multi-polygon object. When data with intrinsic point support are treated as areal data, the change of support goes the other way, from the known point to a non-overlapping tessellation such as a Voronoi diagram or Dirichlet tessellation or Thiessen polygons often through a Delaunay triangulation using projected coordinates. Here, different metrics may also be chosen, or distances measured on a network rather than on the plane. There is also a literature using weighted Voronoi diagrams in local spatial analysis <span class="citation" data-cites="doi:10.1080/13658810601034267 doi:10.1080/13658810701587891 SHE201570">(see for example <a href="references.html#ref-doi:10.1080/13658810601034267" role="doc-biblioref">Boots and Okabe 2007</a>; <a href="references.html#ref-doi:10.1080/13658810701587891" role="doc-biblioref">Okabe et al. 2008</a>; <a href="references.html#ref-SHE201570" role="doc-biblioref">She et al. 2015</a>)</span>.</p>
+<p>By support of data we mean the physical size (length, area, volume) associated with an individual observational unit (measurement; see <a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a>). It is possible to represent the support of areal data by a point, despite the fact that the data have polygonal support. The centroid of the polygon may be taken as a representative point, or the centroid of the largest polygon in a multi-polygon object. When data with intrinsic point support are treated as areal data, the change of support goes the other way, from the known point to a non-overlapping tessellation such as a Voronoi diagram or Dirichlet tessellation or Thiessen polygons often through a Delaunay triangulation using projected coordinates. Here, different metrics may also be chosen, or distances measured on a network rather than on the plane. There is also a literature using weighted Voronoi diagrams in local spatial analysis <span class="citation" data-cites="doi:10.1080/13658810601034267 doi:10.1080/13658810701587891 SHE201570">(see for example <a href="references.html#ref-doi:10.1080/13658810601034267" role="doc-biblioref">Boots and Okabe 2007</a>; <a href="references.html#ref-doi:10.1080/13658810701587891" role="doc-biblioref">Okabe et al. 2008</a>; <a href="references.html#ref-SHE201570" role="doc-biblioref">She et al. 2015</a>)</span>.</p>
 <p></p>
 <p>When the intrinsic support of the data is represented as points, but the underlying process is between proximate observations rather than driven chiefly by distance however measured between observations, the data may be aggregate counts or totals (polling stations, retail turnover) or represent a directly observed characteristic of the observation (opening hours of the polling station). Obviously, the risk of mis-representing the footprint of the underlying spatial processes remains in all of these cases, not least because the observations are taken as encompassing the entirety of the underlying process in the case of tessellation of the whole area of interest. This is distinct from the geostatistical setting in which observations are rather samples taken using some scheme within the area of interest. It is also partly distinct from the practice of taking areal sample plots within the area of interest but covering only a small proportion of the area, typically used in ecological and environmental research.</p>
 <p></p>
@@ -372,11 +377,11 @@ div.csl-indent {
 <p>The <strong>spdep</strong> package provides an <code>nb</code> class for neighbours, a list of length equal to the number of observations, with integer vector components. No-neighbours are encoded as an integer vector with a single element <code>0L</code>, and observations with neighbours as sorted integer vectors containing values in <code>1L:n</code> pointing to the neighbouring observations. This is a typical row-oriented sparse representation of neighbours. <strong>spdep</strong> provides many ways of constructing <code>nb</code> objects, and the representation and construction functions are widely used in other packages.</p>
 <p> </p>
 <p><strong>spdep</strong> builds on the <code>nb</code> representation (undirected or directed graphs) with the <code>listw</code> object, a list with three components, an <code>nb</code> object, a matching list of numerical weights, and a single element character vector containing the single letter name of the way in which the weights were calculated. The most frequently used approach in the social sciences is calculating weights by row standardization, so that all the non-zero weights for one observation will be the inverse of the cardinality of its set of neighbours (<code>1/card(nb)[i]</code>).</p>
-<p>We will be using election data from the 2015 Polish Presidential election in this chapter, with 2495 municipalities and Warsaw boroughs (see <a href="#fig-plotpolpres15">Figure&nbsp;<span>14.1</span></a>) for a <strong>tmap</strong> map (<a href="09-Plotting.html#sec-tmap"><span>Section&nbsp;9.5</span></a>) of the municipality types , and complete count data from polling stations aggregated to these areal units. The data are an <strong>sf</strong> <code>sf</code> object:</p>
+<p>We will be using election data from the 2015 Polish Presidential election in this chapter, with 2495 municipalities and Warsaw boroughs (see <a href="#fig-plotpolpres15">Figure&nbsp;<span>14.1</span></a>) for a <strong>tmap</strong> map (<a href="08-Plotting.html#sec-tmap"><span>Section&nbsp;8.5</span></a>) of the municipality types , and complete count data from polling stations aggregated to these areal units. The data are an <strong>sf</strong> <code>sf</code> object:</p>
 <p> </p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(pol_pres15, <span class="at">package =</span> <span class="st">"spDataLarge"</span>)</span>
@@ -441,7 +446,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(pol_pres15 <span class="sc">|&gt;</span> <span class="fu">poly2nb</span>(<span class="at">queen =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> nb_q)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.791   0.005   0.796</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.861   0.004   0.865</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The print method shows the summary structure of the neighbour object:</p>
 <div class="cell">
@@ -604,14 +609,14 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>) <span class="ot">-&gt;</span> nb_d18)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.182   0.000   0.181</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.188   0.000   0.188</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For this moderate number of observations, use of spatial indexing does not yield advantages in run times:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>, <span class="at">use_kd_tree =</span> <span class="cn">FALSE</span>) <span class="ot">-&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>        nb_d18a)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.182   0.000   0.182</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.193   0.000   0.193</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and the output objects are the same:</p>
 <div class="cell">
@@ -953,7 +958,7 @@ Boots, B., and A. Okabe. 2007. <span>“Local Statistical Spatial Analysis: Inve
 Csardi, Gabor, and Tamas Nepusz. 2006. <span>“The Igraph Software Package for Complex Network Research.”</span> <em>InterJournal</em> Complex Systems: 1695. <a href="https://igraph.org">https://igraph.org</a>.
 </div>
 <div id="ref-R-s2" class="csl-entry" role="doc-biblioentry">
-Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2022. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>.
+Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2022. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>. <a href="https://CRAN.R-project.org/package=s2">https://CRAN.R-project.org/package=s2</a>.
 </div>
 <div id="ref-R-igraph" class="csl-entry" role="doc-biblioentry">
 file., See AUTHORS. 2022. <em>Igraph: Network Analysis and Visualization</em>. <a href="https://CRAN.R-project.org/package=igraph">https://CRAN.R-project.org/package=igraph</a>.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spatial Data Science - 9&nbsp; Plotting spatial data</title>
+<title>Spatial Data Science - 8&nbsp; Plotting spatial data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,8 +112,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./part-3.html" rel="next">
-<link href="./08-Large.html" rel="prev">
+<link href="./09-Large.html" rel="next">
+<link href="./07-Introsf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -153,7 +153,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -325,26 +330,26 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-transform" id="toc-sec-transform" class="nav-link active" data-scroll-target="#sec-transform"><span class="toc-section-number">9.1</span>  Every plot is a projection</a>
+  <li><a href="#sec-transform" id="toc-sec-transform" class="nav-link active" data-scroll-target="#sec-transform"><span class="toc-section-number">8.1</span>  Every plot is a projection</a>
   <ul class="collapse">
   <li><a href="#what-is-a-good-projection-for-my-data" id="toc-what-is-a-good-projection-for-my-data" class="nav-link" data-scroll-target="#what-is-a-good-projection-for-my-data">What is a good projection for my data?</a></li>
   </ul></li>
-  <li><a href="#plotting-points-lines-polygons-grid-cells" id="toc-plotting-points-lines-polygons-grid-cells" class="nav-link" data-scroll-target="#plotting-points-lines-polygons-grid-cells"><span class="toc-section-number">9.2</span>  Plotting points, lines, polygons, grid cells</a>
+  <li><a href="#plotting-points-lines-polygons-grid-cells" id="toc-plotting-points-lines-polygons-grid-cells" class="nav-link" data-scroll-target="#plotting-points-lines-polygons-grid-cells"><span class="toc-section-number">8.2</span>  Plotting points, lines, polygons, grid cells</a>
   <ul class="collapse">
   <li><a href="#colours" id="toc-colours" class="nav-link" data-scroll-target="#colours">Colours</a></li>
   <li><a href="#sec-classintervals" id="toc-sec-classintervals" class="nav-link" data-scroll-target="#sec-classintervals">Color breaks: <code>classInt</code></a></li>
   <li><a href="#sec-graticule" id="toc-sec-graticule" class="nav-link" data-scroll-target="#sec-graticule">Graticule and other navigation aids</a></li>
   </ul></li>
-  <li><a href="#base-plot" id="toc-base-plot" class="nav-link" data-scroll-target="#base-plot"><span class="toc-section-number">9.3</span>  Base <code>plot</code></a>
+  <li><a href="#base-plot" id="toc-base-plot" class="nav-link" data-scroll-target="#base-plot"><span class="toc-section-number">8.3</span>  Base <code>plot</code></a>
   <ul class="collapse">
   <li><a href="#adding-to-plots-with-legends" id="toc-adding-to-plots-with-legends" class="nav-link" data-scroll-target="#adding-to-plots-with-legends">Adding to plots with legends</a></li>
   <li><a href="#projections-in-base-plots" id="toc-projections-in-base-plots" class="nav-link" data-scroll-target="#projections-in-base-plots">Projections in base plots</a></li>
   <li><a href="#colors-and-coulor-breaks" id="toc-colors-and-coulor-breaks" class="nav-link" data-scroll-target="#colors-and-coulor-breaks">Colors and coulor breaks</a></li>
   </ul></li>
-  <li><a href="#sec-geomsf" id="toc-sec-geomsf" class="nav-link" data-scroll-target="#sec-geomsf"><span class="toc-section-number">9.4</span>  Maps with <code>ggplot2</code></a></li>
-  <li><a href="#sec-tmap" id="toc-sec-tmap" class="nav-link" data-scroll-target="#sec-tmap"><span class="toc-section-number">9.5</span>  Maps with <code>tmap</code></a></li>
-  <li><a href="#interactive-maps-leaflet-mapview-tmap" id="toc-interactive-maps-leaflet-mapview-tmap" class="nav-link" data-scroll-target="#interactive-maps-leaflet-mapview-tmap"><span class="toc-section-number">9.6</span>  Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">9.7</span>  Exercises</a></li>
+  <li><a href="#sec-geomsf" id="toc-sec-geomsf" class="nav-link" data-scroll-target="#sec-geomsf"><span class="toc-section-number">8.4</span>  Maps with <code>ggplot2</code></a></li>
+  <li><a href="#sec-tmap" id="toc-sec-tmap" class="nav-link" data-scroll-target="#sec-tmap"><span class="toc-section-number">8.5</span>  Maps with <code>tmap</code></a></li>
+  <li><a href="#interactive-maps-leaflet-mapview-tmap" id="toc-interactive-maps-leaflet-mapview-tmap" class="nav-link" data-scroll-target="#interactive-maps-leaflet-mapview-tmap"><span class="toc-section-number">8.6</span>  Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">8.7</span>  Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -353,7 +358,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-plotting" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></h1>
+<h1 class="title"><span id="sec-plotting" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></h1>
 </div>
 
 
@@ -369,10 +374,10 @@ div.csl-indent {
 
 <p></p>
 <p>Together with timelines, maps belong to the most powerful graphs, perhaps because we can immediately relate where we are, or have been, on the space of the plot. Two recent books on visualisation <span class="citation" data-cites="Healy Wilke">(<a href="references.html#ref-Healy" role="doc-biblioref">Healy 2018</a>; <a href="references.html#ref-Wilke" role="doc-biblioref">Wilke 2019</a>)</span> contain chapters on visualising geospatial data or maps. Here, we will not try to preach the do’s and don’ts of maps, but rather point out a number of possibilities how to do things, point out challenges along the way and ways to mitigate them.</p>
-<section id="sec-transform" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="sec-transform"><span class="header-section-number">9.1</span> Every plot is a projection</h2>
+<section id="sec-transform" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-transform"><span class="header-section-number">8.1</span> Every plot is a projection</h2>
 <p></p>
-<p>The world is round, but plotting devices are flat. As mentioned in <a href="02-Spaces.html#sec-projections"><span>Section&nbsp;2.2.2</span></a>, any time we visualise, in any way, the world on a flat device, we project: we convert ellipsoidal coordinates into Cartesian coordinates. This includes the cases where we think we “do nothing” (<a href="#fig-world">Figure&nbsp;<span>9.1</span></a>), left , or where we show the world “as it is”, e.g.&nbsp;as seen from space (<a href="#fig-world">Figure&nbsp;<span>9.1</span></a>, right).</p>
+<p>The world is round, but plotting devices are flat. As mentioned in <a href="02-Spaces.html#sec-projections"><span>Section&nbsp;2.2.2</span></a>, any time we visualise, in any way, the world on a flat device, we project: we convert ellipsoidal coordinates into Cartesian coordinates. This includes the cases where we think we “do nothing” (<a href="#fig-world">Figure&nbsp;<span>8.1</span></a>), left , or where we show the world “as it is”, e.g.&nbsp;as seen from space (<a href="#fig-world">Figure&nbsp;<span>8.1</span></a>, right).</p>
 <div class="cell" data-fig="true">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
@@ -395,13 +400,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-world" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-world-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.1: Earth country boundaries; left: mapping long/lat linearly to <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (plate carrée); right: as seen from infinite distance (orthographic)</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-world-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.1: Earth country boundaries; left: mapping long/lat linearly to <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (plate carrée); right: as seen from infinite distance (orthographic)</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The left plot of <a href="#fig-world">Figure&nbsp;<span>9.1</span></a> was obtained by</p>
+<p>The left plot of <a href="#fig-world">Figure&nbsp;<span>8.1</span></a> was obtained by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
@@ -413,7 +418,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_longlat</span>(w)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The projection taken in <a href="#fig-world">Figure&nbsp;<span>9.1</span></a>) (left is the equirectangular (or equidistant cylindrical) projection, which maps longitude and latitude linearly to the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axis, keeping an aspect ratio of 1. Were we to do this for smaller areas not on the equator, it makes sense to choose a plot ratio such that one distance unit E-W equals one distance unit N-S on the center of the plotted area, and this is the default behaviour of the <code>plot()</code> method for unprojected <code>sf</code> or <code>stars</code> datasets, as well as the default for <code>ggplot2::geom_sf()</code> (<a href="#sec-geomsf"><span>Section&nbsp;9.4</span></a>).</p>
+<p>The projection taken in <a href="#fig-world">Figure&nbsp;<span>8.1</span></a>) (left is the equirectangular (or equidistant cylindrical) projection, which maps longitude and latitude linearly to the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axis, keeping an aspect ratio of 1. Were we to do this for smaller areas not on the equator, it makes sense to choose a plot ratio such that one distance unit E-W equals one distance unit N-S on the center of the plotted area, and this is the default behaviour of the <code>plot()</code> method for unprojected <code>sf</code> or <code>stars</code> datasets, as well as the default for <code>ggplot2::geom_sf()</code> (<a href="#sec-geomsf"><span>Section&nbsp;8.4</span></a>).</p>
 <p>We can also carry out this projection before plotting. Say we want to plot Germany, then after loading the (rough) country outline, we use <code>st_transform</code> to project:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DE <span class="ot">&lt;-</span> <span class="fu">st_geometry</span>(<span class="fu">ne_countries</span>(<span class="at">country =</span> <span class="st">"germany"</span>,</span>
@@ -425,7 +430,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(<span class="fu">st_bbox</span>(DE)[<span class="fu">c</span>(<span class="st">"ymin"</span>, <span class="st">"ymax"</span>)]), <span class="at">digits =</span> <span class="dv">4</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 51.14</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When we now plot both maps (<a href="#fig-eqc">Figure&nbsp;<span>9.2</span></a>) , they look identical up to the values along the axes: degrees for ellipsoidal (left), and metres for projected (Cartesian) coordinates.</p>
+<p>When we now plot both maps (<a href="#fig-eqc">Figure&nbsp;<span>8.2</span></a>) , they look identical up to the values along the axes: degrees for ellipsoidal (left), and metres for projected (Cartesian) coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DE, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span>
@@ -433,8 +438,8 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-eqc" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-eqc-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.2: Germany in equirectangular projection: with axis units degrees (left) and metres in the equidistant cylindrical projection (right)</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-eqc-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.2: Germany in equirectangular projection: with axis units degrees (left) and metres in the equidistant cylindrical projection (right)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -452,8 +457,8 @@ div.csl-indent {
 <p>It is often entertaining and at times educational to play around with the different projections and understand their consequences. When the primary purpose of the map however is not to entertain or educate projection varieties, it may be preferable to choose a well-known or less surprising projection, and move the discussion which projection should be preferred to a decision process on its own.</p>
 </section>
 </section>
-<section id="plotting-points-lines-polygons-grid-cells" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="plotting-points-lines-polygons-grid-cells"><span class="header-section-number">9.2</span> Plotting points, lines, polygons, grid cells</h2>
+<section id="plotting-points-lines-polygons-grid-cells" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="plotting-points-lines-polygons-grid-cells"><span class="header-section-number">8.2</span> Plotting points, lines, polygons, grid cells</h2>
 <p></p>
 <p>Since maps are just a special form of plots of statistical data, the usual rules hold. Frequently occurring challenges include:</p>
 <ul>
@@ -484,13 +489,13 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-2.92,-0.999) [-0.999,-0.675) [-0.675,-0.267) [-0.267,0.0308) </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.72,-1.09)  [-1.09,-0.622) [-0.622,-0.273) [-0.273,0.0247) </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [0.0308,0.283)   [0.283,0.725)    [0.725,1.46)     [1.46,2.54] </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [0.0247,0.213)   [0.213,0.685)    [0.685,1.14)     [1.14,2.58] </span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.9202 -0.9987 -0.6751 -0.2671  0.0308  0.2832  0.7252</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [8]  1.4575  2.5359</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.7151 -1.0867 -0.6222 -0.2729  0.0247  0.2131  0.6850</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [8]  1.1423  2.5789</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, ‘nclass.Sturges’ is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>
@@ -498,11 +503,11 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sec-graticule">Graticule and other navigation aids</h3>
 <p> </p>
 <p>A graticule is a network of lines on a map that follow constant latitude or longitude. On <a href="01-hello.html#fig-first-map">Figure&nbsp;<span>1.1</span></a> a graticule is drawn in grey, on <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> in white. Graticules are often drawn in maps to give reference where something is. In our first map in <a href="01-hello.html#fig-first-map">Figure&nbsp;<span>1.1</span></a> we can read that the area plotted is near 35<span class="math inline">\(^o\)</span> North and 80<span class="math inline">\(^o\)</span> West. Had we plotted the lines in the projected coordinate system, they would have been straight and their actual numbers would not have been very informative, apart from giving an interpretation of size or distances when the unit is known, and familiar to the map reader. Graticules, by that, also shed light on which projection was used: equirectangular or Mercator projections have straight vertical and horizontal lines, conic projections have straight but diverging meridians, equal area may have curved meridians.</p>
-<p>The real navigation aid on <a href="#fig-world">Figure&nbsp;<span>9.1</span></a> and most other maps are geographical features like the state outline, country outlines, coast lines, rivers, roads, railways and so on. If these are added sparsely and sufficiently, a graticule can as well be omitted. In such cases, maps look good without axes, tics, and labels, leaving up a lot of plotting space to be filled with actual map data.</p>
+<p>The real navigation aid on <a href="#fig-world">Figure&nbsp;<span>8.1</span></a> and most other maps are geographical features like the state outline, country outlines, coast lines, rivers, roads, railways and so on. If these are added sparsely and sufficiently, a graticule can as well be omitted. In such cases, maps look good without axes, tics, and labels, leaving up a lot of plotting space to be filled with actual map data.</p>
 </section>
 </section>
-<section id="base-plot" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="base-plot"><span class="header-section-number">9.3</span> Base <code>plot</code></h2>
+<section id="base-plot" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="base-plot"><span class="header-section-number">8.3</span> Base <code>plot</code></h2>
 <p></p>
 <p>The <code>plot</code> method for <code>sf</code> and <code>stars</code> objects try to make quick, useful, exploratory plots; for higher quality plots and more configurability, alternatives with more control and/or better defaults are offered for instance by packages <code>ggplot2</code> <span class="citation" data-cites="R-ggplot2">(<a href="references.html#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2022</a>)</span>, <code>tmap</code> <span class="citation" data-cites="R-tmap tmap">(<a href="references.html#ref-R-tmap" role="doc-biblioref">Tennekes 2022</a>, <a href="references.html#ref-tmap" role="doc-biblioref">2018</a>)</span> or <code>mapsf</code> <span class="citation" data-cites="R-mapsf">(<a href="references.html#ref-R-mapsf" role="doc-biblioref">Giraud 2022</a>)</span>.</p>
 <p>By default, the plot method tries to plot “all” it is given. This means that:</p>
@@ -525,13 +530,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-figreset" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-figreset-1.png" style="height:80.0%" width="672" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.3: Annotating base plots that have a legend</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-figreset-1.png" style="height:80.0%" width="672" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.3: Annotating base plots that have a legend</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>which is shown in <a href="#fig-figreset">Figure&nbsp;<span>9.3</span></a> . Annotating <code>stars</code> plots can be done in the same way when a <em>single</em> stars layer is shown. Annotating <code>stars</code> plots with multiple cube slices can be done by adding a “hook” function that will be called on every slice shown, as in</p>
+<p>which is shown in <a href="#fig-figreset">Figure&nbsp;<span>8.3</span></a> . Annotating <code>stars</code> plots can be done in the same way when a <em>single</em> stars layer is shown. Annotating <code>stars</code> plots with multiple cube slices can be done by adding a “hook” function that will be called on every slice shown, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="fu">system.file</span>(<span class="st">"tif/L7_ETMs.tif"</span>, <span class="at">package =</span> <span class="st">"stars"</span>))</span>
@@ -542,26 +547,26 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-starshook" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-starshook-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.4: annotated multi-slice stars plot</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-starshook-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.4: annotated multi-slice stars plot</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>and as shown in <a href="#fig-starshook">Figure&nbsp;<span>9.4</span></a> .</p>
+<p>and as shown in <a href="#fig-starshook">Figure&nbsp;<span>8.4</span></a> .</p>
 <p>Base plot methods have access to the resolution of the screen device and hence the base plot method for <code>stars</code> and <code>stars_proxy</code> object will downsample dense rasters and only plot pixels at a density that makes sense for the device available.</p>
 </section>
 <section id="projections-in-base-plots" class="level3">
 <h3 class="anchored" data-anchor-id="projections-in-base-plots">Projections in base plots</h3>
-<p>The base <code>plot</code> method plots data with ellipsoidal coordinates using the equirectangular projection, using a latitude parameter equal to the middle latitude of the data bounding box (<a href="#fig-eqc">Figure&nbsp;<span>9.2</span></a>). To control this parameter, either a projection to another equirectangular can be applied before plotting, or the parameter <code>asp</code> can be set to override, e.g.&nbsp;<code>asp=1</code> would lead to plate carrée (<a href="#fig-world">Figure&nbsp;<span>9.1</span></a>) left . Subsequent plots need to be in the same coordinate reference system in order to make sense with overplotting, this is not being checked.</p>
+<p>The base <code>plot</code> method plots data with ellipsoidal coordinates using the equirectangular projection, using a latitude parameter equal to the middle latitude of the data bounding box (<a href="#fig-eqc">Figure&nbsp;<span>8.2</span></a>). To control this parameter, either a projection to another equirectangular can be applied before plotting, or the parameter <code>asp</code> can be set to override, e.g.&nbsp;<code>asp=1</code> would lead to plate carrée (<a href="#fig-world">Figure&nbsp;<span>8.1</span></a>) left . Subsequent plots need to be in the same coordinate reference system in order to make sense with overplotting, this is not being checked.</p>
 </section>
 <section id="colors-and-coulor-breaks" class="level3">
 <h3 class="anchored" data-anchor-id="colors-and-coulor-breaks">Colors and coulor breaks</h3>
 <p>In base plots, <code>nbreaks</code> can be used to set the number of coulor breaks, and <code>breaks</code> either to the numeric vector with actual breaks, or to a value for the <code>style</code> argument in <code>classInt::classIntervals</code>.</p>
 </section>
 </section>
-<section id="sec-geomsf" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="sec-geomsf"><span class="header-section-number">9.4</span> Maps with <code>ggplot2</code></h2>
+<section id="sec-geomsf" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="sec-geomsf"><span class="header-section-number">8.4</span> Maps with <code>ggplot2</code></h2>
 <p> </p>
 <p>Package <code>ggplot2</code> <span class="citation" data-cites="R-ggplot2 ggplot2">(<a href="references.html#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2022</a>; <a href="references.html#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> can create more complex an nicer looking graphs; it has a geometry <code>geom_sf</code> that was developed in conjunction with the development of <code>sf</code>, and helps creating beautiful maps; an introduction to this is found in <span class="citation" data-cites="moreno">Moreno and Basille (<a href="references.html#ref-moreno" role="doc-biblioref">2018</a>)</span>, a first example is shown in <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> . The code used for this plot is:</p>
 <div class="cell">
@@ -582,7 +587,7 @@ div.csl-indent {
 <p>where we see that two attributes had to be stacked (<code>pivot_longer</code>) before plotting them as facets: this is the idea of “tidy” data, and the <code>pivot_longer</code> method for <code>sf</code> objects automatically stacks the geometry column too.</p>
 <p>Because <code>ggplot2</code> creates graphics <em>objects</em> before plotting them, it can control the coordinate reference system of all elements involved, and will transform or convert all subsequent objects to the coordinate reference system of the first. It will also draw a graticule for the (default) thin white lines on a grey background, and uses a datum (by default: WGS84) for this. <code>geom_sf()</code> can be combined with other geoms, for instance to allow for annotating plots.</p>
 <p></p>
-<p>For package <code>stars</code>, a <code>geom_stars</code> has, at the moment of writing this, rather limited scope: it uses <code>geom_sf</code> for map layout and vector data cubes, and adds <code>geom_raster</code> for regular rasters and <code>geom_rect</code> for rectilinear rasters. It downsamples if the user specifies a downsampling rate, but has no access to the screen dimensions to automatically choose a downsampling rate. This may be just enough, for instance figure <a href="#fig-ggplotstars">Figure&nbsp;<span>9.5</span></a> is created by the following commands:</p>
+<p>For package <code>stars</code>, a <code>geom_stars</code> has, at the moment of writing this, rather limited scope: it uses <code>geom_sf</code> for map layout and vector data cubes, and adds <code>geom_raster</code> for regular rasters and <code>geom_rect</code> for rectilinear rasters. It downsamples if the user specifies a downsampling rate, but has no access to the screen dimensions to automatically choose a downsampling rate. This may be just enough, for instance figure <a href="#fig-ggplotstars">Figure&nbsp;<span>8.5</span></a> is created by the following commands:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
@@ -596,8 +601,8 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-ggplotstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-ggplotstars-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.5: Simple raster plot with ggplot2</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-ggplotstars-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.5: Simple raster plot with ggplot2</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -605,21 +610,21 @@ div.csl-indent {
 <p>More elaborate <code>ggplot2</code>-based plots with <code>stars</code> objects may be obtained using package <code>ggspatial</code> <span class="citation" data-cites="R-ggspatial">(<a href="references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington 2022</a>)</span>. Non-compatible but nevertheless <code>ggplot2</code>-style plots can be created with <code>tmap</code>, a package dedicated to creating high quality maps.</p>
 <p>When combining several feature sets with varying coordinate reference systems, using <code>geom_sf</code>, all sets are transformed to the reference system of the first set. To get further control over the “base” coordinate reference system, <code>coord_sf</code> can be used. This allows for instance working in a projected system, while combining graphics elements that are <em>not</em> <code>sf</code> objects but regular <code>data.frame</code>s with ellipsoidal coordinates associated to WGS84. A twitter thread by Claus Wilke illustrating this is found <a href="https://twitter.com/ClausWilke/status/1275938314055561216">here</a>.</p>
 </section>
-<section id="sec-tmap" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="sec-tmap"><span class="header-section-number">9.5</span> Maps with <code>tmap</code></h2>
+<section id="sec-tmap" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="sec-tmap"><span class="header-section-number">8.5</span> Maps with <code>tmap</code></h2>
 <p></p>
 <p>Package <code>tmap</code> <span class="citation" data-cites="R-tmap tmap">(<a href="references.html#ref-R-tmap" role="doc-biblioref">Tennekes 2022</a>, <a href="references.html#ref-tmap" role="doc-biblioref">2018</a>)</span> takes a fresh look on plotting spatial data in R; it resembles <code>ggplot2</code> in the sense that it composes graphics objects before printing, by building on the <code>grid</code> package, and by concatenating map elements with a <code>+</code> between them, but otherwise it is entirely independent from, and incompatible with, <code>ggplot2</code>. It has a number of options that allow for highly professional looking maps, and many defaults have been carefully chosen. To recreate <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> , for instance, we use</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-tmapnc" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-tmapnc-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.6: tmap: using <code>tm_polygons()</code> with two attribute names</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-tmapnc-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.6: tmap: using <code>tm_polygons()</code> with two attribute names</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>to recreate <a href="#fig-tmapnc">Figure&nbsp;<span>9.6</span></a> and</p>
+<p>to recreate <a href="#fig-tmapnc">Figure&nbsp;<span>8.6</span></a> and</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nc_longer <span class="ot">&lt;-</span> nc<span class="fl">.32119</span> <span class="sc">|&gt;</span> <span class="fu">select</span>(SID74, SID79) <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"SID"</span>), <span class="at">values_to =</span> <span class="st">"SID"</span>)</span>
@@ -629,13 +634,13 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-tmapnc2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-tmapnc2-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.7: tmap: using <code>tm_facets()</code> on a long table</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-tmapnc2-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.7: tmap: using <code>tm_facets()</code> on a long table</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>to create <a href="#fig-tmapnc2">Figure&nbsp;<span>9.7</span></a> .</p>
+<p>to create <a href="#fig-tmapnc2">Figure&nbsp;<span>8.7</span></a> .</p>
 <p>Package <code>tmap</code> also has support for <code>stars</code> objects, an example created with</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(r) <span class="sc">+</span> <span class="fu">tm_raster</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -644,16 +649,16 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-tmapstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Plotting_files/figure-html/fig-tmapstars-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.8: simple raster plot with tmap</figcaption><p></p>
+<p><img src="08-Plotting_files/figure-html/fig-tmapstars-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.8: simple raster plot with tmap</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>is shown in <a href="#fig-tmapstars">Figure&nbsp;<span>9.8</span></a>. More examples of the use of <strong>tmap</strong> are given in <a href="14-Areal.html"><span>Chapter&nbsp;14</span></a>.</p>
+<p>is shown in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a>. More examples of the use of <strong>tmap</strong> are given in <a href="14-Areal.html"><span>Chapter&nbsp;14</span></a>.</p>
 </section>
-<section id="interactive-maps-leaflet-mapview-tmap" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="interactive-maps-leaflet-mapview-tmap"><span class="header-section-number">9.6</span> Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></h2>
+<section id="interactive-maps-leaflet-mapview-tmap" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="interactive-maps-leaflet-mapview-tmap"><span class="header-section-number">8.6</span> Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></h2>
 <p> </p>
 <p>Interactive maps as shown in <a href="01-hello.html#fig-mapviewfigure">Figure&nbsp;<span>1.3</span></a> can be created with R packages <code>leaflet</code>, <code>mapview</code> or <code>tmap</code>. <code>mapview</code> adds a number of capabilities to <code>leaflet</code> including a map legend, configurable pop-up windows when clicking features, support for raster data, and scalable maps with very large feature sets using the FlatGeobuf file format, as well as facet maps that react synchronously to zoom and pan actions. Package <code>tmap</code> has the nice option that after giving</p>
 <div class="cell">
@@ -665,13 +670,13 @@ div.csl-indent {
 </div>
 <p>again all output is sent to R own static graphics device.</p>
 </section>
-<section id="exercises" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.7</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.7</span> Exercises</h2>
 <ol type="1">
 <li>For the countries Indonesia and Canada, create individual plots using equirectangular, orthographic, and Lambert equal area projections, while choosing projection parameters sensible for the area.</li>
-<li>Recreate the plot in <a href="#fig-figreset">Figure&nbsp;<span>9.3</span></a> with <code>ggplot2</code> and with <code>tmap</code>.</li>
-<li>Recreate the plot in <a href="#fig-tmapstars">Figure&nbsp;<span>9.8</span></a> using the <code>viridis</code> colour ramp.</li>
-<li>View the interactive plot in <a href="#fig-tmapstars">Figure&nbsp;<span>9.8</span></a> using the “view” (interactive) mode of <code>tmap</code>, and explore which interactions are possible; also explore adding <code>+ tm_facets(as.layers=TRUE)</code> and try switching layers on and off.</li>
+<li>Recreate the plot in <a href="#fig-figreset">Figure&nbsp;<span>8.3</span></a> with <code>ggplot2</code> and with <code>tmap</code>.</li>
+<li>Recreate the plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a> using the <code>viridis</code> colour ramp.</li>
+<li>View the interactive plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a> using the “view” (interactive) mode of <code>tmap</code>, and explore which interactions are possible; also explore adding <code>+ tm_facets(as.layers=TRUE)</code> and try switching layers on and off.</li>
 </ol>
 
 
@@ -822,13 +827,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./08-Large.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span>
+      <a href="./07-Introsf.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part-3.html" class="pagination-link">
-        <span class="nav-page-text">Models for Spatial Data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./09-Large.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

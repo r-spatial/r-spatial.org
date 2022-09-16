@@ -112,7 +112,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./30-sp-raster.html" rel="next">
+<link href="./sp-raster.html" rel="next">
 <link href="./16-SpatialRegression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -355,6 +360,7 @@ div.csl-indent {
 
 </header>
 
+<p></p>
 <div class="cell">
 
 </div>
@@ -362,8 +368,7 @@ div.csl-indent {
 <p>Before moving to presentations of issues raised in fitting spatial regression models, it is worth making a few further points. A recent review of spatial regression in a spatial econometrics setting is given by Kelejian and Piras <span class="citation" data-cites="kelejian+piras:17">(<a href="references.html#ref-kelejian+piras:17" role="doc-biblioref">2017</a>)</span>; note that their usage is to call the spatial coefficient of the lagged response <span class="math inline">\(\lambda\)</span> and that of the lagged residuals <span class="math inline">\(\rho\)</span>, the reverse of other usage <span class="citation" data-cites="a88 lesage+pace:09">(<a href="references.html#ref-a88" role="doc-biblioref">Anselin 1988</a>; <a href="references.html#ref-lesage+pace:09" role="doc-biblioref">James P. LeSage and Pace 2009</a>)</span>; here we use <span class="math inline">\(\rho_{\mathrm{Lag}}\)</span> for the spatial coefficient in the spatial lag model, and <span class="math inline">\(\rho_{\mathrm{Err}}\)</span> for the spatial error model. One interesting finding is that relatively dense spatial weights matrices may downweight model estimates, suggesting that sparser weights are preferable <span class="citation" data-cites="smith:09">(<a href="references.html#ref-smith:09" role="doc-biblioref">Tony E. Smith 2009</a>)</span>. Another useful finding is that the presence of residual spatial autocorrelation need not bias the estimates of variance of regression coefficients, provided that the covariates themselves do not exhibit spatial autocorrelation <span class="citation" data-cites="smith+lee12">(<a href="references.html#ref-smith+lee12" role="doc-biblioref">T. E. Smith and Lee 2012</a>)</span>. In general, however, the footprints of the spatial processes of the response and covariates may not be aligned, and if covariates and the residual are autocorrelated, it is likely that the estimates of variance of regression coefficients will be biassed downwards if attempts are not made to model the spatial processes.</p>
 <section id="spatial-econometric-models-definitions" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="spatial-econometric-models-definitions"><span class="header-section-number">17.1</span> Spatial econometric models: definitions</h2>
-<p>In trying to model spatial processes, one of the earliiest spatial econometric representations is to model the spatial autocorrelation in the residual (spatial error model, SEM):</p>
-<p><span class="math display">\[
+<p>In trying to model spatial processes, one of the earliiest spatial econometric representations is to model the spatial autocorrelation in the residual (spatial error model, SEM): <span class="math display">\[
 {\mathbf y} = {\mathbf X}{\mathbf \beta} + {\mathbf u},
 \qquad {\mathbf u} = \rho_{\mathrm{Err}} {\mathbf W} {\mathbf u} + {\mathbf \varepsilon},
 \]</span> where <span class="math inline">\({\mathbf y}\)</span> is an <span class="math inline">\((N \times 1)\)</span> vector of observations on a response variable taken at each of <span class="math inline">\(N\)</span> locations, <span class="math inline">\({\mathbf X}\)</span> is an <span class="math inline">\((N \times k)\)</span> matrix of covariates, <span class="math inline">\({\mathbf \beta}\)</span> is a <span class="math inline">\((k \times 1)\)</span> vector of parameters, <span class="math inline">\({\mathbf u}\)</span> is an <span class="math inline">\((N \times 1)\)</span> spatially autocorrelated disturbance vector, <span class="math inline">\({\mathbf \varepsilon}\)</span> is an <span class="math inline">\((N \times 1)\)</span> vector of independent and identically distributed disturbances and <span class="math inline">\(\rho_{\mathrm{Err}}\)</span> is a scalar spatial parameter.</p>
@@ -374,11 +379,11 @@ div.csl-indent {
 \ \ ({\mathbf I} - \rho_{\mathrm{Err}} {\mathbf W}) {\mathbf y} = ({\mathbf I} - \rho_{\mathrm{Err}} {\mathbf W}) {\mathbf X}{\mathbf \beta} + {\mathbf \varepsilon}.
 \]</span></p>
 <p>If the processes in the covariates and the response match, we should find little difference between the coefficients of a least squares and a SEM, but very often they diverge, suggesting that a Hausman test for this condition should be employed <span class="citation" data-cites="pace+lesage:08">(<a href="references.html#ref-pace+lesage:08" role="doc-biblioref">Pace and LeSage 2008</a>)</span>. This may be related to earlier discussions of a spatial equivalent to the unit root and cointegration where spatial processes match <span class="citation" data-cites="fingleton:99">(<a href="references.html#ref-fingleton:99" role="doc-biblioref">Fingleton 1999</a>)</span>.</p>
-<p>A model with a spatial process in the response only is termed a spatial lag model (SLM, often SAR - spatial autoregressive) <span class="citation" data-cites="lesage+pace:09">(<a href="references.html#ref-lesage+pace:09" role="doc-biblioref">James P. LeSage and Pace 2009</a>)</span>. Durbin models add the spatially lagged covariates to the covariates included in the spatial model; spatial Durbin models are reviewed by Mur and Angulo <span class="citation" data-cites="mur+angulo:06">(<a href="references.html#ref-mur+angulo:06" role="doc-biblioref">2006</a>)</span>. If it is chosen to admit a spatial process in the residuals in addition to a spatial process in the response, again two models are formed, a general nested model (GNM) nesting all the others, and a model without spatially lagged covariates (SAC, also known as SARAR - Spatial AutoRegressive-AutoRegressive model). If neither the residuals nor the response are modelled with spatial processes, spatially lagged covariates may be added to a linear model, as a spatially lagged X model (SLX) <span class="citation" data-cites="elhorst:10 bivand:12 lesage:14 halleck-vega+elhorst:15">(<a href="references.html#ref-elhorst:10" role="doc-biblioref">Elhorst 2010</a>; <a href="references.html#ref-bivand:12" role="doc-biblioref">Roger S. Bivand 2012</a>; <a href="references.html#ref-lesage:14" role="doc-biblioref">J. P. LeSage 2014</a>; <a href="references.html#ref-halleck-vega+elhorst:15" role="doc-biblioref">Halleck Vega and Elhorst 2015</a>)</span>. We can write the general nested model (GNM) as:</p>
-<p><span class="math display">\[
+<p>A model with a spatial process in the response only is termed a spatial lag model (SLM, often SAR - spatial autoregressive) <span class="citation" data-cites="lesage+pace:09">(<a href="references.html#ref-lesage+pace:09" role="doc-biblioref">James P. LeSage and Pace 2009</a>)</span>. Durbin models add the spatially lagged covariates to the covariates included in the spatial model; spatial Durbin models are reviewed by Mur and Angulo <span class="citation" data-cites="mur+angulo:06">(<a href="references.html#ref-mur+angulo:06" role="doc-biblioref">2006</a>)</span>. If it is chosen to admit a spatial process in the residuals in addition to a spatial process in the response, again two models are formed, a general nested model (GNM) nesting all the others, and a model without spatially lagged covariates (SAC, also known as SARAR - Spatial AutoRegressive-AutoRegressive model). If neither the residuals nor the response are modelled with spatial processes, spatially lagged covariates may be added to a linear model, as a spatially lagged X model (SLX) <span class="citation" data-cites="elhorst:10 bivand:12 lesage:14 halleck-vega+elhorst:15">(<a href="references.html#ref-elhorst:10" role="doc-biblioref">Elhorst 2010</a>; <a href="references.html#ref-bivand:12" role="doc-biblioref">Roger S. Bivand 2012</a>; <a href="references.html#ref-lesage:14" role="doc-biblioref">J. P. LeSage 2014</a>; <a href="references.html#ref-halleck-vega+elhorst:15" role="doc-biblioref">Halleck Vega and Elhorst 2015</a>)</span>. We can write the general nested model (GNM) as: <span class="math display">\[
 {\mathbf y} = \rho_{\mathrm{Lag}} {\mathbf W}{\mathbf y} + {\mathbf X}{\mathbf \beta} + {\mathbf W}{\mathbf X}{\mathbf \gamma} + {\mathbf u},
 \qquad {\mathbf u} = \rho_{\mathrm{Err}} {\mathbf W} {\mathbf u} + {\mathbf \varepsilon},
 \]</span> where <span class="math inline">\({\mathbf \gamma}\)</span> is a <span class="math inline">\((k' \times 1)\)</span> vector of parameters. <span class="math inline">\(k'\)</span> defines the subset of the intercept and covariates, often <span class="math inline">\(k' = k-1\)</span> when using row standardised spatial weights and omitting the spatially lagged intercept.</p>
+<p> </p>
 <p>This may be constrained to the double spatial coefficient model SAC/SARAR by setting <span class="math inline">\({\mathbf \gamma} = 0\)</span>, to the spatial Durbin (SDM) by setting <span class="math inline">\(\rho_{\mathrm{Err}} = 0\)</span>, and to the error Durbin model (SDEM) by setting <span class="math inline">\(\rho_{\mathrm{Lag}} = 0\)</span>. Imposing more conditions gives the spatial lag model (SLM) with <span class="math inline">\({\mathbf \gamma} = 0\)</span> and <span class="math inline">\(\rho_{\mathrm{Err}} = 0\)</span>, the spatial error model (SEM) with <span class="math inline">\({\mathbf \gamma} = 0\)</span> and <span class="math inline">\(\rho_{\mathrm{Lag}} = 0\)</span>, and the spatially lagged X model (SLX) with <span class="math inline">\(\rho_{\mathrm{Lag}} = 0\)</span> and <span class="math inline">\(\rho_{\mathrm{Err}} = 0\)</span>.</p>
 <p>Although making predictions for new locations for which covariates are observed was raised as an issue some time ago, it has taken many years to make progress in reviewing the possibilities <span class="citation" data-cites="bivand:02 goulardetal:17 Laurent2021">(<a href="references.html#ref-bivand:02" role="doc-biblioref">R. S. Bivand 2002</a>; <a href="references.html#ref-goulardetal:17" role="doc-biblioref">Goulard, Laurent, and Thomas-Agnan 2017</a>; <a href="references.html#ref-Laurent2021" role="doc-biblioref">Laurent and Margaretic 2021</a>)</span>. The prediction methods for SLM, SDM, SEM, SDEM, SAC and GNM models fitted with maximum likelihood were contributed as a Google Summer of Coding project by Martin Gubri. This work, and work on similar models with missing data <span class="citation" data-cites="suesse:18">(<a href="references.html#ref-suesse:18" role="doc-biblioref">Suesse 2018</a>)</span> is also relevant for exploring censored median house values in the Boston data set. Work on prediction also exposed the importance of the reduced form of these models, in which the spatial process in the response interacts with the regression coefficients in the SLM, SDM, SAC and GNM models.</p>
 <p>The consequence of these interactions is that a unit change in a covariate will only impact the response as the value of the regression coefficient if the spatial coefficient of the lagged response is zero. Where it is non-zero, global spillovers, impacts, come into play, and these impacts should be reported rather than the regression coefficients <span class="citation" data-cites="lesage+pace:09 elhorst:10 bivand:12 lesage:14 halleck-vega+elhorst:15">(<a href="references.html#ref-lesage+pace:09" role="doc-biblioref">James P. LeSage and Pace 2009</a>; <a href="references.html#ref-elhorst:10" role="doc-biblioref">Elhorst 2010</a>; <a href="references.html#ref-bivand:12" role="doc-biblioref">Roger S. Bivand 2012</a>; <a href="references.html#ref-lesage:14" role="doc-biblioref">J. P. LeSage 2014</a>; <a href="references.html#ref-halleck-vega+elhorst:15" role="doc-biblioref">Halleck Vega and Elhorst 2015</a>)</span>. Local impacts may be reported for SDEM and SLX models, using linear combination to calculate standard errors for the total impacts of each covariate (sums of coefficients on the covariates and their spatial lags).</p>
@@ -449,6 +454,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
+<p> </p>
 <p>The estimating functions <code>errorsarlm()</code> and <code>lagsarlm()</code> take similar arguments, where the first two, <code>formula=</code> and <code>data=</code> are shared by most model estimating functions. The third argument is a <code>listw</code> spatial weights object, while <code>na.action=</code> behaves as in other model estimating functions if the spatial weights can reasonably be subsetted to avoid observations with missing values. The <code>weights=</code> argument may be used to provide weights indicating the known degree of per-observation variability in the variance term - this is not available for <code>lagsarlm()</code>.</p>
 <p>The <code>Durbin=</code> argument replaces the earlier <code>type=</code> and <code>etype=</code> arguments, and if not given is taken as <code>FALSE</code>. If given, it may be <code>FALSE</code>, <code>TRUE</code> in which case all spatially lagged covariates are included, or a one-sided formula specifying which spatially lagged covariates should be included. The <code>method=</code> argument gives the method for calculating the log determinant term in the log likelihood function, and defaults to <code>"eigen"</code>, suitable for moderately sized data sets. The <code>interval=</code> argument gives the bounds of the domain for the line search using <code>stats::optimize()</code> used for finding the spatial coefficient. The <code>tol.solve()</code> argument, passed through to <code>base::solve()</code>, was needed to handle data sets with differing numerical scales among the coefficients which hindered inversion of the variance-covariance matrix; the default value in <code>base::solve()</code> used to be much larger. The <code>control=</code> argument takes a list of control values to permit more careful adjustment of the running of the estimation function.</p>
 <p>The <code>sacsarlm()</code> function may take second spatial weights and interval arguments if the spatial weights used to model the two spatial processes in the SAC and GNM specifications differ. By default, the same spatial weights are used. By default, <code>stats::nlminb()</code> is used for numerical optimization, using a heuristic to choose starting values. Like <code>lagsarlm()</code>, this function does not take a <code>weights=</code> argument.</p>
@@ -605,8 +611,10 @@ div.csl-indent {
 </section>
 <section id="impacts" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="impacts"><span class="header-section-number">17.3</span> Impacts</h2>
+<p></p>
 <p>Global impacts have been seen as crucial for reporting results from fitting models including the spatially lagged response (SLM, SDM, SAC, GNM) for over ten years <span class="citation" data-cites="lesage+pace:09">(<a href="references.html#ref-lesage+pace:09" role="doc-biblioref">James P. LeSage and Pace 2009</a>)</span>. Extension to other models including spatially lagged covariates (SLX, SDEM) has followed <span class="citation" data-cites="elhorst:10 bivand:12 halleck-vega+elhorst:15">(<a href="references.html#ref-elhorst:10" role="doc-biblioref">Elhorst 2010</a>; <a href="references.html#ref-bivand:12" role="doc-biblioref">Roger S. Bivand 2012</a>; <a href="references.html#ref-halleck-vega+elhorst:15" role="doc-biblioref">Halleck Vega and Elhorst 2015</a>)</span>. For SLM, SDM, SAC and GNM models fitted with maximum likelihood or GMM, the variance-covariance matrix of the coefficients is available, and can be used to make random draws from a multivariate Normal distribution with mean set to coefficient values and variance to the estimated variance-covariance matrix. For these models fitted using Bayesian methods, draws are already available. In the SDEM case, the draws on the regression coefficients of the unlagged covariates represent direct impacts, and draws on the coefficients of the spatially lagged covariates represent indirect impacts, and their by-draw sums the total impacts.</p>
 <p>Since sampling is not required for inference for SLX and SDEM models, linear combination is used for models fitted using maximum likelihood; results are shown here for the air pollution variable only. The literature has not yet resolved the question of how to report model output, as each covariate is now represented by three impacts. Where spatially lagged covariates are included, two coefficients are replaced by three impacts, here for the air pollution variable of interest.</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sum_imp_94_SDEM <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">impacts</span>(SDEM_94))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">Impacts =</span> sum_imp_94_SDEM<span class="sc">$</span>mat[<span class="dv">5</span>,], </span>
@@ -662,6 +670,7 @@ div.csl-indent {
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use the <code>"slm"</code> model in INLA to predict missing response values as part of the model fitting function call. A certain amount of set-up code is required as the <code>"slm"</code> model is still experimental:</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(INLA)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: foreach</span></span>
@@ -710,23 +719,23 @@ div.csl-indent {
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">censored =</span> boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"region.id"</span>))])</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    31089    right</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    31085    right</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   28126   27001   28516    31376    right</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    41015    right</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    21070    right</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     6878     left</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6892     left</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56316    right</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46529    right</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42839    right</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47964    right</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41419    right</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45800    right</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    49113    right</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    47649    right</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46285    right</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    43787    right</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41523    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    40993    right</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    21063    right</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     6882     left</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6893     left</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56320    right</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46532    right</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42840    right</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47957    right</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41416    right</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45795    right</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    49111    right</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    47639    right</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46289    right</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    43775    right</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41519    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others’ understandings and advances.</p>
 </section>
@@ -953,8 +962,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./30-sp-raster.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./sp-raster.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

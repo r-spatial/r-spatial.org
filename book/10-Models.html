@@ -173,12 +173,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -233,26 +233,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -319,22 +324,22 @@ div.csl-indent {
 <p>When the area covered by the data is large, the difference between using ellipsoidal coordinates and projected coordinates will automatically become larger, and hence choosing one of both will have an effect on predictive modelling. For very large extents, e.g.&nbsp;global models, polynomials or splines in latitude and longitude will not make sense as they ignore the circular nature of longitude and the coordinate singularities at the poles. Here, spherical harmonics, base functions that are continuous on the sphere with increasing spatial frequencies can replace polynomials or be used as spline base functions.</p>
 <p>In many cases, the spatial coordinates over which samples were collected also define the space over which predictions are made, setting them apart from other features. Many simple predictive approaches, including most machine learning methods, assume sample data to be independent. When samples are collected by spatially random sampling over the spatial target area, this assumption may be justified when working under a design-based context <span class="citation" data-cites="brusejss">(<a href="references.html#ref-brusejss" role="doc-biblioref">Brus 2021b</a>)</span>. This context however treats the coordinate space as the variable over which we randomize, which affords predicting values for a new <em>randomly chosen</em> location but rules out making predictions for fixed locations; this implies that averages over areas over which samples were collected can be obtained, but not spatial interpolations. In case predictions for fixed locations are required, or in case data were not collected by spatial random sampling, a model-based approach (as taken in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>) is needed and typically some form of spatial and/or temporal autocorrelation of residuals must be assumed.</p>
 <p> </p>
-<p>A common case is where sample data are collected opportunistically (“whatever could be found”), and are then used in a predictive framework that does not weigh them. This has a consequence that the resulting model may be biased towards over-represented areas (in predictor space and/or in spatial coordinates space), and that simple (random) cross validation statistics may be over-optimistic when taken as performance measures for spatial prediction <span class="citation" data-cites="meyerpebesma">(<a href="references.html#ref-meyerpebesmanc" role="doc-biblioref"><strong>meyerpebesmanc?</strong></a>)</span>. Adaptive cross validation measures, e.g.&nbsp;spatial cross validation may help getting more relevant measures for predictive performance.</p>
+<p>A common case is where sample data are collected opportunistically (“whatever could be found”), and are then used in a predictive framework that does not weigh them. This has a consequence that the resulting model may be biased towards over-represented areas (in predictor space and/or in spatial coordinates space), and that simple (random) cross validation statistics may be over-optimistic when taken as performance measures for spatial prediction <span class="citation" data-cites="meyerpebesma">Meyer and Pebesma (<a href="references.html#ref-meyerpebesmanc" role="doc-biblioref">2022</a>)</span>. Adaptive cross validation measures, e.g.&nbsp;spatial cross validation may help getting more relevant measures for predictive performance.</p>
 </section>
 <section id="further-reading" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.3</span> Further reading</h2>
 <p>There is a large number of papers and books available on analysing and statistical modelling of spatial and spatiotemporal data, and a very large number of R packages help doing so. Several <a href="https://cran.r-project.org/web/views/">CRAN task views</a> try to maintain an overview of the R packages, e.g.&nbsp;on:</p>
 <ul>
-<li>spatial data <span class="citation" data-cites="ctvspatial">(<a href="references.html#ref-ctvspatial" role="doc-biblioref">Bivand 2021</a>)</span></li>
+<li>spatial data <span class="citation" data-cites="ctvspatial">(<a href="references.html#ref-ctvspatial" role="doc-biblioref">Bivand and Nowosad 2022</a>)</span></li>
 <li>spatiotemporal data <span class="citation" data-cites="ctvspatiotemporal">(<a href="references.html#ref-ctvspatiotemporal" role="doc-biblioref">Pebesma 2021</a>)</span></li>
 <li>tracking data <span class="citation" data-cites="ctvtracking">(<a href="references.html#ref-ctvtracking" role="doc-biblioref">Joo et al. 2021</a>)</span>, see also <span class="citation" data-cites="https://doi.org/10.1111/1365-2656.13116">(<a href="references.html#ref-https://doi.org/10.1111/1365-2656.13116" role="doc-biblioref">Joo et al. 2020</a>)</span></li>
 </ul>
-<p>The introductions to subsequent chapters contain more pointers to relevant literature references. Introductions to using the integrated nested Laplace approximation (INLA) for analysing spatial data are given in <span class="citation" data-cites="BLANGIARDO201333">Blangiardo et al. (<a href="references.html#ref-BLANGIARDO201333" role="doc-biblioref">2013</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="gomez2020bayesian">Gómez-Rubio (<a href="references.html#ref-gomez2020bayesian" role="doc-biblioref">2020</a>)</span>. <span class="citation" data-cites="krainski2018advanced">Krainski et al. (<a href="references.html#ref-krainski2018advanced" role="doc-biblioref">2018</a>)</span> combine the INLA approach with stochastic partial differential equations. Spatiotemporal Bayesian modelling of change of support problems is presented in <span class="citation" data-cites="stcos">A. M. Raim et al. (<a href="references.html#ref-stcos" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="R-stcos">Andrew M. Raim et al. (<a href="references.html#ref-R-stcos" role="doc-biblioref">2020</a>)</span>.</p>
+<p>The introductions to subsequent chapters contain more pointers to relevant literature references. Introductions to using the integrated nested Laplace approximation (INLA) for analysing spatial data are given in <span class="citation" data-cites="BLANGIARDO201333">Blangiardo et al. (<a href="references.html#ref-BLANGIARDO201333" role="doc-biblioref">2013</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="gomez2020bayesian">Gómez-Rubio (<a href="references.html#ref-gomez2020bayesian" role="doc-biblioref">2020</a>)</span>. <span class="citation" data-cites="krainski2018advanced">Krainski et al. (<a href="references.html#ref-krainski2018advanced" role="doc-biblioref">2018</a>)</span> combine the INLA approach with stochastic partial differential equations. Many of these approaches use meshes to tesselate the area, to help define a Gaussian Markov Random Field both for modelling point pattern data or geostatistical data. Spatiotemporal Bayesian modelling of change of support problems is presented in <span class="citation" data-cites="stcos">A. M. Raim et al. (<a href="references.html#ref-stcos" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="R-stcos">Andrew M. Raim et al. (<a href="references.html#ref-R-stcos" role="doc-biblioref">2020</a>)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-ctvspatial" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger. 2021. <em>CRAN Task View: Analysis of Spatial Data</em>. <a href="https://cran.r-project.org/web/views/Spatial.html">https://cran.r-project.org/web/views/Spatial.html</a>.
+Bivand, Roger, and Jakub Nowosad. 2022. <em>CRAN Task View: Analysis of Spatial Data</em>. <a href="https://cran.r-project.org/web/views/Spatial.html">https://cran.r-project.org/web/views/Spatial.html</a>.
 </div>
 <div id="ref-blangiardo2015spatial" class="csl-entry" role="doc-biblioentry">
 Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. John Wiley &amp; Sons.
@@ -373,7 +378,10 @@ Joo, Rocío, Matthew E. Boone, Michael Sumner, and Mathieu Basille. 2021. <em>CR
 Krainski, Elias T, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using r and INLA</em>. CRC Press.
 </div>
 <div id="ref-meyerpebesma" class="csl-entry" role="doc-biblioentry">
-Meyer, Hanna, and Edzer Pebesma. 2020. <span>“Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models.”</span> <a href="https://arxiv.org/abs/2005.07939">https://arxiv.org/abs/2005.07939</a>.
+Meyer, Hanna, and Edzer Pebesma. 2021. <span>“Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models.”</span> <em>Methods in Ecology and Evolution</em> 12 (9): 1620–33. <a href="https://doi.org/10.1111/2041-210X.13650">https://doi.org/10.1111/2041-210X.13650</a>.
+</div>
+<div id="ref-meyerpebesmanc" class="csl-entry" role="doc-biblioentry">
+———. 2022. <span>“Machine Learning-Based Global Maps of Ecological Variables and the Challenge of Assessing Them.”</span> <em>Nature Communincations</em> 13.<a href=" https://doi.org/10.1038/s41467-022-29838-9 ">https://doi.org/10.1038/s41467-022-29838-9 </a>.
 </div>
 <div id="ref-ctvspatiotemporal" class="csl-entry" role="doc-biblioentry">
 Pebesma, Edzer. 2021. <em>CRAN Task View: Handling and Analyzing Spatio-Temporal Data</em>. <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">https://cran.r-project.org/web/views/SpatioTemporal.html</a>.

@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -435,6 +440,7 @@ div.csl-indent {
 <li>points may refer to sample locations of observations on fields (air quality) or to locations of objects</li>
 <li>lines may be used for objects (roads, rivers), contours of a field, or administrative borders</li>
 <li>raster pixels and polygons may reflect fields of a categorical variable such as land use (<em>coverage</em>), but also aggregates such as population density</li>
+<li>raster or other mesh triangulations may have different variables associated with either nodes (points), edges (lines) or faces (areas, cells) for instance when they were used to approximate partial differential equations <span class="citation" data-cites="Haltiner">Collins et al. (<a href="references.html#ref-Collins13" role="doc-biblioref">2013</a>)</span></li>
 </ul>
 <p>Properly specifying attribute-geometry relationships, and warning against their absence or cases when change in geometry (change of support) implies a change of information can help avoiding a large class of common spatial data analysis mistakes <span class="citation" data-cites="stasch2014">(<a href="references.html#ref-stasch2014" role="doc-biblioref">Stasch et al. 2014</a>)</span> associated with the <em>support</em> of spatial data.</p>
 </section>
@@ -510,6 +516,7 @@ div.csl-indent {
 </section>
 <section id="sec-area-weighted" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="sec-area-weighted"><span class="header-section-number">5.3</span> Area-weighted interpolation</h2>
+<p> </p>
 <p>When we want to combine geometries and attributes of two datasets such that we get attribute values of a source dataset summarised for the geometries of a target, where source and target geometries are unrelated, area-weighted interpolation may be a simple approach. In effect, it considers the area of overlap of the source and target geometries, and uses that to weight the source attribute values into the target value <span class="citation" data-cites="goodchild thomas do Do2021">(<a href="references.html#ref-goodchild" role="doc-biblioref">Goodchild and Lam 1980</a>; <a href="references.html#ref-thomas" role="doc-biblioref">Do, Thomas-Agnan, and Vanhems 2015a</a>, <a href="references.html#ref-do" role="doc-biblioref">2015b</a>; <a href="references.html#ref-Do2021" role="doc-biblioref">Do, Laurent, and Vanhems 2021</a>)</span>. Here, we follow the notation of <span class="citation" data-cites="do">Do, Thomas-Agnan, and Vanhems (<a href="references.html#ref-do" role="doc-biblioref">2015b</a>)</span>.</p>
 <p>Area-weighted interpolation computes, for each of <span class="math inline">\(q\)</span> spatial target areas <span class="math inline">\(T_j\)</span>, a weighted average from the values <span class="math inline">\(Y_i\)</span> corresponding to the <span class="math inline">\(p\)</span> spatial source areas <span class="math inline">\(S_i\)</span>,</p>
 <p><span id="eq-aw"><span class="math display">\[
@@ -609,6 +616,9 @@ div.csl-indent {
 <div id="ref-brus2021" class="csl-entry" role="doc-biblioentry">
 Brus, Dick J. 2021. <span>“Statistical Approaches for Spatial Sample Survey: Persistent Misconceptions and New Developments.”</span> <em>European Journal of Soil Science</em> 72 (2): 686–703. https://doi.org/<a href="https://doi.org/10.1111/ejss.12988">https://doi.org/10.1111/ejss.12988</a>.
 </div>
+<div id="ref-Collins13" class="csl-entry" role="doc-biblioentry">
+Collins, Sarah N, Robert S James, Pallav Ray, Katherine Chen, Angie Lassman, and James Brownlee. 2013. <span>“Grids in Numerical Weather and Climate Models.”</span> In <em>Climate Change and Regional/Local Responses</em>, edited by Yuanzhi Zhang and Pallav Ray. Rijeka: IntechOpen. <a href="https://doi.org/10.5772/55922">https://doi.org/10.5772/55922</a>.
+</div>
 <div id="ref-Do2021" class="csl-entry" role="doc-biblioentry">
 Do, Van Huyen, Thibault Laurent, and Anne Vanhems. 2021. <span>“Guidelines on Areal Interpolation Methods.”</span> In <em>Advances in Contemporary Statistics and Econometrics: Festschrift in Honor of Christine Thomas-Agnan</em>, edited by Abdelaati Daouia and Anne Ruiz-Gazen, 385–407. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-030-73249-3_20">https://doi.org/10.1007/978-3-030-73249-3_20</a>.
 </div>
@@ -620,6 +630,9 @@ Do, Van Huyen, Christine Thomas-Agnan, and Anne Vanhems. 2015a. <span>“Accurac
 </div>
 <div id="ref-goodchild" class="csl-entry" role="doc-biblioentry">
 Goodchild, Michael F, and Nina Siu Ngan Lam. 1980. <em>Areal Interpolation: A Variant of the Traditional Spatial Problem</em>. Department of Geography, University of Western Ontario London, ON, Canada.
+</div>
+<div id="ref-Haltiner" class="csl-entry" role="doc-biblioentry">
+Haltiner, G. J., and R. T. Williams. 1980. <em>Numerical Prediction and Dynamic Meteorology</em>. New York: John Wiley; Sons.
 </div>
 <div id="ref-kyriakidis04" class="csl-entry" role="doc-biblioentry">
 Kyriakidis, P. C. 2004. <span>“A Geostatistical Framework for Areal-to-Point Spatial Interpolation.”</span> <em>Geographical Analysis</em> 36: 259–89.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spatial Data Science - 18&nbsp; Older R Spatial Packages</title>
+<title>Spatial Data Science - Appendix A — Older R Spatial Packages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./98-rbascis.html" rel="next">
+<link href="./rbasics.html" rel="next">
 <link href="./17-Econometrics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -152,7 +152,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></h1>
+      <h1 class="quarto-secondary-nav-title">Appendix A — Older R Spatial Packages</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -235,12 +235,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -295,26 +295,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -324,10 +329,10 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-retire" id="toc-sec-retire" class="nav-link active" data-scroll-target="#sec-retire"><span class="toc-section-number">18.1</span>  Retiring <code>rgdal</code> and <code>rgeos</code></a></li>
-  <li><a href="#links-and-differences-between-sf-and-sp" id="toc-links-and-differences-between-sf-and-sp" class="nav-link" data-scroll-target="#links-and-differences-between-sf-and-sp"><span class="toc-section-number">18.2</span>  Links and differences between sf and sp</a></li>
-  <li><a href="#migration-code-and-packages" id="toc-migration-code-and-packages" class="nav-link" data-scroll-target="#migration-code-and-packages"><span class="toc-section-number">18.3</span>  Migration code and packages</a></li>
-  <li><a href="#package-raster-and-terra" id="toc-package-raster-and-terra" class="nav-link" data-scroll-target="#package-raster-and-terra"><span class="toc-section-number">18.4</span>  Package raster and terra</a></li>
+  <li><a href="#sec-retire" id="toc-sec-retire" class="nav-link active" data-scroll-target="#sec-retire"><span class="toc-section-number">A.1</span>  Retiring <code>rgdal</code> and <code>rgeos</code></a></li>
+  <li><a href="#links-and-differences-between-sf-and-sp" id="toc-links-and-differences-between-sf-and-sp" class="nav-link" data-scroll-target="#links-and-differences-between-sf-and-sp"><span class="toc-section-number">A.2</span>  Links and differences between sf and sp</a></li>
+  <li><a href="#migration-code-and-packages" id="toc-migration-code-and-packages" class="nav-link" data-scroll-target="#migration-code-and-packages"><span class="toc-section-number">A.3</span>  Migration code and packages</a></li>
+  <li><a href="#package-raster-and-terra" id="toc-package-raster-and-terra" class="nav-link" data-scroll-target="#package-raster-and-terra"><span class="toc-section-number">A.4</span>  Package raster and terra</a></li>
   </ul>
 </nav>
     </div>
@@ -336,7 +341,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-older" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span></h1>
+<h1 class="title"><span id="sec-older" class="quarto-section-identifier d-none d-lg-block">Appendix A — Older R Spatial Packages</span></h1>
 </div>
 
 
@@ -350,14 +355,16 @@ div.csl-indent {
 
 </header>
 
-<section id="sec-retire" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="sec-retire"><span class="header-section-number">18.1</span> Retiring <code>rgdal</code> and <code>rgeos</code></h2>
+<section id="sec-retire" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="sec-retire"><span class="header-section-number">A.1</span> Retiring <code>rgdal</code> and <code>rgeos</code></h2>
+<p> </p>
 <p>R users who have been around a bit longer, in particular before packages like <code>sf</code> and <code>stars</code> were developed, may be more familiar with older packages like <code>maptools</code>, <code>sp</code>, <code>rgeos</code>, and <code>rgdal</code>. A fair question is whether they should migrate existing code and/or existing R packages depending on these packages. The answer is: yes.</p>
 <p>Unless someone steps up to volunteer maintaining packages <code>maptools</code>, <code>rgdal</code> and <code>rgeos</code>, the plan is to retire packages by the end of 2023. Retirement means that maintenance will halt, and that as a consequence the packages will sooner or later disappear from CRAN. One reason for retirement is that their maintainer has retired, another that their role has been superseded by the newer packages. We hold it not for very likely that a new maintainer will take over, in part because much of the code of these packages has over a few decades gradually evolved along with developments in the GEOS, GDAL and PROJ libraries, and now contains numerous constructs that are no longer necessary and make it hard to read.</p>
 <p>Before <code>rgeos</code> and <code>rgdal</code> retire, existing ties that package <code>sp</code> has to <code>rgdal</code> and <code>rgeos</code> can and will be replaced by ties to package <code>sf</code>. This only involves validation of coordinate reference system identifiers, and checking whether rings are holes or exterior rings. Theoretically one could replace <code>rgdal</code> and <code>rgeos</code> with packages that would call into <code>sf</code> for their ties to the GEOS, GDAL and PROJ libraries but that would involve a major effort.</p>
 </section>
-<section id="links-and-differences-between-sf-and-sp" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="links-and-differences-between-sf-and-sp"><span class="header-section-number">18.2</span> Links and differences between sf and sp</h2>
+<section id="links-and-differences-between-sf-and-sp" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="links-and-differences-between-sf-and-sp"><span class="header-section-number">A.2</span> Links and differences between sf and sp</h2>
+<p></p>
 <p>There are a number of differences between <code>sf</code> and <code>sp</code>. The most notable is that <code>sp</code> classes are formal, S4 classes where <code>sf</code> uses the (more) informal S3 class hierarchy. <code>sf</code> objects are derived from data.frames or tibbles and because of that are more readily interfaceable with much of the existing R ecosystem, especially with the tidyverse package family. <code>sf</code> objects keep geometry in a list-column, meaning that a geometry is <em>always</em> a list element. Package <code>sp</code> used data structures much less strictly, and for instance all coordinates of <code>SpatiaPoints</code> or <code>SpatialPixels</code> are kept in matrices, which is much more performant for certain problems but is not possible with a list-column. Conversion from an <code>sf</code> object <code>x</code> to its <code>sp</code> equivalent is done by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
@@ -381,8 +388,9 @@ div.csl-indent {
 <li><code>sf</code> objects with more than one geometry list-column will, when converting to <code>sp</code>, loose their secondary list-column(s).</li>
 </ul>
 </section>
-<section id="migration-code-and-packages" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="migration-code-and-packages"><span class="header-section-number">18.3</span> Migration code and packages</h2>
+<section id="migration-code-and-packages" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="migration-code-and-packages"><span class="header-section-number">A.3</span> Migration code and packages</h2>
+<p></p>
 <p>The wiki page of the GitHub site for sf, found at</p>
 <pre><code>https://github.com/r-spatial/sf/wiki/Migrating</code></pre>
 <p>contains a list of methods and functions in <code>rgeos</code>, <code>rgdal</code> and <code>sp</code> and the corresponding <code>sf</code> method or function. This may help converting existing code or packages.</p>
@@ -393,10 +401,11 @@ div.csl-indent {
 <p>however possible arguments to <code>readOGR</code>, when used, would need more care.</p>
 <p>An effort by us is underway to convert all code of our earlier book “Applied Spatial Data Analysis with R” (with Virgilio Gomez-Rubio, <span class="citation" data-cites="asdar">Bivand, Pebesma, and Gomez-Rubio (<a href="references.html#ref-asdar" role="doc-biblioref">2013</a>)</span>) to run entirely without <code>rgdal</code>, <code>rgeos</code> and <code>maptools</code> and where possible without <code>sp</code>. The scripts are found at https://github.com/rsbivand/sf_asdar2ed .</p>
 </section>
-<section id="package-raster-and-terra" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="package-raster-and-terra"><span class="header-section-number">18.4</span> Package raster and terra</h2>
+<section id="package-raster-and-terra" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="package-raster-and-terra"><span class="header-section-number">A.4</span> Package raster and terra</h2>
+<p> </p>
 <p>Package <code>raster</code> has been a workhorse package for analysing raster data with R since 2010, and has since then grown into a package for “Geographic Data Analysis and Modeling” <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2022a</a>)</span>, indicating that it is used for all kinds of spatial data. The <code>raster</code> package uses <code>sp</code> objects for vector data, and <code>rgdal</code> to read and write data to formats served by the GDAL library. Its successor package <code>terra</code>, for “Spatial Data Analysis” <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2022b</a>)</span>, “is very similar to the <code>raster</code> package; but […] can do more, is easier to use, and […] is faster”. The <code>terra</code> package comes with its own classes for vector data, but accepts many <code>sf</code> objects, with similar restrictions as listed above for conversion to <code>sp</code>. Package <code>terra</code> has its own direct links to GDAL, GEOS and PROJ so no longer needs other packages for that.</p>
-<p>Raster maps, or stacks of them from package <code>raster</code> or <code>terra</code> can be converted to <code>stars</code> objects using <code>st_as_stars()</code>. Package <code>sf</code> contains an <code>st_as_sf()</code> method for <code>SpatVector</code> objects from package <code>terra</code>. Migration from <code>raster</code> to <code>terra</code> may become more important once <code>rgdal</code> is no longer easily installable (<a href="#sec-retire"><span>Section&nbsp;18.1</span></a>).</p>
+<p>Raster maps, or stacks of them from package <code>raster</code> or <code>terra</code> can be converted to <code>stars</code> objects using <code>st_as_stars()</code>. Package <code>sf</code> contains an <code>st_as_sf()</code> method for <code>SpatVector</code> objects from package <code>terra</code>. Migration from <code>raster</code> to <code>terra</code> may become more important once <code>rgdal</code> is no longer easily installable (<a href="#sec-retire"><span>Section&nbsp;A.1</span></a>).</p>
 <p>The online book “Spatial Data Science with R”, written by Robert Hijmans and found at https://rspatial.org/terra details the <code>terra</code> approach to spatial data analysis. Package <code>sf</code> and <code>stars</code> and several other r-spatial packages discussed in this book reside on the <code>r-spatial</code> GitHub organisation (note the hyphen between <code>r</code> and <code>spatial</code>, which is absent on Hijmans’ organisation), which has a blog site, with links to this book, found at https://r-spatial.org/ .</p>
 <p>Packages <code>sf</code> and <code>stars</code> on one hand and <code>terra</code> on the other have many goals in common, but try to reach them in slightly different ways, emphasizing different aspects of data analysis, software engineering, and community management. Although this may confuse some users, we believe that these differences enrich the R package ecosystem, are beneficial to users, encourage diversity and choice, and hopefully work as an encouragement for others to continue trying out new ideas when using R for spatial data problems, and to help carrying the R spatial flag.</p>
 
@@ -520,8 +529,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./98-rbascis.html" class="pagination-link">
-        <span class="nav-page-text">R basics</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./rbasics.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

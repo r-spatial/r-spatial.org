@@ -236,12 +236,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
   </div>
 </li>
       </ul>
@@ -296,26 +296,31 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./30-sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./98-rbascis.html" class="sidebar-item-text sidebar-link">R basics</a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./indx.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">indx.html</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -361,12 +366,15 @@ div.csl-indent {
 
 </header>
 
+<p></p>
 <div class="cell">
 
 </div>
 <p>When analysing areal data, it has long been recognised that, if present, spatial autocorrelation changes how we may infer, relative to the default position of independent observations. In the presence of spatial autocorrelation, we can predict the values of observation <span class="math inline">\(i\)</span> from the values observed at <span class="math inline">\(j \in N_i\)</span>, the set of its proximate neighbours. Early results <span class="citation" data-cites="moran48 geary:54">(<a href="references.html#ref-moran48" role="doc-biblioref">Moran 1948</a>; <a href="references.html#ref-geary:54" role="doc-biblioref">Geary 1954</a>)</span> entered into research practice gradually, for example the social sciences <span class="citation" data-cites="duncanetal61">(<a href="references.html#ref-duncanetal61" role="doc-biblioref">Duncan, Cuzzort, and Duncan 1961</a>)</span>. These results were then collated and extended to yield a set of basic tools of analysis <span class="citation" data-cites="cliff+ord:73 cliff+ord:81">(<a href="references.html#ref-cliff+ord:73" role="doc-biblioref">Cliff and Ord 1973</a>, <a href="references.html#ref-cliff+ord:81" role="doc-biblioref">1981</a>)</span>.</p>
 <p>Cliff and Ord <span class="citation" data-cites="cliff+ord:73">(<a href="references.html#ref-cliff+ord:73" role="doc-biblioref">1973</a>)</span> generalised and extended the expression of the spatial weights matrix representation as part of the framework for establishing the distribution theory for join count, Moran’s <span class="math inline">\(I\)</span> and Geary’s <span class="math inline">\(C\)</span> statistics. This development of what have become known as global measures, returning a single value of autocorrelation for the total study area, has been supplemented by local measures returning values for each areal unit <span class="citation" data-cites="getis+ord:92 anselin:95">(<a href="references.html#ref-getis+ord:92" role="doc-biblioref">Getis and Ord 1992</a>; <a href="references.html#ref-anselin:95" role="doc-biblioref">L. Anselin 1995</a>)</span>.</p>
+<p></p>
 <p>The measures offered by the <strong>spdep</strong> package have been written partly to provide implementations, but also to permit the comparative investigation of these measures and their implementation. For this reason, the implementations are written in R rather than compiled code, and are generally slower but more flexible than implementations in the newly released <strong>rgeoda</strong> package <span class="citation" data-cites="rgeoda-package https://doi.org/10.1111/gean.12311">(<a href="references.html#ref-rgeoda-package" role="doc-biblioref">Li and Anselin 2021</a>; <a href="references.html#ref-https://doi.org/10.1111/gean.12311" role="doc-biblioref">Luc Anselin, Li, and Koschinsky 2021</a>)</span>.</p>
+<p></p>
 <section id="measures-and-process-mis-specification" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="measures-and-process-mis-specification"><span class="header-section-number">15.1</span> Measures and process mis-specification</h2>
 <p>It is not and has never been the case that Tobler’s first law of geography: “Everything is related to everything else, but near things are more related than distant things” always holds absolutely. This is and has always been an oversimplification, disguising possible underlying entitation, support and other mis-specification problems. Are the units of observation appropriate for the scale of the underlying spatial process? Could the spatial patterning of the variable of interest for the chosen entitation be accounted for by another variable?</p>
@@ -376,6 +384,7 @@ div.csl-indent {
 </blockquote>
 <p>The status of the “first law” is very similar to the belief that John Snow induced the cause of cholera as water-borne from a map. It may be a good way of selling GIS, but it is inaccurate; Snow had a strong working hypothesis prior to visiting Soho, and the map was prepared after the Broad street pump was disabled as documentation that his hypothesis held <span class="citation" data-cites="BRODY200064">(<a href="references.html#ref-BRODY200064" role="doc-biblioref">Brody et al. 2000</a>)</span>.</p>
 <p>Measures of spatial autocorrelation unfortunately pick up other mis-specifications in the way that we model data <span class="citation" data-cites="schabenberger+gotway:2005 McMillen:2003">(<a href="references.html#ref-schabenberger+gotway:2005" role="doc-biblioref">Schabenberger and Gotway 2005</a>; <a href="references.html#ref-McMillen:2003" role="doc-biblioref">McMillen 2003</a>)</span>. For reference, Moran’s <span class="math inline">\(I\)</span> is given as <span class="citation" data-cites="cliff+ord:81">(<a href="references.html#ref-cliff+ord:81" role="doc-biblioref">Cliff and Ord 1981, 17</a>)</span>:</p>
+<p></p>
 <p><span class="math display">\[
 I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 \]</span> where <span class="math inline">\(x_i, i=1, \ldots, n\)</span> are <span class="math inline">\(n\)</span> observations on the numeric variable of interest, <span class="math inline">\(z_i = x_i - \bar{x}\)</span>, <span class="math inline">\(\bar{x} = \sum_{i=1}^{n} x_i / n\)</span>, <span class="math inline">\(\sum_{(2)} = \stackrel{\sum_{i=1}^{n} \sum_{j=1}^{n}}{i \neq j}\)</span>, <span class="math inline">\(w_{ij}\)</span> are the spatial weights, and <span class="math inline">\(S_0 = \sum_{(2)} w_{ij}\)</span>. First we test a random variable using the Moran test, here under the normality assumption (argument <code>randomisation=FALSE</code>, default <code>TRUE</code>). Inference is made on the statistic <span class="math inline">\(Z(I) = \frac{I - E(I)}{\sqrt{\mathrm{Var}(I)}}\)</span>, the z-value compared with the Normal distribution for <span class="math inline">\(E(I)\)</span> and <span class="math inline">\(\mathrm{Var}(I)\)</span> for the chosen assumptions; this <code>x</code> does not show spatial autocorrelation with these spatial weights:</p>
@@ -389,7 +398,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     coords</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: sf</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>glance_htest <span class="ot">&lt;-</span> <span class="cf">function</span>(ht) <span class="fu">c</span>(ht<span class="sc">$</span>estimate, </span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std deviate"</span> <span class="ot">=</span> <span class="fu">unname</span>(ht<span class="sc">$</span>statistic), </span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p.value"</span> <span class="ot">=</span> <span class="fu">unname</span>(ht<span class="sc">$</span>p.value))</span>
@@ -422,6 +431,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#          3.701491          0.000214</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If we test the residuals of a linear model including the trend, the apparent spatial autocorrelation disappears:</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(x_t <span class="sc">~</span> t) <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm.morantest</span>(lw_q_B, <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="sc">|&gt;</span> </span>
@@ -431,14 +441,17 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#      Std deviate          p.value </span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#        -0.337306         0.735886</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A comparison of implementations of measures of spatial autocorrelation shows that a wide range of measures is available in R in a number of packages, chiefly in the <strong>spdep</strong> package <span class="citation" data-cites="R-spdep">(<a href="references.html#ref-R-spdep" role="doc-biblioref">R. Bivand 2022</a>)</span>, and that differences from other implementations can be attributed to design decisions <span class="citation" data-cites="Bivand2018">(<a href="references.html#ref-Bivand2018" role="doc-biblioref">Roger S. Bivand and Wong 2018</a>)</span>. The <strong>spdep</strong> package also includes the only implementations of exact and saddlepoint approximations to global and local Moran’s I for regression residuals <span class="citation" data-cites="tiefelsdorf:02 bivandetal:09">(<a href="references.html#ref-tiefelsdorf:02" role="doc-biblioref">Tiefelsdorf 2002</a>; <a href="references.html#ref-bivandetal:09" role="doc-biblioref">R. S. Bivand, Müller, and Reder 2009</a>)</span>.</p>
+<p>A comparison of implementations of measures of spatial autocorrelation shows that a wide range of measures is available in R in a number of packages, chiefly in the <strong>spdep</strong> package <span class="citation" data-cites="R-spdep">(<a href="references.html#ref-R-spdep" role="doc-biblioref">R. Bivand 2022b</a>)</span>, and that differences from other implementations can be attributed to design decisions <span class="citation" data-cites="Bivand2018">(<a href="references.html#ref-Bivand2018" role="doc-biblioref">Roger S. Bivand and Wong 2018</a>)</span>. The <strong>spdep</strong> package also includes the only implementations of exact and saddlepoint approximations to global and local Moran’s I for regression residuals <span class="citation" data-cites="tiefelsdorf:02 bivandetal:09">(<a href="references.html#ref-tiefelsdorf:02" role="doc-biblioref">Tiefelsdorf 2002</a>; <a href="references.html#ref-bivandetal:09" role="doc-biblioref">R. S. Bivand, Müller, and Reder 2009</a>)</span>.</p>
+<p> </p>
 </section>
 <section id="global-measures" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="global-measures"><span class="header-section-number">15.2</span> Global measures</h2>
 <p>Global measures consider the average level of spatial autocorrelation across all observations; they can of course be biassed (as most spatial statistics) by edge effects where important spatial process components fall outside the study area.</p>
 <section id="join-count-tests-for-categorical-data" class="level3">
 <h3 class="anchored" data-anchor-id="join-count-tests-for-categorical-data">Join-count tests for categorical data</h3>
+<p></p>
 <p>We will begin by examining join count statistics, where <code>joincount.test()</code> takes a <code>"factor"</code> vector of values <code>fx=</code> and a <code>listw</code> object, and returns a list of <code>htest</code> (hypothesis test) objects defined in the <strong>stats</strong> package, one <code>htest</code> object for each level of the <code>fx=</code> argument. The observed counts are of neighbours with the same factor levels, known as same-colour joins.</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(joincount.test)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function (fx, listw, zero.policy = NULL, alternative = "greater", </span></span>
@@ -456,7 +469,8 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#           1563            303            611             18</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Since there are four levels, we re-arrange the list of <code>htest</code> objects to give a matrix of estimated results. The observed same-colour join counts are tabulated with their expectations based on the counts of levels of the input factor, so that few joins would be expected between for example Warsaw boroughs, because there are very few of them. The variance calculation uses the underlying constants of the chosen <code>listw</code> object and the counts of levels of the input factor. The z-value is obtained in the usual way by dividing the difference between the observed and expected join counts by the square root of the variance.</p>
-<p>The join count test was subsequently adapted for multi-colour join counts <span class="citation" data-cites="upton+fingleton:85">(<a href="references.html#ref-upton+fingleton:85" role="doc-biblioref">Upton and Fingleton 1985</a>)</span>. The implementation as <code>joincount.mult()</code> in <strong>spdep</strong> returns a table based on nonfree sampling, and does not report p-values.</p>
+<p>The join count test was subsequently adapted for multi-colour join counts <span class="citation" data-cites="upton+fingleton:85">(<a href="references.html#ref-upton+fingleton:85" role="doc-biblioref">Upton and Fingleton 1985</a>)</span>. The implementation as <code>joincount.multi()</code> in <strong>spdep</strong> returns a table based on nonfree sampling, and does not report p-values.</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Types <span class="sc">|&gt;</span> <span class="fu">joincount.multi</span>(<span class="at">listw =</span> lw_q_B)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                               Joincount Expected Variance z-value</span></span>
@@ -500,6 +514,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     spChk = NULL, adjust.n = TRUE, drop.EI2 = FALSE) </span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p></p>
 <p>The default for the <code>randomisation=</code> argument is <code>TRUE</code>, but here we will simply show that the test under normality is the same as a test of least squares residuals with only the intercept used in the mean model; the analysed variable is first round turnout proportion of registered voters in municipalities and Warsaw boroughs in the 2015 Polish presidential election. The spelling of randomisation is that of Cliff and Ord <span class="citation" data-cites="cliff+ord:73">(<a href="references.html#ref-cliff+ord:73" role="doc-biblioref">1973</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pol_pres15 <span class="sc">|&gt;</span> </span>
@@ -514,6 +529,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       Std deviate           p.value </span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         58.461349          0.000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p></p>
 <p>The <code>lm.morantest()</code> function also takes a <code>resfun=</code> argument to set the function used to extract the residuals used for testing, and clearly lets us model other salient features of the response variable <span class="citation" data-cites="cliff+ord:81">(<a href="references.html#ref-cliff+ord:81" role="doc-biblioref">Cliff and Ord 1981, 203</a>)</span>. To compare with the standard test, we are only using the intercept here and, as can be seen, the results are the same.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(I_turnout <span class="sc">~</span> <span class="dv">1</span>, pol_pres15) <span class="sc">|&gt;</span> </span>
@@ -534,7 +550,8 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#       Std deviate           p.value </span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         58.459835          0.000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>From the very beginning in the early 1970s, interest was shown in Monte Carlo tests, also known as Hope-type tests and as permutation bootstrap. By default, <code>moran.mc()</code> returns a <code>"htest"</code> object, but may simply use <code>boot::boot()</code> internally and return a <code>"boot"</code> object when <code>return_boot=TRUE</code>. In addition the number of simulations needs to be given as <code>nsim=</code>; that is the number of times the values of the observations are shuffled at random.</p>
+<p> From the very beginning in the early 1970s, interest was shown in Monte Carlo tests, also known as Hope-type tests and as permutation bootstrap. By default, <code>moran.mc()</code> returns a <code>"htest"</code> object, but may simply use <code>boot::boot()</code> internally and return a <code>"boot"</code> object when <code>return_boot=TRUE</code>. In addition the number of simulations needs to be given as <code>nsim=</code>; that is the number of times the values of the observations are shuffled at random.</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>I_turnout <span class="sc">|&gt;</span> </span>
@@ -542,6 +559,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 <p>The bootstrap permutation retains the outcomes of each of the random permutations, reporting the observed value of the statistic, here Moran’s <span class="math inline">\(I\)</span>, the difference between this value and the mean of the simulations under randomisation (equivalent to <span class="math inline">\(E(I)\)</span>), and the standard deviation of the simulations under randomisation.</p>
 <p>If we compare the Monte Carlo and analytical variances of <span class="math inline">\(I\)</span> under randomisation, we typically see few differences, arguably rendering Monte Carlo testing unnecessary.</p>
+<p> </p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"Permutation bootstrap"</span> <span class="ot">=</span> <span class="fu">var</span>(mmc<span class="sc">$</span>t), </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Analytical randomisation"</span> <span class="ot">=</span> <span class="fu">unname</span>(mtr<span class="sc">$</span>estimate[<span class="dv">3</span>]))</span>
@@ -555,8 +573,9 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </section>
 <section id="local-measures" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="local-measures"><span class="header-section-number">15.3</span> Local measures</h2>
-<p>Building on insights from the weaknesses of global measures, local indicators of spatial association began to appear in the first half of the 1990s <span class="citation" data-cites="anselin:95 getis+ord:92 getis+ord:96">(<a href="references.html#ref-anselin:95" role="doc-biblioref">L. Anselin 1995</a>; <a href="references.html#ref-getis+ord:92" role="doc-biblioref">Getis and Ord 1992</a>, <a href="references.html#ref-getis+ord:96" role="doc-biblioref">1996</a>)</span>.</p>
+<p> Building on insights from the weaknesses of global measures, local indicators of spatial association began to appear in the first half of the 1990s <span class="citation" data-cites="anselin:95 getis+ord:92 getis+ord:96">(<a href="references.html#ref-anselin:95" role="doc-biblioref">L. Anselin 1995</a>; <a href="references.html#ref-getis+ord:92" role="doc-biblioref">Getis and Ord 1992</a>, <a href="references.html#ref-getis+ord:96" role="doc-biblioref">1996</a>)</span>.</p>
 <p>In addition, the Moran plot was introduced, plotting the values of the variable of interest against their spatially lagged values, typically using row-standardised weights to make the axes more directly comparable <span class="citation" data-cites="anselin:96">(<a href="references.html#ref-anselin:96" role="doc-biblioref">L. Anselin 1996</a>)</span>. The <code>moran.plot()</code> function also returns an influence measures object used to label observations exerting more than proportional influence on the slope of the line representing global Moran’s <span class="math inline">\(I\)</span>. In <a href="#fig-moranplot">Figure&nbsp;<span>15.1</span></a>, we can see that there are many spatial entities exerting such influence. These pairs of observed and lagged observed values make up in aggregate the global measure, but can also be explored in detail. The quadrants of the Moran plot also show low-low pairs in the lower left quadrant, high-high in the upper right quadrant, and fewer low-high and high-low pairs in the upper left and lower right quadrants. In <code>moran.plot()</code>, the quadrants are split on the means of the variable and its spatial lag; alternative splits are on zero for the centred variable and the spatial lag of the centred variable.</p>
+<p></p>
 <div class="cell" data-fig="true">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>I_turnout <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">moran.plot</span>(<span class="at">listw =</span> lw_q_W, <span class="at">labels =</span> pol_pres15<span class="sc">$</span>TERYT, <span class="at">cex =</span> <span class="dv">1</span>, </span>
@@ -587,7 +606,8 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 <section id="local-morans-i_i" class="level3">
 <h3 class="anchored" data-anchor-id="local-morans-i_i">Local Moran’s <span class="math inline">\(I_i\)</span></h3>
-<p>Bivand and Wong <span class="citation" data-cites="Bivand2018">(<a href="references.html#ref-Bivand2018" role="doc-biblioref">2018</a>)</span> discuss issues impacting the use of local indicators, such as local Moran’s <span class="math inline">\(I_i\)</span> and local Getis-Ord <span class="math inline">\(G_i\)</span>. Some issues affect the calculation of the local indicators, others inference from their values. Because <span class="math inline">\(n\)</span> statistics may be being calculated from the same number of observations, there are multiple comparison problems that need to be addressed. <span class="citation" data-cites="https://doi.org/10.1111/j.0016-7363.2006.00682.x">Caldas de Castro and Singer (<a href="references.html#ref-https://doi.org/10.1111/j.0016-7363.2006.00682.x" role="doc-biblioref">2006</a>)</span> conclude, based on a typical data set and a simulation exercise, that the false discovery rate (FDR) adjustment of probability values will certainly give a better picture of interesting clusters than no adjustment. Following this up, <span class="citation" data-cites="https://doi.org/10.1111/gean.12164">Luc Anselin (<a href="references.html#ref-https://doi.org/10.1111/gean.12164" role="doc-biblioref">2019</a>)</span> explores the combination of FDR adjustments with the use of redefined “significance” cutoffs <span class="citation" data-cites="benjaminetal:18">(<a href="references.html#ref-benjaminetal:18" role="doc-biblioref">Benjamin et al. 2018</a>)</span>, for example <span class="math inline">\(0.01\)</span>, <span class="math inline">\(0.005\)</span> and <span class="math inline">\(0.001\)</span> instead of <span class="math inline">\(0.1\)</span>, <span class="math inline">\(0.05\)</span> and <span class="math inline">\(0.01\)</span>; the use of the term <em>interesting</em> rather than <em>significant</em> is also preferred. This is discussed further in <span class="citation" data-cites="bivand:22">(<a href="references.html#ref-bivand:22" role="doc-biblioref"><strong>bivand:22?</strong></a>)</span>. As in the global case, miss-specification remains a source of confusion, and, further, interpreting local spatial autocorrelation in the presence of global spatial autocorrelation is challenging <span class="citation" data-cites="ord+getis:01 tiefelsdorf:02 bivandetal:09">(<a href="references.html#ref-ord+getis:01" role="doc-biblioref">Ord and Getis 2001</a>; <a href="references.html#ref-tiefelsdorf:02" role="doc-biblioref">Tiefelsdorf 2002</a>; <a href="references.html#ref-bivandetal:09" role="doc-biblioref">R. S. Bivand, Müller, and Reder 2009</a>)</span>.</p>
+<p></p>
+<p>Bivand and Wong <span class="citation" data-cites="Bivand2018">(<a href="references.html#ref-Bivand2018" role="doc-biblioref">2018</a>)</span> discuss issues impacting the use of local indicators, such as local Moran’s <span class="math inline">\(I_i\)</span> and local Getis-Ord <span class="math inline">\(G_i\)</span>. Some issues affect the calculation of the local indicators, others inference from their values. Because <span class="math inline">\(n\)</span> statistics may be being calculated from the same number of observations, there are multiple comparison problems that need to be addressed. <span class="citation" data-cites="https://doi.org/10.1111/j.0016-7363.2006.00682.x">Caldas de Castro and Singer (<a href="references.html#ref-https://doi.org/10.1111/j.0016-7363.2006.00682.x" role="doc-biblioref">2006</a>)</span> conclude, based on a typical data set and a simulation exercise, that the false discovery rate (FDR) adjustment of probability values will certainly give a better picture of interesting clusters than no adjustment. Following this up, <span class="citation" data-cites="https://doi.org/10.1111/gean.12164">Luc Anselin (<a href="references.html#ref-https://doi.org/10.1111/gean.12164" role="doc-biblioref">2019</a>)</span> explores the combination of FDR adjustments with the use of redefined “significance” cutoffs <span class="citation" data-cites="benjaminetal:18">(<a href="references.html#ref-benjaminetal:18" role="doc-biblioref">Benjamin et al. 2018</a>)</span>, for example <span class="math inline">\(0.01\)</span>, <span class="math inline">\(0.005\)</span> and <span class="math inline">\(0.001\)</span> instead of <span class="math inline">\(0.1\)</span>, <span class="math inline">\(0.05\)</span> and <span class="math inline">\(0.01\)</span>; the use of the term <em>interesting</em> rather than <em>significant</em> is also preferred. This is discussed further in <span class="citation" data-cites="bivand:22">R. Bivand (<a href="references.html#ref-bivand:22" role="doc-biblioref">2022a</a>)</span>. As in the global case, miss-specification remains a source of confusion, and, further, interpreting local spatial autocorrelation in the presence of global spatial autocorrelation is challenging <span class="citation" data-cites="ord+getis:01 tiefelsdorf:02 bivandetal:09">(<a href="references.html#ref-ord+getis:01" role="doc-biblioref">Ord and Getis 2001</a>; <a href="references.html#ref-tiefelsdorf:02" role="doc-biblioref">Tiefelsdorf 2002</a>; <a href="references.html#ref-bivandetal:09" role="doc-biblioref">R. S. Bivand, Müller, and Reder 2009</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(localmoran)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function (x, listw, zero.policy = NULL, na.action = na.fail, </span></span>
@@ -595,6 +615,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     spChk = NULL, adjust.x = FALSE) </span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p></p>
 <p>In an important clarification, <span class="citation" data-cites="sauer_oshan_rey_wolf_2021">Sauer et al. (<a href="references.html#ref-sauer_oshan_rey_wolf_2021" role="doc-biblioref">2021</a>)</span> show that the comparison of standard deviates for local Moran’s <span class="math inline">\(I_i\)</span> based on analytical formulae and conditional permutation in <span class="citation" data-cites="Bivand2018">Roger S. Bivand and Wong (<a href="references.html#ref-Bivand2018" role="doc-biblioref">2018</a>)</span> was based on a misunderstanding. <span class="citation" data-cites="sokaletal:98">Sokal, Oden, and Thomson (<a href="references.html#ref-sokaletal:98" role="doc-biblioref">1998</a>)</span> provide alternative analytical formulae for standard deviates of local Moran’s <span class="math inline">\(I_i\)</span> based either on total or conditional permutation, but the analytical formulae used in <span class="citation" data-cites="Bivand2018">Roger S. Bivand and Wong (<a href="references.html#ref-Bivand2018" role="doc-biblioref">2018</a>)</span>, based on earlier practice, only use total permutation, and consequently do not match the simulation conditional permutations. Thanks to a timely pull request, <code>localmoran()</code> now has a <code>conditional=</code> argument (default <code>TRUE</code>) using alternative formulae from the appendix of <span class="citation" data-cites="sokaletal:98">Sokal, Oden, and Thomson (<a href="references.html#ref-sokaletal:98" role="doc-biblioref">1998</a>)</span>. The <code>mlvar=</code> and <code>adjust.x=</code> arguments to <code>localmoran()</code> are discussed in <span class="citation" data-cites="Bivand2018">Roger S. Bivand and Wong (<a href="references.html#ref-Bivand2018" role="doc-biblioref">2018</a>)</span>, and permit matching with other implementations. Taking <code>"two.sided"</code> probability values (the default), we obtain:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>I_turnout <span class="sc">|&gt;</span> </span>
@@ -620,6 +641,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#        385        149         64         38</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the global measure case, bootstrap permutations may be used as an alternative to analytical methods for possible inference, where both the theoretical development of the analytical variance of the measure, and the permutation scheme, shuffle all of the observed values. In the local case, conditional permutation should be used, fixing the value at observation <span class="math inline">\(i\)</span> and randomly sampling from the remaining <span class="math inline">\(n-1\)</span> values to find randomised values at neighbours, and is provided as <code>localmoran_perm()</code>, which may use multiple compute nodes to sample in parallel if provided, and permits the setting of a seed for the random number generator across the compute nodes. The number of simulations <code>nsim=</code> also controls the precision of the ranked estimates of the probability value based on the rank of observed <span class="math inline">\(I_i\)</span> among the simulated values:</p>
+<p></p>
 <div class="cell" data-hash="15-Measures_cache/html/unnamed-chunk-20_e33e018006c466dfaeb75cd83a5bbe15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(spdep<span class="sc">::</span><span class="fu">set.coresOption</span>(<span class="fu">ifelse</span>(<span class="fu">detectCores</span>() <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>,</span>
@@ -675,7 +697,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 </div>
 <p>Proceeding using the FDR adjustment and an <em>interesting</em> location cutoff of <span class="math inline">\(0.005\)</span>, we can see from <a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a> that the adjusted probability values for the analytical conditional approach, the approach using the moments of the sampled values from permutation sampling, and the approach using the ranks of observed values among permutation samples all yield similar maps, as the input variable is quite close to normal.</p>
-<p>In presenting local Moran’s <span class="math inline">\(I\)</span>, use is often made of “hotspot” maps. Because <span class="math inline">\(I_i\)</span> takes high values both for strong positive autocorrelation of low and high values of the input variable, it is hard to show where “clusters” of similar neighbours with low or high values of the input variable occur. The quadrants of the Moran plot are used, by creating a categorical quadrant variable interacting the input variable and its spatial lag split at their means. The quadrant categories are then set to NA if, for the chosen probability value and adjustment, <span class="math inline">\(I_i\)</span> would not be considered <em>interesting</em>. Here, for the FDR adjusted conditional analytical probability values (<a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a>, upper left panel), 53 observations belong to <code>"Low-Low"</code> cluster cores, and 96 to <code>"High-High"</code> cluster cores, similarly for the standard deviate-based permutation p-values (<a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a>, upper right panel), but the rank-based permutation p-values reduce the <code>"High-High"</code> count and increase the <code>"Low-Low"</code> count <a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a> lower left panel :</p>
+<p> In presenting local Moran’s <span class="math inline">\(I\)</span>, use is often made of “hotspot” maps. Because <span class="math inline">\(I_i\)</span> takes high values both for strong positive autocorrelation of low and high values of the input variable, it is hard to show where “clusters” of similar neighbours with low or high values of the input variable occur. The quadrants of the Moran plot are used, by creating a categorical quadrant variable interacting the input variable and its spatial lag split at their means. The quadrant categories are then set to NA if, for the chosen probability value and adjustment, <span class="math inline">\(I_i\)</span> would not be considered <em>interesting</em>. Here, for the FDR adjusted conditional analytical probability values (<a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a>, upper left panel), 53 observations belong to <code>"Low-Low"</code> cluster cores, and 96 to <code>"High-High"</code> cluster cores, similarly for the standard deviate-based permutation p-values (<a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a>, upper right panel), but the rank-based permutation p-values reduce the <code>"High-High"</code> count and increase the <code>"Low-Low"</code> count <a href="#fig-localmoranPr">Figure&nbsp;<span>15.3</span></a> lower left panel :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>quadr <span class="ot">&lt;-</span> <span class="fu">attr</span>(locm, <span class="st">"quadr"</span>)<span class="sc">$</span>mean</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">addNA</span>(quadr))</span>
@@ -728,6 +750,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 <p><a href="#fig-Iihotspots">Figure&nbsp;<span>15.4</span></a> shows that there is very little difference between the FDR-adjusted <em>interesting</em> clusters with a choice of an <span class="math inline">\(\alpha=0.005\)</span> probability value cutoff for the three approaches of analytical conditional standard deviates, permutation-based standard deviates, and rank-based probability values; the <code>"High-High"</code> cluster cores are metropolitan areas.</p>
 <p><span class="citation" data-cites="tiefelsdorf:02">Tiefelsdorf (<a href="references.html#ref-tiefelsdorf:02" role="doc-biblioref">2002</a>)</span> argues that standard approaches to the calculation of the standard deviates of local Moran’s <span class="math inline">\(I_i\)</span> should be supplemented by numerical estimates, and shows that Saddlepoint approximations are a computationally efficient way of achieving this goal. The <code>localmoran.sad()</code> function takes a fitted linear model as its first argument, so we first fit a null (intercept only) model, but use case weights because the numbers entitled to vote vary greatly between observations:</p>
+<p> </p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(I_turnout <span class="sc">~</span> <span class="dv">1</span>) <span class="ot">-&gt;</span> lm_null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -854,6 +877,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </section>
 <section id="local-getis-ord-g_i" class="level3">
 <h3 class="anchored" data-anchor-id="local-getis-ord-g_i">Local Getis-Ord <span class="math inline">\(G_i\)</span></h3>
+<p> </p>
 <p>The local Getis-Ord <span class="math inline">\(G_i\)</span> measure <span class="citation" data-cites="getis+ord:92 getis+ord:96">(<a href="references.html#ref-getis+ord:92" role="doc-biblioref">Getis and Ord 1992</a>, <a href="references.html#ref-getis+ord:96" role="doc-biblioref">1996</a>)</span> is reported as a standard deviate, and may also take the <span class="math inline">\(G^*_i\)</span> form where self-neighbours are inserted into the neighbour object using <code>include.self()</code>. The observed and expected values of local <span class="math inline">\(G\)</span> with their analytical variances may also be returned if <code>return_internals=TRUE</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(I_turnout <span class="sc">|&gt;</span> </span>
@@ -883,6 +907,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </section>
 <section id="local-gearys-c_i" class="level3">
 <h3 class="anchored" data-anchor-id="local-gearys-c_i">Local Geary’s <span class="math inline">\(C_i\)</span></h3>
+<p> </p>
 <p><span class="citation" data-cites="https://doi.org/10.1111/gean.12164">Luc Anselin (<a href="references.html#ref-https://doi.org/10.1111/gean.12164" role="doc-biblioref">2019</a>)</span> extends <span class="citation" data-cites="anselin:95">L. Anselin (<a href="references.html#ref-anselin:95" role="doc-biblioref">1995</a>)</span>, and has been recently added to <strong>spdep</strong> thanks to contributions by Josiah Parry (pull request https://github.com/r-spatial/spdep/pull/66 and subsequent). The conditional permutation framework used for <span class="math inline">\(I_i\)</span> and <span class="math inline">\(G_i\)</span> is also used for <span class="math inline">\(C_i\)</span>:</p>
 <div class="cell" data-hash="15-Measures_cache/html/unnamed-chunk-35_df397e4227845651c29399dfb325c075">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(spdep<span class="sc">::</span><span class="fu">set.coresOption</span>(<span class="fu">ifelse</span>(<span class="fu">detectCores</span>() <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>,</span>
@@ -1036,12 +1061,14 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </section>
 <section id="the-rgeoda-package" class="level3">
 <h3 class="anchored" data-anchor-id="the-rgeoda-package">The <strong>rgeoda</strong> package</h3>
+<p></p>
 <p>Geoda has been wrapped for R as <strong>rgeoda</strong> <span class="citation" data-cites="R-rgeoda">(<a href="references.html#ref-R-rgeoda" role="doc-biblioref">Li and Anselin 2022</a>)</span>, and provides very similar functionalities for the exploration of spatial autocorrelation in areal data as matching parts of <strong>spdep</strong>. The active objects are kept as pointers to a compiled code workspace; using compiled code for all operations (as in Geoda itself) makes <strong>rgeoda</strong> perform fast, but is less flexible when modifications or enhancements are desired.</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeoda)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(Geoda_w <span class="ot">&lt;-</span> <span class="fu">queen_weights</span>(pol_pres15))</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.080   0.000   0.079</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.098   0.000   0.098</span></span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Geoda_w)</span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                      name               value</span></span>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 number of observations:                2495</span></span>
@@ -1054,6 +1081,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 8           has isolates:               FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For comparison, let us take the multivariate <span class="math inline">\(C_i\)</span> measure of turnout in the two rounds of the 2015 Polish presidential election as above:</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(lisa <span class="ot">&lt;-</span> <span class="fu">local_multigeary</span>(Geoda_w, </span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    pol_pres15[<span class="fu">c</span>(<span class="st">"I_turnout"</span>, <span class="st">"II_turnout"</span>)], </span>
@@ -1061,15 +1089,17 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                         parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> 1L),</span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">permutations =</span> <span class="dv">99999</span>, <span class="at">seed =</span> <span class="dv">1</span>))</span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 152.349   0.096  23.036</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 125.735   0.021  19.610</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The contiguity neighbours are the same as those found by <code>poly2nb()</code>:</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">card</span>(nb_q), <span class="fu">lisa_num_nbrs</span>(lisa), </span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>as are the multivariate <span class="math inline">\(C_i\)</span> values the same as those found above:</p>
+<p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">lisa_values</span>(lisa), <span class="fu">c</span>(locMvC_p),</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span>
@@ -1170,8 +1200,11 @@ Benjamini, Yoav, and Daniel Yekutieli. 2001. <span>“<span class="nocase">The c
 <div id="ref-bivandetal:09" class="csl-entry" role="doc-biblioentry">
 Bivand, R. S., W. Müller, and M. Reder. 2009. <span>“Power Calculations for Global and Local <span>M</span>oran’s <span><span class="math inline">\(I\)</span></span>.”</span> <em>Computational Statistics and Data Analysis</em> 53: 2859–72.
 </div>
+<div id="ref-bivand:22" class="csl-entry" role="doc-biblioentry">
+Bivand, Roger. 2022a. <span>“R Packages for Analyzing Spatial Data: A Comparative Case Study with Areal Data.”</span> <em>Geographical Analysis</em> 54 (3): 488–518. <a href="https://doi.org/10.1111/gean.12319">https://doi.org/10.1111/gean.12319</a>.
+</div>
 <div id="ref-R-spdep" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger. 2022. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics</em>. <a href="https://CRAN.R-project.org/package=spdep">https://CRAN.R-project.org/package=spdep</a>.
+———. 2022b. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics</em>. <a href="https://CRAN.R-project.org/package=spdep">https://CRAN.R-project.org/package=spdep</a>.
 </div>
 <div id="ref-Bivand2018" class="csl-entry" role="doc-biblioentry">
 Bivand, Roger S., and David W. S. Wong. 2018. <span>“Comparing Implementations of Global and Local Indicators of Spatial Association.”</span> <em>TEST</em> 27 (3): 716–48. <a href="https://doi.org/10.1007/s11749-018-0599-x">https://doi.org/10.1007/s11749-018-0599-x</a>.
