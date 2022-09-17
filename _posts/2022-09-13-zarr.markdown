@@ -159,7 +159,6 @@ values from `xts`:
 
 ![](/images/figure-markdown_strict/unnamed-chunk-6-1.png)
 
-
 The “exact” (or “conservative region”) aggregation in Ryan’s blog is
 obtained by [area-weighted
 interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted);
@@ -453,3 +452,14 @@ install the github versions as binary package from r-universe:
 
     install.packages("sf", repos = "https://r-spatial.r-universe.dev")
     install.packages("stars", repos = "https://r-spatial.r-universe.dev")
+
+**update** users have reported
+[failure](https://github.com/r-spatial/stars/issues/564) to reproduce
+the steps in this blog post. Note that this blog post was run on a
+version of `sf` linked to GDAL 3.4.3 from the
+[ubuntugis-unstable](https://github.com/r-spatial/sf#ubuntu) ppa. If you
+have `sf` linked to an older version of GDAL, or if the GDAL version was
+not linked against BLOSC, then this (or parts of it) may not work. Note
+that Zarr, and Zarr support in GDAL are all very recent developments,
+and it takes time for modern library support to propagate through
+e.g. CRAN build toolchains – we are working on it!
