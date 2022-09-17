@@ -157,7 +157,7 @@ values from `xts`:
         aggregate(as.Date(cut(time(a.xts), "month")), mean, na.rm = TRUE) |> # temporal aggregation
         plot(ylab = "mean daily precip [mm/d]")
 
-![](/images/figure-markdown_strict/unnamed-chunk-6-1.png)
+![](/images/figure-markdown_strict/zarr1-1.png)
 
 The “exact” (or “conservative region”) aggregation in Ryan’s blog is
 obtained by [area-weighted
@@ -181,7 +181,7 @@ unless we’d recenter the precipitation coordinates from \[0,360\] to
         aggregate(as.Date(cut(time(a2), "month")), mean, na.rm = TRUE) |> # monthly means
         plot(ylab = "mean daily precip [mm/d]")
 
-![](/images/figure-markdown_strict/unnamed-chunk-7-1.png)
+![](/images/figure-markdown_strict/zarr2-1.png)
 
 We can compare outcomes from both computations e.g. in a scatter plot:
 
@@ -190,7 +190,7 @@ We can compare outcomes from both computations e.g. in a scatter plot:
          xlab = "pixels as points", ylab = "pixels as polygons")
     abline(0, 1)
 
-![](/images/figure-markdown_strict/unnamed-chunk-8-1.png)
+![](/images/figure-markdown_strict/zarr3-1.png)
 
 ## CMIP6 data
 
@@ -299,7 +299,7 @@ We can plot the first 49 time slices e.g. by
     plot(r[,,,1:49]) # first 49 time steps
     ## downsample set to 2
 
-![](/images/figure-markdown_strict/unnamed-chunk-13-1.png)
+![](/images/figure-markdown_strict/zarr4-1.png)
 
 ### Reading sub-arrays or strided arrays
 
@@ -329,7 +329,7 @@ As an example, let’s try to read one value per year:
     plot(r)
     ## downsample set to 2
 
-![](/images/figure-markdown_strict/unnamed-chunk-14-1.png)
+![](/images/figure-markdown_strict/zarr5-1.png)
 
 We can for instance read yearly data at a quarter of the spatial
 resolution by
@@ -350,7 +350,7 @@ resolution by
     ## time                                   NULL
     plot(r)
 
-![](/images/figure-markdown_strict/unnamed-chunk-15-1.png)
+![](/images/figure-markdown_strict/zarr6-1.png)
 
 ### Using the classic GDAL raster API
 
@@ -433,7 +433,7 @@ result:
     ## y    1 192 -90.4712 0.942408     NA    NA   NULL [y]
     plot(r0, axes = TRUE)
 
-![](/images/figure-markdown_strict/unnamed-chunk-19-1.png)
+![](/images/figure-markdown_strict/zarr7-1.png)
 
 ## Software versions
 

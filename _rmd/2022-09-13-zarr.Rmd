@@ -104,7 +104,7 @@ where
 and returns a _vector data cube_: an array with 241 country geometries x 9226 time steps (days). We can select the time series for Italy and plot it, using the time series package `xts`, and aggregation to monthly mean values from `xts`:
 
 
-```{r}
+```{r zarr1}
 library(xts)
 a[, which(ne$admin == "Italy"),] |>  # select Italy
 	adrop() |>  # drop geometry dimension
@@ -116,7 +116,7 @@ a.xts |>
 
 The "exact" (or "conservative region") aggregation in Ryan's blog is obtained by
 [area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted); we have `s2` on to get intersection using spherical coordinates; doing this with Cartesian coordinates will not work for half of the globe unless we'd recenter the precipitation coordinates from [0,360] to [-180,180]:
-```{r}
+```{r zarr2}
 sf_use_s2() # the default
 ne = st_make_valid(ne)
 it = ne[ne$admin == "Italy",]
@@ -130,7 +130,7 @@ a2 |>
 ```
 
 We can compare outcomes from both computations e.g. in a scatter plot:
-```{r}
+```{r zarr3}
 a2 |> adrop() |> as.xts() -> a2.xts
 plot(as.vector(a.xts), as.vector(a2.xts),
 	 xlab = "pixels as points", ylab = "pixels as polygons")
@@ -201,7 +201,7 @@ but semi-regular with gaps (the leap days); POSIXct values are now in
 the `values` field of the `time` dimension.
 
 We can plot the first 49 time slices e.g. by
-```{r}
+```{r zarr4}
 plot(r[,,,1:49]) # first 49 time steps
 ```
 
@@ -215,13 +215,13 @@ of the imagery by setting
 * `step` the step size in each dimension
 
 As an example, let's try to read one value per year:
-```{r}
+```{r zarr5}
 (r = read_mdim(dsn, step = c(1, 1, 365 * 4)))
 plot(r)
 ```
 
 We can for instance read yearly data at a quarter of the spatial resolution by
-```{r}
+```{r zarr6}
 (r = read_mdim(dsn, step = c(4, 4, 365 * 4)))
 plot(r)
 ```
@@ -252,7 +252,7 @@ gdal_utils("info", dsn)
 which describes a 288 x 192 pixel raster layer. It also reveals that GDAL thinks that this raster file has latitude dimensions exceeding [-90,90].  We can
 read such a slice with `read_stars` and plot the result:
 
-```{r}
+```{r zarr7}
 (r0 = read_stars(dsn))
 plot(r0, axes = TRUE)
 ```
