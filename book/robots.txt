@@ -1,0 +1,1 @@
+Sitemap: https://r-spatial.org/book/sitemap.xml

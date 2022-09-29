@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -333,7 +337,7 @@ div.csl-indent {
   <li><a href="#sec-units" id="toc-sec-units" class="nav-link active" data-scroll-target="#sec-units"><span class="toc-section-number">2.1</span>  Quantities, units, datum</a></li>
   <li><a href="#ellipsoidal-coordinates" id="toc-ellipsoidal-coordinates" class="nav-link" data-scroll-target="#ellipsoidal-coordinates"><span class="toc-section-number">2.2</span>  Ellipsoidal coordinates</a>
   <ul class="collapse">
-  <li><a href="#ellipsoidal-coordinates-1" id="toc-ellipsoidal-coordinates-1" class="nav-link" data-scroll-target="#ellipsoidal-coordinates-1">Ellipsoidal coordinates</a></li>
+  <li><a href="#spherical-or-ellipsoidal-coordinates" id="toc-spherical-or-ellipsoidal-coordinates" class="nav-link" data-scroll-target="#spherical-or-ellipsoidal-coordinates">Spherical or ellipsoidal coordinates</a></li>
   <li><a href="#sec-projections" id="toc-sec-projections" class="nav-link" data-scroll-target="#sec-projections">Projected coordinates, distances</a></li>
   <li><a href="#sec-bounded" id="toc-sec-bounded" class="nav-link" data-scroll-target="#sec-bounded">Bounded and unbounded spaces</a></li>
   </ul></li>
@@ -342,7 +346,7 @@ div.csl-indent {
   <li><a href="#sec-wkt2" id="toc-sec-wkt2" class="nav-link" data-scroll-target="#sec-wkt2"><span class="toc-section-number">2.5</span>  WKT-2</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">2.6</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/02-Spaces.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -368,9 +372,8 @@ div.csl-indent {
 <section id="sec-units" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-units"><span class="header-section-number">2.1</span> Quantities, units, datum</h2>
 <p> </p>
-<p>The VIM (“International Vocabulary of Metrology”, <span class="citation" data-cites="vim">BIPM et al. (<a href="references.html#ref-vim" role="doc-biblioref">2012</a>)</span>) defines a <em>quantity</em> as a “property of a phenomenon, body, or substance, where the property has a magnitude that can be expressed as a number and a reference”, where “[a] reference can be a measurement unit, a measurement procedure, a reference material, or a combination of such.”</p>
-<p>Although one could argue whether all data is constituted of quantities, there is no need to argue that proper data handling requires that numbers (or symbols) are accompanied by information on what they mean, in particular what they refer to.</p>
-<p>A measurement system consist of <em>base units</em> for base quantities, and <em>derived units</em> for derived quantities. For instance, the SI system of units <span class="citation" data-cites="SI">(<a href="references.html#ref-SI" role="doc-biblioref">Bureau International des Poids et Mesures 2006</a>)</span> consist of the seven base units length (metre, m), mass (kilogram, kg), time (second, s), electric current (ampere, A), thermodynamic temperature (Kelvin, K), amount of substance (mole, mol), and luminous intensity (candela, cd). Derived units are composed of products of integer powers of base units; examples are speed (<span class="math inline">\(\mbox{m}~\mbox{s}^{-1}\)</span>), density (<span class="math inline">\(\mbox{kg}~\mbox{m}^{-3}\)</span>) and area (<span class="math inline">\(\mbox{m}^2\)</span>).</p>
+<p>The VIM (“International Vocabulary of Metrology”, <span class="citation" data-cites="vim">BIPM et al. (<a href="references.html#ref-vim" role="doc-biblioref">2012</a>)</span>) defines a <em>quantity</em> as a “property of a phenomenon, body, or substance, where the property has a magnitude that can be expressed as a number and a reference”, where “[a] reference can be a measurement unit, a measurement procedure, a reference material, or a combination of such.” Although one could argue about whether all data is constituted of quantities, there is no need to argue that proper data handling requires that numbers (or symbols) are accompanied by information on what they mean, in particular what they refer to.</p>
+<p>A measurement system consist of <em>base units</em> for base quantities, and <em>derived units</em> for derived quantities. For instance, the SI system of units <span class="citation" data-cites="SI">(<a href="references.html#ref-SI" role="doc-biblioref">Bureau International des Poids et Mesures 2006</a>)</span> consist of seven base units: length (metre, m), mass (kilogram, kg), time (second, s), electric current (ampere, A), thermodynamic temperature (Kelvin, K), amount of substance (mole, mol), and luminous intensity (candela, cd). Derived units are composed of products of integer powers of base units; examples are speed (<span class="math inline">\(\mbox{m}~\mbox{s}^{-1}\)</span>), density (<span class="math inline">\(\mbox{kg}~\mbox{m}^{-3}\)</span>) and area (<span class="math inline">\(\mbox{m}^2\)</span>).</p>
 <p>The special case of unitless measures can refer to either cases where units cancel out (e.g.&nbsp;mass fraction: kg/kg, or angle measured in rad: m/m) or to cases where objects or events were counted (e.g.&nbsp;5 apples). Adding an angle to a count of apples would not make sense; adding 5 apples to 3 oranges may make sense if the result is reinterpreted as a superclass, e.g.&nbsp;as <em>pieces of fruit</em>. Many data variables have units that are not expressible as SI base units or derived units. <span class="citation" data-cites="hand">Hand (<a href="references.html#ref-hand" role="doc-biblioref">2004</a>)</span> discusses many such measurement scales, e.g.&nbsp;those used to measure intelligence in social sciences, in the context of measurement units.</p>
 <p>For many quantities, the natural origin of values is zero. This works for amounts, where differences between amounts result in meaningful negative values. For locations and times, differences have a natural zero interpretation: distance and duration. Absolute location (position) and time need a fixed origin, from which we can meaningfully measure other absolute space-time points: we call this <strong>a datum</strong>. For space, a datum involves more than one dimension. The combination of a datum and a measurement unit (scale) is a <em>reference system</em>.</p>
 <p></p>
@@ -378,7 +381,7 @@ div.csl-indent {
 </section>
 <section id="ellipsoidal-coordinates" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="ellipsoidal-coordinates"><span class="header-section-number">2.2</span> Ellipsoidal coordinates</h2>
-<div class="cell" data-eva="true" data-fig="true">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
@@ -401,15 +404,15 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-polar" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="02-Spaces_files/figure-html/fig-polar-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="02-Spaces_files/figure-html/fig-polar-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;2.1: Two-dimensional polar (red) and Cartesian (blue) coordinates</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-polar">Figure&nbsp;<span>2.1</span></a> shows both polar and Cartesian coordinates for a two-dimensional situation. In Cartesian coordinates, the point shown is <span class="math inline">\((x,y) = (3,4)\)</span>, for polar coordinates it is <span class="math inline">\((r,\phi) = (5, \mbox{arctan}(4/3))\)</span>, where <span class="math inline">\(\mbox{arctan}(4/3)\)</span> is approximately <span class="math inline">\(0.93\)</span> radians, or <span class="math inline">\(53^{\circ}\)</span>. Note that <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(r\)</span> all have length units, where <span class="math inline">\(\phi\)</span> is an angle (a unitless length/length ratio). Converting back and forth between Cartesian and polar coordinates is trivial, as <span class="math display">\[x = r~\mbox{cos} \phi,\]</span> <span class="math display">\[y = r~\mbox{sin} \phi,\]</span> <span class="math display">\[r = \sqrt{x^2 + y^2}, \ \mbox{and}\]</span> <span class="math display">\[\phi = \mbox{atan2}(y, x)\]</span> where <span class="math inline">\(\mbox{atan2}\)</span> is used in favor of <span class="math inline">\(\mbox{atan}(y/x)\)</span> to take care of the right quadrant.</p>
-<section id="ellipsoidal-coordinates-1" class="level3">
-<h3 class="anchored" data-anchor-id="ellipsoidal-coordinates-1">Ellipsoidal coordinates</h3>
+<p><a href="#fig-polar">Figure&nbsp;<span>2.1</span></a> shows both polar and Cartesian coordinates for a two-dimensional situation. In Cartesian coordinates, the point shown is <span class="math inline">\((x,y) = (3,4)\)</span>, for polar coordinates it is <span class="math inline">\((r,\phi) = (5, \mbox{arctan}(4/3))\)</span>, where <span class="math inline">\(\mbox{arctan}(4/3)\)</span> is approximately <span class="math inline">\(0.93\)</span> radians, or <span class="math inline">\(53^{\circ}\)</span>. Note that <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(r\)</span> all have length units, where <span class="math inline">\(\phi\)</span> is an angle (a unitless length/length ratio). Converting back and forth between Cartesian and polar coordinates is trivial, as <span class="math display">\[x = r~\mbox{cos} \phi,\ \ \ y = r~\mbox{sin} \phi, \ \mbox{and}\]</span> <span class="math display">\[r = \sqrt{x^2 + y^2}, \ \ \ \phi = \mbox{atan2}(y, x)\]</span> where <span class="math inline">\(\mbox{atan2}\)</span> is used in favour of <span class="math inline">\(\mbox{atan}(y/x)\)</span> to take care of the right quadrant.</p>
+<section id="spherical-or-ellipsoidal-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="spherical-or-ellipsoidal-coordinates">Spherical or ellipsoidal coordinates</h3>
 <p> </p>
 <p>In three dimensions, where Cartesian coordinates are expressed as <span class="math inline">\((x,y,z)\)</span>, spherical coordinates are the three-dimensional equivalent of polar coordinates and can be expressed as <span class="math inline">\((r,\lambda,\phi)\)</span>, where:</p>
 <ul>
@@ -421,7 +424,7 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf))</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>,<span class="dv">0</span>) <span class="co"># equator</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>)) <span class="co"># 0/antimerid.</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">90</span>, <span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>), <span class="fu">cbind</span>(<span class="dv">270</span>, <span class="dv">90</span><span class="sc">:-</span><span class="dv">90</span>))<span class="co"># +/- 90</span></span>
@@ -534,8 +537,7 @@ div.csl-indent {
 </div>
 </div>
 <p><span class="math inline">\(\lambda\)</span> typically varies between <span class="math inline">\(-180^{\circ}\)</span> and <span class="math inline">\(180^{\circ}\)</span> (or alternatively from <span class="math inline">\(0^{\circ}\)</span> to <span class="math inline">\(360^{\circ}\)</span>), <span class="math inline">\(\phi\)</span> from <span class="math inline">\(-90^{\circ}\)</span> to <span class="math inline">\(90^{\circ}\)</span>. When we are only interested in points <em>on</em> a sphere with given radius, we can drop <span class="math inline">\(r\)</span>: <span class="math inline">\((\lambda,\phi)\)</span> now suffice to identify any point.</p>
-<p>It should be noted that this is just <em>a</em> definition, one could for instance also choose to measure polar angle, the angle between the vector and <span class="math inline">\(z\)</span>, instead of latitude. There is also a long tradition of specifying points as <span class="math inline">\((\phi,\lambda)\)</span> but throughout this book we will stick to longitude-latitude, <span class="math inline">\((\lambda,\phi)\)</span>. The point denoted in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a><br>
-has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinates with values</p>
+<p>It should be noted that this is just <em>a</em> definition, one could for instance also choose to measure polar angle, the angle between the vector and <span class="math inline">\(z\)</span>, instead of latitude. There is also a long tradition of specifying points as <span class="math inline">\((\phi,\lambda)\)</span> but throughout this book we will stick to longitude-latitude, <span class="math inline">\((\lambda,\phi)\)</span>. The point denoted in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a> has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinates with angular values</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -544,7 +546,7 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># POINT (60 47)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>with angles measured in degrees, and geocentric coordinates</p>
+<p>measured in degrees, and geocentric coordinates</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -553,11 +555,10 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># POINT Z (2178844 3773868 4641765)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>with unit metres.</p>
+<p>measured in metres.</p>
 <p></p>
-<p>For points on an ellipse, there are two ways in which angle can be expressed (<a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a>) : measured from the center of the ellipse (<span class="math inline">\(\psi\)</span>), or measured perpendicular to the tangent on the ellipse at the target point (<span class="math inline">\(\phi\)</span>).</p>
-<p> } </p>
-<div class="cell" data-fig="true">
+<p>For points on an ellipse, there are two ways in which angle can be expressed (<a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a>): measured from the center of the ellipse (<span class="math inline">\(\psi\)</span>), or measured perpendicular to the tangent on the ellipse at the target point (<span class="math inline">\(\phi\)</span>).</p>
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
@@ -582,7 +583,7 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <div class="cell-output-display">
 <div id="fig-ellipse" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="02-Spaces_files/figure-html/fig-ellipse-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="02-Spaces_files/figure-html/fig-ellipse-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) latitude</figcaption><p></p>
 </figure>
 </div>
@@ -590,11 +591,11 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 </div>
 <p>The most commonly used parametric model for the Earth is <em>an ellipsoid of revolution</em>, an ellipsoid with two equal semi-axes <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>. In effect, this is a flattened sphere (or spheroid): the distance between the poles is (slightly: about 0.33%) smaller than the distance between two opposite points on the equator. Under this model, longitude is always measured along a circle (as in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a>) , and latitude along an ellipse (as in <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a>) . If we think of <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a> as a cross section of the Earth passing through the poles, the <em>geodetic</em> latitude measure <span class="math inline">\(\phi\)</span> is the one used when no further specification is given. The latitude measure <span class="math inline">\(\psi\)</span> is called the <em>geocentric latitude</em>.</p>
 <p> </p>
-<p>In addition to longitude and latitude we can add <em>altitude</em> or elevation to define points that are not on the ellipsoid, and obtain a three dimensional space again. When defining altitude, we need to choose:</p>
+<p>In addition to longitude and latitude we can add <em>altitude</em> or elevation to define points that are above or below the ellipsoid, and obtain a three dimensional space again. When defining altitude, we need to choose:</p>
 <ul>
 <li>where zero altitude is: on the ellipsoid, or relative to the surface approximating mean sea level (the geoid)?</li>
 <li>which direction is positive, and</li>
-<li>which direction is “straight up”: perpendicular to the ellipsoid surface, or in the direction perpendicular to the surface of the geoid?</li>
+<li>which direction is “straight up”: perpendicular to the ellipsoid surface, or in the direction of gravity, perpendicular to the surface of the geoid?</li>
 </ul>
 <p>All these choices may matter, depending on the application area and required measurement accuracies.</p>
 <p>The shape of the Earth is not a perfect ellipsoid. As a consequence, several ellipsoids with different shape parameters and bound to the Earth in different ways are being used. Such ellipsoids are called <em>datums</em>, and are briefly discussed in <a href="#sec-crs"><span>Section&nbsp;2.3</span></a>, along with <em>coordinate reference systems</em>.</p>
@@ -628,10 +629,8 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Units: [km]</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#       gc_ellipse straight_ellipse        gc_sphere </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#           879.70           879.00           877.46 </span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  straight_sphere </span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#           876.77</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#       gc_ellipse straight_ellipse        gc_sphere  straight_sphere </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#           879.70           879.00           877.46           876.77</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -673,21 +672,43 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <pre><code>+ellps=bessel +towgs84=565.4,50.3,465.6,-0.399,0.344,-1.877,4.072</code></pre>
 <p>indicating another ellipse, as well as the seven (or three) parameters for transforming from this ellipse to WGS84 (the “World Geodetic System 1984” global datum once popularized by GPS), effectively defining the datum in terms of a transformation to WGS84.</p>
 <p>Along with PROJ.4 came a set of databases with known (registered) projections, from which the best known is the EPSG registry. National mapping agencies would provide (and update over time) their best guesses of <code>+towgs84=</code> parameters for national coordinate reference systems, and distribute it through the EPSG registry, which was part of PROJ distributions. For some transformations, <em>datum grids</em> were available and distributed as part of PROJ.4: such grids are raster maps that provide for every location pre-computed values for the shift in longitude and latitude, or elevation, for a particular datum transformation.</p>
+<p>In PROJ.4, every coordinate transformation had to go through a conversion to and from WGS84; even reprojecting data associated with a datum different from WGS84 had to go through a transformation to and from WGS84. The associated errors of up to 100 m were acceptable for mapping purposes for not too small areas, but applications that need high accuracy transformations, e.g.&nbsp;precision agriculture, planning flights of UAV’s, or object tracking are often more demanding in terms of accuracy.</p>
+<p>In 2018, after a successful “GDAL Coordinate System Barn Raising” initiative, a number of companies profiting from the open source geospatial software stack supported the development of a more modern, mature coordinate transformation system in PROJ. Over a few years, PROJ.4 evolved through versions 5, 6, 7 and 8 and was hence renamed into PROJ (or PR<span class="math inline">\(\phi\)</span>J).</p>
+<p> </p>
+<p>The most notable changes include:</p>
+<ul>
+<li>although PROJ.4 strings can still be used to initialize certain coordinate reference systems, they are no longer sufficient to represent all of them; a new format, WKT-2 (described in next section) replaces it</li>
+<li>WGS84 as a hub datum is dropped: coordinate transformations no longer need to go through a particular datum</li>
+<li>multiple conversion or transformation paths (so-called pipelines) to go from CRS A to CRS B are possible, and can be reported along with the associated accuracy; PROJ will by default use the most accurate one but user control is possible</li>
+<li>transformation pipelines can chain an arbitrary number of elementary transformation operations, including swapping of axes and unit transformations</li>
+<li>datum grids, of which there are now <em>many</em> more, are no longer distributed with the library but are accessible from a content delivery network (CDN); PROJ allows enabling and disabling network access to access these grids, and only downloads the section(s) of the grid actually needed, storing it in a cache on the user’s machine for future use</li>
+<li>coordinate transformations receive support for epochs, time-dependent transformations (and hence: four-dimensional coordinates, including the source and target time)</li>
+<li>the set of files with registered coordinate reference systems is handled in an SQLite database</li>
+<li>instead of always handling axis order (longitude, latitude), when the authority defines differently this is now obeyed (but see <a href="#sec-wkt2"><span>Section&nbsp;2.5</span></a> and <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a>)</li>
+</ul>
+<p> </p>
+<p>All these points sound like massive improvements, and accuracies of transformation can be below 1 metre. An interesting point is the last: Where we could safely assume for many decades that spatial data with ellipsoidal coordinates would have axis order (longitude, latitude), this is no longer the case. We will see in <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a> how to deal with this.</p>
 <p></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>countries110 <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(countries110)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>uk <span class="ot">&lt;-</span> countries110[countries110<span class="sc">$</span>admin <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"United Kingdom"</span>),] <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">st_geometry</span>()</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># r &lt;- read_stars("/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif")</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">hook =</span> hook, <span class="at">key.pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(admin <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(filename)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">hook =</span> hook, <span class="at">key.pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-horizontalgrid" class="quarto-figure quarto-figure-center anchored">
@@ -701,10 +722,14 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="st">"data/uk_os_OSGM15_GB.tif"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># h &lt;- read_stars("/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif")</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(filename)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-verticalgrid" class="quarto-figure quarto-figure-center anchored">
@@ -715,28 +740,12 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
 </div>
 </div>
 </div>
-<p>In PROJ.4, every coordinate transformation had to go through a conversion to and from WGS84; even reprojecting data associated with a datum different from WGS84 had to go through a transformation to and from WGS84. The associated errors of up to 100 m were acceptable for mapping purposes for not too small areas, but applications that need high accuracy transformations, e.g.&nbsp;precision agriculture, planning flights of UAV’s, or object tracking are often more demanding in terms of accuracy.</p>
-<p>In 2018, after a successful “GDAL Coordinate System Barn Raising” initiative, a number of companies profiting from the open source geospatial software stack supported the development of a more modern, mature coordinate transformation system in PROJ. Over a few years, PROJ.4 evolved through versions 5, 6, 7 and 8 and was hence renamed into PROJ (or PR<span class="math inline">\(\phi\)</span>J).</p>
-<p> </p>
-<p>The most notable changes include:</p>
-<ul>
-<li>although PROJ.4 strings can still be used to initialize certain coordinate reference systems, they are no longer sufficient to represent all of them; a new format, WKT2 (described in next section) replaces it</li>
-<li>WGS84 as a hub datum is dropped: coordinate transformation no longer need to go through a particular datum</li>
-<li>multiple conversion or transformation paths (so-called pipelines) to go from CRS A to CRS B are possible, and can be reported along with the associated accuracy; PROJ will by default use the most accurate one but user control is possible</li>
-<li>transformation pipelines can chain an arbitrary number of elementary transformation operations, including swapping of axes and unit transformations</li>
-<li>datum grids, of which there are now <em>many</em> more, are no longer distributed with the library but are accessible from a content delivery network (CDN); PROJ allows to enabling and disabling network access to access these grids, and only downloads the section of the grid actually needed, storing it in a cache on the user’s machine for future use</li>
-<li>coordinate transformations receive support for epochs, time-dependent transformations (and hence: four-dimensional coordinates, including the source and target time)</li>
-<li>the set of files with registered coordinate reference systems is handled in an SQLite database</li>
-<li>instead of always handling axis order (longitude, latitude), when the authority defines differently this is now obeyed (with the most notable example: EPSG:4326 defines axis order to be latitude, longitude, although this is often ignored in practice.)</li>
-</ul>
-<p> </p>
-<p>All these points sound like massive improvements, and accuracies of transformation can be below 1 metre. An interesting point is the last: Where we could safely assume for many decades that spatial data with ellipsoidal coordinates would have axis order (longitude, latitude), this is no longer the case. We will see in <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a> how to deal with this.</p>
 <p> </p>
 <p>Examples of a horizontal datum grids, downloaded from cdn.proj.org, are shown in <a href="#fig-horizontalgrid">Figure&nbsp;<span>2.4</span></a> and for a vertical datum grid in <a href="#fig-verticalgrid">Figure&nbsp;<span>2.5</span></a> . Datum grids may carry per-pixel accuracy values.</p>
 </section>
 <section id="sec-wkt2" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-wkt2"><span class="header-section-number">2.5</span> WKT-2</h2>
-<p><span class="citation" data-cites="lott2015">Lott (<a href="references.html#ref-lott2015" role="doc-biblioref">2015</a>)</span> describes a standard for encoding coordinate reference systems, as well as transformations between them using <em>well known text</em>; the standard (and format) is referred to informally as WKT-2. As mentioned above, GDAL and PROJ fully support this encoding. An example of WKT2 for CRS <code>EPSG:4326</code> is:</p>
+<p><span class="citation" data-cites="lott2015">Lott (<a href="references.html#ref-lott2015" role="doc-biblioref">2015</a>)</span> describes a standard for encoding coordinate reference systems, as well as transformations between them using <em>well known text</em>; the standard (and format) is referred to informally as WKT-2. As mentioned above, GDAL and PROJ fully support this encoding. An example of WKT-2 for CRS <code>EPSG:4326</code> is:</p>
 <p> </p>
 <pre><code>GEOGCRS["WGS 84",
     ENSEMBLE["World Geodetic System 1984 ensemble",
@@ -764,7 +773,7 @@ has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinat
         AREA["World."],
         BBOX[-90,-180,90,180]],
     ID["EPSG",4326]]</code></pre>
-<p>This shows a coordinate system with the axis order <em>latitude, longitude</em> , although in most practical cases the axis order used is <em>longitude, latitude</em>. The <em>ensemble</em> of WGS84 ellipsoids listed represents its various updates over time. Ambiguity about <em>which</em> of these ensemble members a particular dataset should use leads to an uncerainty of several meters. The coordinate reference system <code>OGC:CRS84</code> disambiguates the axis order and explicitly states it to be <code>longitude, latitude</code>, and is a recommended alternative to disambiguate axis order. It is still associated with datum WGS84, so does not disambiguate the datum ensemble problem.</p>
+<p>This shows a coordinate system with the axis order <em>latitude, longitude</em> , although in most practical cases the axis order used is <em>longitude, latitude</em>. The <em>ensemble</em> of WGS84 ellipsoids listed represents its various updates over time. Ambiguity about <em>which</em> of these ensemble members a particular dataset should use leads to an uncertainty of several meters. The coordinate reference system <code>OGC:CRS84</code> disambiguates the axis order and explicitly states it to be <code>longitude, latitude</code>, and is the recommended alternative to for WGS84 datasets using this axis order. It does not disambiguate the datum ensemble problem.</p>
 <p> </p>
 <p>A longer introduction on the history and recent changes in PROJ is given in <span class="citation" data-cites="rogerCRS">Bivand (<a href="references.html#ref-rogerCRS" role="doc-biblioref">2020</a>)</span>, building upon the work of <span class="citation" data-cites="knudsen+evers17">Knudsen and Evers (<a href="references.html#ref-knudsen+evers17" role="doc-biblioref">2017</a>)</span> and <span class="citation" data-cites="evers+knudsen17">Evers and Knudsen (<a href="references.html#ref-evers+knudsen17" role="doc-biblioref">2017</a>)</span>.</p>
 </section>

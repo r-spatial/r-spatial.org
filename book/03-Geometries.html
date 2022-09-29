@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -358,7 +362,7 @@ div.csl-indent {
   <li><a href="#networks" id="toc-networks" class="nav-link" data-scroll-target="#networks"><span class="toc-section-number">3.5</span>  Networks</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">3.6</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/03-Geometries.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -382,7 +386,7 @@ div.csl-indent {
 <p> </p>
 <p>Having learned how we represent coordinates systems, we can define how geometries can be described using these coordinate systems. This chapter will explain:</p>
 <ul>
-<li><em>simple features</em>, a standard that describes point, line and polygon geometries along with operations on them,</li>
+<li><em>simple features</em>, a standard that describes point, line and polygon geometries along with operations on them</li>
 <li>operations on geometries</li>
 <li>coverages, subdivisions of larger regions into sub-regions</li>
 <li>networks</li>
@@ -391,7 +395,7 @@ div.csl-indent {
 <section id="sec-simplefeatures" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-simplefeatures"><span class="header-section-number">3.1</span> Simple feature geometries</h2>
 <p> </p>
-<p>Simple feature geometries are a way to describe the geometries of <em>features</em>. By <em>features</em> we mean <em>things</em> that have a geometry, potentially some time properties, and other attributes that could include a label describing the thing and quantitative measures of it. The main application of simple feature geometries is to describe geometries in two-dimensional space by points, lines, or polygons. The “simple” adjective refers to the fact that the line or polygon geometries are represented by sequences of points connected with straight lines that do not self-intersect.</p>
+<p>Simple feature geometries are a way to describe the geometries of <em>features</em>. By <em>features</em> we mean <em>things</em> that have a geometry, potentially implicitly some time properties, and further <em>attributes</em> that could include labels describing the thing and/or values quantitatively measuring it. The main application of simple feature geometries is to describe geometries in two-dimensional space by points, lines, or polygons. The “simple” adjective refers to the fact that the line or polygon geometries are represented by sequences of points connected with straight lines that do not self-intersect.</p>
 <p><em>Simple features access</em> is a standard <span class="citation" data-cites="sfa sfa2 iso">(<a href="references.html#ref-sfa" role="doc-biblioref">Herring 2011</a>, <a href="references.html#ref-sfa2" role="doc-biblioref">2010</a>; <a href="references.html#ref-iso" role="doc-biblioref">ISO 2004</a>)</span> for describing simple feature geometries that includes:</p>
 <p></p>
 <ul>
@@ -449,58 +453,57 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">1.2</span>,<span class="dv">1</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"point"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">st_multipoint</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)))</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mp, <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multipoint"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ls, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"linestring"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>mls <span class="ot">&lt;-</span> <span class="fu">st_multilinestring</span>(<span class="fu">list</span>(</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))))</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mls, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multilinestring"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 polygon</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>po <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)),</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))))</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(po, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff8888'</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"polygon"</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 multipolygon</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>mpo <span class="ot">&lt;-</span> <span class="fu">st_multipolygon</span>(<span class="fu">list</span>(</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)),</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))),</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">9</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">7</span>)))))</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpo, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff8888'</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multipolygon"</span>)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 7 geometrycollection</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>gc <span class="ot">&lt;-</span> <span class="fu">st_geometrycollection</span>(<span class="fu">list</span>(po, ls <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>))))</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gc, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff6666'</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"geometrycollection"</span>)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">1.2</span>,<span class="dv">1</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_point</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"point"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">st_multipoint</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mp, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multipoint"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 3</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> <span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ls, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"linestring"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>mls <span class="ot">&lt;-</span> <span class="fu">st_multilinestring</span>(<span class="fu">list</span>(</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))))</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mls, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multilinestring"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 polygon</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>po <span class="ot">&lt;-</span> <span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(po, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff8888'</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"polygon"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 multipolygon</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>mpo <span class="ot">&lt;-</span> <span class="fu">st_multipolygon</span>(<span class="fu">list</span>(</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">9</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">7</span>)))))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpo, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff8888'</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"multipolygon"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 7 geometrycollection</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>gc <span class="ot">&lt;-</span> <span class="fu">st_geometrycollection</span>(<span class="fu">list</span>(po, ls <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>))))</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gc, <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> <span class="st">'#ff6666'</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"geometrycollection"</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">col =</span> <span class="st">'grey'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-sfgeometries" class="quarto-figure quarto-figure-center anchored">
@@ -540,8 +543,8 @@ GEOMETRYCOLLECTION (
     POINT (2 5),
     POINT (5 4)
 )</code></pre>
-<p>In this representation, coordinates are separated by space, and points by commas. Sets are grouped by parentheses, and separated by commas.</p>
-<p>Individual points in a geometry contain at least two coordinates: x and y, in that order. If these coordinates refer to ellipsoidal coordinates, x and y usually refer to longitude and latitude, respectively, although sometimes to latitude and longitude (see <a href="02-Spaces.html#sec-projlib"><span>Section&nbsp;2.4</span></a> and <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a>).</p>
+<p>In this representation, coordinates are separated by space, and points by commas. Sets are grouped by parentheses, and separated by commas. Polygons consist of an outer ring followed by zero or more inner rings denoting holes.</p>
+<p>Individual points in a geometry contain at least two coordinates: <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, in that order. If these coordinates refer to ellipsoidal coordinates, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> usually refer to longitude and latitude, respectively, although sometimes to latitude and longitude (see <a href="02-Spaces.html#sec-projlib"><span>Section&nbsp;2.4</span></a> and <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a>).</p>
 </section>
 <section id="sec-valid" class="level3">
 <h3 class="anchored" data-anchor-id="sec-valid">Simple and valid geometries, ring direction</h3>
@@ -566,7 +569,7 @@ GEOMETRYCOLLECTION (
 <li>in a multipolygon, an external ring maximally touches another exterior ring in single points, not over a line</li>
 </ul>
 <p>If this is not the case, the geometry concerned is not valid. Invalid geometries typically cause errors when they are processed, but can usually be repaired to make them valid.</p>
-<p>A further convention is that the outer ring of a polygon is winded counter-clockwise, while the holes are winded clockwise, but polygons for which this is not the case are still considered valid. For polygons on the sphere, the “clockwise” is not very useful: if for instance we take the equator as polygon, is the Northern hemisphere or the Southern hemisphere “inside”? The convention taken here is to consider the area on the left while traversing the polygon is considered the polygon’s inside.</p>
+<p>A further convention is that the outer ring of a polygon is winded counter-clockwise, while the holes are winded clockwise, but polygons for which this is not the case are still considered valid. For polygons on the sphere, the “clockwise” concept is not very useful: if for instance we take the equator as polygon, is the Northern hemisphere or the Southern hemisphere “inside”? The convention taken here is to consider the area on the left while traversing the polygon is considered the polygon’s inside.</p>
 </section>
 <section id="z-and-m-coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="z-and-m-coordinates">Z and M coordinates</h3>
@@ -677,14 +680,13 @@ GEOMETRYCOLLECTION (
 <section id="text-and-binary-encodings" class="level3">
 <h3 class="anchored" data-anchor-id="text-and-binary-encodings">Text and binary encodings</h3>
 <p> </p>
-<p>Part of the simple feature standard are two encodings: a text and a binary encoding. The well-known text encoding, used above, is human-readable, the well-known binary encoding is machine-readable. Binary encodings are lossless and typically faster to work with than text encoding (and decoding), and are used for instance in all communications between R package <code>sf</code> and the GDAL, GEOS, liblwgeom and s2geometry libraries (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>) .</p>
+<p>Part of the simple feature standard are two encodings: a text and a binary encoding. The well-known text encoding, used above, is human-readable, the well-known binary encoding is machine-readable. Well-known binary (WKB) encodings are lossless and typically faster to work with than text encoding (and decoding), and are used for instance in all communications between R package <code>sf</code> and the GDAL, GEOS, liblwgeom and s2geometry libraries (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>).</p>
 </section>
 </section>
 <section id="sec-opgeom" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-opgeom"><span class="header-section-number">3.2</span> Operations on geometries</h2>
 <p></p>
-<p>Simple feature geometries can be queried for properties, transformed into new geometries, and combinations of geometries can be queried for properties. This section gives an overview of the operations entirely focusing on <em>geometrical</em> properties.<br>
-<a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a> focuses on the analysis of non-geometrical feature properties, in relationship to their geometries. Some of the material in this section appeared in <span class="citation" data-cites="rjsf">Pebesma (<a href="references.html#ref-rjsf" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Simple feature geometries can be queried for properties, transformed into new geometries, and combinations of geometries can be queried for properties. This section gives an overview of the operations entirely focusing on <em>geometrical</em> properties. <a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a> focuses on the analysis of non-geometrical feature properties, in relationship to their geometries. Some of the material in this section appeared in <span class="citation" data-cites="rjsf">Pebesma (<a href="references.html#ref-rjsf" role="doc-biblioref">2018</a>)</span>.</p>
 <p>We can categorize operations on geometries in terms of what they take as input, and what they return as output. In terms of output we have operations that return:</p>
 <ul>
 <li><strong>predicates</strong>: a logical asserting a certain property is <code>TRUE</code></li>
@@ -927,8 +929,8 @@ GEOMETRYCOLLECTION (
 <p>Unary transformations work on a per-geometry basis, and for each geometry return a new geometry.</p>
 <table class="table">
 <colgroup>
-<col style="width: 24%">
-<col style="width: 75%">
+<col style="width: 25%">
+<col style="width: 74%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -951,7 +953,7 @@ GEOMETRYCOLLECTION (
 </tr>
 <tr class="even">
 <td><code>wrap_dateline</code></td>
-<td>cut into pieces that do no longer cover the dateline</td>
+<td>cut into pieces that do no longer cover or cross the dateline</td>
 </tr>
 <tr class="odd">
 <td><code>boundary</code></td>
@@ -1158,10 +1160,10 @@ GEOMETRYCOLLECTION (
 <li>every spatiotemporal point in a three-dimensional body of air (domain) has single value for temperature (range)</li>
 </ul>
 <p>A caveat here is that because observation or measurement always takes time and requires space, measured values are always an average over a spatiotemporal volume, and hence range variables can rarely be measured for true, zero-volume “points”; for many practical cases however the measured volume is small enough to be considered a “point”; for a variable like <em>land cover type</em> the volume needs to be chosen such that the types distinguished make sense with respect to the measured units.</p>
-<p>In the first two of the given examples the range variable is <em>categorical</em>, in the last two the range variable is <em>continuous</em>. For categorical range variables, if large connected areas have a constant range value, an efficient way to represent these data is by storing the boundaries of the areas with constant value, such as country boundaries. Although this can be done (and is often done) by a set of simple feature geometries (polygons or multipolygons), but this brings along some challenges:</p>
+<p>In the first two of the given examples the range variable is <em>categorical</em>, in the last two the range variable is <em>continuous</em>. For categorical range variables, if large connected areas have a constant range value, an efficient way to represent these data is by storing the boundaries of the areas with constant value, such as country boundaries. Although this can be done (and is often done) by a set of simple feature geometries (polygons or multipolygons), this brings along some challenges:</p>
 <ul>
-<li>it is hard to guarantee for such a set of simple feature polygons that they do not overlap, or that there are no gaps between them</li>
-<li>simple features have no way of assigning points <em>on</em> the boundary of two adjacent polygons uniquely to a single polygon, which introduces ambiguity in terms the interpretation as coverage</li>
+<li>it is hard to guarantee for such a set of simple feature polygons that they do not overlap, or that there are no unwanted gaps between them</li>
+<li>simple features have no way of assigning points <em>on</em> the boundary of two adjacent polygons uniquely to a single polygon, which conflicts with the interpretation as coverage</li>
 </ul>
 <section id="topological-models" class="level3">
 <h3 class="anchored" data-anchor-id="topological-models">Topological models</h3>
@@ -1172,15 +1174,15 @@ GEOMETRYCOLLECTION (
 <section id="raster-tessellations" class="level3">
 <h3 class="anchored" data-anchor-id="raster-tessellations">Raster tessellations</h3>
 <p> </p>
-<p>A tessellation is a subdivision of a space (area, volume) into smaller elements by ways of polygons. A regular tessellation does this with regular polygons: triangles, squares or hexagons. Tessellations using squares are very commonly used for spatial data, and are called <em>raster data</em>. Raster data tessellate each spatial dimension <span class="math inline">\(d\)</span> into regular cells, formed e.g.&nbsp;by left-closed and right-open intervals <span class="math inline">\(d_i\)</span>: <span class="math display">\[\begin{equation}
+<p>A tessellation is a subdivision of a space (area, volume) into smaller elements by ways of polygons. A regular tessellation does this with regular polygons: triangles, squares or hexagons. Tessellations using squares are commonly used for spatial data, and are called <em>raster data</em>. Raster data tessellate each spatial dimension <span class="math inline">\(d\)</span> into regular cells, formed e.g.&nbsp;by left-closed and right-open intervals <span class="math inline">\(d_i\)</span>: <span class="math display">\[\begin{equation}
 d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 \end{equation}\]</span> with <span class="math inline">\(d_0\)</span> an offset, <span class="math inline">\(\delta\)</span> the interval (cell or pixel) size, and where the cell index <span class="math inline">\(i\)</span> is an arbitrary but consecutive set of integers. The <span class="math inline">\(\delta\)</span> value is often taken negative for the <span class="math inline">\(y\)</span>-axis (Northing), indicating that raster row numbers increasing Southwards correspond to <span class="math inline">\(y\)</span>-coordinates increasing Northwards.</p>
 <p>Where in arbitrary polygon tessellations the assignment of points to polygons is ambiguous for points falling on a boundary shared by two polygons, using left-closed “[” and right-open “)” intervals in regular tessellations removes this ambiguity. This means that for rasters with negative <span class="math inline">\(\delta\)</span> values for the <span class="math inline">\(y\)</span>-coordinate and positive for the <span class="math inline">\(x\)</span>-coordinate, only the top-left corner point is part of each raster cell. An artifact resulting from this is shown in <a href="#fig-rasterizeline">Figure&nbsp;<span>3.6</span></a> .</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: abind</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(<span class="at">a =</span> <span class="dv">2</span>, <span class="fu">st_sfc</span>(<span class="fu">st_linestring</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">9</span>)))))</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>grd <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="fu">st_bbox</span>(ls), <span class="at">nx =</span> <span class="dv">10</span>, <span class="at">ny =</span> <span class="dv">10</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.0</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
@@ -1188,21 +1190,21 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>r[r <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(<span class="fu">st_as_sf</span>(grd)), <span class="at">border =</span> <span class="st">'orange'</span>, <span class="at">col =</span> <span class="cn">NA</span>, </span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">key.pos =</span> <span class="cn">NULL</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">main =</span> <span class="cn">NA</span>) <span class="co"># ALL_TOUCHED=FALSE;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">main =</span> <span class="cn">NA</span>) <span class="co"># ALL_TOUCHED=FALSE;</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ls, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-rasterizeline" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="03-Geometries_files/figure-html/fig-rasterizeline-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.6: rasterization artifact: as only top-left corners are part of the raster cell, only cells below the diagonal line are rasterized</figcaption><p></p>
+<p><img src="03-Geometries_files/figure-html/fig-rasterizeline-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.6: Rasterization artifact: as only top-left corners are part of the raster cell, only cells touching the red line below the diagonal line are rasterized</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p></p>
 <p>Tessellating the time dimension with left-closed, right-open intervals is very common, and reflects the implicit assumption underlying time series software such as the <code>xts</code> package in R, where time stamps indicate the start of time intervals. Different models can be combined: one could use simple feature polygons to tessellate space, and combine this with a regular tessellation of time in order to cover a space-time <em>vector data cube</em>. Raster and vector data cubes are discussed in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
-<p>As mentioned above, besides square cells the other two shapes that can lead to regular tessellations of <span class="math inline">\(R^2\)</span> are triangles and hexagons. On the sphere, there are few more, including cube, octahedron, icosahedron and dodecahedron. A spatial index that builds on the cube is <a href="https://s2geometry.io/">s2geometry</a>, the <a href="https://eng.uber.com/h3/">H3 library</a> uses the icosahedron and densifies that with (mostly) hexagons. Mosaics that cover the entire Earth are also called <em>discrete global grids</em>.</p>
+<p>As mentioned above, besides square cells the other two shapes that can lead to regular tessellations of <span class="math inline">\(R^2\)</span> are triangles and hexagons. On the sphere, there are a few more, including cube, octahedron, icosahedron and dodecahedron. A spatial index that builds on the cube is <a href="https://s2geometry.io/">s2geometry</a>, the <a href="https://eng.uber.com/h3/">H3 library</a> uses the icosahedron and densifies that with (mostly) hexagons. Mosaics that cover the entire Earth are also called <em>discrete global grids</em>.</p>
 </section>
 </section>
 <section id="networks" class="level2" data-number="3.5">
@@ -1213,7 +1215,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <li>start and endpoints of a linestring may be connected to other linestring start or end points, forming a set of nodes and edges</li>
 <li>edges may be directed, to only allow for connection (flow, transport) in one way</li>
 </ul>
-<p>R packages including <code>osmar</code> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <code>stplanr</code> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span> and <code>sfnetworks</code> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, e.g.&nbsp;computing shortest or fastest routes through a network. Package <code>spatstat</code> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a>).</p>
+<p>R packages including <code>osmar</code> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <code>stplanr</code> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span> and <code>sfnetworks</code> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, e.g.&nbsp;computing shortest or fastest routes through a network. Package <code>spatstat</code> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
 </section>
 <section id="exercises" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.6</span> Exercises</h2>
@@ -1233,7 +1235,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-baddeley2015spatial" class="csl-entry" role="doc-biblioentry">
-Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with r</em>. Chapman; Hall/CRC.
+Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with <span>R</span></em>. Chapman; Hall/CRC.
 </div>
 <div id="ref-R-spatstat" class="csl-entry" role="doc-biblioentry">
 Baddeley, Adrian, Rolf Turner, and Ege Rubak. 2022. <em>Spatstat: Spatial Point Pattern Analysis, Model- Fitting, Simulation, Tests</em>. <a href="http://spatstat.org/">http://spatstat.org/</a>.
@@ -1258,6 +1260,9 @@ ISO. 2004. <em>Geographic Information – Simple Feature Access – Part 1: Comm
 </div>
 <div id="ref-R-stplanr" class="csl-entry" role="doc-biblioentry">
 Lovelace, Robin, Richard Ellison, and Malcolm Morgan. 2022. <em>Stplanr: Sustainable Transport Planning</em>. <a href="https://CRAN.R-project.org/package=stplanr">https://CRAN.R-project.org/package=stplanr</a>.
+</div>
+<div id="ref-geocomp" class="csl-entry" role="doc-biblioentry">
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with <span>R</span></em>. Chapman; Hall/CRC.<a href=" https://geocompr.robinlovelace.net/ ">https://geocompr.robinlovelace.net/ </a>.
 </div>
 <div id="ref-rjsf" class="csl-entry" role="doc-biblioentry">
 Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.

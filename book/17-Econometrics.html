@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -339,7 +343,7 @@ div.csl-indent {
   <li><a href="#sec-spateconpred" id="toc-sec-spateconpred" class="nav-link" data-scroll-target="#sec-spateconpred"><span class="toc-section-number">17.4</span>  Predictions</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">17.5</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/17-Econometrics.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -465,12 +469,12 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>eigs_489 <span class="ot">&lt;-</span> <span class="fu">eigenw</span>(lw_q_489)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>SDEM_489 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_489, <span class="at">listw =</span> lw_q_489,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Durbin =</span> <span class="cn">TRUE</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_489))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>SEM_489 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_489, <span class="at">listw =</span> lw_q_489, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">zero.policy =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_489))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>SDEM_489 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_489, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">listw =</span> lw_q_489, <span class="at">Durbin =</span> <span class="cn">TRUE</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_489))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>SEM_489 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_489, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">listw =</span> lw_q_489, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_489))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here we are using the <code>control=</code> list argument to pass through pre-computed eigenvalues for the default <code>"eigen"</code> method.</p>
 <div class="cell">
@@ -658,13 +662,13 @@ div.csl-indent {
 <p>Here, we’ll list the predictions for the censored tract observations using three different prediction types, taking the exponent to get back to the USD median house values. Note that the <code>row.names()</code> of the <code>newdata=</code> object are matched with the whole-data spatial weights matrix <code>"region.id"</code> attribute to make out-of-sample prediction possible:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nd <span class="ot">&lt;-</span> boston_506[<span class="fu">is.na</span>(boston_506<span class="sc">$</span>median),]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd, <span class="at">listw =</span> lw_q, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd, <span class="at">listw =</span> lw_q,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pred.type =</span> <span class="st">"TS"</span>, <span class="at">zero.policy  =</span><span class="cn">TRUE</span>))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(t1  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(t1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd,</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">listw =</span> lw_q,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pred.type =</span> <span class="st">"KP2"</span>,</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)))</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(t2  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(t2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(SDEM_489, <span class="at">newdata =</span> nd,</span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">listw =</span> lw_q,</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pred.type =</span> <span class="st">"KP5"</span>,</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -676,66 +680,64 @@ div.csl-indent {
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: foreach</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: parallel</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: sp</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This is INLA_22.05.07 built 2022-05-07 09:52:03 UTC;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                     unix.</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - See www.r-inla.org/contact-us for how to get help.</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  - To enable PARDISO sparse library; see inla.pardiso()</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Attaching package: 'INLA'</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># The following object is masked _by_ '.GlobalEnv':</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     f</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">as</span>(lw_q, <span class="st">"CsparseMatrix"</span>)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(W)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">eigenw</span>(lw_q)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>re.idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(<span class="fu">Im</span>(e)) <span class="sc">&lt;</span> <span class="fl">1e-6</span>)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>rho.max <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">Re</span>(e[re.idx]))</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>rho.min <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">min</span>(<span class="fu">Re</span>(e[re.idx]))</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(rho.min, rho.max))</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>boston_506<span class="sc">$</span>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>zero.variance <span class="ot">=</span> <span class="fu">list</span>(<span class="at">prec =</span> <span class="fu">list</span>(<span class="at">initial =</span> <span class="dv">25</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>args.slm <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">rho.min =</span> rho.min, <span class="at">rho.max =</span> rho.max, <span class="at">W =</span> W,</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>                 <span class="at">X =</span> <span class="fu">matrix</span>(<span class="dv">0</span>, n, <span class="dv">0</span>), <span class="at">Q.beta =</span> <span class="fu">matrix</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>hyper.slm <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">prec =</span> <span class="fu">list</span>(<span class="at">prior =</span> <span class="st">"loggamma"</span>, </span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                              <span class="at">param =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>)),</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">rho =</span> <span class="fu">list</span>(<span class="at">initial =</span> <span class="dv">0</span>, <span class="at">prior =</span> <span class="st">"logitbeta"</span>,</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">param =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>WX <span class="ot">&lt;-</span> <span class="fu">create_WX</span>(<span class="fu">model.matrix</span>(<span class="fu">update</span>(form, CMEDV <span class="sc">~</span> .), </span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>                             <span class="at">data =</span> boston_506), lw_q)</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>SDEM_506_slm <span class="ot">&lt;-</span> <span class="fu">inla</span>(<span class="fu">update</span>(form, </span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>                            . <span class="sc">~</span> . <span class="sc">+</span> WX <span class="sc">+</span> <span class="fu">f</span>(idx, <span class="at">model =</span> <span class="st">"slm"</span>,</span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">args.slm =</span> args.slm,</span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">hyper =</span> hyper.slm)),</span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> boston_506, <span class="at">family =</span> <span class="st">"gaussian"</span>,</span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control.family =</span> <span class="fu">list</span>(<span class="at">hyper =</span> zero.variance),</span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control.compute =</span> <span class="fu">list</span>(<span class="at">dic =</span> <span class="cn">TRUE</span>, <span class="at">cpo =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>mv_mean <span class="ot">&lt;-</span> <span class="fu">exp</span>(SDEM_506_slm<span class="sc">$</span>summary.fitted.values<span class="sc">$</span>mean[</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>               <span class="fu">which</span>(<span class="fu">is.na</span>(boston_506<span class="sc">$</span>median))])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This is INLA_22.05.07 built 2022-05-07 09:52:03 UTC.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  - See www.r-inla.org/contact-us for how to get help.</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - To enable PARDISO sparse library; see inla.pardiso()</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Attaching package: 'INLA'</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The following object is masked _by_ '.GlobalEnv':</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     f</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">as</span>(lw_q, <span class="st">"CsparseMatrix"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(W)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">eigenw</span>(lw_q)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>re.idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(<span class="fu">Im</span>(e)) <span class="sc">&lt;</span> <span class="fl">1e-6</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>rho.max <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">Re</span>(e[re.idx]))</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>rho.min <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">min</span>(<span class="fu">Re</span>(e[re.idx]))</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(rho.min, rho.max))</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>boston_506<span class="sc">$</span>idx <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>zero.variance <span class="ot">=</span> <span class="fu">list</span>(<span class="at">prec =</span> <span class="fu">list</span>(<span class="at">initial =</span> <span class="dv">25</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>args.slm <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">rho.min =</span> rho.min, <span class="at">rho.max =</span> rho.max, <span class="at">W =</span> W,</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                 <span class="at">X =</span> <span class="fu">matrix</span>(<span class="dv">0</span>, n, <span class="dv">0</span>), <span class="at">Q.beta =</span> <span class="fu">matrix</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>hyper.slm <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">prec =</span> <span class="fu">list</span>(<span class="at">prior =</span> <span class="st">"loggamma"</span>, </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                              <span class="at">param =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>)),</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">rho =</span> <span class="fu">list</span>(<span class="at">initial =</span> <span class="dv">0</span>, <span class="at">prior =</span> <span class="st">"logitbeta"</span>,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                             <span class="at">param =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>WX <span class="ot">&lt;-</span> <span class="fu">create_WX</span>(<span class="fu">model.matrix</span>(<span class="fu">update</span>(form, CMEDV <span class="sc">~</span> .), </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>                             <span class="at">data =</span> boston_506), lw_q)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>SDEM_506_slm <span class="ot">&lt;-</span> <span class="fu">inla</span>(<span class="fu">update</span>(form, </span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>                            . <span class="sc">~</span> . <span class="sc">+</span> WX <span class="sc">+</span> <span class="fu">f</span>(idx, <span class="at">model =</span> <span class="st">"slm"</span>,</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">args.slm =</span> args.slm,</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">hyper =</span> hyper.slm)),</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> boston_506, <span class="at">family =</span> <span class="st">"gaussian"</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control.family =</span> <span class="fu">list</span>(<span class="at">hyper =</span> zero.variance),</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control.compute =</span> <span class="fu">list</span>(<span class="at">dic =</span> <span class="cn">TRUE</span>, <span class="at">cpo =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>mv_mean <span class="ot">&lt;-</span> <span class="fu">exp</span>(SDEM_506_slm<span class="sc">$</span>summary.fitted.values<span class="sc">$</span>mean[</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>               <span class="fu">which</span>(<span class="fu">is.na</span>(boston_506<span class="sc">$</span>median))])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>INLA also provide gridded estimates of the marginal distributions of the predictions, offering a way to assess the uncertainty associated with the predicted values:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">fit_TS =</span> t0[,<span class="dv">1</span>], <span class="at">fit_KP2 =</span> <span class="fu">c</span>(t1), <span class="at">fit_KP5 =</span> <span class="fu">c</span>(t2),</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">INLA_slm =</span> mv_mean,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">censored =</span> boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"region.id"</span>))])</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    31085    right</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   28126   27001   28516    31376    right</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    40993    right</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    21063    right</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     6882     left</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6893     left</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56320    right</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46532    right</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42840    right</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47957    right</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41416    right</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45795    right</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    49111    right</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    47639    right</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46289    right</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    43775    right</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41519    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">INLA_slm =</span> mv_mean, <span class="at">censored =</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, <span class="st">"region.id"</span>))])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    31095    right</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   28126   27001   28516    31376    right</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    41041    right</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    21079    right</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     6873     left</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6891     left</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56313    right</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46525    right</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42839    right</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47971    right</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41423    right</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45806    right</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    49117    right</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    47660    right</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46280    right</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    43803    right</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41527    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others’ understandings and advances.</p>
 </section>

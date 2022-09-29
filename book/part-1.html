@@ -166,6 +166,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -315,7 +319,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -332,7 +336,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-part1" class="quarto-section-identifier d-none d-lg-block">Spatial Data</span></h1>
+<h1 class="title d-none d-lg-block">Spatial Data</h1>
 </div>
 
 
@@ -346,20 +350,20 @@ div.csl-indent {
 
 </header>
 
-<p>The first part of this book introduces concepts of spatial data science: maps, projections, vector and raster data structures, software, attributes and support, and data cubes. This part uses R only to generate text output or figures. The R code for this is not shown or explained, as it would distract from the message: part II focuses on the use of R. The online version of this book, found at <a href="https://r-spatial.org/book">https://r-spatial.org/book/</a> contains the hidden R code at the place where it is used in sections that can be unfolded on demand and copied to the clipboard for execution and experimenting. Output from R code uses code font and has lines starting with a <code>#</code>, as in</p>
+<p>The first part of this book introduces concepts of spatial data science: maps, projections, vector and raster data structures, software, attributes and support, and data cubes. This part uses R only to generate text output or figures. The R code for this is not shown or explained, as it would distract from the message: part II focuses on the use of R. The online version of this book, found at <a href="https://r-spatial.org/book">https://r-spatial.org/book/</a> contains the R code at the place where it is used in hidden sections that can be unfolded on demand and copied to the clipboard for execution and experimenting. Output from R code uses code font and has lines starting with a <code>#</code>, as in</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</code></pre>
+<pre><code># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</code></pre>
 </div>
 </div>
 <div>
 <p>Some of the code sections (e.g.&nbsp;in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>) contain code written to generate figures with R not relevant to the subject matter of the book. Code sections relevant to data analysis should be easy to follow when understanding R at the level of, say, <a href="http://r4ds.had.co.nz/">R for Data Science</a> <span class="citation" data-cites="r4ds">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span>.</p>
 </div>
-<p>More detailed explanation of R code to solve spatial data science problems starts in <span class="quarto-unresolved-ref">?sec-part2</span> of this book. <a href="rbasics.html"><span>Appendix&nbsp;B</span></a> contains a short, elementary explanation of R data structures, <span class="citation" data-cites="advr">Wickham (<a href="references.html#ref-advr" role="doc-biblioref">2014</a>)</span> gives an extensive treatment on this.</p>
+<p>More detailed explanation of R code to solve spatial data science problems starts in part 2 of this book. <a href="rbasics.html"><span>Appendix&nbsp;B</span></a> contains a short, elementary explanation of R data structures, <span class="citation" data-cites="advr">Wickham (<a href="references.html#ref-advr" role="doc-biblioref">2014</a>)</span> gives an extensive treatment on this.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">

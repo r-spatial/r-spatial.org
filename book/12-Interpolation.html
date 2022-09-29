@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -342,7 +346,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">12.8</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/12-Interpolation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -364,8 +368,8 @@ div.csl-indent {
 </header>
 
 <p> </p>
-<p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon(s)\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict <span class="math inline">\(S(s)\)</span>, which may be called spatial filtering or smoothing.</p>
-<p>In this chapter we will show simple approaches for handling geostatistical data, will demonstrate simple interpolation methods, explore modelling spatial correlation, spatial prediction and simulation. We will use package <code>gstat</code> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in e.g. <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparisons of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
+<p>In this chapter we will show simple approaches for handling geostatistical data, will demonstrate simple interpolation methods, explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <code>gstat</code> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in e.g. <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparisons of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
 <p></p>
 <div class="cell">
 
@@ -374,26 +378,31 @@ div.csl-indent {
 <h2 data-number="12.1" class="anchored" data-anchor-id="a-first-dataset"><span class="header-section-number">12.1</span> A first dataset</h2>
 <p>We can read station mean NO<span class="math inline">\(_2\)</span> values, a dataset that is prepared in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>, by loading it from package <code>gstat</code> using</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>, <span class="at">package =</span> <span class="st">"gstat"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and convert it into an <code>sf</code> object with an appropriate UTM projection using</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>no2.sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(no2, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"station_latitude_deg"</span>), <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next, we can load country boundaries and plot these data using <code>ggplot</code>, shown in <a href="#fig-plotDE">Figure&nbsp;<span>12.1</span></a> .</p>
+<p>Next, we can load country boundaries and plot these data using <code>ggplot</code>, shown in <a href="#fig-plotDE">Figure&nbsp;<span>12.1</span></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(air, <span class="at">package =</span> <span class="st">"spacetime"</span>) <span class="co"># loads boundaries into DE_NUTS1</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(air, <span class="at">package =</span> <span class="st">"spacetime"</span>) <span class="co"># loads DE_NUTS1 boundaries</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(DE_NUTS1) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: sp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span>  <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-plotDE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -404,22 +413,21 @@ div.csl-indent {
 </div>
 </div>
 <p> </p>
-<p>If we want to interpolate, we first need to decide where. This is typically done on a regular grid covering the area of interest. Starting with the country outline <code>de</code> we can create a regular grid with 10 km grid cells (pixels) over Germany by</p>
+<p>If we want to interpolate, we first need to decide where. This is typically done on a regular grid covering the area of interest. Starting with the country outline in object <code>de</code> we can create a regular grid with 10 km grid cells (pixels) over Germany by</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: abind</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_stars</span>(<span class="at">dx =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_crop</span>(de) <span class="ot">-&gt;</span> grd</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>grd</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#         Min. 1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># values     0       0      0    0       0    0 2076</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   from to  offset  delta            refsys point values x/y</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># x    1 65  280741  10000 WGS 84 / UTM z...    NA   NULL [x]</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># y    1 87 6101239 -10000 WGS 84 / UTM z...    NA   NULL [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_stars</span>(<span class="at">dx =</span> <span class="dv">10000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_crop</span>(de) <span class="ot">-&gt;</span> grd</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>grd</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#         Min. 1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># values     0       0      0    0       0    0 2076</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   from to  offset  delta            refsys x/y</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># x    1 65  280741  10000 WGS 84 / UTM z... [x]</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># y    1 87 6101239 -10000 WGS 84 / UTM z... [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we chose grid cells to be not too fine, so that we still see them in plots.</p>
 <p>Perhaps the simplest interpolation method is inverse distance weighted interpolation, which is a weighted average, using weights inverse proportional to distances from the interpolation location:</p>
@@ -433,11 +441,16 @@ div.csl-indent {
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [inverse distance weighted interpolation]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and plot them in <a href="#fig-idw">Figure&nbsp;<span>12.2</span></a> .</p>
+<p>and plot them in <a href="#fig-idw">Figure&nbsp;<span>12.2</span></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> i, <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> i, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-idw" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -459,13 +472,16 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and the result of plotting this is shown in <a href="#fig-vgm">Figure&nbsp;<span>12.3</span></a> .</p>
+<p>and the result of plotting this is shown in <a href="#fig-vgm">Figure&nbsp;<span>12.3</span></a>.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-vgm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-vgm-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-vgm-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.3: Sample variogram plot</figcaption><p></p>
 </figure>
 </div>
@@ -476,35 +492,38 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, <span class="at">cutoff =</span> <span class="dv">100000</span>, <span class="at">width =</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>shown in <a href="#fig-vgm2">Figure&nbsp;<span>12.4</span></a> .</p>
+<p>shown in <a href="#fig-vgm2">Figure&nbsp;<span>12.4</span></a>.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v0, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-vgm2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-vgm2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-vgm2-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.4: Sample variogram plot with adjusted cutoff and lag width</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Note that the formula <code>NO2~1</code> is used to select the variable of interest from the data file (<code>NO2</code>), and to specify the mean model: <code>~1</code> refers to an intercept-only (unknown, constant mean) model.</p>
+<p>Note that the formula <code>NO2~1</code> is used to select the variable of interest from the data file (<code>NO2</code>), and to specify the mean model: <code>~1</code> specifies an intercept-only (unknown, constant mean) model.</p>
 </section>
 <section id="fitting-variogram-models" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="fitting-variogram-models"><span class="header-section-number">12.3</span> Fitting variogram models</h2>
 <p></p>
-<p>In order to progress toward spatial predictions, we need a variogram <em>model</em> <span class="math inline">\(\gamma(h)\)</span> for (potentially) all distances <span class="math inline">\(h\)</span>, rather than the set of estimates derived above: in case we would for instance connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, this would lead to statistical models with non-positive covariance matrices, which is a complicated way of expressing that you are in a lot of trouble.</p>
-<p>To avoid these troubles we fit parametric models <span class="math inline">\(\gamma(h)\)</span> to the estimates <span class="math inline">\(\hat{\gamma}(h_i)\)</span>, where we take <span class="math inline">\(h_i\)</span> as the mean value of all the <span class="math inline">\(h'\)</span> values involved in estimating <span class="math inline">\(\hat{\gamma}(h_i)\)</span>. For this, when we fit a model like the exponential variogram, fitted by</p>
+<p>In order to progress toward spatial predictions, we need a variogram <em>model</em> <span class="math inline">\(\gamma(h)\)</span> for (potentially) all distances <span class="math inline">\(h\)</span>, rather than the set of estimates derived above. If we would connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, it would lead to statistical models with non-positive definite covariance matrices, which would block using them in prediction.</p>
+<p>To avoid this we fit parametric models <span class="math inline">\(\gamma(h)\)</span> to the estimates <span class="math inline">\(\hat{\gamma}(h_i)\)</span>, where we take <span class="math inline">\(h_i\)</span> as the mean value of all the <span class="math inline">\(h'\)</span> values involved in estimating <span class="math inline">\(\hat{\gamma}(h_i)\)</span>. We can fit for instance a model with an exponential variogram by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>v.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(v, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and shown in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a> .</p>
+<p>shown in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v, v.m, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fitvariogrammodel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-fitvariogrammodel-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-fitvariogrammodel-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram with fitted model</figcaption><p></p>
 </figure>
 </div>
@@ -516,7 +535,7 @@ div.csl-indent {
 <h2 data-number="12.4" class="anchored" data-anchor-id="sec-kriging"><span class="header-section-number">12.4</span> Kriging interpolation</h2>
 <p> </p>
 <p>Typically, when we interpolate a variable, we do that on points on a regular grid covering the target area. We first create a <code>stars</code> object with a raster covering the target area, and NA’s outside it.</p>
-<p>Kriging involves the prediction of <span class="math inline">\(Z(s_0)\)</span> at arbitrary locations <span class="math inline">\(s_0\)</span>. We can krige NO<span class="math inline">\(_2\)</span> by using <code>gstat::krige</code>, with the model for the trend, the data, the prediction grid, and the variogram model (<a href="#fig-krigeovergermany">Figure&nbsp;<span>12.6</span></a>) :</p>
+<p>Kriging involves the prediction of <span class="math inline">\(Z(s_0)\)</span> at arbitrary locations <span class="math inline">\(s_0\)</span>. We can krige NO<span class="math inline">\(_2\)</span> by using <code>gstat::krige</code>, with the model for the trend, the data, the prediction grid, and the variogram model as arguments (<a href="#fig-krigeovergermany">Figure&nbsp;<span>12.6</span></a>) by:</p>
 <p></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd, v.m)</span>
@@ -524,9 +543,10 @@ div.csl-indent {
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> k, <span class="fu">aes</span>(<span class="at">fill =</span> var1.pred, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-krigeovergermany" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -544,12 +564,12 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], <span class="at">by =</span> de, <span class="at">FUN =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A more complicated way is to use <em>block kriging</em> <span class="citation" data-cites="jh78">(<a href="references.html#ref-jh78" role="doc-biblioref">Journel and Huijbregts 1978</a>)</span>, which uses <em>all</em> the data to estimate the mean of the variable over the target area. With <code>krige</code>, this can be done by giving the target areas (polygons) as the <code>newdata</code> argument:</p>
+<p>A more complicated way is to use <em>block kriging</em> <span class="citation" data-cites="jh78">(<a href="references.html#ref-jh78" role="doc-biblioref">Journel and Huijbregts 1978</a>)</span>, which uses <em>all</em> the data to estimate the mean of the variable over the target areas. With <code>krige</code>, this can be done by giving the target areas (polygons) as the <code>newdata</code> argument:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, de, v.m)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [using ordinary kriging]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>we can now merge the two maps into a single object to create a single plot (<a href="#fig-aggregations">Figure&nbsp;<span>12.7</span></a>) :</p>
+<p>we can now merge the two maps into a single object to create a single plot (<a href="#fig-aggregations">Figure&nbsp;<span>12.7</span></a>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>sample <span class="ot">&lt;-</span> a<span class="sc">$</span>NO2</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>kriging <span class="ot">&lt;-</span> b<span class="sc">$</span>var1.pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -563,7 +583,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-aggregations" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-aggregations-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-aggregations-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.7: Aggregated NO<span class="math inline">\(_2\)</span> values from simple averaging (left) and block kriging (right)</figcaption><p></p>
 </figure>
 </div>
@@ -576,36 +596,36 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], de, SE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which would have been the actual estimate in design-based inference if the sample was obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We combine and rename the two:</p>
+<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.2</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>sample <span class="ot">&lt;-</span> a<span class="sc">$</span>NO2</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>kriging <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(b<span class="sc">$</span>var1.var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>b <span class="sc">|&gt;</span> <span class="fu">select</span>(sample, kriging) <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pivot_longer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"Standard_error"</span>) <span class="ot">-&gt;</span> b2</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>b2<span class="sc">$</span>var <span class="ot">&lt;-</span> <span class="fu">factor</span>(b2<span class="sc">$</span>var, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"sample"</span>, <span class="st">"kriging"</span>))</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> b2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> Standard_error)) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>var, <span class="at">as.table =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">sf.colors</span>(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>kriging <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(b<span class="sc">$</span>var1.var)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>b <span class="sc">|&gt;</span> <span class="fu">select</span>(sample, kriging) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pivot_longer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_to =</span> <span class="st">"Standard_error"</span>) <span class="ot">-&gt;</span> b2</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>b2<span class="sc">$</span>var <span class="ot">&lt;-</span> <span class="fu">factor</span>(b2<span class="sc">$</span>var, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"sample"</span>, <span class="st">"kriging"</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> b2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> Standard_error)) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>var, <span class="at">as.table =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">sf.colors</span>(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-aggrSE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-aggrSE-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-aggrSE-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.8: Standard errors for mean NO<span class="math inline">\(_2\)</span> values obtained by simple averaging (left) and block kriging (right)</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>where we see that the simple approach gives clearly more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
 </section>
 <section id="conditional-simulation" class="level2" data-number="12.6">
 <h2 data-number="12.6" class="anchored" data-anchor-id="conditional-simulation"><span class="header-section-number">12.6</span> Conditional simulation</h2>
 <p> </p>
 <p>In case one or more conditional realisation of the field <span class="math inline">\(Z(s)\)</span> are needed rather than their conditional mean, we can obtain this by <em>conditional simulation</em>. A reason for wanting this may be the need to estimate areal mean values of <span class="math inline">\(g(Z(s))\)</span> with <span class="math inline">\(g(\cdot)\)</span> a non-linear function; a simple example is the areal fraction where <span class="math inline">\(Z(s)\)</span> exceeds a threshold.</p>
-<p>The standard approach used by <code>gstat</code> is to use the sequential simulation algorithm for this. This is a simple algorithm that randomly steps through the prediction locations and at each location:</p>
+<p>The default approach used by <code>gstat</code> is to use the sequential simulation algorithm for this. This is a simple algorithm that randomly steps through the prediction locations and at each location:</p>
 <ul>
 <li>carries out a kriging prediction</li>
 <li>draws a random variable from the normal distribution with mean and variance equal to the kriging variance</li>
@@ -613,24 +633,37 @@ div.csl-indent {
 <li>finds a new random simulation location</li>
 </ul>
 <p>until all locations have been visited.</p>
-<p>This is carried out by <code>gstat::krige</code> when <code>nsim</code> is set to a positive value. In addition, it is good to constrain <code>nmax</code>, the (maximum) number of nearest neigbours to include in kriging estimation, because the dataset grows each step, leading otherwise quickly to very long computing times and large memory requirements (<a href="#fig-plotkrigingvalues">Figure&nbsp;<span>12.9</span></a>):</p>
+<p>This is carried out by <code>gstat::krige</code> when <code>nsim</code> is set to a positive value:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd, v.m, <span class="at">nmax =</span> <span class="dv">30</span>, <span class="at">nsim =</span> <span class="dv">6</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing 6 GLS realisations of beta...</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [using conditional Gaussian simulation]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(s <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd, v.m, <span class="at">nmax =</span> <span class="dv">30</span>, <span class="at">nsim =</span> <span class="dv">6</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing 6 GLS realisations of beta...</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [using conditional Gaussian simulation]</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -6.28    5.87   8.39 8.61    11.2 24.1 12456</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># y         1 87 6101239 -10000 WGS 84 / UTM z...          NULL [y]</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sample    1  6      NA     NA                NA sim1,...,sim6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>It is usually needed to constrain the (maximum) number of nearest neigbours to include in kriging estimation by setting <code>nmax</code> because the dataset grows each step, leading otherwise quickly to very long computing times and large memory requirements. Resulting conditional simulations are shown in (<a href="#fig-plotkrigingvalues">Figure&nbsp;<span>12.9</span></a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>() <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> s[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> s[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-plotkrigingvalues" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-plotkrigingvalues-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-plotkrigingvalues-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.9: Six conditional simulations for NO<span class="math inline">\(_2\)</span> values</figcaption><p></p>
 </figure>
 </div>
@@ -642,52 +675,50 @@ div.csl-indent {
 <h2 data-number="12.7" class="anchored" data-anchor-id="trend-models"><span class="header-section-number">12.7</span> Trend models</h2>
 <p></p>
 <p>Kriging and conditional simulation, as used so far in this chapter, assume that all spatial variability is a random process, characterized by a spatial covariance model. In case we have other variables that are meaningfully correlated with the target variable, we can use them in a linear regression model for the trend, <span class="math display">\[
-Z(s) = \sum_{j=0}^p \beta_j X_p(s) + e(s)
-\]</span> with <span class="math inline">\(X_0(s) = 1\)</span> and <span class="math inline">\(\beta_0\)</span> an intercept, but with the other <span class="math inline">\(\beta_j\)</span> regression coefficients. This typically reduces both the spatial correlation in the residual <span class="math inline">\(e(s)\)</span>, as well as its variance, and leads to more accurate predictions and more similar conditional simulations.</p>
+Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
+\]</span> with <span class="math inline">\(X_0(s) = 1\)</span> and <span class="math inline">\(\beta_0\)</span> an intercept, but with the other <span class="math inline">\(\beta_j\)</span> regression coefficients. Adding variables typically reduces both the spatial correlation in the residual <span class="math inline">\(e(s)\)</span>, as well as its variance, and leads to more accurate predictions and more similar conditional simulations. As an example, we will use population density to partly explain variation in NO<span class="math inline">\(_2\)</span>.</p>
 <section id="a-population-grid" class="level3">
 <h3 class="anchored" data-anchor-id="a-population-grid">A population grid</h3>
 <p></p>
-<p>As a potential predictor for NO2 in the air, we use population density. NO2 is mostly caused by traffic, and traffic is stronger in more densely populated areas. Population density is obtained from the <a href="https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html">2011 census</a>, and is downloaded as a csv file with the number of inhabitants per 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</p>
+<p>As a potential predictor for NO<span class="math inline">\(_2\)</span> in the air, we use population density. NO<span class="math inline">\(_2\)</span> is mostly caused by traffic, and traffic is more intense in densely populated areas. Population density is obtained from the <a href="https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html">2011 census</a>, and is downloaded as a csv file with the number of inhabitants per 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> vroom<span class="sc">::</span><span class="fu">vroom</span>(<span class="st">"aq/pop/Zensus_Bevoelkerung_100m-Gitter.csv"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>v <span class="sc">|&gt;</span> <span class="fu">filter</span>(Einwohner <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>Gitter_ID_100m) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x_mp_100m"</span>, <span class="st">"y_mp_100m"</span>), <span class="at">crs =</span> <span class="dv">3035</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(grd)) <span class="ot">-&gt;</span> b</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(b, <span class="fu">st_as_sf</span>(grd, <span class="at">na.rm =</span> <span class="cn">FALSE</span>), sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> vroom<span class="sc">::</span><span class="fu">vroom</span>(<span class="st">"aq/pop/Zensus_Bevoelkerung_100m-Gitter.csv"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>v <span class="sc">|&gt;</span> <span class="fu">filter</span>(Einwohner <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>Gitter_ID_100m) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x_mp_100m"</span>, <span class="st">"y_mp_100m"</span>), <span class="at">crs =</span> <span class="dv">3035</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(grd)) <span class="ot">-&gt;</span> b</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(b, <span class="fu">st_as_sf</span>(grd, <span class="at">na.rm =</span> <span class="cn">FALSE</span>), sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Now we have the population counts per grid cell in <code>a</code>. To get to population density, we need to find the area of each cell; for cells crossing the country border, this will be less than 10 <span class="math inline">\(\times\)</span> 10 km:</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">prod</span>(<span class="fu">dim</span>(grd)) <span class="co"># to identify grid cells</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ii <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(grd[<span class="st">"ID"</span>],</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="fu">st_union</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">as_points =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>grd_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(grd[<span class="st">"ID"</span>], <span class="at">na.rm =</span> <span class="cn">FALSE</span>)[<span class="fu">lengths</span>(ii) <span class="sc">&gt;</span> <span class="dv">0</span>,]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_agr</span>(grd_sf) <span class="ot">=</span> <span class="st">"identity"</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>iii <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(grd_sf, <span class="fu">st_union</span>(de))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area <span class="ot">&lt;-</span> <span class="fu">st_area</span>(grd)[[<span class="dv">1</span>]] <span class="sc">+</span> </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    units<span class="sc">::</span><span class="fu">set_units</span>(grd<span class="sc">$</span>values, m<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area[iii<span class="sc">$</span>ID] <span class="ot">&lt;-</span> <span class="fu">st_area</span>(iii)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now we have the population counts per grid cell in <code>a</code>. To get to population density, we need to find the area of each cell; for cells crossing the country border, this will be less than 10 x 10 km:</p>
+<p>Instead of doing the two-stage procedure above: first finding cells that have a border crossing it, then computing its area, we could also directly use <code>st_intersection</code> on all cells, but that takes considerably longer. From the counts and areas we can compute densities (<a href="#fig-popdens">Figure&nbsp;<span>12.10</span></a>), and verify totals</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">prod</span>(<span class="fu">dim</span>(grd)) <span class="co"># to find out which grid cell we have</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ii <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(grd[<span class="st">"ID"</span>], </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">st_cast</span>(<span class="fu">st_union</span>(de), <span class="st">"MULTILINESTRING"</span>))</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in st_intersects.stars(grd["ID"], st_cast(st_union(de),</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># "MULTILINESTRING")): as_points is NA: assuming here that raster</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># cells are small polygons, not points</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>grd_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(grd[<span class="st">"ID"</span>], <span class="at">na.rm =</span> <span class="cn">FALSE</span>)[<span class="fu">lengths</span>(ii) <span class="sc">&gt;</span> <span class="dv">0</span>,]</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>iii <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(grd_sf, <span class="fu">st_union</span>(de))</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: attribute variables are assumed to be spatially constant</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># throughout all geometries</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area <span class="ot">&lt;-</span> <span class="fu">st_area</span>(grd)[[<span class="dv">1</span>]] <span class="sc">+</span> units<span class="sc">::</span><span class="fu">set_units</span>(grd<span class="sc">$</span>values, m<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area[iii<span class="sc">$</span>ID] <span class="ot">&lt;-</span> <span class="fu">st_area</span>(iii)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>pop_dens <span class="ot">&lt;-</span> a<span class="sc">$</span>Einwohner <span class="sc">/</span> grd<span class="sc">$</span>area</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(grd<span class="sc">$</span>pop_dens <span class="sc">*</span> grd<span class="sc">$</span>area, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># verify</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 80323301 [1]</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(b<span class="sc">$</span>Einwohner)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 80324282</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Instead of doing the two-stage procedure above: first finding cells that have a border crossing it, then computing its area, we could also directly use <code>st_intersection</code> on all cells, but that takes considerably longer. From the counts and areas we can compute densities, and verify totals (<a href="#fig-popdens">Figure&nbsp;<span>12.10</span></a>) :</p>
+<p>which indicates we did not loose many: using <code>st_interpolate_aw</code> should have given an exact match.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>pop_dens <span class="ot">&lt;-</span> a<span class="sc">$</span>Einwohner <span class="sc">/</span> grd<span class="sc">$</span>area</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(grd<span class="sc">$</span>pop_dens <span class="sc">*</span> grd<span class="sc">$</span>area, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># verify</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 80323301 [1]</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(b<span class="sc">$</span>Einwohner)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 80324282</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> grd, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">sqrt</span>(pop_dens), <span class="at">x =</span> x, <span class="at">y =</span> y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> grd, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">sqrt</span>(pop_dens), <span class="at">x =</span> x, <span class="at">y =</span> y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-popdens" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-popdens-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-popdens-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.10: Population density for 100 m $ imes$ 100 m grid cells</figcaption><p></p>
 </figure>
 </div>
@@ -696,87 +727,102 @@ Z(s) = \sum_{j=0}^p \beta_j X_p(s) + e(s)
 <p>We need to divide the number of inhabitants by the number of 100 m grid points contributing to it, in order to convert population counts into population density.</p>
 <p> To obtain population density values at monitoring network stations, we can use <code>st_extract</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>grd <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">"pop_dens"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_extract</span>(no2.sf) <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(<span class="st">"pop_dens"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(no2.sf, <span class="at">pop_dens =</span> _) <span class="ot">-&gt;</span> no2.sf</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(NO2<span class="sc">~</span><span class="fu">sqrt</span>(pop_dens), no2.sf))</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Call:</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># lm(formula = NO2 ~ sqrt(pop_dens), data = no2.sf)</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals:</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#    Min     1Q Median     3Q    Max </span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># -7.990 -2.052 -0.505  1.610  8.095 </span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients:</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#                Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># (Intercept)       4.537      0.685    6.62  5.5e-09 ***</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrt(pop_dens)  326.154     49.366    6.61  5.8e-09 ***</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual standard error: 3.13 on 72 degrees of freedom</span></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared:  0.377,   Adjusted R-squared:  0.369 </span></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co"># F-statistic: 43.7 on 1 and 72 DF,  p-value: 5.82e-09</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>grd <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">"pop_dens"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_extract</span>(no2.sf) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(<span class="st">"pop_dens"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(no2.sf, <span class="at">pop_dens =</span> _) <span class="ot">-&gt;</span> no2.sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and the corresponding scatterplot is shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
-<div class="cell" data-fig="true">
+<p>We can then investigate the linear relationship between NO<span class="math inline">\(_2\)</span> and population density at monitoring station locations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(NO2<span class="sc">~</span><span class="fu">sqrt</span>(pop_dens), no2.sf))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Call:</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lm(formula = NO2 ~ sqrt(pop_dens), data = no2.sf)</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals:</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    Min     1Q Median     3Q    Max </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># -7.990 -2.052 -0.505  1.610  8.095 </span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients:</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># (Intercept)       4.537      0.685    6.62  5.5e-09 ***</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrt(pop_dens)  326.154     49.366    6.61  5.8e-09 ***</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ---</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual standard error: 3.13 on 72 degrees of freedom</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple R-squared:  0.377,   Adjusted R-squared:  0.369 </span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># F-statistic: 43.7 on 1 and 72 DF,  p-value: 5.82e-09</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>for which the corresponding scatterplot is shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-no2scat" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-no2scat-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.11: Scatter plot of 2017 annual mean NO2 concentration against population density, for rural background air quality stations</figcaption><p></p>
+<p><img src="12-Interpolation_files/figure-html/fig-no2scat-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12.11: Scatter plot of 2017 annual mean NO<span class="math inline">\(_2\)</span> concentration against population density, for rural background air quality stations</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p> Prediction under this new model involves first modelling a residual variogram (<a href="#fig-predictusingpopulationdensity">Figure&nbsp;<span>12.12</span></a>) :</p>
+<p> Prediction under this new model involves first modelling a residual variogram</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>no2.sf <span class="ot">&lt;-</span> no2.sf[<span class="sc">!</span><span class="fu">is.na</span>(no2.sf<span class="sc">$</span>pop_dens),]</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="fu">sqrt</span>(pop_dens), no2.sf)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>vr.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(vr, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>which is shown in (<a href="#fig-predictusingpopulationdensity">Figure&nbsp;<span>12.12</span></a>).</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vr, vr.m, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-predictusingpopulationdensity" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-predictusingpopulationdensity-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-predictusingpopulationdensity-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.12: Residual variogram after subtracting population density trend</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>and subsequently, kriging prediction is done by (<a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a>)</p>
+<p>Subsequently, kriging prediction (<a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a>) is done by</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kr <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf, grd[<span class="st">"pop_dens"</span>], vr.m)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [using universal kriging]</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kr1 <span class="ot">&lt;-</span> k<span class="sc">$</span>var1.pred</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kr2 <span class="ot">&lt;-</span> kr<span class="sc">$</span>var1.pred</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_redimension</span>(k[<span class="fu">c</span>(<span class="st">"kr1"</span>, <span class="st">"kr2"</span>)], </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">along =</span> <span class="fu">list</span>(<span class="at">what =</span> <span class="fu">c</span>(<span class="st">"kriging"</span>, <span class="st">"residual kriging"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="st">"NO2"</span>) <span class="ot">-&gt;</span> km</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kr <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>            grd[<span class="st">"pop_dens"</span>], vr.m)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [using universal kriging]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> km, <span class="fu">aes</span>(<span class="at">fill =</span> NO2, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>what) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kr1 <span class="ot">&lt;-</span> k<span class="sc">$</span>var1.pred</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kr2 <span class="ot">&lt;-</span> kr<span class="sc">$</span>var1.pred</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_redimension</span>(k[<span class="fu">c</span>(<span class="st">"kr1"</span>, <span class="st">"kr2"</span>)], </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">along =</span> <span class="fu">list</span>(<span class="at">what =</span> <span class="fu">c</span>(<span class="st">"kriging"</span>, <span class="st">"residual kriging"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="st">"NO2"</span>) <span class="ot">-&gt;</span> km</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> km, <span class="fu">aes</span>(<span class="at">fill =</span> NO2, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>what) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-residualkriging" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="12-Interpolation_files/figure-html/fig-residualkriging-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12-Interpolation_files/figure-html/fig-residualkriging-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.13: Kriging NO<span class="math inline">\(_2\)</span> values using population density as a trend variable</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>where, critically, the <code>pop_dens</code> values are now available for prediction locations in object <code>grd</code>. We see some clear differences: the map with population density in the trend follows the extremes of the population density rather than those of the measurement stations, and has a range that extends that of the former. It should be taken with a large grain of salt however, since the stations used were filtered for the category “rural background”, indicating that they represent conditions of lower populations density. The scatter plot of <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a> reveals that the the population density at the locations of stations is much more limited than that in the population density map, and hence the right-hand side map is based on strongly extrapolating the relationship shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
+<p>where, critically, the <code>pop_dens</code> values are now available for prediction locations in the <code>newdata</code> object <code>grd</code>.</p>
+<p>Compared to (ordinary) kriging We see some clear differences: the map using population density in the trend follows the extremes of the population density rather than those of the measurement stations, and has a value range that extends that of ordinary kriging. It should be taken with a large grain of salt however, since the stations used were filtered for the category “rural background”, indicating that they only represent conditions of lower populations density. The scatter plot of <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a> reveals that the the population density at the locations of stations is much more limited than that in the population density map, and hence the right-hand side map is based on strongly extrapolating the relationship shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
 </section>
 </section>
 <section id="exercises" class="level2" data-number="12.8">
@@ -786,7 +832,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_p(s) + e(s)
 <li>Create a scatter plot of the map values of the idw and kriging map, and a scatter plot of map values of idw and residual kriging.</li>
 <li>Carry out a <em>block kriging</em>, predicting block averages for blocks centered over grid cells, by setting the <code>block</code> argument in <code>krige()</code>, and do this for block sizes of 10 km (the grid cell size), 50 km and 200 km. Compare the resulting maps of estimates for these three blocks sizes with those obtained by point kriging, and do the same thing for all associated kriging standard errors.</li>
 <li>Based on the residual kriging results obtained above, compute maps of the lower and upper boundary of a 95% confidence interval, when assuming that the kriging error is normally distributed, and show them in a plot with a single (joint) legend</li>
-<li>Compute and show the map with the probabilities that NO2 point values exceed the level of 15 ppm, assuming normally distributed kriging errors.</li>
+<li>Compute and show the map with the probabilities that NO<span class="math inline">\(_2\)</span> point values exceed the level of 15 ppm, assuming normally distributed kriging errors.</li>
 </ol>
 
 
@@ -795,7 +841,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_p(s) + e(s)
 Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. John Wiley &amp; Sons.
 </div>
 <div id="ref-JSSv055i09" class="csl-entry" role="doc-biblioentry">
-Davies, Tilman, and David Bryant. 2013. <span>“On Circulant Embedding for Gaussian Random Fields in r.”</span> <em>Journal of Statistical Software, Articles</em> 55 (9): 1–21. <a href="https://doi.org/10.18637/jss.v055.i09">https://doi.org/10.18637/jss.v055.i09</a>.
+Davies, Tilman, and David Bryant. 2013. <span>“On Circulant Embedding for Gaussian Random Fields in <span>R</span>.”</span> <em>Journal of Statistical Software, Articles</em> 55 (9): 1–21. <a href="https://doi.org/10.18637/jss.v055.i09">https://doi.org/10.18637/jss.v055.i09</a>.
 </div>
 <div id="ref-Diggle:2007" class="csl-entry" role="doc-biblioentry">
 Diggle, P. J., and P. J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York: Springer.
@@ -819,7 +865,7 @@ Pebesma, Edzer, and Benedikt Graeler. 2022. <em>Gstat: Spatial and Spatio-Tempor
 Schlather, Martin. 2011. <span>“Construction of Covariance Functions and Unconditional Simulation of Random Fields.”</span> In <em>Porcu, e., Montero, j.m. And Schlather, m., Space-Time Processes and Challenges Related to Environmental Problems</em>. New York: Springer.
 </div>
 <div id="ref-wikle2019spatio" class="csl-entry" role="doc-biblioentry">
-Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-Temporal Statistics with r</em>. CRC Press.
+Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-Temporal Statistics with <span>R</span></em>. CRC Press.
 </div>
 </div>
 </section>

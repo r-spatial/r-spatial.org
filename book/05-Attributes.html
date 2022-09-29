@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -339,8 +343,9 @@ div.csl-indent {
   <li><a href="#support-in-file-formats" id="toc-support-in-file-formats" class="nav-link" data-scroll-target="#support-in-file-formats">Support in file formats</a></li>
   </ul></li>
   <li><a href="#sec-updownscaling" id="toc-sec-updownscaling" class="nav-link" data-scroll-target="#sec-updownscaling"><span class="toc-section-number">5.4</span>  Up- and Downscaling</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">5.5</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/05-Attributes.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -378,8 +383,8 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package=</span><span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="dv">32119</span>) <span class="sc">|&gt;</span></span>
@@ -413,7 +418,7 @@ div.csl-indent {
 <li>elevation class in a elevation map that shows elevation as classes</li>
 <li>climate zone in a climate zone map</li>
 </ul>
-<p>A typical property of such variables is that they have geometries that are not man-made and also not associated with a sensor device (such as remote sensing image pixel boundaries). Instead, the geometry follows from the variable observed.</p>
+<p>A typical property of such variables is that they have geometries that are not man-made and also not associated with a sensor device (such as remote sensing image pixel boundaries). Instead, the geometry follows from mapping the variable observed.</p>
 <p>Examples for the <strong>aggregate</strong> AGR (block support) variables are:</p>
 <ul>
 <li>population, either as number of persons or as population density</li>
@@ -440,7 +445,7 @@ div.csl-indent {
 <li>points may refer to sample locations of observations on fields (air quality) or to locations of objects</li>
 <li>lines may be used for objects (roads, rivers), contours of a field, or administrative borders</li>
 <li>raster pixels and polygons may reflect fields of a categorical variable such as land use (<em>coverage</em>), but also aggregates such as population density</li>
-<li>raster or other mesh triangulations may have different variables associated with either nodes (points), edges (lines) or faces (areas, cells) for instance when they were used to approximate partial differential equations <span class="citation" data-cites="Haltiner">Collins et al. (<a href="references.html#ref-Collins13" role="doc-biblioref">2013</a>)</span></li>
+<li>raster or other mesh triangulations may have different variables associated with either nodes (points), edges (lines) or faces (areas, cells) for instance when partial differential equations are approximated using <em>staggered grids</em> <span class="citation" data-cites="Haltiner Collins13">(<a href="references.html#ref-Haltiner" role="doc-biblioref">Haltiner and Williams 1980</a>; <a href="references.html#ref-Collins13" role="doc-biblioref">Collins et al. 2013</a>)</span></li>
 </ul>
 <p>Properly specifying attribute-geometry relationships, and warning against their absence or cases when change in geometry (change of support) implies a change of information can help avoiding a large class of common spatial data analysis mistakes <span class="citation" data-cites="stasch2014">(<a href="references.html#ref-stasch2014" role="doc-biblioref">Stasch et al. 2014</a>)</span> associated with the <em>support</em> of spatial data.</p>
 </section>
@@ -454,8 +459,8 @@ div.csl-indent {
 <p>In SQL, this looks for instance like</p>
 <pre><code>SELECT GroupID, SUM(population) FROM table GROUP BY GroupID;</code></pre>
 <p>indicating the aggregation <em>function</em> (<code>SUM</code>) and the <em>grouping predicate</em> (<code>GroupID</code>).</p>
-<p>R package <code>dplyr</code> for instance uses two steps to accomplish this: function <code>group_by</code> specifies the group membership of records, <code>summarize</code> computes data summaries (such as <code>sum</code> or <code>mean</code>) for each of the groups. R (base) function <code>aggregate</code> does both in a single function that takes the data table, the grouping predicate(s) and the aggregation function.</p>
-<p>An example for the North Carolina counties is shown in <a href="#fig-ncaggregation">Figure&nbsp;<span>5.1</span></a>. Here, we grouped counties by their position (according to the quadrant in which the county centroid is with respect to ellipsoidal coordinate <code>POINT(-79, 35.5)</code>) and counted the number of disease cases per group. The result shows that the geometries of the resulting groups have been unioned (<a href="03-Geometries.html#sec-bintrans"><span>Section&nbsp;3.2.6</span></a>): this is necessary because the <code>MULTIPOLYGON</code> formed by just putting all the county geometries together would have many duplicate boundaries, and hence not be <em>valid</em> (<a href="03-Geometries.html#sec-valid"><span>Section&nbsp;3.1.2</span></a>).</p>
+<p>R package <code>dplyr</code> for instance uses two steps to accomplish this: function <code>group_by</code> specifies the group membership of records, <code>summarize</code> computes data summaries (such as <code>sum</code> or <code>mean</code>) for each of the groups. The (base) R method <code>aggregate</code> combines both in a single function call that takes the table, the grouping predicate(s) and the aggregation function(s) as arguments.</p>
+<p>An example for the North Carolina counties is shown in <a href="#fig-ncaggregation">Figure&nbsp;<span>5.1</span></a>. Here, we grouped counties by their position (according to the quadrant in which the county centroid is with respect to ellipsoidal coordinate <code>POINT(-79, 35.5)</code>) and summed the number of disease cases per group. The result shows that the geometries of the resulting groups have been unioned (<a href="03-Geometries.html#sec-bintrans"><span>Section&nbsp;3.2.6</span></a>): this is necessary because the <code>MULTIPOLYGON</code> formed by just putting all the county geometries together would have many duplicate boundaries, and hence not be <em>valid</em> (<a href="03-Geometries.html#sec-valid"><span>Section&nbsp;3.1.2</span></a>).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -469,14 +474,14 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-ncaggregation" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="05-Attributes_files/figure-html/fig-ncaggregation-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5.1: SID74 counts by county quadrant, with county polygons unioned by county quadrant</figcaption><p></p>
+<p><img src="05-Attributes_files/figure-html/fig-ncaggregation-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5.1: SID74 total incidences aggregated to four areas</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Plotting collated county polygons is technically not a problem, but for this case would raise the wrong suggestion that the group sums relate to the counties, and not the group of counties.</p>
-<p>One particular property of aggregation in this way is that each record is assigned to a single group; this has the advantage that the sum of the group-wise sums equals the sum of the ungrouped data: for variables that reflect <em>amount</em>, nothing gets lost and nothing is added. The newly formed geometry is the result of unioning the geometries of the records.</p>
+<p>Plotting collated county polygons is technically not a problem, but for this case would raise the wrong suggestion that the group sums relate to individual counties, rather than to the grouped counties.</p>
+<p>One particular property of aggregation in this way is that each record is assigned to a single group; this has the advantage that the sum of the group-wise sums equals the sum of the ungrouped data: for variables that reflect <em>amount</em>, nothing gets lost and nothing is added. The newly formed geometry is the result of unioning the geometries of the contributing records.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -490,8 +495,8 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-ncblocks" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="05-Attributes_files/figure-html/fig-ncblocks-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5.2: example target blocks layed out over North Carolina counties</figcaption><p></p>
+<p><img src="05-Attributes_files/figure-html/fig-ncblocks-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5.2: Example target blocks layed out over North Carolina counties</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -507,17 +512,18 @@ div.csl-indent {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                  667                 2621</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Choosing another predicate, e.g.&nbsp;<em>contains</em> or <em>covers</em> would on the contrary result in much smaller values, because many counties are not contained by <em>any</em> the target geometries. However, there are a few cases where this approach might be good or satisfactory:</p>
+<p>Choosing another predicate, e.g.&nbsp;<em>contains</em> or <em>covers</em> would on the contrary result in much smaller values, because many counties are not contained by <em>any</em> of the target geometries. However, there are a few cases where this approach might be good or satisfactory:</p>
 <ul>
-<li>when we want to aggregate <code>POINT</code> geometries by a set of polygons, and all points are contained by a single polygon. If points fall on a shared boundary than they are assigned to both polygons (this is the case for DE-9IM-based GEOS library; the s2geometry library has the option to define polygons as “semi-open”, which implies that points are assigned to single polygons when the polygons form a coverage)</li>
-<li>when aggregating many very small polygons or raster pixels over larger areas, e.g.&nbsp;averaging altitude from 30 m resolution raster over North Carolina counties, the error made by multiple matches may be insignificant</li>
+<li>when we want to aggregate <code>POINT</code> geometries by a set of polygons, and all points are contained by a single polygon. If points fall on a shared boundary than they are assigned to both polygons (this is the case for DE-9IM-based GEOS library; the s2geometry library has the option to define polygons as “semi-open”, which implies that points are assigned to maximally one polygons when polygons do not overlap)</li>
+<li>when aggregating many very small polygons or raster pixels over larger areas, e.g.&nbsp;<em>averaging</em> altitude from 30 m resolution raster over North Carolina counties, the error made by multiple matches may be insignificant</li>
+<li>when the many-to-many match is reduced to the single largest area match, as shown in <a href="07-Introsf.html#fig-largest">Figure&nbsp;<span>7.4</span></a></li>
 </ul>
 <p>A more comprehensive approach to aggregating spatial data associated to areas to larger, arbitrary shaped areas is by using area-weighted interpolation.</p>
 </section>
 <section id="sec-area-weighted" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="sec-area-weighted"><span class="header-section-number">5.3</span> Area-weighted interpolation</h2>
 <p> </p>
-<p>When we want to combine geometries and attributes of two datasets such that we get attribute values of a source dataset summarised for the geometries of a target, where source and target geometries are unrelated, area-weighted interpolation may be a simple approach. In effect, it considers the area of overlap of the source and target geometries, and uses that to weight the source attribute values into the target value <span class="citation" data-cites="goodchild thomas do Do2021">(<a href="references.html#ref-goodchild" role="doc-biblioref">Goodchild and Lam 1980</a>; <a href="references.html#ref-thomas" role="doc-biblioref">Do, Thomas-Agnan, and Vanhems 2015a</a>, <a href="references.html#ref-do" role="doc-biblioref">2015b</a>; <a href="references.html#ref-Do2021" role="doc-biblioref">Do, Laurent, and Vanhems 2021</a>)</span>. Here, we follow the notation of <span class="citation" data-cites="do">Do, Thomas-Agnan, and Vanhems (<a href="references.html#ref-do" role="doc-biblioref">2015b</a>)</span>.</p>
+<p>When we want to combine geometries and attributes of two datasets such that we get attribute values of a source dataset summarised for the geometries of a target, where source and target geometries are unrelated, area-weighted interpolation may be a simple approach. In effect, it considers the area of overlap of the source and target geometries, and uses that to weigh the source attribute values into the target value <span class="citation" data-cites="goodchild thomas do Do2021">(<a href="references.html#ref-goodchild" role="doc-biblioref">Goodchild and Lam 1980</a>; <a href="references.html#ref-thomas" role="doc-biblioref">Do, Thomas-Agnan, and Vanhems 2015a</a>, <a href="references.html#ref-do" role="doc-biblioref">2015b</a>; <a href="references.html#ref-Do2021" role="doc-biblioref">Do, Laurent, and Vanhems 2021</a>)</span>. This methods is also known as conservative region aggregation or regridding <span class="citation" data-cites="conservative">(<a href="references.html#ref-conservative" role="doc-biblioref">Jones 1999</a>)</span>. Here, we follow the notation of <span class="citation" data-cites="do">Do, Thomas-Agnan, and Vanhems (<a href="references.html#ref-do" role="doc-biblioref">2015b</a>)</span>.</p>
 <p>Area-weighted interpolation computes, for each of <span class="math inline">\(q\)</span> spatial target areas <span class="math inline">\(T_j\)</span>, a weighted average from the values <span class="math inline">\(Y_i\)</span> corresponding to the <span class="math inline">\(p\)</span> spatial source areas <span class="math inline">\(S_i\)</span>,</p>
 <p><span id="eq-aw"><span class="math display">\[
 \hat{Y}_j(T_j) = \sum_{i=1}^p w_{ij} Y_i(S_i)
@@ -528,14 +534,14 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sec-extensiveintensive">Spatially extensive and intensive variables</h3>
 <p> </p>
 <p>An example of a extensive variable is <em>population count</em>. It is associated with an area, and if that area is cut into smaller areas, the population count is split accordingly: not necessary proportional to area, because population is rarely uniform, but split in such a way that the sum of the population count for the smaller areas equals that of the total. An example of a related variable that is <em>intensive</em> is population density. If an area is split into smaller areas, population density is not split similarly: the sum of the population densities for the smaller areas is a meaningless measure, as opposed to the average of the population densities which will be similar to the density of the total area.</p>
-<p>Extensive variables correspond to amounts, associated with a physical size (length, area, volume); for <em>spatially</em> extensive variables, if the area a value corresponds to is cut in parts, the values associated with the sub-area are split accordingly. In other words: the value is proportional to the support. Intensive variables are variables that do not have values proportional to support: if the area is split, values may vary but <em>on average</em> remain the same. The corresponding example of an intensive variable is <em>population density</em>: when we split an area into sub-areas, the sub-areas either have identical population densities (in case population is uniformly distributed) or, more realistically, have <em>varying</em> population densities that by necessity are both higher and lower than the density of the total area.</p>
-<p>When we assume that the extensive variable <span class="math inline">\(Y\)</span> is uniformly distributed over space, the value <span class="math inline">\(Y_{ij}\)</span>, derived from <span class="math inline">\(Y_i\)</span> for a sub-area of <span class="math inline">\(S_i\)</span>, <span class="math inline">\(A_{ij} = T_j \cap S_i\)</span> of <span class="math inline">\(S_i\)</span> is</p>
+<p>Extensive variables correspond to amounts, associated with a physical size (length, area, volume); for <em>spatially</em> extensive variables, if the area to which a value corresponds is cut in parts, the values associated with the sub-area are split accordingly. In other words: the value is proportional to the support. Intensive variables are variables that do not have values proportional to support: if the area is split, values may vary but <em>on average</em> remain the same. The corresponding example of an intensive variable is <em>population density</em>: when we split an area into sub-areas, the sub-areas either have identical population densities (in case population is uniformly distributed) or, more realistically, have values that vary around the mean of the entire area.</p>
+<p>When we assume that the <strong>extensive</strong> variable <span class="math inline">\(Y\)</span> is uniformly distributed over space, the value <span class="math inline">\(Y_{ij}\)</span>, derived from <span class="math inline">\(Y_i\)</span> for a sub-area of <span class="math inline">\(S_i\)</span>, <span class="math inline">\(A_{ij} = T_j \cap S_i\)</span> of <span class="math inline">\(S_i\)</span> is</p>
 <p><span class="math display">\[\hat{Y}_{ij}(A_{ij}) = \frac{|A_{ij}|}{|S_i|} Y_i(S_i)\]</span></p>
 <p>where <span class="math inline">\(|\cdot|\)</span> denotes the spatial area. For estimating <span class="math inline">\(Y_j(T_j)\)</span> we sum all the elements over area <span class="math inline">\(T_j\)</span>:</p>
 <p><span id="eq-awextensive"><span class="math display">\[
 \hat{Y}_j(T_j) = \sum_{i=1}^p \frac{|A_{ij}|}{|S_i|} Y_i(S_i)
 \tag{5.2}\]</span></span></p>
-<p>For an intensive variable, under the assumption that the variable has a constant value over each area <span class="math inline">\(S_i\)</span>, the estimate for a sub-area equals that of the total,</p>
+<p>For an <strong>intensive</strong> variable, under the assumption that the variable has a constant value over each area <span class="math inline">\(S_i\)</span>, the estimate for a sub-area equals that of the total area,</p>
 <p><span class="math display">\[\hat{Y}_{ij} = Y_i(S_i)\]</span></p>
 <p>and we can estimate the value of <span class="math inline">\(Y\)</span> for a new spatial unit <span class="math inline">\(T_j\)</span> by an area-weighted average of the source values:</p>
 <p><span id="eq-awintensive"><span class="math display">\[
@@ -556,29 +562,29 @@ div.csl-indent {
 <section id="sec-updownscaling" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="sec-updownscaling"><span class="header-section-number">5.4</span> Up- and Downscaling</h2>
 <p> </p>
-<p>Up- and downscaling refers in general to obtaining high-resolution information from low-resolution data (downscaling) or obtaining low-resolution information from high-resolution data (upscaling). Both are activities involve attributes’ relation to geometries and both change support. They are synonymous with aggregation (upscaling) and disaggregation (downscaling).</p>
-<p>The simplest form of downscaling is sampling (or extracting) polygon, line or grid cell values at point locations. This works well for variables with point-support (“constant” AGR), but is at best approximate when the values are aggregates.</p>
-<p>Challenging applications for downscaling include high-resolution prediction of variables obtained by low-resolution weather prediction models or climate change models, and the high-resolution prediction of satellite image derived variables based on the fusion of sensors with different spatial and temporal resolutions.</p>
-<p>The application of areal interpolation using (<a href="#eq-aw">Equation&nbsp;<span>5.1</span></a>) with its realisations for extensive (<a href="#eq-awextensive">Equation&nbsp;<span>5.2</span></a>) and intensive (<a href="#eq-awintensive">Equation&nbsp;<span>5.3</span></a>) variables allows moving information from any source area <span class="math inline">\(S_i\)</span> to any target area <span class="math inline">\(T_j\)</span> as long as the two areas have some overlap. This means that one can go arbitrarily to much larger units (aggregation) or to much smaller units (disaggregation). Of course this makes only sense to the extent that the assumptions hold: over the source regions extensive variables need to be uniformly distributed and intensive variables need to have constant value.</p>
-<p>The ultimate disaggregation involves retrieving (extracting) point values from line or area data. For this, we cannot work with equations (<a href="#eq-awextensive">Equation&nbsp;<span>5.2</span></a>) or (<a href="#eq-awintensive">Equation&nbsp;<span>5.3</span></a>) because <span class="math inline">\(|A_{ij}| = 0\)</span> for points, but under the assumption of having a constant value over the geometry, for intensive variables the value <span class="math inline">\(Y_i(S_i)\)</span> can be assigned to points as long as all points can be uniquely assigned to a single source area <span class="math inline">\(S_i\)</span>. For polygon data, this implies that <span class="math inline">\(Y\)</span> needs to be a coverage variable (<a href="03-Geometries.html#sec-coverages"><span>Section&nbsp;3.4</span></a>).</p>
-<p>In cases where values associated with areas are <strong>aggregate</strong> values over the area, the assumptions made by area-weighted interpolation or dasymetric mapping – uniformity or constant values over the source areas – are highly unrealistic. In such cases, these simple approaches still be reasonable approximations, for instance when:</p>
+<p>Up- and downscaling refers in general to obtaining high-resolution information from low-resolution data (downscaling) or obtaining low-resolution information from high-resolution data (upscaling). Both activities involve attributes’ relation to geometries and both change support. They are synonymous with aggregation (upscaling) and disaggregation (downscaling). The simplest form of downscaling is sampling (or extracting) polygon, line or grid cell values at point locations. This works well for variables with point-support (“constant” AGR), but is at best approximate when the values are aggregates. Challenging applications for downscaling include high-resolution prediction of variables obtained by low-resolution weather prediction models or climate change models, and the high-resolution prediction of satellite image derived variables based on the fusion of sensors with different spatial and temporal resolutions.</p>
+<p>The application of areal interpolation using (<a href="#eq-aw">Equation&nbsp;<span>5.1</span></a>) with its realisations for extensive (<a href="#eq-awextensive">Equation&nbsp;<span>5.2</span></a>) and intensive (<a href="#eq-awintensive">Equation&nbsp;<span>5.3</span></a>) variables allows moving information from any source area <span class="math inline">\(S_i\)</span> to any target area <span class="math inline">\(T_j\)</span> as long as the two areas have some overlap. This means that one can go arbitrarily to much larger units (aggregation) or to much smaller units (disaggregation). Of course this makes only sense to the extent that the assumptions hold: over the source regions extensive variables need to be uniformly distributed and intensive variables need to have a constant value.</p>
+<p>The ultimate disaggregation involves retrieving (extracting) point values from line or area data. For this, we cannot work with equations (<a href="#eq-awextensive">Equation&nbsp;<span>5.2</span></a>) or (<a href="#eq-awintensive">Equation&nbsp;<span>5.3</span></a>) because <span class="math inline">\(|A_{ij}| = 0\)</span> for points, but under the assumption of having a constant value over the geometry, for intensive variables the value <span class="math inline">\(Y_i(S_i)\)</span> can be assigned to points as long as all points can be uniquely assigned to a single source area <span class="math inline">\(S_i\)</span>. For polygon data, this implies that <span class="math inline">\(Y\)</span> needs to be a coverage variable (<a href="03-Geometries.html#sec-coverages"><span>Section&nbsp;3.4</span></a>). For extensive variables, extracting a value at a point is rather meaningless as it should always give a zero value.</p>
+<p>In cases where values associated with areas are <strong>aggregate</strong> values over the area, the assumptions made by area-weighted interpolation or dasymetric mapping – uniformity or constant values over the source areas – are highly unrealistic. In such cases, these simple approaches could still be reasonable approximations, for instance when:</p>
 <ul>
 <li>the source and target area are nearly identical</li>
 <li>the variability inside source units is very small, and the variable is nearly uniform or constant</li>
 </ul>
 <p>In other cases, results obtained using these methods are merely consequences of unjustified assumptions. Statistical aggregation methods that can estimate quantities for larger regions from points or smaller regions include:</p>
 <ul>
-<li>design-based methods, which require that a probability sample is available from the target region, with known inclusion probabilities (<span class="citation" data-cites="brus2021">Brus (<a href="references.html#ref-brus2021" role="doc-biblioref">2021</a>)</span>, <a href="10-Models.html#sec-design"><span>Section&nbsp;10.1</span></a>), and</li>
+<li>design-based methods, which require that a probability sample is available from the target region, with known inclusion probabilities (<span class="citation" data-cites="brus2021">Brus (<a href="references.html#ref-brus2021" role="doc-biblioref">2021</a>)</span>, <a href="10-Models.html#sec-design"><span>Section&nbsp;10.2</span></a>), and</li>
 <li>model-based methods, which assume a random field model with spatially correlated values (block kriging, <a href="12-Interpolation.html#sec-blockkriging"><span>Section&nbsp;12.5</span></a>)</li>
 </ul>
 <p></p>
 <p>Alternative disaggregation methods include:</p>
 <ul>
 <li>deterministic, smoothing-based approaches such as kernel- or spline-based smoothing methods <span class="citation" data-cites="toblerpyc martin89">(<a href="references.html#ref-toblerpyc" role="doc-biblioref">Tobler 1979</a>; <a href="references.html#ref-martin89" role="doc-biblioref">Martin 1989</a>)</span></li>
-<li>statistical, model-based approaches: area-to-area and area-to-point kriging <span class="citation" data-cites="kyriakidis04 stcos">(<a href="references.html#ref-kyriakidis04" role="doc-biblioref">Kyriakidis 2004</a>; <a href="references.html#ref-stcos" role="doc-biblioref">Raim et al. 2021</a>)</span>.<br>
-## Exercises</li>
+<li>statistical, model-based approaches such as area-to-area and area-to-point kriging <span class="citation" data-cites="kyriakidis04 stcos">(<a href="references.html#ref-kyriakidis04" role="doc-biblioref">Kyriakidis 2004</a>; <a href="references.html#ref-stcos" role="doc-biblioref">Raim et al. 2021</a>)</span>.</li>
 </ul>
 <p></p>
+</section>
+<section id="exercises" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.5</span> Exercises</h2>
 <p>Where relevant, try to make the following exercises with R.</p>
 <ol type="1">
 <li>When we add a variable to the <code>nc</code> dataset by <code>nc$State = "North Carolina"</code> (i.e., all counties get assigned the same state name). Which value would you attach to this variable for the attribute-geometry relationship (agr)?</li>
@@ -599,8 +605,8 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-awiex" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="05-Attributes_files/figure-html/fig-awiex-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5.3: example data for area-weighted interpolation</figcaption><p></p>
+<p><img src="05-Attributes_files/figure-html/fig-awiex-1.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5.3: Example data for area-weighted interpolation</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -633,6 +639,9 @@ Goodchild, Michael F, and Nina Siu Ngan Lam. 1980. <em>Areal Interpolation: A Va
 </div>
 <div id="ref-Haltiner" class="csl-entry" role="doc-biblioentry">
 Haltiner, G. J., and R. T. Williams. 1980. <em>Numerical Prediction and Dynamic Meteorology</em>. New York: John Wiley; Sons.
+</div>
+<div id="ref-conservative" class="csl-entry" role="doc-biblioentry">
+Jones, Philip W. 1999. <span>“First- and Second-Order Conservative Remapping Schemes for Grids in Spherical Coordinates.”</span> <em>Mon. Wea. Rev.</em> 127: 2204–10. <a href="https://doi.org/ 10.1175/1520-0493(1999) ">https://doi.org/ 10.1175/1520-0493(1999) </a>.
 </div>
 <div id="ref-kyriakidis04" class="csl-entry" role="doc-biblioentry">
 Kyriakidis, P. C. 2004. <span>“A Geostatistical Framework for Areal-to-Point Spatial Interpolation.”</span> <em>Geographical Analysis</em> 36: 259–89.

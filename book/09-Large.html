@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -336,7 +340,7 @@ div.csl-indent {
   <li><a href="#reading-from-databases-dbplyr" id="toc-reading-from-databases-dbplyr" class="nav-link" data-scroll-target="#reading-from-databases-dbplyr">Reading from databases, dbplyr</a></li>
   <li><a href="#sec-vsi" id="toc-sec-vsi" class="nav-link" data-scroll-target="#sec-vsi">Reading from online resources or web services</a></li>
   <li><a href="#apis-openstreetmap" id="toc-apis-openstreetmap" class="nav-link" data-scroll-target="#apis-openstreetmap">API’s, OpenStreetMap</a></li>
-  <li><a href="#cloud-native-geoparquet-and-geoarrow" id="toc-cloud-native-geoparquet-and-geoarrow" class="nav-link" data-scroll-target="#cloud-native-geoparquet-and-geoarrow">Cloud native: GeoParquet and GeoArrow</a></li>
+  <li><a href="#geoparquet-and-geoarrow" id="toc-geoparquet-and-geoarrow" class="nav-link" data-scroll-target="#geoparquet-and-geoarrow">GeoParquet and GeoArrow</a></li>
   </ul></li>
   <li><a href="#raster-data-stars" id="toc-raster-data-stars" class="nav-link" data-scroll-target="#raster-data-stars"><span class="toc-section-number">9.2</span>  Raster data: <code>stars</code></a>
   <ul class="collapse">
@@ -347,12 +351,12 @@ div.csl-indent {
   <li><a href="#very-large-data-cubes" id="toc-very-large-data-cubes" class="nav-link" data-scroll-target="#very-large-data-cubes"><span class="toc-section-number">9.3</span>  Very large data cubes</a>
   <ul class="collapse">
   <li><a href="#finding-and-processing-assets" id="toc-finding-and-processing-assets" class="nav-link" data-scroll-target="#finding-and-processing-assets">Finding and processing assets</a></li>
-  <li><a href="#cloud-native-storage-zarr" id="toc-cloud-native-storage-zarr" class="nav-link" data-scroll-target="#cloud-native-storage-zarr">Cloud native storage: Zarr</a></li>
+  <li><a href="#sec-zarr" id="toc-sec-zarr" class="nav-link" data-scroll-target="#sec-zarr">Cloud native storage: Zarr</a></li>
   <li><a href="#apis-for-data-gee-openeo" id="toc-apis-for-data-gee-openeo" class="nav-link" data-scroll-target="#apis-for-data-gee-openeo">APIs for data: GEE, openEO</a></li>
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">9.4</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/09-Large.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -374,21 +378,21 @@ div.csl-indent {
 </header>
 
 <p> </p>
-<p>This chapter describes how large spatial and spatiotemporal datasets can be handled with R, with a focus on packages <code>sf</code> and <code>stars</code>. For practical use, we classify large data sets as either:</p>
+<p>This chapter describes how large spatial and spatiotemporal datasets can be handled with R, with a focus on packages <code>sf</code> and <code>stars</code>. For practical use, we classify large datasets as either too large:</p>
 <ul>
-<li>too large to fit in working memory, or</li>
-<li>also too large to fit on the local hard drive, or</li>
-<li>also too large to download it to locally managed compute infrastructure (such as network attached storage)</li>
+<li>to fit in working memory, or</li>
+<li>to fit on the local hard drive, or</li>
+<li>to download it to locally managed compute infrastructure (such as network attached storage)</li>
 </ul>
 <p></p>
-<p>These three categories correspond very roughly to Gigabyte-, Terabyte- and Petabyte-sized data sets. Besides size considerations, considerations of access and processing speed also play a role, in particular for larger datasets or interactive applications. Cloud native geospatial formats are formats optimised with processing on cloud infrastructure in mind, where costs of computing and storage need to be considered and optimised. Such costs can be reduced by</p>
+<p>These three categories may (today) correspond very roughly to Gigabyte-, Terabyte- and Petabyte-sized datasets. Besides size considerations, considerations of access and processing speed also play a role, in particular for larger datasets or interactive applications. Cloud native geospatial formats are formats optimised with processing on cloud infrastructure in mind, where costs of computing and storage need to be considered and optimised. Such costs can be reduced by</p>
 <ul>
 <li>using compression, such as the LERC (Limited Error Raster Compression) algorithm used for cloud-optimized GeoTIFF, or the BLOSC compressor used for ZARR array data</li>
 <li>fast access to spatial sub-regions, e.g.&nbsp;by ways of http range request enabled for cloud-optimised geotiffs, or column-oriented data access in the GeoParquet and GeoArrow formats</li>
 <li>accessing/viewing data at incremental resolution (low resolution images are available before or without the full resolution being read), implemented natively by progressive JPEG formats or by using image pyramids (or overviews) in other raster formats</li>
 <li>optimizing data access with particular cloud storage or object storage protocols in mind.</li>
 </ul>
-<p>It should be noted that there are no silver bullets in this area: optimizing storage for one particular access way will lead to slow access for other ways: for instance if raster data is stored for optimal access of spatial regions at different spatial resolutions, reading the data as pixel time series may be very slow. Compression leads to low storage costs but to higher processing costs when reading, because of the decompression involved.</p>
+<p>It should be noted that there are no silver bullets in this area: optimizing storage for one particular access pattern will lead to slow access for other ways: for instance if raster data is stored for optimal access of spatial regions at different spatial resolutions, reading the data as pixel time series may be very slow. Compression leads to low storage and bandwidth costs but to higher processing costs when reading, because of the decompression involved.</p>
 <section id="sec-largesf" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="sec-largesf"><span class="header-section-number">9.1</span> Vector data: <code>sf</code></h2>
 <p> </p>
@@ -397,48 +401,26 @@ div.csl-indent {
 <p>Function <code>st_read</code> reads vector data from disk, using GDAL, and then keeps the data read in working memory. In case the file is too large to be read in working memory, several options exist to read parts of the file. The first is to set argument <code>wkt_filter</code> with a WKT text string containing a geometry; only geometries from the target file that intersect with this geometry will be returned. An example is</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.0; sf_use_s2() is TRUE</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>(file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>(<span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="fl">81.7</span>,<span class="at">ymin =</span> <span class="fl">36.2</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="fl">80.4</span>, <span class="at">ymax =</span> <span class="fl">36.5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> <span class="fu">st_as_text</span>() <span class="ot">-&gt;</span> bb)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "POLYGON ((-81.7 36.2, -80.4 36.2, -80.4 36.5, -81.7 36.5, -81.7 36.2))"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>nc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">st_read</span>(file, <span class="at">wkt_filter =</span> bb)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading layer `nc.gpkg' from data source </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg' </span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   using driver `GPKG'</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 8 features and 14 fields</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension:     XY</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -81.9 ymin: 36 xmax: -80 ymax: 36.6</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.10.2, GDAL 3.4.3, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="dv">82</span>,<span class="at">ymin =</span> <span class="dv">36</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">80</span>, <span class="at">ymax =</span> <span class="dv">37</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_bbox</span>() <span class="sc">|&gt;</span> <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> <span class="fu">st_as_text</span>() <span class="ot">-&gt;</span> bb</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(file, <span class="at">wkt_filter =</span> bb) <span class="sc">|&gt;</span> <span class="fu">nrow</span>() <span class="co"># out of 100</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 17</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Here, <code>read_sf</code> is used as an alternative to <code>st_read</code> to suppress output.</p>
 <p></p>
 <p>The second option is to use the <code>query</code> argument to <code>st_read</code>, which can be any query in “OGR SQL” dialect, which can be used to select features from a layer, and limit fields. An example is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"select BIR74,SID74,geom from 'nc.gpkg' where BIR74 &gt; 1500"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">st_read</span>(file, <span class="at">query =</span> q)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading query `select BIR74,SID74,geom from 'nc.gpkg' where BIR74 &gt; 1500'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># from data source `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg' </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   using driver `GPKG'</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 61 features and 2 fields</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension:     XY</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -83.3 ymin: 33.9 xmax: -76.1 ymax: 36.6</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="st">"select BIR74,SID74,geom from 'nc.gpkg' where BIR74 &gt; 1500"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(file, <span class="at">query =</span> q) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 61</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that <code>nc.gpkg</code> is the <em>layer name</em>, which can be obtained from <code>file</code> using <code>st_layers</code>. Sequences of records can be read using <code>LIMIT</code> and <code>OFFSET</code>, to read records 51-60 use</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"select BIR74,SID74,geom from 'nc.gpkg' LIMIT 10 OFFSET 50"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">st_read</span>(file, <span class="at">query =</span> q)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading query `select BIR74,SID74,geom from 'nc.gpkg' LIMIT 10 OFFSET 50'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># from data source `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg' </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   using driver `GPKG'</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 10 features and 2 fields</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension:     XY</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -84 ymin: 35.2 xmax: -75.5 ymax: 36.2</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="st">"select BIR74,SID74,geom from 'nc.gpkg' LIMIT 10 OFFSET 50"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(file, <span class="at">query =</span> q) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Further query options include selection on geometry type, polygon area. When the dataset queried is a spatial database, then the query is passed on to the database and not interpreted by GDAL; this means that more powerful features will be available. Further information is found in the GDAL documentation under “OGR SQL dialect”.</p>
 <p></p>
@@ -453,39 +435,25 @@ div.csl-indent {
 <div class="cell">
 
 </div>
-<p>Although GDAL has support for several spatial databases, and as mentioned above it passes on SQL in the <code>query</code> argument to the database, it is sometimes beneficial to directly read from and write to a spatial database using the R database drivers for this. An example of this is:</p>
+<p>Although GDAL has support for several spatial databases, and as mentioned above it passes on SQL in the <code>query</code> argument to the database, it is sometimes beneficial to directly read from and write to a spatial database using the DBI R database drivers for this. An example of this is:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">dbname =</span> <span class="st">"postgis"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_read</span>(pg, <span class="at">query =</span> <span class="st">"select BIR74,wkb_geometry from nc limit 3"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 3 features and 1 field</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension:     XY</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -81.7 ymin: 36.2 xmax: -80.4 ymax: 36.6</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   bir74                   wkb_geometry</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  1091 MULTIPOLYGON (((-81.5 36.2,...</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2   487 MULTIPOLYGON (((-81.2 36.4,...</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  3188 MULTIPOLYGON (((-80.5 36.2,...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(pg, <span class="at">query =</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"select BIR74,wkb_geometry from nc limit 3"</span>) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A spatial query might look like</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="st">"SELECT BIR74,wkb_geometry FROM nc WHERE \</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">  ST_Intersects(wkb_geometry, 'SRID=4267;POINT (-81.50 36.43)');"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_read</span>(pg, <span class="at">query =</span> q)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 1 feature and 1 field</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimension:     XY</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -81.7 ymin: 36.2 xmax: -81.2 ymax: 36.6</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   bir74                   wkb_geometry</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1  1091 MULTIPOLYGON (((-81.5 36.2,...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">ST_Intersects(wkb_geometry, 'SRID=4267;POINT (-81.50 36.43)');"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(pg, <span class="at">query =</span> q) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, the intersection is done in the database, and uses the spatial index typically present.</p>
+<p>Here, the intersection is done in the database, and uses the spatial index when present. The same mechanism works when using <code>dplyr</code> with a database backend:</p>
 <p></p>
-<p>The same mechanism works when using <code>dplyr</code> with a database backend:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nc_db <span class="ot">&lt;-</span> <span class="fu">tbl</span>(pg, <span class="st">"nc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -494,161 +462,154 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nc_db <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">filter</span>(<span class="fu">ST_Intersects</span>(wkb_geometry, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'SRID=4267;POINT (-81.50 36.43)'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'SRID=4267;POINT (-81.50 36.43)'</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">collect</span>()</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># # A tibble: 1 × 16</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name  fips  fipsno cress…¹</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;   &lt;int&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe  37009  37009       5</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;,</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># #   nwbir74 &lt;dbl&gt;, bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;, and abbreviated variable name</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># #   ¹​cress_id</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>nc_db <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">ST_Area</span>(wkb_geometry) <span class="sc">&gt;</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">3</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Source:   SQL [3 x 16]</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># # Database: postgres  [edzer@localhost:5432/postgis]</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name  fips  fipsno cress…¹</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;   &lt;int&gt;</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe  37009  37009       5</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       3 0.143      1.63  1828    1828 Surry 37171  37171      86</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       5 0.153      2.21  1832    1832 Nort… 37131  37131      66</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;,</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># #   nwbir74 &lt;dbl&gt;, bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;, and abbreviated variable name</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># #   ¹​cress_id</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name  fips  fipsno cress_id</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;int&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe  37009  37009        5</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;, nwbir74 &lt;dbl&gt;,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># #   bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>nc_db <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">ST_Area</span>(wkb_geometry) <span class="sc">&gt;</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">3</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># # Source:   SQL [3 x 16]</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Database: postgres  [edzer@localhost:5432/postgis]</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name    fips  fipsno cress…¹</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt;   &lt;int&gt;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe    37009  37009       5</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       3 0.143      1.63  1828    1828 Surry   37171  37171      86</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       5 0.153      2.21  1832    1832 Northa… 37131  37131      66</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># # … with 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;, nwbir74 &lt;dbl&gt;,</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># #   bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;, and abbreviated variable name</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># #   ¹​cress_id</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It should be noted that PostGIS’ <code>ST_Area</code> computes the same area as the <code>AREA</code> field in <code>nc</code>, which is the meaningless value obtained by assuming the coordinates are projected, where they are ellipsoidal.</p>
+<p>(Note that PostGIS’ <code>ST_Area</code> computes the same area as the <code>AREA</code> field in <code>nc</code>, which is the meaningless value obtained by assuming the coordinates are projected, where they are ellipsoidal.)</p>
 </section>
 <section id="sec-vsi" class="level3">
 <h3 class="anchored" data-anchor-id="sec-vsi">Reading from online resources or web services</h3>
 <p></p>
-<p>GDAL drivers support reading from online resources, by prepending <code>/vsicurl/</code> before the URL starting with e.g.&nbsp;<code>https://</code>. A number of similar drivers specialized for particular clouds include <code>/vsis3/</code> for Amazon S3, <code>/vsigs/</code> for Google Cloud Storage, <code>/vsiaz/</code> for Azure, <code>/vsioss/</code> for Alibaba Cloud, or <code>/vsiswift/</code> for OpenStack Swift Object Storage. These prepositions can be combined e.g.&nbsp;with <code>/vsizip/</code> to read a zipped online resource. Depending on the file format used, reading information this way may always involve reading the entire file, or reading it multiple times, and may not always be the most efficient way of handling resources.</p>
+<p>GDAL drivers support reading from online resources, by prepending the URL starting with e.g.&nbsp;<code>https://</code> with <code>/vsicurl/</code>. A number of similar drivers specialized for particular clouds include <code>/vsis3/</code> for Amazon S3, <code>/vsigs/</code> for Google Cloud Storage, <code>/vsiaz/</code> for Azure, <code>/vsioss/</code> for Alibaba Cloud, or <code>/vsiswift/</code> for OpenStack Swift Object Storage. <a href="#sec-zarr"><span>Section&nbsp;9.3.2</span></a> has an example of using <code>/vsicurl/</code>.</p>
+<p>These prepositions can be combined e.g.&nbsp;with <code>/vsizip/</code> to read a zipped online resource. Depending on the file format used, reading information this way may require reading the entire file, or reading it multiple times, and may not always be the most efficient way of handling resources. Cloud native formats are optimized to work efficiently using <code>http</code> requests.</p>
+<p> </p>
 </section>
 <section id="apis-openstreetmap" class="level3">
 <h3 class="anchored" data-anchor-id="apis-openstreetmap">API’s, OpenStreetMap</h3>
 <p> </p>
-<p>Although online resource do not have to be stored files but could be created server-side on the fly, typical web services for geospatial data create data on the fly, and give access to this through an API. As an example, data from <a href="https://openstreetmap.org/">OpenStreetMap</a> can be bulk downloaded and read locally, e.g.&nbsp;using the GDAL vector driver, but more typical a user wants to obtain a small subset of the data or use the data for a small query. Several R packages exist that query OpenStreetMap data:</p>
+<p>Typical web services for geospatial data create data on the fly, and give access to this through an API. As an example, data from <a href="https://openstreetmap.org/">OpenStreetMap</a> can be bulk downloaded and read locally, e.g.&nbsp;using the GDAL vector driver, but more typical a user wants to obtain a small subset of the data or use the data for a small query. Several R packages exist that query OpenStreetMap data:</p>
 <ul>
 <li>Package <code>OpenStreetMap</code> downloads data as raster tiles, typically used as backdrop or reference for plotting other features</li>
-<li>Package <code>osmdata</code> downloads vector data as points, lines or polygons in <code>sf</code> or <code>sp</code> format</li>
-<li>Package <code>osmar</code> returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements form a network, and has functions that compute the shortest route</li>
+<li>Package <code>osmdata</code> <span class="citation" data-cites="osmdata">(<a href="references.html#ref-osmdata" role="doc-biblioref">Padgham et al. 2017</a>)</span> downloads vector data as points, lines or polygons in <code>sf</code> or <code>sp</code> format</li>
+<li>Package <code>osmar</code> returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements are connected, and has functions for computing the shortest route</li>
 </ul>
-<p>When provided with a correctly formulated API call in the URL the highly configurable GDAL OSM driver (in <code>st_read</code>) can read an “.osm” file (xml) and returns a dataset with five layers: <code>points</code> that have significant tags, <code>lines</code> with non-area “way” features, <code>multilinestrings</code> with “relation” features, <code>multipolygons</code> with “relation” features and <code>other_relations</code>. A simple and very small bounding box query to OpenStreetMap could look like</p>
+<p>When provided with a correctly formulated API call in the URL the highly configurable GDAL OSM driver (in <code>st_read</code>) can read an “.osm” file (xml) and return a dataset with five layers: <code>points</code> that have significant tags, <code>lines</code> with non-area “way” features, <code>multilinestrings</code> with “relation” features, <code>multipolygons</code> with “relation” features and <code>other_relations</code>. A simple and very small bounding box query to OpenStreetMap could look like</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">"https://openstreetmap.org/api/0.6/map?bbox=7.595,51.969,7.598,51.970"</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">"data/ms.osm"</span>, <span class="at">method =</span> <span class="st">"auto"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="fu">paste0</span>(<span class="st">"https://openstreetmap.org/api/0.6/map?"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"bbox=7.595,51.969,7.598,51.970"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data/ms.osm"</span>, <span class="at">method =</span> <span class="st">"auto"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and from this file we can read the layer <code>lines</code>, and plot its first attribute by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/ms.osm"</span>, <span class="st">"lines"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/ms.osm"</span>, <span class="st">"multipolygons"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="fl">7.595</span>, <span class="at">ymin =</span> <span class="fl">51.969</span>, </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">xmax =</span> <span class="fl">7.598</span>, <span class="at">ymax =</span> <span class="fl">51.970</span>), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_as_sfc</span>(bb), <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">cex.axis =</span> .<span class="dv">5</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o[,<span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(p), <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'#88888888'</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="fl">7.595</span>, <span class="at">ymin =</span> <span class="fl">51.969</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">xmax =</span> <span class="fl">7.598</span>, <span class="at">ymax =</span> <span class="fl">51.970</span>), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">cex.axis =</span> .<span class="dv">5</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o[,<span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(p), <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">col =</span> <span class="st">'#88888888'</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-overpass" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="09-Large_files/figure-html/fig-overpass-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="09-Large_files/figure-html/fig-overpass-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;9.1: OpenStreetMap vector data</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>the result of which is shown in <a href="#fig-overpass">Figure&nbsp;<span>9.1</span></a> . The overpass API provides a more generic and powerful query functionality to OpenStreetMap data.</p>
+<p>the result of which is shown in <a href="#fig-overpass">Figure&nbsp;<span>9.1</span></a>. The overpass API provides a more generic and powerful query functionality to OpenStreetMap data.</p>
 </section>
-<section id="cloud-native-geoparquet-and-geoarrow" class="level3">
-<h3 class="anchored" data-anchor-id="cloud-native-geoparquet-and-geoarrow">Cloud native: GeoParquet and GeoArrow</h3>
+<section id="geoparquet-and-geoarrow" class="level3">
+<h3 class="anchored" data-anchor-id="geoparquet-and-geoarrow">GeoParquet and GeoArrow</h3>
 <p> </p>
 <p>Two formats dedicated to cloud native analysis are derived from the Apache projects Parquet and Arrow. Both provide column oriented storage of tabular data, meaning that the reading of a single fields for many records is fast, compared to record oriented storage of most other databases. The Geo- extensions of both involve</p>
 <ul>
 <li>a way of storing a geometry column, either in a well-known binary or text form, or in a more efficient form where sub-geometries are indexed up front</li>
 <li>storage of a coordinate reference system.</li>
 </ul>
-<p>At the time of writing this book, both formats are under active development but drivers for reading or creating them are available in GDAL starting from version 3.5. Both formats allow for compressed storage; the difference seems to be that (Geo)Parquet is more oriented towards persistent storage, where (Geo)Arrow is more oriented to fast access and fast computation; Arrow can for instance be both an in-memory and an on-disk format.</p>
+<p>At the time of writing this book, both formats are under active development but drivers for reading or creating them are available in GDAL starting from version 3.5. Both formats allow for compressed storage. The difference is that (Geo)Parquet is more oriented towards persistent storage, where (Geo)Arrow is more oriented to fast access and fast computation; Arrow can for instance be both an in-memory and an on-disk format.</p>
 </section>
 </section>
 <section id="raster-data-stars" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="raster-data-stars"><span class="header-section-number">9.2</span> Raster data: <code>stars</code></h2>
-<p>A common challenge with raster datasets is not only that they come in large files (single Sentinel-2 tiles are around 1 GB), but that many of these files, potentially thousands, are needed to address the area and time period of interest. At time of writing this, the Copernicus program that runs all Sentinel satellites publishes 160 TB of images per day. This means that a classic pattern in using R, consisting of:</p>
-<ul>
-<li>downloading data to local disc,</li>
-<li>loading the data in memory,</li>
-<li>analysing it</li>
-</ul>
-<p>is not going to work.</p>
+<p>A common challenge with raster datasets is not only that they come in large files (single Sentinel-2 tiles are around 1 GB), but that many of these files, potentially thousands or millions, are needed to address the area and time period of interest. At time of writing this, the Copernicus program that runs all Sentinel satellites publishes 160 TB of images per day. This means that a classic pattern in using R, consisting of downloading data to local disc, loading the data in memory and analysing it is not going to work.</p>
 <p> </p>
 <p>Cloud-based Earth Observation processing platforms like Google Earth Engine <span class="citation" data-cites="gorelick">(<a href="references.html#ref-gorelick" role="doc-biblioref">Gorelick et al. 2017</a>)</span>, <a href="https://www.sentinel-hub.com/">Sentinel Hub</a> or <a href="https://openeo.cloud">openEO.cloud</a> recognize this and let users work with datasets up to the petabyte range rather easily and with a great deal of interactivity. They share the following properties:</p>
 <ul>
 <li>computations are postponed as long as possible (lazy evaluation)</li>
-<li>only the data you ask for are being computed and returned, and nothing more</li>
+<li>only the data asked for by the user is being computed and returned, and nothing more</li>
 <li>storing intermediate results is avoided in favour of on-the-fly computations</li>
 <li>maps with useful results are generated and shown quickly to allow for interactive model development</li>
 </ul>
 <p>This is similar to the <code>dbplyr</code> interface to databases and cloud-based analytics environments, but differs in the aspect of <em>what</em> we want to see quickly: rather than the first <span class="math inline">\(n\)</span> records of a <code>dbplyr</code> table, we want a quick <em>overview</em> of the results, in the form of a map covering the whole area, or part of it, but at screen resolution rather than native (observation) resolution.</p>
 <p> </p>
-<p>If for instance we want to “see” results for the United States on screen with 1000 x 1000 pixels, we only need to compute results for this many pixels, which corresponds roughly to data on a grid with 3000 m x 3000 m grid cells. For Sentinel-2 data with 10 m resolution, this means we can downsample with a factor 300, giving 3 km x 3 km resolution. Processing, storage and network requirements then drop a factor <span class="math inline">\(300^2 \approx 10^5\)</span>, compared to working on the native 10 m x 10 m resolution. On the platforms mentioned, zooming in the map triggers further computations on a finer resolution and smaller extent.</p>
-<p>A simple optimisation that follows these lines is how stars’ plot method works: in the case of plotting large rasters, it downsamples the array before it plots, drastically saving time. The degree of downsampling is derived from the plotting region size and the plotting resolution (pixel density). For vector devices, such as pdf, R sets plot resolution to 75 dpi, corresponding to 0.3 mm per pixel. Enlarging plots may reveal this, but replotting to an enlarged devices will create a plot at target density.</p>
+<p>If for instance we want to “see” results for the United States on a screen with 1000 x 1000 pixels, we only need to compute results for this many pixels, which corresponds roughly to data on a grid with 3000 m x 3000 m grid cells. For Sentinel-2 data with 10 m resolution, this means we can downsample with a factor 300, giving 3 km x 3 km resolution. Processing, storage and network requirements then drop a factor <span class="math inline">\(300^2 \approx 10^5\)</span>, compared to working on the native 10 m x 10 m resolution. On the platforms mentioned, zooming in the map triggers further computations on a finer resolution and smaller extent.</p>
+<p>A simple optimisation that follows these lines is how <code>stars</code>’ plot method works: in the case of plotting large rasters, it downsamples the array before it plots, drastically saving time. The degree of downsampling is derived from the plotting region size and the plotting resolution (pixel density). For vector devices, such as pdf, R sets plot resolution to 75 dpi, corresponding to 0.3 mm per pixel. Enlarging plots may reveal this, but replotting to an enlarged devices will create a plot at target density.</p>
 <section id="stars-proxy-objects" class="level3">
 <h3 class="anchored" data-anchor-id="stars-proxy-objects"><code>stars</code> proxy objects</h3>
 <p> </p>
 <p>To handle datasets that are too large to fit in memory, <code>stars</code> provides <code>stars_proxy</code> objects. To demonstrate its use, we will use the <code>starsdata</code> package, an R data package with larger datasets (around 1 GB total). It can be installed by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">600</span>) <span class="co"># or large in case of slow network</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, <span class="at">repos =</span> <span class="st">"http://pebesma.staff.ifgi.de"</span>, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">repos =</span> <span class="st">"http://pebesma.staff.ifgi.de"</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can “load” a Sentinel-2 image from it by</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: abind</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206"</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"_R051_T32ULE_20180221T134037.zip"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>granule <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="at">file =</span> f, <span class="at">package =</span> <span class="st">"starsdata"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">file.size</span>(granule)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 7.69e+08</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>base_name <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="fu">basename</span>(granule), <span class="st">".zip"</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"SENTINEL2_L1C:/vsizip/"</span>, granule, <span class="st">"/"</span>, base_name, </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">".SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>(p <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(s2, <span class="at">proxy =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># stars_proxy object with 1 attribute in 1 file(s):</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># $EPSG_32632</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "[...]/MTD_MSIL1C.xml:10m:EPSG_32632"</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#      from    to offset delta            refsys point    values</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># x       1 10980  3e+05    10 WGS 84 / UTM z...    NA      NULL</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># y       1 10980  6e+06   -10 WGS 84 / UTM z...    NA      NULL</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># band    1     4     NA    NA                NA    NA B4,...,B8</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#      x/y</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># x    [x]</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># y    [y]</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># band</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(p)</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 11808 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"_R051_T32ULE_20180221T134037.zip"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>granule <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="at">file =</span> f, <span class="at">package =</span> <span class="st">"starsdata"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file.size</span>(granule)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 7.69e+08</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>base_name <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="fu">basename</span>(granule), <span class="st">".zip"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"SENTINEL2_L1C:/vsizip/"</span>, granule, <span class="st">"/"</span>, base_name, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">".SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>(p <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(s2, <span class="at">proxy =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># stars_proxy object with 1 attribute in 1 file(s):</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># $EPSG_32632</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "[...]/MTD_MSIL1C.xml:10m:EPSG_32632"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#      from    to offset delta            refsys    values x/y</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># x       1 10980  3e+05    10 WGS 84 / UTM z...      NULL [x]</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># y       1 10980  6e+06   -10 WGS 84 / UTM z...      NULL [y]</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># band    1     4     NA    NA                NA B4,...,B8</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(p)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 11808 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and we see that this does not actually load <em>any</em> of the pixel values, but keeps the reference to the dataset and fills the dimensions table. (The convoluted <code>s2</code> name is needed to point GDAL to the right file inside the <code>.zip</code> file containing 115 files in total).</p>
 <p> The idea of a proxy object is that we can build expressions like</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>but that the computations for this are postponed. Only when we really need the data, e.g.&nbsp;because we want to plot it, is <code>p * 2</code> evaluated. We need data when either:</p>
+<p>but that the computations for this are postponed. Only when we really need the data, e.g.&nbsp;because we want to plot it, is <code>p * 2</code> evaluated. We need data when either we:</p>
 <ul>
-<li>we want to <code>plot</code> data, or</li>
-<li>we want to write an object to disk, with <code>write_stars</code>, or</li>
-<li>we want to explicitly load an object in memory, with <code>st_as_stars</code></li>
+<li><code>plot</code> data, or</li>
+<li>write an object to disk, with <code>write_stars</code>, or</li>
+<li>explicitly load an object in memory, with <code>st_as_stars</code></li>
 </ul>
 <p>In case the entire object does not fit in memory, <code>plot</code> and <code>write_stars</code> choose different strategies to deal with this:</p>
 <ul>
 <li><code>plot</code> fetches only the pixels that can be seen, rather than all pixels available</li>
 <li><code>write_stars</code> reads, processes, and writes data chunk by chunk</li>
 </ul>
-<p>Downsampling and chunking is implemented for spatially dense images, not e.g.&nbsp;for dense time series, or other dense dimensions.</p>
-<p>As an example, the output of <code>plot(p)</code>, shown in <a href="#fig-plotp">Figure&nbsp;<span>9.2</span></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># downsample set to 18</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-plotp" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -658,33 +619,33 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>only fetches the pixels that can be seen on the plot device, rather than the 10980 x 10980 pixels available in each band. The downsampling ratio taken is</p>
+<p>Downsampling and chunking is implemented for spatially dense images, not e.g.&nbsp;for dense time series, or other dense dimensions. As an example, the output of <code>plot(p)</code>, shown in <a href="#fig-plotp">Figure&nbsp;<span>9.2</span></a> only fetches the pixels that can be seen on the plot device, rather than the 10980 x 10980 pixels available in each band. The downsampling ratio taken is</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(ds <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">sqrt</span>(<span class="fu">prod</span>(<span class="fu">dim</span>(p)) <span class="sc">/</span> <span class="fu">prod</span>(<span class="fu">dev.size</span>(<span class="st">"px"</span>)))))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 19</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>meaning that for every 19 <span class="math inline">\(\times\)</span> 19 sub-image in the original image, only one pixel is read, and plotted. This value is still a bit too low as it ignores the white space and space for the key on the plotting device.</p>
+<p>meaning that for every 19 <span class="math inline">\(\times\)</span> 19 sub-image in the original image, only one pixel is read, and plotted.</p>
 </section>
 <section id="operations-on-proxy-objects" class="level3">
 <h3 class="anchored" data-anchor-id="operations-on-proxy-objects">Operations on proxy objects</h3>
 <p> Several dedicated methods are available for <code>stars_proxy</code> objects:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">"stars_proxy"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] [               [[&lt;-            [&lt;-            </span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [4] adrop           aggregate       aperm          </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [7] as.data.frame   c               coerce         </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [10] dim             droplevels      filter         </span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] hist            initialize      is.na          </span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] Math            merge           mutate         </span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [19] Ops             plot            predict        </span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [22] print           pull            rename         </span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [25] select          show            slice          </span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [28] slotsFromS3     split           st_apply       </span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [31] st_as_sf        st_as_stars     st_crop        </span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [34] st_dimensions&lt;- st_downsample   st_mosaic      </span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [37] st_redimension  st_sample       st_set_bbox    </span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># [40] transmute       write_stars    </span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># see '?methods' for accessing help and source code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] [               [[&lt;-            [&lt;-             adrop          </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  [5] aggregate       aperm           as.data.frame   c              </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  [9] coerce          dim             droplevels      filter         </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [13] hist            initialize      is.na           Math           </span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [17] merge           mutate          Ops             plot           </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [21] predict         print           pull            rename         </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [25] select          show            slice           slotsFromS3    </span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># [29] split           st_apply        st_as_sf        st_as_stars    </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [33] st_crop         st_dimensions&lt;- st_downsample   st_mosaic      </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [37] st_redimension  st_sample       st_set_bbox     transmute      </span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [41] write_stars    </span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># see '?methods' for accessing help and source code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We have seen <code>plot</code> and <code>print</code> in action; <code>dim</code> reads out the dimension from the dimensions metadata table.</p>
 <p> </p>
@@ -702,21 +663,49 @@ div.csl-indent {
 <section id="very-large-data-cubes" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="very-large-data-cubes"><span class="header-section-number">9.3</span> Very large data cubes</h2>
 <p> </p>
-<p>At some stage, data sets need to be analysed that are so large that downloading them is no longer feasible; even when local storage would be sufficient, network bandwidth may become limiting. Examples are satellite image archives such as those from Landsat and Copernicus (Sentinel-x), or model computations such as the ERA5 <span class="citation" data-cites="era5">(<a href="references.html#ref-era5" role="doc-biblioref">Hersbach et al. 2020</a>)</span>, a model reanalysis of the global atmosphere, land surface and ocean waves from 1950 onwards. In such cases it may be most helpful to gain access to virtual machines in a cloud that has these data available, or to use a system that lets the user carry out computations without having to worry about virtual machines and storage. Both options will be discussed.</p>
+<p>At some stage, datasets need to be analysed that are so large that downloading them is no longer feasible; even when local storage would be sufficient, network bandwidth may become limiting. Examples are satellite image archives such as those from Landsat and Copernicus (Sentinel-x), or model computations such as the ERA5 <span class="citation" data-cites="era5">(<a href="references.html#ref-era5" role="doc-biblioref">Hersbach et al. 2020</a>)</span>, a model reanalysis of the global atmosphere, land surface and ocean waves from 1950 onwards. In such cases it may be most helpful to gain access to virtual machines in a cloud that has these data available, or to use a system that lets the user carry out computations without having to worry about virtual machines and storage. Both options will be discussed.</p>
 <section id="finding-and-processing-assets" class="level3">
 <h3 class="anchored" data-anchor-id="finding-and-processing-assets">Finding and processing assets</h3>
 <p>When working on a virtual machine on a cloud, a first task is usually to find the assets (files) to work on. It looks attractive to obtain a file listing, and then parse file names such as</p>
 <pre><code>S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip</code></pre>
 <p>for their metadata including the date of acquisition and the code of the spatial tile covered. Obtaining such a file listing however is usually computationally very demanding, as is the processing of the result, when the number of tiles runs in the many millions.</p>
 <p>A solution to this is to use a catalogue. The recently developed and increasingly deployed STAC, short for <em>spatiotemporal asset catalogue</em>, provides an API that can be used to query image collections by properties like bounding box, date, band, and cloud coverage. The R package <code>rstac</code> <span class="citation" data-cites="R-rstac">(<a href="references.html#ref-R-rstac" role="doc-biblioref">Brazil Data Cube Team 2021</a>)</span> provides an R interface to create queries, and manage the information returned.</p>
-<p>Processing the resulting files may involve creating a data cube at a lower spatial and/or temporal resolution, from images that may span a range of coordinate reference systems (e.g., several UTM zones). An R package that can do that is gdalcubes <span class="citation" data-cites="R-gdalcubes appel2019demand">(<a href="references.html#ref-R-gdalcubes" role="doc-biblioref">Appel 2022</a>; <a href="references.html#ref-appel2019demand" role="doc-biblioref">Appel and Pebesma 2019</a>)</span>, which can also directly use STAC output <span class="citation" data-cites="appelblog">(<a href="references.html#ref-appelblog" role="doc-biblioref">Appel, Pebesma, and Mohr 2021</a>)</span>.</p>
+<p>Processing the resulting files may involve creating a data cube at a lower spatial and/or temporal resolution, from images that may span a range of coordinate reference systems (e.g., several UTM zones). An R package that creates a regular data cube from such a collection of images is gdalcubes <span class="citation" data-cites="R-gdalcubes appel2019demand">(<a href="references.html#ref-R-gdalcubes" role="doc-biblioref">Appel 2022</a>; <a href="references.html#ref-appel2019demand" role="doc-biblioref">Appel and Pebesma 2019</a>)</span>, which can also directly use a STAC <span class="citation" data-cites="appelblog">(<a href="references.html#ref-appelblog" role="doc-biblioref">Appel, Pebesma, and Mohr 2021</a>)</span>.</p>
 </section>
-<section id="cloud-native-storage-zarr" class="level3">
-<h3 class="anchored" data-anchor-id="cloud-native-storage-zarr">Cloud native storage: Zarr</h3>
+<section id="sec-zarr" class="level3">
+<h3 class="anchored" data-anchor-id="sec-zarr">Cloud native storage: Zarr</h3>
 <p> </p>
-<p>Where COG provides cloud native storage for raster imagery, Zarr is a format for cloud native storage of large multidimensional arrays. It can be seen as a successor of NetCDF and seems to follow similar conventions, being used by the climate and forecast communities. Zarr “files” are really directories with subdirectories containing compressed chunks of the data. The compression algorithm and the chunking strategy will have an effect on how fast particular sub-cubes can be read or written.</p>
-<p>Function <code>stars::read_mdim</code> has options for reading sub-cubes by specifying offset and size of the index in each dimension, and a step size to read one or more dimensions at a lower resolution. Similarly, <code>stars::write_mdim</code> can write multidimensional arrays to Zarr or NetCDF files, or other formats that support the GDAL C++ multidimensional array API.</p>
+<p>Where COG provides cloud native storage for raster imagery, Zarr is a format for cloud native storage of large multidimensional arrays. It can be seen as a successor of NetCDF and seems to follow similar conventions, being used by the climate and forecast communities <span class="citation" data-cites="cf">(<a href="references.html#ref-cf" role="doc-biblioref">Eaton et al. 2022</a>)</span>. Zarr “files” are really directories with subdirectories containing compressed chunks of the data. The compression algorithm and the chunking strategy will have an effect on how fast particular sub-cubes can be read or written.</p>
+<p>Function <code>stars::read_mdim</code> can read entire data cubes but has options for reading sub-cubes by specifying for each dimension offset, number of pixels, and the step size to read a dimension at a lower resolution <span class="citation" data-cites="zarrblog">(<a href="references.html#ref-zarrblog" role="doc-biblioref">Pebesma 2022</a>)</span>. Similarly, <code>stars::write_mdim</code> can write multidimensional arrays to Zarr or NetCDF files, or other formats that support the GDAL C++ multidimensional array API.</p>
 <p> </p>
+<p>To read a remote (cloud-based) Zarr file, one needs to prepend the URL with indicators about the format and the access protocol:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dsn <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">'ZARR:"/vsicurl/https://ncsa.osn.xsede.org'</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr"'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>after which we can read the first 10 time steps using</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>bounds <span class="ot">=</span> <span class="fu">c</span>(<span class="at">longitude =</span> <span class="st">"lon_bounds"</span>, <span class="at">latitude =</span> <span class="st">"lat_bounds"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>(<span class="at">r =</span> <span class="fu">read_mdim</span>(dsn, <span class="at">bounds =</span> bounds, <span class="at">count =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">10</span>)))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#               Min. 1st Qu. Median Mean 3rd Qu. Max.</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># precip [mm/d]    0       0      0 2.25     1.6  109</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#           from  to         offset  delta  refsys x/y</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># longitude    1 360              0      1      NA [x]</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># latitude     1 180            -90      1      NA [y]</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># time         1  10 1996-10-01 UTC 1 days POSIXct</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(r)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># xmin ymin xmax ymax </span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#    0  -90  360   90</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this example,</p>
+<ul>
+<li><code>NA</code> values for <code>count</code> indicate to get all values available for that dimension</li>
+<li>here, <code>bounds</code> variables needed explicit specification because the data source did not follow the more recent CF (1.10) conventions; and ignoring bounds would lead to a raster with a bounding box having latitude values outside <span class="math inline">\([-90,90]\)</span>.</li>
+</ul>
 </section>
 <section id="apis-for-data-gee-openeo" class="level3">
 <h3 class="anchored" data-anchor-id="apis-for-data-gee-openeo">APIs for data: GEE, openEO</h3>
@@ -751,13 +740,16 @@ Appel, Marius. 2022. <em>Gdalcubes: Earth Observation Data Cubes from Satellite 
 Appel, Marius, and Edzer Pebesma. 2019. <span>“On-Demand Processing of Data Cubes from Satellite Image Collections with the Gdalcubes Library.”</span> <em>Data</em> 4 (3): 92. <a href="https://www.mdpi.com/2306-5729/4/3/92">https://www.mdpi.com/2306-5729/4/3/92</a>.
 </div>
 <div id="ref-appelblog" class="csl-entry" role="doc-biblioentry">
-Appel, Marius, Edzer Pebesma, and Matthias Mohr. 2021. <em>Cloud-Based Processing of Satellite Image Collections in r Using STAC, COGs, and on-Demand Data Cubes</em>. <a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html</a>.
+Appel, Marius, Edzer Pebesma, and Matthias Mohr. 2021. <em>Cloud-Based Processing of Satellite Image Collections in <span>R</span> Using <span>STAC</span>, <span>COGs</span>, and on-Demand Data Cubes</em>. <a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html</a>.
 </div>
 <div id="ref-R-rgee" class="csl-entry" role="doc-biblioentry">
 Aybar, Cesar. 2022. <em>Rgee: R Bindings for Calling the Earth Engine API</em>. <a href="https://CRAN.R-project.org/package=rgee">https://CRAN.R-project.org/package=rgee</a>.
 </div>
 <div id="ref-R-rstac" class="csl-entry" role="doc-biblioentry">
 Brazil Data Cube Team. 2021. <em>Rstac: Client Library for SpatioTemporal Asset Catalog</em>. <a href="https://github.com/brazil-data-cube/rstac">https://github.com/brazil-data-cube/rstac</a>.
+</div>
+<div id="ref-cf" class="csl-entry" role="doc-biblioentry">
+Eaton, Brian, Jonathan Gregory, Bob Drach, Karl Taylor, Steve Hankin, Jon Blower, John Caron, et al. 2022. <em>NetCDF Climate and Forecast (CF) Metadata Conventions, Version 1.10</em>. <a href="https://cfconventions.org/">https://cfconventions.org/</a>.
 </div>
 <div id="ref-gorelick" class="csl-entry" role="doc-biblioentry">
 Gorelick, Noel, Matt Hancher, Mike Dixon, Simon Ilyushchenko, David Thau, and Rebecca Moore. 2017. <span>“Google Earth Engine: Planetary-Scale Geospatial Analysis for Everyone.”</span> <em>Remote Sensing of Environment</em> 202: 18–27. <a href="https://doi.org/10.1016/j.rse.2017.06.031">https://doi.org/10.1016/j.rse.2017.06.031</a>.
@@ -767,6 +759,12 @@ Hersbach, Hans, Bill Bell, Paul Berrisford, Shoji Hirahara, András Horányi, Jo
 </div>
 <div id="ref-R-ecmwfr" class="csl-entry" role="doc-biblioentry">
 Hufkens, Koen. 2020. <em>Ecmwfr: Interface to ECMWF and CDS Data Web Services</em>. <a href="https://github.com/bluegreen-labs/ecmwfr">https://github.com/bluegreen-labs/ecmwfr</a>.
+</div>
+<div id="ref-osmdata" class="csl-entry" role="doc-biblioentry">
+Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. <span>“<span class="nocase">osmdata</span>.”</span> <em>The Journal of Open Source Software</em> 2 (14). <a href="https://doi.org/10.21105/joss.00305">https://doi.org/10.21105/joss.00305</a>.
+</div>
+<div id="ref-zarrblog" class="csl-entry" role="doc-biblioentry">
+Pebesma, Edzer. 2022. <em>Reading Zarr Files with r Package Stars</em>. <a href="https://r-spatial.org/r/2022/09/13/zarr.html">https://r-spatial.org/r/2022/09/13/zarr.html</a>.
 </div>
 <div id="ref-cds" class="csl-entry" role="doc-biblioentry">
 Raoult, Baudouin, Cedric Bergeron, Angel López Alós, Jean-Noël Thépaut, and Dick Dee. 2017. <span>“Climate Service Develops User-Friendly Data Store.”</span> <em>ECMWF Newsletter</em> 151: 22–27.

@@ -167,6 +167,10 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -316,7 +320,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
       </ul>
@@ -331,13 +335,12 @@ div.csl-indent {
    
   <ul>
   <li><a href="#sec-straight" id="toc-sec-straight" class="nav-link active" data-scroll-target="#sec-straight"><span class="toc-section-number">4.1</span>  Straight lines</a></li>
-  <li><a href="#ring-direction" id="toc-ring-direction" class="nav-link" data-scroll-target="#ring-direction"><span class="toc-section-number">4.2</span>  Ring direction</a></li>
-  <li><a href="#full-polygon" id="toc-full-polygon" class="nav-link" data-scroll-target="#full-polygon"><span class="toc-section-number">4.3</span>  Full polygon</a></li>
-  <li><a href="#bounding-box-rectangle-and-cap" id="toc-bounding-box-rectangle-and-cap" class="nav-link" data-scroll-target="#bounding-box-rectangle-and-cap"><span class="toc-section-number">4.4</span>  Bounding box, rectangle, and cap</a></li>
-  <li><a href="#validity-on-the-sphere" id="toc-validity-on-the-sphere" class="nav-link" data-scroll-target="#validity-on-the-sphere"><span class="toc-section-number">4.5</span>  Validity on the sphere</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">4.6</span>  Exercises</a></li>
+  <li><a href="#ring-direction-and-full-polygon" id="toc-ring-direction-and-full-polygon" class="nav-link" data-scroll-target="#ring-direction-and-full-polygon"><span class="toc-section-number">4.2</span>  Ring direction and full polygon</a></li>
+  <li><a href="#bounding-box-rectangle-and-cap" id="toc-bounding-box-rectangle-and-cap" class="nav-link" data-scroll-target="#bounding-box-rectangle-and-cap"><span class="toc-section-number">4.3</span>  Bounding box, rectangle, and cap</a></li>
+  <li><a href="#validity-on-the-sphere" id="toc-validity-on-the-sphere" class="nav-link" data-scroll-target="#validity-on-the-sphere"><span class="toc-section-number">4.4</span>  Validity on the sphere</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">4.5</span>  Exercises</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/04-Spherical.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -360,33 +363,30 @@ div.csl-indent {
 
 <p>“<em>There are too many false conclusions drawn and stupid measurements made when geographic software, built for projected Cartesian coordinates in a local setting, is applied at the global scale</em>” <span class="citation" data-cites="chrisman">(<a href="references.html#ref-chrisman" role="doc-biblioref">Chrisman 2012</a>)</span></p>
 <p>The previous chapter discussed geometries defined on the plane, <span class="math inline">\(R^2\)</span>. This chapter discusses what changes when we consider geometries not on the plane, but on the sphere (<span class="math inline">\(S^2\)</span>).</p>
-<p>Although we learned in <a href="02-Spaces.html"><span>Chapter&nbsp;2</span></a> that the shape of the Earth is usually approximated by an ellipsoid, none of the libraries shown in green in <a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a> provide access to a comprehensive set of functions that compute on an ellipsoid. Only the s2geometry <span class="citation" data-cites="R-s2 s2geometry">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>; <a href="references.html#ref-s2geometry" role="doc-biblioref">Veach et al. 2020</a>)</span> library does provide it using a sphere rather than an ellipsoid. However, when compared to using a flat (projected) space we did in the previous chapter, a sphere is a much better approximation to an ellipsoid.</p>
+<p>Although we learned in <a href="02-Spaces.html"><span>Chapter&nbsp;2</span></a> that the shape of the Earth is usually approximated by an ellipsoid, none of the libraries shown in green in <a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a> provide access to a comprehensive set of functions that compute on an ellipsoid. Only the s2geometry <span class="citation" data-cites="R-s2 s2geometry">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>; <a href="references.html#ref-s2geometry" role="doc-biblioref">Veach et al. 2020</a>)</span> library does provide it using a sphere rather than an ellipsoid. However, when compared to using a flat (projected) space as we did in the previous chapter, a sphere is a <em>much</em> better approximation to an ellipsoid.</p>
 <p></p>
 <section id="sec-straight" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-straight"><span class="header-section-number">4.1</span> Straight lines</h2>
-<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the center of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length.</p>
+<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the center of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length. Note that the GeoJSON standard (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) has its own definition of straight lines in geodetic coordinates (see Exercise 1).</p>
 <p> </p>
 </section>
-<section id="ring-direction" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="ring-direction"><span class="header-section-number">4.2</span> Ring direction</h2>
-<p>Any polygon on the sphere divides the sphere surface in two parts with finite area: the inside and the outside. Using the “counter clockwise rule” as was done for <span class="math inline">\(R^2\)</span> will not work, because the direction interpretation depends on what is defined as inside. The convention here is to define the inside as the left (or right) side of the polygon boundary when traversing its points in sequence. Reversal of the node order then switches inside and outside.</p>
+<section id="ring-direction-and-full-polygon" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ring-direction-and-full-polygon"><span class="header-section-number">4.2</span> Ring direction and full polygon</h2>
+<p>Any polygon on the sphere divides the sphere surface in two parts with finite area: the inside and the outside. Using the “counter clockwise rule” as was done for <span class="math inline">\(R^2\)</span> will not work, because the direction interpretation depends on what is defined as inside. A convention here is to define the inside as the left (or right) side of the polygon boundary when traversing its points in sequence. Reversal of the node order then switches inside and outside.</p>
+<p> </p>
+<p>In addition to empty polygons, one can define the <em>full polygon</em> on a sphere, which comprises its entire surface. This is useful, for instance for computing the oceans as the geometric difference between the full polygon and the union of the land mass (see <a href="08-Plotting.html#fig-world">Figure&nbsp;<span>8.1</span></a> and <a href="11-PointPattern.html#fig-srsglobe">Figure&nbsp;<span>11.6</span></a>).</p>
 <p> </p>
 </section>
-<section id="full-polygon" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="full-polygon"><span class="header-section-number">4.3</span> Full polygon</h2>
-<p>In addition to empty polygons, one can define the full polygon on a sphere, which comprises its entire surface. This is useful, for instance for computing the oceans as the geometric difference between the full polygon and those of the land mass.</p>
-<p> </p>
-</section>
-<section id="bounding-box-rectangle-and-cap" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="bounding-box-rectangle-and-cap"><span class="header-section-number">4.4</span> Bounding box, rectangle, and cap</h2>
+<section id="bounding-box-rectangle-and-cap" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="bounding-box-rectangle-and-cap"><span class="header-section-number">4.3</span> Bounding box, rectangle, and cap</h2>
 <p> </p>
 <p>Where in <span class="math inline">\(R^2\)</span> one can easily define bounding boxes as the range of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, for ellipsoidal coordinates these ranges are not of much use when geometries cross the antimeridian (longitude +/- 180) or one of the poles. The assumption in <span class="math inline">\(R^2\)</span> that lower <span class="math inline">\(x\)</span> values are Westwards of higher ones does not hold when crossing the antimeridian. An alternative to delineating an area on a sphere that is more natural is the <em>bounding cap</em>, defined by its center coordinates and a radius. For Antarctica, as depicted in <a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> (a) and (c), the bounding box formed by coordinate ranges is</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(sf))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(maps))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="st">"Antarctica"</span>) <span class="ot">-&gt;</span> a</span>
@@ -447,12 +447,12 @@ div.csl-indent {
 </div>
 <p>where a value <code>lng_lo</code> <em>larger</em> than <code>lng_hi</code> indicates that the bounding rectangle spans the antimeridian. This property could not be inferred from the coordinate ranges.</p>
 </section>
-<section id="validity-on-the-sphere" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="validity-on-the-sphere"><span class="header-section-number">4.5</span> Validity on the sphere</h2>
+<section id="validity-on-the-sphere" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="validity-on-the-sphere"><span class="header-section-number">4.4</span> Validity on the sphere</h2>
 <p> </p>
 <p>Many global datasets are given in ellipsoidal coordinates but are prepared in a way that they “work” when interpreted on the <span class="math inline">\(R^2\)</span> space [-180,180] <span class="math inline">\(\times\)</span> [-90,90]. This means that:</p>
 <ul>
-<li>geometries crossing the antimeridian (longitude +/- 180) are cut in halves, such that they no longer cross it (but nearly touch each other)</li>
+<li>geometries crossing the antimeridian (longitude +/- 180) are cut in half, such that they no longer cross it (but nearly touch each other)</li>
 <li>geometries including a pole, like Antarctica, are cut at +/- 180 and make an excursion through -180,-90 and 180,-90 (both representing the Geographic South Pole)</li>
 </ul>
 <p><a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> shows two different representation of Antarctica, plotted with ellipsoidal coordinates taken as <span class="math inline">\(R^2\)</span> (top) and in a Polar Stereographic projection (bottom), without (left) and with (right) an excursion through the Geographic South Pole. In the projections as plotted, polygons (b) and (c) are valid; polygon (a) is not valid as it self-intersects, polygon (d) is not valid because it traverses the same edge to the South Pole twice. On the sphere (<span class="math inline">\(S^2\)</span>), polygon (a) is valid but (b) is not, for the same reason as (d) is not valid.</p>
@@ -494,19 +494,23 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="exercises" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.6</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.5</span> Exercises</h2>
 <p>For the following exercises, use R where possible or relevant.</p>
 <ol type="1">
-<li>How does the <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> format define “straight” lines between ellipsoidal coordinates (section 3.1.1)? Using this definition of straight, how does <code>LINESTRING(0 85,180 85)</code> look like in an Arctic polar projection? How could this geometry be modified to have it cross the North Pole?</li>
+<li>How does the <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> format (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) define “straight” lines between ellipsoidal coordinates (section 3.1.1)? Using this definition of straight, how does <code>LINESTRING(0 85,180 85)</code> look like in an Arctic polar projection? How could this geometry be modified to have it cross the North Pole?</li>
 <li>For a typical polygon on <span class="math inline">\(S^2\)</span>, how can you find out ring direction?</li>
 <li>Are there advantages of using bounding caps over using bounding boxes? If so, list them.</li>
 <li>Why is, for small areas, the orthographic projection centered at the area a good approximation of the geometry as handled on <span class="math inline">\(S^2\)</span>?</li>
 <li>For <code>rnaturalearth::ne_countries(country = "Fiji",    returnclass="sf")</code>, check whether the geometry is valid on <span class="math inline">\(R^2\)</span>, on an orthographic projection centered on the country, and on <span class="math inline">\(S^2\)</span>. How can the geometry be made valid on <span class="math inline">\(S^2\)</span>? Plot the resulting geometry back on <span class="math inline">\(R^2\)</span>. Compare the centroid of the country, as computed on <span class="math inline">\(R^2\)</span> and on <span class="math inline">\(S^2\)</span>, and the distance between the two.</li>
+<li>Consider dataset <code>gisco_countries</code> in R package <code>giscoR</code>, and select the country with <code>NAME_ENGL == "Fiji"</code>. Does it have a valid geometry on the sphere? If so, how was this accomplished?</li>
 </ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-geojson" class="csl-entry" role="doc-biblioentry">
+Butler, H., M. Daly, A. Doyl, S. Gillies, S. Hagen, and T. Schaub. 2016. <span>“The GeoJSON Format.”</span> Vol. Request for Comments: 7946. Internet Engineering Task Force (IETF). <a href="https://tools.ietf.org/html/rfc7946">https://tools.ietf.org/html/rfc7946</a>.
+</div>
 <div id="ref-chrisman" class="csl-entry" role="doc-biblioentry">
 Chrisman, Nicholas. 2012. <span>“A Deflationary Approach to Fundamental Principles in <span>GIScience</span>.”</span> In <em>Francis Harvey (Ed.) Are There Fundamental Principles in Geographic Information Science?</em>, 42–64. CreateSpace, United States.
 </div>
