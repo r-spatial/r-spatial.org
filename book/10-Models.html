@@ -271,10 +271,9 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-modelbased" id="toc-sec-modelbased" class="nav-link active" data-scroll-target="#sec-modelbased"><span class="toc-section-number">10.1</span>  Spatial prediction</a></li>
-  <li><a href="#sec-design" id="toc-sec-design" class="nav-link" data-scroll-target="#sec-design"><span class="toc-section-number">10.2</span>  Design-based and model-based inference</a></li>
-  <li><a href="#predictive-models-with-coordinates" id="toc-predictive-models-with-coordinates" class="nav-link" data-scroll-target="#predictive-models-with-coordinates"><span class="toc-section-number">10.3</span>  Predictive models with coordinates</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">10.4</span>  Further reading</a></li>
+  <li><a href="#sec-design" id="toc-sec-design" class="nav-link active" data-scroll-target="#sec-design"><span class="toc-section-number">10.1</span>  Design-based and model-based inference</a></li>
+  <li><a href="#predictive-models-with-coordinates" id="toc-predictive-models-with-coordinates" class="nav-link" data-scroll-target="#predictive-models-with-coordinates"><span class="toc-section-number">10.2</span>  Predictive models with coordinates</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">10.3</span>  Further reading</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/10-Models.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -300,16 +299,26 @@ div.csl-indent {
 <p></p>
 <p>Spatial data almost always (and everywhere) has the property that it is spatially structured: observations done close by in space tend to be more similar than observations done at larger distance from each other. This phenomenon, in the geography domain attributed to Waldo Tobler (as in “Waldo Tobler’s first law of geography”) was already noted by <span class="citation" data-cites="fisher1937design">Fisher et al. (<a href="references.html#ref-fisher1937design" role="doc-biblioref">1937</a>)</span> and was a motivation for developing randomized block design in agricultural experiments: allocating treatments randomly to blocks avoids that spatial structure gets mixed up (or: confounds) with a signal caused by the treatment.</p>
 <p>The often heard argument that spatially structured data <em>means</em> that the data is spatially correlated, which would <em>exclude</em> estimation methods that assume independent observations is false. Correlation is a property of two random variables, and there are different ways in which spatial data can be approached with random variables: either the observation locations are random (leading to design-based inference) or the observed values are random (leading to model-based inference). The next section points out the difference between these two.</p>
-<section id="sec-modelbased" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-modelbased"><span class="header-section-number">10.1</span> Spatial prediction</h2>
-<p> </p>
-<p><span class="math display">\[Z(s) = m + e(s), \  \ \mbox{E}(e(s)) = 0, \  \ \mbox{Cov(e(s))} = \Sigma(\theta)\]</span></p>
-<p>Support: area counts -&gt; incidence intensity estimates area aggregation/disaggregation; regression relationships, neighbour effects, impacts</p>
-<p>Point: geostatisical: predict Z;</p>
-<p>Point: point pattern: predict <span class="math inline">\(\lambda(s)\)</span> density; spatial interaction: clustering or repulsion?</p>
-</section>
-<section id="sec-design" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="sec-design"><span class="header-section-number">10.2</span> Design-based and model-based inference</h2>
+<!--
+
+## Spatial prediction {#sec-modelbased}
+\index{inference!model-based}
+\index{model-based inference}
+
+$$Z(s) = m + e(s), \  \ \mbox{E}(e(s)) = 0, \  \ \mbox{Cov(e(s))} = \Sigma(\theta)$$
+
+Support: area counts -> incidence intensity estimates
+  area aggregation/disaggregation;
+  regression relationships, neighbour effects, impacts
+  
+Point: geostatisical: predict Z; 
+
+Point: point pattern: predict $\lambda(s)$
+  density; spatial interaction: clustering or repulsion?
+
+-->
+<section id="sec-design" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-design"><span class="header-section-number">10.1</span> Design-based and model-based inference</h2>
 <p> </p>
 <p>Statistical inference means the action of estimating parameters about a population from sample data. Suppose we denote the variable of interest with <span class="math inline">\(z(s)\)</span>, where <span class="math inline">\(z\)</span> is the attribute value measured at location <span class="math inline">\(s\)</span>, and we are interested in estimating the mean value of <span class="math inline">\(z(s)\)</span> over a domain <span class="math inline">\(D\)</span>, <span class="math display">\[z(s)=\frac{1}{|D|} \int_{ u \in D} z(u)du,\]</span> with <span class="math inline">\(|D|\)</span> the area of <span class="math inline">\(D\)</span>, from sample data <span class="math inline">\(z(s_1),...,z(s_n)\)</span>.</p>
 <p>Then, there are two possibilities to proceed: model-based, or design-based. A model-based approach considers <span class="math inline">\(z(s)\)</span> to be a realisation of a superpopulation <span class="math inline">\(Z(s)\)</span> (using capital letters to indicate random variables), and could for instance postulate a model for its spatial variability in the form of <span class="math display">\[Z(s) = m + e(s), \  \ \mbox{E}(e(s)) = 0, \  \ \mbox{Cov(e(s))} = \Sigma(\theta)\]</span> with <span class="math inline">\(m\)</span> a constant mean and <span class="math inline">\(e(s)\)</span> a residual with mean zero and covariance matrix <span class="math inline">\(\Sigma(\theta)\)</span>. This would require choosing the covariance function <span class="math inline">\(\Sigma()\)</span> and estimating its parameters <span class="math inline">\(\theta\)</span> from <span class="math inline">\(z(s)\)</span>, and then computing a block kriging prediction <span class="math inline">\(\hat{Z}(D)\)</span> (<a href="12-Interpolation.html#sec-blockkriging"><span>Section&nbsp;12.5</span></a>). This approach makes no assumptions about how <span class="math inline">\(z(s)\)</span> was sampled <em>spatially</em>, but of course it should allow for choosing the covariance function and estimating its parameters; inference is conditional to the validity of the postulated model.</p>
@@ -329,8 +338,8 @@ div.csl-indent {
 </ul>
 <p>In case a sampling procedure is to be planned <span class="citation" data-cites="de2006sampling">(<a href="references.html#ref-de2006sampling" role="doc-biblioref">Jaap De Gruijter et al. 2006</a>)</span>, some form of spatial random sampling is definitely worth considering since it opens up the possibility of following both inference frameworks.</p>
 </section>
-<section id="predictive-models-with-coordinates" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="predictive-models-with-coordinates"><span class="header-section-number">10.3</span> Predictive models with coordinates</h2>
+<section id="predictive-models-with-coordinates" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="predictive-models-with-coordinates"><span class="header-section-number">10.2</span> Predictive models with coordinates</h2>
 <p> </p>
 <p>In data science projects, coordinates may be seen as features in a larger set of predictors (or features, or covariates) and treated accordingly. There are some catches with doing so.</p>
 <p>As usual when working with predictors, it is good to choose predictive methods that are not sensitive to shifts in origin or shifts in unit (scale). Assuming a two-dimensional problem, predictive models should also not be sensitive to arbitrary rotations of the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>- or latitude and longitude axes. For projected (2D, Cartesian) coordinates this can be assured e.g.&nbsp;by using polynomials of order <span class="math inline">\(n\)</span> as <span class="math inline">\((x+y)^n\)</span>, rather than <span class="math inline">\((x)^n + (y)^n\)</span>; for a second order polynomial this involves including the term <span class="math inline">\(xy\)</span>, so that an ellipsoidal-shape trend surface does not have to be aligned with the <span class="math inline">\(x-\)</span> or <span class="math inline">\(y-\)</span>axis. For a GAM model with spline components, one would use a spline in two dimensions <span class="math inline">\(s(x,y)\)</span> rather than two independent splines <span class="math inline">\(s(x)\)</span> and <span class="math inline">\(s(y)\)</span> that do not allow for interaction. An exception to this “rule” is when e.g.&nbsp;a pure latitude effect is desired, for instance to account for yearly total solar energy influx.</p>
@@ -339,8 +348,8 @@ div.csl-indent {
 <p> </p>
 <p>A common case is where sample data are collected opportunistically (“whatever could be found”), and are then used in a predictive framework that does not weigh them. This has a consequence that the resulting model may be biased towards over-represented areas (in predictor space and/or in spatial coordinates space), and that simple (random) cross validation statistics may be over-optimistic when taken as performance measures for spatial prediction <span class="citation" data-cites="meyerpebesma meyerpebesmanc">(<a href="references.html#ref-meyerpebesma" role="doc-biblioref">Meyer and Pebesma 2021</a>, <a href="references.html#ref-meyerpebesmanc" role="doc-biblioref">2022</a>)</span>. Adaptive cross validation measures, e.g.&nbsp;from spatial cross validation may help getting more relevant measures for predictive performance.</p>
 </section>
-<section id="further-reading" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.4</span> Further reading</h2>
+<section id="further-reading" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.3</span> Further reading</h2>
 <p>There is a large number of papers and books available on analysing and statistical modelling of spatial and spatiotemporal data, and a very large number of R packages help doing so. Several <a href="https://cran.r-project.org/web/views/">CRAN task views</a> try to maintain an overview of the R packages, e.g.&nbsp;on:</p>
 <ul>
 <li>spatial data <span class="citation" data-cites="ctvspatial">(<a href="references.html#ref-ctvspatial" role="doc-biblioref">Bivand and Nowosad 2022</a>)</span></li>

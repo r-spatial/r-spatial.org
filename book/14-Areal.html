@@ -448,9 +448,7 @@ div.csl-indent {
 </div>
 <p>From <strong>spdep</strong> 1.1-7, the <strong>sf</strong> package GEOS interface is used within <code>poly2nb()</code> to find the candidate neighbours and populate <code>foundInBox</code> internally. In this case, the use of spatial indexing (STRtree queries) in GEOS through <strong>sf</strong> is the default:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(pol_pres15 <span class="sc">|&gt;</span> <span class="fu">poly2nb</span>(<span class="at">queen =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> nb_q)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.828   0.024   0.853</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pol_pres15 <span class="sc">|&gt;</span> <span class="fu">poly2nb</span>(<span class="at">queen =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> nb_q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The print method shows the summary structure of the neighbour object:</p>
 <div class="cell">
@@ -611,16 +609,11 @@ div.csl-indent {
 </div>
 <p>Here the largest first nearest neighbour distance is just under 18 km, so using this as the upper threshold gives certainty that all units will have at least one neighbour:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>) <span class="ot">-&gt;</span> nb_d18)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.202   0.000   0.202</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>) <span class="ot">-&gt;</span> nb_d18</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For this moderate number of observations, use of spatial indexing does not yield advantages in run times:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>, <span class="at">use_kd_tree =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>            <span class="ot">-&gt;</span> nb_d18a)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    user  system elapsed </span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   0.186   0.000   0.186</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>coords <span class="sc">|&gt;</span> <span class="fu">dnearneigh</span>(<span class="dv">0</span>, <span class="dv">18000</span>, <span class="at">use_kd_tree =</span> <span class="cn">FALSE</span>) <span class="ot">-&gt;</span> nb_d18a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and the output objects are the same:</p>
 <div class="cell">

@@ -722,7 +722,7 @@ div.csl-indent {
 <p>Use R to solve the following exercises.</p>
 <ol type="1">
 <li>For the S2 image (above), find out in which order the bands are by using <code>st_get_dimension_values()</code>, and try to find out (e.g.&nbsp;by internet search) which spectral bands / colors they correspond to.</li>
-<li>Compute NDVI for the S2 image, using <code>st_apply</code> and an an appropriate <code>ndvi</code> function. Plot the result to screen, and then write the result to a GeoTIFF. Explain the difference in runtime between plotting and writing.</li>
+<li>Compute NDVI for the S2 image, using <code>st_apply</code> and an appropriate <code>ndvi</code> function. Plot the result to screen, and then write the result to a GeoTIFF. Explain the difference in runtime between plotting and writing.</li>
 <li>Plot an RGB composite of the S2 image, using the <code>rgb</code> argument to <code>plot()</code>, and then by using <code>st_rgb()</code> first.</li>
 <li>Select five random points from the bounding box of <code>S2</code>, and extract the band values at these points; convert the object returned to an <code>sf</code> object.</li>
 <li>For the 10 km radius circle around <code>POINT(390000  5940000)</code>, use <code>aggregate</code> to compute the mean pixel values of the S2 image when downsampling the images with factor 30, and on the original resolution. Compute the relative difference between the results.</li>
