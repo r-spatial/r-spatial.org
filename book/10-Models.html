@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -106,7 +169,6 @@ div.csl-indent {
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
@@ -271,9 +333,11 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-design" id="toc-sec-design" class="nav-link active" data-scroll-target="#sec-design"><span class="toc-section-number">10.1</span>  Design-based and model-based inference</a></li>
-  <li><a href="#predictive-models-with-coordinates" id="toc-predictive-models-with-coordinates" class="nav-link" data-scroll-target="#predictive-models-with-coordinates"><span class="toc-section-number">10.2</span>  Predictive models with coordinates</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="toc-section-number">10.3</span>  Further reading</a></li>
+  <li><a href="#mapping-with-non-spatial-regression-and-ml-models" id="toc-mapping-with-non-spatial-regression-and-ml-models" class="nav-link active" data-scroll-target="#mapping-with-non-spatial-regression-and-ml-models"><span class="toc-section-number">10.1</span>  Mapping with non-spatial regression and ML models</a></li>
+  <li><a href="#sec-supportstatistical" id="toc-sec-supportstatistical" class="nav-link" data-scroll-target="#sec-supportstatistical"><span class="toc-section-number">10.2</span>  Support and statistical modelling</a></li>
+  <li><a href="#time-in-predictive-models" id="toc-time-in-predictive-models" class="nav-link" data-scroll-target="#time-in-predictive-models"><span class="toc-section-number">10.3</span>  Time in predictive models</a></li>
+  <li><a href="#sec-design" id="toc-sec-design" class="nav-link" data-scroll-target="#sec-design"><span class="toc-section-number">10.4</span>  Design-based and model-based inference</a></li>
+  <li><a href="#sec-models-with-coordinates" id="toc-sec-models-with-coordinates" class="nav-link" data-scroll-target="#sec-models-with-coordinates"><span class="toc-section-number">10.5</span>  Predictive models with coordinates</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/10-Models.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -282,7 +346,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></h1>
+<h1 class="title"><span id="sec-modelling" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span></h1>
 </div>
 
 
@@ -296,29 +360,65 @@ div.csl-indent {
 
 </header>
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package=</span><span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="ot">-&gt;</span> nc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p></p>
-<p>Spatial data almost always (and everywhere) has the property that it is spatially structured: observations done close by in space tend to be more similar than observations done at larger distance from each other. This phenomenon, in the geography domain attributed to Waldo Tobler (as in “Waldo Tobler’s first law of geography”) was already noted by <span class="citation" data-cites="fisher1937design">Fisher et al. (<a href="references.html#ref-fisher1937design" role="doc-biblioref">1937</a>)</span> and was a motivation for developing randomized block design in agricultural experiments: allocating treatments randomly to blocks avoids that spatial structure gets mixed up (or: confounds) with a signal caused by the treatment.</p>
-<p>The often heard argument that spatially structured data <em>means</em> that the data is spatially correlated, which would <em>exclude</em> estimation methods that assume independent observations is false. Correlation is a property of two random variables, and there are different ways in which spatial data can be approached with random variables: either the observation locations are random (leading to design-based inference) or the observed values are random (leading to model-based inference). The next section points out the difference between these two.</p>
-<!--
-
-## Spatial prediction {#sec-modelbased}
-\index{inference!model-based}
-\index{model-based inference}
-
-$$Z(s) = m + e(s), \  \ \mbox{E}(e(s)) = 0, \  \ \mbox{Cov(e(s))} = \Sigma(\theta)$$
-
-Support: area counts -> incidence intensity estimates
-  area aggregation/disaggregation;
-  regression relationships, neighbour effects, impacts
-  
-Point: geostatisical: predict Z; 
-
-Point: point pattern: predict $\lambda(s)$
-  density; spatial interaction: clustering or repulsion?
-
--->
-<section id="sec-design" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-design"><span class="header-section-number">10.1</span> Design-based and model-based inference</h2>
+<p>So far, in this book we mostly addressed the problem of <em>describing</em> data, e.g.&nbsp;by logical geometrical predicates or transformations that involved geometries, or by summary measures or by plots depicting variability in the geometry data or in feature attributes.</p>
+<p>Statistical modelling aims at going beyond describing the data: it considers the data as a sample drawn from a population, and tries to make assessments (inference) about the population sampled from, for instance by quantifying relationships between variables, estimating population parameters, and predicting the outcome of observations that could have been taken but weren’t, as is the case in interpolation. This is usually done by adopting a model for the data, where for instance observations are decompsed as follows:</p>
+<p><span id="eq-model"><span class="math display">\[
+\mbox{observed} = \mbox{explained} + \mbox{remainder}
+\tag{10.1}\]</span></span></p>
+<p>where “explained” typically uses external variables (predictors, covariates, in machine learning confusingly also called features) that are related to the observed variable and some kind of regression model to translate into variability of the observed variable, and “remainder” is remaining variability that could not be explained. Interest may focus on the nature and magnitude or the relations between predictors and the observed variable, or in predicting new observations.</p>
+<p>Statistical models, and <em>sampling</em> hinge on the concept of probability, which in typical spatial data science problems is not a force of nature but has to be assumed in one way or another. If we are faced with data that come from (spatially) random sampling and we are interested in estimating means or totals, a <em>design-based</em> approach that assumes randomness in the sample locations is the most straightforward analysis approach, as pointed out in more detail in <a href="#sec-design"><span>Section&nbsp;10.4</span></a>. If observations were not sampled randomly, or if our interest is in predicting values at specific locations (mapping) a <em>model-based</em> approach is needed. The remaining chapters in this part deal with model-based approaches.</p>
+<section id="mapping-with-non-spatial-regression-and-ml-models" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="mapping-with-non-spatial-regression-and-ml-models"><span class="header-section-number">10.1</span> Mapping with non-spatial regression and ML models</h2>
+<p>Regression models or other machine learning (ML) models can be applied to spatial data just the way they are applied for predicting new observations in non-spatial problems:</p>
+<ol type="1">
+<li><strong>estimate</strong>: for a set of observations, a regression or ML model is fitted using predictor values corresponding to the observations (in ML jargon this step is also known as “train”)</li>
+<li><strong>predict</strong>: for a new situation, known predictor values are combined with the fitted model to predict the value of the observed variable, along with a prediction error or prediction interval if possible</li>
+</ol>
+<p>Objects of class <code>sf</code> need no special treatment, as they are <code>data.frame</code>s. To create maps of the resulting predictions, predicted values need to be added to the <code>sf</code> object, as e.g.&nbsp;done using the <code>nc</code> dataset loaded as in <a href="01-hello.html"><span>Chapter&nbsp;1</span></a>:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">SID =</span> SID74<span class="sc">/</span>BIR74, <span class="at">NWB =</span> NWBIR74<span class="sc">/</span>BIR74) <span class="ot">-&gt;</span> nc1</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(SID <span class="sc">~</span> NWB, nc1) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(nc1, <span class="at">interval =</span> <span class="st">"prediction"</span>) <span class="ot">-&gt;</span> pr</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(nc, pr) <span class="sc">|&gt;</span> <span class="fu">names</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] "AREA"      "PERIMETER" "CNTY_"     "CNTY_ID"   "NAME"     </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  [6] "FIPS"      "FIPSNO"    "CRESS_ID"  "BIR74"     "SID74"    </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [11] "NWBIR74"   "BIR79"     "SID79"     "NWBIR79"   "geom"     </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] "fit"       "lwr"       "upr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>where we see that three columns: <code>fit</code> for predicted values and <code>lwr</code> and <code>upr</code> for the 95% prediction intervals, have been added to the final object. In this case, the dataset used for model estimation was reused for prediction, but in general this does not have to be the case. <a href="07-Introsf.html#sec-starspredict"><span>Section&nbsp;7.4.6</span></a> points out how this can be done with <code>stars</code> objects.</p>
+<p>Because many regression and ML type problems share this same structure, packages like <code>caret</code> <span class="citation" data-cites="R-Caret">(<a href="references.html#ref-R-Caret" role="doc-biblioref"><strong>R-Caret?</strong></a>)</span> or <code>tidymodels</code> <span class="citation" data-cites="R-tidymodels">(<a href="references.html#ref-R-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span> allow for automated evaluation and comparison over a large set of model alternatives, offering a large set of model evaluation criteria and cross validation strategies. Such cross validation approaches assume independent observations, which is often not a reasonable assumption for spatial data, for instance because of spatial correlation <span class="citation" data-cites="Ploton2020">(<a href="references.html#ref-Ploton2020" role="doc-biblioref">Ploton et al. 2020</a>)</span> or because of strong spatial clustering in sample data <span class="citation" data-cites="meyerpebesmanc">(<a href="references.html#ref-meyerpebesmanc" role="doc-biblioref">Meyer and Pebesma 2022</a>)</span>, or both, and a number of R packages provide methods that are meant as replacements for naive cross validation, including <code>spatialsample</code> <span class="citation" data-cites="R-spatialsample">(<a href="references.html#ref-R-spatialsample" role="doc-biblioref">Silge and Mahoney 2022</a>)</span>, <code>CAST</code> <span class="citation" data-cites="R-CAST">(<a href="references.html#ref-R-CAST" role="doc-biblioref">Meyer, Milà, and Ludwig 2022</a>)</span>, <code>mlr3spatial</code> <span class="citation" data-cites="R-mlr3spatial">(<a href="references.html#ref-R-mlr3spatial" role="doc-biblioref">Becker and Schratz 2022</a>)</span> and <code>mlr3spatiotempcv</code> <span class="citation" data-cites="R-mlr3spatiotempcv">(<a href="references.html#ref-R-mlr3spatiotempcv" role="doc-biblioref">Schratz and Becker 2022</a>)</span>.</p>
+<p>Strong spatial clustering of sample can arise when sample data are composed by joining different databases, each with very different sampling density. This is often the case in global datasets <span class="citation" data-cites="meyerpebesmanc">(<a href="references.html#ref-meyerpebesmanc" role="doc-biblioref">Meyer and Pebesma 2022</a>)</span>. Another example of strong clustering arises when, for sampling ground truth points of a land cover class, polygons are digitized and points are sampled within these polygons at the resolution of pixels in satellite imagery.</p>
+<p>Spatial correlation in the “remainder” part of the model may be decreased by adding spatial coordinates or functions of spatial coordinates to the set of predictors. This also carries a risk of over-optimistic predictions in extrapolation cases, (cross) validation, and model assessment, and is further discussed in <a href="#sec-models-with-coordinates"><span>Section&nbsp;10.5</span></a>.</p>
+</section>
+<section id="sec-supportstatistical" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-supportstatistical"><span class="header-section-number">10.2</span> Support and statistical modelling</h2>
+<p>Support of data (<a href="01-hello.html#sec-support"><span>Section&nbsp;1.6</span></a>; <a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a>) plays a lead role in the statistical analysis of spatial data. Methods for areal data (<a href="14-Areal.html"><span>Chapter&nbsp;14</span></a> - <a href="17-Econometrics.html"><span>Chapter&nbsp;17</span></a>) are deviced for data with area support, where the set of areas cover the entire area of interest.</p>
+<p>By showing an extensive variable (<a href="05-Attributes.html#sec-extensiveintensive"><span>Section&nbsp;5.3.1</span></a>) in a polygon choropleth map as done in <a href="01-hello.html#fig-first-map">Figure&nbsp;<span>1.1</span></a> one runs the risk that the information is related with the polygon size, and that the signal shown is actually the size of the polygons, in color. For the variable <em>population count</em> one would divide by the polygon area to show the (intensive) variable <em>population density</em>, in order to create an informative map. In the analysis of health data, like disease incidences over a time period shown in <a href="01-hello.html#fig-first-map">Figure&nbsp;<span>1.1</span></a>, rather than dividing by polygon area to get a spatial density, observations are usually converted to probabilities or <em>incidence rates</em> by dividing over the population size of the associated polygons. As such they are (still) associated with the polygon area but their support is the population total divided by. It is these totals that inform the (Poisson) variability used by subsequent modelling, e.g.&nbsp;in CAR-type models (<a href="16-SpatialRegression.html#sec-multilevel"><span>Section&nbsp;16.2</span></a>).</p>
+<p><a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a> deals in principle with point support observations, but at some stage needs to acknowledge that observations have non-zero size: tree stem “points” cannot be separated distances smaller than the tree diameter. Also, points in point pattern analysis are considered in their <em>obervation window</em>, the area for which the point dataset is exhaustive, or complete. The observation window is of influence in many of the analysis tools. If points are observed on a line network, then the observation window consists of the set of lines observed, and distances measured through this network.</p>
+<p>Geostatistical data (<a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>, <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>) usually start with point support observations, and may end with predictions (spatial interpolations) for unobserved point locations distributed over the area of interest, or may end in predictions for means over areas (block kriging; <a href="12-Interpolation.html#sec-blockkriging"><span>Section&nbsp;12.5</span></a>). Alternatively, observations may be aggregates over regions (<span class="citation" data-cites="rtop">Skøien et al. (<a href="references.html#ref-rtop" role="doc-biblioref">2014</a>)</span>). In remote sensing data, pixel values are usually associated with aggregates over the pixel area. Challenges may be the filling of gaps in images, e.g.&nbsp;caused by cloud coverage, from neihbouring pixels both in space and time (<span class="citation" data-cites="gapfill">Gerber et al. (<a href="references.html#ref-gapfill" role="doc-biblioref">2018</a>)</span>, <span class="citation" data-cites="heaton">Heaton et al. (<a href="references.html#ref-heaton" role="doc-biblioref">2019</a>)</span>).</p>
+<p>When combining data with different spatial supports, e.g.&nbsp;polygons from administrative regions and raster layers, it is often seen that all information is “brought together” to the highest resolution, by simply extracting polygon values at pixel locations, and proceeding from there, with all the newly created “observations”. This of course bears a large risk of producing nonsensible results when analysing these “data”, and a proper downsampling strategy, possibly using simulations to cope with uncertainty, would be a better alternative. For naive users, using software that is not aware of support of values associated with areas and using software that does not warn against naive downsampling is of course not a helpful situation.</p>
+</section>
+<section id="time-in-predictive-models" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="time-in-predictive-models"><span class="header-section-number">10.3</span> Time in predictive models</h2>
+<p><span class="citation" data-cites="schabenberger+gotway:2005">Schabenberger and Gotway (<a href="references.html#ref-schabenberger+gotway:2005" role="doc-biblioref">2005</a>)</span> already noted that in many cases, statistical analysis of spatiotemporal data proceeds either by reducing time, then working on the problem spatially (time first, space later) or reducing space, then working on the problem temporally (space first, time later). An example of the first approach is given in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a> where a dataset with a year of hourly values (detailed in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>) are reduce to station mean values (time first) after which these means are interpolated spatially (space later). Examples from the area of remote sensing are</p>
+<ul>
+<li><span class="citation" data-cites="sits">Simoes et al. (<a href="references.html#ref-sits" role="doc-biblioref">2021</a>)</span>, who use supervised machine learning and time series deep learning to segmentize pixel time series into sequences of land use (time first), and then smooth the resulting sequences of maps to remove improbable transitions in isolated pixels (space later)</li>
+<li><span class="citation" data-cites="bfast">Verbesselt et al. (<a href="references.html#ref-bfast" role="doc-biblioref">2010</a>)</span>, who use (unsupervised) structural change algorithms to find breakpoints in pixel time series (time first), which are interpreted in the context deforestation later on.</li>
+</ul>
+<p>Examples of space first, time later in the area of remote sensing are any case where a single scene or scenes belonging to a single season are classified, and multi-year changes in land use or land cover are assessed by comparing time sequences of classified scenes. An example of this is <span class="citation" data-cites="brown2022dynamic">Brown et al. (<a href="references.html#ref-brown2022dynamic" role="doc-biblioref">2022</a>)</span>. Examples where space and time are considered <em>jointly</em> are the spatiotemporal interpolation in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>, and <span class="citation" data-cites="LU2016227">Lu et al. (<a href="references.html#ref-LU2016227" role="doc-biblioref">2016</a>)</span> in the context of remote sensing.</p>
+</section>
+<section id="sec-design" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="sec-design"><span class="header-section-number">10.4</span> Design-based and model-based inference</h2>
 <p> </p>
 <p>Statistical inference means the action of estimating parameters about a population from sample data. Suppose we denote the variable of interest with <span class="math inline">\(z(s)\)</span>, where <span class="math inline">\(z\)</span> is the attribute value measured at location <span class="math inline">\(s\)</span>, and we are interested in estimating the mean value of <span class="math inline">\(z(s)\)</span> over a domain <span class="math inline">\(D\)</span>, <span class="math display">\[z(s)=\frac{1}{|D|} \int_{ u \in D} z(u)du,\]</span> with <span class="math inline">\(|D|\)</span> the area of <span class="math inline">\(D\)</span>, from sample data <span class="math inline">\(z(s_1),...,z(s_n)\)</span>.</p>
 <p>Then, there are two possibilities to proceed: model-based, or design-based. A model-based approach considers <span class="math inline">\(z(s)\)</span> to be a realisation of a superpopulation <span class="math inline">\(Z(s)\)</span> (using capital letters to indicate random variables), and could for instance postulate a model for its spatial variability in the form of <span class="math display">\[Z(s) = m + e(s), \  \ \mbox{E}(e(s)) = 0, \  \ \mbox{Cov(e(s))} = \Sigma(\theta)\]</span> with <span class="math inline">\(m\)</span> a constant mean and <span class="math inline">\(e(s)\)</span> a residual with mean zero and covariance matrix <span class="math inline">\(\Sigma(\theta)\)</span>. This would require choosing the covariance function <span class="math inline">\(\Sigma()\)</span> and estimating its parameters <span class="math inline">\(\theta\)</span> from <span class="math inline">\(z(s)\)</span>, and then computing a block kriging prediction <span class="math inline">\(\hat{Z}(D)\)</span> (<a href="12-Interpolation.html#sec-blockkriging"><span>Section&nbsp;12.5</span></a>). This approach makes no assumptions about how <span class="math inline">\(z(s)\)</span> was sampled <em>spatially</em>, but of course it should allow for choosing the covariance function and estimating its parameters; inference is conditional to the validity of the postulated model.</p>
@@ -338,8 +438,8 @@ Point: point pattern: predict $\lambda(s)$
 </ul>
 <p>In case a sampling procedure is to be planned <span class="citation" data-cites="de2006sampling">(<a href="references.html#ref-de2006sampling" role="doc-biblioref">Jaap De Gruijter et al. 2006</a>)</span>, some form of spatial random sampling is definitely worth considering since it opens up the possibility of following both inference frameworks.</p>
 </section>
-<section id="predictive-models-with-coordinates" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="predictive-models-with-coordinates"><span class="header-section-number">10.2</span> Predictive models with coordinates</h2>
+<section id="sec-models-with-coordinates" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="sec-models-with-coordinates"><span class="header-section-number">10.5</span> Predictive models with coordinates</h2>
 <p> </p>
 <p>In data science projects, coordinates may be seen as features in a larger set of predictors (or features, or covariates) and treated accordingly. There are some catches with doing so.</p>
 <p>As usual when working with predictors, it is good to choose predictive methods that are not sensitive to shifts in origin or shifts in unit (scale). Assuming a two-dimensional problem, predictive models should also not be sensitive to arbitrary rotations of the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>- or latitude and longitude axes. For projected (2D, Cartesian) coordinates this can be assured e.g.&nbsp;by using polynomials of order <span class="math inline">\(n\)</span> as <span class="math inline">\((x+y)^n\)</span>, rather than <span class="math inline">\((x)^n + (y)^n\)</span>; for a second order polynomial this involves including the term <span class="math inline">\(xy\)</span>, so that an ellipsoidal-shape trend surface does not have to be aligned with the <span class="math inline">\(x-\)</span> or <span class="math inline">\(y-\)</span>axis. For a GAM model with spline components, one would use a spline in two dimensions <span class="math inline">\(s(x,y)\)</span> rather than two independent splines <span class="math inline">\(s(x)\)</span> and <span class="math inline">\(s(y)\)</span> that do not allow for interaction. An exception to this “rule” is when e.g.&nbsp;a pure latitude effect is desired, for instance to account for yearly total solar energy influx.</p>
@@ -347,30 +447,17 @@ Point: point pattern: predict $\lambda(s)$
 <p>In many cases, the spatial coordinates over which samples were collected also define the space over which predictions are made, setting them apart from other features. Many simple predictive approaches, including most machine learning methods, assume sample data to be independent. When samples are collected by spatially random sampling over the spatial target area, this assumption may be justified when working under a design-based context <span class="citation" data-cites="brusejss">(<a href="references.html#ref-brusejss" role="doc-biblioref">Brus 2021b</a>)</span>. This context however treats the coordinate space as the variable over which we randomize, which affords predicting values for a new <em>randomly chosen</em> location but rules out making predictions for fixed locations; this implies that averages over areas over which samples were collected can be obtained, but not spatial interpolations. In case predictions for fixed locations are required, or in case data were not collected by spatial random sampling, a model-based approach (as taken in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>) is needed and typically some form of spatial and/or temporal autocorrelation of residuals must be assumed.</p>
 <p> </p>
 <p>A common case is where sample data are collected opportunistically (“whatever could be found”), and are then used in a predictive framework that does not weigh them. This has a consequence that the resulting model may be biased towards over-represented areas (in predictor space and/or in spatial coordinates space), and that simple (random) cross validation statistics may be over-optimistic when taken as performance measures for spatial prediction <span class="citation" data-cites="meyerpebesma meyerpebesmanc">(<a href="references.html#ref-meyerpebesma" role="doc-biblioref">Meyer and Pebesma 2021</a>, <a href="references.html#ref-meyerpebesmanc" role="doc-biblioref">2022</a>)</span>. Adaptive cross validation measures, e.g.&nbsp;from spatial cross validation may help getting more relevant measures for predictive performance.</p>
-</section>
-<section id="further-reading" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">10.3</span> Further reading</h2>
-<p>There is a large number of papers and books available on analysing and statistical modelling of spatial and spatiotemporal data, and a very large number of R packages help doing so. Several <a href="https://cran.r-project.org/web/views/">CRAN task views</a> try to maintain an overview of the R packages, e.g.&nbsp;on:</p>
-<ul>
-<li>spatial data <span class="citation" data-cites="ctvspatial">(<a href="references.html#ref-ctvspatial" role="doc-biblioref">Bivand and Nowosad 2022</a>)</span></li>
-<li>spatiotemporal data <span class="citation" data-cites="ctvspatiotemporal">(<a href="references.html#ref-ctvspatiotemporal" role="doc-biblioref">Pebesma 2021</a>)</span></li>
-<li>tracking data <span class="citation" data-cites="ctvtracking">(<a href="references.html#ref-ctvtracking" role="doc-biblioref">Joo et al. 2021</a>)</span>, see also <span class="citation" data-cites="https://doi.org/10.1111/1365-2656.13116">(<a href="references.html#ref-https://doi.org/10.1111/1365-2656.13116" role="doc-biblioref">Joo et al. 2020</a>)</span></li>
-</ul>
-<p>The introductions to the chapters following contain more pointers to relevant literature references. Introductions to using the integrated nested Laplace approximation (INLA) for analysing spatial data are given in <span class="citation" data-cites="BLANGIARDO201333">Blangiardo et al. (<a href="references.html#ref-BLANGIARDO201333" role="doc-biblioref">2013</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="gomez2020bayesian">Gómez-Rubio (<a href="references.html#ref-gomez2020bayesian" role="doc-biblioref">2020</a>)</span>. <span class="citation" data-cites="krainski2018advanced">Krainski et al. (<a href="references.html#ref-krainski2018advanced" role="doc-biblioref">2018</a>)</span> combine the INLA approach with stochastic partial differential equations. Many of these approaches use meshes to tesselate the area, to help define a Gaussian Markov Random Field both for modelling point pattern data or geostatistical data. Spatiotemporal Bayesian modelling of change of support problems is presented in <span class="citation" data-cites="stcos">A. M. Raim et al. (<a href="references.html#ref-stcos" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="R-stcos">Andrew M. Raim et al. (<a href="references.html#ref-R-stcos" role="doc-biblioref">2020</a>)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-ctvspatial" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger, and Jakub Nowosad. 2022. <em>CRAN Task View: Analysis of Spatial Data</em>. <a href="https://cran.r-project.org/web/views/Spatial.html">https://cran.r-project.org/web/views/Spatial.html</a>.
-</div>
-<div id="ref-blangiardo2015spatial" class="csl-entry" role="doc-biblioentry">
-Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. John Wiley &amp; Sons.
-</div>
-<div id="ref-BLANGIARDO201333" class="csl-entry" role="doc-biblioentry">
-Blangiardo, Marta, Michela Cameletti, Gianluca Baio, and Håvard Rue. 2013. <span>“Spatial and Spatio-Temporal Models with r-INLA.”</span> <em>Spatial and Spatio-Temporal Epidemiology</em> 4: 33–49. https://doi.org/<a href="https://doi.org/10.1016/j.sste.2012.12.001">https://doi.org/10.1016/j.sste.2012.12.001</a>.
+<div id="ref-R-mlr3spatial" class="csl-entry" role="doc-biblioentry">
+Becker, Marc, and Patrick Schratz. 2022. <em>Mlr3spatial: Support for Spatial Objects Within the ’Mlr3’ Ecosystem</em>. <a href="https://CRAN.R-project.org/package=mlr3spatial">https://CRAN.R-project.org/package=mlr3spatial</a>.
 </div>
 <div id="ref-breidt2017model" class="csl-entry" role="doc-biblioentry">
 Breidt, F Jay, Jean D Opsomer, et al. 2017. <span>“Model-Assisted Survey Estimation with Modern Prediction Techniques.”</span> <em>Statistical Science</em> 32 (2): 190–205.
+</div>
+<div id="ref-brown2022dynamic" class="csl-entry" role="doc-biblioentry">
+Brown, Christopher F, Steven P Brumby, Brookie Guzder-Williams, Tanya Birch, Samantha Brooks Hyde, Joseph Mazzariello, Wanda Czerwinski, et al. 2022. <span>“Dynamic World, Near Real-Time Global 10 m Land Use Land Cover Mapping.”</span> <em>Scientific Data</em> 9 (1): 1–17. <a href="https://doi.org/10.1038/s41597-022-01307-4">https://doi.org/10.1038/s41597-022-01307-4</a>.
 </div>
 <div id="ref-brus2021" class="csl-entry" role="doc-biblioentry">
 Brus, Dick J. 2021a. <span>“Statistical Approaches for Spatial Sample Survey: Persistent Misconceptions and New Developments.”</span> <em>European Journal of Soil Science</em> 72 (2): 686–703. https://doi.org/<a href="https://doi.org/10.1111/ejss.12988">https://doi.org/10.1111/ejss.12988</a>.
@@ -384,20 +471,20 @@ De Gruijter, Jaap, Dick J Brus, Marc FP Bierkens, and Martin Knotters. 2006. <em
 <div id="ref-de1990model" class="csl-entry" role="doc-biblioentry">
 De Gruijter, JJ, and CJF Ter Braak. 1990. <span>“Model-Free Estimation from Spatial Samples: A Reappraisal of Classical Sampling Theory.”</span> <em>Mathematical Geology</em> 22 (4): 407–15.
 </div>
-<div id="ref-fisher1937design" class="csl-entry" role="doc-biblioentry">
-Fisher, Ronald Aylmer et al. 1937. <em>The Design of Experiments.</em> <em>The Design of Experiments.</em> 2nd Ed. Oliver &amp; Boyd, Edinburgh &amp; London.
+<div id="ref-gapfill" class="csl-entry" role="doc-biblioentry">
+Gerber, Florian, Rogier de Jong, Michael E Schaepman, Gabriela Schaepman-Strub, and Reinhard Furrer. 2018. <span>“Predicting Missing Values in Spatio-Temporal Remote Sensing Data.”</span> <em>IEEE Transactions on Geoscience and Remote Sensing</em> 56 (5): 2841–53.
 </div>
-<div id="ref-gomez2020bayesian" class="csl-entry" role="doc-biblioentry">
-Gómez-Rubio, Virgilio. 2020. <em>Bayesian Inference with INLA</em>. CRC Press.
+<div id="ref-heaton" class="csl-entry" role="doc-biblioentry">
+Heaton, Matthew J, Abhirup Datta, Andrew O Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2019. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em> 24 (3): 398–425. <a href="https://link.springer.com/article/10.1007/s13253-018-00348-w">https://link.springer.com/article/10.1007/s13253-018-00348-w</a>.
 </div>
-<div id="ref-https://doi.org/10.1111/1365-2656.13116" class="csl-entry" role="doc-biblioentry">
-Joo, Rocío, Matthew E. Boone, Thomas A. Clay, Samantha C. Patrick, Susana Clusella-Trullas, and Mathieu Basille. 2020. <span>“Navigating Through the <span>R</span> Packages for Movement.”</span> <em>Journal of Animal Ecology</em> 89 (1): 248–67. https://doi.org/<a href="https://doi.org/10.1111/1365-2656.13116">https://doi.org/10.1111/1365-2656.13116</a>.
+<div id="ref-R-tidymodels" class="csl-entry" role="doc-biblioentry">
+Kuhn, Max, and Hadley Wickham. 2020. <em>Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles.</em> <a href="https://www.tidymodels.org">https://www.tidymodels.org</a>.
 </div>
-<div id="ref-ctvtracking" class="csl-entry" role="doc-biblioentry">
-Joo, Rocío, Matthew E. Boone, Michael Sumner, and Mathieu Basille. 2021. <em>CRAN Task View: Processing and Analysis of Tracking Data</em>. <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">https://cran.r-project.org/web/views/SpatioTemporal.html</a>.
+<div id="ref-LU2016227" class="csl-entry" role="doc-biblioentry">
+Lu, Meng, Edzer Pebesma, Alber Sanchez, and Jan Verbesselt. 2016. <span>“Spatio-Temporal Change Detection from Multidimensional Arrays: Detecting Deforestation from MODIS Time Series.”</span> <em>ISPRS Journal of Photogrammetry and Remote Sensing</em> 117: 227–36. <a href="https://doi.org/10.1016/j.isprsjprs.2016.03.007">https://doi.org/10.1016/j.isprsjprs.2016.03.007</a>.
 </div>
-<div id="ref-krainski2018advanced" class="csl-entry" role="doc-biblioentry">
-Krainski, Elias T, Virgilio Gómez-Rubio, Haakon Bakka, Amanda Lenzi, Daniela Castro-Camilo, Daniel Simpson, Finn Lindgren, and Håvard Rue. 2018. <em>Advanced Spatial Modeling with Stochastic Partial Differential Equations Using <span>R</span> and <span>INLA</span></em>. CRC Press.
+<div id="ref-R-CAST" class="csl-entry" role="doc-biblioentry">
+Meyer, Hanna, Carles Milà, and Marvin Ludwig. 2022. <em>CAST: ’Caret’ Applications for Spatial-Temporal Models</em>. <a href="https://CRAN.R-project.org/package=CAST">https://CRAN.R-project.org/package=CAST</a>.
 </div>
 <div id="ref-meyerpebesma" class="csl-entry" role="doc-biblioentry">
 Meyer, Hanna, and Edzer Pebesma. 2021. <span>“Predicting into Unknown Space? Estimating the Area of Applicability of Spatial Prediction Models.”</span> <em>Methods in Ecology and Evolution</em> 12 (9): 1620–33. <a href="https://doi.org/10.1111/2041-210X.13650">https://doi.org/10.1111/2041-210X.13650</a>.
@@ -405,14 +492,26 @@ Meyer, Hanna, and Edzer Pebesma. 2021. <span>“Predicting into Unknown Space? E
 <div id="ref-meyerpebesmanc" class="csl-entry" role="doc-biblioentry">
 ———. 2022. <span>“Machine Learning-Based Global Maps of Ecological Variables and the Challenge of Assessing Them.”</span> <em>Nature Communincations</em> 13.<a href=" https://doi.org/10.1038/s41467-022-29838-9 ">https://doi.org/10.1038/s41467-022-29838-9 </a>.
 </div>
-<div id="ref-ctvspatiotemporal" class="csl-entry" role="doc-biblioentry">
-Pebesma, Edzer. 2021. <em>CRAN Task View: Handling and Analyzing Spatio-Temporal Data</em>. <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">https://cran.r-project.org/web/views/SpatioTemporal.html</a>.
+<div id="ref-Ploton2020" class="csl-entry" role="doc-biblioentry">
+Ploton, Pierre, Frédéric Mortier, Maxime Réjou-Méchain, Nicolas Barbier, Nicolas Picard, Vivien Rossi, Carsten Dormann, et al. 2020. <span>“Spatial Validation Reveals Poor Predictive Performance of Large-Scale Ecological Mapping Models.”</span> <em>Nature Communications</em> 11 (1): 4540. <a href="https://www.nature.com/articles/s41467-020-18321-y">https://www.nature.com/articles/s41467-020-18321-y</a>.
 </div>
-<div id="ref-stcos" class="csl-entry" role="doc-biblioentry">
-Raim, A. M., S. H. Holan, J. R. Bradley, and C. K. Wikle. 2021. <span>“Spatio-Temporal Change of Support Modeling with r.”</span> <em>Computational Statistics</em> 36: 749–80. https://doi.org/<a href=" https://doi.org/10.1007/s00180-020-01029-4 ">https://doi.org/10.1007/s00180-020-01029-4 </a>.
+<div id="ref-schabenberger+gotway:2005" class="csl-entry" role="doc-biblioentry">
+Schabenberger, O., and C. A. Gotway. 2005. <em>Statistical Methods for Spatial Data Analysis</em>. Boca Raton/London: Chapman &amp; Hall/CRC.
 </div>
-<div id="ref-R-stcos" class="csl-entry" role="doc-biblioentry">
-Raim, Andrew M., Scott H. Holan, Jonathan R. Bradley, and Christopher K. Wikle. 2020. <em>Stcos: Space-Time Change of Support</em>. <a href="https://github.com/holans/ST-COS">https://github.com/holans/ST-COS</a>.
+<div id="ref-R-mlr3spatiotempcv" class="csl-entry" role="doc-biblioentry">
+Schratz, Patrick, and Marc Becker. 2022. <em>Mlr3spatiotempcv: Spatiotemporal Resampling Methods for ’Mlr3’</em>. <a href="https://CRAN.R-project.org/package=mlr3spatiotempcv">https://CRAN.R-project.org/package=mlr3spatiotempcv</a>.
+</div>
+<div id="ref-R-spatialsample" class="csl-entry" role="doc-biblioentry">
+Silge, Julia, and Michael Mahoney. 2022. <em>Spatialsample: Spatial Resampling Infrastructure</em>. <a href="https://CRAN.R-project.org/package=spatialsample">https://CRAN.R-project.org/package=spatialsample</a>.
+</div>
+<div id="ref-sits" class="csl-entry" role="doc-biblioentry">
+Simoes, Rolf, Gilberto Camara, Gilberto Queiroz, Felipe Souza, Pedro R. Andrade, Lorena Santos, Alexandre Carvalho, and Karine Ferreira. 2021. <span>“Satellite Image Time Series Analysis for Big Earth Observation Data.”</span> <em>Remote Sensing</em> 13 (13). <a href="https://doi.org/10.3390/rs13132428">https://doi.org/10.3390/rs13132428</a>.
+</div>
+<div id="ref-rtop" class="csl-entry" role="doc-biblioentry">
+Skøien, Jon O, Günter Blöschl, Gregor Laaha, E Pebesma, Juraj Parajka, and Alberto Viglione. 2014. <span>“Rtop: An <span>R</span> Package for Interpolation of Data with a Variable Spatial Support, with an Example from River Networks.”</span> <em>Computers &amp; Geosciences</em> 67: 180–90.
+</div>
+<div id="ref-bfast" class="csl-entry" role="doc-biblioentry">
+Verbesselt, Jan, Rob Hyndman, Glenn Newnham, and Darius Culvenor. 2010. <span>“Detecting Trend and Seasonal Changes in Satellite Image Time Series.”</span> <em>Remote Sensing of Environment</em> 114 (1): 106–15. <a href="https://doi.org/10.1016/j.rse.2009.08.014">https://doi.org/10.1016/j.rse.2009.08.014</a>.
 </div>
 </div>
 </section>

@@ -169,7 +169,6 @@ div.csl-indent {
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
@@ -354,7 +353,7 @@ div.csl-indent {
   <li><a href="#cropping" id="toc-cropping" class="nav-link" data-scroll-target="#cropping">Cropping</a></li>
   <li><a href="#redimensioning-and-combining-stars-objects" id="toc-redimensioning-and-combining-stars-objects" class="nav-link" data-scroll-target="#redimensioning-and-combining-stars-objects">Redimensioning and combining <code>stars</code> objects</a></li>
   <li><a href="#extracting-point-samples-aggregating" id="toc-extracting-point-samples-aggregating" class="nav-link" data-scroll-target="#extracting-point-samples-aggregating">Extracting point samples, aggregating</a></li>
-  <li><a href="#predictive-models" id="toc-predictive-models" class="nav-link" data-scroll-target="#predictive-models">Predictive models</a></li>
+  <li><a href="#sec-starspredict" id="toc-sec-starspredict" class="nav-link" data-scroll-target="#sec-starspredict">Predictive models</a></li>
   <li><a href="#plotting-raster-data" id="toc-plotting-raster-data" class="nav-link" data-scroll-target="#plotting-raster-data">Plotting raster data</a></li>
   <li><a href="#analysing-raster-data" id="toc-analysing-raster-data" class="nav-link" data-scroll-target="#analysing-raster-data">Analysing raster data</a></li>
   <li><a href="#curvilinear-rasters" id="toc-curvilinear-rasters" class="nav-link" data-scroll-target="#curvilinear-rasters">Curvilinear rasters</a></li>
@@ -506,13 +505,14 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmprV6uDG/file43d2b76a18e43.gpkg"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/Rtmp71gGxm/file34533fa59688.gpkg"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmprV6uDG/file43d2b76a18e43.gpkg' using driver `GPKG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/Rtmp71gGxm/file34533fa59688.gpkg' using driver `GPKG'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>where the file format (GPKG) is derived from the file name extension.</p>
+<p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset it will error if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted, e.g.&nbsp;from a database, using <code>st_delete</code>.</p>
+<p> </p>
 </section>
 <section id="subsetting" class="level3">
 <h3 class="anchored" data-anchor-id="subsetting">Subsetting</h3>
@@ -1059,8 +1059,8 @@ div.csl-indent {
 <li>a time period like <code>"weeks"</code>, <code>"5 days"</code> or <code>"years"</code></li>
 </ul>
 </section>
-<section id="predictive-models" class="level3">
-<h3 class="anchored" data-anchor-id="predictive-models">Predictive models</h3>
+<section id="sec-starspredict" class="level3">
+<h3 class="anchored" data-anchor-id="sec-starspredict">Predictive models</h3>
 <p> </p>
 <p>The typical model prediction workflow in R is as follows:</p>
 <ul>
@@ -1069,7 +1069,7 @@ div.csl-indent {
 <li>call <code>predict</code> with this model object and the <code>data.frame</code> with target predictor variable values</li>
 </ul>
 <p>Package <code>stars</code> provides a <code>predict</code> method for <code>stars</code> objects that essentially wraps the last step, by creating the <code>data.frame</code>, calling the <code>predict</code> method for that, and reconstructing a <code>stars</code> object with the predicted values.</p>
-<p>We will illustrate this with a trivial two-class example mapping land from sea in the example Landsat data set, using the sample points extracted above, shown in <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a> .</p>
+<p>We will illustrate this with a trivial two-class example mapping land from sea in the example Landsat dataset, using the sample points extracted above, shown in <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a> .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span>], <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"yellow"</span>, <span class="dv">20</span>)</span>
@@ -1093,9 +1093,13 @@ div.csl-indent {
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">lda</span>(cls <span class="sc">~</span> ., <span class="fu">st_drop_geometry</span>(trn))</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(rs, model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, we use the <code>MASS::</code> prefix to avoid loading <code>MASS</code>, as that would mask <code>select</code> from <code>dplyr</code>. Another way would be to load <code>MASS</code> and unload it later on with <code>detach()</code>.</p>
+<p>Here, we used the <code>MASS::</code> prefix to avoid loading <code>MASS</code>, as that would mask <code>select</code> from <code>dplyr</code>. The <code>split</code> step is needed to convert the band dimension into attributes, so that they are offered as a set of predictors.</p>
+<p></p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pr[<span class="dv">1</span>], <span class="at">key.pos =</span> <span class="dv">4</span>, <span class="at">key.width =</span> <span class="fu">lcm</span>(<span class="fl">3.5</span>), <span class="at">key.length =</span> <span class="fu">lcm</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-lda" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1836,7 +1840,7 @@ div.csl-indent {
 <section id="sec-warp" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="sec-warp"><span class="header-section-number">7.8</span> Transforming and warping rasters</h2>
 <p> </p>
-<p>When using <code>st_transform</code> on a raster data set, as e.g.&nbsp;in</p>
+<p>When using <code>st_transform</code> on a raster dataset, as e.g.&nbsp;in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"tif/L7_ETMs.tif"</span>, <span class="at">package =</span> <span class="st">"stars"</span>)</span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_stars</span>(tif) <span class="sc">|&gt;</span></span>

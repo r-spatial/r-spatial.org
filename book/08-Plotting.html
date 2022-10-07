@@ -169,7 +169,6 @@ div.csl-indent {
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
@@ -500,12 +499,13 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.14,-1.34)  [-1.34,-0.885) [-0.885,-0.287) [-0.287,-0.103) </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-2.03,-0.968) [-0.968,-0.515) [-0.515,-0.217) [-0.217,0.0819) </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-0.103,0.166)    [0.166,0.51)     [0.51,1.17)     [1.17,2.62] </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [0.0819,0.311)   [0.311,0.789)    [0.789,1.24)     [1.24,2.58] </span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.138 -1.343 -0.885 -0.287 -0.103  0.166  0.510  1.170  2.621</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.0274 -0.9682 -0.5151 -0.2167  0.0819  0.3109  0.7885  1.2395</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.5758</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, ‘nclass.Sturges’ is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>

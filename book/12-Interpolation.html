@@ -169,7 +169,6 @@ div.csl-indent {
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
       </div>
@@ -596,7 +595,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], de, SE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.1</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
+<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.4</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -641,7 +640,7 @@ div.csl-indent {
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -4.37    6.07   8.49 8.66    11.1 24.7 12456</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -6.26    6.06   8.53 8.69    11.2   23 12456</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
