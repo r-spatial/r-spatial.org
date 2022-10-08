@@ -505,10 +505,10 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/Rtmp71gGxm/file34533fa59688.gpkg"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpuPuCaM/file197787bfa83b8.gpkg"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/Rtmp71gGxm/file34533fa59688.gpkg' using driver `GPKG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpuPuCaM/file197787bfa83b8.gpkg' using driver `GPKG'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset it will error if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted, e.g.&nbsp;from a database, using <code>st_delete</code>.</p>
@@ -554,7 +554,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-fig57" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-fig57-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07-Introsf_files/figure-html/fig-fig57-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.2: First seven North Carolina counties</figcaption><p></p>
 </figure>
 </div>
@@ -632,15 +632,17 @@ div.csl-indent {
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>og <span class="ot">&lt;-</span> <span class="fu">st_geometry</span>(orange)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(o50), <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(og, <span class="at">col =</span> <span class="st">'orange'</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_buffer</span>(og, units<span class="sc">::</span><span class="fu">set_units</span>(<span class="dv">50</span>, km)), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="st">'brown'</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(nc), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">'grey'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>buf50 <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(og, units<span class="sc">::</span><span class="fu">set_units</span>(<span class="dv">50</span>, km))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">c</span>(buf50, <span class="fu">st_geometry</span>(o50))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(o50), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">extent =</span> all)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(og, <span class="at">col =</span> <span class="st">'orange'</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(buf50, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="st">'brown'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(nc), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">'grey'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-orangebuffer" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-orangebuffer-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07-Introsf_files/figure-html/fig-orangebuffer-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.3: Orange county (orange), counties within a 50 km radius (black), a 50 km buffer around Orange county (brown), and remaining counties (grey)</figcaption><p></p>
 </figure>
 </div>
@@ -654,12 +656,14 @@ div.csl-indent {
 <p>In regular (left, right or inner) joins, <em>joined</em> records from a pair of tables are reported when one or more selected attributes match (are identical) in both tables. A spatial join is similar, but the criterion to join records is not equality of attributes but a spatial predicate. This leaves a wide variety of options in order to define <em>spatially</em> matching records, using binary predicates listed in <a href="03-Geometries.html#sec-de9im"><span>Section&nbsp;3.2.2</span></a>. The concepts of “left”, “right”, “inner” or “full” joins remain identical to the non-spatial join as the options for handling records that have no spatial match.</p>
 <p>When using spatial joins, each record may have several matched records, yielding a large result table. A way to reduce this complexity may be to select from the matching records the one with the largest overlap with the target geometry. An example of this is shown (visually) in <a href="#fig-largest">Figure&nbsp;<span>7.4</span></a> ; this is done using <code>st_join</code> with argument <code>largest = TRUE</code>.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example of largest = TRUE:</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="at">package=</span><span class="st">"sf"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="st">'EPSG:2264'</span>) <span class="ot">-&gt;</span> nc</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="fu">apply</span>(<span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>])[,<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="dv">1</span>, paste0, <span class="at">collapse =</span> <span class="st">" "</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="fu">apply</span>(<span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>])[,<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="dv">1</span>, paste0, <span class="at">collapse =</span> <span class="st">""</span>),</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">geom =</span> <span class="fu">st_make_grid</span>(nc))</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>gr<span class="sc">$</span>col <span class="ot">&lt;-</span> <span class="fu">sf.colors</span>(<span class="dv">10</span>, <span class="at">categorical =</span> <span class="cn">TRUE</span>, <span class="at">alpha =</span> .<span class="dv">3</span>)</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># cut, to verify that NA's work out:</span></span>
@@ -673,6 +677,7 @@ div.csl-indent {
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(nc_j), <span class="at">border =</span> <span class="st">'black'</span>, <span class="at">col =</span> nc_j<span class="sc">$</span>col)</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc_j))), <span class="at">labels =</span> nc_j<span class="sc">$</span>label, <span class="at">cex =</span> .<span class="dv">8</span>)</span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gr), <span class="at">border =</span> <span class="st">'green'</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-largest" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -725,7 +730,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-figs2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-figs2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07-Introsf_files/figure-html/fig-figs2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)</figcaption><p></p>
 </figure>
 </div>
@@ -1115,11 +1120,14 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="plotting-raster-data">Plotting raster data</h3>
 <p> </p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-firststars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-firststars-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-firststars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.9: Six 30m Landsat bands downsampled to 90m for Olinda, Br.</figcaption><p></p>
 </figure>
 </div>
@@ -1127,13 +1135,16 @@ div.csl-indent {
 </div>
 <p>We can use the base <code>plot</code> method for <code>stars</code> objects, where the plot created with <code>plot(r)</code> is shown in <a href="#fig-firststars">Figure&nbsp;<span>7.9</span></a>. The default color scale uses grey tones, and stretches these such that color breaks correspond to data quantiles over all bands (“histogram equalization”). Setting <code>breaks = "equal"</code> gives equal color breaks, alternatively a numeric sequence of breaks can be given. A more familiar view may the RGB or false color composite shown in <a href="#fig-starsrgb">Figure&nbsp;<span>7.10</span></a>.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"RGB"</span>)    <span class="co"># rgb</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">main =</span> <span class="st">"False color (NIR-R-G)"</span>) <span class="co"># false color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-starsrgb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-starsrgb-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-starsrgb-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.10: Two color composites</figcaption><p></p>
 </figure>
 </div>
@@ -1337,7 +1348,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-airst" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-airst-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-airst-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.11: Space-time diagram of PM<span class="math inline">\(_{10}\)</span> measurements by time and station</figcaption><p></p>
 </figure>
 </div>
@@ -1353,7 +1364,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-airmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-airmap-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-airmap-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.12: Locations of PM<span class="math inline">\(_{10}\)</span> measurement stations, showing mean values</figcaption><p></p>
 </figure>
 </div>
@@ -1382,7 +1393,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-airagg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-airagg-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-airagg-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.13: areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days</figcaption><p></p>
 </figure>
 </div>
@@ -1395,7 +1406,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-airts" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-airts-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-airts-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.14: Areal mean PM<span class="math inline">\(_{10}\)</span> time series for a single state</figcaption><p></p>
 </figure>
 </div>
@@ -1416,7 +1427,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-bristol1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-bristol1-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-bristol1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) colored red</figcaption><p></p>
 </figure>
 </div>
@@ -1509,7 +1520,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-odm33" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-odm33-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-odm33-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.16: OD matrix sliced for destination zone 33, by transportation mode</figcaption><p></p>
 </figure>
 </div>
@@ -1573,7 +1584,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-odjoined" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-odjoined-1.png" style="height:90.0%" width="672" class="figure-img"></p>
+<p><img src="07-Introsf_files/figure-html/fig-odjoined-1.png" style="width:100.0%;height:90.0%" class="figure-img"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.17: total commutes, summed by origin (left) or destination (right).</figcaption><p></p>
 </figure>
 </div>
@@ -1592,7 +1603,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-odbykm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-odbykm-1.png" style="height:90.0%" width="672" class="figure-img"></p>
+<p><img src="07-Introsf_files/figure-html/fig-odbykm-1.png" style="width:100.0%;height:90.0%" class="figure-img"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.18: total commutes per square km, by area of origin (left) or destination (right)</figcaption><p></p>
 </figure>
 </div>
@@ -1635,7 +1646,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-asstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-asstars-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-asstars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.19: Rasterizing vector geometry using <code>st_as_stars</code></figcaption><p></p>
 </figure>
 </div>
@@ -1673,7 +1684,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-lineras" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="07-Introsf_files/figure-html/fig-lineras-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="07-Introsf_files/figure-html/fig-lineras-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;7.20: Rasterizing North Carolina county boundaries</figcaption><p></p>
 </figure>
 </div>

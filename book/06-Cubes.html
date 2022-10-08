@@ -630,7 +630,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4d" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4d-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4d-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.2: Four-dimensional raster data cube with dimensions x, y, bands and time</figcaption><p></p>
 </figure>
 </div>
@@ -690,7 +690,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4d2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4d2-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4d2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.3: Four-dimensional raster data cube layed out flat over two dimensions</figcaption><p></p>
 </figure>
 </div>
@@ -859,7 +859,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4filter" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4filter-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4filter-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.4: Data cube filtering by time, band or spatially</figcaption><p></p>
 </figure>
 </div>
@@ -945,7 +945,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4apply1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4apply1-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4apply1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.5: Low pass filtering of time series</figcaption><p></p>
 </figure>
 </div>
@@ -998,7 +998,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4apply2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4apply2-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4apply2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.6: Low pass filtering of spatial slices</figcaption><p></p>
 </figure>
 </div>
@@ -1116,7 +1116,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4reduce" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4reduce-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4reduce-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.7: Reducing data cube dimensions</figcaption><p></p>
 </figure>
 </div>
@@ -1209,7 +1209,7 @@ refer to
 <span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>yoff <span class="ot">&lt;-</span> <span class="dv">30</span></span>
 <span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
 <span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, x), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, y), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, x<span class="sc">+</span><span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, y), <span class="at">asp =</span> <span class="dv">1</span>)</span>
 <span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="fu">print_ts</span>(<span class="dv">5</span>, yoff)</span>
 <span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="st">'#ff5555'</span></span>
 <span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="fu">print_segments</span>(<span class="fl">10.57</span>, yoff<span class="fl">-.43</span>, <span class="at">seg =</span> polygon_1, <span class="at">col =</span> col)</span>
@@ -1255,7 +1255,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-cube4agg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-cube4agg-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="06-Cubes_files/figure-html/fig-cube4agg-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.8: Aggregating a raster data cube to a vector data cube</figcaption><p></p>
 </figure>
 </div>
@@ -1383,7 +1383,7 @@ refer to
 <div class="cell-output-display">
 <div id="fig-aqdc" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="06-Cubes_files/figure-html/fig-aqdc-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="06-Cubes_files/figure-html/fig-aqdc-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;6.9: Vector data cube with air quality time series</figcaption><p></p>
 </figure>
 </div>

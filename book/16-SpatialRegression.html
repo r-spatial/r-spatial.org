@@ -548,7 +548,7 @@ Y = X \beta + Z u + \varepsilon
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2BayesX) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-18_506fd20672652af969fc4833e4216934">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-18_587dfdb083ad7817c2a35e8c9437d918">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>BX_iid <span class="ot">&lt;-</span> <span class="fu">bayesx</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sx</span>(NOX_ID, <span class="at">bs =</span> <span class="st">"re"</span>)),</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">"MCMC"</span>, <span class="at">iterations =</span> <span class="dv">12000</span>,</span>
@@ -569,7 +569,7 @@ Y = X \beta + Z u + \varepsilon
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>sx()</code> model term continues to include the indexing variable, and now passes through the intrinsic CAR precision matrix:</p>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-22_7181e9683234acf3ebd92dc81270c4e1">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-22_38c19e860b9c7f8a46de80be91b6ea7d">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>BX_mrf <span class="ot">&lt;-</span> <span class="fu">bayesx</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sx</span>(NOX_ID, <span class="at">bs =</span> <span class="st">"mrf"</span>,</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">map =</span> RBX_gra)), </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487,</span>
@@ -587,7 +587,7 @@ Y = X \beta + Z u + \varepsilon
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(INLA) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although differing in details, the approach by updating the fixed model formula with an unstructured random effects term is very similar to that seen above:</p>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-25_3606d54d376f4a57fdee626728ac3d44">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-25_cfe0b87f56e4477304b839c33ecc1868">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>INLA_iid <span class="ot">&lt;-</span> <span class="fu">inla</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">f</span>(NOX_ID, <span class="at">model =</span> <span class="st">"iid"</span>)),</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -599,10 +599,21 @@ Y = X \beta + Z u + \varepsilon
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ID2 <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">as.factor</span>(boston_487<span class="sc">$</span>NOX_ID))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The same sparse binary spatial weights matrix is used, and the intrinsic CAR representation is constructed internally:</p>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-28_cca1ef2510b7d11e47f444dd8df44af5">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-28_9fbc183e5ec9a2fdd1eda041acc5a099">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>INLA_ss <span class="ot">&lt;-</span> <span class="fu">inla</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">f</span>(ID2, <span class="at">model =</span> <span class="st">"besag"</span>,</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">graph =</span> W)),</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>boston_93<span class="sc">$</span>INLA_ss <span class="ot">&lt;-</span> INLA_ss<span class="sc">$</span>summary.random<span class="sc">$</span>ID2<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -613,10 +624,21 @@ Y = X \beta + Z u + \varepsilon
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Cmatrix <span class="ot">&lt;-</span> <span class="fu">Diagonal</span>(<span class="fu">nrow</span>(M), <span class="dv">1</span>) <span class="sc">-</span>  M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This model can be estimated using the <code>"generic1"</code> model with the specified precision matrix:</p>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-31_c886d178fbbb89c547aeda39305d2375">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-31_6448a8c50a0cc4d88600492c6b9bdff0">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>INLA_lr <span class="ot">&lt;-</span> <span class="fu">inla</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">f</span>(ID2, <span class="at">model =</span> <span class="st">"generic1"</span>,</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">Cmatrix =</span> Cmatrix)),</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"gaussian"</span>, <span class="at">data =</span> boston_487)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: as(&lt;dgCMatrix&gt;, "dgTMatrix") is deprecated since Matrix</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5-0; do as(., "TsparseMatrix") instead</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>boston_93<span class="sc">$</span>INLA_lr <span class="ot">&lt;-</span> INLA_lr<span class="sc">$</span>summary.random<span class="sc">$</span>ID2<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -631,7 +653,7 @@ Y = X \beta + Z u + \varepsilon
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>boston_487<span class="sc">$</span>NOX_ID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(boston_487<span class="sc">$</span>NOX_ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The specification of the spatially structured term again differs in details from those above, but achieves the same purpose. The <code>"REML"</code> method of <code>bayesx()</code> gives the same results as <code>gam()</code> using <code>"REML"</code> in this case:</p>
-<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-34_7f8439d80ab5d52df4bdfe5cb6aabd1b">
+<div class="cell" data-hash="16-SpatialRegression_cache/html/unnamed-chunk-34_cfe03c980e1605f9af5382c42b7fec3d">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>GAM_MRF <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">update</span>(form, . <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">s</span>(NOX_ID, <span class="at">bs =</span> <span class="st">"mrf"</span>,</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">xt =</span> <span class="fu">list</span>(<span class="at">nb =</span> nb_q_93))),</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> boston_487, <span class="at">method =</span> <span class="st">"REML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,7 +691,7 @@ Y = X \beta + Z u + \varepsilon
 <div class="cell-output-display">
 <div id="fig-multi-levelmaps1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps1-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;16.1: Air pollution model output zone level IID random effects estimated using <strong>lme4</strong>, <strong>hglm</strong>, <strong>INLA</strong> and <strong>R2BayesX</strong>; the range of the response, <code>log(median)</code> is 2.1893</figcaption><p></p>
 </figure>
 </div>
@@ -690,7 +712,7 @@ Y = X \beta + Z u + \varepsilon
 <div class="cell-output-display">
 <div id="fig-multi-levelmaps2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps2-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;16.2: Air pollution model output zone level spatially structured random effects estimated using <strong>hglm</strong>, <strong>HSAR</strong>, <strong>INLA</strong>, <strong>R2BayesX</strong> and <strong>mgcv</strong></figcaption><p></p>
 </figure>
 </div>

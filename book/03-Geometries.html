@@ -507,7 +507,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div id="fig-sfgeometries" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="03-Geometries_files/figure-html/fig-sfgeometries-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-Geometries_files/figure-html/fig-sfgeometries-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;3.1: sketches of the main simple feature geometry types</figcaption><p></p>
 </figure>
 </div>
@@ -773,7 +773,7 @@ GEOMETRYCOLLECTION (
 <div class="cell-output-display">
 <div id="fig-de9im" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="03-Geometries_files/figure-html/fig-de9im-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-Geometries_files/figure-html/fig-de9im-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary and exterior of a polygon (rows) and of a linestring (columns) indicated by red</figcaption><p></p>
 </figure>
 </div>
@@ -1103,7 +1103,7 @@ GEOMETRYCOLLECTION (
 <p>N-ary transformers operate on sets of geometries. <code>union</code> can be applied to a set of geometries to return its geometrical union. Otherwise, any set of geometries can be combined into a <code>MULTI</code>-type geometry when they have equal dimension, or else into a <code>GEOMETRYCOLLECTION</code>. Without unioning, this may lead to a geometry that is not valid, e.g.&nbsp;because two polygon rings have a boundary line in common.</p>
 <p> </p>
 <p>N-ary <code>intersection</code> and <code>difference</code> take a single argument, but operate (sequentially) on all pairs, triples, quadruples, etc. Consider the plot in <a href="#fig-boxes">Figure&nbsp;<span>3.4</span></a> : how do we identify the area where all three boxes overlap? Using binary intersections gives us intersections for all pairs: 1-1, 1-2, 1-3, 2-1, 2-2, 2-3, 3-1, 3-2, 3-3, but does not let us identify areas where more than two geometries intersect. <a href="#fig-boxes">Figure&nbsp;<span>3.4</span></a>) (right shows the n-ary intersection: the 7 unique, non-overlapping geometries originating from intersection of one, two, <em>or more</em> geometries.</p>
-<div class="cell" data-fig="true">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(.<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
@@ -1123,7 +1123,7 @@ GEOMETRYCOLLECTION (
 </div>
 </div>
 <p>Similarly, one can compute an n-ary <em>difference</em> from a set <span class="math inline">\(\{s_1, s_2, s_3, ...\}\)</span> by creating differences <span class="math inline">\(\{s_1, s_2-s_1, s_3-s_2-s_1, ...\}\)</span>. This is shown in <a href="#fig-diff">Figure&nbsp;<span>3.5</span></a> , left for the original set, right for the set after reversing its order to make clear that the result here depends on the ordering of the input geometries. Again, resulting geometries do not overlap.</p>
-<div class="cell" data-fig="true">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(.<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) </span>
