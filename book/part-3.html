@@ -293,26 +293,16 @@ div.csl-indent {
 <li>how coordinates are defined in different spaces (<a href="02-Spaces.html"><span>Chapter&nbsp;2</span></a>, <a href="04-Spherical.html"><span>Chapter&nbsp;4</span></a>)</li>
 <li>simple feature geometries (<a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a>), how straight lines between points can be used to define linestrings and polygons</li>
 <li>the set of geometry types explained in <a href="03-Geometries.html#sec-seven"><span>Section&nbsp;3.1.1</span></a></li>
-<li>support and the way feature attributes relate to geometries</li>
-</ul>
-<ol class="example" type="1">
-<li></li>
-</ol>
-<ul>
-<li>how simple tesselations can describe space-time volumes</li>
-</ul>
-<ol start="2" class="example" type="1">
-<li></li>
-</ol>
-<ul>
+<li>support and the way feature attributes relate to geometries (<a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a>)</li>
+<li>how simple tesselations can describe space-time volumes (<a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>)</li>
 <li>how these concepts can be made operational using data science software (<a href="07-Introsf.html"><span>Chapter&nbsp;7</span></a>)</li>
 </ul>
-<p>The third and largest part of this book is dedicated to <em>statistical</em> modelling of spatial data. The scientific discipline <em>statistics</em> is concerned with describing and understanding variability in observations, and predicting future observations. Observations are traditionally modelled as</p>
-<p><span class="math display">\[\mbox{observed}=\mbox{explained}+\mbox{error}\]</span></p>
-<p>where “error” does not refer to mistakes, but to variation that is unexplained, including measurement error but also lack of fit or variation caused by model misspecification. For spatial data, a further term is often helpful, as in</p>
+<p>The third and largest part of this book is dedicated to <em>statistical</em> modelling of spatial data. The scientific discipline <em>statistics</em> is concerned with describing and understanding variability in observations, and predicting future observations. Observations are often modelled as</p>
+<p><span class="math display">\[\mbox{observed}=\mbox{explained}+\mbox{unexplained}\]</span></p>
+<p>where “unexplained” refers to variation that could not be explained by predictors, including measurement error but also lack of fit or variation caused by model misspecification. For spatial data, a further term is often helpful, as in</p>
 <p><span class="math display">\[\mbox{observed}=\mbox{explained} + \mbox{smooth} + \mbox{rough}\]</span></p>
-<p>where “smooth” refers to variation that is not explained (e.g. by external predictors) but that clearly shows “smooth” spatial patterns, as opposed to the “rough” residual which does not do this. Such a “smooth” term can for instance be modelled by base functions in coordinates (splines, smoothers) or as a random term that is spatially correlated.</p>
-<p><a href="10-Models.html"><span>Chapter&nbsp;10</span></a> introduces statistical modelling of spatial data, as a preparation to the subsequent chapters but also highlighting a number of relevant aspects that are not elaborated on in later chapters. It tries to bridge these chapters with concepts from the first part of this book, in particular support (1).</p>
+<p>where “smooth” refers to variation that is not explained by external predictors but that clearly shows “smooth” spatial patterns, as opposed to the “rough” residual which does not do this. Such a “smooth” term can for instance be modelled by base functions in coordinates (splines, smoothers) or as a random term that is spatially correlated.</p>
+<p><a href="10-Models.html"><span>Chapter&nbsp;10</span></a> introduces statistical modelling of spatial data, as a preparation to the subsequent chapters but also highlighting a number of relevant aspects that are not elaborated on in later chapters. It tries to bridge these chapters with concepts from the first part of this book, in particular support (<a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a>).</p>
 <p>It is now obvious that a complete and comprehensive treatment of the topic of statistcal models for spatial data that also includes instructions about the use of computational software in a single book is an impossible task; the <code>spatstat</code> book <span class="citation" data-cites="baddeley2015spatial">(<a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> around 1000 pages only for spatial point patterns and R. This part focus on the three “classical” spatial statistics topics: analysis of point patterns (<a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a>), geostatistical data (<a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>, <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>), and lattice (areal) data (<a href="14-Areal.html"><span>Chapter&nbsp;14</span></a>, <a href="15-Measures.html"><span>Chapter&nbsp;15</span></a>, <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a>, <a href="17-Econometrics.html"><span>Chapter&nbsp;17</span></a>), and attempts to refer to further literature on methods and software implementations in R.</p>
 
 
