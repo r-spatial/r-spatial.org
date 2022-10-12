@@ -361,10 +361,7 @@ div.csl-indent {
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package=</span><span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="ot">-&gt;</span> nc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
 <p></p>
 <p>So far, in this book we mostly addressed the problem of <em>describing</em> data, e.g.&nbsp;by logical geometrical predicates or transformations that involved geometries, or by summary measures or by plots depicting variability in the geometry data or in feature attributes.</p>
@@ -385,14 +382,14 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">SID =</span> SID74<span class="sc">/</span>BIR74, <span class="at">NWB =</span> NWBIR74<span class="sc">/</span>BIR74) <span class="ot">-&gt;</span> nc1</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(SID <span class="sc">~</span> NWB, nc1) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(nc1, <span class="at">interval =</span> <span class="st">"prediction"</span>) <span class="ot">-&gt;</span> pr</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(nc, pr) <span class="sc">|&gt;</span> <span class="fu">names</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] "AREA"      "PERIMETER" "CNTY_"     "CNTY_ID"   "NAME"     </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  [6] "FIPS"      "FIPSNO"    "CRESS_ID"  "BIR74"     "SID74"    </span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [11] "NWBIR74"   "BIR79"     "SID79"     "NWBIR79"   "geom"     </span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] "fit"       "lwr"       "upr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">SID =</span> SID74<span class="sc">/</span>BIR74, <span class="at">NWB =</span> NWBIR74<span class="sc">/</span>BIR74) <span class="ot">-&gt;</span> nc1</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(SID <span class="sc">~</span> NWB, nc1) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(nc1, <span class="at">interval =</span> <span class="st">"prediction"</span>) <span class="ot">-&gt;</span> pr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(nc, pr) <span class="sc">|&gt;</span> <span class="fu">names</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  [1] "AREA"      "PERIMETER" "CNTY_"     "CNTY_ID"   "NAME"     </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  [6] "FIPS"      "FIPSNO"    "CRESS_ID"  "BIR74"     "SID74"    </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [11] "NWBIR74"   "BIR79"     "SID79"     "NWBIR79"   "geom"     </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [16] "fit"       "lwr"       "upr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>where we see that three columns: <code>fit</code> for predicted values and <code>lwr</code> and <code>upr</code> for the 95% prediction intervals, have been added to the final object. In this case, the dataset used for model estimation was reused for prediction, but in general this does not have to be the case. <a href="07-Introsf.html#sec-starspredict"><span>Section&nbsp;7.4.6</span></a> points out how this can be done with <code>stars</code> objects.</p>
