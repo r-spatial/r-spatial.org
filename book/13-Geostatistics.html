@@ -335,9 +335,10 @@ div.csl-indent {
   <ul>
   <li><a href="#sec-preparing" id="toc-sec-preparing" class="nav-link active" data-scroll-target="#sec-preparing"><span class="toc-section-number">13.1</span>  Preparing the air quality dataset</a></li>
   <li><a href="#sec-cokriging" id="toc-sec-cokriging" class="nav-link" data-scroll-target="#sec-cokriging"><span class="toc-section-number">13.2</span>  Multivariable geostatistics</a></li>
-  <li><a href="#spatiotemporal-geostatistics" id="toc-spatiotemporal-geostatistics" class="nav-link" data-scroll-target="#spatiotemporal-geostatistics"><span class="toc-section-number">13.3</span>  Spatiotemporal geostatistics</a>
+  <li><a href="#sec-stgeos" id="toc-sec-stgeos" class="nav-link" data-scroll-target="#sec-stgeos"><span class="toc-section-number">13.3</span>  Spatiotemporal geostatistics</a>
   <ul class="collapse">
   <li><a href="#a-spatiotemporal-variogram-model" id="toc-a-spatiotemporal-variogram-model" class="nav-link" data-scroll-target="#a-spatiotemporal-variogram-model">A spatiotemporal variogram model</a></li>
+  <li><a href="#irregular-space-time-data" id="toc-irregular-space-time-data" class="nav-link" data-scroll-target="#irregular-space-time-data">Irregular space-time data</a></li>
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">13.4</span>  Exercises</a></li>
   </ul>
@@ -365,7 +366,7 @@ div.csl-indent {
 <div class="cell">
 
 </div>
-<p>Building on the simple interpolation methods presented in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>, this chapter works out a case study for spatiotemporal interpolation, using NO<span class="math inline">\(_2\)</span> air quality data, and populations density as covariate.</p>
+<p>Building on the simple interpolation methods presented in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a>, this chapter continues with multivariate geostatistics and spatiotemporal geostatistics. The topic of multivariate geostatistics, more extensively illustrated in <span class="citation" data-cites="asdar">Bivand, Pebesma, and Gomez-Rubio (<a href="references.html#ref-asdar" role="doc-biblioref">2013</a>)</span>, is briefly introduced. Spatiotemporal geostatistics is illustrated with a worked out case study for spatiotemporal interpolation, using NO<span class="math inline">\(_2\)</span> air quality data, and population density as covariate.</p>
 <section id="sec-preparing" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="sec-preparing"><span class="header-section-number">13.1</span> Preparing the air quality dataset</h2>
 <p>The dataset we work with is an air quality dataset obtained from the European Environmental Agency (EEA). European member states report air quality measurements to this Agency. So-called <em>validated</em> data are quality controlled by member states, and are reported on a yearly basis. They form the basis for policy compliancy evaluations and (counter) measures.</p>
@@ -384,7 +385,7 @@ div.csl-indent {
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We remove smaller subdatasets, which for this dataset have no hourly data:</p>
+<p>We remove smaller sub-datasets, which for this dataset have no hourly data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> r[<span class="fu">sapply</span>(r, nrow) <span class="sc">&gt;</span> <span class="dv">1000</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(r) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(r,</span>
@@ -451,8 +452,8 @@ div.csl-indent {
 <p>Although sets of direct and cross variograms can be computed and fitted automatically, multivariable geostatistical modelling becomes quickly hard to manage when the number of variables gets large, because the number of direct and cross variograms required is <span class="math inline">\(n(n+1)/2\)</span>.</p>
 <p>In case different variables refer to the same variable take at different time steps, one could use a multivariable (cokriging) prediction approach, but this would not allow for e.g.&nbsp;interpolation between two time steps. For this, and for handling the case of having data observed at many time instances, one can also model its variation as a function of continuous space <em>and</em> time, as of <span class="math inline">\(Z(s,t)\)</span>, which we will do in the next section.</p>
 </section>
-<section id="spatiotemporal-geostatistics" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="spatiotemporal-geostatistics"><span class="header-section-number">13.3</span> Spatiotemporal geostatistics</h2>
+<section id="sec-stgeos" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="sec-stgeos"><span class="header-section-number">13.3</span> Spatiotemporal geostatistics</h2>
 <p> Spatiotemporal geostatistical processes are modelled as variables having a value everywhere in space and time, <span class="math inline">\(Z(s,t)\)</span>, with <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> the continuously indexed space and time index. Given observations <span class="math inline">\(Z(s_i,t_j)\)</span> and a variogram (covariance) model <span class="math inline">\(\gamma(s,t)\)</span> we can predict <span class="math inline">\(Z(s_0,t_0)\)</span> at arbitrary space/time locations <span class="math inline">\((s_0,t_0)\)</span> using standard Gaussian process theory.</p>
 <p>Several books have been written recently about modern approaches to handling and modelling spatiotemporal geostatistical data, including <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span> and <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>. Here, we will use <span class="citation" data-cites="RJ-2016-014">Gräler, Pebesma, and Heuvelink (<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">2016</a>)</span> and give some simple examples using the dataset also used for the previous chapter.</p>
 <section id="a-spatiotemporal-variogram-model" class="level3">
@@ -540,7 +541,7 @@ div.csl-indent {
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 2   Sph 25.5736  5.77</span></span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># k: 0.00397635996859073</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and shown in <a href="#fig-prodsummodelplot">Figure&nbsp;<span>13.2</span></a>, which can also be plotted as wireframes, shown in <a href="#fig-modelwire">Figure&nbsp;<span>13.3</span></a>. Fitting this model is rather sensitive to the chosen parameters, which may be caused by the relatively small number (74) of monitoring network stations available.</p>
+<p>and shown in <a href="#fig-prodsummodelplot">Figure&nbsp;<span>13.2</span></a>, which can also be plotted as wire frames, shown in <a href="#fig-modelwire">Figure&nbsp;<span>13.3</span></a>. Fitting this model is rather sensitive to the chosen parameters, which may be caused by the relatively small number (74) of monitoring network stations available.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -572,7 +573,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Hints about the fitting strategy and alternative models for spatiotemporal variograms are given in <span class="citation" data-cites="RJ-2016-014">Gräler, Pebesma, and Heuvelink (<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">2016</a>)</span>.</p>
-<p>With this fitted model, and given the observations, we can carry out kriging or simulation at arbitrary points in space and time. For instance, we could estimate (or simulate) values in the time series that are now missing: this occurs regularly, and in <a href="12-Interpolation.html#sec-kriging"><span>Section&nbsp;12.4</span></a> we used means over time series based on simply ignoring up to 25% of the observations: substituting these with estimated or simulated values based on neigbouring (in space and time) observations before computing yearly mean values seems a more reasonable approach.</p>
+<p>With this fitted model, and given the observations, we can carry out kriging or simulation at arbitrary points in space and time. For instance, we could estimate (or simulate) values in the time series that are now missing: this occurs regularly, and in <a href="12-Interpolation.html#sec-kriging"><span>Section&nbsp;12.4</span></a> we used means over time series based on simply ignoring up to 25% of the observations: substituting these with estimated or simulated values based on neighbouring (in space and time) observations before computing yearly mean values seems a more reasonable approach.</p>
 <p>More in general, we can estimate at arbitrary locations and time points, and we will illustrate this with predicting time series at particular locations, and and predicting spatial slices <span class="citation" data-cites="RJ-2016-014">(<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">Gräler, Pebesma, and Heuvelink 2016</a>)</span>. We can create a <code>stars</code> object for two randomly selected spatial points and all time instances by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1331</span>)</span>
@@ -666,6 +667,10 @@ div.csl-indent {
 </div>
 <p>A larger value for <code>nmax</code> was needed here to decrease the visible disturbance (sharp edges) caused by discrete neighbourhood selections, which are now done in space <em>and</em> time.</p>
 </section>
+<section id="irregular-space-time-data" class="level3">
+<h3 class="anchored" data-anchor-id="irregular-space-time-data">Irregular space-time data</h3>
+<p>For the case where observations are collected at locations that vary constantly, or at fixed locations but without a common time basis, <code>stars</code> objects (vector data cubes) do not represent them well. Such irregular space-time observations can be represented by <code>sftime</code> objects, provided by package <strong>sftime</strong> <span class="citation" data-cites="R-sftime">(<a href="references.html#ref-R-sftime" role="doc-biblioref">Teickner, Pebesma, and Graeler 2022</a>)</span>, which are essentially <code>sf</code> objects with a specified time column. An example of its uses is found in <code>demo(sftime)</code>, provided in package <strong>gstat</strong>.</p>
+</section>
 </section>
 <section id="exercises" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.4</span> Exercises</h2>
@@ -673,8 +678,7 @@ div.csl-indent {
 <li>Which fraction of the stations is removed in <a href="#sec-preparing"><span>Section&nbsp;13.1</span></a> when the criterion applied that a station must be 75% complete?</li>
 <li>From the hourly time series in <code>no2.st</code>, compute daily mean concentrations using <code>aggregate</code>, and compute the spatiotemporal variogram of this. How does it compare to the variogram of hourly values?</li>
 <li>Carry out a spatiotemporal interpolation for daily mean values for the days corresponding to those shown in <a href="#fig-stpredictions">Figure&nbsp;<span>13.5</span></a>, and compare the results.</li>
-<li>Following the example in the demo scripts pointed at in <a href="#sec-cokriging"><span>Section&nbsp;13.2</span></a>, carry out a cokriging on the daily mean station data for the four days shown in <a href="#fig-stpredictions">Figure&nbsp;<span>13.5</span></a>.<br>
-</li>
+<li>Following the example in the demo scripts pointed at in <a href="#sec-cokriging"><span>Section&nbsp;13.2</span></a>, carry out a cokriging on the daily mean station data for the four days shown in <a href="#fig-stpredictions">Figure&nbsp;<span>13.5</span></a>.</li>
 <li>What are the differences of this latter approach to spatiotemporal kriging?</li>
 </ol>
 <div class="cell">
@@ -691,6 +695,9 @@ Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal 
 </div>
 <div id="ref-RJ-2016-014" class="csl-entry" role="doc-biblioentry">
 Gräler, Benedikt, Edzer Pebesma, and Gerard Heuvelink. 2016. <span>“<span class="nocase">Spatio-Temporal Interpolation using gstat</span>.”</span> <em><span>The R Journal</span></em> 8 (1): 204–18. <a href="https://doi.org/10.32614/RJ-2016-014">https://doi.org/10.32614/RJ-2016-014</a>.
+</div>
+<div id="ref-R-sftime" class="csl-entry" role="doc-biblioentry">
+Teickner, Henning, Edzer Pebesma, and Benedikt Graeler. 2022. <em>Sftime: Classes and Methods for Simple Feature Objects That Have a Time Column</em>. <a href="https://CRAN.R-project.org/package=sftime">https://CRAN.R-project.org/package=sftime</a>.
 </div>
 <div id="ref-ver1993multivariable" class="csl-entry" role="doc-biblioentry">
 Ver Hoef, Jay M, and Noel Cressie. 1993. <span>“Multivariable Spatial Prediction.”</span> <em>Mathematical Geology</em> 25 (2): 219–40.

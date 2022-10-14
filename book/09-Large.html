@@ -336,12 +336,12 @@ div.csl-indent {
   <li><a href="#sec-largesf" id="toc-sec-largesf" class="nav-link active" data-scroll-target="#sec-largesf"><span class="toc-section-number">9.1</span>  Vector data: <code>sf</code></a>
   <ul class="collapse">
   <li><a href="#reading-from-local-disk" id="toc-reading-from-local-disk" class="nav-link" data-scroll-target="#reading-from-local-disk">Reading from local disk</a></li>
-  <li><a href="#reading-from-databases-dbplyr" id="toc-reading-from-databases-dbplyr" class="nav-link" data-scroll-target="#reading-from-databases-dbplyr">Reading from databases, dbplyr</a></li>
+  <li><a href="#reading-from-databases-dbplyr" id="toc-reading-from-databases-dbplyr" class="nav-link" data-scroll-target="#reading-from-databases-dbplyr">Reading from databases, <strong>dbplyr</strong></a></li>
   <li><a href="#sec-vsi" id="toc-sec-vsi" class="nav-link" data-scroll-target="#sec-vsi">Reading from online resources or web services</a></li>
   <li><a href="#apis-openstreetmap" id="toc-apis-openstreetmap" class="nav-link" data-scroll-target="#apis-openstreetmap">API’s, OpenStreetMap</a></li>
   <li><a href="#geoparquet-and-geoarrow" id="toc-geoparquet-and-geoarrow" class="nav-link" data-scroll-target="#geoparquet-and-geoarrow">GeoParquet and GeoArrow</a></li>
   </ul></li>
-  <li><a href="#raster-data-stars" id="toc-raster-data-stars" class="nav-link" data-scroll-target="#raster-data-stars"><span class="toc-section-number">9.2</span>  Raster data: <code>stars</code></a>
+  <li><a href="#raster-data-stars" id="toc-raster-data-stars" class="nav-link" data-scroll-target="#raster-data-stars"><span class="toc-section-number">9.2</span>  Raster data: <strong>stars</strong></a>
   <ul class="collapse">
   <li><a href="#stars-proxy-objects" id="toc-stars-proxy-objects" class="nav-link" data-scroll-target="#stars-proxy-objects"><code>stars</code> proxy objects</a></li>
   <li><a href="#operations-on-proxy-objects" id="toc-operations-on-proxy-objects" class="nav-link" data-scroll-target="#operations-on-proxy-objects">Operations on proxy objects</a></li>
@@ -377,7 +377,7 @@ div.csl-indent {
 </header>
 
 <p> </p>
-<p>This chapter describes how large spatial and spatiotemporal datasets can be handled with R, with a focus on packages <code>sf</code> and <code>stars</code>. For practical use, we classify large datasets as either too large:</p>
+<p>This chapter describes how large spatial and spatiotemporal datasets can be handled with R, with a focus on packages <strong>sf</strong> and <strong>stars</strong>. For practical use, we classify large datasets as either too large:</p>
 <ul>
 <li>to fit in working memory, or</li>
 <li>to fit on the local hard drive, or</li>
@@ -386,12 +386,12 @@ div.csl-indent {
 <p></p>
 <p>These three categories may (today) correspond very roughly to Gigabyte-, Terabyte- and Petabyte-sized datasets. Besides size considerations, considerations of access and processing speed also play a role, in particular for larger datasets or interactive applications. Cloud native geospatial formats are formats optimised with processing on cloud infrastructure in mind, where costs of computing and storage need to be considered and optimised. Such costs can be reduced by</p>
 <ul>
-<li>using compression, such as the LERC (Limited Error Raster Compression) algorithm used for cloud-optimized GeoTIFF, or the BLOSC compressor used for ZARR array data</li>
+<li>using compression, such as the LERC (Limited Error Raster Compression) algorithm used for cloud-optimised GeoTIFF, or the BLOSC compressor used for ZARR array data</li>
 <li>fast access to spatial sub-regions, e.g.&nbsp;by ways of http range request enabled for cloud-optimised geotiffs, or column-oriented data access in the GeoParquet and GeoArrow formats</li>
 <li>accessing/viewing data at incremental resolution (low resolution images are available before or without the full resolution being read), implemented natively by progressive JPEG formats or by using image pyramids (or overviews) in other raster formats</li>
-<li>optimizing data access with particular cloud storage or object storage protocols in mind.</li>
+<li>optimising data access with particular cloud storage or object storage protocols in mind.</li>
 </ul>
-<p>It should be noted that there are no silver bullets in this area: optimizing storage for one particular access pattern will lead to slow access for other ways: for instance if raster data is stored for optimal access of spatial regions at different spatial resolutions, reading the data as pixel time series may be very slow. Compression leads to low storage and bandwidth costs but to higher processing costs when reading, because of the decompression involved.</p>
+<p>It should be noted that there are no silver bullets in this area: optimising storage for one particular access pattern will lead to slow access for other ways: for instance if raster data is stored for optimal access of spatial regions at different spatial resolutions, reading the data as pixel time series may be very slow. Compression leads to low storage and bandwidth costs but to higher processing costs when reading, because of the decompression involved.</p>
 <section id="sec-largesf" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="sec-largesf"><span class="header-section-number">9.1</span> Vector data: <code>sf</code></h2>
 <p> </p>
@@ -426,7 +426,7 @@ div.csl-indent {
 <p>Very large files or directories that are zipped can be read without the need to unzip them, using the <code>/vsizip</code> (for zip), <code>/vsigzip</code> (for gzip) or <code>/vsitar</code> (for tar files) prefix to files; this is followed by the path to the zip file, and then followed by the file inside this zip file. Reading files this way may come at some computational cost.</p>
 </section>
 <section id="reading-from-databases-dbplyr" class="level3">
-<h3 class="anchored" data-anchor-id="reading-from-databases-dbplyr">Reading from databases, dbplyr</h3>
+<h3 class="anchored" data-anchor-id="reading-from-databases-dbplyr">Reading from databases, <strong>dbplyr</strong></h3>
 <p></p>
 <div class="cell">
 
@@ -488,8 +488,8 @@ div.csl-indent {
 <section id="sec-vsi" class="level3">
 <h3 class="anchored" data-anchor-id="sec-vsi">Reading from online resources or web services</h3>
 <p></p>
-<p>GDAL drivers support reading from online resources, by prepending the URL starting with e.g.&nbsp;<code>https://</code> with <code>/vsicurl/</code>. A number of similar drivers specialized for particular clouds include <code>/vsis3/</code> for Amazon S3, <code>/vsigs/</code> for Google Cloud Storage, <code>/vsiaz/</code> for Azure, <code>/vsioss/</code> for Alibaba Cloud, or <code>/vsiswift/</code> for OpenStack Swift Object Storage. <a href="#sec-zarr"><span>Section&nbsp;9.3.2</span></a> has an example of using <code>/vsicurl/</code>.</p>
-<p>These prepositions can be combined e.g.&nbsp;with <code>/vsizip/</code> to read a zipped online resource. Depending on the file format used, reading information this way may require reading the entire file, or reading it multiple times, and may not always be the most efficient way of handling resources. Cloud native formats are optimized to work efficiently using <code>http</code> requests.</p>
+<p>GDAL drivers support reading from online resources, by prepending the URL starting with e.g.&nbsp;<code>https://</code> with <code>/vsicurl/</code>. A number of similar drivers specialised for particular clouds include <code>/vsis3/</code> for Amazon S3, <code>/vsigs/</code> for Google Cloud Storage, <code>/vsiaz/</code> for Azure, <code>/vsioss/</code> for Alibaba Cloud, or <code>/vsiswift/</code> for OpenStack Swift Object Storage. <a href="#sec-zarr"><span>Section&nbsp;9.3.2</span></a> has an example of using <code>/vsicurl/</code>.</p>
+<p>These prepositions can be combined e.g.&nbsp;with <code>/vsizip/</code> to read a zipped online resource. Depending on the file format used, reading information this way may require reading the entire file, or reading it multiple times, and may not always be the most efficient way of handling resources. Cloud native formats are optimised to work efficiently using <code>http</code> requests.</p>
 <p> </p>
 </section>
 <section id="apis-openstreetmap" class="level3">
@@ -497,9 +497,9 @@ div.csl-indent {
 <p> </p>
 <p>Typical web services for geospatial data create data on the fly, and give access to this through an API. As an example, data from <a href="https://openstreetmap.org/">OpenStreetMap</a> can be bulk downloaded and read locally, e.g.&nbsp;using the GDAL vector driver, but more typical a user wants to obtain a small subset of the data or use the data for a small query. Several R packages exist that query OpenStreetMap data:</p>
 <ul>
-<li>Package <code>OpenStreetMap</code> downloads data as raster tiles, typically used as backdrop or reference for plotting other features</li>
-<li>Package <code>osmdata</code> <span class="citation" data-cites="osmdata">(<a href="references.html#ref-osmdata" role="doc-biblioref">Padgham et al. 2017</a>)</span> downloads vector data as points, lines or polygons in <code>sf</code> or <code>sp</code> format</li>
-<li>Package <code>osmar</code> returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements are connected, and has functions for computing the shortest route</li>
+<li>Package <strong>OpenStreetMap</strong> downloads data as raster tiles, typically used as backdrop or reference for plotting other features</li>
+<li>Package <strong>osmdata</strong> <span class="citation" data-cites="osmdata">(<a href="references.html#ref-osmdata" role="doc-biblioref">Padgham et al. 2017</a>)</span> downloads vector data as points, lines or polygons in <strong>sf</strong> or <strong>sp</strong> format</li>
+<li>Package <strong>osmar</strong> returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements are connected, and has functions for computing the shortest route</li>
 </ul>
 <p>When provided with a correctly formulated API call in the URL the highly configurable GDAL OSM driver (in <code>st_read</code>) can read an “.osm” file (xml) and return a dataset with five layers: <code>points</code> that have significant tags, <code>lines</code> with non-area “way” features, <code>multilinestrings</code> with “relation” features, <code>multipolygons</code> with “relation” features and <code>other_relations</code>. A simple and very small bounding box query to OpenStreetMap could look like</p>
 <div class="cell">
@@ -540,24 +540,24 @@ div.csl-indent {
 </section>
 </section>
 <section id="raster-data-stars" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="raster-data-stars"><span class="header-section-number">9.2</span> Raster data: <code>stars</code></h2>
+<h2 data-number="9.2" class="anchored" data-anchor-id="raster-data-stars"><span class="header-section-number">9.2</span> Raster data: <strong>stars</strong></h2>
 <p>A common challenge with raster datasets is not only that they come in large files (single Sentinel-2 tiles are around 1 GB), but that many of these files, potentially thousands or millions, are needed to address the area and time period of interest. At time of writing this, the Copernicus program that runs all Sentinel satellites publishes 160 TB of images per day. This means that a classic pattern in using R, consisting of downloading data to local disc, loading the data in memory and analysing it is not going to work.</p>
 <p> </p>
-<p>Cloud-based Earth Observation processing platforms like Google Earth Engine <span class="citation" data-cites="gorelick">(<a href="references.html#ref-gorelick" role="doc-biblioref">Gorelick et al. 2017</a>)</span>, <a href="https://www.sentinel-hub.com/">Sentinel Hub</a> or <a href="https://openeo.cloud">openEO.cloud</a> recognize this and let users work with datasets up to the petabyte range rather easily and with a great deal of interactivity. They share the following properties:</p>
+<p>Cloud-based Earth Observation processing platforms like Google Earth Engine, <a href="https://www.sentinel-hub.com/">Sentinel Hub</a> or <a href="https://openeo.cloud">openEO.cloud</a> recognise this and let users work with datasets up to the petabyte range rather easily and with a great deal of interactivity. They share the following properties:</p>
 <ul>
 <li>computations are postponed as long as possible (lazy evaluation)</li>
 <li>only the data asked for by the user is being computed and returned, and nothing more</li>
 <li>storing intermediate results is avoided in favour of on-the-fly computations</li>
 <li>maps with useful results are generated and shown quickly to allow for interactive model development</li>
 </ul>
-<p>This is similar to the <code>dbplyr</code> interface to databases and cloud-based analytics environments, but differs in the aspect of <em>what</em> we want to see quickly: rather than the first <span class="math inline">\(n\)</span> records of a <code>dbplyr</code> table, we want a quick <em>overview</em> of the results, in the form of a map covering the whole area, or part of it, but at screen resolution rather than native (observation) resolution.</p>
+<p>This is similar to the <strong>dbplyr</strong> interface to databases and cloud-based analytics environments, but differs in the aspect of <em>what</em> we want to see quickly: rather than the first <span class="math inline">\(n\)</span> records of a <strong>dbplyr</strong> lazy table, we want a quick <em>overview</em> of the results, in the form of a map covering the whole area, or part of it, but at screen resolution rather than native (observation) resolution.</p>
 <p> </p>
 <p>If for instance we want to “see” results for the United States on a screen with 1000 x 1000 pixels, we only need to compute results for this many pixels, which corresponds roughly to data on a grid with 3000 m x 3000 m grid cells. For Sentinel-2 data with 10 m resolution, this means we can downsample with a factor 300, giving 3 km x 3 km resolution. Processing, storage and network requirements then drop a factor <span class="math inline">\(300^2 \approx 10^5\)</span>, compared to working on the native 10 m x 10 m resolution. On the platforms mentioned, zooming in the map triggers further computations on a finer resolution and smaller extent.</p>
-<p>A simple optimisation that follows these lines is how <code>stars</code>’ plot method works: in the case of plotting large rasters, it downsamples the array before it plots, drastically saving time. The degree of downsampling is derived from the plotting region size and the plotting resolution (pixel density). For vector devices, such as pdf, R sets plot resolution to 75 dpi, corresponding to 0.3 mm per pixel. Enlarging plots may reveal this, but replotting to an enlarged devices will create a plot at target density.</p>
+<p>A simple optimisation that follows these lines is how the plot method for <code>stars</code> objects works: in the case of plotting large rasters, it downsamples the array before it plots, drastically saving time. The degree of downsampling is derived from the plotting region size and the plotting resolution (pixel density). For vector devices, such as pdf, R sets plot resolution to 75 dpi, corresponding to 0.3 mm per pixel. Enlarging plots may reveal this, but replotting to an enlarged devices will create a plot at target density. For <code>geom_stars</code> the user has to specify the <code>downsample</code> rate, because the <strong>ggplot2</strong> does not make the device size available to that function.</p>
 <section id="stars-proxy-objects" class="level3">
 <h3 class="anchored" data-anchor-id="stars-proxy-objects"><code>stars</code> proxy objects</h3>
 <p> </p>
-<p>To handle datasets that are too large to fit in memory, <code>stars</code> provides <code>stars_proxy</code> objects. To demonstrate its use, we will use the <code>starsdata</code> package, an R data package with larger datasets (around 1 GB total). It can be installed by</p>
+<p>To handle datasets that are too large to fit in memory, <strong>stars</strong> provides <code>stars_proxy</code> objects. To demonstrate its use, we will use the <strong>starsdata</strong> package, an R data package with larger datasets (around 1 GB total). It can be installed by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">600</span>) <span class="co"># or large in case of slow network</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, </span>
@@ -613,7 +613,7 @@ div.csl-indent {
 <div id="fig-plotp" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="09-Large_files/figure-html/fig-plotp-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9.2: downsampled 10 m bands of a Sentinel-2 scene</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9.2: Downsampled 10 m bands of a Sentinel-2 scene</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -656,7 +656,7 @@ div.csl-indent {
 <section id="remote-raster-resources" class="level3">
 <h3 class="anchored" data-anchor-id="remote-raster-resources">Remote raster resources</h3>
 <p> </p>
-<p>A format like “cloud-optimized GeoTIFF” (COG) has been specially designed to be efficient and resource-friendly in many cases, e.g.&nbsp;for only reading the metadata, or for only reading overviews (low-resolutions versions of the full imagery) or spatial regions using the <code>/vsixxx/</code> mechanisms (<a href="#sec-vsi"><span>Section&nbsp;9.1.3</span></a>). COGs can also be created using the GeoTIFF driver of GDAL, and setting the right dataset creation options in a <code>write_stars</code> call.</p>
+<p>A format like “cloud-optimised GeoTIFF” (COG) has been specially designed to be efficient and resource-friendly in many cases, e.g.&nbsp;for only reading the metadata, or for only reading overviews (low-resolutions versions of the full imagery) or spatial regions using the <code>/vsixxx/</code> mechanisms (<a href="#sec-vsi"><span>Section&nbsp;9.1.3</span></a>). COGs can also be created using the GeoTIFF driver of GDAL, and setting the right dataset creation options in a <code>write_stars</code> call.</p>
 </section>
 </section>
 <section id="very-large-data-cubes" class="level2" data-number="9.3">
@@ -668,8 +668,8 @@ div.csl-indent {
 <p>When working on a virtual machine on a cloud, a first task is usually to find the assets (files) to work on. It looks attractive to obtain a file listing, and then parse file names such as</p>
 <pre><code>S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip</code></pre>
 <p>for their metadata including the date of acquisition and the code of the spatial tile covered. Obtaining such a file listing however is usually computationally very demanding, as is the processing of the result, when the number of tiles runs in the many millions.</p>
-<p>A solution to this is to use a catalogue. The recently developed and increasingly deployed STAC, short for <em>spatiotemporal asset catalogue</em>, provides an API that can be used to query image collections by properties like bounding box, date, band, and cloud coverage. The R package <code>rstac</code> <span class="citation" data-cites="R-rstac">(<a href="references.html#ref-R-rstac" role="doc-biblioref">Brazil Data Cube Team 2021</a>)</span> provides an R interface to create queries, and manage the information returned.</p>
-<p>Processing the resulting files may involve creating a data cube at a lower spatial and/or temporal resolution, from images that may span a range of coordinate reference systems (e.g., several UTM zones). An R package that creates a regular data cube from such a collection of images is gdalcubes <span class="citation" data-cites="R-gdalcubes appel2019demand">(<a href="references.html#ref-R-gdalcubes" role="doc-biblioref">Appel 2022</a>; <a href="references.html#ref-appel2019demand" role="doc-biblioref">Appel and Pebesma 2019</a>)</span>, which can also directly use a STAC <span class="citation" data-cites="appelblog">(<a href="references.html#ref-appelblog" role="doc-biblioref">Appel, Pebesma, and Mohr 2021</a>)</span>.</p>
+<p>A solution to this is to use a catalogue. The recently developed and increasingly deployed STAC, short for <em>spatiotemporal asset catalogue</em>, provides an API that can be used to query image collections by properties like bounding box, date, band, and cloud coverage. The R package <strong>rstac</strong> <span class="citation" data-cites="R-rstac">(<a href="references.html#ref-R-rstac" role="doc-biblioref">Brazil Data Cube Team 2021</a>)</span> provides an R interface to create queries, and manage the information returned.</p>
+<p>Processing the resulting files may involve creating a data cube at a lower spatial and/or temporal resolution, from images that may span a range of coordinate reference systems (e.g., several UTM zones). An R package that creates a regular data cube from such a collection of images is <strong>gdalcubes</strong> <span class="citation" data-cites="R-gdalcubes appel2019demand">(<a href="references.html#ref-R-gdalcubes" role="doc-biblioref">Appel 2022</a>; <a href="references.html#ref-appel2019demand" role="doc-biblioref">Appel and Pebesma 2019</a>)</span>, which can also directly use a STAC <span class="citation" data-cites="appelblog">(<a href="references.html#ref-appelblog" role="doc-biblioref">Appel, Pebesma, and Mohr 2021</a>)</span>.</p>
 </section>
 <section id="sec-zarr" class="level3">
 <h3 class="anchored" data-anchor-id="sec-zarr">Cloud native storage: Zarr</h3>
@@ -710,9 +710,9 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="apis-for-data-gee-openeo">APIs for data: GEE, openEO</h3>
 <p> </p>
 <p>Platforms that do not require the management and programming of virtual machines <em>in</em> the cloud but provide direct access to the imagery managed include GEE, openEO, and the climate data store.</p>
-<p>Google Earth Engine (GEE) is a cloud platform that allows users to compute on large amounts of Earth Observation data as well as modelling products <span class="citation" data-cites="gorelick">(<a href="references.html#ref-gorelick" role="doc-biblioref">Gorelick et al. 2017</a>)</span>. It has powerful analysis capabilities, including most of the data cube operations explained in <a href="06-Cubes.html#sec-dcoperations"><span>Section&nbsp;6.3</span></a>. It has an IDE where scripts can be written in JavaScript, and a Python interface to the same functionality. The code of GEE is not open source, and cannot be extended by arbitrary user-defined functions in languages like Python or R. R package <code>rgee</code> <span class="citation" data-cites="R-rgee">(<a href="references.html#ref-R-rgee" role="doc-biblioref">Aybar 2022</a>)</span> provides an R client interface to GEE.</p>
+<p>Google Earth Engine (GEE) is a cloud platform that allows users to compute on large amounts of Earth Observation data as well as modelling products <span class="citation" data-cites="gorelick">(<a href="references.html#ref-gorelick" role="doc-biblioref">Gorelick et al. 2017</a>)</span>. It has powerful analysis capabilities, including most of the data cube operations explained in <a href="06-Cubes.html#sec-dcoperations"><span>Section&nbsp;6.3</span></a>. It has an IDE where scripts can be written in JavaScript, and a Python interface to the same functionality. The code of GEE is not open source, and cannot be extended by arbitrary user-defined functions in languages like Python or R. R package <strong>rgee</strong> <span class="citation" data-cites="R-rgee">(<a href="references.html#ref-R-rgee" role="doc-biblioref">Aybar 2022</a>)</span> provides an R client interface to GEE.</p>
 <p>Cloud-based data cube processing platforms built entirely around open source software are emerging, several of which using the openEO API <span class="citation" data-cites="openEO">(<a href="references.html#ref-openEO" role="doc-biblioref">Schramm et al. 2021</a>)</span>. This API allows for user-defined functions (UDFs) written in Python or R that are being passed on through the API and executed at the pixel level, e.g.&nbsp;to aggregate or reduce dimensions. UDFs in R represent the data chunk to be processed as a <code>stars</code> object, in Python <code>xarray</code> objects are used.</p>
-<p>Other platforms include the Copernicus climate data store <span class="citation" data-cites="cds">(<a href="references.html#ref-cds" role="doc-biblioref">Raoult et al. 2017</a>)</span> or atmosphere data store, which allow processing of atmospheric or climate data from ECMWF, including ERA5. An R package with an interface to both data stores is <code>ecmwfr</code> <span class="citation" data-cites="R-ecmwfr">(<a href="references.html#ref-R-ecmwfr" role="doc-biblioref">Hufkens 2020</a>)</span>.</p>
+<p>Other platforms include the Copernicus climate data store <span class="citation" data-cites="cds">(<a href="references.html#ref-cds" role="doc-biblioref">Raoult et al. 2017</a>)</span> or atmosphere data store, which allow processing of atmospheric or climate data from ECMWF, including ERA5. An R package with an interface to both data stores is <strong>ecmwfr</strong> <span class="citation" data-cites="R-ecmwfr">(<a href="references.html#ref-R-ecmwfr" role="doc-biblioref">Hufkens 2020</a>)</span>.</p>
 <p></p>
 </section>
 </section>
@@ -720,7 +720,7 @@ div.csl-indent {
 <h2 data-number="9.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.4</span> Exercises</h2>
 <p>Use R to solve the following exercises.</p>
 <ol type="1">
-<li>For the S2 image (above), find out in which order the bands are by using <code>st_get_dimension_values()</code>, and try to find out (e.g.&nbsp;by internet search) which spectral bands / colors they correspond to.</li>
+<li>For the S2 image (above), find out in which order the bands are by using <code>st_get_dimension_values()</code>, and try to find out (e.g.&nbsp;by internet search) which spectral bands / colours they correspond to.</li>
 <li>Compute NDVI for the S2 image, using <code>st_apply</code> and an appropriate <code>ndvi</code> function. Plot the result to screen, and then write the result to a GeoTIFF. Explain the difference in runtime between plotting and writing.</li>
 <li>Plot an RGB composite of the S2 image, using the <code>rgb</code> argument to <code>plot()</code>, and then by using <code>st_rgb()</code> first.</li>
 <li>Select five random points from the bounding box of <code>S2</code>, and extract the band values at these points; convert the object returned to an <code>sf</code> object.</li>

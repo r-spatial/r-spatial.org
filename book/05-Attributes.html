@@ -377,8 +377,8 @@ div.csl-indent {
 <li>the NO<span class="math inline">\(_2\)</span> concentration measured at an air quality monitoring station</li>
 </ul>
 <p>In some cases, time properties can be seen as attributes of features, e.g.&nbsp;the date of birth of a person or the construction year of a road. When an attribute such as for instance air quality is a function of both space and time, time is best handled on equal footing with geometry (e.g.&nbsp;in a data cube, see <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>).</p>
-<p>Spatial data science software implementing simple features typically organizes data in tables that contain both geometries and attributes for features; this is true for <code>geopandas</code> in Python, <code>PostGIS</code> tables in PostgreSQL, and <code>sf</code> objects in R. The geometric operations described in <a href="03-Geometries.html#sec-opgeom"><span>Section&nbsp;3.2</span></a> operate on geometries <em>only</em>, and may occasionally yield new attributes (predicates, measures or transformations), but do not operate on attributes present.</p>
-<p>When, while manipulating geometries, attribute <em>values</em> are retained unmodified, support problems may arise. If we look into a simple case of replacing a county polygon with the centroid of that polygon on a dataset that has attributes, we see that R package <code>sf</code> issues a warning:</p>
+<p>Spatial data science software implementing simple features typically organises data in tables that contain both geometries and attributes for features; this is true for <code>geopandas</code> in Python, <code>PostGIS</code> tables in PostgreSQL, and <code>sf</code> objects in R. The geometric operations described in <a href="03-Geometries.html#sec-opgeom"><span>Section&nbsp;3.2</span></a> operate on geometries <em>only</em>, and may occasionally yield new attributes (predicates, measures or transformations), but do not operate on attributes present.</p>
+<p>When, while manipulating geometries, attribute <em>values</em> are retained unmodified, support problems may arise. If we look into a simple case of replacing a county polygon with the centroid of that polygon on a dataset that has attributes, we see that R package <strong>sf</strong> issues a warning:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -397,7 +397,7 @@ div.csl-indent {
 </div>
 <p>The reason for this is that the dataset contains variables with values that are associated with entire polygons – in this case: population counts – meaning they are not associated with a <code>POINT</code> geometry replacing the polygon.</p>
 <p></p>
-<p>In <a href="01-hello.html#sec-support"><span>Section&nbsp;1.6</span></a> we already described that for non-point geometries (lines, polygons), feature attribute values either have <em>point support</em>, meaning that the value applies to <em>every point</em>, or they have <em>block support</em>, meaning that the value <em>summarizes all points</em> in the geometry. (More complex options, e.g.&nbsp;in between these two extremes, may also occur.) This chapter will describe different ways in which an attribute may relate to the geometry, its consequences on analysing such data, and ways to derive attribute data for different geometries (up- and downscaling).</p>
+<p>In <a href="01-hello.html#sec-support"><span>Section&nbsp;1.6</span></a> we already described that for non-point geometries (lines, polygons), feature attribute values either have <em>point support</em>, meaning that the value applies to <em>every point</em>, or they have <em>block support</em>, meaning that the value <em>summarises all points</em> in the geometry. (More complex options, e.g.&nbsp;in between these two extremes, may also occur.) This chapter will describe different ways in which an attribute may relate to the geometry, its consequences on analysing such data, and ways to derive attribute data for different geometries (up- and downscaling).</p>
 <p> </p>
 <section id="sec-agr" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-agr"><span class="header-section-number">5.1</span> Attribute-geometry relationships and support</h2>
@@ -453,12 +453,12 @@ div.csl-indent {
 <p>Aggregating records in a table (or <code>data.frame</code>) involves two steps:</p>
 <ul>
 <li>grouping records based on a grouping predicate, and</li>
-<li>applying an aggregation function to the attribute values of a group to summarize them into a single number.</li>
+<li>applying an aggregation function to the attribute values of a group to summarise them into a single number.</li>
 </ul>
 <p>In SQL, this looks for instance like</p>
 <pre><code>SELECT GroupID, SUM(population) FROM table GROUP BY GroupID;</code></pre>
 <p>indicating the aggregation <em>function</em> (<code>SUM</code>) and the <em>grouping predicate</em> (<code>GroupID</code>).</p>
-<p>R package <code>dplyr</code> for instance uses two steps to accomplish this: function <code>group_by</code> specifies the group membership of records, <code>summarize</code> computes data summaries (such as <code>sum</code> or <code>mean</code>) for each of the groups. The (base) R method <code>aggregate</code> combines both in a single function call that takes the table, the grouping predicate(s) and the aggregation function(s) as arguments.</p>
+<p>R package <strong>dplyr</strong> for instance uses two steps to accomplish this: function <code>group_by</code> specifies the group membership of records, <code>summarise</code> computes data summaries (such as <code>sum</code> or <code>mean</code>) for each of the groups. The (base) R method <code>aggregate</code> combines both in a single function call that takes the table, the grouping predicate(s) and the aggregation function(s) as arguments.</p>
 <p>An example for the North Carolina counties is shown in <a href="#fig-ncaggregation">Figure&nbsp;<span>5.1</span></a>. Here, we grouped counties by their position (according to the quadrant in which the county centroid is with respect to ellipsoidal coordinate <code>POINT(-79, 35.5)</code>) and summed the number of disease cases per group. The result shows that the geometries of the resulting groups have been unioned (<a href="03-Geometries.html#sec-bintrans"><span>Section&nbsp;3.2.6</span></a>): this is necessary because the <code>MULTIPOLYGON</code> formed by just putting all the county geometries together would have many duplicate boundaries, and hence not be <em>valid</em> (<a href="03-Geometries.html#sec-valid"><span>Section&nbsp;3.1.2</span></a>).</p>
 <div class="cell">
 <details>
@@ -468,7 +468,8 @@ div.csl-indent {
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lng <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">79</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lat <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">35.5</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>nc.grp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nc[<span class="st">"SID74"</span>], <span class="fu">list</span>(nc<span class="sc">$</span>lng, nc<span class="sc">$</span>lat), sum)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nc.grp[<span class="st">"SID74"</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>nc.grp[<span class="st">"SID74"</span>] <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">graticule =</span> <span class="cn">TRUE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ncaggregation" class="quarto-figure quarto-figure-center anchored">
@@ -480,7 +481,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Plotting collated county polygons is technically not a problem, but for this case would raise the wrong suggestion that the group sums relate to individual counties, rather than to the grouped counties.</p>
-<p>One particular property of aggregation in this way is that each record is assigned to a single group; this has the advantage that the sum of the group-wise sums equals the sum of the ungrouped data: for variables that reflect <em>amount</em>, nothing gets lost and nothing is added. The newly formed geometry is the result of unioning the geometries of the contributing records.</p>
+<p>One particular property of aggregation in this way is that each record is assigned to a single group; this has the advantage that the sum of the group-wise sums equals the sum of the un-grouped data: for variables that reflect <em>amount</em>, nothing gets lost and nothing is added. The newly formed geometry is the result of unioning the geometries of the contributing records.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -495,7 +496,7 @@ div.csl-indent {
 <div id="fig-ncblocks" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="05-Attributes_files/figure-html/fig-ncblocks-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5.2: Example target blocks layed out over North Carolina counties</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties</figcaption><p></p>
 </figure>
 </div>
 </div>

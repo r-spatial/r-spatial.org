@@ -333,7 +333,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-sfintro" id="toc-sec-sfintro" class="nav-link active" data-scroll-target="#sec-sfintro"><span class="toc-section-number">7.1</span>  Package <code>sf</code></a>
+  <li><a href="#sec-sfintro" id="toc-sec-sfintro" class="nav-link active" data-scroll-target="#sec-sfintro"><span class="toc-section-number">7.1</span>  Package <strong>sf</strong></a>
   <ul class="collapse">
   <li><a href="#creation" id="toc-creation" class="nav-link" data-scroll-target="#creation">Creation</a></li>
   <li><a href="#reading-and-writing" id="toc-reading-and-writing" class="nav-link" data-scroll-target="#reading-and-writing">Reading and writing</a></li>
@@ -346,7 +346,7 @@ div.csl-indent {
   <li><a href="#sampling-gridding-interpolating" id="toc-sampling-gridding-interpolating" class="nav-link" data-scroll-target="#sampling-gridding-interpolating">Sampling, gridding, interpolating</a></li>
   </ul></li>
   <li><a href="#ellipsoidal-coordinates" id="toc-ellipsoidal-coordinates" class="nav-link" data-scroll-target="#ellipsoidal-coordinates"><span class="toc-section-number">7.3</span>  Ellipsoidal coordinates</a></li>
-  <li><a href="#package-stars" id="toc-package-stars" class="nav-link" data-scroll-target="#package-stars"><span class="toc-section-number">7.4</span>  Package <code>stars</code></a>
+  <li><a href="#package-stars" id="toc-package-stars" class="nav-link" data-scroll-target="#package-stars"><span class="toc-section-number">7.4</span>  Package <strong>stars</strong></a>
   <ul class="collapse">
   <li><a href="#reading-and-writing-raster-data" id="toc-reading-and-writing-raster-data" class="nav-link" data-scroll-target="#reading-and-writing-raster-data">Reading and writing raster data</a></li>
   <li><a href="#subsetting-stars-data-cubes" id="toc-subsetting-stars-data-cubes" class="nav-link" data-scroll-target="#subsetting-stars-data-cubes">Subsetting <code>stars</code> data cubes</a></li>
@@ -404,16 +404,15 @@ div.csl-indent {
 </header>
 
 <p></p>
-<p>This chapter introduces R packages <code>sf</code> and <code>stars</code>. <code>sf</code> provides a table format for simple features, where feature geometries are carried in a list-column. R package <code>stars</code> was written to support raster and vector datacubes (<a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>), and has raster data stacks and feature time series as special cases. <code>sf</code> first appeared on CRAN in 2016, <code>stars</code> in 2018. Development of both packages received support from the R Consortium as well as strong community engagement. The packages were designed to work together.</p>
-<p>All functions operating on <code>sf</code> or <code>stars</code> objects start with <code>st_</code>, making it easy to recognize them or to search for them when using command line completion.</p>
+<p>This chapter introduces R packages <strong>sf</strong> and <strong>stars</strong>. <strong>sf</strong> provides a table format for simple features, where feature geometries are stored in a list-column. R package <strong>stars</strong> was written to support raster and vector datacubes (<a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>), supporting raster layers, raster stacks and feature time series as special cases. <strong>sf</strong> first appeared on CRAN in 2016, <strong>stars</strong> in 2018. Development of both packages received support from the R Consortium as well as strong community engagement. The packages were designed to work together. Functions or methods operating on <strong>sf</strong> or <strong>stars</strong> objects start with <code>st_</code>, making it easy to recognise them or to search for them when using command line completion.</p>
 <section id="sec-sfintro" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="sec-sfintro"><span class="header-section-number">7.1</span> Package <code>sf</code></h2>
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-sfintro"><span class="header-section-number">7.1</span> Package <strong>sf</strong></h2>
 <p> </p>
-<p>Intended to succeed and replace R packages <code>sp</code>, <code>rgeos</code> and the vector parts of <code>rgdal</code>, R package <code>sf</code> <span class="citation" data-cites="rjsf">(<a href="references.html#ref-rjsf" role="doc-biblioref">Pebesma 2018</a>)</span> was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of the open source geospatial software stack (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>), and to allow for integration of R spatial software with the tidyverse <span class="citation" data-cites="wickham2019welcome">(<a href="references.html#ref-wickham2019welcome" role="doc-biblioref">Wickham et al. 2019a</a>)</span>, if desired.</p>
+<p>Intended to succeed and replace R packages <strong>sp</strong>, <strong>rgeos</strong> and the vector parts of <strong>rgdal</strong>, R package <strong>sf</strong> <span class="citation" data-cites="rjsf">(<a href="references.html#ref-rjsf" role="doc-biblioref">Pebesma 2018</a>)</span> was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of the open source geospatial software stack (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>), and to allow for integration of R spatial software with the tidyverse <span class="citation" data-cites="wickham2019welcome">(<a href="references.html#ref-wickham2019welcome" role="doc-biblioref">Wickham et al. 2019a</a>)</span>, if desired.</p>
 <p></p>
-<p>To do so, R package <code>sf</code> provides simple features access <span class="citation" data-cites="herring2011opengis">(<a href="references.html#ref-herring2011opengis" role="doc-biblioref">Herring et al. 2011</a>)</span>, natively, to R. It provides an interface to several <code>tidyverse</code> packages, in particular to <code>ggplot2</code>, <code>dplyr</code> and <code>tidyr</code>. It can read and write data through GDAL, execute geometrical operations using GEOS (for projected coordinates) or s2geometry (for ellipsoidal coordinates), and carry out coordinate transformations or conversions using PROJ. External C++ libraries are interfaced using <code>Rcpp</code> <span class="citation" data-cites="eddelbuettel2013seamless">(<a href="references.html#ref-eddelbuettel2013seamless" role="doc-biblioref">Eddelbuettel 2013</a>)</span>.</p>
+<p>To do so, R package <strong>sf</strong> provides simple features access <span class="citation" data-cites="herring2011opengis">(<a href="references.html#ref-herring2011opengis" role="doc-biblioref">Herring et al. 2011</a>)</span>, natively, to R. It provides an interface to several <strong>tidyverse</strong> packages, in particular to <strong>ggplot2</strong>, <strong>dplyr</strong> and <strong>tidyr</strong>. It can read and write data through GDAL, execute geometrical operations using GEOS (for projected coordinates) or s2geometry (for ellipsoidal coordinates), and carry out coordinate transformations or conversions using PROJ. External C++ libraries are interfaced using R package <strong>Rcpp</strong> <span class="citation" data-cites="eddelbuettel2013seamless">(<a href="references.html#ref-eddelbuettel2013seamless" role="doc-biblioref">Eddelbuettel 2013</a>)</span>.</p>
 <p> </p>
-<p>Package <code>sf</code> represents sets of simple features in <code>sf</code> objects, a sub-class of a <code>data.frame</code> or tibble. <code>sf</code> objects contain at least one <em>geometry list-column</em> of class <code>sfc</code>, which for each element contains the geometry as an R object of class <code>sfg</code>. A geometry list-column acts as a variable in a <code>data.frame</code> or tibble, but has a more complex structure than e.g.&nbsp;numeric or character variables. Following the convention of <code>PostGIS</code>, all operations (functions, method) that operate on <code>sf</code> objects or related start with <code>st_</code>.</p>
+<p>Package <strong>sf</strong> represents sets of simple features in <code>sf</code> objects, a sub-class of a <code>data.frame</code> or tibble. <code>sf</code> objects contain at least one <em>geometry list-column</em> of class <code>sfc</code>, which for each element contains the geometry as an R object of class <code>sfg</code>. A geometry list-column acts as a variable in a <code>data.frame</code> or tibble, but has a more complex structure than e.g.&nbsp;numeric or character variables.</p>
 <p> </p>
 <p>An <code>sf</code> object has the following meta-data:</p>
 <ul>
@@ -492,7 +491,7 @@ div.csl-indent {
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Bounding box:  xmin: -84.3 ymin: 33.9 xmax: -75.5 ymax: 36.6</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Geodetic CRS:  NAD27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, the file name and path <code>file</code> is read from the <code>sf</code> package, which has a different path on every machine, and hence is guaranteed to be present on every <code>sf</code> installation.</p>
+<p>Here, the file name and path <code>file</code> is read from the <strong>sf</strong> package, which has a different path on every machine, and hence is guaranteed to be present on every <strong>sf</strong> installation.</p>
 <p></p>
 <p>Command <code>st_read</code> has two arguments: the <em>data source name</em> (<code>dsn</code>) and the <em>layer</em>. In the example above, the <em>geopackage</em> (GPKG) file contains only a single layer that is being read. If it had contained multiple layers, then the first layer would have been read and a warning would have been emitted. The available layers of a data set can be queried by</p>
 <div class="cell">
@@ -505,10 +504,10 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpttfTBj/file73d5b5c1dab6a.gpkg"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpNZ61f0/file8b5ea7dd9ae93.gpkg"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpttfTBj/file73d5b5c1dab6a.gpkg' using driver `GPKG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpNZ61f0/file8b5ea7dd9ae93.gpkg' using driver `GPKG'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset it will error if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted, e.g.&nbsp;from a database, using <code>st_delete</code>.</p>
@@ -593,13 +592,13 @@ div.csl-indent {
 <section id="tidyverse" class="level3">
 <h3 class="anchored" data-anchor-id="tidyverse">tidyverse</h3>
 <p> </p>
-<p>The tidyverse is a collection of data science packages that work together, described e.g.&nbsp;in <span class="citation" data-cites="r4ds welcome">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>; <a href="references.html#ref-welcome" role="doc-biblioref">Wickham et al. 2019b</a>)</span>. Package <code>sf</code> has tidyverse-style read and write functions, <code>read_sf</code> and <code>write_sf</code> that</p>
+<p>The <strong>tidyverse</strong> package loads a collection of data science packages that work together, described e.g.&nbsp;in <span class="citation" data-cites="r4ds welcome">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>; <a href="references.html#ref-welcome" role="doc-biblioref">Wickham et al. 2019b</a>)</span>. Package <strong>sf</strong> has <strong>tidyverse</strong>-style read and write functions, <code>read_sf</code> and <code>write_sf</code> that</p>
 <ul>
 <li>return a tibble rather than a <code>data.frame</code>,</li>
 <li>do not print any output, and</li>
 <li>overwrite existing data by default.</li>
 </ul>
-<p>Further <code>tidyverse</code> generics with methods for <code>sf</code> objects include <code>filter</code>, <code>select</code>, <code>group_by</code>, <code>ungroup</code>, <code>mutate</code>, <code>transmute</code>, <code>rowwise</code>, <code>rename</code>, <code>slice</code>, <code>summarise</code>, <code>distinct</code>, <code>gather</code>, <code>pivot_longer</code>, <code>spread</code>, <code>nest</code>, <code>unnest</code>, <code>unite</code>, <code>separate</code>, <code>separate_rows</code>, <code>sample_n</code>, and <code>sample_frac</code>. Most of these methods simply manage the metadata of <code>sf</code> objects, and make sure the geometry remains present. In case a user wants the geometry to be removed, one can use <code>st_drop_geometry()</code> or simply coerce to a <code>tibble</code> or <code>data.frame</code> before selecting:</p>
+<p>Further <strong>tidyverse</strong> generics with methods for <code>sf</code> objects include <code>filter</code>, <code>select</code>, <code>group_by</code>, <code>ungroup</code>, <code>mutate</code>, <code>transmute</code>, <code>rowwise</code>, <code>rename</code>, <code>slice</code>, <code>summarise</code>, <code>distinct</code>, <code>gather</code>, <code>pivot_longer</code>, <code>spread</code>, <code>nest</code>, <code>unnest</code>, <code>unite</code>, <code>separate</code>, <code>separate_rows</code>, <code>sample_n</code>, and <code>sample_frac</code>. Most of these methods simply manage the metadata of <code>sf</code> objects, and make sure the geometry remains present. In case a user wants the geometry to be removed, one can use <code>st_drop_geometry()</code> or simply coerce to a <code>tibble</code> or <code>data.frame</code> before selecting:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="fu">select</span>(BIR74) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">3</span>)</span>
@@ -682,7 +681,7 @@ div.csl-indent {
 <div id="fig-largest" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-largest-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.4: example of <code>st_join</code> with <code>largest = TRUE</code>: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.4: Example of <code>st_join</code> with <code>largest = TRUE</code>: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -691,8 +690,8 @@ div.csl-indent {
 <p>Another way to reduce the result set is to use <code>aggregate</code> after a join, to merge all matching records, and union their geometries; see <a href="05-Attributes.html#sec-updownscaling"><span>Section&nbsp;5.4</span></a>.</p>
 <section id="sampling-gridding-interpolating" class="level3">
 <h3 class="anchored" data-anchor-id="sampling-gridding-interpolating">Sampling, gridding, interpolating</h3>
-<p>Several convenience functions are available in package <code>sf</code>, some of which will be discussed here. Function <code>st_sample</code> generates a sample of points randomly sampled from target geometries, where target geometries can be point, line or polygon geometries. Sampling strategies can be (completely) random, regular or (with polygons) triangular. <a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a> explains how spatial sampling (or point pattern simulation) methods available in package <code>spatstat</code> are interfaced through <code>st_sample</code>.</p>
-<p>Function <code>st_make_grid</code> creates a square, rectangular or hexagonal grid over a region, or points with the grid centers or corners. It was used to create the rectangular grid in <a href="#fig-largest">Figure&nbsp;<span>7.4</span></a> .</p>
+<p>Several convenience functions are available in package <strong>sf</strong>, some of which will be discussed here. Function <code>st_sample</code> generates a sample of points randomly sampled from target geometries, where target geometries can be point, line or polygon geometries. Sampling strategies can be (completely) random, regular or (with polygons) triangular. <a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a> explains how spatial sampling (or point pattern simulation) methods available in package <strong>spatstat</strong> are interfaced through <code>st_sample</code>.</p>
+<p>Function <code>st_make_grid</code> creates a square, rectangular or hexagonal grid over a region, or points with the grid centres or corners. It was used to create the rectangular grid in <a href="#fig-largest">Figure&nbsp;<span>7.4</span></a> .</p>
 <p></p>
 <p>Function <code>st_interpolate_aw</code> “interpolates” area values to new areas, as explained in <a href="05-Attributes.html#sec-area-weighted"><span>Section&nbsp;5.3</span></a>, both for intensive and extensive variables.</p>
 <p> </p>
@@ -700,7 +699,7 @@ div.csl-indent {
 </section>
 <section id="ellipsoidal-coordinates" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="ellipsoidal-coordinates"><span class="header-section-number">7.3</span> Ellipsoidal coordinates</h2>
-<p>Unprojected data have ellipsoidal coordinates, expressed in degrees east and north. As explained in <a href="04-Spherical.html#sec-straight"><span>Section&nbsp;4.1</span></a>, “straight” lines between points are the curved shortest paths (“geodesic”). By default, <code>sf</code> uses geometrical operations from the <code>s2geometry</code> library, interfaced through the <code>s2</code> package <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>)</span>, and we see for instance that the point</p>
+<p>Unprojected data have ellipsoidal coordinates, expressed in degrees east and north. As explained in <a href="04-Spherical.html#sec-straight"><span>Section&nbsp;4.1</span></a>, “straight” lines between points are the curved shortest paths (“geodesic”). By default, <strong>sf</strong> uses geometrical operations from the <code>s2geometry</code> library, interfaced through the <strong>s2</strong> package <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>)</span>, and we see for instance that the point</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="st">"POINT(50 50.1)"</span> <span class="sc">|&gt;</span> <span class="fu">st_as_sfc</span>(<span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>) <span class="ot">-&gt;</span> pt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -713,7 +712,7 @@ div.csl-indent {
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># predicate was `intersects'</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  1: 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>as illustrated by <a href="#fig-figs2">Figure&nbsp;<span>7.5</span></a> (left: straight lines on an orthographic projection centered at the plot area).</p>
+<p>as illustrated by <a href="#fig-figs2">Figure&nbsp;<span>7.5</span></a> (left: straight lines on an orthographic projection centred at the plot area).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -736,7 +735,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>If one wants <code>sf</code> to use ellipsoidal coordinates as if they are Cartesian coordinates, the use of <code>s2</code> can be switched off:</p>
+<p>If one wants <strong>sf</strong> to use ellipsoidal coordinates as if they are Cartesian coordinates, the use of <strong>s2</strong> can be switched off:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>old <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Spherical geometry (s2) switched off</span></span>
@@ -750,33 +749,33 @@ div.csl-indent {
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Spherical geometry (s2) switched on</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and the intersection is empty, as illustrated by <a href="#fig-figs2">Figure&nbsp;<span>7.5</span></a> (right: straight lines on an equidistant cylindrical projection). The warning indicates the planar assumption for ellipsoidal coordinates.</p>
-<p>Use of <code>s2geometry</code> can be switched of for reasons of performance or compatibility with legacy implementations. The underlying libraries, <code>GEOS</code> for Cartesian and <code>s2geometry</code> for spherical geometry (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>) were developed with different motivations, and their use through <code>sf</code> differs in some respects:</p>
+<p>Use of <strong>s2</strong> can be switched of for reasons of performance or compatibility with legacy implementations. The underlying libraries, <strong>GEOS</strong> for Cartesian and <strong>s2geometry</strong> for spherical geometry (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>) were developed with different motivations, and their use through <strong>sf</strong> differs in some respects:</p>
 <ul>
 <li>certain operations may be much faster in one compared to the other, e.g.&nbsp;by using spatial indexes not available or not (yet) interfaced in the other</li>
 <li>certain functions may be available in only one of them (like <code>st_relate</code> being only present in GEOS).</li>
 </ul>
 </section>
 <section id="package-stars" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="package-stars"><span class="header-section-number">7.4</span> Package <code>stars</code></h2>
+<h2 data-number="7.4" class="anchored" data-anchor-id="package-stars"><span class="header-section-number">7.4</span> Package <strong>stars</strong></h2>
 <p> </p>
-<p>Although package <code>sp</code> has always had limited support for raster data, over the last decade R package <code>raster</code> <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2022a</a>)</span> has clearly been dominant as the prime package for powerful, flexible and scalable raster analysis. The raster data model of package <code>raster</code> (and its successor, <code>terra</code> <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2022b</a>)</span>) is that of a 2D regular raster, or a set of raster layers (a “raster stack”). This aligns with the classical static “GIS world view”, where the world is modelled as a set of layers, each representing a different theme. A lot of data available today however is dynamic, and comes as time series of rasters or raster stacks. A raster stack does not meaningfully reflect this, requiring the user to keep a register of which layer represents what.</p>
-<p>Also, the <code>raster</code> package, and its successor <code>terra</code> do an excellent job in scaling computations up to data sizes no larger than the local storage (the computer’s hard drives), and doing this fast. Recent datasets however, including satellite imagery, climate model or weather forecasting data, often no longer fit in local storage (<a href="09-Large.html"><span>Chapter&nbsp;9</span></a>). Package <code>spacetime</code> <span class="citation" data-cites="spacetime2012">(<a href="references.html#ref-spacetime2012" role="doc-biblioref">Pebesma 2012</a>)</span> addresses the analysis of time series of vector geometries or raster grid cells, but does not extend to higher-dimensional arrays.</p>
+<p>Although package <strong>sp</strong> has always had limited support for raster data, over the last decade R package <strong>raster</strong> <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2022a</a>)</span> has clearly been dominant as the prime package for powerful, flexible and scalable raster analysis. The raster data model of package <strong>raster</strong> (and its successor, <strong>terra</strong> <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2022b</a>)</span>) is that of a 2D regular raster, or a set of raster layers (a “raster stack”). This aligns with the classical static “GIS view”, where the world is modelled as a set of layers, each representing a different theme. A lot of data available today however is dynamic, and comes as time series of rasters or raster stacks. A raster stack does not meaningfully reflect this, requiring the user to keep a register of which layer represents what.</p>
+<p>Also, the <strong>raster</strong> package, and its successor <strong>terra</strong> do an excellent job in scaling computations up to data sizes no larger than the local storage (the computer’s hard drives), and doing this fast. Recent datasets however, including satellite imagery, climate model or weather forecasting data, often no longer fit in local storage (<a href="09-Large.html"><span>Chapter&nbsp;9</span></a>). Package <strong>spacetime</strong> <span class="citation" data-cites="spacetime2012 R-spacetime">(<a href="references.html#ref-spacetime2012" role="doc-biblioref">Pebesma 2012</a>, <a href="references.html#ref-R-spacetime" role="doc-biblioref">2022</a>)</span> addresses the analysis of time series of vector geometries or raster grid cells, but does not extend to higher-dimensional arrays.</p>
 <p> </p>
-<p>Here, we introduce package <code>stars</code> for analysing raster and vector data cubes. The package:</p>
+<p>Here, we introduce package <strong>stars</strong> for analysing raster and vector data cubes. The package:</p>
 <ul>
 <li>allows for representing dynamic (time varying) raster stacks</li>
 <li>aims at being scalable, also beyond local disk size</li>
 <li>provides a strong integration of raster functions in the GDAL library</li>
 <li>in addition to regular grids handles rotated, sheared, rectilinear and curvilinear rasters (<a href="01-hello.html#fig-rastertypes01">Figure&nbsp;<span>1.6</span></a>)</li>
-<li>provides a tight integration with package <code>sf</code></li>
+<li>provides a tight integration with package <strong>sf</strong></li>
 <li>also handles array data with non-raster spatial dimensions, the <em>vector data cubes</em></li>
 <li>follows the tidyverse design principles</li>
 </ul>
-<p>Vector data cubes include for instance time series for simple features, or spatial graph data such as potentially dynamic origin-destination matrices. The concept of spatial vector and raster data cubes was explained in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
+<p>Vector data cubes include for instance time series for simple features, or spatial graph data such as potentially dynamic origin-destination matrices. The concept of spatial vector and raster data cubes was explained in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>. Irregular spacetime observations can be represented by <code>sftime</code> objects provided by package <strong>sftime</strong> <span class="citation" data-cites="R-sftime">(<a href="references.html#ref-R-sftime" role="doc-biblioref">Teickner, Pebesma, and Graeler 2022</a>)</span>, which extend <code>sf</code> objects with a time column (<a href="13-Geostatistics.html#sec-stgeos"><span>Section&nbsp;13.3</span></a>).</p>
 <section id="reading-and-writing-raster-data" class="level3">
 <h3 class="anchored" data-anchor-id="reading-and-writing-raster-data">Reading and writing raster data</h3>
 <p> </p>
-<p>Raster data typically are read from a file. We use a dataset containing a section of Landsat 7 scene, with the 6 30m-resolution bands (bands 1-5 and 7) for a region covering the city of Olinda, Brazil. We can read the example GeoTIFF file holding a regular, non-rotated grid from the package <code>stars</code>:</p>
+<p>Raster data typically are read from a file. We use a dataset containing a section of Landsat 7 scene, with the 6 30m-resolution bands (bands 1-5 and 7) for a region covering the city of Olinda, Brazil. We can read the example GeoTIFF file holding a regular, non-rotated grid from the package <strong>stars</strong>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"tif/L7_ETMs.tif"</span>, <span class="at">package =</span> <span class="st">"stars"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
@@ -792,7 +791,7 @@ div.csl-indent {
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y       1 352 9120761 -28.5 SIRGAS 2000 / ... FALSE [y]</span></span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># band    1   6      NA    NA                NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>where we see the offset, cell size, coordinate reference system, and dimensions. The dimension table reports the following fields for each dimension:</p>
+<p>where we see the offset, cell size, coordinate reference system, and dimensions. The dimension table contains the following fields for each dimension:</p>
 <ul>
 <li><code>from</code>: the starting index</li>
 <li><code>to</code>: the ending index</li>
@@ -802,9 +801,9 @@ div.csl-indent {
 <li><code>point</code>: boolean, indicating whether cell values have point support or cell support</li>
 <li><code>x/y</code>: an indicator whether a dimension is associated with a spatial raster x- or y-axis</li>
 </ul>
-<p>One further field, <code>values</code> is hidden as it is not used. For regular, rotated or sheared grids or other regularly discretized dimensions (e.g.&nbsp;time), <code>offset</code> and <code>delta</code> are not <code>NA</code>; for for irregular cases, <code>offset</code> and <code>delta</code> are <code>NA</code> and the <code>values</code> property contains one of:</p>
+<p>One further field, <code>values</code> is hidden as it is not used. For regular, rotated or sheared grids or other regularly discretised dimensions (e.g.&nbsp;time), <code>offset</code> and <code>delta</code> are not <code>NA</code>; for for irregular cases, <code>offset</code> and <code>delta</code> are <code>NA</code> and the <code>values</code> property contains one of:</p>
 <ul>
-<li>the sequence of values, or intervals, in case of a rectlinear spatial raster or irregular time dimension</li>
+<li>the sequence of values, or intervals, in case of a rectilinear spatial raster or irregular time dimension</li>
 <li>in case of a vector data cube, geometries associated with the spatial dimension</li>
 <li>in case of a curvilinear raster, the matrix with coordinate values for each raster cell</li>
 <li>in case of a discrete dimension, the band names or labels associated with the dimension values</li>
@@ -899,7 +898,7 @@ div.csl-indent {
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># y     159 194 9120761 -28.5 SIRGAS 2000 / ... FALSE [y]</span></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># band    1   6      NA    NA                NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>selects the circular center region with a diameter of 500 metre, for the first band shown in <a href="#fig-circr">Figure&nbsp;<span>7.6</span></a> ,</p>
+<p>selects the circular centre region with a diameter of 500 metre, for the first band shown in <a href="#fig-circr">Figure&nbsp;<span>7.6</span></a> ,</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -910,7 +909,7 @@ div.csl-indent {
 <div id="fig-circr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-circr-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.6: circular center region of the Landsat 7 scene (band 1)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -944,7 +943,7 @@ div.csl-indent {
 <section id="redimensioning-and-combining-stars-objects" class="level3">
 <h3 class="anchored" data-anchor-id="redimensioning-and-combining-stars-objects">Redimensioning and combining <code>stars</code> objects</h3>
 <p> </p>
-<p>Package <code>stars</code> uses package <code>abind</code> <span class="citation" data-cites="R-abind">(<a href="references.html#ref-R-abind" role="doc-biblioref">Plate and Heiberger 2016</a>)</span> for a number of array manipulations. One of them is <code>aperm</code> which transposes an array by permuting it. A method for <code>stars</code> objects is provided, and</p>
+<p>Package <strong>stars</strong> uses package <strong>abind</strong> <span class="citation" data-cites="R-abind">(<a href="references.html#ref-R-abind" role="doc-biblioref">Plate and Heiberger 2016</a>)</span> for a number of array manipulations. One of them is <code>aperm</code> which transposes an array by permuting it. A method for <code>stars</code> objects is provided, and</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aperm</span>(r, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
@@ -1073,7 +1072,7 @@ div.csl-indent {
 <li>create a model object based on this <code>data.frame</code></li>
 <li>call <code>predict</code> with this model object and the <code>data.frame</code> with target predictor variable values</li>
 </ul>
-<p>Package <code>stars</code> provides a <code>predict</code> method for <code>stars</code> objects that essentially wraps the last step, by creating the <code>data.frame</code>, calling the <code>predict</code> method for that, and reconstructing a <code>stars</code> object with the predicted values.</p>
+<p>Package <strong>stars</strong> provides a <code>predict</code> method for <code>stars</code> objects that essentially wraps the last step, by creating the <code>data.frame</code>, calling the <code>predict</code> method for that, and reconstructing a <code>stars</code> object with the predicted values.</p>
 <p>We will illustrate this with a trivial two-class example mapping land from sea in the example Landsat dataset, using the sample points extracted above, shown in <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a> .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span>], <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
@@ -1098,7 +1097,7 @@ div.csl-indent {
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">lda</span>(cls <span class="sc">~</span> ., <span class="fu">st_drop_geometry</span>(trn))</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(rs, model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, we used the <code>MASS::</code> prefix to avoid loading <code>MASS</code>, as that would mask <code>select</code> from <code>dplyr</code>. The <code>split</code> step is needed to convert the band dimension into attributes, so that they are offered as a set of predictors.</p>
+<p>Here, we used the <code>MASS::</code> prefix to avoid loading <strong>MASS</strong>, as that would mask <code>select</code> from <strong>dplyr</strong>. The <code>split</code> step is needed to convert the band dimension into attributes, so that they are offered as a set of predictors.</p>
 <p></p>
 <div class="cell">
 <details>
@@ -1133,19 +1132,19 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>We can use the base <code>plot</code> method for <code>stars</code> objects, where the plot created with <code>plot(r)</code> is shown in <a href="#fig-firststars">Figure&nbsp;<span>7.9</span></a>. The default color scale uses grey tones, and stretches these such that color breaks correspond to data quantiles over all bands (“histogram equalization”). Setting <code>breaks = "equal"</code> gives equal color breaks, alternatively a numeric sequence of breaks can be given. A more familiar view may the RGB or false color composite shown in <a href="#fig-starsrgb">Figure&nbsp;<span>7.10</span></a>.</p>
+<p>We can use the base <code>plot</code> method for <code>stars</code> objects, where the plot created with <code>plot(r)</code> is shown in <a href="#fig-firststars">Figure&nbsp;<span>7.9</span></a>. The default colour scale uses grey tones, and stretches these such that colour breaks correspond to data quantiles over all bands (“histogram equalization”). Setting <code>breaks = "equal"</code> gives equal colour breaks, alternatively a numeric sequence of breaks can be given. A more familiar view may the RGB or false colour composite shown in <a href="#fig-starsrgb">Figure&nbsp;<span>7.10</span></a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"RGB"</span>)    <span class="co"># rgb</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">main =</span> <span class="st">"False color (NIR-R-G)"</span>) <span class="co"># false color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">main =</span> <span class="st">"False colour (NIR-R-G)"</span>) <span class="co"># false colour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-starsrgb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-starsrgb-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.10: Two color composites</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.10: Two colour composites</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1220,7 +1219,7 @@ div.csl-indent {
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># x    1 349  288776  28.5 SIRGAS 2000 / ... FALSE [x]</span></span>
 <span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="co"># y    1 352 9120761 -28.5 SIRGAS 2000 / ... FALSE [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A more meaningful function would e.g.&nbsp;compute the NDVI (normalized differenced vegetation index):</p>
+<p>A more meaningful function would e.g.&nbsp;compute the NDVI (normalised differenced vegetation index):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ndvi <span class="ot">&lt;-</span> <span class="cf">function</span>(b1, b2, b3, b4, b5, b6) (b4 <span class="sc">-</span> b3)<span class="sc">/</span>(b4 <span class="sc">+</span> b3)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_apply</span>(r, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), ndvi)</span>
@@ -1284,28 +1283,28 @@ div.csl-indent {
 <p>There are several reasons why non-regular rasters occur (<a href="01-hello.html#fig-rastertypes01">Figure&nbsp;<span>1.6</span></a>). For one, when the data is Earth-bound, a regular raster does not fit the Earth’s surface, which is curved. Other reasons are:</p>
 <ul>
 <li>when we convert or transform a regular raster data into another coordinate reference system, it will become curvilinear unless we resample (warp; <a href="#sec-warp"><span>Section&nbsp;7.8</span></a>); warping always comes at the cost of some loss of data and is not reversible</li>
-<li>observation may lead to irregular rasters; e.g.&nbsp;for satellite swaths, we may have a regular raster in the direction of the satellite (not aligned with <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>), and rectilinear in the direction perpendicular to that (e.g.&nbsp;if the sensor discretizes the viewing <em>angle</em> in equal sections)</li>
+<li>observation may lead to irregular rasters; e.g.&nbsp;for satellite swaths, we may have a regular raster in the direction of the satellite (not aligned with <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>), and rectilinear in the direction perpendicular to that (e.g.&nbsp;if the sensor discretises the viewing <em>angle</em> in equal sections)</li>
 </ul>
 </section>
 <section id="gdal-utils" class="level3">
 <h3 class="anchored" data-anchor-id="gdal-utils">GDAL utils</h3>
 <p> </p>
 <p>The GDAL library typically ships with a number of executable binaries, the GDAL command line utilities for data translation and processing. Several of these utilities (all except for those written in Python) are also available as C functions in the GDAL library, through the “GDAL Algorithms C API”. If an R package like <code>sf</code> that links to the GDAL library uses these C API algorithms, it means that the user no longer needs to install any GDAL binary command line utilities in addition to the R package.</p>
-<p>Package <code>sf</code> allows calling these C API algorithms through function <code>gdal_utils()</code>, where the first argument is the name of the utility (stripped from the <code>gdal</code> prefix):</p>
+<p>Package <strong>sf</strong> allows calling these C API algorithms through function <code>gdal_utils()</code>, where the first argument is the name of the utility (stripped from the <code>gdal</code> prefix):</p>
 <ul>
 <li><code>info</code> prints information on GDAL (raster) datasets</li>
 <li><code>warp</code> warps a raster to a new raster, possibly in another CRS</li>
-<li><code>rasterize</code> rasterizes a vector dataset</li>
+<li><code>rasterize</code> rasterises a vector dataset</li>
 <li><code>translate</code> translates a raster file to another format</li>
 <li><code>vectortranslate</code> (for ogr2ogr) translates a vector file to another format</li>
 <li><code>buildvrt</code> creates a virtual raster tile (a raster created from several files)</li>
-<li><code>demprocessing</code> does varios processing steps of digital elevation models (dems)</li>
+<li><code>demprocessing</code> does various processing steps of digital elevation models (dems)</li>
 <li><code>nearblack</code> converts nearly black/white borders to black</li>
 <li><code>grid</code> creates a regular grid from scattered data</li>
 <li><code>mdiminfo</code> prints information on a multidimensional array</li>
 <li><code>mdimtranslate</code> translates a multidimensional array into another format</li>
 </ul>
-<p>These utilities work on files, and not not directly on <code>sf</code> or <code>stars</code> objects. However, <code>stars_proxy</code> objects are essentially pointers to files, and other objects can be written to file. Several of these utilities are (always or optionally) used, e.g.&nbsp;by <code>st_mosaic</code>, <code>st_warp</code> or <code>st_write</code>. R package <code>gdalUtilities</code> <span class="citation" data-cites="R-gdalUtilities">(<a href="references.html#ref-R-gdalUtilities" role="doc-biblioref">O’Brien 2022</a>)</span> provides further wrapper functions around <code>gdal_utils</code> that provide function arguments identical to the command line arguments of the binary utils.</p>
+<p>These utilities work on files, and not not directly on <code>sf</code> or <code>stars</code> objects. However, <code>stars_proxy</code> objects are essentially pointers to files, and other objects can be written to file. Several of these utilities are (always or optionally) used, e.g.&nbsp;by <code>st_mosaic</code>, <code>st_warp</code> or <code>st_write</code>. R package <strong>gdalUtilities</strong> <span class="citation" data-cites="R-gdalUtilities">(<a href="references.html#ref-R-gdalUtilities" role="doc-biblioref">O’Brien 2022</a>)</span> provides further wrapper functions around <code>sf::gdal_utils</code> with function arguments identical to the command line arguments of the binary utils.</p>
 </section>
 </section>
 <section id="vector-data-cube-examples" class="level2" data-number="7.5">
@@ -1314,7 +1313,7 @@ div.csl-indent {
 <section id="example-aggregating-air-quality-time-series" class="level3">
 <h3 class="anchored" data-anchor-id="example-aggregating-air-quality-time-series">Example: aggregating air quality time series</h3>
 <p></p>
-<p>Air quality data from package <code>spacetime</code> were obtained from the <a href="https://www.eea.europa.eu/data-and-maps/data/aqereporting-8">airBase European air quality data base</a>. Daily average PM<span class="math inline">\(_{10}\)</span> values were downloaded for rural background stations in Germany, 1998-2009.</p>
+<p>Air quality data from package <strong>spacetime</strong> were obtained from the <a href="https://www.eea.europa.eu/data-and-maps/data/aqereporting-8">airBase European air quality data base</a>. Daily average PM<span class="math inline">\(_{10}\)</span> values were downloaded for rural background stations in Germany, 1998-2009.</p>
 <p>We can create a <code>stars</code> object from the <code>air</code> matrix, the <code>dates</code> Date vector and the <code>stations</code> <code>SpatialPoints</code> objects by</p>
 <div class="cell">
 
@@ -1394,7 +1393,7 @@ div.csl-indent {
 <div id="fig-airagg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-airagg-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.13: areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.13: Areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1428,7 +1427,7 @@ div.csl-indent {
 <div id="fig-bristol1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-bristol1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) colored red</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) coloured red</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1527,7 +1526,7 @@ div.csl-indent {
 </div>
 </div>
 <p>the result of which is shown in <a href="#fig-odm33">Figure&nbsp;<span>7.16</span></a> . Subsetting this way, we take all attributes (there is only one: N) since the first argument is empty, we take all origin regions (second argument empty), we take destination zone 33 (third argument), and all transportation modes (fourth argument empty, or missing).</p>
-<p>We plotted this particular zone because it has the largest number of travelers as its destination. We can find this out by summing all origins and travel modes by destination:</p>
+<p>We plotted this particular zone because it has the largest number of travellers as its destination. We can find this out by summing all origins and travel modes by destination:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">st_apply</span>(odm, <span class="dv">2</span>, sum)</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which.max</span>(d[[<span class="dv">1</span>]])</span>
@@ -1591,7 +1590,7 @@ div.csl-indent {
 </div>
 </div>
 <p>the result of which is shown in <a href="#fig-odjoined">Figure&nbsp;<span>7.17</span></a> .</p>
-<p>There is something to say for the argument that such maps give the wrong message, as both amount (color) and polygon size give an impression of amount. To take out the amount in the count, we can compute densities (count / km<span class="math inline">\(^2\)</span>), by</p>
+<p>There is something to say for the argument that such maps give the wrong message, as both amount (colour) and polygon size give an impression of amount. To take out the amount in the count, we can compute densities (count / km<span class="math inline">\(^2\)</span>), by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(units)</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">set_units</span>(<span class="fu">st_area</span>(<span class="fu">st_as_sf</span>(o)), km<span class="sc">^</span><span class="dv">2</span>)</span>
@@ -1614,15 +1613,15 @@ div.csl-indent {
 <section id="tidy-array-data" class="level3">
 <h3 class="anchored" data-anchor-id="tidy-array-data">Tidy array data</h3>
 <p></p>
-<p>The <em>tidy data</em> paper <span class="citation" data-cites="tidy">(<a href="references.html#ref-tidy" role="doc-biblioref">Wickham 2014</a>)</span> may suggest that such array data should be processed not as an array, but in a long (unnormalized) table form where each row holds (region, class, year, value), and it is always good to be able to do this. For primary handling and storage however, this is often not an option, because:</p>
+<p>The <em>tidy data</em> paper <span class="citation" data-cites="tidy">(<a href="references.html#ref-tidy" role="doc-biblioref">Wickham 2014</a>)</span> may suggest that such array data should be processed not as an array, but in a long (unnormalised) table form where each row holds (region, class, year, value), and it is always good to be able to do this. For primary handling and storage however, this is often not an option, because:</p>
 <ul>
 <li>a lot of array data are collected or generated as array data, e.g. by imagery or other sensory devices, or e.g.&nbsp;by climate models</li>
 <li>it is easier to derive the long table form from the array than vice versa</li>
 <li>the long table form requires much more memory, since the space occupied by dimension values is <span class="math inline">\(O(\Pi n_i)\)</span>, rather than <span class="math inline">\(O(\Sigma n_i)\)</span>, with <span class="math inline">\(n_i\)</span> the cardinality (size) of dimension <span class="math inline">\(i\)</span></li>
 <li>when missing-valued cells are dropped, the long table form loses the implicit indexing of the array form</li>
 </ul>
-<p>To put this argument to the extreme, consider for instance that all image, video and sound data are stored in array form; few people would make a real case for storing them in a long table form instead. Nevertheless, R packages like <code>tsibble</code> <span class="citation" data-cites="R-tsibble">(<a href="references.html#ref-R-tsibble" role="doc-biblioref">Wang et al. 2021</a>)</span> take this approach, and have to deal with ambiguous ordering of multiple records with identical time steps for different spatial features and index them, which is solved for both <em>automatically</em> by using the array form – at the cost of using dense arrays, in package <code>stars</code>.</p>
-<p>Package <code>stars</code> tries to follow the <a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">tidy manifesto</a> to handle array sets, and has particularly developed support for the case where one or more of the dimensions refer to space, and/or time.</p>
+<p>To put this argument to the extreme, consider for instance that all image, video and sound data are stored in array form; few people would make a real case for storing them in a long table form instead. Nevertheless, R packages like <strong>tsibble</strong> <span class="citation" data-cites="R-tsibble">(<a href="references.html#ref-R-tsibble" role="doc-biblioref">Wang et al. 2021</a>)</span> take this approach, and have to deal with ambiguous ordering of multiple records with identical time steps for different spatial features and index them, which is solved for both <em>automatically</em> by using the array form – at the cost of using dense arrays, in package <strong>stars</strong>.</p>
+<p>Package <strong>stars</strong> tries to follow the <a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">tidy manifesto</a> to handle array sets, and has particularly developed support for the case where one or more of the dimensions refer to space, and/or time.</p>
 </section>
 <section id="file-formats-for-vector-data-cubes" class="level3">
 <h3 class="anchored" data-anchor-id="file-formats-for-vector-data-cubes">File formats for vector data cubes</h3>
@@ -1647,12 +1646,12 @@ div.csl-indent {
 <div id="fig-asstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-asstars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.19: Rasterizing vector geometry using <code>st_as_stars</code></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.19: Rasterising vector geometry using <code>st_as_stars</code></figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Here, <code>st_as_stars</code> can be parameterized to control cell size, number of cells, and/or extent. The cell values returned are 0 for cells with center point outside the geometry and 1 for cell with center point inside or on the border of the geometry. Rasterizing existing features is done using <code>st_rasterize</code>, as also shown in <a href="01-hello.html#fig-vectoras">Figure&nbsp;<span>1.5</span></a> :</p>
+<p>Here, <code>st_as_stars</code> can be parameterised to control cell size, number of cells, and/or extent. The cell values returned are 0 for cells with centre point outside the geometry and 1 for cell with centre point inside or on the border of the geometry. Rasterising existing features is done using <code>st_rasterize</code>, as also shown in <a href="01-hello.html#fig-vectoras">Figure&nbsp;<span>1.5</span></a> :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(file) <span class="sc">|&gt;</span></span>
@@ -1674,7 +1673,7 @@ div.csl-indent {
 <span id="cb79-18"><a href="#cb79-18" aria-hidden="true" tabindex="-1"></a><span class="co"># x    1 461 -84.3239  0.0192484  NAD27 FALSE [x]</span></span>
 <span id="cb79-19"><a href="#cb79-19" aria-hidden="true" tabindex="-1"></a><span class="co"># y    1 141  36.5896 -0.0192484  NAD27 FALSE [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Similarly, line and point geometries can be rasterized, as shown in <a href="#fig-lineras">Figure&nbsp;<span>7.20</span></a> .</p>
+<p>Similarly, line and point geometries can be rasterised, as shown in <a href="#fig-lineras">Figure&nbsp;<span>7.20</span></a> .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(file) <span class="sc">|&gt;</span></span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_cast</span>(<span class="st">"MULTILINESTRING"</span>) <span class="sc">|&gt;</span></span>
@@ -1685,7 +1684,7 @@ div.csl-indent {
 <div id="fig-lineras" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-lineras-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.20: Rasterizing North Carolina county boundaries</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.20: Rasterising North Carolina county boundaries</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1709,7 +1708,7 @@ div.csl-indent {
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>proj4string</span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "+proj=longlat +datum=WGS84 +no_defs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>may succeed but is not in general lossless or invertible. Using PROJ.4 strings, for instance to <em>define</em> a parameterized, projected coordinate reference system is fine as long as it is associated with the WGS84 datum.</p>
+<p>may succeed but is not in general lossless or invertible. Using PROJ.4 strings, for instance to <em>define</em> a parameterised, projected coordinate reference system is fine as long as it is associated with the WGS84 datum.</p>
 </section>
 <section id="st_transform-sf_project" class="level3">
 <h3 class="anchored" data-anchor-id="st_transform-sf_project"><code>st_transform</code>, <code>sf_project</code></h3>
@@ -1836,16 +1835,16 @@ div.csl-indent {
 <span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a><span class="co">#              +xy_out=rad +step +proj=utm +zone=25</span></span>
 <span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a><span class="co">#              +south +ellps=intl</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The default, most accurate pipeline chosen by <code>st_transform</code> can be overriden by specifying <code>pipeline</code> argument, as selected from the set of options in <code>p$definition</code>.</p>
+<p>The default, most accurate pipeline chosen by <code>st_transform</code> can be overridden by specifying <code>pipeline</code> argument, as selected from the set of options in <code>p$definition</code>.</p>
 </section>
 <section id="sec-axisorder" class="level3">
 <h3 class="anchored" data-anchor-id="sec-axisorder">Axis order</h3>
 <p> </p>
-<p>As mentioned in <a href="02-Spaces.html#sec-wkt2"><span>Section&nbsp;2.5</span></a>, <code>EPSG:4326</code> defines the first axis to be associated with latitude and the second with longitude; this is also the case for a number of other ellipsoidal coordinate reference systems. Although this is how the authority (EPSG) prescribes this, it is not how most datasets are currently stored. As most other software, package <code>sf</code> by default ignores this, and interprets ellipsoidal coordinate pairs as (longitude, latitude) by default. If however data needs to be read e.g.&nbsp;from a WFS service that wants to be compliant to the authority, one can set</p>
+<p>As mentioned in <a href="02-Spaces.html#sec-wkt2"><span>Section&nbsp;2.5</span></a>, <code>EPSG:4326</code> defines the first axis to be associated with latitude and the second with longitude; this is also the case for a number of other ellipsoidal coordinate reference systems. Although this is how the authority (EPSG) prescribes this, it is not how most datasets are currently stored. As most other software, package <strong>sf</strong> by default ignores this, and interprets ellipsoidal coordinate pairs as (longitude, latitude) by default. If however data needs to be read e.g.&nbsp;from a WFS service that wants to be compliant to the authority, one can set</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_axis_order</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>to globally instruct <code>sf</code>, when calling GDAL and PROJ routines, that authority compliance (latitude, longitude order) is assumed. It is anticipated that problems may happen in case of authority compliance, e.g.&nbsp;with plotting data. The <code>plot</code> method for <code>sf</code> objects respects the axis order flag and will swap coordinates using the transformation pipeline <code>"+proj=pipeline +step +proj=axisswap +order=2,1"</code> before plotting them, but e.g.&nbsp;<code>geom_sf()</code> in <code>ggplot2</code> has not been modified to do this. As mentioned earlier, the axis order ambiguity of <code>EPSG:4326</code> is resolved by replacing it with <code>OGC:CRS84</code>.</p>
+<p>to globally instruct <strong>sf</strong>, when calling GDAL and PROJ routines, that authority compliance (latitude, longitude order) is assumed. It is anticipated that problems may happen in case of authority compliance, e.g.&nbsp;with plotting data. The <code>plot</code> method for <code>sf</code> objects respects the axis order flag and will swap coordinates using the transformation pipeline <code>"+proj=pipeline +step +proj=axisswap +order=2,1"</code> before plotting them, but e.g.&nbsp;<code>geom_sf()</code> in <code>ggplot2</code> has not been modified to do this. As mentioned earlier, the axis order ambiguity of <code>EPSG:4326</code> is resolved by replacing it with <code>OGC:CRS84</code>.</p>
 </section>
 </section>
 <section id="sec-warp" class="level2" data-number="7.8">
@@ -1905,9 +1904,9 @@ div.csl-indent {
 <p>Use R to solve the following exercises.</p>
 <ol type="1">
 <li>Find the names of the <code>nc</code> counties that intersect <code>LINESTRING(-84 35,-78 35)</code>; use <code>[</code> for this, and as an alternative use <code>st_join()</code> for this.</li>
-<li>Repeat this after setting <code>sf_use_s2(FALSE)</code>, and <em>compute</em> the difference (hint: use <code>setdiff()</code>), and color the counties of the difference using color ‘#88000088’.</li>
+<li>Repeat this after setting <code>sf_use_s2(FALSE)</code>, and <em>compute</em> the difference (hint: use <code>setdiff()</code>), and colour the counties of the difference using color ‘#88000088’.</li>
 <li>Plot the two different lines in a single plot; note that R will plot a straight line always straight in the projection currently used; <code>st_segmentize</code> can be used to add points on straight line, or on a great circle for ellipsoidal coordinates.</li>
-<li>NDVI, normalized differenced vegetation index, is computed as <code>(NIR-R)/(NIR+R)</code>, with NIR the near infrared and R the red band. Read the <code>L7_ETMs.tif</code> file into object <code>x</code>, and distribute the band dimensions over attributes by <code>split(x, "band")</code>. Then, add attribute NDVI to this object by using an expression that uses the NIR (band 4) and R (band 3) attributes directly.</li>
+<li>NDVI, normalised differenced vegetation index, is computed as <code>(NIR-R)/(NIR+R)</code>, with NIR the near infrared and R the red band. Read the <code>L7_ETMs.tif</code> file into object <code>x</code>, and distribute the band dimensions over attributes by <code>split(x, "band")</code>. Then, add attribute NDVI to this object by using an expression that uses the NIR (band 4) and R (band 3) attributes directly.</li>
 <li>Compute NDVI for the <code>L7_ETMs.tif</code> image by reducing the band dimension, using <code>st_apply</code> and an a function <code>ndvi = function(x) { (x[4]-x[3])/(x[4]+x[3]) }</code>. Plot the result, and write the result to a GeoTIFF.</li>
 <li>Use <code>st_transform</code> to transform the <code>stars</code> object read from <code>L7_ETMs.tif</code> to <code>OGC:CRS84</code>. Print the object. Is this a regular grid? Plot the first band using arguments <code>axes=TRUE</code> and <code>border=NA</code>, and explain why this takes such a long time.</li>
 <li>Use <code>st_warp</code> to warp the <code>L7_ETMs.tif</code> object to <code>OGC:CRS84</code>, and plot the resulting object with <code>axes=TRUE</code>. Why is the plot created much faster than after <code>st_transform</code>?</li>
@@ -1946,8 +1945,14 @@ Pebesma, Edzer. 2012. <span>“<span class="nocase">spacetime</span>: Spatio-Tem
 <div id="ref-rjsf" class="csl-entry" role="doc-biblioentry">
 ———. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
 </div>
+<div id="ref-R-spacetime" class="csl-entry" role="doc-biblioentry">
+———. 2022. <em>Spacetime: Classes and Methods for Spatio- Temporal Data</em>. <a href="https://github.com/edzer/spacetime">https://github.com/edzer/spacetime</a>.
+</div>
 <div id="ref-R-abind" class="csl-entry" role="doc-biblioentry">
 Plate, Tony, and Richard Heiberger. 2016. <em>Abind: Combine Multidimensional Arrays</em>. <a href="https://CRAN.R-project.org/package=abind">https://CRAN.R-project.org/package=abind</a>.
+</div>
+<div id="ref-R-sftime" class="csl-entry" role="doc-biblioentry">
+Teickner, Henning, Edzer Pebesma, and Benedikt Graeler. 2022. <em>Sftime: Classes and Methods for Simple Feature Objects That Have a Time Column</em>. <a href="https://CRAN.R-project.org/package=sftime">https://CRAN.R-project.org/package=sftime</a>.
 </div>
 <div id="ref-R-tsibble" class="csl-entry" role="doc-biblioentry">
 Wang, Earo, Di Cook, Rob Hyndman, and Mitchell O’Hara-Wild. 2021. <em>Tsibble: Tidy Temporal Data Frames and Tools</em>. <a href="https://tsibble.tidyverts.org">https://tsibble.tidyverts.org</a>.

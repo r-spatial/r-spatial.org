@@ -366,7 +366,7 @@ div.csl-indent {
 <p></p>
 <section id="sec-straight" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-straight"><span class="header-section-number">4.1</span> Straight lines</h2>
-<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the center of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length. Note that the GeoJSON standard (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) has its own definition of straight lines in geodetic coordinates (see Exercise 1).</p>
+<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the centre of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length. Note that the GeoJSON standard (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) has its own definition of straight lines in geodetic coordinates (see Exercise 1).</p>
 <p> </p>
 </section>
 <section id="ring-direction-and-full-polygon" class="level2" data-number="4.2">
@@ -379,7 +379,7 @@ div.csl-indent {
 <section id="bounding-box-rectangle-and-cap" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="bounding-box-rectangle-and-cap"><span class="header-section-number">4.3</span> Bounding box, rectangle, and cap</h2>
 <p> </p>
-<p>Where in <span class="math inline">\(R^2\)</span> one can easily define bounding boxes as the range of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, for ellipsoidal coordinates these ranges are not of much use when geometries cross the antimeridian (longitude +/- 180) or one of the poles. The assumption in <span class="math inline">\(R^2\)</span> that lower <span class="math inline">\(x\)</span> values are Westwards of higher ones does not hold when crossing the antimeridian. An alternative to delineating an area on a sphere that is more natural is the <em>bounding cap</em>, defined by its center coordinates and a radius. For Antarctica, as depicted in <a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> (a) and (c), the bounding box formed by coordinate ranges is</p>
+<p>Where in <span class="math inline">\(R^2\)</span> one can easily define bounding boxes as the range of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, for ellipsoidal coordinates these ranges are not of much use when geometries cross the antimeridian (longitude +/- 180) or one of the poles. The assumption in <span class="math inline">\(R^2\)</span> that lower <span class="math inline">\(x\)</span> values are Westwards of higher ones does not hold when crossing the antimeridian. An alternative to delineating an area on a sphere that is more natural is the <em>bounding cap</em>, defined by its centre coordinates and a radius. For Antarctica, as depicted in <a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> (a) and (c), the bounding box formed by coordinate ranges is</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -487,7 +487,7 @@ div.csl-indent {
 <div id="fig-antarctica" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="04-Spherical_files/figure-html/fig-antarctica-1.png" style="width:100.0%;height:70.0%" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: different representations of Antarctica, (a, c): with a polygon not passing through (-180 -90); (b, d): with a polygon passing through (-180 -90) and (180 -90)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: Antarctica polygon, (a, c): <em>not</em> passing through <code>POINT(-180 -90)</code>; (b, d): passing through <code>POINT(-180 -90)</code> and <code>POINT(180 -90)</code></figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -500,9 +500,9 @@ div.csl-indent {
 <li>How does the <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> format (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) define “straight” lines between ellipsoidal coordinates (section 3.1.1)? Using this definition of straight, how does <code>LINESTRING(0 85,180 85)</code> look like in an Arctic polar projection? How could this geometry be modified to have it cross the North Pole?</li>
 <li>For a typical polygon on <span class="math inline">\(S^2\)</span>, how can you find out ring direction?</li>
 <li>Are there advantages of using bounding caps over using bounding boxes? If so, list them.</li>
-<li>Why is, for small areas, the orthographic projection centered at the area a good approximation of the geometry as handled on <span class="math inline">\(S^2\)</span>?</li>
-<li>For <code>rnaturalearth::ne_countries(country = "Fiji",    returnclass="sf")</code>, check whether the geometry is valid on <span class="math inline">\(R^2\)</span>, on an orthographic projection centered on the country, and on <span class="math inline">\(S^2\)</span>. How can the geometry be made valid on <span class="math inline">\(S^2\)</span>? Plot the resulting geometry back on <span class="math inline">\(R^2\)</span>. Compare the centroid of the country, as computed on <span class="math inline">\(R^2\)</span> and on <span class="math inline">\(S^2\)</span>, and the distance between the two.</li>
-<li>Consider dataset <code>gisco_countries</code> in R package <code>giscoR</code>, and select the country with <code>NAME_ENGL == "Fiji"</code>. Does it have a valid geometry on the sphere? If so, how was this accomplished?</li>
+<li>Why is, for small areas, the orthographic projection centred at the area a good approximation of the geometry as handled on <span class="math inline">\(S^2\)</span>?</li>
+<li>For <code>rnaturalearth::ne_countries(country = "Fiji",    returnclass = "sf")</code>, check whether the geometry is valid on <span class="math inline">\(R^2\)</span>, on an orthographic projection centred on the country, and on <span class="math inline">\(S^2\)</span>. How can the geometry be made valid on <span class="math inline">\(S^2\)</span>? Plot the resulting geometry back on <span class="math inline">\(R^2\)</span>. Compare the centroid of the country, as computed on <span class="math inline">\(R^2\)</span> and on <span class="math inline">\(S^2\)</span>, and the distance between the two.</li>
+<li>Consider dataset <code>gisco_countries</code> in R package <strong>giscoR</strong>, and select the country with <code>NAME_ENGL == "Fiji"</code>. Does it have a valid geometry on the sphere? If so, how was this accomplished?</li>
 </ol>
 
 

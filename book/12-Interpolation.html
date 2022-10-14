@@ -368,14 +368,14 @@ div.csl-indent {
 
 <p> </p>
 <p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
-<p>In this chapter we will show simple approaches for handling geostatistical data, will demonstrate simple interpolation methods, explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <code>gstat</code> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in e.g. <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparisons of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>In this chapter we will show simple approaches for handling geostatistical data, will demonstrate simple interpolation methods, explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in e.g. <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparisons of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Matthew J. Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
 <p></p>
 <div class="cell">
 
 </div>
 <section id="a-first-dataset" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="a-first-dataset"><span class="header-section-number">12.1</span> A first dataset</h2>
-<p>We can read station mean NO<span class="math inline">\(_2\)</span> values, a dataset that is prepared in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>, by loading it from package <code>gstat</code> using</p>
+<p>We can read station mean NO<span class="math inline">\(_2\)</span> values, a dataset that is prepared in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>, by loading it from package <strong>gstat</strong> using</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>, </span>
@@ -434,7 +434,7 @@ div.csl-indent {
 <p><span class="math display">\[
 \hat{z}(s_0) = \frac{\sum_{i=1}^{n} w_i z(s_i)}{\sum_{i=1}^n w_i}
 \]</span></p>
-<p>with <span class="math inline">\(w_i = |s_0-s_i|^p\)</span>, and the inverse distance power typically taken as 2, or optimized using cross validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
+<p>with <span class="math inline">\(w_i = |s_0-s_i|^p\)</span>, and the inverse distance power typically taken as 2, or optimised using cross validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd)</span>
@@ -464,9 +464,9 @@ div.csl-indent {
 <h2 data-number="12.2" class="anchored" data-anchor-id="sample-variogram"><span class="header-section-number">12.2</span> Sample variogram</h2>
 <p> </p>
 <p>In order to make spatial predictions using geostatistical methods, we first need to identify a model for the mean and for the spatial correlation. In the simplest model, <span class="math inline">\(Z(s) = m + e(s)\)</span>, the mean is an unknown constant <span class="math inline">\(m\)</span>, and in this case the spatial correlation can be modelled using the variogram, <span class="math inline">\(\gamma(h) = 0.5 E (Z(s)-Z(s+h))^2\)</span>. For processes with a finite variance <span class="math inline">\(C(0)\)</span>, the variogram is related to the covariogram or covariance function through <span class="math inline">\(\gamma(h) = C(0)-C(h)\)</span>.</p>
-<p>The sample variogram is obtained by computing estimates of <span class="math inline">\(\gamma(h)\)</span> for distance intervals, <span class="math inline">\(h_i = [h_{i,0},h_{i,1}]\)</span>: <span class="math display">\[
+<p>The sample variogram is obtained by computing estimates of <span class="math inline">\(\gamma(h)\)</span> for distance intervals, <span class="math inline">\(h_i = [h_{i,0},h_{i,1}]\)</span>: <span id="eq-samplevariogram"><span class="math display">\[
 \hat{\gamma}(h_i) = \frac{1}{2N(h_i)}\sum_{j=1}^{N(h_i)}(z(s_i)-z(s_i+h'))^2, \ \ h_{i,0} \le h' &lt; h_{i,1}
-\]</span></p>
+\tag{12.1}\]</span></span></p>
 <p>with <span class="math inline">\(N(h_i)\)</span> the number of sample pairs available for distance interval <span class="math inline">\(h_i\)</span>. Function <code>gstat::variogram</code> computes sample variograms,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -475,7 +475,9 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">"distance h [m]"</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">gamma</span>(h)),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.055</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-vgm" class="quarto-figure quarto-figure-center anchored">
@@ -488,14 +490,15 @@ div.csl-indent {
 </div>
 <p>Function <code>variogram</code> chooses default for maximum distance (<code>cutoff</code>: one third of the length of the bounding box diagonal) and (constant) interval widths (<code>width</code>: cutoff divided by 15). These defaults can be changed, e.g.&nbsp;by</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, <span class="at">cutoff =</span> <span class="dv">100000</span>, <span class="at">width =</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, <span class="at">cutoff =</span> <span class="dv">100000</span>, <span class="at">width =</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>shown in <a href="#fig-vgm2">Figure&nbsp;<span>12.4</span></a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v0, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v0, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">"distance h [m]"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">gamma</span>(h)),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.055</span> <span class="sc">*</span> <span class="fu">max</span>(v0<span class="sc">$</span>dist)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-vgm2" class="quarto-figure quarto-figure-center anchored">
@@ -517,7 +520,7 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>v.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(v, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>shown in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>.</p>
+<p>shown by the drawn line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -581,24 +584,27 @@ div.csl-indent {
 <span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(v, v.ml, plot.numbers = TRUE)</span></span>
 <span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(v, v.m, plot.numbers = TRUE) ## draws a single model; draw 2 models in single plot:</span></span>
 <span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xaxs =</span> <span class="st">"i"</span>, <span class="at">yaxs =</span> <span class="st">"i"</span>)</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gamma <span class="sc">~</span> dist, v, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.02</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>gamma)),</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>   <span class="at">xlab =</span> <span class="st">"distance [m]"</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">gamma</span>(h)))</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">variogramLine</span>(v.m, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">variogramLine</span>(v.ml, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(v<span class="sc">$</span>dist, v<span class="sc">$</span>gamma, v<span class="sc">$</span>np, <span class="at">pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gamma <span class="sc">~</span> dist, v, </span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.05</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>gamma)),</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"distance h [m]"</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">gamma</span>(h)))</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">variogramLine</span>(v.m, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">variogramLine</span>(v.ml, <span class="fl">1.075</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(v<span class="sc">$</span>dist, v<span class="sc">$</span>gamma, v<span class="sc">$</span>np, <span class="at">pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-fitvariogrammodel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-fitvariogrammodel-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (points) with model fitted using weighted least squares (drawn line) and maximum likelihood estimation (dashed line)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (circles) with models fitted using weighted least squares (drawn line) and maximum likelihood estimation (dashed line)</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The fitting for the drawn line was done by weighted least squares, minimizing <span class="math inline">\(\sum_{i=1}^{n}w_i(\gamma(h_i)-\hat{\gamma}(h_i))^2\)</span>, with weights <span class="math inline">\(w_i\)</span> by default equal to <span class="math inline">\(N(h_i)/h^2\)</span>, other weight options are available through argument <code>fit.method</code>.</p>
+<p>The fitting for the drawn line was done by weighted least squares, minimising <span id="eq-wlsweights"><span class="math display">\[
+\sum_{i=1}^{n}w_i(\gamma(h_i)-\hat{\gamma}(h_i))^2,
+\tag{12.2}\]</span></span> with weights <span class="math inline">\(w_i\)</span> by default equal to <span class="math inline">\(N(h_i)/h^2\)</span>, other weight options are available through argument <code>fit.method</code>.</p>
 <p></p>
-<p>As an alternative to weighted least squares fitting one can use maximum likelihood (ML) or restricted maximum likelihood parameter estimation <span class="citation" data-cites="kitanidis1985maximum">(e.g., <a href="references.html#ref-kitanidis1985maximum" role="doc-biblioref">Kitanidis and Lane 1985</a>)</span>, which for this case leads to a relatively similar fitted model, shown as the dashed line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>. An advantage of ML-type approaches is that it does not require choosing distance intervals <span class="math inline">\(h_i\)</span> and weights <span class="math inline">\(w_i\)</span>. Disadvantages are that it leans on stronger assumptions of multivariate normally distributed data, and for larger datasets that it requires iteratively solving linear systems of size equal to the number of observations.</p>
+<p>As an alternative to weighted least squares fitting one can use maximum likelihood (ML) or restricted maximum likelihood parameter estimation <span class="citation" data-cites="kitanidis1985maximum">(e.g., <a href="references.html#ref-kitanidis1985maximum" role="doc-biblioref">Kitanidis and Lane 1985</a>)</span>, which for this case leads to a relatively similar fitted model, shown as the dashed line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>. An advantage of ML-type approaches is that they do not require choosing distance intervals <span class="math inline">\(h_i\)</span> in <a href="#eq-samplevariogram">Equation&nbsp;<span>12.1</span></a> or weights <span class="math inline">\(w_i\)</span> in <a href="#eq-wlsweights">Equation&nbsp;<span>12.2</span></a>. Disadvantages are that they lean on stronger assumptions of multivariate normally distributed data, and for larger datasets require iteratively solving linear systems of size equal to the number of observations; <span class="citation" data-cites="heaton">Matthew J. Heaton et al. (<a href="references.html#ref-heaton" role="doc-biblioref">2019</a>)</span> compares approaches dedicated to fitting models to large datasets.</p>
 </section>
 <section id="sec-kriging" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="sec-kriging"><span class="header-section-number">12.4</span> Kriging interpolation</h2>
@@ -658,7 +664,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>We see that the signal is similar, but that the simple means are more variable than the block kriging values; this may be due to the smoothing effect of kriging: data points outside the aggregation area recieve weight, too.</p>
+<p>We see that the signal is similar, but that the simple means are more variable than the block kriging values; this may be due to the smoothing effect of kriging: data points outside the aggregation area receive weight, too.</p>
 <p></p>
 <p>To compare the standard errors of means, for the sample mean we can get a rough guess of the standard error by <span class="math inline">\(\sqrt{(\sigma^2/n)}\)</span>:</p>
 <div class="cell">
@@ -710,14 +716,14 @@ div.csl-indent {
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -7.19    6.34   8.82 8.94    11.4   23 12456</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -4.89    6.02   8.62 8.75    11.4 25.5 12456</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># y         1 87 6101239 -10000 WGS 84 / UTM z...          NULL [y]</span></span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sample    1  6      NA     NA                NA sim1,...,sim6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It is usually needed to constrain the (maximum) number of nearest neigbours to include in kriging estimation by setting <code>nmax</code> because the dataset grows each step, leading otherwise quickly to very long computing times and large memory requirements. Resulting conditional simulations are shown in (<a href="#fig-plotkrigingvalues">Figure&nbsp;<span>12.9</span></a>).</p>
+<p>It is usually needed to constrain the (maximum) number of nearest neighbours to include in kriging estimation by setting <code>nmax</code> because the dataset grows each step, leading otherwise quickly to very long computing times and large memory requirements. Resulting conditional simulations are shown in (<a href="#fig-plotkrigingvalues">Figure&nbsp;<span>12.9</span></a>).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -743,7 +749,7 @@ div.csl-indent {
 <section id="trend-models" class="level2" data-number="12.7">
 <h2 data-number="12.7" class="anchored" data-anchor-id="trend-models"><span class="header-section-number">12.7</span> Trend models</h2>
 <p></p>
-<p>Kriging and conditional simulation, as used so far in this chapter, assume that all spatial variability is a random process, characterized by a spatial covariance model. In case we have other variables that are meaningfully correlated with the target variable, we can use them in a linear regression model for the trend, <span class="math display">\[
+<p>Kriging and conditional simulation, as used so far in this chapter, assume that all spatial variability is a random process, characterised by a spatial covariance model. In case we have other variables that are meaningfully correlated with the target variable, we can use them in a linear regression model for the trend, <span class="math display">\[
 Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 \]</span> with <span class="math inline">\(X_0(s) = 1\)</span> and <span class="math inline">\(\beta_0\)</span> an intercept, but with the other <span class="math inline">\(\beta_j\)</span> regression coefficients. Adding variables typically reduces both the spatial correlation in the residual <span class="math inline">\(e(s)\)</span>, as well as its variance, and leads to more accurate predictions and more similar conditional simulations. As an example, we will use population density to partly explain variation in NO<span class="math inline">\(_2\)</span>.</p>
 <section id="a-population-grid" class="level3">
@@ -878,8 +884,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> km, <span class="fu">aes</span>(<span class="at">fill =</span> NO2, <span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>)) <span class="sc">+</span> </span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>what) <span class="sc">+</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_sf</span>(<span class="at">lims_method =</span> <span class="st">"geometry_bbox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-residualkriging" class="quarto-figure quarto-figure-center anchored">
@@ -899,7 +904,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <ol type="1">
 <li>Create a plot like the one in <a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a> that has the inverse distance interpolated map of <a href="#fig-idw">Figure&nbsp;<span>12.2</span></a> added on left side.</li>
 <li>Create a scatter plot of the map values of the idw and kriging map, and a scatter plot of map values of idw and residual kriging.</li>
-<li>Carry out a <em>block kriging</em>, predicting block averages for blocks centered over grid cells, by setting the <code>block</code> argument in <code>krige()</code>, and do this for block sizes of 10 km (the grid cell size), 50 km and 200 km. Compare the resulting maps of estimates for these three blocks sizes with those obtained by point kriging, and do the same thing for all associated kriging standard errors.</li>
+<li>Carry out a <em>block kriging</em>, predicting block averages for blocks centred over grid cells, by setting the <code>block</code> argument in <code>krige()</code>, and do this for block sizes of 10 km (the grid cell size), 50 km and 200 km. Compare the resulting maps of estimates for these three blocks sizes with those obtained by point kriging, and do the same thing for all associated kriging standard errors.</li>
 <li>Based on the residual kriging results obtained above, compute maps of the lower and upper boundary of a 95% confidence interval, when assuming that the kriging error is normally distributed, and show them in a plot with a single (joint) legend</li>
 <li>Compute and show the map with the probabilities that NO<span class="math inline">\(_2\)</span> point values exceed the level of 15 ppm, assuming normally distributed kriging errors.</li>
 </ol>
@@ -923,6 +928,9 @@ Diggle, P. J., J. A. Tawn, and R. A. Moyeed. 1998. <span>“Model-Based Geostati
 </div>
 <div id="ref-Heaton2018" class="csl-entry" role="doc-biblioentry">
 Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em>, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">https://doi.org/10.1007/s13253-018-00348-w</a>.
+</div>
+<div id="ref-heaton" class="csl-entry" role="doc-biblioentry">
+Heaton, Matthew J, Abhirup Datta, Andrew O Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2019. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em> 24 (3): 398–425. <a href="https://link.springer.com/article/10.1007/s13253-018-00348-w">https://link.springer.com/article/10.1007/s13253-018-00348-w</a>.
 </div>
 <div id="ref-jh78" class="csl-entry" role="doc-biblioentry">
 Journel, Andre G, and Charles J Huijbregts. 1978. <em>Mining Geostatistics</em>. Academic press London.

@@ -385,12 +385,13 @@ div.csl-indent {
 <p> </p>
 <p>Having learned how we represent coordinates systems, we can define how geometries can be described using these coordinate systems. This chapter will explain:</p>
 <ul>
-<li><em>simple features</em>, a standard that describes point, line and polygon geometries along with operations on them</li>
-<li>operations on geometries</li>
-<li>coverages, subdivisions of larger regions into sub-regions</li>
-<li>networks</li>
+<li><em>simple features</em>, a standard that describes point, line and polygon geometries along with operations on them,</li>
+<li>operations on geometries,</li>
+<li>coverages, functions of space or space-time,</li>
+<li>tesselations, subdivisions of larger regions into sub-regions, and</li>
+<li>networks.</li>
 </ul>
-<p>Geometries on the sphere are discussed in <a href="04-Spherical.html"><span>Chapter&nbsp;4</span></a>, rasters and other rectangular subdivisions of space are discussed in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
+<p>Geometries on the sphere are discussed in <a href="04-Spherical.html"><span>Chapter&nbsp;4</span></a>, rasters and other rectangular subdivisions of space or space-time are discussed in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
 <section id="sec-simplefeatures" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sec-simplefeatures"><span class="header-section-number">3.1</span> Simple feature geometries</h2>
 <p> </p>
@@ -508,7 +509,7 @@ div.csl-indent {
 <div id="fig-sfgeometries" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="03-Geometries_files/figure-html/fig-sfgeometries-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: sketches of the main simple feature geometry types</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: Sketches of the main simple feature geometry types</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -633,7 +634,7 @@ GEOMETRYCOLLECTION (
 <tbody>
 <tr class="odd">
 <td><code>CIRCULARSTRING</code></td>
-<td>The CIRCULARSTRING is the basic curve type, similar to a LINESTRING in the linear world. A single segment requires three points, the start and end points (first and third) and any other point on the arc. The exception to this is for a closed circle, where the start and end points are the same. In this case the second point MUST be the center of the arc, i.e.&nbsp;the opposite side of the circle. To chain arcs together, the last point of the previous arc becomes the first point of the next arc, just like in LINESTRING. This means that a valid circular string must have an odd number of points greater than 1.</td>
+<td>The CIRCULARSTRING is the basic curve type, similar to a LINESTRING in the linear world. A single segment requires three points, the start and end points (first and third) and any other point on the arc. The exception to this is for a closed circle, where the start and end points are the same. In this case the second point MUST be the centre of the arc, i.e.&nbsp;the opposite side of the circle. To chain arcs together, the last point of the previous arc becomes the first point of the next arc, just like in LINESTRING. This means that a valid circular string must have an odd number of points greater than 1.</td>
 </tr>
 <tr class="even">
 <td><code>COMPOUNDCURVE</code></td>
@@ -679,14 +680,14 @@ GEOMETRYCOLLECTION (
 <section id="text-and-binary-encodings" class="level3">
 <h3 class="anchored" data-anchor-id="text-and-binary-encodings">Text and binary encodings</h3>
 <p> </p>
-<p>Part of the simple feature standard are two encodings: a text and a binary encoding. The well-known text encoding, used above, is human-readable, the well-known binary encoding is machine-readable. Well-known binary (WKB) encodings are lossless and typically faster to work with than text encoding (and decoding), and are used for instance in all communications between R package <code>sf</code> and the GDAL, GEOS, liblwgeom and s2geometry libraries (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>).</p>
+<p>Part of the simple feature standard are two encodings: a text and a binary encoding. The well-known text encoding, used above, is human-readable, the well-known binary encoding is machine-readable. Well-known binary (WKB) encodings are lossless and typically faster to work with than text encoding (and decoding), and are used for instance in all communications between R package <strong>sf</strong> and the GDAL, GEOS, liblwgeom and s2geometry libraries (<a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a>).</p>
 </section>
 </section>
 <section id="sec-opgeom" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-opgeom"><span class="header-section-number">3.2</span> Operations on geometries</h2>
 <p></p>
 <p>Simple feature geometries can be queried for properties, transformed into new geometries, and combinations of geometries can be queried for properties. This section gives an overview of the operations entirely focusing on <em>geometrical</em> properties. <a href="05-Attributes.html"><span>Chapter&nbsp;5</span></a> focuses on the analysis of non-geometrical feature properties, in relationship to their geometries. Some of the material in this section appeared in <span class="citation" data-cites="rjsf">Pebesma (<a href="references.html#ref-rjsf" role="doc-biblioref">2018</a>)</span>.</p>
-<p>We can categorize operations on geometries in terms of what they take as input, and what they return as output. In terms of output we have operations that return:</p>
+<p>We can categorise operations on geometries in terms of what they take as input, and what they return as output. In terms of output we have operations that return:</p>
 <ul>
 <li><strong>predicates</strong>: a logical asserting a certain property is <code>TRUE</code></li>
 <li><strong>measures</strong>: a quantity (e.g.&nbsp;a numeric value with measurement unit)</li>
@@ -1012,7 +1013,7 @@ GEOMETRYCOLLECTION (
 </tr>
 <tr class="odd">
 <td><code>collection_extract</code></td>
-<td>with subgeometries from a <code>GEOMETRYCOLLECTION</code> of a particular type</td>
+<td>with sub-geometries from a <code>GEOMETRYCOLLECTION</code> of a particular type</td>
 </tr>
 <tr class="even">
 <td><code>cast</code></td>
@@ -1048,7 +1049,7 @@ GEOMETRYCOLLECTION (
 <div id="fig-vor" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="03-Geometries_files/figure-html/fig-vor-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.3: for a set of points, left: convex hull (red); middle: Voronoi polygons; right: Delauney triangulation</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.3: For a set of points, left: convex hull (red); middle: Voronoi polygons; right: Delauney triangulation</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1109,7 +1110,7 @@ GEOMETRYCOLLECTION (
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(.<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sq <span class="ot">&lt;-</span> <span class="cf">function</span>(pt, <span class="at">sz =</span> <span class="dv">1</span>) <span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(pt <span class="sc">-</span> sz), </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(pt[<span class="dv">1</span>] <span class="sc">+</span> sz, pt[<span class="dv">2</span>] <span class="sc">-</span> sz), <span class="fu">c</span>(pt <span class="sc">+</span> sz), <span class="fu">c</span>(pt[<span class="dv">1</span>] <span class="sc">-</span> sz, pt[<span class="dv">2</span>] <span class="sc">+</span> sz), <span class="fu">c</span>(pt <span class="sc">-</span> sz))))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(<span class="at">box =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">st_sfc</span>(<span class="fu">sq</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)), <span class="fu">sq</span>(<span class="fu">c</span>(<span class="fl">1.7</span>, <span class="sc">-</span><span class="fl">0.5</span>)), <span class="fu">sq</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>))))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(<span class="at">box =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">st_sfc</span>(<span class="fu">sq</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)), <span class="fu">sq</span>(<span class="fu">c</span>(<span class="fl">1.7</span>, <span class="sc">-</span><span class="fl">0.5</span>)), <span class="fu">sq</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>))))</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(x), <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">border =</span> <span class="fu">sf.colors</span>(<span class="dv">3</span>, <span class="at">categorical =</span> <span class="cn">TRUE</span>), <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_intersection</span>(<span class="fu">st_geometry</span>(x)), <span class="at">col =</span> <span class="fu">sf.colors</span>(<span class="dv">7</span>, <span class="at">categorical=</span><span class="cn">TRUE</span>, <span class="at">alpha =</span> .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1117,7 +1118,7 @@ GEOMETRYCOLLECTION (
 <div id="fig-boxes" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="03-Geometries_files/figure-html/fig-boxes-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.4: left: three overlapping boxes – how do we identify the small box where all three overlap? right: unique, non-overlapping n-ary intersections</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.4: Left: three overlapping squares – how do we identify the small box where all three overlap? right: unique, non-overlapping n-ary intersections</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1135,7 +1136,7 @@ GEOMETRYCOLLECTION (
 <div id="fig-diff" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="03-Geometries_files/figure-html/fig-diff-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3.5: difference between subsequent boxes, left: in original order; right: in reverse order</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.5: Difference between subsequent boxes, left: in original order; right: in reverse order</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1202,7 +1203,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 </div>
 </div>
 <p></p>
-<p>Tessellating the time dimension with left-closed, right-open intervals is very common, and reflects the implicit assumption underlying time series software such as the <code>xts</code> package in R, where time stamps indicate the start of time intervals. Different models can be combined: one could use simple feature polygons to tessellate space, and combine this with a regular tessellation of time in order to cover a space-time <em>vector data cube</em>. Raster and vector data cubes are discussed in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
+<p>Tessellating the time dimension with left-closed, right-open intervals is very common, and reflects the implicit assumption underlying time series software such as the <strong>xts</strong> package in R, where time stamps indicate the start of time intervals. Different models can be combined: one could use simple feature polygons to tessellate space, and combine this with a regular tessellation of time in order to cover a space-time <em>vector data cube</em>. Raster and vector data cubes are discussed in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>.</p>
 <p>As mentioned above, besides square cells the other two shapes that can lead to regular tessellations of <span class="math inline">\(R^2\)</span> are triangles and hexagons. On the sphere, there are a few more, including cube, octahedron, icosahedron and dodecahedron. A spatial index that builds on the cube is <a href="https://s2geometry.io/">s2geometry</a>, the <a href="https://eng.uber.com/h3/">H3 library</a> uses the icosahedron and densifies that with (mostly) hexagons. Mosaics that cover the entire Earth are also called <em>discrete global grids</em>.</p>
 </section>
 </section>
@@ -1214,7 +1215,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <li>start and endpoints of a linestring may be connected to other linestring start or end points, forming a set of nodes and edges</li>
 <li>edges may be directed, to only allow for connection (flow, transport) in one way</li>
 </ul>
-<p>R packages including <code>osmar</code> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <code>stplanr</code> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span> and <code>sfnetworks</code> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, e.g.&nbsp;computing shortest or fastest routes through a network. Package <code>spatstat</code> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
+<p>R packages including <strong>osmar</strong> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <strong>stplanr</strong> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span> and <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, e.g.&nbsp;computing shortest or fastest routes through a network. Package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html"><span>Chapter&nbsp;11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
 </section>
 <section id="exercises" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.6</span> Exercises</h2>
@@ -1227,7 +1228,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <li>Give the unary measure <code>dimension</code> for geometries <code>POINT Z (0 1 1)</code>, <code>LINESTRING Z (0 0 1,1 1 2)</code>, and <code>POLYGON Z ((0 0 0,1 0 0,1 1 0,0 0 0))</code></li>
 <li>Give the DE-9IM relation between <code>LINESTRING(0 0,1 0)</code> and <code>LINESTRING(0.5 0,0.5 1)</code>; explain the individual characters.</li>
 <li>Can a set of simple feature polygons form a coverage? If so, under which constraints?</li>
-<li>For the <code>nc</code> counties in the dataset that comes with R package <code>sf</code>, find the points touched by four counties.</li>
+<li>For the <code>nc</code> counties in the dataset that comes with R package <strong>sf</strong>, find the points touched by four counties.</li>
 <li>How would <a href="#fig-rasterizeline">Figure&nbsp;<span>3.6</span></a> look like if <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(y\)</span>-coordinate was positive?</li>
 </ol>
 
