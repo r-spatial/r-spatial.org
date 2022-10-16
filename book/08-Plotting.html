@@ -464,7 +464,7 @@ div.csl-indent {
 <li>some properties of distances (e.g.&nbsp;equirectangular preserves distances along meridians, azimuthal equidistant preserves distances to a central point)</li>
 </ul>
 <p>or some compromise of these. Parameters of projections decide what is shown in the centre of a map and what on the fringes, which areas are up and which are down, and which areas are most enlarged. All these choices are in the end political decisions.</p>
-<p>It is often entertaining and at times educational to play around with the different projections and understand their consequences. When the primary purpose of the map however is not to entertain or educate projection varieties, it may be preferable to choose a well-known or less surprising projection, and move the discussion which projection should be preferred to a decision process on its own. For global maps however in almost all cases, equal area projections are to be preferred over plate carr'{e}e or web Mercator projections.</p>
+<p>It is often entertaining and at times educational to play around with the different projections and understand their consequences. When the primary purpose of the map however is not to entertain or educate projection varieties, it may be preferable to choose a well-known or less surprising projection, and move the discussion which projection should be preferred to a decision process on its own. For global maps however in almost all cases, equal area projections are to be preferred over plate carrée or web Mercator projections.</p>
 </section>
 </section>
 <section id="plotting-points-lines-polygons-grid-cells" class="level2" data-number="8.2">
@@ -499,13 +499,12 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    [-2.36,-1.02)    [-1.02,-0.76)   [-0.76,-0.393) [-0.393,-0.0599) </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#               13               12               13               12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-0.0599,0.302)    [0.302,0.623)     [0.623,1.05)      [1.05,2.23] </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#               12               13               12               13</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.69,-1.31)  [-1.31,-0.613) [-0.613,-0.305)  [-0.305,0.109) </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   [0.109,0.417)   [0.417,0.718)    [0.718,1.14)     [1.14,2.79] </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.3645 -1.0242 -0.7596 -0.3932 -0.0599  0.3024  0.6234  1.0512</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.2306</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.693 -1.312 -0.613 -0.305  0.109  0.417  0.718  1.140  2.791</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, ‘nclass.Sturges’ is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>
@@ -582,7 +581,7 @@ div.csl-indent {
 <section id="sec-geomsf" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="sec-geomsf"><span class="header-section-number">8.4</span> Maps with <code>ggplot2</code></h2>
 <p> </p>
-<p>Package <strong>ggplot2</strong> <span class="citation" data-cites="R-ggplot2 ggplot2">(<a href="references.html#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2022</a>; <a href="references.html#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> can create more complex an nicer looking graphs; it has a geometry <code>geom_sf</code> that was developed in conjunction with the development of <code>sf</code>, and helps creating beautiful maps; an introduction to this is found in <span class="citation" data-cites="moreno">Moreno and Basille (<a href="references.html#ref-moreno" role="doc-biblioref">2018</a>)</span>, a first example is shown in <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> . The code used for this plot is:</p>
+<p>Package <strong>ggplot2</strong> <span class="citation" data-cites="R-ggplot2 ggplot2">(<a href="references.html#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2022</a>; <a href="references.html#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> can create more complex and nicer looking graphs; it has a geometry <code>geom_sf</code> that was developed in conjunction with the development of <code>sf</code>, and helps creating beautiful maps; an introduction to this is found in <span class="citation" data-cites="moreno">Moreno and Basille (<a href="references.html#ref-moreno" role="doc-biblioref">2018</a>)</span>, a first example is shown in <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> . The code used for this plot is:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>nc<span class="fl">.32119</span> <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(nc, <span class="dv">32119</span>) </span>
@@ -624,13 +623,37 @@ div.csl-indent {
 </div>
 <p>More elaborate <code>ggplot2</code>-based plots with <code>stars</code> objects may be obtained using package <strong>ggspatial</strong> <span class="citation" data-cites="R-ggspatial">(<a href="references.html#ref-R-ggspatial" role="doc-biblioref">Dunnington 2022</a>)</span>. Non-compatible but nevertheless <code>ggplot2</code>-style plots can be created with <code>tmap</code>, a package dedicated to creating high quality maps (<a href="#sec-tmap"><span>Section&nbsp;8.5</span></a>).</p>
 <p></p>
-<p>When combining several feature sets with varying coordinate reference systems, using <code>geom_sf</code>, all sets are transformed to the reference system of the first set. To get further control the “base” coordinate reference system, <code>coord_sf</code> can be used. This allows for instance working in a projected system, while combining graphics elements that are <em>not</em> <code>sf</code> objects but regular <code>data.frame</code>s with ellipsoidal coordinates associated to WGS84. ::: {.content-visible when-format=“html”} A twitter thread by Claus Wilke illustrating this is found <a href="https://twitter.com/ClausWilke/status/1275938314055561216">here</a>. :::</p>
+<p>When combining several feature sets with varying coordinate reference systems, using <code>geom_sf</code>, all sets are transformed to the reference system of the first set. To get further control the “base” coordinate reference system, <code>coord_sf</code> can be used. This allows for instance working in a projected system, while combining graphics elements that are <em>not</em> <code>sf</code> objects but regular <code>data.frame</code>s with ellipsoidal coordinates associated to WGS84.</p>
+<div>
+<p>A twitter thread by Claus Wilke illustrating this is found <a href="https://twitter.com/ClausWilke/status/1275938314055561216">here</a>.</p>
+</div>
+<!---
+FIXME: markup visible in PDF and HTML rendering
+--->
 </section>
 <section id="sec-tmap" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="sec-tmap"><span class="header-section-number">8.5</span> Maps with <code>tmap</code></h2>
 <p></p>
-<p>Package <strong>tmap</strong> <span class="citation" data-cites="R-tmap tmap">(<a href="references.html#ref-R-tmap" role="doc-biblioref">Tennekes 2022</a>, <a href="references.html#ref-tmap" role="doc-biblioref">2018</a>)</span> takes a fresh look on plotting spatial data in R; it resembles <code>ggplot2</code> in the sense that it composes graphics objects before printing, by building on the <code>grid</code> package, and by concatenating map elements with a <code>+</code> between them, but otherwise it is entirely independent from, and incompatible with, <code>ggplot2</code>. It has a number of options that allow for highly professional looking maps, and many defaults have been carefully chosen. To recreate <a href="01-hello.html#fig-firstgather">Figure&nbsp;<span>1.2</span></a> , for instance, we use</p>
+<p>Package <strong>tmap</strong> <span class="citation" data-cites="R-tmap tmap">(<a href="references.html#ref-R-tmap" role="doc-biblioref">Tennekes 2022</a>, <a href="references.html#ref-tmap" role="doc-biblioref">2018</a>)</span> takes a fresh look on plotting spatial data in R; it resembles <code>ggplot2</code> in the sense that it composes graphics objects before printing, by building on the <code>grid</code> package, and by concatenating map elements with a <code>+</code> between them, but otherwise it is entirely independent from, and incompatible with, <code>ggplot2</code>. It has a number of options that allow for highly professional looking maps, and many defaults have been carefully chosen. Creating a map with two similar attributes can be done using <code>tm_polygons</code> with two attributes, we can use</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="ot">-&gt;</span> nc<span class="fl">.32119</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc<span class="fl">.32119</span>) <span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="fu">c</span>(<span class="st">"SID74"</span>, <span class="st">"SID79"</span>), <span class="at">title =</span> <span class="st">"SIDS"</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">panel.labels =</span> <span class="fu">c</span>(<span class="st">"1974-78"</span>, <span class="st">"1979-84"</span>)) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_facets</span>(<span class="at">free.scales=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>to create <a href="#fig-tmapnc">Figure&nbsp;<span>8.6</span></a>:</p>
+<div class="cell" data-code.fold="true">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="ot">-&gt;</span> nc<span class="fl">.32119</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc<span class="fl">.32119</span>) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="fu">c</span>(<span class="st">"SID74"</span>, <span class="st">"SID79"</span>), <span class="at">title=</span><span class="st">"SIDS"</span>) <span class="sc">+</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">legend.outside=</span><span class="cn">TRUE</span>, <span class="at">panel.labels=</span><span class="fu">c</span>(<span class="st">"1974-78"</span>, <span class="st">"1979-84"</span>)) <span class="sc">+</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_facets</span>(<span class="at">free.scales=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-tmapnc" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -640,50 +663,54 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>to recreate <a href="#fig-tmapnc">Figure&nbsp;<span>8.6</span></a> and</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nc_longer <span class="ot">&lt;-</span> nc<span class="fl">.32119</span> <span class="sc">|&gt;</span> <span class="fu">select</span>(SID74, SID79) <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"SID"</span>), <span class="at">values_to =</span> <span class="st">"SID"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nc_longer) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="st">"SID"</span>) <span class="sc">+</span> </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_facets</span>(<span class="at">by =</span> <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-tmapnc2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="08-Plotting_files/figure-html/fig-tmapnc2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;8.7: <strong>tmap</strong>: Using <code>tm_facets()</code> on a long table</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<p>to create <a href="#fig-tmapnc2">Figure&nbsp;<span>8.7</span></a> .</p>
+
+<!---
+
+::: {.cell}
+
+```{.r .cell-code}
+nc_longer <- nc.32119 |> select(SID74, SID79) |> 
+    pivot_longer(starts_with("SID"), values_to = "SID")
+tm_shape(nc_longer) + tm_polygons("SID") + 
+    tm_facets(by = "name")
+```
+:::
+
+::: {.cell}
+::: {.cell-output-display}
+![**tmap**: Using `tm_facets()` on a long table](08-Plotting_files/figure-html/fig-tmapnc2-1.png){#fig-tmapnc2 width=100%}
+:::
+:::
+
+to create @fig-tmapnc2 .
+-->
+<p>Alternatively, from the long table form obtained by <code>pivot_longer</code> one could use <code>+ tm_polygons("SID") + tm_facets(by = "name")</code>.</p>
 <p>Package <strong>tmap</strong> also has support for <code>stars</code> objects, an example created with</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(r) <span class="sc">+</span> <span class="fu">tm_raster</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(r) <span class="sc">+</span> <span class="fu">tm_raster</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-tmapstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="08-Plotting_files/figure-html/fig-tmapstars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;8.8: Simple raster plot with tmap</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8.7: Simple raster plot with tmap</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>is shown in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a>. More examples of the use of <strong>tmap</strong> are given in <a href="14-Areal.html"><span>Chapter&nbsp;14</span></a> - <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a>.</p>
+<p>is shown in <a href="#fig-tmapstars">Figure&nbsp;<span>8.7</span></a>. More examples of the use of <strong>tmap</strong> are given in <a href="14-Areal.html"><span>Chapter&nbsp;14</span></a> - <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a>.</p>
 </section>
 <section id="interactive-maps-leaflet-mapview-tmap" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="interactive-maps-leaflet-mapview-tmap"><span class="header-section-number">8.6</span> Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></h2>
 <p> </p>
 <p>Interactive maps as shown in <a href="01-hello.html#fig-mapviewfigure">Figure&nbsp;<span>1.3</span></a> can be created with R packages <strong>leaflet</strong>, <strong>mapview</strong> or <strong>tmap</strong>. <strong>mapview</strong> adds a number of capabilities to <strong>leaflet</strong> including a map legend, configurable pop-up windows when clicking features, support for raster data, and scalable maps with very large feature sets using the FlatGeobuf file format, as well as facet maps that react synchronously to zoom and pan actions. Package <strong>tmap</strong> has the option that after giving</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>all usual <code>tmap</code> commands are applied to an interactive html/leaflet widget, whereas after</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>again all output is sent to R’s own (static) graphics device.</p>
 </section>
@@ -692,8 +719,8 @@ div.csl-indent {
 <ol type="1">
 <li>For the countries Indonesia and Canada, create individual plots using equirectangular, orthographic, and Lambert equal area projections, while choosing projection parameters sensible for the area.</li>
 <li>Recreate the plot in <a href="#fig-figreset">Figure&nbsp;<span>8.3</span></a> with <strong>ggplot2</strong> and with <strong>tmap</strong>.</li>
-<li>Recreate the plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a> using the <code>viridis</code> colour ramp.</li>
-<li>View the interactive plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.8</span></a> using the “view” (interactive) mode of <code>tmap</code>, and explore which interactions are possible; also explore adding <code>+ tm_facets(as.layers=TRUE)</code> and try switching layers on and off.</li>
+<li>Recreate the plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.7</span></a> using the <code>viridis</code> colour ramp.</li>
+<li>View the interactive plot in <a href="#fig-tmapstars">Figure&nbsp;<span>8.7</span></a> using the “view” (interactive) mode of <code>tmap</code>, and explore which interactions are possible; also explore adding <code>+ tm_facets(as.layers=TRUE)</code> and try switching layers on and off.</li>
 </ol>
 
 

@@ -497,9 +497,9 @@ div.csl-indent {
 <p> </p>
 <p>Typical web services for geospatial data create data on the fly, and give access to this through an API. As an example, data from <a href="https://openstreetmap.org/">OpenStreetMap</a> can be bulk downloaded and read locally, e.g.&nbsp;using the GDAL vector driver, but more typical a user wants to obtain a small subset of the data or use the data for a small query. Several R packages exist that query OpenStreetMap data:</p>
 <ul>
-<li>Package <strong>OpenStreetMap</strong> downloads data as raster tiles, typically used as backdrop or reference for plotting other features</li>
+<li>Package <strong>OpenStreetMap</strong> <span class="citation" data-cites="R-OpenStreetMap">(<a href="references.html#ref-R-OpenStreetMap" role="doc-biblioref">Fellows and JMapViewer library by Jan Peter Stotz 2019</a>)</span> downloads data as raster tiles, typically used as backdrop or reference for plotting other features</li>
 <li>Package <strong>osmdata</strong> <span class="citation" data-cites="osmdata">(<a href="references.html#ref-osmdata" role="doc-biblioref">Padgham et al. 2017</a>)</span> downloads vector data as points, lines or polygons in <strong>sf</strong> or <strong>sp</strong> format</li>
-<li>Package <strong>osmar</strong> returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements are connected, and has functions for computing the shortest route</li>
+<li>Package <strong>osmar</strong> (from CRAN <a href="https://cran.r-project.org/web/packages/osmar/index.html">archive</a>) returns vector data, but in addition the network topology (as an <code>igraph</code> object) that contains how road elements are connected, and has functions for computing the shortest route</li>
 </ul>
 <p>When provided with a correctly formulated API call in the URL the highly configurable GDAL OSM driver (in <code>st_read</code>) can read an “.osm” file (xml) and return a dataset with five layers: <code>points</code> that have significant tags, <code>lines</code> with non-area “way” features, <code>multilinestrings</code> with “relation” features, <code>multipolygons</code> with “relation” features and <code>other_relations</code>. A simple and very small bounding box query to OpenStreetMap could look like</p>
 <div class="cell">
@@ -543,7 +543,7 @@ div.csl-indent {
 <h2 data-number="9.2" class="anchored" data-anchor-id="raster-data-stars"><span class="header-section-number">9.2</span> Raster data: <strong>stars</strong></h2>
 <p>A common challenge with raster datasets is not only that they come in large files (single Sentinel-2 tiles are around 1 GB), but that many of these files, potentially thousands or millions, are needed to address the area and time period of interest. At time of writing this, the Copernicus program that runs all Sentinel satellites publishes 160 TB of images per day. This means that a classic pattern in using R, consisting of downloading data to local disc, loading the data in memory and analysing it is not going to work.</p>
 <p> </p>
-<p>Cloud-based Earth Observation processing platforms like Google Earth Engine, <a href="https://www.sentinel-hub.com/">Sentinel Hub</a> or <a href="https://openeo.cloud">openEO.cloud</a> recognise this and let users work with datasets up to the petabyte range rather easily and with a great deal of interactivity. They share the following properties:</p>
+<p>Cloud-based Earth Observation processing platforms like Google Earth Engine <span class="citation" data-cites="gorelick">(<a href="references.html#ref-gorelick" role="doc-biblioref">Gorelick et al. 2017</a>)</span>, <a href="https://www.sentinel-hub.com/">Sentinel Hub</a> or <a href="https://openeo.cloud">openEO.cloud</a> recognise this and let users work with datasets up to the petabyte range rather easily and with a great deal of interactivity. They share the following properties:</p>
 <ul>
 <li>computations are postponed as long as possible (lazy evaluation)</li>
 <li>only the data asked for by the user is being computed and returned, and nothing more</li>
@@ -662,7 +662,7 @@ div.csl-indent {
 <section id="very-large-data-cubes" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="very-large-data-cubes"><span class="header-section-number">9.3</span> Very large data cubes</h2>
 <p> </p>
-<p>At some stage, datasets need to be analysed that are so large that downloading them is no longer feasible; even when local storage would be sufficient, network bandwidth may become limiting. Examples are satellite image archives such as those from Landsat and Copernicus (Sentinel-x), or model computations such as the ERA5 <span class="citation" data-cites="era5">(<a href="references.html#ref-era5" role="doc-biblioref">Hersbach et al. 2020</a>)</span>, a model reanalysis of the global atmosphere, land surface and ocean waves from 1950 onwards. In such cases it may be most helpful to gain access to virtual machines in a cloud that has these data available, or to use a system that lets the user carry out computations without having to worry about virtual machines and storage. Both options will be discussed.</p>
+<p>At some stage, datasets need to be analysed that are so large that downloading them is no longer feasible; even when local storage would be sufficient, network bandwidth may become limiting. Examples are satellite image archives such as those from Landsat and Copernicus (Sentinel-x), or model computations such as the ERA5 <span class="citation" data-cites="era5">(<a href="references.html#ref-era5" role="doc-biblioref">Hersbach et al. 2020</a>)</span>, a model reanalysis of the global atmosphere, land surface and ocean waves from 1950 onwards. In such cases it may be most helpful to gain access to virtual machines in a cloud that have these data available, or to use a system that lets the user carry out computations without having to worry about virtual machines and storage. Both options will be discussed.</p>
 <section id="finding-and-processing-assets" class="level3">
 <h3 class="anchored" data-anchor-id="finding-and-processing-assets">Finding and processing assets</h3>
 <p>When working on a virtual machine on a cloud, a first task is usually to find the assets (files) to work on. It looks attractive to obtain a file listing, and then parse file names such as</p>
@@ -749,6 +749,9 @@ Brazil Data Cube Team. 2021. <em>Rstac: Client Library for SpatioTemporal Asset 
 </div>
 <div id="ref-cf" class="csl-entry" role="doc-biblioentry">
 Eaton, Brian, Jonathan Gregory, Bob Drach, Karl Taylor, Steve Hankin, Jon Blower, John Caron, et al. 2022. <em>NetCDF Climate and Forecast (CF) Metadata Conventions, Version 1.10</em>. <a href="https://cfconventions.org/">https://cfconventions.org/</a>.
+</div>
+<div id="ref-R-OpenStreetMap" class="csl-entry" role="doc-biblioentry">
+Fellows, Ian, and using the JMapViewer library by Jan Peter Stotz. 2019. <em>OpenStreetMap: Access to Open Street Map Raster Images</em>. <a href="https://CRAN.R-project.org/package=OpenStreetMap">https://CRAN.R-project.org/package=OpenStreetMap</a>.
 </div>
 <div id="ref-gorelick" class="csl-entry" role="doc-biblioentry">
 Gorelick, Noel, Matt Hancher, Mike Dixon, Simon Ilyushchenko, David Thau, and Rebecca Moore. 2017. <span>“Google Earth Engine: Planetary-Scale Geospatial Analysis for Everyone.”</span> <em>Remote Sensing of Environment</em> 202: 18–27. <a href="https://doi.org/10.1016/j.rse.2017.06.031">https://doi.org/10.1016/j.rse.2017.06.031</a>.

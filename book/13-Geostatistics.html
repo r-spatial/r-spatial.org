@@ -432,8 +432,7 @@ div.csl-indent {
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_european_code =</span> <span class="fu">colnames</span>(aqsel))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">'EPSG:32632'</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(a2.sf, tb) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(air, <span class="at">package =</span> <span class="st">"spacetime"</span>) <span class="co"># load German adm. boundaries</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>de <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(<span class="fu">st_as_sf</span>(DE_NUTS1), crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(<span class="st">"data/de_nuts1.gpkg"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Station mean NO<span class="math inline">\(_2\)</span> concentrations, along with country borders, are shown in in <a href="12-Interpolation.html#fig-plotDE">Figure&nbsp;<span>12.1</span></a>.</p>
 </section>

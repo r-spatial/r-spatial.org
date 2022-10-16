@@ -392,9 +392,7 @@ div.csl-indent {
 </div>
 <p>Next, we can load country boundaries and plot these data using <code>ggplot</code>, shown in <a href="#fig-plotDE">Figure&nbsp;<span>12.1</span></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(air, <span class="at">package =</span> <span class="st">"spacetime"</span>) <span class="co"># loads DE_NUTS1 boundaries</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(DE_NUTS1) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: sp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_sf</span>(<span class="st">"data/de_nuts1.gpkg"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details>
@@ -664,14 +662,14 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>We see that the signal is similar, but that the simple means are more variable than the block kriging values; this may be due to the smoothing effect of kriging: data points outside the aggregation area receive weight, too.</p>
+<p>We see that the signal is similar, but that the sample means from simple averaging are more variable than the block kriging values; this may be due to the smoothing effect of kriging: data points outside the aggregation area receive weight, too.</p>
 <p></p>
 <p>To compare the standard errors of means, for the sample mean we can get a rough guess of the standard error by <span class="math inline">\(\sqrt{(\sigma^2/n)}\)</span>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], de, SE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.4</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
+<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.4</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple averaging approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -710,19 +708,21 @@ div.csl-indent {
 <p>until all locations have been visited.</p>
 <p>This is carried out by <code>gstat::krige</code> when <code>nsim</code> is set to a positive value:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(s <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd, v.m, <span class="at">nmax =</span> <span class="dv">30</span>, <span class="at">nsim =</span> <span class="dv">6</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing 6 GLS realisations of beta...</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [using conditional Gaussian simulation]</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -4.89    6.02   8.62 8.75    11.4 25.5 12456</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># y         1 87 6101239 -10000 WGS 84 / UTM z...          NULL [y]</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sample    1  6      NA     NA                NA sim1,...,sim6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13341</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>(s <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd, v.m, <span class="at">nmax =</span> <span class="dv">30</span>, <span class="at">nsim =</span> <span class="dv">6</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># drawing 6 GLS realisations of beta...</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [using conditional Gaussian simulation]</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># attribute(s):</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#       Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># var1  -5.7    6.12   8.68 8.88    11.5 23.9 12456</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dimension(s):</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y         1 87 6101239 -10000 WGS 84 / UTM z...          NULL [y]</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># sample    1  6      NA     NA                NA sim1,...,sim6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>where <code>set.seed()</code> was called here to allow reproducibility.</p>
 <p>It is usually needed to constrain the (maximum) number of nearest neighbours to include in kriging estimation by setting <code>nmax</code> because the dataset grows each step, leading otherwise quickly to very long computing times and large memory requirements. Resulting conditional simulations are shown in (<a href="#fig-plotkrigingvalues">Figure&nbsp;<span>12.9</span></a>).</p>
 <div class="cell">
 <details>
