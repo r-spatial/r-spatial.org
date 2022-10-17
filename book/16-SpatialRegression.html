@@ -641,8 +641,8 @@ Y = X \beta + Z u + \varepsilon
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ssre <span class="ot">&lt;-</span> <span class="fu">predict</span>(GAM_MRF, <span class="at">type =</span> <span class="st">"terms"</span>, </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">se =</span> <span class="cn">FALSE</span>)[, <span class="st">"s(NOX_ID)"</span>]</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">sapply</span>(<span class="fu">tapply</span>(ssre, <span class="fu">list</span>(boston_487<span class="sc">$</span>NOX_ID), c),</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>           <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)) <span class="sc">==</span> <span class="dv">1</span>))</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>           <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">round</span>(x, <span class="dv">8</span>))) <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!---
 TRUE expected - I get TRUE locally, your renderings get FALSE (caused by caching?, odd, all determistic steps)

@@ -499,12 +499,13 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.69,-1.31)  [-1.31,-0.613) [-0.613,-0.305)  [-0.305,0.109) </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.34,-1.19)  [-1.19,-0.573) [-0.573,-0.308) [-0.308,0.0796) </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   [0.109,0.417)   [0.417,0.718)    [0.718,1.14)     [1.14,2.79] </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    [0.0796,0.3)      [0.3,0.67)    [0.67,0.938)     [0.938,2.1] </span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.693 -1.312 -0.613 -0.305  0.109  0.417  0.718  1.140  2.791</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.3446 -1.1927 -0.5732 -0.3085  0.0796  0.2999  0.6700  0.9380</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.1034</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, ‘nclass.Sturges’ is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>
@@ -704,6 +705,7 @@ to create @fig-tmapnc2 .
 <section id="interactive-maps-leaflet-mapview-tmap" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="interactive-maps-leaflet-mapview-tmap"><span class="header-section-number">8.6</span> Interactive maps: <code>leaflet</code>, <code>mapview</code>, <code>tmap</code></h2>
 <p> </p>
+<div>
 <p>Interactive maps as shown in <a href="01-hello.html#fig-mapviewfigure">Figure&nbsp;<span>1.3</span></a> can be created with R packages <strong>leaflet</strong>, <strong>mapview</strong> or <strong>tmap</strong>. <strong>mapview</strong> adds a number of capabilities to <strong>leaflet</strong> including a map legend, configurable pop-up windows when clicking features, support for raster data, and scalable maps with very large feature sets using the FlatGeobuf file format, as well as facet maps that react synchronously to zoom and pan actions. Package <strong>tmap</strong> has the option that after giving</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -713,6 +715,7 @@ to create @fig-tmapnc2 .
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>again all output is sent to R’s own (static) graphics device.</p>
+</div>
 </section>
 <section id="exercises" class="level2" data-number="8.7">
 <h2 data-number="8.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.7</span> Exercises</h2>

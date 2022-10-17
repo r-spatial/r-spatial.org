@@ -504,10 +504,10 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpQdQ1bo/file985846f7d78d2.gpkg"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpnbzsQ2/filea48ea4e2c3795.gpkg"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpQdQ1bo/file985846f7d78d2.gpkg' using driver `GPKG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpnbzsQ2/filea48ea4e2c3795.gpkg' using driver `GPKG'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset it will error if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted, e.g.&nbsp;from a database, using <code>st_delete</code>.</p>
@@ -1074,12 +1074,15 @@ div.csl-indent {
 <li>call <code>predict</code> with this model object and the <code>data.frame</code> with target predictor variable values</li>
 </ul>
 <p>Package <strong>stars</strong> provides a <code>predict</code> method for <code>stars</code> objects that essentially wraps the last step, by creating the <code>data.frame</code>, calling the <code>predict</code> method for that, and reconstructing a <code>stars</code> object with the predicted values.</p>
-<p>We will illustrate this with a trivial two-class example mapping land from sea in the example Landsat dataset, using the sample points extracted above, shown in <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a> .</p>
+<p>We will illustrate this with a trivial two-class example mapping land from sea in the example Landsat dataset, using the sample points extracted above, shown in <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a>.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span>], <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"yellow"</span>, <span class="dv">20</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>col[<span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">19</span>)] <span class="ot">=</span> <span class="st">"red"</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(e) <span class="sc">|&gt;</span> <span class="fu">st_coordinates</span>() <span class="sc">|&gt;</span> <span class="fu">text</span>(<span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">col =</span> col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-rsample" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
