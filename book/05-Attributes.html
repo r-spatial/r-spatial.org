@@ -388,12 +388,14 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(<span class="dv">32119</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(BIR74, SID74, NAME) <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_centroid</span>() <span class="ot">-&gt;</span> x</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># st_centroid.sf(select(st_transform(read_sf(system.file("gpkg/</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># nc.gpkg", : st_centroid assumes attributes are constant over</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># geometries of x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_centroid</span>() <span class="ot">-&gt;</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code># Warning in
+# st_centroid.sf(select(st_transform(read_sf(system.file("gpkg/
+# nc.gpkg", : st_centroid assumes attributes are constant over
+# geometries of x</code></pre>
+</div>
 </div>
 <p>The reason for this is that the dataset contains variables with values that are associated with entire polygons – in this case: population counts – meaning they are not associated with a <code>POINT</code> geometry replacing the polygon.</p>
 <p></p>
@@ -463,13 +465,13 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># encode quadrant by two logicals:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lng <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">79</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lat <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">35.5</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>nc.grp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nc[<span class="st">"SID74"</span>], <span class="fu">list</span>(nc<span class="sc">$</span>lng, nc<span class="sc">$</span>lat), sum)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>nc.grp[<span class="st">"SID74"</span>] <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">graticule =</span> <span class="cn">TRUE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># encode quadrant by two logicals:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lng <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">79</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>nc<span class="sc">$</span>lat <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(nc)))[,<span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">35.5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>nc.grp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nc[<span class="st">"SID74"</span>], <span class="fu">list</span>(nc<span class="sc">$</span>lng, nc<span class="sc">$</span>lat), sum)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>nc.grp[<span class="st">"SID74"</span>] <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">graticule =</span> <span class="cn">TRUE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ncaggregation" class="quarto-figure quarto-figure-center anchored">
@@ -485,12 +487,12 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(nc, <span class="dv">2264</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">label =</span> <span class="fu">apply</span>(<span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>])[,<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="dv">1</span>, paste0, <span class="at">collapse =</span> <span class="st">" "</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">geom =</span> <span class="fu">st_make_grid</span>(nc))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(nc), <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">border =</span> <span class="st">'grey'</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gr), <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(nc, <span class="dv">2264</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">st_sf</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">label =</span> <span class="fu">apply</span>(<span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, LETTERS[<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>])[,<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="dv">1</span>, paste0, <span class="at">collapse =</span> <span class="st">" "</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   <span class="at">geom =</span> <span class="fu">st_make_grid</span>(nc))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(nc), <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">border =</span> <span class="st">'grey'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(gr), <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ncblocks" class="quarto-figure quarto-figure-center anchored">
@@ -505,12 +507,14 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nc[<span class="st">"SID74"</span>], gr, sum)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">sid74_sum_counties =</span> <span class="fu">sum</span>(nc<span class="sc">$</span>SID74),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sid74_sum_rectangles =</span> <span class="fu">sum</span>(a<span class="sc">$</span>SID74, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   sid74_sum_counties sid74_sum_rectangles </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                  667                 2621</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(nc[<span class="st">"SID74"</span>], gr, sum)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">sid74_sum_counties =</span> <span class="fu">sum</span>(nc<span class="sc">$</span>SID74),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sid74_sum_rectangles =</span> <span class="fu">sum</span>(a<span class="sc">$</span>SID74, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>#   sid74_sum_counties sid74_sum_rectangles 
+#                  667                 2621</code></pre>
+</div>
 </div>
 <p>Choosing another predicate, e.g.&nbsp;<em>contains</em> or <em>covers</em> would on the contrary result in much smaller values, because many counties are not contained by <em>any</em> of the target geometries. However, there are a few cases where this approach might be good or satisfactory:</p>
 <ul>
@@ -596,11 +600,11 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(<span class="fu">st_bbox</span>(<span class="fu">st_as_sfc</span>(<span class="st">"LINESTRING(0 0,1 1)"</span>)), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.125</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">8</span>, .<span class="dv">2</span>, .<span class="dv">8</span>), <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">2</span>, .<span class="dv">8</span>, .<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(<span class="fu">st_bbox</span>(<span class="fu">st_as_sfc</span>(<span class="st">"LINESTRING(0 0,1 1)"</span>)), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.125</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">8</span>, .<span class="dv">2</span>, .<span class="dv">8</span>), <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">2</span>, .<span class="dv">8</span>, .<span class="dv">8</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-awiex" class="quarto-figure quarto-figure-center anchored">

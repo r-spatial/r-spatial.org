@@ -541,18 +541,22 @@ div.csl-indent {
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># POINT (60 47)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code># POINT (60 47)</code></pre>
+</div>
 </div>
 <p>measured in degrees, and geocentric coordinates</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># POINT Z (2178844 3773868 4641765)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code># POINT Z (2178844 3773868 4641765)</code></pre>
+</div>
 </div>
 <p>measured in metres.</p>
 <p></p>
@@ -560,24 +564,24 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">48</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (x <span class="sc">*</span> <span class="dv">25</span>) <span class="sc">/</span> (<span class="sc">-</span>y <span class="sc">*</span> <span class="dv">64</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">*</span> b</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>b</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> x <span class="sc">-</span> y <span class="sc">/</span> b</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(x0, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"psi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'blue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">48</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (x <span class="sc">*</span> <span class="dv">25</span>) <span class="sc">/</span> (<span class="sc">-</span>y <span class="sc">*</span> <span class="dv">64</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">*</span> b</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>b</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> x <span class="sc">-</span> y <span class="sc">/</span> b</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(x0, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"psi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'blue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ellipse" class="quarto-figure quarto-figure-center anchored">
@@ -613,24 +617,26 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">13.4050</span>, <span class="fl">52.5200</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">2.3522</span>, <span class="fl">48.8566</span>)), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=longlat +ellps=sphere"))</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=geocent"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=longlat +ellps=sphere"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1,d3,d2,d4)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Units: [km]</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#       gc_ellipse straight_ellipse        gc_sphere  straight_sphere </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#           879.70           879.00           877.46           876.77</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">13.4050</span>, <span class="fl">52.5200</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">2.3522</span>, <span class="fl">48.8566</span>)), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=longlat +ellps=sphere"))</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=geocent"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=longlat +ellps=sphere"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1,d3,d2,d4)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Units: [km]
+#       gc_ellipse straight_ellipse        gc_sphere  straight_sphere 
+#           879.70           879.00           877.46           876.77</code></pre>
+</div>
 </div>
 </section>
 <section id="sec-bounded" class="level3">
@@ -691,23 +697,23 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(admin <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(filename)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">hook =</span> hook, <span class="at">key.pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(admin <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(filename)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">hook =</span> hook, <span class="at">key.pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-horizontalgrid" class="quarto-figure quarto-figure-center anchored">
@@ -721,14 +727,14 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(filename)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(filename)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-verticalgrid" class="quarto-figure quarto-figure-center anchored">

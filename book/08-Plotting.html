@@ -499,15 +499,15 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.34,-1.19)  [-1.19,-0.573) [-0.573,-0.308) [-0.308,0.0796) </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    [0.0796,0.3)      [0.3,0.67)    [0.67,0.938)     [0.938,2.1] </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    [-2.78,-1.22)   [-1.22,-0.863)  [-0.863,-0.431) [-0.431,-0.0715) </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#               13               12               13               12 </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-0.0715,0.338)    [0.338,0.781)     [0.781,1.17)      [1.17,2.44] </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#               12               13               12               13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.3446 -1.1927 -0.5732 -0.3085  0.0796  0.2999  0.6700  0.9380</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.1034</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.7811 -1.2243 -0.8628 -0.4309 -0.0715  0.3383  0.7811  1.1661</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.4378</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, ‘nclass.Sturges’ is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
+<p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, <code>nclass.Sturges</code> is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>
 <section id="sec-graticule" class="level3">
 <h3 class="anchored" data-anchor-id="sec-graticule">Graticule and other navigation aids</h3>
