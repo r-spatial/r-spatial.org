@@ -504,10 +504,10 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpMt31VN/filefa74f608bbd36.gpkg"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmplE9vek/file11d2203965d76.gpkg"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpMt31VN/filefa74f608bbd36.gpkg' using driver `GPKG'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmplE9vek/file11d2203965d76.gpkg' using driver `GPKG'</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset it will error if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted, e.g.&nbsp;from a database, using <code>st_delete</code>.</p>
@@ -1738,7 +1738,7 @@ div.csl-indent {
 <section id="proj.db-datum-grids-cdn.proj.org-local-cache" class="level3">
 <h3 class="anchored" data-anchor-id="proj.db-datum-grids-cdn.proj.org-local-cache">proj.db, datum grids, cdn.proj.org, local cache</h3>
 <p> </p>
-<p>Datum grids (<a href="02-Spaces.html#sec-projlib"><span>Section&nbsp;2.4</span></a>) can be installed locally, or be read from the PROJ datum grid CDN at https://cdn.proj.org/. If installed locally, they are read from the PROJ search path, which is shown by</p>
+<p>Datum grids (<a href="02-Spaces.html#sec-projlib"><span>Section&nbsp;2.4</span></a>) can be installed locally, or be read from the PROJ datum grid CDN at <a href="https://cdn.proj.org/" class="uri">https://cdn.proj.org/</a>. If installed locally, they are read from the PROJ search path, which is shown by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_proj_search_paths</span>()</span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/home/edzer/.local/share/proj" "/usr/share/proj"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

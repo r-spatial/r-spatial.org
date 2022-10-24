@@ -432,7 +432,7 @@ div.csl-indent {
 <p><span class="math display">\[
 \hat{z}(s_0) = \frac{\sum_{i=1}^{n} w_i z(s_i)}{\sum_{i=1}^n w_i}
 \]</span></p>
-<p>with <span class="math inline">\(w_i = |s_0-s_i|^p\)</span>, and the inverse distance power typically taken as 2, or optimised using cross validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
+<p>with <span class="math inline">\(w_i = |s_0-s_i|^{-p}\)</span>, and the inverse distance power <span class="math inline">\(p\)</span> typically taken as 2, or optimised using cross validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd)</span>

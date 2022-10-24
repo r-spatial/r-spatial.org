@@ -380,12 +380,7 @@ div.csl-indent {
 <p>There are some limitations to conversions like this:</p>
 <ul>
 <li><strong>sp</strong> does not distinguish between <code>LINESTRING</code> and <code>MULTILINESTRING</code> geometries, or between <code>POLYGON</code> or <code>MULTIPOLYGON</code>, so e.g.&nbsp;a <code>LINESTRING</code> will after conversion to <code>sp</code> come back as a <code>MULTILINESTRING</code></li>
-<li><strong>sp</strong> does have no representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometries <em>not</em> in the “big seven”</li>
-</ul>
-<ol class="example" type="1">
-<li></li>
-</ol>
-<ul>
+<li><strong>sp</strong> does have no representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometries <em>not</em> in the “big seven” (<a href="03-Geometries.html#sec-seven"><span>Section&nbsp;3.1.1</span></a>)</li>
 <li><code>sf</code> or <code>sfc</code> objects of geometry type <code>GEOMETRY</code>, with mixed geometry types, cannot be converted into <code>sp</code> objects</li>
 <li>attribute-geometry relationship attributes get lost when converting to <strong>sp</strong></li>
 <li><code>sf</code> objects with more than one geometry list-column will, when converting to <strong>sp</strong>, lose their secondary list-column(s).</li>
