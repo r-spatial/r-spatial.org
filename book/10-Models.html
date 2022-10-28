@@ -455,9 +455,9 @@ div.csl-indent {
 <p>Use R to solve the following exercises.</p>
 <ol type="1">
 <li>Following the <code>lm</code> example of <a href="#sec-lm"><span>Section&nbsp;10.1</span></a> use a random forest model to predict <code>SID</code> values (e.g.&nbsp;using package <strong>randomForest</strong>), and plot the random forest predictions against observations, along with the <span class="math inline">\(x=y\)</span> line.</li>
-<li>Create a new dataset by randomly sampling 1000 points from the <code>nc</code> dataset, and rerun the linear regression model of <a href="#sec-lm"><span>Section&nbsp;10.1</span></a> on this dataset. What has changed?</li>
-<li>Redo the water-land classification of section <a href="07-Introsf.html#sec-starspredict"><span>Section&nbsp;7.4.6</span></a> using <code>class::knn</code> instead of <code>lda</code>.</li>
-<li>For the linear model using <code>nc</code> and for the <code>knn</code> example of the previous exercise, add a first and a second order linear model in the spatial coordinates and compare the results.</li>
+<li>Create a new dataset by randomly sampling 1000 points from the <code>nc</code> dataset, and rerun the linear regression model of <a href="#sec-lm"><span>Section&nbsp;10.1</span></a> on this dataset. Consider the <code>summary</code> of the fitted models, in particular the estimated coefficients, their standard errors, and the residual standard error. What has changed?</li>
+<li>Redo the water-land classification of section <a href="07-Introsf.html#sec-starspredict"><span>Section&nbsp;7.4.6</span></a> using <code>class::knn</code> instead of <code>lda</code>, using a value of <code>k = 5</code>, and compare the resulting predictions with those of <code>lda</code>.</li>
+<li>For the linear model using <code>nc</code> and for the <code>knn</code> example of the previous exercise, add a first and a second order linear model in the spatial coordinates and compare the results (use <code>st_centroid</code> to obtain polygon centroids, and <code>st_coordinates</code> to extract the <code>x</code> and <code>y</code> coordinates in matrix form).</li>
 </ol>
 
 
