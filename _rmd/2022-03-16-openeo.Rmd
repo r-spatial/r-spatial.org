@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Processing large scale satellite imagery with openEO Platform and R"
 author: "Edzer Pebesma, Florian Lahn, Matthias Mohr, Peter Zellner"
 date:  "Sep 14, 2022"
 comments: false
@@ -16,16 +16,30 @@ TOC
 [openEO](https://openeo.org) is an open source, community-based
 API for cloud-based processing of Earth Observation data. This blog
 introduces the R openeo client, and demonstrates a sample analysis
-using [openEO Platform](https://openeo.cloud) for processing.
-
+using the [openEO Platform](https://openeo.cloud) for processing.
 
 ```{r}
+if (file.exists("con.RData"))
+		load("con.RData")
+library(openeo)
+active_connection(con)
+```
+
+```{r eval=!exists("con")}
 library(openeo)
 con = openeo::connect("https://openeo.cloud")
+```
+```{r eval=FALSE}
 login()
+```
+```{r}
 # list_collections()
 collection = "SENTINEL2_L2A"
 coll_meta = describe_collection(collection)
+```
+
+```{r echo=FALSE}
+save(list = "con", file = "con.RData")
 ```
 
 ```{r}
@@ -56,7 +70,7 @@ calc_ndvi = p$reduce_dimension(data = data,
 ```
 
 ```{r}
-intervals = list(c('2018-01-02', '2018-02-01'),
+intervals = list(c('2018-01-01', '2018-02-01'),
                  c('2018-02-01', '2018-03-01'),
                  c('2018-03-01', '2018-04-01'),
                  c('2018-04-01', '2018-05-01'),
@@ -69,7 +83,7 @@ intervals = list(c('2018-01-02', '2018-02-01'),
                  c('2018-11-01', '2018-12-01'), 
                  c('2018-12-01', '2018-12-30'))
 # and labels
-labels = lapply(intervals, function(x){x[[1]]}) %>% unlist() # create labels from list
+labels = sapply(intervals, head, 1) # create labels from list
 
 # add the process node
 temp_period = p$aggregate_temporal(data = calc_ndvi,
@@ -85,7 +99,7 @@ result = p$save_result(data = temp_period, format="NetCDF")
 compute_result(result, format = "NetCDF", output_file = "ndvi.nc", con = con)
 ```
 
-```{r}
+```{r eval=FALSE}
 # asynchronous:
 job = create_job(graph = result,
                  title = "ndvi.nc",
@@ -101,12 +115,16 @@ result_obj
 status(job) # wait until it says finished, then:
 ```
 
-```{r}
+```{r eval=FALSE}
 dwnld = download_results(job = job$id, 
                          folder = "./") # adjust path here
 ```
 
+Show locally:
 ```{r}
-r = read_stars("openEO.nc")
+library(stars)
+r = read_stars("ndvi.nc")
 plot(r)
+library(mapview)
+mapview(r)
 ```
