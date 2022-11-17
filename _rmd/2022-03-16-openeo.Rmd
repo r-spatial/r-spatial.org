@@ -1,7 +1,7 @@
 ---
 title: "Processing large scale satellite imagery with openEO Platform and R"
 author: "Edzer Pebesma, Florian Lahn, Matthias Mohr, Peter Zellner"
-date:  "Sep 14, 2022"
+date:  "Nov 17, 2022"
 comments: false
 layout: post
 categories: r
