@@ -1,12 +1,11 @@
 ---
 title: "Processing large scale satellite imagery with openEO Platform and R"
-author: "Edzer Pebesma, Florian Lahn, Matthias Mohr, Peter Zellner"
-date:  "Nov 17, 2022"
+author: "Edzer Pebesma, Florian Lahn, Huriel Reichel, Peter Zellner, Basil Tufail, Matthias Mohr"
+date:  "Nov 22, 2022"
 comments: false
 layout: post
 categories: r
 ---
-
 
 TOC
 
@@ -18,57 +17,105 @@ API for cloud-based processing of Earth Observation data. This blog
 introduces the R openeo client, and demonstrates a sample analysis
 using the [openEO Platform](https://openeo.cloud) for processing.
 
-```{r}
+```{r echo=FALSE,message=FALSE}
 if (file.exists("con.RData"))
-		load("con.RData")
+	load("con.RData")
 library(openeo)
 active_connection(con)
 ```
 
+## openEO 
+OpenEO is an open source project that tries to make large-scale,
+cloud-based satellite image processing easier and more open.
+This blog post shows how the openEO client, available from
+[CRAN](https://cran.r-project.org/package=openeo), can be used
+to explore datasets, compute on them, and download results.
+
+## Sample session
+
+An openEO session is started with loading the library, connecting
+to a back-end (here: [openeo.cloud](https://openeo.cloud)), and
+authenticating with the back-end:
 ```{r eval=!exists("con")}
 library(openeo)
-con = openeo::connect("https://openeo.cloud")
-```
-```{r eval=FALSE}
+con = connect("https://openeo.cloud")
 login()
 ```
-```{r}
-# list_collections()
-collection = "SENTINEL2_L2A"
-coll_meta = describe_collection(collection)
-```
-
 ```{r echo=FALSE}
 save(list = "con", file = "con.RData")
 ```
 
+The login will prompt for an authentication ID which can come from
+your organisation, or an openID-based mechanism such as google or
+GitHub. For loggin on you need an account on the back-end, as cloud
+computing in general is not a free resource. The
+[openeo.cloud](https://openeo.cloud) website has instructions on
+how to apply for a (ESA-) sponsored account with limited compute
+credits. 
+
+When these commands were carried out, and you are using RStudio
+as an IDE, RStudio will show an overview of the image collections
+available on this backend, which looks like this:
+
+![](/images/collections.png)
+
+and which can help search for a particular collection. Image collections
+are collections of satellite images that are all processed in a uniform
+way.  The set of image collections can also be obtained programmatically
+by
+
+```{r}
+collections = list_collections(con)
+names(collections) |> head()
+length(collections)
+```
+which can then be further processed
+
+We will work with Sentinel level 2A data, available in the collection
+```{r}
+collection = "SENTINEL2_L2A"
+coll_meta = describe_collection(collection)
+names(coll_meta)
+```
+information about the names and extents of data cube dimensions is for instance obtained by
+```{r}
+coll_meta$`cube:dimensions`
+```
+
+Next, we will select a spatial region, a set of spectral bands and
+a time period to work on, by specifying a few R objects:
 ```{r}
 library(sf)
 bbox = st_bbox(c(xmin = 7, xmax = 7.01, ymin = 52, ymax = 52.01), crs = 'EPSG:4326')
-bbox = list(west = bbox[[1]],
-            east = bbox[[3]],
-            south = bbox[[2]],
-            north = bbox[[4]])
 bands = c("B04", "B08")
 time_range = list("2018-01-01", "2019-01-01")
-p = openeo::processes()
+```
+We can then start building a process graph, the object that contains the work to be done on the back-end side. First we load the available processes from the back-end:
+```{r}
+p = openeo::processes(con)
+```
+and then we define the image collection as constrained by name, space, time, and bands (if no constraints are given, the full extent is used). We use a member function of `p` here, so that we cannot use processes that are not available on the back-end.
+```{r}
+data = p$load_collection(id = collection, 
+                         spatial_extent = bbox,
+                         temporal_extent = time_range, 
+                         bands = bands) 
 ```
 
+We will compute NDVI, [normalized differenced vegetation index](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index), from the two selected bands, and use the NDVI function in `reduce_dimension` to reduce dimension `bands`:
 ```{r}
 ndvi = function(data, context) {
   red = data[1]
   nir = data[2]
   (nir-red)/(nir+red)
 }
-data = p$load_collection(id = collection, 
-                         spatial_extent = bbox,
-                         temporal_extent = time_range, 
-                         bands = bands) 
 calc_ndvi = p$reduce_dimension(data = data,
                                dimension = "bands",
                                reducer = ndvi)
 ```
+Although `ndvi` is defined as an R function, in effect the `openeo` R client translates this function into openEO native processes. This cannot be done with arbitrarily complex functions, and passing on R functions to be processed by an R instance in the back-end is done using _user-defined functions_, the topic of a future blog post.
 
+We will now process the NDVI values to a monthly series, by picking for each pixel the median value of all pixels over the month (Sentinel-2 has an image for roughly every 5 days). This is done by `aggregate_temporal`:
 ```{r}
 intervals = list(c('2018-01-01', '2018-02-01'),
                  c('2018-02-01', '2018-03-01'),
@@ -91,40 +138,72 @@ temp_period = p$aggregate_temporal(data = calc_ndvi,
                                    reducer = function(data, context){p$median(data)},
                                    labels = labels,
                                    dimension = "t")
+```
+
+Finally, we can define how we want to save results (which file format), by the `save_result` process
+```{r}
 result = p$save_result(data = temp_period, format="NetCDF")
 ```
+and request the results synchronously by `compute_results`:
 
 ```{r}
 # synchronous:
 compute_result(result, format = "NetCDF", output_file = "ndvi.nc", con = con)
 ```
+All commands before `compute_result()` can be executed without authentification; only `compute_result` asks for "real" computations on imagery, and requires authentication, so that the compute costs can be accounted for. 
 
-```{r eval=FALSE}
-# asynchronous:
-job = create_job(graph = result,
-                 title = "ndvi.nc",
-                 description = "ndvi.nc",
-                 format = "netCDF")
-
-start_job(job = job$id) # use the id of the job (job$id) to start the job
-job_list = list_jobs() # here you can see your jobs and their status
-
-result_obj = list_results(job = job$id)
-result_obj
-
-status(job) # wait until it says finished, then:
-```
-
-```{r eval=FALSE}
-dwnld = download_results(job = job$id, 
-                         folder = "./") # adjust path here
-```
-
-Show locally:
-```{r}
+`compute_result` downloads the file locally, and we can now import it and plot it
+either by e.g. `ggplot2`
+```{r openeo_figs}
 library(stars)
 r = read_stars("ndvi.nc")
-plot(r)
+library(ggplot2)
+ggplot() + geom_stars(data = r) +
+        facet_wrap(~t) + coord_equal() +
+        theme_void() +
+        scale_x_discrete(expand = c(0,0)) +
+        scale_y_discrete(expand = c(0,0)) +
+        scale_fill_viridis_c()
+```
+
+or by `mapview` (where the "real" mapview obviously gives an interactive plot):
+```{r openeo_fig_mapview}
 library(mapview)
 mapview(r)
 ```
+
+## Batch jobs 
+
+The example above was deliberately kept very small; for larger jobs
+the synchronous call to `compute_result` will time out, and a batch job
+can be started with
+```{r eval=FALSE}
+job = create_job(graph = result, title = "ndvi.nc", description = "ndvi 2018")
+start_job(job = job$id) # use the id of the job (job$id) to start the job
+job_list = list_jobs() # here you can see all your jobs and their status
+status(job) 
+```
+The returned status is either `queued`, `running` or `finished`. When it
+is finished, then results can be downloaded by
+```{r eval=FALSE}
+dwnld = download_results(job = job$id, folder = "./") 
+```
+
+## Further reading
+
+The [CRAN landing page](https://cran.r-project.org/package=openeo)
+has six (6!) vignettes on getting started, sample data retrieval,
+architecture, process graph building, and implementation details.
+
+## Upcoming...
+
+The use of R functions that can be _sent_ to the back-end and
+executed there by an R engine is under development. This is a
+big milestone, as it would provide arbitrary R functionality
+(given that arbitrary R packages would also be provided by the
+back-end), and is something that for instance Google Earth Engine
+can not provide.  The current form in which this works is still a
+bit user-unfriendly (for the curious: examples are found in [this
+repo](https://github.com/Open-EO/r4openeo-usecases), and contain
+still a mix of Python and R code). When this has been cleaned up and
+undergone more testing it will be the topic of a follow-up blog post.
