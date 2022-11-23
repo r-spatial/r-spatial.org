@@ -586,7 +586,7 @@ div.csl-indent {
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># y       1 10980  6e+06   -10 WGS 84 / UTM z...      NULL [y]</span></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># band    1     4     NA    NA                NA B4,...,B8</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(p)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 11808 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 12360 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and we see that this does not actually load <em>any</em> of the pixel values, but keeps the reference to the dataset and fills the dimensions table. (The convoluted <code>s2</code> name is needed to point GDAL to the right file inside the <code>.zip</code> file containing 115 files in total).</p>
 <p> The idea of a proxy object is that we can build expressions like</p>
@@ -730,6 +730,18 @@ div.csl-indent {
 <li>Use <code>st_crop</code> to crop the S2 image to the area covered by the 10 km circle. Plot the results. Explore the effect of setting argument <code>crop = FALSE</code></li>
 <li>With the downsampled image, compute the logical layer where all four bands have pixel values higher than 1000. Use a raster algebra expression on the four bands (use <code>split</code> first), or use <code>st_apply</code> for this.</li>
 </ol>
+<div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74430894-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</div>
 
 
 <!-- -->
@@ -760,7 +772,7 @@ Fellows, Ian, and using the JMapViewer library by Jan Peter Stotz. 2019. <em>Ope
 Gorelick, Noel, Matt Hancher, Mike Dixon, Simon Ilyushchenko, David Thau, and Rebecca Moore. 2017. <span>“Google Earth Engine: Planetary-Scale Geospatial Analysis for Everyone.”</span> <em>Remote Sensing of Environment</em> 202: 18–27. <a href="https://doi.org/10.1016/j.rse.2017.06.031">https://doi.org/10.1016/j.rse.2017.06.031</a>.
 </div>
 <div id="ref-era5" class="csl-entry" role="doc-biblioentry">
-Hersbach, Hans, Bill Bell, Paul Berrisford, Shoji Hirahara, András Horányi, Joaquín Muñoz-Sabater, Julien Nicolas, et al. 2020. <span>“The ERA5 Global Reanalysis.”</span> <em>Quarterly Journal of the Royal Meteorological Society</em> 146 (730): 1999–2049. https://doi.org/<a href="https://doi.org/10.1002/qj.3803">https://doi.org/10.1002/qj.3803</a>.
+Hersbach, Hans, Bill Bell, Paul Berrisford, Shoji Hirahara, András Horányi, Joaquín Muñoz-Sabater, Julien Nicolas, et al. 2020. <span>“The ERA5 Global Reanalysis.”</span> <em>Quarterly Journal of the Royal Meteorological Society</em> 146 (730): 1999–2049. <a href="https://doi.org/10.1002/qj.3803">https://doi.org/10.1002/qj.3803</a>.
 </div>
 <div id="ref-R-ecmwfr" class="csl-entry" role="doc-biblioentry">
 Hufkens, Koen. 2020. <em>Ecmwfr: Interface to ECMWF and CDS Data Web Services</em>. <a href="https://github.com/bluegreen-labs/ecmwfr">https://github.com/bluegreen-labs/ecmwfr</a>.
@@ -1574,6 +1586,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb19-611"><a href="#cb19-611" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>With the downsampled image, compute the logical layer where all four</span>
 <span id="cb19-612"><a href="#cb19-612" aria-hidden="true" tabindex="-1"></a>bands have pixel values higher than 1000. Use a raster algebra expression</span>
 <span id="cb19-613"><a href="#cb19-613" aria-hidden="true" tabindex="-1"></a>on the four bands (use <span class="in">`split`</span> first), or use <span class="in">`st_apply`</span> for this.</span>
+<span id="cb19-614"><a href="#cb19-614" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-615"><a href="#cb19-615" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

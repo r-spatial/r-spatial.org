@@ -369,7 +369,7 @@ div.csl-indent {
 <p></p>
 <p>When the intrinsic support of the data is represented as points, but the underlying process is between proximate observations rather than driven chiefly by distance however measured between observations, the data may be aggregate counts or totals (polling stations, retail turnover) or represent a directly observed characteristic of the observation (opening hours of the polling station). Obviously, the risk of mis-representing the footprint of the underlying spatial processes remains in all of these cases, not least because the observations are taken as encompassing the entirety of the underlying process in the case of tessellation of the whole area of interest. This is distinct from the geostatistical setting in which observations are rather samples taken using some scheme within the area of interest. It is also partly distinct from the practice of taking areal sample plots within the area of interest but covering only a small proportion of the area, typically used in ecological and environmental research.</p>
 <p></p>
-<p>In order to explore and analyse areal data of these kinds in <a href="15-Measures.html"><span>Chapter&nbsp;15</span></a>, <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a>, <a href="17-Econometrics.html"><span>Chapter&nbsp;17</span></a>, methods are needed to represent the proximity of observations. This chapter considers a subset of the such methods, where the spatial processes are considered as working through proximity understood in the first instance as contiguity, as a graph linking observations taken as neighbours. This graph is typically undirected and unweighted, but may be directed and/or weighted in certain settings, which then leads to further issues with regard to symmetry. In principle, proximity would be expected to operate symmetrically in space, that is that the influence of <span class="math inline">\(i\)</span> on <span class="math inline">\(j\)</span> and of <span class="math inline">\(j\)</span> on <span class="math inline">\(i\)</span> based on their relative positions should be equivalent. Edge effects are not considered in standard treatments.</p>
+<p>In order to explore and analyse areal data of these kinds in <a href="15-Measures.html"><span>Chapter&nbsp;15</span></a>, <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a>, <a href="17-Econometrics.html"><span>Chapter&nbsp;17</span></a>, methods are needed to represent the proximity of observations. This chapter considers a subset of such methods, where the spatial processes are considered as working through proximity understood in the first instance as contiguity, as a graph linking observations taken as neighbours. This graph is typically undirected and unweighted, but may be directed and/or weighted in certain settings, which then leads to further issues with regard to symmetry. In principle, proximity would be expected to operate symmetrically in space, that is that the influence of <span class="math inline">\(i\)</span> on <span class="math inline">\(j\)</span> and of <span class="math inline">\(j\)</span> on <span class="math inline">\(i\)</span> based on their relative positions should be equivalent. Edge effects are not considered in standard treatments.</p>
 <p></p>
 <section id="representing-proximity-in-spdep" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="representing-proximity-in-spdep"><span class="header-section-number">14.1</span> Representing proximity in <strong>spdep</strong></h2>
@@ -935,6 +935,18 @@ unsure whether the new cross-reference in the caption will be rendered correctly
 <li>What difference might the choice of <code>rook</code> rather than <code>queen</code> contiguities make on a chessboard?</li>
 <li>What are the relationships between neighbour set cardinalities (neighbour counts) and row-standardised weights, and how do they open analyses up to edge effects? Use the chessboard you constructed in exercise 3 for both <code>rook</code> and <code>queen</code> neighbours.</li>
 </ol>
+<div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74430894-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</div>
 
 
 <!-- -->
@@ -971,7 +983,7 @@ Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2022. <em>S2: Spherical Geometr
 file., See AUTHORS. 2022. <em>Igraph: Network Analysis and Visualization</em>. <a href="https://CRAN.R-project.org/package=igraph">https://CRAN.R-project.org/package=igraph</a>.
 </div>
 <div id="ref-FRENISTERRANTINO201825" class="csl-entry" role="doc-biblioentry">
-Freni-Sterrantino, Anna, Massimo Ventrucci, and Håvard Rue. 2018. <span>“A Note on Intrinsic Conditional Autoregressive Models for Disconnected Graphs.”</span> <em>Spatial and Spatio-Temporal Epidemiology</em> 26: 25–34. https://doi.org/<a href="https://doi.org/10.1016/j.sste.2018.04.002">https://doi.org/10.1016/j.sste.2018.04.002</a>.
+Freni-Sterrantino, Anna, Massimo Ventrucci, and Håvard Rue. 2018. <span>“A Note on Intrinsic Conditional Autoregressive Models for Disconnected Graphs.”</span> <em>Spatial and Spatio-Temporal Epidemiology</em> 26: 25–34. <a href="https://doi.org/10.1016/j.sste.2018.04.002">https://doi.org/10.1016/j.sste.2018.04.002</a>.
 </div>
 <div id="ref-R-dbscan" class="csl-entry" role="doc-biblioentry">
 Hahsler, Michael, and Matthew Piekenbrock. 2022. <em>Dbscan: Density-Based Spatial Clustering of Applications with Noise (DBSCAN) and Related Algorithms</em>. <a href="https://github.com/mhahsler/dbscan">https://github.com/mhahsler/dbscan</a>.
@@ -980,7 +992,7 @@ Hahsler, Michael, and Matthew Piekenbrock. 2022. <em>Dbscan: Density-Based Spati
 Okabe, A., T. Satoh, T. Furuta, A. Suzuki, and K. Okano. 2008. <span>“Generalized Network Voronoi Diagrams: Concepts, Computational Methods, and Applications.”</span> <em>International Journal of Geographical Information Science</em> 22 (9): 965–94. <a href="https://doi.org/10.1080/13658810701587891">https://doi.org/10.1080/13658810701587891</a>.
 </div>
 <div id="ref-SHE201570" class="csl-entry" role="doc-biblioentry">
-She, Bing, Xinyan Zhu, Xinyue Ye, Wei Guo, Kehua Su, and Jay Lee. 2015. <span>“Weighted Network Voronoi Diagrams for Local Spatial Analysis.”</span> <em>Computers, Environment and Urban Systems</em> 52: 70–80. https://doi.org/<a href="https://doi.org/10.1016/j.compenvurbsys.2015.03.005">https://doi.org/10.1016/j.compenvurbsys.2015.03.005</a>.
+She, Bing, Xinyan Zhu, Xinyue Ye, Wei Guo, Kehua Su, and Jay Lee. 2015. <span>“Weighted Network Voronoi Diagrams for Local Spatial Analysis.”</span> <em>Computers, Environment and Urban Systems</em> 52: 70–80. <a href="https://doi.org/10.1016/j.compenvurbsys.2015.03.005">https://doi.org/10.1016/j.compenvurbsys.2015.03.005</a>.
 </div>
 <div id="ref-wall:04" class="csl-entry" role="doc-biblioentry">
 Wall, M. M. 2004. <span>“A Close Look at the Spatial Structure Implied by the <span>CAR</span> and <span>SAR</span> Models.”</span> <em>Journal of Statistical Planning and Inference</em> 121: 311–24.
@@ -1200,7 +1212,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>\index{footprint, spatial}</span>
 <span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>In order to explore and analyse areal data of these kinds in <span class="co">[</span><span class="ot">@sec-spatautocorr; @sec-spatglmm; @sec-spatecon</span><span class="co">]</span>, methods are needed to represent the proximity of observations. This chapter considers a subset of the such methods, where the spatial processes are considered as working through proximity understood in the first instance as contiguity, as a graph linking observations taken as neighbours. This graph is typically undirected and unweighted, but may be directed and/or weighted in certain settings, which then leads to further issues with regard to symmetry. In principle, proximity would be expected to operate symmetrically in space, that is that the influence of $i$ on $j$ and of $j$ on $i$ based on their relative positions should be equivalent. Edge effects are not considered in standard treatments.</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>In order to explore and analyse areal data of these kinds in <span class="co">[</span><span class="ot">@sec-spatautocorr; @sec-spatglmm; @sec-spatecon</span><span class="co">]</span>, methods are needed to represent the proximity of observations. This chapter considers a subset of such methods, where the spatial processes are considered as working through proximity understood in the first instance as contiguity, as a graph linking observations taken as neighbours. This graph is typically undirected and unweighted, but may be directed and/or weighted in certain settings, which then leads to further issues with regard to symmetry. In principle, proximity would be expected to operate symmetrically in space, that is that the influence of $i$ on $j$ and of $j$ on $i$ based on their relative positions should be equivalent. Edge effects are not considered in standard treatments.</span>
 <span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>\index{neighbourhood graph}</span>
 <span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a></span>
@@ -1749,6 +1761,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb66-670"><a href="#cb66-670" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Which functions creating neighbour objects are only appropriate for planar representations?</span>
 <span id="cb66-671"><a href="#cb66-671" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What difference might the choice of <span class="in">`rook`</span> rather than <span class="in">`queen`</span> contiguities make on a chessboard?</span>
 <span id="cb66-672"><a href="#cb66-672" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>What are the relationships between neighbour set cardinalities (neighbour counts) and row-standardised weights, and how do they open analyses up to edge effects? Use the chessboard you constructed in exercise 3 for both <span class="in">`rook`</span> and <span class="in">`queen`</span> neighbours.</span>
+<span id="cb66-673"><a href="#cb66-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-674"><a href="#cb66-674" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
