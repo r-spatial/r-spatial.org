@@ -117,27 +117,10 @@ Although `ndvi` is defined as an R function, in effect the `openeo` R client tra
 
 We will now process the NDVI values to a monthly series, by picking for each pixel the median value of all pixels over the month (Sentinel-2 has an image for roughly every 5 days). This is done by `aggregate_temporal`:
 ```{r}
-intervals = list(c('2018-01-01', '2018-02-01'),
-                 c('2018-02-01', '2018-03-01'),
-                 c('2018-03-01', '2018-04-01'),
-                 c('2018-04-01', '2018-05-01'),
-                 c('2018-05-01', '2018-06-01'), 
-                 c('2018-06-01', '2018-07-01'), 
-                 c('2018-07-01', '2018-08-01'),
-                 c('2018-08-01', '2018-09-01'),
-                 c('2018-09-01', '2018-10-01'), 
-                 c('2018-10-01', '2018-11-01'),
-                 c('2018-11-01', '2018-12-01'), 
-                 c('2018-12-01', '2018-12-30'))
-# and labels
-labels = sapply(intervals, head, 1) # create labels from list
+temp_period = p$aggregate_temporal_period(data = calc_ndvi, period = "month",
+                             reducer = function(data, context){p$median(data)}, 
+                             dimension = "t")
 
-# add the process node
-temp_period = p$aggregate_temporal(data = calc_ndvi,
-                                   intervals = intervals,
-                                   reducer = function(data, context){p$median(data)},
-                                   labels = labels,
-                                   dimension = "t")
 ```
 
 Finally, we can define how we want to save results (which file format), by the `save_result` process
