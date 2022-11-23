@@ -150,7 +150,7 @@ functions to be processed by an R instance in the back-end is done using
 We will now process the NDVI values to a monthly series, by picking for
 each pixel the median value of all pixels over the month (Sentinel-2 has
 an image for roughly every 5 days). This is done by
-`aggregate_temporal`:
+`aggregate_temporal_period`:
 
     temp_period = p$aggregate_temporal_period(data = calc_ndvi, period = "month",
                                  reducer = function(data, context){p$median(data)}, 

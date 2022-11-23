@@ -115,7 +115,7 @@ calc_ndvi = p$reduce_dimension(data = data,
 ```
 Although `ndvi` is defined as an R function, in effect the `openeo` R client translates this function into openEO native processes. This cannot be done with arbitrarily complex functions, and passing on R functions to be processed by an R instance in the back-end is done using _user-defined functions_, the topic of a future blog post.
 
-We will now process the NDVI values to a monthly series, by picking for each pixel the median value of all pixels over the month (Sentinel-2 has an image for roughly every 5 days). This is done by `aggregate_temporal`:
+We will now process the NDVI values to a monthly series, by picking for each pixel the median value of all pixels over the month (Sentinel-2 has an image for roughly every 5 days). This is done by `aggregate_temporal_period`:
 ```{r}
 temp_period = p$aggregate_temporal_period(data = calc_ndvi, period = "month",
                              reducer = function(data, context){p$median(data)}, 
