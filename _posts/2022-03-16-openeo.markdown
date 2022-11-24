@@ -1,7 +1,7 @@
 ---
 title: "Processing large scale satellite imagery with openEO Platform and R"
 author: "Edzer Pebesma, Florian Lahn, Huriel Reichel, Peter Zellner, Basil Tufail, Matthias Mohr"
-date:  "Nov 22, 2022"
+date:  "Nov 24, 2022"
 comments: false
 layout: post
 categories: r
@@ -27,6 +27,30 @@ post shows how the openEO client, available from
 documentation [here](https://open-eo.github.io/openeo-r-client/), can be
 used to explore datasets, compute on them, and download results.
 
+#### From image collection to data cube
+
+Image collections are collections of satellite images that are all
+processed in a uniform way. They are typically organized in tiles (or
+granules): raster files with all pixels obtained over an area observed
+in a single overpass of the satellite. Satellite image analysis often
+involves the analysis of a large number of tiles, obtained from
+different overpasses. The concept of *data cubes* makes it easier to
+analyse such data: a user defines the spatial extent and resolution, and
+the temporal extent and resolution, and all data is then reprocessed
+(aggregated) into the regular space and time resolutions. Cloud
+platforms such as openEO let the user define a data cube, and reprocess
+the data into this form before the final analysis steps are done. More
+explanation about datacubes in openEO is found
+[here](https://openeo.org/documentation/1.0/datacubes.html). The sample
+session below involves
+
+-   selecting an image collection, along with spatial and temporal
+    extents
+-   selecting spectral bands
+-   reducing the spectral dimension by computing a single index
+-   aggregating the tiles to monthly median values
+-   downloading and plotting the resulting image time series
+
 ## Sample session
 
 An openEO session is started with loading the library, connecting to a
@@ -44,17 +68,14 @@ general is not a free resource. The [openeo.cloud](https://openeo.cloud)
 website has instructions on how to apply for a (ESA-) sponsored account
 with limited compute credits.
 
-#### Image collections
-
 When these commands were carried out, and you are using RStudio as an
 IDE, RStudio will show an overview of the image collections available on
 this backend, which looks like this:
 
 ![](/images/collections.png)
 
-and which can help search for a particular collection. Image collections
-are collections of satellite images that are all processed in a uniform
-way. A more extensive viewer of the data collections is obtained by
+and which can help search for a particular collection. A more extensive
+viewer of the data collections is obtained in RStudio by
 
     collection_viewer()
 
@@ -77,7 +98,7 @@ collections can also be obtained programmatically by
 
     ## [1] 77
 
-which can then be further processed
+which can then be further processed in R.
 
 We will work with Sentinel level 2A data, available in the collection
 
@@ -170,20 +191,10 @@ cannot be done with arbitrarily complex functions, and passing on R
 functions to be processed by an R instance in the back-end is done using
 *user-defined functions*, the topic of a future blog post.
 
-#### Datacubes
-
-Satellite image tiles are associated with the time of overpass of the
-satellite. For larger areas, these times will differ. Although one can
-view image collections with different observation times for different
-regions as sparse datacubes, it is often easier to first aggregate all
-the data to a common time basis in which it forms a dense datacube. More
-explanation about datacubes in openEO is found
-[here](https://openeo.org/documentation/1.0/datacubes.html).
-
-We will now process the NDVI values to a monthly series, by picking for
-each pixel the median value of all pixels over the month (Sentinel-2 has
-an image for roughly every 5 days). This is done by
-`aggregate_temporal_period`:
+We will now process the NDVI values into a data cube with monthly
+values, by picking for each pixel the median value of all pixels over
+the month (Sentinel-2 has an image for roughly every 5 days). This is
+done by `aggregate_temporal_period`:
 
     temp_period = p$aggregate_temporal_period(data = calc_ndvi, period = "month",
                                  reducer = function(data, context){p$median(data)}, 
