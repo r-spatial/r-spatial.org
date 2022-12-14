@@ -1,0 +1,314 @@
+---
+title: "Vector Data Cubes"
+author: "Edzer Pebesma"
+date:  "Sep 12, 2022"
+comments: false
+layout: post
+categories: r
+---
+* TOC 
+{:toc}
+
+\[[view raw
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2022-09-12-vdc.Rmd)\]
+
+**Summary**:
+
+Where raster data cubes refer to data cubes with raster (x- and y-, or
+lon- and lat-) dimensions, **vector data cubes are n-D arrays that have
+(at least) a single spatial dimension that maps to a set of (2-D) vector
+geometries.** This post explains what they are used for, and how they
+can be handled with data science and GIS software.
+
+# Vector data cubes
+
+Vector data cubes are n-D arrays with (at least) one dimension that maps
+to a set of typically 2-D vector geometries (points, lines or polygons).
+A simple example is a time series of precipitation values for a set of
+stations. With 5 time steps and 3 stations this could look like
+
+           time
+    station 2022-08-15 2022-08-16 2022-08-17 2022-08-18 2022-08-19
+          A       1.03       0.62       1.47       1.88       4.23
+          B       2.65       2.59       1.19       1.63       4.57
+          C       2.08       1.72       4.33       1.58       2.62
+
+This contains station labels (A, B, C) but not geometries; we could
+encode the stations with their WKT notation `POINT(x y)`, as in
+
+                  time
+    station        2022-08-15 2022-08-16 2022-08-17 2022-08-18 2022-08-19
+      POINT(5 7)         1.03       0.62       1.47       1.88       4.23
+      POINT(1.3 4)       2.65       2.59       1.19       1.63       4.57
+      POINT(8 3)         2.08       1.72       4.33       1.58       2.62
+
+A second example is a time series of RGB brightness values sampled at
+four locations, which gives a 4 x 5 x 3 cube that can be printed as
+three 4 x 5 tables:
+
+    , , color = R
+
+                  time
+    station        2022-08-15 2022-08-16 2022-08-17 2022-08-18 2022-08-19
+      POINT(5 7)           74        120        102         87        107
+      POINT(1.3 4)         10         55        149        201         17
+      POINT(8 3)          175        162         83         38         29
+      POINT(2 6)          197        159        235         61         95
+
+    , , color = G
+
+                  time
+    station        2022-08-15 2022-08-16 2022-08-17 2022-08-18 2022-08-19
+      POINT(5 7)           31        179        240        151         26
+      POINT(1.3 4)        152        162        179        229         53
+      POINT(8 3)           86        162        249        116         34
+      POINT(2 6)           79         55          7        148         73
+
+    , , color = B
+
+                  time
+    station        2022-08-15 2022-08-16 2022-08-17 2022-08-18 2022-08-19
+      POINT(5 7)           12         79         64        244        232
+      POINT(1.3 4)         33         23         53        165        182
+      POINT(8 3)          250        229         47         85         87
+      POINT(2 6)          186         26         29        249        253
+
+## Where do vector data cubes come from?
+
+Naturally, in situ sensor data, where at regular time intervals data are
+collected at a number of stations, are vector data cube candidates. In
+the Earth Observation world, sampling raster data cubes at point
+locations leads to vector data cubes - an example would be to sample
+Sentinel-5P data cubes at the locations of air quality monitoring
+stations, in order to compare both - S5P values and in situ sensor
+values.
+
+Other applications involve time series of land use (change) values
+observed over time periods at fixed locations, which are input to ML
+models for the classification of time series of land use: as opposed to
+classifying land use scene by scene [dynamic world
+ref](https://dynamicworld.app/), from observations of land use time
+series a better approach might be to predict land use change from
+observed dynamics [sits book
+ref](https://e-sensing.github.io/sitsbook/).
+
+Another case where vector cubes arise is when (polygon) area statistics
+are calculated from raster data cube imagery, e.g. the deforested area
+(fraction, or ha) by year and by state or country.
+
+## Representing vector data cubes in software
+
+In principle, any software that can handle labeled arrays (arrays with
+named dimensions, and labels for dimension values) can handle vector
+data cubes. However, the handling is rather clumsy: labels are character
+(string) vectors, and do not reveal
+
+-   where time, geometries, or other dimensions are involved, and
+-   what dimension values mean: measurement units, or reference systems
+    for time (origin and unit in case of numeric values; time zone,
+    calendar) or space (coordinate reference system: datum, projection
+    parameters)
+
+More dedicated software takes care of this, e.g. R package
+[`stars`](https://r-spatial.github.io/stars/) summarizes the above data
+like this:
+
+    stars object with 3 dimensions and 1 attribute
+    attribute(s):
+                    Min. 1st Qu. Median   Mean 3rd Qu. Max.
+    brightness [cd]    7      53   98.5 118.25     179  253
+    dimension(s):
+            from to     offset  delta refsys point                      values
+    station    1  4         NA     NA WGS 84  TRUE POINT (5 7),...,POINT (2 6)
+    time       1  5 2022-08-15 1 days   Date    NA                        NULL
+    color      1  3         NA     NA     NA    NA                     R, G, B
+
+which
+
+-   recognizes the regularity of the time dimension, and its `Date`
+    class
+-   adds a reference system to the station geometries, and recognizes
+    these are points
+
+## File formats for vector data cubes
+
+### array formats
+
+Multidimensional arrays with a vector geometry dimension can well be
+saved in formats like NetCDF or Zarr. For instance a NetCDF
+representation, as printed by `ncdump`, would look like
+
+    netcdf a {
+    dimensions:
+        color = 3 ;
+        time = 5 ;
+        station = 4 ;
+    variables:
+        double brightness(color, time, station) ;
+            brightness:grid_mapping = "crs" ;
+            brightness:coordinates = "lat lon" ;
+            brightness:units = "cd" ;
+        char crs ;
+            crs:grid_mapping_name = "latitude_longitude" ;
+            crs:long_name = "CRS definition" ;
+            crs:longitude_of_prime_meridian = 0. ;
+            crs:semi_major_axis = 6378137. ;
+            crs:inverse_flattening = 298.257223563 ;
+            crs:spatial_ref = "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]" ;
+            crs:crs_wkt = "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]" ;
+        double station(station) ;
+        double time(time) ;
+            time:units = "days since 1970-01-01" ;
+        string col(color) ;
+        double lon(station) ;
+            lon:units = "degrees_north" ;
+            lon:standard_name = "longitude" ;
+            lon:axis = "X" ;
+        double lat(station) ;
+            lat:units = "degrees_east" ;
+            lat:standard_name = "latitude" ;
+            lat:axis = "Y" ;
+        double geometry ;
+            geometry:geometry_type = "point" ;
+            geometry:grid_mapping = "crs" ;
+
+    // global attributes:
+            :Conventions = "CF-1.6" ;
+    data:
+
+     brightness =
+      74, 10, 175, 197,
+      120, 55, 162, 159,
+      102, 149, 83, 235,
+      87, 201, 38, 61,
+      107, 17, 29, 95,
+      31, 152, 86, 79,
+      179, 162, 162, 55,
+      240, 179, 249, 7,
+      151, 229, 116, 148,
+      26, 53, 34, 73,
+      12, 33, 250, 186,
+      79, 23, 229, 26,
+      64, 53, 47, 29,
+      244, 165, 85, 249,
+      232, 182, 87, 253 ;
+
+     station = 1, 2, 3, 4 ;
+
+     time = 19219, 19220, 19221, 19222, 19223 ;
+
+     col = "R", "G", "B" ;
+
+     lon = 5, 1.3, 8, 2 ;
+
+     lat = 7, 4, 3, 6 ;
+    }
+
+Such files can be read and written using [GDAL’s multidimensional array
+API](https://gdal.org/api/index.html#multi-dimensional-array-api), and
+transformed into other multidimansional array formats using
+`gdalmdimtranslate`. The utility `gdalmdiminfo` can print the dimension
+metadata, or the entire information (including values) as JSON.
+
+## I/O: GIS formats
+
+The two common GIS formats (as supported by GDAL) are
+
+-   vector tables: a set of vector geometries with zero or more
+    attributes
+-   raster data: a raster images with 1 or more layers
+
+Clearly, for vector data cubes the the raster data format will not work
+because the array dimensions do not correspond to two spatial dimensions
+(x and y). For vector tables, there are essentially two options:
+
+### long table form
+
+The long table form can be illustrated by showing six records of the
+array above:
+
+            station       time color brightness
+    1   POINT (5 7) 2022-08-15     R    74 [cd]
+    2 POINT (1.3 4) 2022-08-15     R    10 [cd]
+    3   POINT (8 3) 2022-08-15     R   175 [cd]
+    4   POINT (2 6) 2022-08-15     R   197 [cd]
+    5   POINT (5 7) 2022-08-16     R   120 [cd]
+    6 POINT (1.3 4) 2022-08-16     R    55 [cd]
+
+In this form, the complete set of array values ends up in a single
+column, and all dimensions are recycled appropriately. This is the least
+ambiguous form because it
+
+-   keeps dimension and variable names,
+-   keeps data types (like variable time being of class `Date`)
+-   keeps the array values in a single column.
+
+On the other hand, it replicates dimension values and can lead to very
+large tables.
+
+When a table of this kind is provided by a user, it is not immediately
+clear
+
+-   what the (unique) dimension values are, in particular for geometries
+-   whether all array values are present,
+-   whether it contains multiple records with identical dimension values
+
+all this needs to be sorted out before one can recreate a
+multidimensional array from its long table form.
+
+### wide table forms
+
+There are different ways in which we can use the column space to
+distribute our array values. The most extreme would *not* replicate
+geometries, so end up with four rows and combine the other dimensions
+(time, color) into columns, creating column names that paste the
+information togehter, as in the 4 rows x 15 columns table
+
+      2022-08-15.R 2022-08-16.R 2022-08-17.R 2022-08-18.R 2022-08-19.R 2022-08-15.G
+    1      74 [cd]     120 [cd]     102 [cd]      87 [cd]     107 [cd]      31 [cd]
+    2      10 [cd]      55 [cd]     149 [cd]     201 [cd]      17 [cd]     152 [cd]
+    3     175 [cd]     162 [cd]      83 [cd]      38 [cd]      29 [cd]      86 [cd]
+    4     197 [cd]     159 [cd]     235 [cd]      61 [cd]      95 [cd]      79 [cd]
+      2022-08-16.G 2022-08-17.G 2022-08-18.G 2022-08-19.G 2022-08-15.B 2022-08-16.B
+    1     179 [cd]     240 [cd]     151 [cd]      26 [cd]      12 [cd]      79 [cd]
+    2     162 [cd]     179 [cd]     229 [cd]      53 [cd]      33 [cd]      23 [cd]
+    3     162 [cd]     249 [cd]     116 [cd]      34 [cd]     250 [cd]     229 [cd]
+    4      55 [cd]       7 [cd]     148 [cd]      73 [cd]     186 [cd]      26 [cd]
+      2022-08-17.B 2022-08-18.B 2022-08-19.B       station
+    1      64 [cd]     244 [cd]     232 [cd]   POINT (5 7)
+    2      53 [cd]     165 [cd]     182 [cd] POINT (1.3 4)
+    3      47 [cd]      85 [cd]      87 [cd]   POINT (8 3)
+    4      29 [cd]     249 [cd]     253 [cd]   POINT (2 6)
+
+Other forms would borrow from the long form, and for instance create 5 x
+4 records with all station and time combinations and have variables `R`,
+`G` and `B`, or have 5 x 3 records combining the station and color,
+having the time values as column names.
+
+The disadvantages are obvious:
+
+-   column names collated from combinations of dimension values are
+    cludgy, and are ugly to read or process
+-   the dimension values that end up in column names loose there type,
+    units and reference system
+-   this may lead to tables with extremely many columns, which may be
+    not practical or break software
+-   software my require that column names start with a letter,
+    increasing the name cludge
+
+Recreating the array from wide table forms may be relatively
+straightforward in data science languages (Python, R) but harder in
+databases.
+
+It should be noted that vector data cubes can also have line or polygon
+geometries. In that case, WKT representations of geometries can become
+very long and not useful as colunn names.
+
+### Multiple (long) table forms (database normalization)
+
+The repetition of dimension values in the long table form would be
+prohibitive if individual geometries are large. One way to cope with
+that is to create a geometry table with the unique geometries, and put a
+index (foreign key) to these geometries in the long table. This can be
+done with all recycling dimensions, and would make recreating the
+original array easier.

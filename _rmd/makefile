@@ -1,6 +1,7 @@
 NAME	= 2022-12-12-evolution2
 #NAME	= 2021-04-21-xx
 #NAME	= 2022-03-05-sftime-1
+NAME	= 2022-03-16-openeo
 
 all:
 	vi $(NAME).Rmd

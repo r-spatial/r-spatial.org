@@ -1,0 +1,289 @@
+---
+title: "Reading Zarr files with R package stars"
+author: "Edzer Pebesma"
+date:  "Sep 13, 2022"
+comments: false
+layout: post
+categories: r
+---
+
+
+TOC
+
+[DOWNLOADHERE]
+
+**Summary**: 
+Zarr files are the new cloud native NetCDF, and are here to stay.
+This blog post will explore how they can be read in R using the GDAL
+"classic" raster API and the (relatively) new GDAL multidimensional
+array API, and how we can read sub-arrays or strided (subsampled,
+lower resolution) arrays. CMIP6 data is being released as Zarr data
+on the Google Cloud.
+
+```{r include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+##  What is Zarr?
+
+`Zarr` is a data format; it does not come in a single file as `NetCDF`
+or `HDF5` does but as a directory with chunks of data in compressed
+files and metadata in JSON files.  Zarr was developed in the Python
+numpy and xarray communities, and was quickly taken up by the Pangeo
+community. A Python-independent specification of Zarr (in progress,
+V3) is found [here](https://zarr-specs.readthedocs.io/en/latest/). 
+
+[GDAL](https://gdal.org/) has a [Zarr
+driver](https://gdal.org/drivers/raster/zarr.html), and can read
+single (spatial, raster) slices without time reference through its
+classic [raster API](https://gdal.org/api/index.html#raster-api), and
+full time-referenced arrays through its newer [multidimensional array
+API](https://gdal.org/api/index.html#multi-dimensional-array-api). In
+this blog post we show how these can be used through R
+and package [stars](https://r-spatial.github.io/stars) for raster and
+[vector data cubes](https://r-spatial.org/r/2022/09/12/vdc.html). We
+will start with an attempt to reproduce what
+[Ryan Abernathey](https://twitter.com/rabernat)
+did with Python, xarray and geopandas, published
+[here](https://discourse.pangeo.io/t/conservative-region-aggregation-with-xarray-geopandas-and-sparse/2715).
+
+## Aggregating global precipitation time series to countries
+
+Ryan's blog post aggregates a global, 1-degree "square" gridded
+daily precipitation dataset (NASA GPCP) to country values, where the
+aggregation should be weighted according to the amount of overlap
+of grid cells (as "square" polygons) and country polygons.
+
+We can read the rainfall data in R using
+```{r}
+library(stars)
+dsn = 'ZARR:"/vsicurl/https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr"'
+bounds = c(longitude = "lon_bounds", latitude = "lat_bounds")
+r = read_mdim(dsn, bounds = bounds)
+r
+st_bbox(r)
+r[r < 0 | r > 100] = NA
+```
+where
+
+* the dsn is constructed such that GDAL knows this is a Zarr file (`ZARR:`) and that it is a web resource (`/vsicurl/`).
+* we specify the bounds because the `latitude` and `longitude` variables do not have a `bounds` attribute pointing to the cell boundaries, and their values do not point to grid cell centers (as recommended but not required by [CF 1.10](https://cfconventions.org/Data/cf-conventions/cf-conventions-1.10/cf-conventions.html#coordinate-types)), but to boundaries 
+* the Zarr has no CRS, so that R wouldn't know these are ellipsoidal coordinates; without action it would then assume they are Cartesian coordinates (as geopandas does); we will correct this later on
+* values below 0 and above 100 are set to `NA`; this is according to the `valid_range` attribute for the `precip` variable, but not automatically parsed
+* `time` does not have an offset/delta pair, indicating it is not regular; there seem to be a few duplicate time steps, we can identify them by
+
+```{r}
+time(r) |> diff() |> table()
+ti = time(r)
+ti[which(diff(ti) == 0)]
+```
+
+### 50m natural Earth country boundaries
+
+We can load the 50m NE Country boundaries from the `rnaturalearth` package:
+
+```{r}
+library(rnaturalearth)
+ne = ne_countries(scale = 50, returnclass = "sf")
+st_crs(r) = st_crs(ne)
+ne = st_make_valid(ne)
+```
+
+where
+
+* we set the CRS of the precipitation data cube, equal to that of NE (WGS84)
+* we call `st_make_valid()` to make the country boundaries [valid _on the sphere_](https://r-spatial.org/book/04-Spherical.html#validity-on-the-sphere)
+
+## simple aggregation
+
+`aggregate` takes the grid cells as points:
+```{r}
+(a = aggregate(r, ne, mean, na.rm = TRUE))
+```
+
+and returns a _vector data cube_: an array with 241 country geometries x 9226 time steps (days). We can select the time series for Italy and plot it, using the time series package `xts`, and aggregation to monthly mean values from `xts`:
+
+
+```{r zarr1}
+library(xts)
+a[, which(ne$admin == "Italy"),] |>  # select Italy
+	adrop() |>  # drop geometry dimension
+	as.xts() -> a.xts # convert to xts (time series class)
+a.xts |>
+	aggregate(as.Date(cut(time(a.xts), "month")), mean, na.rm = TRUE) |> # temporal aggregation
+	plot(ylab = "mean daily precip [mm/d]")
+```
+
+The "exact" (or "conservative region") aggregation in Ryan's blog is obtained by
+[area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted); we have `s2` on to get intersection using spherical coordinates; doing this with Cartesian coordinates will not work for half of the globe unless we'd recenter the precipitation coordinates from [0,360] to [-180,180]:
+```{r zarr2}
+sf_use_s2() # the default
+ne = st_make_valid(ne)
+it = ne[ne$admin == "Italy",]
+st_interpolate_aw(r, it, extensive = FALSE) |>
+	st_set_dimensions("time", time(r)) -> a2
+a2 |> 
+	adrop() |> 
+	as.xts() |>
+	aggregate(as.Date(cut(time(a2), "month")), mean, na.rm = TRUE) |> # monthly means
+	plot(ylab = "mean daily precip [mm/d]")
+```
+
+We can compare outcomes from both computations e.g. in a scatter plot:
+```{r zarr3}
+a2 |> adrop() |> as.xts() -> a2.xts
+plot(as.vector(a.xts), as.vector(a2.xts),
+	 xlab = "pixels as points", ylab = "pixels as polygons")
+abline(0, 1)
+```
+
+
+## CMIP6 data
+
+[CMIP6](https://www.wcrp-climate.org/wgcm-cmip/wgcm-cmip6), the
+climate model intercomparison project, will share its output data
+(simulations of climate projections) as NetCDF but also as Zarr files on Google
+Cloud Storage. A STAC interface (static) to these data is found
+[here](https://github.com/pangeo-data/pangeo-datastore-stac/blob/master/master/climate/cmip6_gcs/collection.json).
+
+
+One of these files, containing pressure at sea level for 6-hour intervals, was created by the following Python script:
+```
+import fsspec
+import xarray
+import zarr
+m = fsspec.get_mapper("https://storage.googleapis.com/cmip6/CMIP6/HighResMIP/CMCC/CMCC-CM2-HR4/highresSST-present/r1i1p1f1/6hrPlev/psl/gn/v20170706")
+ds = xarray.open_zarr(m)
+ds.sel(time=slice("1948-01-01","1955-12-31")).to_zarr("./psl.zarr")
+```
+
+That file is provided [here](https://uni-muenster.sciebo.de/s/seyc31AxNzGzot9), but we will read the same file directly from the cloud storage using R:
+
+```{r}
+dsn = 'ZARR:"/vsicurl/https://storage.googleapis.com/cmip6/CMIP6/HighResMIP/CMCC/CMCC-CM2-HR4/highresSST-present/r1i1p1f1/6hrPlev/psl/gn/v20170706"/:psl.zarr/'
+d = read_mdim(dsn, count = c(NA, NA, 11680))
+st_crs(d) = 'OGC:CRS84'
+d
+st_bbox(d)
+```
+
+where:
+
+* in addition to the `ZARR:` and `/vsicurl/` prefixes, we see the array name (`psl.zarr`) specified
+* the count for time, corresponding to the time slices, is given, leaving the ones for longitude and latitude to `NA`
+* dimension information can be obtained using the `gdalmdiminfo` binary, or from R using
+
+```{r}
+ret = gdal_utils("mdiminfo", dsn, quiet = TRUE)
+jsonlite::fromJSON(ret)$dimensions
+```
+
+* bounds are being read, and as they are specified as an attribute to the coordinate variables:
+
+```{r}
+jsonlite::fromJSON(ret)$arrays$lon$attributes$bounds
+jsonlite::fromJSON(ret)$arrays$lat$attributes$bounds
+```
+
+* we can see from the print summary that the `latitude` bounds are irregular: the ones touching the poles are half the latitude width as all others. Reading this
+as a regular GDAL file creates problems.
+* we also see is the the `refsys` (reference system) of
+the time is `PCICt_365`, indicating a "365-day" calendar is used:
+leap days are ignored. 
+
+A regular sequence of 6-hour images is provided for the non-leap days. Using package `PCICt` we can convert
+this to `POSIXct` time (the one we live in) by
+```{r}
+as.POSIXct(r)
+```
+after which we see that we no longer have a regular time dimension
+but semi-regular with gaps (the leap days); POSIXct values are now in
+the `values` field of the `time` dimension.
+
+We can plot the first 49 time slices e.g. by
+```{r zarr4}
+plot(r[,,,1:49]) # first 49 time steps
+```
+
+### Reading sub-arrays or strided arrays
+
+Using the multidimensional array API we can read lower reslution versions
+of the imagery by setting 
+
+* `offset` the offset (start) of reading (pixels, 0, 0, 0 by default)
+* `count` the number of steps to read in each dimensions
+* `step` the step size in each dimension
+
+As an example, let's try to read one value per year:
+```{r zarr5}
+(r = read_mdim(dsn, step = c(1, 1, 365 * 4)))
+plot(r)
+```
+
+We can for instance read yearly data at a quarter of the spatial resolution by
+```{r zarr6}
+(r = read_mdim(dsn, step = c(4, 4, 365 * 4)))
+plot(r)
+```
+
+### Using the classic GDAL raster API
+
+We can explore the the zarr file by omitting the array name, e.g. by
+```{r}
+dsn = 'ZARR:"/vsicurl/https://storage.googleapis.com/cmip6/CMIP6/HighResMIP/CMCC/CMCC-CM2-HR4/highresSST-present/r1i1p1f1/6hrPlev/psl/gn/v20170706"/'
+gdal_utils("info", dsn)
+```
+
+which lists the subdatasets; if we would ask for info on a subdatasetname we see an error:
+
+```{r}
+dsn = 'ZARR:"/vsicurl/https://storage.googleapis.com/cmip6/CMIP6/HighResMIP/CMCC/CMCC-CM2-HR4/highresSST-present/r1i1p1f1/6hrPlev/psl/gn/v20170706/":/psl'
+gdal_utils("info", dsn)
+```
+
+indicating that we need to add an index of the additional dimension (time). If we add e.g. index 10, we get
+
+
+```{r}
+dsn = 'ZARR:"/vsicurl/https://storage.googleapis.com/cmip6/CMIP6/HighResMIP/CMCC/CMCC-CM2-HR4/highresSST-present/r1i1p1f1/6hrPlev/psl/gn/v20170706/":/psl:10'
+gdal_utils("info", dsn)
+```
+
+which describes a 288 x 192 pixel raster layer. It also reveals that GDAL thinks that this raster file has latitude dimensions exceeding [-90,90].  We can
+read such a slice with `read_stars` and plot the result:
+
+```{r zarr7}
+(r0 = read_stars(dsn))
+plot(r0, axes = TRUE)
+```
+
+## Software versions
+
+To use the features in this blog post for reading sub-arrays or lower resolution
+arrays, you need stars >= 0.5-7 and sf >= 1.0-9, which you can get by installing
+from source by
+```{r eval=FALSE}
+remotes::install_github("r-spatial/sf") # requires rtools42 on windows
+remotes::install_github("r-spatial/stars")
+```
+You need both, since `stars` uses `sf`'s binding to GDAL - `stars`
+is a pure R package, all linking to GDAL happens through `sf`.
+
+Alternatively, and in particular if you use Windows or MACOS you
+could install the github versions as binary package from r-universe:
+
+```{r eval=FALSE}
+install.packages("sf", repos = "https://r-spatial.r-universe.dev")
+install.packages("stars", repos = "https://r-spatial.r-universe.dev")
+```
+
+**update** users have reported
+[failure](https://github.com/r-spatial/stars/issues/564)
+to reproduce the steps in this blog post. Note that this blog
+post was run on a version of `sf` linked to GDAL 3.4.3 from the
+[ubuntugis-unstable](https://github.com/r-spatial/sf#ubuntu) ppa. If
+you have `sf` linked to an older version of GDAL, or if the GDAL
+version was not linked against BLOSC, then this (or parts of it)
+may not work. Note that Zarr, and Zarr support in GDAL are all very
+recent developments, and it takes time for modern library support to
+propagate through e.g. CRAN build toolchains -- we are working on it!
