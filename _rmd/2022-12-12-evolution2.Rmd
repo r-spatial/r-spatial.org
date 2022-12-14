@@ -1,7 +1,7 @@
 ---
 title: "Progress on R-spatial evolution, Dec 2022"
 author: "Roger Bivand, Edzer Pebesma"
-date:  "12 December, 2022"
+date:  "14 December, 2022"
 comments: false
 layout: post
 categories: r
@@ -17,13 +17,13 @@ TOC
 
 **Summary**:
 
-This is the second report on the [R-spatial evolution](https://github.com/r-spatial/evolution) project. The project involves the retirement (archiving) of `rgdal`, `rgeos` and `maptools` during 2023. The [first report](https://r-spatial.org/r/2022/04/12/evolution.html) set out the main goals of the project. Here we report on progress so far, steps already taken, and those remaining to be accomplished.
+This is the second report on the [R-spatial evolution](https://github.com/r-spatial/evolution) project. The project involves the retirement (archiving) of `rgdal`, `rgeos` and `maptools` during 2023. The [first report](https://r-spatial.org/r/2022/04/12/evolution.html) set out the main goals of the project. Here we report on progress so far, steps already taken, and those remaining to be accomplished. We feel that anyone planning training or teaching for the Northen hemisphere Fall semester/term should plan to have ceased using the retiring packages before work begins after the summer; `sp` will use `sf` for functions previously using retiring packages in June 2023.
 
 # Package dependency tables
 
 While [`pkgapi`](https://github.com/r-lib/pkgapi) states that it is a work-in-progress, for our purposes it is very useful. We have run a number of checks to  determine which reverse dependency packages (of type `"most"`, which implies `"Depends:"`, `"Imports:"`, `"LinkingTo:"` or `"Suggests:"`) use functions and methods from R packages `rgdal`, `rgeos`, or `maptools`. The [results](https://r-spatial.github.io/evolution/report.html) from runs for each package in mid-August showed that `raster` used 34 functions or methods in `rgdal` and `rgeos`, `ursa` used 28, and `FIESTAutils` 15. In early December, an updated [report](https://r-spatial.github.io/evolution/report_221207.html) shows that `raster` package from `3.6-3` uses `terra` instead of `rgdal` and `rgeos` to access the external OSGeo FOSS libraries PROJ, GDAL and GEOS. 
 
-This also means that all packages that depend on or import from `raster`, and added a weak dependency on `rgdal` and `rgeos` for that reason, may now drop those dependencies, conditional on requiring `raster` of version `>= 3.6-3`.
+This also means that all packages that depend on or import from `raster`, and added a weak dependency on `rgdal` and `rgeos` for that reason, may now drop those dependencies, conditional on requiring `raster` of version `>= 3.6-3`. In recent tests,it seems that of the 248 packages depending on `raster` and at least one of the retiring packages, 102 use retiring package code in their own code  as found by `pkgapi`, but 146 do not. The maintainers of the 248 packages are being contacted by email or github issue. Maintainers of packages originally depending on retiring packages because `raster` did so, are encouraged to drop the now redundant dependencies as soon as possible. Since `terra` is by definition available to packages using `raster`, it seems sensible to replace in examples the deprecated `rgdal::readOGR()` with `terra::vect()`, and similarly for other methods and functions.
 
 We have raised Github issues with [`ursa`](https://github.com/nplatonov/ursa/issues/1) and [`FIESTAutils`](https://github.com/USDAForestService/FIESTAutils/issues/3), but will take no further steps as these packages are not used by other packages with other maintainers.
 
