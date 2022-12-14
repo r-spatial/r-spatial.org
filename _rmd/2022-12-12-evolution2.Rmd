@@ -1,5 +1,5 @@
 ---
-title: "Progress on R-spatial evolution"
+title: "Progress on R-spatial evolution, Dec 2022"
 author: "Roger Bivand, Edzer Pebesma"
 date:  "12 December, 2022"
 comments: false
@@ -17,30 +17,36 @@ TOC
 
 **Summary**:
 
-This is the second report on the R-spatial evolution project. The project involves the retirement (archiving) of `rgdal`, `rgeos` and `maptools` during 2023. The [first report](https://r-spatial.org/r/2022/04/12/evolution.html) set out the main goals of the project. Here we report on progress so far, steps already taken, and those remaining to be accomplished.
+This is the second report on the [R-spatial evolution](https://github.com/r-spatial/evolution) project. The project involves the retirement (archiving) of `rgdal`, `rgeos` and `maptools` during 2023. The [first report](https://r-spatial.org/r/2022/04/12/evolution.html) set out the main goals of the project. Here we report on progress so far, steps already taken, and those remaining to be accomplished.
 
 # Package dependency tables
 
-While `pkgapi` (https://github.com/r-lib/pkgapi) states that it is a work-in-progress, for our purposes it is very useful. We have run a number of check to  determine which `"most"` reverse dependency packages (`c("Depends", "Imports", "LinkingTo", "Suggests")`) use functions and methods from `c("rgdal", "rgeos", "maptools")`. The [results](https://r-spatial.github.io/evolution/report.html) from runs for each package in mid-August showed that `raster` used 34 functions or methods in `rgdal` and `rgeos`, `ursa` used 28, and `FIESTAutils` 15. In early December, our [report](https://r-spatial.github.io/evolution/report_221207.html) shows that `raster` package from `3.6-3` uses `terra` instead of `rgdal` and `rgeos` to access the external OSGeo FOSS libraries PROJ, GDAL and GEOS. 
+While [`pkgapi`](https://github.com/r-lib/pkgapi) states that it is a work-in-progress, for our purposes it is very useful. We have run a number of checks to  determine which reverse dependency packages (of type `"most"`, which implies `"Depends:"`, `"Imports:"`, `"LinkingTo:"` or `"Suggests:"`) use functions and methods from R packages `rgdal`, `rgeos`, or `maptools`. The [results](https://r-spatial.github.io/evolution/report.html) from runs for each package in mid-August showed that `raster` used 34 functions or methods in `rgdal` and `rgeos`, `ursa` used 28, and `FIESTAutils` 15. In early December, an updated [report](https://r-spatial.github.io/evolution/report_221207.html) shows that `raster` package from `3.6-3` uses `terra` instead of `rgdal` and `rgeos` to access the external OSGeo FOSS libraries PROJ, GDAL and GEOS. 
 
-This also means that all packages that depend on or import from `raster`, and added a weak dependency on `rgdal` and `rgeos` for that reason, may now drop those dependencies, conditional on `raster (>= 3.6-3)`.
+This also means that all packages that depend on or import from `raster`, and added a weak dependency on `rgdal` and `rgeos` for that reason, may now drop those dependencies, conditional on requiring `raster` of version `>= 3.6-3`.
 
-We have also raised Github issues with [`ursa`](https://github.com/nplatonov/ursa/issues/1) and [`FIESTAutils`](https://github.com/USDAForestService/FIESTAutils/issues/3) without response, but will take no further steps as these packages are not used by other packages with other maintainers.
+We have raised Github issues with [`ursa`](https://github.com/nplatonov/ursa/issues/1) and [`FIESTAutils`](https://github.com/USDAForestService/FIESTAutils/issues/3), but will take no further steps as these packages are not used by other packages with other maintainers.
 
-## `sp` evolution status
+# `sp` evolution status
 
-As mentioned in our first report, `sp` on CRAN has been provided with conditional code that prevents `sp` calling most code in `rgdal` or `rgeos`. This can be enabled *before* loading `sp` by setting:
+As mentioned in our first report, `sp` on CRAN has been provided with conditional code that prevents `sp` calling most code in `rgdal` or `rgeos`. This can be enabled *before* loading `sp` by setting e.g.:
 ```
 options("sp_evolution_status"=2)
 library(sp)
 ```
-or for checking packages under status 0 (business as usual), 1 (stop if `rgdal` or `rgeos` absent) or 2 (use `sf` instead) as an environment variable read when `sp` is loaded:
+for checking packages under status
+
+* `0`: business as usual, 
+* `1`: stop if `rgdal` or `rgeos` are absent, or 
+* `2`: use `sf` instead of `rgdal` and `rgeos`
+
+or alternatively can be set as an environment variable read when `sp` is loaded, e.g. when running checks from the command line by
 ```
 _SP_EVOLUTION_STATUS_=2 R CMD check
 ```
-Some months before the retiring packages are archived, we will flip `sp` from loading assuming business-as-usual to assuming the use of `sf` instead of `rgdal` and `rgeos` where that is possible, target June 2023, with a dry run and bulk emails in April and May 2023.
+Some months before the retiring packages are archived, we will flip `sp` from loading assuming business-as-usual to assuming the use of `sf` instead of `rgdal` and `rgeos` (evolution status `2`) where that is possible. For this, **we target June 2023**, with a dry run and bulk emails in April and May 2023.
 
-## Using `spdep` as a testbed
+# Using `spdep` as a testbed
 
 In connection with a release of `spdep` (maintained by Roger Bivand), maintainers of packages depending on `spdep` and strongly depending on one or more retiring package were contacted by email in early October to advise action. The packages were detected by running reverse dependency checks without retiring packages present in the R library path. The 27 affected packages were:
 ```
@@ -51,17 +57,18 @@ rflexscan, SegEnvIneq, spatialEco*, SpatialEpi, spmoran, stampr,
 tipsae
 ```
 These are being monitored to gauge how rapidly upgrades occur as a response to a bulk email; there were a fair number of replies to the email. The email concluded:
+
 > Of course, your use of the retiring packages that I've maintained for many years has been a source of great satisfaction, but now it is time to move on.
 
 In a linked exchange (the `Guerry` package), `maptools::pointLabel()` is deprecated and is now `car::pointLabel()`, and adapted functions based on these were deprecated as in https://github.com/oscarperpinan/rastervis/issues/93.
 
-As of mid-December, 98 CRAN packages `"most"` depended on `spdep` when running reverse dependency checks on `spdep 1.2-8`. None failed `_SP_EVOLUTION_STATUS_=0 R CMD check` when the retiring packages were on the R library path; five packages marked with stars no longer failed `_SP_EVOLUTION_STATUS_=0 R CMD check` without retiring packages on the R library path in mid-December 2022. Three new reverse dependencies had appeared at that point, of which `SpatialRegimes` and `SUNGEO` failed irrespective of evolution status (indirect dependencies via `automap` and `GWmodel` respectively), and `geomerge` passed for `_SP_EVOLUTION_STATUS_=2`.
+As of mid-December 2022, 98 CRAN packages depended (of type `"most"`) on `spdep` when running reverse dependency checks on `spdep 1.2-8`. None failed `_SP_EVOLUTION_STATUS_=0 R CMD check` when the retiring packages were on the R library path; five packages marked with stars no longer failed `_SP_EVOLUTION_STATUS_=0 R CMD check` without retiring packages on the R library path in mid-December 2022. Three new reverse dependencies had appeared at that point, of which `SpatialRegimes` and `SUNGEO` failed irrespective of evolution status (indirect dependencies via `automap` and `GWmodel` respectively), and `geomerge` passed for `_SP_EVOLUTION_STATUS_=2`.
 
 `gamlss.spatial`, `latticedensity`, `spmoran` and ` tipsae` could be fixed easily by conditioning on package availability in examples or vignettes.
 
 Of these packages, only `BayesX`, `bfsMaps`, `expp`, `FRK`, `leastcostpath`, `micromapST`, `OasisR`, `ref.ICAR`, `SegEnvIneq`, `SpatialEpi` and `stampr` actually use functions or methods from retiring packages in code rather than examples or vignettes. Among the most used are `maptools::unionSpatialPolygons()`, `rgeos::readWKT()` and `rgdal::readOGR`. 
 
-## Deprecations in retiring packages
+# Deprecations in retiring packages
 
 Functions and methods in retiring packages that are often used in code in reverse dependencies have now been deprecated (`rgdal_1.6-2`, `maptools_1.1-5`, `rgeos_0.6-1`). These deprecations lead to more visual noise and hopefully irritation, drawing maintainer and user attention to the need for expeditious upgrading away from retiring packages. Occasionally the deprecations break `testthat::expect_silent()` invocations, again serving a useful purpose.
 
@@ -69,7 +76,7 @@ For guidance, the `NAMESPACE` files in the retiring packages have been commented
 
 It may seem unusual that the retiring packages are maintained under SVN on R-Forge, but the decision not to migrate to Github was taken years ago when R-spatial development was being reviewed. New packages, and packages seen as having development potential were moved to Github, while others without development potential were left on R-Forge under SVN to discourage user contributions.
 
-## Script analysis from The Dataverse Project
+# Script analysis from The Dataverse Project
 
 In https://arelbundock.com/dataverse_r_pkgs.html, an analysis of some 19,000 scripts in 4500 projects is reported. Packages used included `rgdal`: 213 projects, `rgeos`: 115 projects, `maptools`: 168 projects; for comparison, `sf`: 144 projects, `sp`: 143 projects, `raster`: 105 projects. 
-Standard reproducible script mechanisms will be feasible for source installs of the retiring packages from R-Forge for the foreseeable future, and from the CRAN archives. Binary installs may cease to work for `rgdal` and `rgeos` because they link to static builds of external libraries, but for example `src/Makevars.ucrt` files often need updating to add links to libraries required by `GDAL` as it evolves; `rgeos` links to `GEOS`, but `GEOS` does not link further, so is less of a problem. `rgdal` `src/Makevars.ucrt` on the SVN repository will be frozen at `GDAL` `3.6` for R `4.3`.
+Standard reproducible script mechanisms will be feasible for source installs of the retiring packages from R-Forge for the foreseeable future, and from the CRAN archives. Binary installs for MacOS and Windows may cease to work for `rgdal` and `rgeos` because they link to static builds of external libraries, but for example `src/Makevars.ucrt` files often need updating to add links to libraries required by `GDAL` as it evolves; `rgeos` links to `GEOS`, but `GEOS` does not link further, so is less of a problem. For `rgdal`, `src/Makevars.ucrt` on the SVN repository will be frozen at `GDAL` `3.6.1` for R `4.3`.
