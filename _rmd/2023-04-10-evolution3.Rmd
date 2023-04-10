@@ -1,0 +1,360 @@
+---
+title: "Evolution guide and migration examples"
+author: "Roger Bivand, Edzer Pebesma"
+date:  "30 March, 2023"
+comments: false
+bibliography: refs.bib
+layout: post
+categories: r
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, paged.print=FALSE)
+```
+
+TOC
+
+[DOWNLOADHERE]
+
+**Summary**:
+
+This is the third report on the R-spatial evolution project. The project involves the retirement (archiving) of `rgdal`, `rgeos` and `maptools` during 2023. The [first report](https://r-spatial.org/r/2022/04/12/evolution.html) set out the main goals of the project. The [second report](https://r-spatial.org/r/2022/12/14/evolution2.html) covered progress so far, steps already taken, and those remaining to be accomplished. A [talk](https://rsbivand.github.io/csds_jan23/bivand_csds_ssg_230117.pdf) at the University of Chicago Center for Spatial Data Science in January 2023 has been made available as a [recording](https://www.youtube.com/watch?v=TlpjIqTPMCA&list=PLzREt6r1NenmWEidssmLm-VO_YmAh4pq9&index=1). The talk is an intermediate report between the last blog and this blog, and should be consulted for updates on topics not covered here (including much better response to raising github issues for packages compared to bulk emails).
+
+There are now two key dates in the schedule: 
+
+- during June 2023, in just three months, the internal evolution status setting of `sp` will be changed from "business as usual" to "use `sf` instead of `rgdal` and `rgeos`. Packages depending on `sp` may need to add `sf` to their weak dependencies, and to monitor any changes in output.
+
+- during October 2023, in seven months, `rgdal`, `rgeos` and `maptools` will be archived on CRAN, and packages with strong dependencies on the retiring packages must be either upgraded to use `sf`, `terra` or other alternatives or work-arounds by or before that time. 
+
+Waiting until October before acting risks workflow interruption, and is not wise. A satisfying number of package maintainers with packages depending on `raster`, which dropped `rgdal` and `rgeos` in favour of `terra` six months ago, have already removed unneeded dependencies on `rgeos` and `rgdal`. Making all required changes in the period from now to the June `sp` change will mean just one round of adaptations rather than two rounds.
+
+In order to facilitate migration, this blog will present steps taken to modify the `sp`, `rgdal`, `rgeos` and `maptools` code used in [ASDAR](https://asdar-book.org/) [@asdar], and to be found in [this github repository](https://github.com/rsbivand/sf_asdar2ed). This extends the [`sf` Wiki](https://github.com/r-spatial/sf/wiki/Migrating) published when `sf` was being introduced.
+
+# `sp` evolution status
+
+Repeating from the second blog:
+
+As mentioned in our first report, `sp` on CRAN has been provided with conditional code that prevents `sp` calling most code in `rgdal` or `rgeos`. This can be enabled *before* loading `sp` by setting e.g.:
+```
+options("sp_evolution_status"=2)
+library(sp)
+```
+for checking packages under status
+
+* `0`: business as usual, 
+* `1`: stop if `rgdal` or `rgeos` are absent, or 
+* `2`: use `sf` instead of `rgdal` and `rgeos`
+
+or alternatively can be set as an environment variable read when `sp` is loaded, e.g. when running checks from the command line by
+```
+_SP_EVOLUTION_STATUS_=2 R CMD check
+```
+This construction should permit maintainers to detect potential problems in code. `devtools::check()` provides the `env_vars=` argument, which may be used for the same purpose.
+
+From `sp 1.6.0` published on CRAN 2023-01-19, these status settings may also be changed when `sp` is loaded, using `sp::get_evolution_status()` returning the current value, and `sp::set_evolution_status(value)`, where value can take the integer values `0L`, `1L` and `2L`.
+
+# Splitting `R_LIBS`
+
+Maintainers may also find it helpful to split the user-writable package library into one main part, and a separate part containing only retiring packages. In this way one can detect other undocumented use of the retiring packages by mimicking the post-retirement scenario as installed retiring packages decay. In my case:
+
+```{r}
+Sys.getenv("R_LIBS")
+```
+
+
+```{r}
+(lP <- .libPaths())
+```
+
+```{r}
+length(r_libs <- list.files(lP[1]))
+```
+
+```{r}
+(rets <- list.files(lP[2]))
+```
+
+```{r}
+rets %in% r_libs
+```
+
+This means that I can proceed without changing `R_LIBS` if I want loaded packages to be able to see the installed retiring packages, but can manipulate `R_LIBS` for example when checking:
+```
+_SP_EVOLUTION_STATUS_=2 R_LIBS="/home/rsb/lib/r_libs" R CMD check
+```
+to see that a package really avoids loading them.
+
+The critical point will be reached in April 2024, when R 4.4 is expected, and when the `checkBuilt=` argument to `update.packages()` will show that the retiring packages are no longer available for the new version of R. This can be emulated under control by splitting the user-writable package library early.
+
+# ASDAR examples using `sf` or `terra`
+
+The ASDAR [@asdar] examples use `sp` evolution status and split `R_LIBS` extensively in nightly testing. ASDAR code for both book editions has always been run nightly, to alert the authors to anomalies from updates of packages and/or upstream geospatial software libraries. The code in the `sf_tests2ed` repository was based on the second edition code, updated and simplified. The files for file comparison using `diff` and presented in HTML by `diff2html` have been further cleaned, removing spurious differences introduced by commenting out legacy code.
+
+The results of file comparison by chapter are available through the following links (all chapters using `sf`, chapters 2, 4 and 5 also using `terra` in separate scripts):
+
+- [Classes for Spatial Data in R](https://r-spatial.github.io/evolution/diffs/cm_diff.html)
+
+- [Classes for Spatial Data in R, `terra` version](https://r-spatial.github.io/evolution/diffs/cm_terra_diff.html)
+
+- [Visualising Spatial Data](https://r-spatial.github.io/evolution/diffs/vis_diff.html)
+
+- [Spatial Data Import and Export](https://r-spatial.github.io/evolution/diffs/die_diff.html)
+
+- [Spatial Data Import and Export, `terra` version](https://r-spatial.github.io/evolution/diffs/die_terra_diff.html)
+
+- [Further Methods for Handling Spatial Data](https://r-spatial.github.io/evolution/diffs/cm2_diff.html)
+
+- [Further Methods for Handling Spatial Data, `terra` version](https://r-spatial.github.io/evolution/diffs/cm2_terra_diff.html)
+
+- [Spatial Point Pattern Analysis](https://r-spatial.github.io/evolution/diffs/sppa_diff.html)
+
+- [Interpolation and Geostatistics](https://r-spatial.github.io/evolution/diffs/geos_diff.html)
+
+- [Modelling Areal Data](https://r-spatial.github.io/evolution/diffs/lat_diff.html)
+
+- [Disease Mapping](https://r-spatial.github.io/evolution/diffs/dismap_diff.html)
+
+# Which `sf` or `terra` methods or functions match retiring methods or functions?
+
+The ASDAR scripts give numerous examples of how use of functionality from the retiring packages may be replaced by `sf` or `terra` and coercion to or from `sp` classes. Using early March 2023 `pkgapi` runs identifying CRAN packages using retiring package functions, line references to the diffs for ch. 2, 4 and 5 have been added for `sf` and `terra` variants, and lists of methods and functions from `sf` or `terra`, in addition to lists of affected packages (also see: https://github.com/r-spatial/evolution/blob/main/pkgapi_by_pkg_230305.csv). The spreadsheet is wide, so scrolling right is required (or a wider  window): https://github.com/r-spatial/evolution/blob/main/pkgapi_230305_refs.csv.
+
+The main points are that `rgeos` binary predicates usually have similar names in `sf` but in `terra` go through `terra::relate`, reading and writing vector files are well-supported, reading and writing raster files in `terra::rast` is more like the `rgdal` functions than through `stars`, and so on. 
+
+These so far only cover functions called in code, not in examples or vignettes, but provide a good framework for required modifications.
+
+# Conserving `sp` workflows
+
+While we encourage users and maintainers of packages currently utilising the retiring packages to migrate fully to modern packages, such as `terra` for `raster` users and `sf` and `stars` for other `sp` users, some may prefer, in the short term, to keep `sp` workflows running, as demonstrated in the ASDAR scripts. The diff files show that coercion between representations is used extensively to mitigate the non-availability of retiring packages. In the "Classes for Spatial Data" chapter diffs, we see straight away that `sp::CRS()`, with `rgdal` checking the CRS string, is replaced by `as(sf::st_crs(), "CRS")`, with `sf` checking the CRS string. `terra` does not have a similar class, and coordinate reference systems are part of instantiated objects or are character strings.
+
+`rgrass` has a [vignette](https://cran.r-project.org/web/packages/rgrass/vignettes/coerce.html) on spatial object coercion; `rgrass` uses `terra` for file transfer between R and GRASS GIS, hence the examples start from object classes defined in `terra`. The following is a short extract:
+
+```{r}
+Sys.setenv("_SP_EVOLUTION_STATUS_"="2")
+```
+
+```{r include=FALSE, message=FALSE}
+terra_available <- requireNamespace("terra", quietly=TRUE)
+sf_available <- requireNamespace("sf", quietly=TRUE)
+sp_available <- requireNamespace("sp", quietly=TRUE)
+stars_available <- requireNamespace("stars", quietly=TRUE) && packageVersion("stars") > "0.5.4"
+raster_available <- requireNamespace("raster", quietly=TRUE)
+```
+
+On loading and attaching, `terra` displays its version:
+
+```{r, eval=terra_available}
+library("terra")
+```
+
+```{r, eval=sf_available}
+library("sf")
+```
+
+```{r, eval=sp_available}
+library("sp")
+```
+
+```{r, eval=stars_available}
+library("stars")
+```
+
+```{r, eval=raster_available}
+library("raster")
+```
+
+`terra::gdal()` tells us the versions of the external libraries being used by `terra`:
+
+```{r, eval=terra_available}
+gdal(lib="all")
+```
+
+## `"SpatVector"` coercion
+
+In the `terra` package [@terra], vector data are held in `"SpatVector"` objects. 
+
+```{r, eval=terra_available}
+fv <- system.file("ex/lux.shp", package="terra")
+(v <- vect(fv))
+```
+
+The coordinate reference system is expressed in WKT2-2019 form:
+
+```{r, , eval=terra_available}
+cat(crs(v), "\n")
+```
+
+### `"sf"`
+
+Most new work should use vector classes defined in the `sf` package [@sf; @sf-rj], unless other `terra` classes are involved, in which case the `terra` representation may be preferred. In this case, coercion uses `st_as_sf()`:
+
+```{r, eval=(terra_available && sf_available)}
+v_sf <- st_as_sf(v)
+v_sf
+```
+
+and the `vect()` method to get from `sf` to `terra`:
+
+```{r, eval=(terra_available && sf_available)}
+v_sf_rt <- vect(v_sf)
+v_sf_rt
+```
+
+```{r, eval=(terra_available && sf_available)}
+all.equal(v_sf_rt, v, check.attributes=FALSE)
+```
+
+### `"Spatial"`
+
+To coerce to and from vector classes defined in the `sp` package [@asdar], methods in `raster` are used  as an intermediate step:
+
+```{r, eval=(terra_available && raster_available && sp_available)}
+v_sp <- as(v, "Spatial")
+print(summary(v_sp))
+```
+
+```{r, eval=(terra_available && sf_available && sp_available)}
+v_sp_rt <- vect(st_as_sf(v_sp))
+all.equal(v_sp_rt, v, check.attributes=FALSE)
+```
+
+## `"SpatRaster"` coercion
+
+In the `terra` package, raster data are held in `"SpatRaster"` objects. 
+
+```{r, eval=terra_available}
+fr <- system.file("ex/elev.tif", package="terra")
+(r <- rast(fr))
+```
+
+In general, `"SpatRaster"` objects are files, rather than data held in memory:
+
+```{r, eval=terra_available}
+try(inMemory(r))
+```
+
+### `"stars"`
+
+The `stars` package [@stars] uses GDAL through `sf`. A coercion method is provided from `"SpatRaster"` to `"stars"`:
+
+```{r, eval=(terra_available && stars_available)}
+r_stars <- st_as_stars(r)
+print(r_stars)
+```
+which round-trips in memory. 
+
+```{r, eval=(terra_available && stars_available)}
+(r_stars_rt <- rast(r_stars))
+```
+
+When coercing to `"stars_proxy"` the same applies:
+
+```{r, eval=(terra_available && stars_available)}
+(r_stars_p <- st_as_stars(r, proxy=TRUE))
+```
+with coercion from `"stars_proxy"` also not reading data into memory:
+
+```{r, eval=(terra_available && stars_available)}
+(r_stars_p_rt <- rast(r_stars_p))
+```
+
+### `"RasterLayer"`
+
+From version 3.6-3 the `raster` package [@raster] uses `terra` for all GDAL operations. Because of this, coercing a `"SpatRaster"` object to a `"RasterLayer"` object is simple:
+
+```{r, eval=(terra_available && raster_available)}
+(r_RL <- raster(r))
+```
+```{r, eval=(terra_available && raster_available)}
+inMemory(r_RL)
+```
+
+The WKT2-2019 CRS representation is present but not shown by default:
+
+```{r, eval=(terra_available && raster_available)}
+cat(wkt(r_RL), "\n")
+```
+
+This object (held on file rather than in memory) can be round-tripped:
+
+```{r, eval=(terra_available && raster_available)}
+(r_RL_rt <- rast(r_RL))
+```
+
+### `"Spatial"`
+
+`"RasterLayer"` objects can be used for coercion from a `"SpatRaster"` object to a `"SpatialGridDataFrame"` object:
+
+```{r, eval=(terra_available && raster_available && sp_available)}
+r_sp_RL <- as(r_RL, "SpatialGridDataFrame")
+summary(r_sp_RL)
+```
+
+The WKT2-2019 CRS representation is present but not shown by default:
+
+```{r, eval=(terra_available && raster_available && sp_available)}
+cat(wkt(r_sp_RL), "\n")
+```
+
+This object can be round-tripped, but use of `raster` forefronts the Proj.4 string CRS representation:
+```{r, eval=(terra_available && raster_available && sp_available)}
+(r_sp_RL_rt <- raster(r_sp_RL))
+cat(wkt(r_sp_RL_rt), "\n")
+```
+
+
+```{r, eval=(terra_available && raster_available && sp_available)}
+(r_sp_rt <- rast(r_sp_RL_rt))
+```
+```{r, eval=(terra_available && raster_available && sp_available)}
+crs(r_sp_RL_rt)
+```
+
+Coercion to the `sp` `"SpatialGridDataFrame"` representation is also provided by `stars`:
+
+```{r, eval=(terra_available && stars_available && sp_available)}
+r_sp_stars <- as(r_stars, "Spatial")
+summary(r_sp_stars)
+```
+
+```{r, eval=(terra_available && stars_available && sp_available)}
+cat(wkt(r_sp_stars), "\n")
+```
+
+and can be round-tripped:
+
+```{r, eval=(terra_available && stars_available && sp_available)}
+(r_sp_stars_rt <- rast(st_as_stars(r_sp_stars)))
+```
+``
+```{r, eval=(terra_available && stars_available && sp_available)}
+cat(crs(r_sp_rt), "\n")
+```
+
+Since spatial objects can be readily coerced between modern packages and `sp`, input/output can be handled using the modern packages, making `rgdal` redundant.
+
+# Deprecation steps
+
+Functions and methods showing more usage from the `pkgapi` analysis in the retiring packages are being deprecated. Deprecation uses the `.Deprecated()` function in base R, which prints a message pointing to alternatives and issuing a warning of class `"deprecatedWarning"`. `rgdal` `>= 1.6-2`, `rgeos` `>= 0.6-1` and `maptools` `>= 1.1-6` now have larger numbers of such deprecation warnings. Deprecation warnings do not lead to CRAN package check result warnings, so do not trigger archiving notices from CRAN, but can and do trip up `testthat::expect_silent()` and similar unit tests.
+
+# Moderate progress in de-coupling packages
+
+There has been some progress in reducing package reverse dependency counts between January 2022 and early March 2023:
+
+```{r, echo=FALSE, fig.height=4, fig.width=12, out.width="100%"}
+suppressPackageStartupMessages(library(ggplot2))
+rev_deps <- read.csv("revdep_counts.csv")
+rev_deps$fwhen <- factor(rev_deps$when, levels=c("jan22", "dec22", "mar23"))
+ggplot(rev_deps, aes(y=count, fill=pkg, x=fwhen)) + geom_bar(position="dodge", stat="identity") + facet_wrap(~ dep + which) + xlab("months")
+```
+Some of the `maptools` recursive strong reduction are by archiving, others as other popular packages like `car` have dropped `maptools` as a strong dependency. `maptools::pointLabel()` is deprecated and is now `car::pointLabel()` (and https://github.com/sdray/adegraphics/issues/13), and adapted functions based on these were deprecated as in https://github.com/oscarperpinan/rastervis/issues/93. In addition, almost 70 packages with strong dependencies on retiring packages through `raster` in early 2023, now pass check without retiring packages on the library path and `sp` evolution status `2L`.
+
+# Reverse depencency checks 2023-03-22
+
+Reverse dependency checks on CRAN and Bioconductor packages "most" depending on retiring packages shows that 7 fail for `sp` evolution status `2`, of these some fail anyway. This implies that we can move to shift `sp` evolution status default from `0` to `2` in June as planned. Of the total of 729 packages checked, 293 fail with `sp` evolution status `2` when the retiring packages are not on the library path. As noted in the CSDS talk in mid-January, package maintainers contacted by github issue seem to be much more responsive than other maintainers, so work from April will concentrate on opening github issues for the 293 packages where possible, and adding to issues already opened, referring to this document to give tips on how to migrate away from retiring packages.
+
+## References
+

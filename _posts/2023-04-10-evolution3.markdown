@@ -9,6 +9,9 @@ categories: r
 * TOC 
 {:toc}
 
+\[[view raw
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2023-04-10-evolution3.Rmd)\]
+
 **Summary**:
 
 This is the third report on the R-spatial evolution project. The project
