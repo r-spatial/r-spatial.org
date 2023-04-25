@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://r-spatial.org/book/index.html</loc>
-    <lastmod>2023-01-10T15:42:32.524Z</lastmod>
+    <loc>https://r-spatial.org/python/index.html</loc>
+    <lastmod>2023-04-25T13:27:51.840Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/part-1.html</loc>
-    <lastmod>2023-01-10T15:42:32.524Z</lastmod>
+    <loc>https://r-spatial.org/python/part-1.html</loc>
+    <lastmod>2023-04-25T13:27:51.840Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/01-hello.html</loc>
-    <lastmod>2023-01-10T15:42:32.536Z</lastmod>
+    <loc>https://r-spatial.org/python/01-hello.html</loc>
+    <lastmod>2023-04-25T13:27:51.848Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/02-Spaces.html</loc>
-    <lastmod>2023-01-10T15:42:32.544Z</lastmod>
+    <loc>https://r-spatial.org/python/02-Spaces.html</loc>
+    <lastmod>2023-04-25T13:27:51.860Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/03-Geometries.html</loc>
-    <lastmod>2023-01-10T15:42:32.556Z</lastmod>
+    <loc>https://r-spatial.org/python/03-Geometries.html</loc>
+    <lastmod>2023-04-25T13:27:51.872Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/04-Spherical.html</loc>
-    <lastmod>2023-01-10T15:42:32.564Z</lastmod>
+    <loc>https://r-spatial.org/python/04-Spherical.html</loc>
+    <lastmod>2023-04-25T13:27:51.876Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/05-Attributes.html</loc>
-    <lastmod>2023-01-10T15:42:32.568Z</lastmod>
+    <loc>https://r-spatial.org/python/05-Attributes.html</loc>
+    <lastmod>2023-04-25T13:27:51.880Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/06-Cubes.html</loc>
-    <lastmod>2023-01-10T15:42:32.592Z</lastmod>
+    <loc>https://r-spatial.org/python/06-Cubes.html</loc>
+    <lastmod>2023-04-25T13:27:51.904Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/part-2.html</loc>
-    <lastmod>2023-01-10T15:42:32.592Z</lastmod>
+    <loc>https://r-spatial.org/python/part-2.html</loc>
+    <lastmod>2023-04-25T13:27:51.908Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/07-Introsf.html</loc>
-    <lastmod>2023-01-10T15:42:32.612Z</lastmod>
+    <loc>https://r-spatial.org/python/07-Introsf.html</loc>
+    <lastmod>2023-04-25T13:27:51.928Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/08-Plotting.html</loc>
-    <lastmod>2023-01-10T15:42:32.620Z</lastmod>
+    <loc>https://r-spatial.org/python/08-Plotting.html</loc>
+    <lastmod>2023-04-25T13:27:51.936Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/09-Large.html</loc>
-    <lastmod>2023-01-10T15:42:32.628Z</lastmod>
+    <loc>https://r-spatial.org/python/09-Large.html</loc>
+    <lastmod>2023-04-25T13:27:51.940Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/part-3.html</loc>
-    <lastmod>2023-01-10T15:42:32.628Z</lastmod>
+    <loc>https://r-spatial.org/python/part-3.html</loc>
+    <lastmod>2023-04-25T13:27:51.940Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/10-Models.html</loc>
-    <lastmod>2023-01-10T15:42:32.632Z</lastmod>
+    <loc>https://r-spatial.org/python/10-Models.html</loc>
+    <lastmod>2023-04-25T13:27:51.944Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/11-PointPattern.html</loc>
-    <lastmod>2023-01-10T15:42:32.636Z</lastmod>
+    <loc>https://r-spatial.org/python/11-PointPattern.html</loc>
+    <lastmod>2023-04-25T13:27:51.952Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/12-Interpolation.html</loc>
-    <lastmod>2023-01-10T15:42:32.644Z</lastmod>
+    <loc>https://r-spatial.org/python/12-Interpolation.html</loc>
+    <lastmod>2023-04-25T13:27:51.960Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/13-Geostatistics.html</loc>
-    <lastmod>2023-01-10T15:42:32.652Z</lastmod>
+    <loc>https://r-spatial.org/python/13-Geostatistics.html</loc>
+    <lastmod>2023-04-25T13:27:51.964Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/14-Areal.html</loc>
-    <lastmod>2023-01-10T15:42:32.660Z</lastmod>
+    <loc>https://r-spatial.org/python/14-Areal.html</loc>
+    <lastmod>2023-04-25T13:27:51.972Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/15-Measures.html</loc>
-    <lastmod>2023-01-10T15:42:32.672Z</lastmod>
+    <loc>https://r-spatial.org/python/15-Measures.html</loc>
+    <lastmod>2023-04-25T13:27:51.984Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/16-SpatialRegression.html</loc>
-    <lastmod>2023-01-10T15:42:32.676Z</lastmod>
+    <loc>https://r-spatial.org/python/16-SpatialRegression.html</loc>
+    <lastmod>2023-04-25T13:27:51.988Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/17-Econometrics.html</loc>
-    <lastmod>2023-01-10T15:42:32.684Z</lastmod>
+    <loc>https://r-spatial.org/python/17-Econometrics.html</loc>
+    <lastmod>2023-04-25T13:27:51.996Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/sp-raster.html</loc>
-    <lastmod>2023-01-10T15:42:32.684Z</lastmod>
+    <loc>https://r-spatial.org/python/sp-raster.html</loc>
+    <lastmod>2023-04-25T13:27:51.996Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/rbasics.html</loc>
-    <lastmod>2023-01-10T15:42:32.688Z</lastmod>
+    <loc>https://r-spatial.org/python/rbasics.html</loc>
+    <lastmod>2023-04-25T13:27:52.004Z</lastmod>
   </url>
   <url>
-    <loc>https://r-spatial.org/book/references.html</loc>
-    <lastmod>2023-01-10T15:42:32.692Z</lastmod>
+    <loc>https://r-spatial.org/python/references.html</loc>
+    <lastmod>2023-04-25T13:27:52.004Z</lastmod>
   </url>
 </urlset>

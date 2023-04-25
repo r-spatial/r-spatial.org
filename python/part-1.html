@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -167,7 +167,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -283,7 +283,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,7 +293,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -313,7 +313,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -350,18 +350,18 @@ div.csl-indent {
 
 </header>
 
-<p>The first part of this book introduces concepts of spatial data science: maps, projections, vector and raster data structures, software, attributes and support, and data cubes. This part uses R only to generate text output or figures. The R code for this is not shown or explained, as it would distract from the message: part II focuses on the use of R. The online version of this book, found at <a href="https://r-spatial.org/book">https://r-spatial.org/book/</a> contains the R code at the place where it is used in hidden sections that can be unfolded on demand and copied to the clipboard for execution and experimenting. Output from R code uses code font and has lines starting with a <code>#</code>, as in</p>
+<p>The first part of this book introduces concepts of spatial data science: maps, projections, vector and raster data structures, software, attributes and support, and data cubes. This part uses R only to generate text output or figures. The R code for this is not shown or explained, as it would distract from the message: Part II focuses on the use of R. The online version of this book, found at <a href="https://r-spatial.org/book">https://r-spatial.org/book/</a> contains the R code at the place where it is used in hidden sections that can be unfolded on demand and copied to the clipboard for execution and experimenting. Output from R code uses code font and has lines starting with a <code>#</code>, as in</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code># Linking to GEOS 3.11.1, GDAL 3.6.1, PROJ 9.1.1; sf_use_s2() is TRUE</code></pre>
+<pre><code># Linking to GEOS 3.11.1, GDAL 3.6.2, PROJ 9.1.1; sf_use_s2() is TRUE</code></pre>
 </div>
 </div>
 <div>
-<p>Some of the code sections (e.g.&nbsp;in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>) contain code written to generate figures with R not relevant to the subject matter of the book. Code sections relevant to data analysis should be easy to follow when understanding R at the level of, say, <a href="http://r4ds.had.co.nz/">R for Data Science</a> <span class="citation" data-cites="r4ds">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span>.</p>
+<p>Some of the code sections (e.g., in <a href="06-Cubes.html"><span>Chapter&nbsp;6</span></a>) contain code written to generate figures with R not relevant to the subject matter of the book. Code sections relevant to data analysis should be easy to follow when understanding R at the level of, say, <a href="http://r4ds.had.co.nz/">R for Data Science</a> <span class="citation" data-cites="r4ds">(<a href="references.html#ref-r4ds" role="doc-biblioref">Wickham and Grolemund 2017</a>)</span>.</p>
 </div>
 <p>More detailed explanation of R code to solve spatial data science problems starts in the second part of this book. <a href="rbasics.html"><span>Appendix&nbsp;B</span></a> contains a short, elementary explanation of R data structures, <span class="citation" data-cites="advr">Wickham (<a href="references.html#ref-advr" role="doc-biblioref">2014</a>)</span> gives a more extensive treatment on this.</p>
 
@@ -581,7 +581,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>software, attributes and support, and data cubes.  This part uses</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>R only to generate text output or figures. The R code for this</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>is not shown or explained, as it would distract from the message:</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>part II focuses on the use of R. The online version of this book,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>Part II focuses on the use of R. The online version of this book,</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>found at <span class="co">[</span><span class="ot">https://r-spatial.org/book/</span><span class="co">](https://r-spatial.org/book)</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>contains the R code at the place where it is used in hidden sections</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>that can be unfolded on demand and copied to the clipboard for</span>
@@ -596,7 +596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-format="html"}</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>Some of the code sections (e.g. in @sec-datacube) contain code</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>Some of the code sections (e.g., in @sec-datacube) contain code</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>written to generate figures with R not relevant to the subject matter</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>of the book. Code sections relevant to data analysis should be easy</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>to follow when understanding R at the level of, say, [R for Data</span>

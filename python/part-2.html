@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -148,7 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -264,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -274,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -294,7 +294,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -331,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>The second part of this book explains how the concepts introduced in the first part are dealt with using R. <a href="07-Introsf.html"><span>Chapter&nbsp;7</span></a> deals with basic handling of spatial data: reading, writing, subsetting, selecting by spatial predicates, geometry transformers like buffers or intersections, raster-vector and vector-raster conversion, handling of data cubes, spherical geometry, coordinate transformations and conversions. This is followed by a chapter dedicated to plotting of spatial and spatiotemporal data with base plot, and packages <strong>ggplot2</strong>, <strong>tmap</strong> and <strong>mapview</strong>. The chapter deals with projection, colours, colour breaks, graticules, graphic elements on maps like legends, and interactive maps. <a href="09-Large.html"><span>Chapter&nbsp;9</span></a> discusses approaches to handle large vector or raster datasets or data cubes, where “large” either means too large to fit in memory or too large to download.</p>
+<p>The second part of this book explains how the concepts introduced in the first part are dealt with using R. <a href="07-Introsf.html"><span>Chapter&nbsp;7</span></a> deals with basic handling of spatial data: reading, writing, subsetting, selecting by spatial predicates, geometry transformers like buffers or intersections, raster-vector and vector-raster conversion, handling of data cubes, spherical geometry, coordinate transformations and conversions. This is followed by <a href="08-Plotting.html"><span>Chapter&nbsp;8</span></a> which is dedicated to plotting of spatial and spatiotemporal data with base plot, and packages <strong>ggplot2</strong>, <strong>tmap</strong> and <strong>mapview</strong>. The chapter deals with projection, colours, colour breaks, graticules, graphic elements on maps like legends, and interactive maps. <a href="09-Large.html"><span>Chapter&nbsp;9</span></a> discusses approaches to handle large vector or raster datasets or data cubes, where “large” either means too large to fit in memory or too large to download.</p>
 <p>The material covered in this part is not meant as a complete tutorial nor a manual of the packages covered, but rather as an explanation and illustration of a number of common workflows. More complete and detailed information is found in the package documentation, in particular in the package vignettes for packages <strong>sf</strong> and <strong>stars</strong>. Links to them are found on the CRAN landing pages of the packages.</p>
 
 
@@ -543,7 +543,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>by spatial predicates, geometry transformers like buffers or</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>intersections, raster-vector and vector-raster conversion, handling</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>of data cubes, spherical geometry, coordinate transformations and</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>conversions. This is followed by a chapter dedicated to plotting</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>conversions. This is followed by @sec-plotting which is dedicated to plotting</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>of spatial and spatiotemporal data with base plot, and packages</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>**ggplot2**, **tmap** and **mapview**. The chapter deals with projection,</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>colours, colour breaks, graticules, graphic elements on maps like</span>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -167,7 +167,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -283,7 +283,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,7 +293,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -313,7 +313,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -337,7 +337,7 @@ div.csl-indent {
   <li><a href="#migration-code-and-packages" id="toc-migration-code-and-packages" class="nav-link" data-scroll-target="#migration-code-and-packages"><span class="toc-section-number">A.3</span>  Migration code and packages</a></li>
   <li><a href="#package-raster-and-terra" id="toc-package-raster-and-terra" class="nav-link" data-scroll-target="#package-raster-and-terra"><span class="toc-section-number">A.4</span>  Package raster and terra</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/sp-raster.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/sp-raster.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -363,7 +363,7 @@ div.csl-indent {
 <h2 data-number="A.1" class="anchored" data-anchor-id="sec-retire"><span class="header-section-number">A.1</span> Retiring <strong>rgdal</strong> and <strong>rgeos</strong></h2>
 <p> </p>
 <p>R users who have been around a bit longer, in particular before packages like <strong>sf</strong> and <strong>stars</strong> were developed, may be more familiar with older packages like <strong>maptools</strong>, <strong>sp</strong>, <strong>rgeos</strong>, and <strong>rgdal</strong>. A fair question is whether they should migrate existing code and/or existing R packages depending on these packages. The answer is: yes.</p>
-<p>The plan is to retire <strong>maptools</strong>, <strong>rgdal</strong> and <strong>rgeos</strong> during 2023. Retirement means that maintenance will halt, and that as a consequence the packages will be archived on CRAN. The source code repositories on R-Forge will remain as long as R-Forge does itself. One reason for retirement is that their maintainer has retired, a more important reason that their role has been superseded by the newer packages. We hold it most unlikely that a new maintainer will take over the R-Forge repositories, in part because much of the code of these packages has gradually evolved along with developments in the GEOS, GDAL and PROJ libraries, and now contains numerous constructs that are outdated and make it forbidding to read.</p>
+<p>Packages <strong>maptools</strong>, <strong>rgdal</strong>, and <strong>rgeos</strong> will retire during 2023. Retirement means that maintenance will halt, and that as a consequence the packages will be archived on CRAN. The source code repositories on R-Forge will remain as long as R-Forge does itself. One reason for retirement is that their maintainer has retired, a more important reason that their role has been superseded by the newer packages. We hold it most unlikely that a new maintainer will take over the R-Forge repositories, in part because much of the code of these packages has gradually evolved along with developments in the GEOS, GDAL, and PROJ libraries, and contains numerous constructs that are outdated and make it forbidding to read.</p>
 <p>Before <strong>rgeos</strong> and <strong>rgdal</strong> retire, existing ties that package <strong>sp</strong> has to <strong>rgdal</strong> and <strong>rgeos</strong> can and will be replaced by ties to package <strong>sf</strong>. This involves for example validation of coordinate reference system identifiers, and checking whether rings are holes or exterior rings. Chosen <strong>maptools</strong> functions may also be moved to <strong>sp</strong>.</p>
 </section>
 <section id="links-and-differences-between-sf-and-sp" class="level2" data-number="A.2">
@@ -380,8 +380,8 @@ div.csl-indent {
 </div>
 <p>There are some limitations to conversions like this:</p>
 <ul>
-<li><strong>sp</strong> does not distinguish between <code>LINESTRING</code> and <code>MULTILINESTRING</code> geometries, or between <code>POLYGON</code> or <code>MULTIPOLYGON</code>, so e.g.&nbsp;a <code>LINESTRING</code> will after conversion to <code>sp</code> come back as a <code>MULTILINESTRING</code></li>
-<li><strong>sp</strong> does have no representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometries <em>not</em> in the “big seven” (<a href="03-Geometries.html#sec-seven"><span>Section&nbsp;3.1.1</span></a>)</li>
+<li><strong>sp</strong> does not distinguish between <code>LINESTRING</code> and <code>MULTILINESTRING</code> geometries, or between <code>POLYGON</code> or <code>MULTIPOLYGON</code>. For example, a <code>LINESTRING</code> will after conversion to <code>sp</code> come back as a <code>MULTILINESTRING</code></li>
+<li><strong>sp</strong> does not have a representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometry types <em>not</em> in the “big seven” (<a href="03-Geometries.html#sec-seven"><span>Section&nbsp;3.1.1</span></a>)</li>
 <li><code>sf</code> or <code>sfc</code> objects of geometry type <code>GEOMETRY</code>, with mixed geometry types, cannot be converted into <code>sp</code> objects</li>
 <li>attribute-geometry relationship attributes get lost when converting to <strong>sp</strong></li>
 <li><code>sf</code> objects with more than one geometry list-column will, when converting to <strong>sp</strong>, lose their secondary list-column(s).</li>
@@ -390,20 +390,19 @@ div.csl-indent {
 <section id="migration-code-and-packages" class="level2" data-number="A.3">
 <h2 data-number="A.3" class="anchored" data-anchor-id="migration-code-and-packages"><span class="header-section-number">A.3</span> Migration code and packages</h2>
 <p></p>
-<p>The wiki page of the GitHub site for <strong>sf</strong>, found at <a href="https://github.com/r-spatial/sf/wiki/Migrating" class="uri">https://github.com/r-spatial/sf/wiki/Migrating</a> contains a list of methods and functions in <strong>rgeos</strong>, <strong>rgdal</strong> and <strong>sp</strong> and the corresponding <strong>sf</strong> method or function. This may help converting existing code or packages.</p>
+<p>The wiki page of the GitHub site for <strong>sf</strong>, found at <a href="https://github.com/r-spatial/sf/wiki/Migrating" class="uri">https://github.com/r-spatial/sf/wiki/Migrating</a> contains a list of methods and functions in <strong>rgeos</strong>, <strong>rgdal</strong>, and <strong>sp</strong> and the corresponding <strong>sf</strong> method or function. This may help converting existing code or packages.</p>
 <p>A simple approach to migrate code is when only <code>rgdal::readOGR</code> is used to read <code>file</code>. As an alternative, one might use</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">as</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"file"</span>), <span class="st">"Spatial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>however possible arguments to <code>readOGR</code>, when used, would need more care.</p>
-<p>An effort by us is underway to convert all code of our earlier book “Applied Spatial Data Analysis with R” (with Virgilio Gomez-Rubio, <span class="citation" data-cites="asdar">Bivand, Pebesma, and Gomez-Rubio (<a href="references.html#ref-asdar" role="doc-biblioref">2013</a>)</span>) to run entirely without <strong>rgdal</strong>, <strong>rgeos</strong> and <strong>maptools</strong> and where possible without <strong>sp</strong>. The scripts are found at <a href="https://github.com/rsbivand/sf_asdar2ed" class="uri">https://github.com/rsbivand/sf_asdar2ed</a>.</p>
+<p>however possible arguments to <code>readOGR</code>, when used, would need more care. An effort by us is underway to convert all code of our earlier book <em>Applied Spatial Data Analysis with R</em> (with Virgilio Gómez-Rubio, <span class="citation" data-cites="asdar">Bivand, Pebesma, and Gómez-Rubio (<a href="references.html#ref-asdar" role="doc-biblioref">2013</a>)</span>) to run entirely without <strong>rgdal</strong>, <strong>rgeos</strong>, and <strong>maptools</strong> and where possible without <strong>sp</strong>. The scripts are found at <a href="https://github.com/rsbivand/sf_asdar2ed" class="uri">https://github.com/rsbivand/sf_asdar2ed</a>.</p>
 </section>
 <section id="package-raster-and-terra" class="level2" data-number="A.4">
 <h2 data-number="A.4" class="anchored" data-anchor-id="package-raster-and-terra"><span class="header-section-number">A.4</span> Package raster and terra</h2>
 <p> </p>
-<p>Package <strong>raster</strong> has been a workhorse package for analysing raster data with R since 2010, and has since then grown into a package for “Geographic Data Analysis and Modeling” <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2022a</a>)</span>, indicating that it is used for all kinds of spatial data. The <strong>raster</strong> package uses <strong>sp</strong> objects for vector data, and <strong>terra</strong> to read and write data to formats served by the GDAL library. Its successor package <strong>terra</strong>, for “Spatial Data Analysis” <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2022b</a>)</span>, “is very similar to the <code>raster</code> package; but […] can do more, is easier to use, and […] is faster”. The <strong>terra</strong> package comes with its own classes for vector data, but accepts many <strong>sf</strong> objects, with similar restrictions as listed above for conversion to <strong>sp</strong>. Package <strong>terra</strong> has its own direct links to GDAL, GEOS and PROJ so no longer needs other packages for that.</p>
+<p>Package <strong>raster</strong> has been a workhorse package for analysing raster data with R since 2010, and has since grown into a package for “Geographic Data Analysis and Modeling” <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2023a</a>)</span>, indicating that it is used for all kinds of spatial data. The <strong>raster</strong> package uses <strong>sp</strong> objects for vector data, and <strong>terra</strong> to read and write data to formats served by the GDAL library. Its successor package <strong>terra</strong>, for “Spatial Data Analysis” <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2023b</a>)</span>, “is very similar to the <code>raster</code> package; but […] can do more, is easier to use, and […] is faster”. The <strong>terra</strong> package comes with its own classes for vector data, but accepts many <strong>sf</strong> objects, with similar restrictions as listed above for conversion to <strong>sp</strong>. Package <strong>terra</strong> has its own direct links to GDAL, GEOS, and PROJ, so, no longer needs other packages for that.</p>
 <p>Raster maps, or stacks of them from package <strong>raster</strong> or <strong>terra</strong> can be converted to <code>stars</code> objects using <code>st_as_stars()</code>. Package <strong>sf</strong> contains an <code>st_as_sf()</code> method for <code>SpatVector</code> objects from package <strong>terra</strong>.</p>
-<p>The online book “Spatial Data Science with R”, written by Robert Hijmans and found at <a href="https://rspatial.org/terra" class="uri">https://rspatial.org/terra</a> details the <strong>terra</strong> approach to spatial data analysis. Package <strong>sf</strong> and <strong>stars</strong> and several other r-spatial packages discussed in this book reside on the <code>r-spatial</code> GitHub organisation (note the hyphen between <code>r</code> and <code>spatial</code>, which is absent on Hijmans’ organisation), which has a blog site, with links to this book, found at <a href="https://r-spatial.org/book" class="uri">https://r-spatial.org/book</a>.</p>
+<p>The online book <em>Spatial Data Science with R</em>, written by Robert Hijmans and found at <a href="https://rspatial.org/terra" class="uri">https://rspatial.org/terra</a> details the <strong>terra</strong> approach to spatial data analysis. Package <strong>sf</strong> and <strong>stars</strong> and several other r-spatial packages discussed in this book reside on the <code>r-spatial</code> GitHub organisation (note the hyphen between <code>r</code> and <code>spatial</code>, which is absent on Hijmans’ organisation), which has a blog site, with links to this book, found at <a href="https://r-spatial.org/book" class="uri">https://r-spatial.org/book</a>.</p>
 <p>Packages <strong>sf</strong> and <strong>stars</strong> on one hand and <strong>terra</strong> on the other have many goals in common, but try to reach them in slightly different ways, emphasising different aspects of data analysis, software engineering, and community management. Although this may confuse some users, we believe that these differences enrich the R package ecosystem, are beneficial to users, encourage diversity and choice, and hopefully work as an encouragement for others to continue trying out new ideas when using R for spatial data problems, and to help carrying the R spatial flag.</p>
 <div>
 <script>
@@ -423,13 +422,13 @@ div.csl-indent {
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-asdar" class="csl-entry" role="doc-biblioentry">
-Bivand, Roger S., Edzer Pebesma, and Virgilio Gomez-Rubio. 2013. <em>Applied Spatial Data Analysis with <span>R</span>, Second Edition</em>. Springer, NY. <a href="http://www.asdar-book.org/">http://www.asdar-book.org/</a>.
+Bivand, Roger, Edzer Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with <span>R</span>, Second Edition</em>. Springer, NY. <a href="http://www.asdar-book.org/">http://www.asdar-book.org/</a>.
 </div>
 <div id="ref-R-raster" class="csl-entry" role="doc-biblioentry">
-Hijmans, Robert J. 2022a. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://rspatial.org/raster">https://rspatial.org/raster</a>.
+Hijmans, Robert J. 2023a. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://rspatial.org/raster">https://rspatial.org/raster</a>.
 </div>
 <div id="ref-R-terra" class="csl-entry" role="doc-biblioentry">
-———. 2022b. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/terra/">https://rspatial.org/terra/</a>.
+———. 2023b. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/terra/">https://rspatial.org/terra/</a>.
 </div>
 </div>
 </section>
@@ -622,12 +621,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./17-Econometrics.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./rbasics.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -643,7 +642,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fair question is whether they should migrate existing code and/or</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>existing R packages depending on these packages.  The answer is: yes.</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>The plan is to retire **maptools**, **rgdal** and **rgeos** during</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>Packages **maptools**, **rgdal**, and **rgeos** will retire during</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2023. </span>Retirement means that maintenance will halt, and that as a</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>consequence the packages will be archived on CRAN. The source code</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>repositories on R-Forge will remain as long as R-Forge does itself.</span>
@@ -652,7 +651,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>We hold it most unlikely that a new maintainer will take over the </span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>R-Forge repositories, in part because much of the code of these packages </span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>has gradually evolved along with developments in the GEOS,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>GDAL and PROJ libraries, and now contains numerous constructs that</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>GDAL, and PROJ libraries, and contains numerous constructs that</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>are outdated and make it forbidding to read.</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Before **rgeos** and **rgdal** retire, existing ties that package **sp**</span>
@@ -688,11 +687,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>There are some limitations to conversions like this:</span>
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**sp** does not distinguish between <span class="in">`LINESTRING`</span> and</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">`MULTILINESTRING`</span> geometries, or between <span class="in">`POLYGON`</span> or <span class="in">`MULTIPOLYGON`</span>,</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>so e.g. a <span class="in">`LINESTRING`</span> will after conversion to <span class="in">`sp`</span> come back as a</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="in">`MULTILINESTRING`</span> geometries, or between <span class="in">`POLYGON`</span> or <span class="in">`MULTIPOLYGON`</span>.</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>For example, a <span class="in">`LINESTRING`</span> will after conversion to <span class="in">`sp`</span> come back as a</span>
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="in">`MULTILINESTRING`</span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**sp** does have no representation for <span class="in">`GEOMETRYCOLLECTION`</span></span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>geometries, or <span class="in">`sf`</span> objects with geometries _not_ in the "big seven" (@sec-seven)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**sp** does not have a representation for <span class="in">`GEOMETRYCOLLECTION`</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>geometries, or <span class="in">`sf`</span> objects with geometry types _not_ in the "big seven" (@sec-seven)</span>
 <span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`sf`</span> or <span class="in">`sfc`</span> objects of geometry type <span class="in">`GEOMETRY`</span>, with mixed</span>
 <span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>geometry types, cannot be converted into <span class="in">`sp`</span> objects</span>
 <span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>attribute-geometry relationship attributes get lost when converting</span>
@@ -706,7 +705,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>The wiki page of the GitHub site for **sf**, found at</span>
 <span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/r-spatial/sf/wiki/Migrating&gt;</span> contains a list of</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>methods and functions in **rgeos**, **rgdal** and **sp** and the</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>methods and functions in **rgeos**, **rgdal**, and **sp** and the</span>
 <span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>corresponding **sf** method or function. This may help converting</span>
 <span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>existing code or packages.</span>
 <span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
@@ -717,56 +716,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>however possible arguments to <span class="in">`readOGR`</span>, when used, would need more</span>
 <span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>care.</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>An effort by us is underway to convert all code of our earlier book</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>"Applied Spatial Data Analysis with R" (with Virgilio Gomez-Rubio,</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>@asdar) to run entirely without **rgdal**, **rgeos** and **maptools** and</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>where possible without **sp**. The scripts are found at</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/rsbivand/sf_asdar2ed&gt;</span>.</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Package raster and terra</span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>\index{raster}</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>\index{terra}</span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>Package **raster** has been a workhorse package for analysing raster</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>data with R since 2010, and has since then grown into a package for</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>"Geographic Data Analysis and Modeling" <span class="co">[</span><span class="ot">@R-raster</span><span class="co">]</span>, indicating that</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>it is used for all kinds of spatial data. The **raster** package uses</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>**sp** objects for vector data, and **terra** to read and write data to</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>formats served by the GDAL library. Its successor package **terra**,</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>for "Spatial Data Analysis" <span class="co">[</span><span class="ot">@R-terra</span><span class="co">]</span>, "is very similar to the</span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="in">`raster`</span> package; but <span class="co">[</span><span class="ot">...</span><span class="co">]</span> can do more, is easier to use, and</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">...</span><span class="co">]</span>  is faster". The **terra** package comes with its own classes</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>for vector data, but accepts many **sf** objects, with similar</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>restrictions as listed above for conversion to **sp**.  Package **terra**</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>has its own direct links to GDAL, GEOS and PROJ so no longer needs</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>other packages for that. </span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>Raster maps, or stacks of them from package **raster** or **terra**</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>can be converted to <span class="in">`stars`</span> objects using <span class="in">`st_as_stars()`</span>. Package</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>**sf** contains an <span class="in">`st_as_sf()`</span> method for <span class="in">`SpatVector`</span> objects</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>from package **terra**. </span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>The online book "Spatial Data Science with R", written by</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>Robert Hijmans and found at <span class="ot">&lt;https://rspatial.org/terra&gt;</span> details</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>the **terra** approach to spatial data analysis. Package **sf**</span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>and **stars** and several other r-spatial packages discussed in</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>this book reside on the <span class="in">`r-spatial`</span> GitHub organisation (note the</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>hyphen between <span class="in">`r`</span> and <span class="in">`spatial`</span>, which is absent on Hijmans'</span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>organisation), which has a blog site, with links to this book,</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>found at <span class="ot">&lt;https://r-spatial.org/book&gt;</span>.</span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>Packages **sf** and **stars** on one hand and **terra** on the other</span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>have many goals in common, but try to reach them in slightly</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>different ways, emphasising different aspects of data analysis,</span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>software engineering, and community management. Although this may</span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>confuse some users, we believe that these differences enrich the</span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>R package ecosystem, are beneficial to users, encourage diversity</span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>and choice, and hopefully work as an encouragement for others to</span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>continue trying out new ideas when using R for spatial data problems,</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>and to help carrying the R spatial flag.</span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>An effort by us is underway to convert all code of our earlier book</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>_Applied Spatial Data Analysis with R_ (with Virgilio Gómez-Rubio,</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>@asdar) to run entirely without **rgdal**, **rgeos**, and **maptools** and</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>where possible without **sp**. The scripts are found at</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/rsbivand/sf_asdar2ed&gt;</span>.</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Package raster and terra</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>\index{raster}</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>\index{terra}</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>Package **raster** has been a workhorse package for analysing raster</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>data with R since 2010, and has since grown into a package for</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>"Geographic Data Analysis and Modeling" <span class="co">[</span><span class="ot">@R-raster</span><span class="co">]</span>, indicating that</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>it is used for all kinds of spatial data. The **raster** package uses</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>**sp** objects for vector data, and **terra** to read and write data to</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>formats served by the GDAL library. Its successor package **terra**,</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>for "Spatial Data Analysis" <span class="co">[</span><span class="ot">@R-terra</span><span class="co">]</span>, "is very similar to the</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="in">`raster`</span> package; but <span class="co">[</span><span class="ot">...</span><span class="co">]</span> can do more, is easier to use, and</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">...</span><span class="co">]</span>  is faster". The **terra** package comes with its own classes</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>for vector data, but accepts many **sf** objects, with similar</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>restrictions as listed above for conversion to **sp**.  Package **terra**</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>has its own direct links to GDAL, GEOS, and PROJ, so, no longer needs</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>other packages for that. </span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>Raster maps, or stacks of them from package **raster** or **terra**</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>can be converted to <span class="in">`stars`</span> objects using <span class="in">`st_as_stars()`</span>. Package</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>**sf** contains an <span class="in">`st_as_sf()`</span> method for <span class="in">`SpatVector`</span> objects</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>from package **terra**. </span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>The online book _Spatial Data Science with R_, written by</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>Robert Hijmans and found at <span class="ot">&lt;https://rspatial.org/terra&gt;</span> details</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>the **terra** approach to spatial data analysis. Package **sf**</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>and **stars** and several other r-spatial packages discussed in</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>this book reside on the <span class="in">`r-spatial`</span> GitHub organisation (note the</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>hyphen between <span class="in">`r`</span> and <span class="in">`spatial`</span>, which is absent on Hijmans'</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>organisation), which has a blog site, with links to this book,</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>found at <span class="ot">&lt;https://r-spatial.org/book&gt;</span>.</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>Packages **sf** and **stars** on one hand and **terra** on the other</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>have many goals in common, but try to reach them in slightly</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>different ways, emphasising different aspects of data analysis,</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>software engineering, and community management. Although this may</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>confuse some users, we believe that these differences enrich the</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>R package ecosystem, are beneficial to users, encourage diversity</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>and choice, and hopefully work as an encouragement for others to</span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>continue trying out new ideas when using R for spatial data problems,</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>and to help carrying the R spatial flag.</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

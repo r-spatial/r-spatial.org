@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -168,7 +168,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -284,7 +284,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,7 +294,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +314,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -340,12 +340,12 @@ div.csl-indent {
   <li><a href="#sec-projections" id="toc-sec-projections" class="nav-link" data-scroll-target="#sec-projections">Projected coordinates, distances</a></li>
   <li><a href="#sec-bounded" id="toc-sec-bounded" class="nav-link" data-scroll-target="#sec-bounded">Bounded and unbounded spaces</a></li>
   </ul></li>
-  <li><a href="#sec-crs" id="toc-sec-crs" class="nav-link" data-scroll-target="#sec-crs"><span class="toc-section-number">2.3</span>  Coordinate Reference Systems</a></li>
+  <li><a href="#sec-crs" id="toc-sec-crs" class="nav-link" data-scroll-target="#sec-crs"><span class="toc-section-number">2.3</span>  Coordinate reference systems</a></li>
   <li><a href="#sec-projlib" id="toc-sec-projlib" class="nav-link" data-scroll-target="#sec-projlib"><span class="toc-section-number">2.4</span>  PROJ and mapping accuracy</a></li>
   <li><a href="#sec-wkt2" id="toc-sec-wkt2" class="nav-link" data-scroll-target="#sec-wkt2"><span class="toc-section-number">2.5</span>  WKT-2</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">2.6</span>  Exercises</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/02-Spaces.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/02-Spaces.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -368,14 +368,14 @@ div.csl-indent {
 </header>
 
 <p>“<em>Data are not just numbers, they are numbers with a context</em>”; “<em>In data analysis, context provides meaning</em>” <span class="citation" data-cites="cobbmoore">(<a href="references.html#ref-cobbmoore" role="doc-biblioref">Cobb and Moore 1997</a>)</span></p>
-<p>Before we can try to understand geometries like points, lines, polygons, coverage and grids, it is useful to review coordinate systems so that we have an idea what exactly coordinates of a point reflect. For spatial data, the location of observations are characterised by coordinates, and coordinates are defined in a coordinate system. Different coordinate systems can be used for this, and the most important difference is whether coordinates are defined over a 2-dimensional or 3-dimensional space referenced to orthogonal axes (Cartesian coordinates), or using distance and directions (polar coordinates, spherical and ellipsoidal coordinates). Besides a location of observation, all observations are associated with time of observation, and so time coordinate systems are also briefly discussed. First we will briefly review <em>quantities</em>, to learn what units and datum are.</p>
+<p>Before we can try to understand geometries like points, lines, polygons, coverage and grids, it is useful to review coordinate systems so that we have an idea what exactly coordinates of a point reflect. For spatial data, the location of observations are characterised by coordinates, and coordinates are defined in a coordinate system. Different coordinate systems can be used for this, and the most important difference is whether coordinates are defined over a 2 dimensional or 3 dimensional space referenced to orthogonal axes (Cartesian coordinates), or using distance and directions (polar coordinates, spherical and ellipsoidal coordinates). Besides a location of observation, all observations are associated with time of observation, and so time coordinate systems are also briefly discussed. First we will briefly review <em>quantities</em>, to learn what units and datum are.</p>
 <section id="sec-units" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-units"><span class="header-section-number">2.1</span> Quantities, units, datum</h2>
 <p> </p>
 <p>The VIM (“International Vocabulary of Metrology”, <span class="citation" data-cites="vim">BIPM et al. (<a href="references.html#ref-vim" role="doc-biblioref">2012</a>)</span>) defines a <em>quantity</em> as a “property of a phenomenon, body, or substance, where the property has a magnitude that can be expressed as a number and a reference”, where “[a] reference can be a measurement unit, a measurement procedure, a reference material, or a combination of such.” Although one could argue about whether all data is constituted of quantities, there is no need to argue that proper data handling requires that numbers (or symbols) are accompanied by information on what they mean, in particular what they refer to.</p>
-<p>A measurement system consist of <em>base units</em> for base quantities, and <em>derived units</em> for derived quantities. For instance, the SI system of units <span class="citation" data-cites="SI">(<a href="references.html#ref-SI" role="doc-biblioref">Bureau International des Poids et Mesures 2006</a>)</span> consist of seven base units: length (metre, m), mass (kilogram, kg), time (second, s), electric current (ampere, A), thermodynamic temperature (Kelvin, K), amount of substance (mole, mol), and luminous intensity (candela, cd). Derived units are composed of products of integer powers of base units; examples are speed (<span class="math inline">\(\mbox{m}~\mbox{s}^{-1}\)</span>), density (<span class="math inline">\(\mbox{kg}~\mbox{m}^{-3}\)</span>) and area (<span class="math inline">\(\mbox{m}^2\)</span>).</p>
-<p>The special case of unitless measures can refer to either cases where units cancel out (e.g.&nbsp;mass fraction: kg/kg, or angle measured in rad: m/m) or to cases where objects or events were counted (e.g.&nbsp;5 apples). Adding an angle to a count of apples would not make sense; adding 5 apples to 3 oranges may make sense if the result is reinterpreted as a superclass, e.g.&nbsp;as <em>pieces of fruit</em>. Many data variables have units that are not expressible as SI base units or derived units. <span class="citation" data-cites="hand">Hand (<a href="references.html#ref-hand" role="doc-biblioref">2004</a>)</span> discusses many such measurement scales, e.g.&nbsp;those used to measure intelligence in social sciences, in the context of measurement units.</p>
-<p>For many quantities, the natural origin of values is zero. This works for amounts, where differences between amounts result in meaningful negative values. For locations and times, differences have a natural zero interpretation: distance and duration. Absolute location (position) and time need a fixed origin, from which we can meaningfully measure other absolute space-time points: we call this <strong>a datum</strong>. For space, a datum involves more than one dimension. The combination of a datum and a measurement unit (scale) is a <em>reference system</em>.</p>
+<p>A measurement system consists of <em>base units</em> for base quantities, and <em>derived units</em> for derived quantities. For instance, the SI system of units <span class="citation" data-cites="SI">(<a href="references.html#ref-SI" role="doc-biblioref">Bureau International des Poids et Mesures 2006</a>)</span> consists of seven base units: length (metre, m), mass (kilogram, kg), time (second, s), electric current (ampere, A), thermodynamic temperature (Kelvin, K), amount of substance (mole, mol), and luminous intensity (candela, cd). Derived units are composed of products of integer powers of base units; examples are speed (<span class="math inline">\(\mbox{m}~\mbox{s}^{-1}\)</span>), density (<span class="math inline">\(\mbox{kg}~\mbox{m}^{-3}\)</span>) and area (<span class="math inline">\(\mbox{m}^2\)</span>).</p>
+<p>The special case of unitless measures can refer to either cases where units cancel out (for instance mass fraction: kg/kg, or angle measured in rad: m/m) or to cases where objects or events were counted (such as “5 apples”). Adding an angle to a count of apples would not make sense; adding 5 apples to 3 oranges may make sense if the result is reinterpreted in terms of a superclass, in this case as <em>pieces of fruit</em>. Many data variables have units that are not expressible as SI base units or derived units. <span class="citation" data-cites="hand">Hand (<a href="references.html#ref-hand" role="doc-biblioref">2004</a>)</span> discusses many such measurement scales, including those used to measure variables like intelligence in social sciences, in the context of measurement units.</p>
+<p>For many quantities, the natural origin of values is zero. This works for amounts, where differences between amounts result in meaningful negative values. For locations and times, differences have a natural zero interpretation: distance and duration. Absolute location (position) and time need a fixed origin, from which we can meaningfully measure other absolute space time points: we call this <strong>a datum</strong>. For space, a datum involves more than one dimension. The combination of a datum and a measurement unit (scale) is a <em>reference system</em>.</p>
 <p></p>
 <p>We will now elaborate how spatial locations can be expressed as either ellipsoidal or Cartesian coordinates. The next sections will deal with temporal and spatial reference systems, and how they are handled in R.</p>
 </section>
@@ -537,6 +537,7 @@ div.csl-indent {
 </div>
 </div>
 <p><span class="math inline">\(\lambda\)</span> typically varies between <span class="math inline">\(-180^{\circ}\)</span> and <span class="math inline">\(180^{\circ}\)</span> (or alternatively from <span class="math inline">\(0^{\circ}\)</span> to <span class="math inline">\(360^{\circ}\)</span>), <span class="math inline">\(\phi\)</span> from <span class="math inline">\(-90^{\circ}\)</span> to <span class="math inline">\(90^{\circ}\)</span>. When we are only interested in points <em>on</em> a sphere with given radius, we can drop <span class="math inline">\(r\)</span>: <span class="math inline">\((\lambda,\phi)\)</span> now suffice to identify any point.</p>
+<div style="page-break-after: always;"></div>
 <p>It should be noted that this is just <em>a</em> definition, one could for instance also choose to measure polar angle, the angle between the vector and <span class="math inline">\(z\)</span>, instead of latitude. There is also a long tradition of specifying points as <span class="math inline">\((\phi,\lambda)\)</span> but throughout this book we will stick to longitude-latitude, <span class="math inline">\((\lambda,\phi)\)</span>. The point denoted in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a> has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinates with angular values</p>
 <div class="cell">
 <details>
@@ -593,9 +594,9 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>The most commonly used parametric model for the Earth is <em>an ellipsoid of revolution</em>, an ellipsoid with two equal semi-axes <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>. In effect, this is a flattened sphere (or spheroid): the distance between the poles is (slightly: about 0.33%) smaller than the distance between two opposite points on the equator. Under this model, longitude is always measured along a circle (as in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a>) , and latitude along an ellipse (as in <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a>) . If we think of <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a> as a cross section of the Earth passing through the poles, the <em>geodetic</em> latitude measure <span class="math inline">\(\phi\)</span> is the one used when no further specification is given. The latitude measure <span class="math inline">\(\psi\)</span> is called the <em>geocentric latitude</em>.</p>
+<p>The most commonly used parametric model for the Earth is <em>an ellipsoid of revolution</em>, an ellipsoid with two equal semi-axes <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>. In effect, this is a flattened sphere (or spheroid): the distance between the poles is (slightly: about 0.33%) smaller than the distance between two opposite points on the equator. Under this model, longitude is always measured along a circle (as in <a href="#fig-sphere">Figure&nbsp;<span>2.2</span></a>), and latitude along an ellipse (as in <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a>). If we think of <a href="#fig-ellipse">Figure&nbsp;<span>2.3</span></a> as a cross section of the Earth passing through the poles, the <em>geodetic</em> latitude measure <span class="math inline">\(\phi\)</span> is the one used when no further specification is given. The latitude measure <span class="math inline">\(\psi\)</span> is called the <em>geocentric latitude</em>.</p>
 <p> </p>
-<p>In addition to longitude and latitude we can add <em>altitude</em> or elevation to define points that are above or below the ellipsoid, and obtain a three dimensional space again. When defining altitude, we need to choose:</p>
+<p>we can add <em>altitude</em> or elevation to longitude and latitude to define points that are above or below the ellipsoid, and obtain a three-dimensional space again. When defining altitude, we need to choose:</p>
 <ul>
 <li>where zero altitude is: on the ellipsoid, or relative to the surface approximating mean sea level (the geoid)?</li>
 <li>which direction is positive, and</li>
@@ -606,7 +607,7 @@ div.csl-indent {
 </section>
 <section id="sec-projections" class="level3">
 <h3 class="anchored" data-anchor-id="sec-projections">Projected coordinates, distances</h3>
-<p>Because paper maps and computer screens are much more abundant and practical than globes, most of the time we look at spatial data we see it <em>projected</em>: drawn on a flat, two-dimensional surface. Computing the locations in a two-dimensional space means that we work with <em>projected</em> coordinates. Projecting ellipsoidal coordinates means that shapes, directions, areas, or even all three, are distorted <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>.</p>
+<p>Because paper maps and computer screens are much more abundant and practical than globes, when we look at spatial data we see it <em>projected</em>: drawn on a flat, two-dimensional surface. Computing the locations in a two-dimensional space means that we work with <em>projected</em> coordinates. Projecting ellipsoidal coordinates means that shapes, directions, areas, or even all three, are distorted <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>.</p>
 <p> </p>
 <p>Distances between two points <span class="math inline">\(p_i\)</span> and <span class="math inline">\(p_j\)</span> in Cartesian coordinates are computed as Euclidean distances, in two dimensions by <span class="math display">\[d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2}\]</span> with <span class="math inline">\(p_i = (x_i,y_i)\)</span> and in three dimensions by <span class="math display">\[d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2+(z_i-z_j)^2}\]</span> with <span class="math inline">\(p_i = (x_i,y_i,z_i).\)</span> These distances represent the length of a <em>straight</em> line between two points <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>.</p>
 <p>For two points on a circle, the length of the arc of two points <span class="math inline">\(c_1 = (r,{\phi}_i)\)</span> and <span class="math inline">\(c_2 = (r, \phi_2)\)</span> is <span class="math display">\[s_{ij}=r~|\phi_1-\phi_2| = r ~\theta\]</span> with <span class="math inline">\(\theta\)</span> the angle between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> in radians. For very small values of <span class="math inline">\(\theta\)</span>, we will have <span class="math inline">\(s_{ij} \approx d_{ij}\)</span>, because a small arc segment is nearly straight.</p>
@@ -614,7 +615,7 @@ div.csl-indent {
 <p>For two points <span class="math inline">\(p_1 = (\lambda_1,\phi_1)\)</span> and <span class="math inline">\(p_2 = (\lambda_2,\phi_2)\)</span> on a sphere with radius <span class="math inline">\(r'\)</span>, the <em>great circle distance</em> is the arc length between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> on the circle that passes through <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> and has the centre of the sphere as its centre, and is given by <span class="math inline">\(s_{12} = r ~ \theta_{12}\)</span> with <span class="math display">\[\theta_{12} = \arccos(\sin \phi_1 \cdot \sin \phi_2 + \cos \phi_1 \cdot \cos \phi_2 \cdot \cos(|\lambda_1-\lambda_2|))\]</span> the angle between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>, in radians.</p>
 <p>Arc distances between two points on a spheroid are more complicated to compute; a good discussion on the topic and an explanation of the method implemented in GeographicLib (part of PROJ) is given in <span class="citation" data-cites="karney2013algorithms">Karney (<a href="references.html#ref-karney2013algorithms" role="doc-biblioref">2013</a>)</span>.</p>
 <p></p>
-<p>To show that these distance measures actually give different values, we computed them for the distance Berlin - Paris. Here, <code>gc_</code> refers to ellipsoidal and spherical great circle distances, <code>straight_</code> refers to straight line, Euclidean distances between Cartesian geocentric coordinates associated on the WGS84 ellipse and sphere:</p>
+<p>To show that these distance measures actually give different values, we computed them for the distance Berlin - Paris. Here, <code>gc_</code> refers to ellipsoidal and spherical great circle distances, <code>str_</code> refers to straight line, Euclidean distances between Cartesian geocentric coordinates associated on the WGS84 ellipse and sphere:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -622,34 +623,34 @@ div.csl-indent {
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=longlat +ellps=sphere"))</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=cart +ellps=sphere"))</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=geocent"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=longlat +ellps=sphere"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1,d3,d2,d4)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=WGS84"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=sphere"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1, d3, d2, d4) <span class="co"># note order</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># Units: [km]
-#       gc_ellipse straight_ellipse        gc_sphere  straight_sphere 
-#           879.70           879.00           877.46           879.00</code></pre>
+#  gc_ellipse str_ellipse   gc_sphere  str_sphere 
+#      879.70      879.00      877.46      876.77</code></pre>
 </div>
 </div>
 </section>
 <section id="sec-bounded" class="level3">
 <h3 class="anchored" data-anchor-id="sec-bounded">Bounded and unbounded spaces</h3>
 <p> </p>
-<p>Two-dimensional and three-dimensional Euclidean spaces (<span class="math inline">\(R^2\)</span> and <span class="math inline">\(R^3\)</span>) are unbounded: every line in this space has infinite length, distances, areas or volumes are unbounded. In contrast, spaces defined on a circle (<span class="math inline">\(S^1\)</span>) or sphere (<span class="math inline">\(S^2\)</span>) define a bounded set: there may be infinitely many points but the length and area of the circle and the radius, area and volume of a sphere are bound.</p>
-<p>This may sound trivial, but leads to some interesting findings when handling spatial data. A polygon on <span class="math inline">\(R^2\)</span> has unambiguously an inside and an outside. On a sphere, <span class="math inline">\(S^2\)</span>, any polygon divides the sphere in two parts, and which of these two is to be considered inside and which outside is ambiguous and needs to be defined e.g.&nbsp;by the traversal direction. <a href="04-Spherical.html"><span>Chapter&nbsp;4</span></a> will further discuss consequences when working with geometries on <span class="math inline">\(S^2\)</span>.</p>
+<p>Two-dimensional and three-dimensional Euclidean spaces (<span class="math inline">\(R^2\)</span> and <span class="math inline">\(R^3\)</span>) are unbounded. Every line in this space has infinite length, and areas or volumes have no natural upper limit. In contrast, spaces defined on a circle (<span class="math inline">\(S^1\)</span>) or sphere (<span class="math inline">\(S^2\)</span>) define a bounded set: there may be infinitely many points but the length and area of the circle, and the radius, area and volume of a sphere are bounded.</p>
+<p>This may sound trivial but leads to some interesting challenges when handling spatial data. A polygon on <span class="math inline">\(R^2\)</span> has unambiguously an inside and an outside. On a sphere, <span class="math inline">\(S^2\)</span>, any polygon divides the sphere in two parts, and which of these two is to be considered inside and which outside is ambiguous and needs to be defined by the traversal direction. <a href="04-Spherical.html"><span>Chapter&nbsp;4</span></a> will further discuss consequences when working with geometries on <span class="math inline">\(S^2\)</span>.</p>
 <p> </p>
 </section>
 </section>
 <section id="sec-crs" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-crs"><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-crs"><span class="header-section-number">2.3</span> Coordinate reference systems</h2>
 <p></p>
 <p>We follow <span class="citation" data-cites="lott2015">Lott (<a href="references.html#ref-lott2015" role="doc-biblioref">2015</a>)</span> when defining the following concepts (italics indicate literal quoting):</p>
 <ul>
@@ -662,7 +663,7 @@ div.csl-indent {
 <p>A readable text that further explains these concepts is <span class="citation" data-cites="iliffelott">Iliffe and Lott (<a href="references.html#ref-iliffelott" role="doc-biblioref">2008</a>)</span>.</p>
 <p>The Earth does not follow a regular shape. The topography of the Earth is of course known to vary strongly, but also the surface formed by constant gravity at mean sea level, the geoid, is irregular. A commonly used model that is fit to the geoid is an ellipsoid of revolution, which is an ellipse with two identical minor axes. Fitting such an ellipsoid to the Earth gives a datum. However, fitting it to different areas, or based on different sets of reference points gives different fits, and hence different datums: a datum can for instance be fixed to a particular tectonic plate (like the European Terrestrial Reference System 1989 (ETRS89)), others can be globally fit (like WGS84). More local fits lead to smaller approximation errors.</p>
 <p></p>
-<p>The definitions above imply that coordinates in degrees longitude and latitude only have a meaning, i.e.&nbsp;can only be interpreted unambiguously as Earth coordinates, when the datum they are associated with is given.</p>
+<p>The definitions above imply that coordinates in degrees longitude and latitude only have a meaning and can only be interpreted unambiguously as Earth coordinates, when the datum they are associated with is given.</p>
 <p>Note that for projected data, the data that <em>were</em> projected are associated with a reference ellipsoid (datum). Going from one projection to another <em>without</em> changing datum is called <em>coordinate conversion</em>, and passes through the ellipsoidal coordinates associated with the datum involved. This process is lossless and invertible: the parameters and equations associated with a <em>conversion</em> are not empirical. Recomputing coordinates in a new datum is called <em>coordinate transformation</em>, and is approximate: because datums are a result of model fitting, transformations between datums are models too that have been fit; the equations involved are empirical, and multiple transformation paths, based on different model fits and associated with different accuracies, are possible.</p>
 <p> </p>
 <p>Plate tectonics imply that within a global datum, fixed objects may have coordinates that change over time, and that transformations from one datum to another may be time-dependent. Earthquakes are a cause of more local and sudden changes in coordinates. Local datums may be fixed to tectonic plates (such as ETRS89), or may be dynamic.</p>
@@ -672,13 +673,13 @@ div.csl-indent {
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-projlib"><span class="header-section-number">2.4</span> PROJ and mapping accuracy</h2>
 <p>Very few living people active in open source geospatial software can remember the time before PROJ. PROJ <span class="citation" data-cites="evenden:90">(<a href="references.html#ref-evenden:90" role="doc-biblioref">Evenden 1990</a>)</span> started in the 1970s as a Fortran project, and was released in 1985 as a C library for cartographic projections. It came with command line tools for direct and inverse projections, and could be linked to software to let it support (re)projection directly. Originally, datums were considered implicit, and no datum transformations were allowed.</p>
 <p> </p>
-<p>In the early 2000s, PROJ was known as PROJ.4, after its never changing major version number. Amongst others motivated by the rise of GPS, the need for datum transformations increased and PROJ.4 was extended with rudimentary datum support. PROJ definitions for coordinate reference systems would look like this:</p>
+<p>In the early 2000s, PROJ was known as PROJ.4, after its never-changing major version number. Amongst others motivated by the rise of GPS, the need for datum transformations increased and PROJ.4 was extended with rudimentary datum support. PROJ definitions for coordinate reference systems would look like this:</p>
 <pre><code>+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</code></pre>
 <p>where <em>key</em>=<em>value</em> pairs are preceded by a <code>+</code> and separated by a space. This form came to be known as “PROJ.4 string”, since the PROJ project stayed at version 4.x for several decades. Other datums would come with fields like:</p>
 <pre><code>+ellps=bessel +towgs84=565.4,50.3,465.6,-0.399,0.344,-1.877,4.072</code></pre>
 <p>indicating another ellipse, as well as the seven (or three) parameters for transforming from this ellipse to WGS84 (the “World Geodetic System 1984” global datum once popularised by GPS), effectively defining the datum in terms of a transformation to WGS84.</p>
-<p>Along with PROJ.4 came a set of databases with known (registered) projections, from which the best known is the European Petroleum Survey Group (EPSG) registry. National mapping agencies would provide (and update over time) their best guesses of <code>+towgs84=</code> parameters for national coordinate reference systems, and distribute it through the EPSG registry, which was part of PROJ distributions. For some transformations, <em>datum grids</em> were available and distributed as part of PROJ.4: such grids are raster maps that provide for every location pre-computed values for the shift in longitude and latitude, or elevation, for a particular datum transformation.</p>
-<p>In PROJ.4, every coordinate transformation had to go through a conversion to and from WGS84; even reprojecting data associated with a datum different from WGS84 had to go through a transformation to and from WGS84. The associated errors of up to 100 m were acceptable for mapping purposes for not too small areas, but applications that need high accuracy transformations, e.g.&nbsp;precision agriculture, planning flights of UAV’s, or object tracking are often more demanding in terms of accuracy.</p>
+<p>Along with PROJ.4 came a set of databases with known (registered) projections, from which the best known is the European Petroleum Survey Group (EPSG) registry. National mapping agencies would provide (and update over time) their best guesses of <code>+towgs84=</code> parameters for national coordinate reference systems, and distribute through the EPSG registry, which was part of PROJ distributions. For some transformations, <em>datum grids</em> were available and distributed as part of PROJ.4: such grids are raster maps that provide for every location pre-computed values for the shift in longitude and latitude, or elevation, for a particular datum transformation.</p>
+<p>In PROJ.4, every coordinate transformation had to go through a conversion to and from WGS84; even reprojecting data associated with a datum different from WGS84 had to go through a transformation to and from WGS84. The associated errors of up to 100 m were acceptable for mapping purposes for not too small areas, but some applications need higher accuracy transformations. Examples include precision agriculture, planning flights of UAV’s, or object tracking.</p>
 <p>In 2018, after a successful “GDAL Coordinate System Barn Raising” initiative, a number of companies profiting from the open source geospatial software stack supported the development of a more modern, mature coordinate transformation system in PROJ. Over a few years, PROJ.4 evolved through versions 5, 6, 7, 8 and 9 and was hence renamed into PROJ (or PR<span class="math inline">\(\phi\)</span>J).</p>
 <p> </p>
 <p>The most notable changes include:</p>
@@ -687,7 +688,7 @@ div.csl-indent {
 <li>WGS84 as a hub datum is dropped: coordinate transformations no longer need to go through a particular datum</li>
 <li>multiple conversion or transformation paths (so-called pipelines) to go from CRS A to CRS B are possible, and can be reported along with the associated accuracy; PROJ will by default use the most accurate one but user control is possible</li>
 <li>transformation pipelines can chain an arbitrary number of elementary transformation operations, including swapping of axes and unit transformations</li>
-<li>datum grids, of which there are now <em>many</em> more, are no longer distributed with the library but are accessible from a content delivery network (CDN); PROJ allows enabling and disabling network access to access these grids, and only downloads the section(s) of the grid actually needed, storing it in a cache on the user’s machine for future use</li>
+<li>datum grids, of which there are now <em>many</em> more, are no longer distributed with the library but are accessible from a content delivery network (CDN); PROJ allows enabling and disabling network access to these grids and only downloads the section(s) of the grid actually needed, storing it in a cache on the user’s machine for future use</li>
 <li>coordinate transformations receive support for epochs, time-dependent transformations (and hence: four-dimensional coordinates, including the source and target time)</li>
 <li>the set of files with registered coordinate reference systems is handled in an SQLite database</li>
 <li>instead of always handling axis order (longitude, latitude), when the authority defines differently this is now obeyed (but see <a href="#sec-wkt2"><span>Section&nbsp;2.5</span></a> and <a href="07-Introsf.html#sec-axisorder"><span>Section&nbsp;7.7.6</span></a>)</li>
@@ -707,7 +708,7 @@ div.csl-indent {
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(admin <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ADMIN <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
@@ -772,7 +773,7 @@ div.csl-indent {
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="va">True</span>)</span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co"># (-9.008333333333333, 2.008333333333333, 48.99583333333334, 61.00416666666667)</span></span>
 <span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x7fd3d977f0a0&gt;</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x7ff872343580&gt;</span></span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -848,7 +849,7 @@ div.csl-indent {
 <span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="va">True</span>)</span>
 <span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># (-9.400175143506939, 3.5566845254796124, 49.76315756569858, 61.13587920351422)</span></span>
 <span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x7fd3d6efda90&gt;</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x7ff86fa27fd0&gt;</span></span>
 <span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -864,11 +865,11 @@ div.csl-indent {
 </div>
 </div>
 <p> </p>
-<p>Examples of a horizontal datum grids, downloaded from cdn.proj.org, are shown in <a href="#fig-horizontalgrid">Figure&nbsp;<span>2.4</span></a> and for a vertical datum grid in <a href="#fig-verticalgrid">Figure&nbsp;<span>2.5</span></a> . Datum grids may carry per-pixel accuracy values.</p>
+<p>Examples of a horizontal datum grids, downloaded from cdn.proj.org, are shown in <a href="#fig-horizontalgrid">Figure&nbsp;<span>2.4</span></a> and for a vertical datum grid in <a href="#fig-verticalgrid">Figure&nbsp;<span>2.5</span></a>. Datum grids may carry per-pixel accuracy values.</p>
 </section>
 <section id="sec-wkt2" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-wkt2"><span class="header-section-number">2.5</span> WKT-2</h2>
-<p><span class="citation" data-cites="lott2015">Lott (<a href="references.html#ref-lott2015" role="doc-biblioref">2015</a>)</span> describes a standard for encoding coordinate reference systems, as well as transformations between them using <em>well known text</em>; the standard (and format) is referred to informally as WKT-2. As mentioned above, GDAL and PROJ fully support this encoding. An example of WKT-2 for CRS <code>EPSG:4326</code> is:</p>
+<p><span class="citation" data-cites="lott2015">Lott (<a href="references.html#ref-lott2015" role="doc-biblioref">2015</a>)</span> describes a standard for encoding coordinate reference systems, as well as transformations between them using <em>well-known text</em>; the standard (and format) is referred to informally as WKT-2. As mentioned above, GDAL and PROJ fully support this encoding. An example of WKT-2 for CRS <code>EPSG:4326</code> is:</p>
 <p> </p>
 <pre><code>GEOGCRS["WGS 84",
     ENSEMBLE["World Geodetic System 1984 ensemble",
@@ -896,7 +897,7 @@ div.csl-indent {
         AREA["World."],
         BBOX[-90,-180,90,180]],
     ID["EPSG",4326]]</code></pre>
-<p>This shows a coordinate system with the axis order <em>latitude, longitude</em> , although in most practical cases the axis order used is <em>longitude, latitude</em>. The <em>ensemble</em> of WGS84 ellipsoids listed represents its various updates over time. Ambiguity about <em>which</em> of these ensemble members a particular dataset should use leads to an uncertainty of several meters. The coordinate reference system <code>OGC:CRS84</code> disambiguates the axis order and explicitly states it to be <code>longitude, latitude</code>, and is the recommended alternative to for WGS84 datasets using this axis order. It does not disambiguate the datum ensemble problem.</p>
+<p>This shows a coordinate system with the axis order <em>latitude, longitude</em>, although in most practical cases the axis order used is <em>longitude, latitude</em>. The <em>ensemble</em> of WGS84 ellipsoids listed represents its various updates over time. Ambiguity about <em>which</em> of these ensemble members a particular dataset should use leads to an uncertainty of several meters. The coordinate reference system <code>OGC:CRS84</code> disambiguates the axis order and explicitly states it to be <code>longitude, latitude</code>, and is the recommended alternative to WGS84 datasets using this axis order. It does not disambiguate the datum ensemble problem.</p>
 <p> </p>
 <p>A longer introduction on the history and recent changes in PROJ is given in <span class="citation" data-cites="rogerCRS">Bivand (<a href="references.html#ref-rogerCRS" role="doc-biblioref">2020</a>)</span>, building upon the work of <span class="citation" data-cites="knudsen+evers17">Knudsen and Evers (<a href="references.html#ref-knudsen+evers17" role="doc-biblioref">2017</a>)</span> and <span class="citation" data-cites="evers+knudsen17">Evers and Knudsen (<a href="references.html#ref-evers+knudsen17" role="doc-biblioref">2017</a>)</span>.</p>
 </section>
@@ -905,9 +906,9 @@ div.csl-indent {
 <p>Try to solve the following exercises with R (without loading packages); try to use functions where appropriate:</p>
 <ol type="1">
 <li>list three <em>geographic</em> measures that do not have a natural zero origin <!-- latitude, longitude, elevation --></li>
-<li>convert the <span class="math inline">\((x,y)\)</span> points <span class="math inline">\((10,2)\)</span>, <span class="math inline">\((-10,-2)\)</span>, <span class="math inline">\((10,-2)\)</span> and <span class="math inline">\((0,10)\)</span> to polar coordinates</li>
-<li>convert the polar <span class="math inline">\((r,\phi)\)</span> points <span class="math inline">\((10,45^{\circ})\)</span>, <span class="math inline">\((0,100^{\circ})\)</span> and <span class="math inline">\((5,359^{\circ})\)</span> to Cartesian coordinates</li>
-<li>assuming the Earth is a sphere with a radius of 6371 km, compute for <span class="math inline">\((\lambda,\phi)\)</span> points the great circle distance between <span class="math inline">\((10,10)\)</span> and <span class="math inline">\((11,10)\)</span>, between <span class="math inline">\((10,80)\)</span> and <span class="math inline">\((11,80)\)</span>, between <span class="math inline">\((10,10)\)</span> and <span class="math inline">\((10,11)\)</span> and between <span class="math inline">\((10,80)\)</span> and <span class="math inline">\((10,81)\)</span> (units: degree). What are the distance units?</li>
+<li>convert the <span class="math inline">\((x,y)\)</span> points <span class="math inline">\((10,2)\)</span>, <span class="math inline">\((-10,-2)\)</span>, <span class="math inline">\((10,-2)\)</span>, and <span class="math inline">\((0,10)\)</span> to polar coordinates</li>
+<li>convert the polar <span class="math inline">\((r,\phi)\)</span> points <span class="math inline">\((10,45^{\circ})\)</span>, <span class="math inline">\((0,100^{\circ})\)</span>, and <span class="math inline">\((5,359^{\circ})\)</span> to Cartesian coordinates</li>
+<li>assuming the Earth is a sphere with a radius of 6371 km, compute for <span class="math inline">\((\lambda,\phi)\)</span> points the great circle distance between <span class="math inline">\((10,10)\)</span> and <span class="math inline">\((11,10)\)</span>, between <span class="math inline">\((10,80)\)</span> and <span class="math inline">\((11,80)\)</span>, between <span class="math inline">\((10,10)\)</span> and <span class="math inline">\((10,11)\)</span>, and between <span class="math inline">\((10,80)\)</span> and <span class="math inline">\((10,81)\)</span> (units: degree). What are the distance units?</li>
 </ol>
 <div>
 <script>
@@ -936,7 +937,7 @@ Bivand, Roger. 2020. <em>Why Have CRS, Projections and Transformations Changed?<
 Bureau International des Poids et Mesures. 2006. <em>The International System of Units (<span>SI</span>), 8th Edition</em>. Organisation Intergouvernementale de la Convention du Mètre. <a href="https://www.bipm.org/en/publications/si-brochure/download.html">https://www.bipm.org/en/publications/si-brochure/download.html</a>.
 </div>
 <div id="ref-cobbmoore" class="csl-entry" role="doc-biblioentry">
-Cobb, George W., and David S. Moore. 1997. <span>“Mathematics, Statistics and Teaching.”</span> <em>The American Mathematical Monthly</em> 104: 801–23.<a href=" http://www.jstor.org/stable/2975286 ">http://www.jstor.org/stable/2975286 </a>.
+Cobb, George W., and David S. Moore. 1997. <span>“Mathematics, Statistics and Teaching.”</span> <em>The American Mathematical Monthly</em> 104: 801–23. <a href="https://www.jstor.org/stable/2975286">https://www.jstor.org/stable/2975286</a>.
 </div>
 <div id="ref-evenden:90" class="csl-entry" role="doc-biblioentry">
 Evenden, Gerald I. 1990. <em>Cartographic Projection Procedures for the <span>UNIX</span> Environment — a User’s Manual</em>. <a href="http://download.osgeo.org/proj/OF90-284.pdf">http://download.osgeo.org/proj/OF90-284.pdf</a>.
@@ -945,13 +946,13 @@ Evenden, Gerald I. 1990. <em>Cartographic Projection Procedures for the <span>UN
 Evers, Kristian, and Thomas Knudsen. 2017. <em>Transformation Pipelines for PROJ.4</em>. <a href="https://www.fig.net/resources/proceedings/fig_proceedings/fig2017/papers/iss6b/ISS6B_evers_knudsen_9156.pdf">https://www.fig.net/resources/proceedings/fig_proceedings/fig2017/papers/iss6b/ISS6B_evers_knudsen_9156.pdf</a>.
 </div>
 <div id="ref-hand" class="csl-entry" role="doc-biblioentry">
-Hand, David J. 2004. <em>Measurement: Theory and Practice</em>. <span>A Hodder Arnold Publication</span>.
+Hand, David J. 2004. <em>Measurement Theory and Practice</em>. Arnold, London.
 </div>
 <div id="ref-iliffelott" class="csl-entry" role="doc-biblioentry">
 Iliffe, Jonathan, and Roger Lott. 2008. <em>Datums and Map Projections for Remote Sensing, GIS, and Surveying. Whittles Pub</em>. CRC Press, Scotland, UK.
 </div>
 <div id="ref-karney2013algorithms" class="csl-entry" role="doc-biblioentry">
-Karney, Charles FF. 2013. <span>“Algorithms for Geodesics.”</span> <em>Journal of Geodesy</em> 87 (1): 43–55. <a href="https://link.springer.com/content/pdf/10.1007/s00190-012-0578-z.pdf">https://link.springer.com/content/pdf/10.1007/s00190-012-0578-z.pdf</a>.
+Karney, Charles F. F. 2013. <span>“Algorithms for Geodesics.”</span> <em>Journal of Geodesy</em> 87 (1): 43–55. <a href="https://link.springer.com/content/pdf/10.1007/s00190-012-0578-z.pdf">https://link.springer.com/content/pdf/10.1007/s00190-012-0578-z.pdf</a>.
 </div>
 <div id="ref-knudsen+evers17" class="csl-entry" role="doc-biblioentry">
 Knudsen, Thomas, and Kristian Evers. 2017. <em>Transformation Pipelines for PROJ.4</em>. <a href="https://meetingorganizer.copernicus.org/EGU2017/EGU2017-8050.pdf">https://meetingorganizer.copernicus.org/EGU2017/EGU2017-8050.pdf</a>.
@@ -1171,7 +1172,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>are characterised by coordinates, and coordinates are defined in</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>a coordinate system.  Different coordinate systems can be used for</span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>this, and the most important difference is whether coordinates are</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>defined over a 2-dimensional or 3-dimensional space referenced</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>defined over a 2 dimensional or 3 dimensional space referenced</span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>to orthogonal axes (Cartesian coordinates), or using distance</span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>and directions (polar coordinates, spherical and ellipsoidal</span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>coordinates). Besides a location of observation, all observations</span>
@@ -1195,9 +1196,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>data handling requires that numbers (or symbols) are accompanied</span>
 <span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>by information on what they mean, in particular what they refer to.</span>
 <span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>A measurement system consist of _base units_ for base quantities, and</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>A measurement system consists of _base units_ for base quantities, and</span>
 <span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>_derived units_ for derived quantities. For instance, the SI system</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>of units <span class="co">[</span><span class="ot">@SI</span><span class="co">]</span> consist of seven base units: length (metre,</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>of units <span class="co">[</span><span class="ot">@SI</span><span class="co">]</span> consists of seven base units: length (metre,</span>
 <span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>m), mass (kilogram, kg), time (second, s), electric current</span>
 <span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>(ampere, A), thermodynamic temperature (Kelvin, K), amount of</span>
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>substance (mole, mol), and luminous intensity (candela, cd).</span>
@@ -1206,22 +1207,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>($\mbox{kg}~\mbox{m}^{-3}$) and area ($\mbox{m}^2$).</span>
 <span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>The special case of unitless measures can refer to either cases</span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>where units cancel out (e.g. mass fraction: kg/kg, or angle measured</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>where units cancel out (for instance mass fraction: kg/kg, or angle measured</span>
 <span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>in rad: m/m) or to cases where objects or events were counted</span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>(e.g. 5 apples).  Adding an angle to a count of apples would not</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>(such as "5 apples").  Adding an angle to a count of apples would not</span>
 <span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>make sense; adding 5 apples to 3 oranges may make sense if the</span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>result is reinterpreted as a superclass, e.g. as _pieces of fruit_.</span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>result is reinterpreted in terms of a superclass, in this case as _pieces of fruit_.</span>
 <span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>Many data variables have units that are not expressible as SI base</span>
 <span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>units or derived units. @hand discusses many such measurement scales,</span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>e.g. those used to measure intelligence in social sciences, in the</span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>context of measurement units.</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>including those used to measure variables like intelligence in</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>social sciences, in the context of measurement units.</span>
 <span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>For many quantities, the natural origin of values is zero. This</span>
 <span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>works for amounts, where differences between amounts result in</span>
 <span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>meaningful negative values. For locations and times, differences</span>
 <span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>have a natural zero interpretation: distance and duration.  Absolute</span>
 <span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>location (position) and time need a fixed origin, from which we</span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>can meaningfully measure other absolute space-time points: we</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>can meaningfully measure other absolute space time points: we</span>
 <span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>call this **a datum**.</span>
 <span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>For space, a datum involves more than one dimension. The combination</span>
 <span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>of a datum and a measurement unit (scale) is a _reference system_.</span>
@@ -1401,310 +1402,310 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a>_on_ a sphere with given radius, we can drop $r$: $(\lambda,\phi)$</span>
 <span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a>now suffice to identify any point.</span>
 <span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a>It should be noted that this is just _a_ definition, one could for</span>
-<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a>instance also choose to measure polar angle, the angle between</span>
-<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a>the vector and $z$, instead of latitude. There is also a long</span>
-<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a>tradition of specifying points as $(\phi,\lambda)$ but throughout</span>
-<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a>this book we will stick to longitude-latitude, $(\lambda,\phi)$.</span>
-<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a>The point denoted in @fig-sphere  has $(\lambda,\phi)$ or ellipsoidal</span>
-<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a>coordinates with angular values</span>
-<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
-<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
-<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a>measured in degrees, and geocentric coordinates</span>
-<span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
-<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
-<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a>measured in metres.</span>
-<span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a>\index{coordinates!units}</span>
-<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a>For points on an ellipse, there are two ways in which angle can be</span>
-<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a>expressed (@fig-ellipse): measured from the centre of the ellipse</span>
-<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a>($\psi$), or measured perpendicular to the tangent on the ellipse</span>
-<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a>at the target point ($\phi$).</span>
-<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a>\newpage</span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a>It should be noted that this is just _a_ definition, one could for</span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a>instance also choose to measure polar angle, the angle between</span>
+<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a>the vector and $z$, instead of latitude. There is also a long</span>
+<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a>tradition of specifying points as $(\phi,\lambda)$ but throughout</span>
+<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a>this book we will stick to longitude-latitude, $(\lambda,\phi)$.</span>
+<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a>The point denoted in @fig-sphere  has $(\lambda,\phi)$ or ellipsoidal</span>
+<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a>coordinates with angular values</span>
+<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
+<span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a>measured in degrees, and geocentric coordinates</span>
+<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
+<span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a>measured in metres.</span>
+<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a>\index{coordinates!units}</span>
+<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a>For points on an ellipse, there are two ways in which angle can be</span>
+<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a>expressed (@fig-ellipse): measured from the centre of the ellipse</span>
+<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a>($\psi$), or measured perpendicular to the tangent on the ellipse</span>
+<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a>at the target point ($\phi$).</span>
 <span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-ellipse, echo=!knitr::is_latex_output() }</span></span>
-<span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 60%</span></span>
-<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Angles on an ellipse: geodetic (blue) and geocentric (red) latitude"</span></span>
-<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
-<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">48</span>)</span>
-<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
-<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
-<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (x <span class="sc">*</span> <span class="dv">25</span>) <span class="sc">/</span> (<span class="sc">-</span>y <span class="sc">*</span> <span class="dv">64</span>)</span>
-<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">*</span> b</span>
-<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">'grey'</span>)</span>
-<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>b</span>
-<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> x <span class="sc">-</span> y <span class="sc">/</span> b</span>
-<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(x0, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
-<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"psi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
-<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'blue'</span>)</span>
-<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>The most commonly used parametric model for the Earth is _an</span>
-<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution_, an ellipsoid with two equal semi-axes</span>
-<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@iliffelott</span><span class="co">]</span>. In effect, this is a flattened sphere (or spheroid):</span>
-<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a>the distance between the poles is (slightly: about 0.33%) smaller</span>
-<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>than the distance between two opposite points on the equator. Under</span>
-<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>this model, longitude is always measured along a circle (as in</span>
-<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>@fig-sphere) , and latitude along an ellipse (as in</span>
-<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>@fig-ellipse) . If we</span>
-<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a>think of @fig-ellipse  as a cross section of the Earth</span>
-<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>passing through the poles, the _geodetic_ latitude measure $\phi$</span>
-<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a>is the one used when no further specification is given. The latitude</span>
-<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>measure $\psi$ is called the _geocentric latitude_.</span>
-<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a>\index{latitude!geodetic}</span>
-<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>\index{latitude!geocentric}</span>
-<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>\index{longitude}</span>
-<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a>\index{ellipsoid of revolution}</span>
-<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>\index{altitude}</span>
-<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>\index{altitude!direction}</span>
-<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a>\index{coordinates!altitude}</span>
-<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a>In addition to longitude and latitude we can add _altitude_ or</span>
-<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>elevation to define points that are above or below the ellipsoid,</span>
-<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a>and obtain a three dimensional space again. When defining altitude,</span>
-<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a>we need to choose:</span>
-<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>where zero altitude is: on the ellipsoid, or relative to the surface approximating mean sea level (the geoid)?</span>
-<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which direction is positive, and </span>
-<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which direction is "straight up": perpendicular to the ellipsoid surface,</span>
-<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a>or in the direction of gravity, perpendicular to the surface of the geoid?</span>
-<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a>All these choices may matter, depending on the application area</span>
-<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a>and required measurement accuracies.</span>
-<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-331"><a href="#cb17-331" aria-hidden="true" tabindex="-1"></a>The shape of the Earth is not a perfect ellipsoid. As a consequence,</span>
-<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a>several ellipsoids with different shape parameters and bound to</span>
-<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a>the Earth in different ways are being used. Such ellipsoids are called</span>
-<span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a>_datums_, and are briefly discussed in @sec-crs, along</span>
-<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a>with _coordinate reference systems_.</span>
-<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a><span class="fu">### Projected coordinates, distances {#sec-projections}</span></span>
-<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a>Because paper maps and computer screens are much more abundant</span>
-<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a>and practical than globes, most of the time we look at spatial</span>
-<span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a>data we see it _projected_: drawn on a flat, two-dimensional</span>
-<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>surface. Computing the locations in a two-dimensional space means</span>
-<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a>that we work with _projected_ coordinates. Projecting ellipsoidal</span>
-<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a>coordinates means that shapes, directions, areas, or even all three,</span>
-<span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a>are distorted <span class="co">[</span><span class="ot">@iliffelott</span><span class="co">]</span>.</span>
-<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-347"><a href="#cb17-347" aria-hidden="true" tabindex="-1"></a>\index{coordinates!projected}</span>
-<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a>\index{projection}</span>
-<span id="cb17-349"><a href="#cb17-349" aria-hidden="true" tabindex="-1"></a>\index{distance!straight line}</span>
-<span id="cb17-350"><a href="#cb17-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-351"><a href="#cb17-351" aria-hidden="true" tabindex="-1"></a>Distances between two points $p_i$ and $p_j$ in Cartesian coordinates are computed</span>
-<span id="cb17-352"><a href="#cb17-352" aria-hidden="true" tabindex="-1"></a>as Euclidean distances, in two dimensions by</span>
-<span id="cb17-353"><a href="#cb17-353" aria-hidden="true" tabindex="-1"></a>$$d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2}$$</span>
-<span id="cb17-354"><a href="#cb17-354" aria-hidden="true" tabindex="-1"></a>with $p_i = (x_i,y_i)$</span>
-<span id="cb17-355"><a href="#cb17-355" aria-hidden="true" tabindex="-1"></a>and in three dimensions by</span>
-<span id="cb17-356"><a href="#cb17-356" aria-hidden="true" tabindex="-1"></a>$$d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2+(z_i-z_j)^2}$$</span>
-<span id="cb17-357"><a href="#cb17-357" aria-hidden="true" tabindex="-1"></a>with $p_i = (x_i,y_i,z_i).$</span>
-<span id="cb17-358"><a href="#cb17-358" aria-hidden="true" tabindex="-1"></a>These distances represent the length of a _straight_ line between</span>
-<span id="cb17-359"><a href="#cb17-359" aria-hidden="true" tabindex="-1"></a>two points $i$ and $j$.</span>
-<span id="cb17-360"><a href="#cb17-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-361"><a href="#cb17-361" aria-hidden="true" tabindex="-1"></a>For two points on a circle, the length of the arc of two points $c_1 = (r,{\phi}_i)$ and</span>
-<span id="cb17-362"><a href="#cb17-362" aria-hidden="true" tabindex="-1"></a>$c_2 = (r, \phi_2)$ is</span>
-<span id="cb17-363"><a href="#cb17-363" aria-hidden="true" tabindex="-1"></a>$$s_{ij}=r~|\phi_1-\phi_2| = r ~\theta$$</span>
-<span id="cb17-364"><a href="#cb17-364" aria-hidden="true" tabindex="-1"></a>with $\theta$ the angle between $\phi_1$ and $\phi_2$ in radians.</span>
-<span id="cb17-365"><a href="#cb17-365" aria-hidden="true" tabindex="-1"></a>For very small values of $\theta$, we will have $s_{ij} \approx d_{ij}$,</span>
-<span id="cb17-366"><a href="#cb17-366" aria-hidden="true" tabindex="-1"></a>because a small arc segment is nearly straight.</span>
-<span id="cb17-367"><a href="#cb17-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-368"><a href="#cb17-368" aria-hidden="true" tabindex="-1"></a>\index{distance!great circle}</span>
-<span id="cb17-369"><a href="#cb17-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-370"><a href="#cb17-370" aria-hidden="true" tabindex="-1"></a>For two points $p_1 = (\lambda_1,\phi_1)$ and $p_2 =</span>
-<span id="cb17-371"><a href="#cb17-371" aria-hidden="true" tabindex="-1"></a>(\lambda_2,\phi_2)$ on a sphere with radius $r'$, the _great circle</span>
-<span id="cb17-372"><a href="#cb17-372" aria-hidden="true" tabindex="-1"></a>distance_ is the arc length between $p_1$ and $p_2$ on the circle</span>
-<span id="cb17-373"><a href="#cb17-373" aria-hidden="true" tabindex="-1"></a>that passes through $p_1$ and $p_2$ and has the centre of the sphere as its centre, and</span>
-<span id="cb17-374"><a href="#cb17-374" aria-hidden="true" tabindex="-1"></a>is given by $s_{12} = r ~ \theta_{12}$ with</span>
-<span id="cb17-375"><a href="#cb17-375" aria-hidden="true" tabindex="-1"></a>$$\theta_{12} = \arccos(\sin \phi_1 \cdot \sin \phi_2 + \cos \phi_1 \cdot \cos \phi_2 \cdot \cos(|\lambda_1-\lambda_2|))$$</span>
-<span id="cb17-376"><a href="#cb17-376" aria-hidden="true" tabindex="-1"></a>the angle between $p_1$ and $p_2$, in radians.</span>
-<span id="cb17-377"><a href="#cb17-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-378"><a href="#cb17-378" aria-hidden="true" tabindex="-1"></a>Arc distances between two points on a spheroid are more complicated</span>
-<span id="cb17-379"><a href="#cb17-379" aria-hidden="true" tabindex="-1"></a>to compute; a good discussion on the topic and an explanation of</span>
-<span id="cb17-380"><a href="#cb17-380" aria-hidden="true" tabindex="-1"></a>the method implemented in GeographicLib (part of PROJ) is given</span>
-<span id="cb17-381"><a href="#cb17-381" aria-hidden="true" tabindex="-1"></a>in @karney2013algorithms.</span>
-<span id="cb17-382"><a href="#cb17-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-383"><a href="#cb17-383" aria-hidden="true" tabindex="-1"></a>\index{distance!ellipsoidal}</span>
-<span id="cb17-384"><a href="#cb17-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-385"><a href="#cb17-385" aria-hidden="true" tabindex="-1"></a>To show that these distance measures actually give different</span>
-<span id="cb17-386"><a href="#cb17-386" aria-hidden="true" tabindex="-1"></a>values, we computed them for the distance Berlin - Paris. Here,</span>
-<span id="cb17-387"><a href="#cb17-387" aria-hidden="true" tabindex="-1"></a><span class="in">`gc_`</span> refers to ellipsoidal and spherical great circle distances,</span>
-<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a><span class="in">`straight_`</span> refers to straight line, Euclidean distances between</span>
-<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a>Cartesian geocentric coordinates associated on the WGS84 ellipse</span>
-<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>and sphere:</span>
-<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output(), message=FALSE}</span></span>
-<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">13.4050</span>, <span class="fl">52.5200</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">2.3522</span>, <span class="fl">48.8566</span>)), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
-<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=longlat +ellps=sphere"))</span></span>
-<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=geocent"</span>)</span>
-<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=longlat +ellps=sphere"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
-<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">straight_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
-<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1,d3,d2,d4)</span>
-<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
-<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
-<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span>
-<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bounded and unbounded spaces {#sec-bounded}</span></span>
-<span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-412"><a href="#cb17-412" aria-hidden="true" tabindex="-1"></a>\index{sphere}</span>
-<span id="cb17-413"><a href="#cb17-413" aria-hidden="true" tabindex="-1"></a>\index{space!bounded}</span>
-<span id="cb17-414"><a href="#cb17-414" aria-hidden="true" tabindex="-1"></a>\index{space!unbounded}</span>
-<span id="cb17-415"><a href="#cb17-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-416"><a href="#cb17-416" aria-hidden="true" tabindex="-1"></a>Two-dimensional and three-dimensional Euclidean spaces ($R^2$ and</span>
-<span id="cb17-417"><a href="#cb17-417" aria-hidden="true" tabindex="-1"></a>$R^3$) are unbounded: every line in this space has infinite length,</span>
-<span id="cb17-418"><a href="#cb17-418" aria-hidden="true" tabindex="-1"></a>distances, areas or volumes are unbounded. In contrast, spaces</span>
-<span id="cb17-419"><a href="#cb17-419" aria-hidden="true" tabindex="-1"></a>defined on a circle ($S^1$) or sphere ($S^2$) define a bounded set:</span>
-<span id="cb17-420"><a href="#cb17-420" aria-hidden="true" tabindex="-1"></a>there may be infinitely many points but the length and area of the</span>
-<span id="cb17-421"><a href="#cb17-421" aria-hidden="true" tabindex="-1"></a>circle and the radius, area and volume of a sphere are bound.</span>
-<span id="cb17-422"><a href="#cb17-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-423"><a href="#cb17-423" aria-hidden="true" tabindex="-1"></a>This may sound trivial, but leads to some interesting findings</span>
-<span id="cb17-424"><a href="#cb17-424" aria-hidden="true" tabindex="-1"></a>when handling spatial data. A polygon on $R^2$ has unambiguously an</span>
-<span id="cb17-425"><a href="#cb17-425" aria-hidden="true" tabindex="-1"></a>inside and an outside. On a sphere, $S^2$, any polygon divides</span>
-<span id="cb17-426"><a href="#cb17-426" aria-hidden="true" tabindex="-1"></a>the sphere in two parts, and which of these two is to be considered</span>
-<span id="cb17-427"><a href="#cb17-427" aria-hidden="true" tabindex="-1"></a>inside and which outside is ambiguous and needs to be defined</span>
-<span id="cb17-428"><a href="#cb17-428" aria-hidden="true" tabindex="-1"></a>e.g. by the traversal direction. @sec-spherical will</span>
-<span id="cb17-429"><a href="#cb17-429" aria-hidden="true" tabindex="-1"></a>further discuss consequences when working with geometries on $S^2$.</span>
-<span id="cb17-430"><a href="#cb17-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-431"><a href="#cb17-431" aria-hidden="true" tabindex="-1"></a>\index{polygon!on the sphere}</span>
-<span id="cb17-432"><a href="#cb17-432" aria-hidden="true" tabindex="-1"></a>\index{polygon!inside, outside}</span>
-<span id="cb17-433"><a href="#cb17-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-434"><a href="#cb17-434" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coordinate Reference Systems {#sec-crs}</span></span>
-<span id="cb17-435"><a href="#cb17-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-436"><a href="#cb17-436" aria-hidden="true" tabindex="-1"></a>\index{coordinate reference systems}</span>
-<span id="cb17-437"><a href="#cb17-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-438"><a href="#cb17-438" aria-hidden="true" tabindex="-1"></a>We follow @lott2015 when defining the following concepts (italics indicate literal quoting):</span>
-<span id="cb17-439"><a href="#cb17-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-440"><a href="#cb17-440" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **coordinate system** is a _set of mathematical rules for specifying how coordinates are to be assigned to points_,</span>
-<span id="cb17-441"><a href="#cb17-441" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **datum** is a _parameter or set of parameters that define the position of the origin, the scale, and the orientation of a coordinate system_, </span>
-<span id="cb17-442"><a href="#cb17-442" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **geodetic datum** is a _datum describing the relationship of a two- or three-dimensional coordinate system to the Earth_, and</span>
-<span id="cb17-443"><a href="#cb17-443" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **coordinate reference system** is a _coordinate system that is related to an object by a datum; for geodetic and vertical datums, the object will be the Earth._</span>
-<span id="cb17-444"><a href="#cb17-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-445"><a href="#cb17-445" aria-hidden="true" tabindex="-1"></a>\index{coordinate system}</span>
-<span id="cb17-446"><a href="#cb17-446" aria-hidden="true" tabindex="-1"></a>\index{geodetic datum}</span>
-<span id="cb17-447"><a href="#cb17-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-448"><a href="#cb17-448" aria-hidden="true" tabindex="-1"></a>A readable text that further explains these concepts is @iliffelott.</span>
-<span id="cb17-449"><a href="#cb17-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-450"><a href="#cb17-450" aria-hidden="true" tabindex="-1"></a>The Earth does not follow a regular shape. The topography of the</span>
-<span id="cb17-451"><a href="#cb17-451" aria-hidden="true" tabindex="-1"></a>Earth is of course known to vary strongly, but also the surface</span>
-<span id="cb17-452"><a href="#cb17-452" aria-hidden="true" tabindex="-1"></a>formed by constant gravity at mean sea level, the geoid, is</span>
-<span id="cb17-453"><a href="#cb17-453" aria-hidden="true" tabindex="-1"></a>irregular. A commonly used model that is fit to the geoid is an</span>
-<span id="cb17-454"><a href="#cb17-454" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution, which is an ellipse with two identical</span>
-<span id="cb17-455"><a href="#cb17-455" aria-hidden="true" tabindex="-1"></a>minor axes. Fitting such an ellipsoid to the Earth gives a datum.</span>
-<span id="cb17-456"><a href="#cb17-456" aria-hidden="true" tabindex="-1"></a>However, fitting it to different areas, or based on different sets of</span>
-<span id="cb17-457"><a href="#cb17-457" aria-hidden="true" tabindex="-1"></a>reference points gives different fits, and hence different datums:</span>
-<span id="cb17-458"><a href="#cb17-458" aria-hidden="true" tabindex="-1"></a>a datum can for instance be fixed to a particular tectonic plate</span>
-<span id="cb17-459"><a href="#cb17-459" aria-hidden="true" tabindex="-1"></a>(like the European Terrestrial Reference System 1989 (ETRS89)), others can be globally fit (like WGS84). More local</span>
-<span id="cb17-460"><a href="#cb17-460" aria-hidden="true" tabindex="-1"></a>fits lead to smaller approximation errors.</span>
-<span id="cb17-461"><a href="#cb17-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-462"><a href="#cb17-462" aria-hidden="true" tabindex="-1"></a>\index{geoid}</span>
-<span id="cb17-463"><a href="#cb17-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-464"><a href="#cb17-464" aria-hidden="true" tabindex="-1"></a>The definitions above imply that coordinates in degrees longitude</span>
-<span id="cb17-465"><a href="#cb17-465" aria-hidden="true" tabindex="-1"></a>and latitude only have a meaning, i.e. can only be interpreted</span>
-<span id="cb17-466"><a href="#cb17-466" aria-hidden="true" tabindex="-1"></a>unambiguously as Earth coordinates, when the datum they are</span>
-<span id="cb17-467"><a href="#cb17-467" aria-hidden="true" tabindex="-1"></a>associated with is given.</span>
-<span id="cb17-468"><a href="#cb17-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-469"><a href="#cb17-469" aria-hidden="true" tabindex="-1"></a>Note that for projected data, the data that _were_ projected</span>
-<span id="cb17-470"><a href="#cb17-470" aria-hidden="true" tabindex="-1"></a>are associated with a reference ellipsoid (datum). Going from</span>
-<span id="cb17-471"><a href="#cb17-471" aria-hidden="true" tabindex="-1"></a>one projection to another _without_ changing datum is called</span>
-<span id="cb17-472"><a href="#cb17-472" aria-hidden="true" tabindex="-1"></a>_coordinate conversion_, and passes through the ellipsoidal</span>
-<span id="cb17-473"><a href="#cb17-473" aria-hidden="true" tabindex="-1"></a>coordinates associated with the datum involved. This process is</span>
-<span id="cb17-474"><a href="#cb17-474" aria-hidden="true" tabindex="-1"></a>lossless and invertible: the parameters and equations associated</span>
-<span id="cb17-475"><a href="#cb17-475" aria-hidden="true" tabindex="-1"></a>with a _conversion_ are not empirical. Recomputing coordinates in a</span>
-<span id="cb17-476"><a href="#cb17-476" aria-hidden="true" tabindex="-1"></a>new datum is called _coordinate transformation_, and is approximate:</span>
-<span id="cb17-477"><a href="#cb17-477" aria-hidden="true" tabindex="-1"></a>because datums are a result of model fitting, transformations</span>
-<span id="cb17-478"><a href="#cb17-478" aria-hidden="true" tabindex="-1"></a>between datums are models too that have been fit; the equations</span>
-<span id="cb17-479"><a href="#cb17-479" aria-hidden="true" tabindex="-1"></a>involved are empirical, and multiple transformation paths, based</span>
-<span id="cb17-480"><a href="#cb17-480" aria-hidden="true" tabindex="-1"></a>on different model fits and associated with different accuracies,</span>
-<span id="cb17-481"><a href="#cb17-481" aria-hidden="true" tabindex="-1"></a>are possible.</span>
-<span id="cb17-482"><a href="#cb17-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-483"><a href="#cb17-483" aria-hidden="true" tabindex="-1"></a>\index{coordinate!conversion}</span>
-<span id="cb17-484"><a href="#cb17-484" aria-hidden="true" tabindex="-1"></a>\index{coordinate!transformation}</span>
-<span id="cb17-485"><a href="#cb17-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-486"><a href="#cb17-486" aria-hidden="true" tabindex="-1"></a>Plate tectonics imply that within a global datum, fixed objects may</span>
-<span id="cb17-487"><a href="#cb17-487" aria-hidden="true" tabindex="-1"></a>have coordinates that change over time, and that transformations</span>
-<span id="cb17-488"><a href="#cb17-488" aria-hidden="true" tabindex="-1"></a>from one datum to another may be time-dependent. Earthquakes are a</span>
-<span id="cb17-489"><a href="#cb17-489" aria-hidden="true" tabindex="-1"></a>cause of more local and sudden changes in coordinates. Local datums</span>
-<span id="cb17-490"><a href="#cb17-490" aria-hidden="true" tabindex="-1"></a>may be fixed to tectonic plates (such as ETRS89), or may be dynamic.</span>
-<span id="cb17-491"><a href="#cb17-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-492"><a href="#cb17-492" aria-hidden="true" tabindex="-1"></a>\index{datum!dynamic}</span>
-<span id="cb17-493"><a href="#cb17-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-494"><a href="#cb17-494" aria-hidden="true" tabindex="-1"></a><span class="fu">## PROJ and mapping accuracy {#sec-projlib}</span></span>
-<span id="cb17-495"><a href="#cb17-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-496"><a href="#cb17-496" aria-hidden="true" tabindex="-1"></a>Very few living people active in open source geospatial software</span>
-<span id="cb17-497"><a href="#cb17-497" aria-hidden="true" tabindex="-1"></a>can remember the time before PROJ. PROJ <span class="co">[</span><span class="ot">@evenden:90</span><span class="co">]</span> started in the</span>
-<span id="cb17-498"><a href="#cb17-498" aria-hidden="true" tabindex="-1"></a>1970s as a Fortran project, and was released in 1985 as a C library</span>
-<span id="cb17-499"><a href="#cb17-499" aria-hidden="true" tabindex="-1"></a>for cartographic projections. It came with command line tools for</span>
-<span id="cb17-500"><a href="#cb17-500" aria-hidden="true" tabindex="-1"></a>direct and inverse projections, and could be linked to software</span>
-<span id="cb17-501"><a href="#cb17-501" aria-hidden="true" tabindex="-1"></a>to let it support (re)projection directly. Originally, datums were</span>
-<span id="cb17-502"><a href="#cb17-502" aria-hidden="true" tabindex="-1"></a>considered implicit, and no datum transformations were allowed.</span>
-<span id="cb17-503"><a href="#cb17-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-504"><a href="#cb17-504" aria-hidden="true" tabindex="-1"></a>\index{PROJ}</span>
-<span id="cb17-505"><a href="#cb17-505" aria-hidden="true" tabindex="-1"></a>\index{PROJ!PROJ.4}</span>
-<span id="cb17-506"><a href="#cb17-506" aria-hidden="true" tabindex="-1"></a>\index{PROJ!proj4string}</span>
-<span id="cb17-507"><a href="#cb17-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-508"><a href="#cb17-508" aria-hidden="true" tabindex="-1"></a>In the early 2000s, PROJ was known as PROJ.4, after its never changing</span>
-<span id="cb17-509"><a href="#cb17-509" aria-hidden="true" tabindex="-1"></a>major version number.  Amongst others motivated by the rise of GPS,</span>
-<span id="cb17-510"><a href="#cb17-510" aria-hidden="true" tabindex="-1"></a>the need for datum transformations increased and PROJ.4 was extended</span>
-<span id="cb17-511"><a href="#cb17-511" aria-hidden="true" tabindex="-1"></a>with rudimentary datum support. PROJ definitions for coordinate</span>
-<span id="cb17-512"><a href="#cb17-512" aria-hidden="true" tabindex="-1"></a>reference systems would look like this:</span>
-<span id="cb17-513"><a href="#cb17-513" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-514"><a href="#cb17-514" aria-hidden="true" tabindex="-1"></a><span class="in">+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</span></span>
-<span id="cb17-515"><a href="#cb17-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-516"><a href="#cb17-516" aria-hidden="true" tabindex="-1"></a>where _key_=_value_ pairs are preceded by a <span class="in">`+`</span> and separated by</span>
-<span id="cb17-517"><a href="#cb17-517" aria-hidden="true" tabindex="-1"></a>a space. This form came to be known as "PROJ.4 string", since the</span>
-<span id="cb17-518"><a href="#cb17-518" aria-hidden="true" tabindex="-1"></a>PROJ project stayed at version 4.x for several decades. Other datums</span>
-<span id="cb17-519"><a href="#cb17-519" aria-hidden="true" tabindex="-1"></a>would come with fields like:</span>
-<span id="cb17-520"><a href="#cb17-520" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-521"><a href="#cb17-521" aria-hidden="true" tabindex="-1"></a><span class="in">+ellps=bessel +towgs84=565.4,50.3,465.6,-0.399,0.344,-1.877,4.072</span></span>
-<span id="cb17-522"><a href="#cb17-522" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-523"><a href="#cb17-523" aria-hidden="true" tabindex="-1"></a>indicating another ellipse, as well as the seven (or three)</span>
-<span id="cb17-524"><a href="#cb17-524" aria-hidden="true" tabindex="-1"></a>parameters for transforming from this ellipse to WGS84 (the "World</span>
-<span id="cb17-525"><a href="#cb17-525" aria-hidden="true" tabindex="-1"></a>Geodetic System 1984" global datum once popularised by GPS),</span>
-<span id="cb17-526"><a href="#cb17-526" aria-hidden="true" tabindex="-1"></a>effectively defining the datum in terms of a transformation to WGS84.</span>
-<span id="cb17-527"><a href="#cb17-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-528"><a href="#cb17-528" aria-hidden="true" tabindex="-1"></a>Along with PROJ.4 came a set of databases with known (registered)</span>
-<span id="cb17-529"><a href="#cb17-529" aria-hidden="true" tabindex="-1"></a>projections, from which the best known is the European Petroleum Survey Group (EPSG) registry.</span>
-<span id="cb17-530"><a href="#cb17-530" aria-hidden="true" tabindex="-1"></a>National mapping agencies would provide (and update over time)</span>
-<span id="cb17-531"><a href="#cb17-531" aria-hidden="true" tabindex="-1"></a>their best guesses of <span class="in">`+towgs84=`</span> parameters for national coordinate</span>
-<span id="cb17-532"><a href="#cb17-532" aria-hidden="true" tabindex="-1"></a>reference systems, and distribute it through the EPSG registry,</span>
-<span id="cb17-533"><a href="#cb17-533" aria-hidden="true" tabindex="-1"></a>which was part of PROJ distributions.</span>
-<span id="cb17-534"><a href="#cb17-534" aria-hidden="true" tabindex="-1"></a>For some transformations, _datum grids_ were available and</span>
-<span id="cb17-535"><a href="#cb17-535" aria-hidden="true" tabindex="-1"></a>distributed as part of PROJ.4: such grids are raster maps that provide</span>
-<span id="cb17-536"><a href="#cb17-536" aria-hidden="true" tabindex="-1"></a>for every location pre-computed values for the shift in longitude</span>
-<span id="cb17-537"><a href="#cb17-537" aria-hidden="true" tabindex="-1"></a>and latitude, or elevation, for a particular datum transformation.</span>
-<span id="cb17-538"><a href="#cb17-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-539"><a href="#cb17-539" aria-hidden="true" tabindex="-1"></a>In PROJ.4, every coordinate transformation had to go through a</span>
-<span id="cb17-540"><a href="#cb17-540" aria-hidden="true" tabindex="-1"></a>conversion to and from WGS84; even reprojecting data associated with</span>
-<span id="cb17-541"><a href="#cb17-541" aria-hidden="true" tabindex="-1"></a>a datum different from WGS84 had to go through a transformation to</span>
-<span id="cb17-542"><a href="#cb17-542" aria-hidden="true" tabindex="-1"></a>and from WGS84. The associated errors of up to 100 m were acceptable</span>
-<span id="cb17-543"><a href="#cb17-543" aria-hidden="true" tabindex="-1"></a>for mapping purposes for not too small areas, but applications that</span>
-<span id="cb17-544"><a href="#cb17-544" aria-hidden="true" tabindex="-1"></a>need high accuracy transformations, e.g. precision agriculture,</span>
-<span id="cb17-545"><a href="#cb17-545" aria-hidden="true" tabindex="-1"></a>planning flights of UAV's, or object tracking are often more</span>
-<span id="cb17-546"><a href="#cb17-546" aria-hidden="true" tabindex="-1"></a>demanding in terms of accuracy.</span>
+<span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-ellipse, echo=!knitr::is_latex_output() }</span></span>
+<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 60%</span></span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Angles on an ellipse: geodetic (blue) and geocentric (red) latitude"</span></span>
+<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">48</span>)</span>
+<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (x <span class="sc">*</span> <span class="dv">25</span>) <span class="sc">/</span> (<span class="sc">-</span>y <span class="sc">*</span> <span class="dv">64</span>)</span>
+<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">*</span> b</span>
+<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>b</span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> x <span class="sc">-</span> y <span class="sc">/</span> b</span>
+<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(x0, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"psi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>The most commonly used parametric model for the Earth is _an</span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution_, an ellipsoid with two equal semi-axes</span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@iliffelott</span><span class="co">]</span>. In effect, this is a flattened sphere (or spheroid):</span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>the distance between the poles is (slightly: about 0.33%) smaller</span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>than the distance between two opposite points on the equator. Under</span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>this model, longitude is always measured along a circle (as in</span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>@fig-sphere), and latitude along an ellipse (as in</span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a>@fig-ellipse). If we</span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>think of @fig-ellipse  as a cross section of the Earth</span>
+<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a>passing through the poles, the _geodetic_ latitude measure $\phi$</span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>is the one used when no further specification is given. The latitude</span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a>measure $\psi$ is called the _geocentric latitude_.</span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>\index{latitude!geodetic}</span>
+<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>\index{latitude!geocentric}</span>
+<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a>\index{longitude}</span>
+<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>\index{ellipsoid of revolution}</span>
+<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>\index{altitude}</span>
+<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a>\index{altitude!direction}</span>
+<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a>\index{coordinates!altitude}</span>
+<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>we can add _altitude_ or elevation to longitude and latitude to</span>
+<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a>define points that are above or below the ellipsoid, and obtain</span>
+<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a>a three-dimensional space again. When defining altitude, we need</span>
+<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a>to choose:</span>
+<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>where zero altitude is: on the ellipsoid, or relative to the surface approximating mean sea level (the geoid)?</span>
+<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which direction is positive, and </span>
+<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which direction is "straight up": perpendicular to the ellipsoid surface,</span>
+<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a>or in the direction of gravity, perpendicular to the surface of the geoid?</span>
+<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a>All these choices may matter, depending on the application area</span>
+<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a>and required measurement accuracies.</span>
+<span id="cb17-331"><a href="#cb17-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a>The shape of the Earth is not a perfect ellipsoid. As a consequence,</span>
+<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a>several ellipsoids with different shape parameters and bound to</span>
+<span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a>the Earth in different ways are being used. Such ellipsoids are called</span>
+<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a>_datums_, and are briefly discussed in @sec-crs, along</span>
+<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a>with _coordinate reference systems_.</span>
+<span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Projected coordinates, distances {#sec-projections}</span></span>
+<span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a>Because paper maps and computer screens are much more abundant</span>
+<span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a>and practical than globes, when we look at spatial</span>
+<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>data we see it _projected_: drawn on a flat, two-dimensional</span>
+<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a>surface. Computing the locations in a two-dimensional space means</span>
+<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a>that we work with _projected_ coordinates. Projecting ellipsoidal</span>
+<span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a>coordinates means that shapes, directions, areas, or even all three,</span>
+<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a>are distorted <span class="co">[</span><span class="ot">@iliffelott</span><span class="co">]</span>.</span>
+<span id="cb17-347"><a href="#cb17-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a>\index{coordinates!projected}</span>
+<span id="cb17-349"><a href="#cb17-349" aria-hidden="true" tabindex="-1"></a>\index{projection}</span>
+<span id="cb17-350"><a href="#cb17-350" aria-hidden="true" tabindex="-1"></a>\index{distance!straight line}</span>
+<span id="cb17-351"><a href="#cb17-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-352"><a href="#cb17-352" aria-hidden="true" tabindex="-1"></a>Distances between two points $p_i$ and $p_j$ in Cartesian coordinates are computed</span>
+<span id="cb17-353"><a href="#cb17-353" aria-hidden="true" tabindex="-1"></a>as Euclidean distances, in two dimensions by</span>
+<span id="cb17-354"><a href="#cb17-354" aria-hidden="true" tabindex="-1"></a>$$d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2}$$</span>
+<span id="cb17-355"><a href="#cb17-355" aria-hidden="true" tabindex="-1"></a>with $p_i = (x_i,y_i)$</span>
+<span id="cb17-356"><a href="#cb17-356" aria-hidden="true" tabindex="-1"></a>and in three dimensions by</span>
+<span id="cb17-357"><a href="#cb17-357" aria-hidden="true" tabindex="-1"></a>$$d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2+(z_i-z_j)^2}$$</span>
+<span id="cb17-358"><a href="#cb17-358" aria-hidden="true" tabindex="-1"></a>with $p_i = (x_i,y_i,z_i).$</span>
+<span id="cb17-359"><a href="#cb17-359" aria-hidden="true" tabindex="-1"></a>These distances represent the length of a _straight_ line between</span>
+<span id="cb17-360"><a href="#cb17-360" aria-hidden="true" tabindex="-1"></a>two points $i$ and $j$.</span>
+<span id="cb17-361"><a href="#cb17-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-362"><a href="#cb17-362" aria-hidden="true" tabindex="-1"></a>For two points on a circle, the length of the arc of two points $c_1 = (r,{\phi}_i)$ and</span>
+<span id="cb17-363"><a href="#cb17-363" aria-hidden="true" tabindex="-1"></a>$c_2 = (r, \phi_2)$ is</span>
+<span id="cb17-364"><a href="#cb17-364" aria-hidden="true" tabindex="-1"></a>$$s_{ij}=r~|\phi_1-\phi_2| = r ~\theta$$</span>
+<span id="cb17-365"><a href="#cb17-365" aria-hidden="true" tabindex="-1"></a>with $\theta$ the angle between $\phi_1$ and $\phi_2$ in radians.</span>
+<span id="cb17-366"><a href="#cb17-366" aria-hidden="true" tabindex="-1"></a>For very small values of $\theta$, we will have $s_{ij} \approx d_{ij}$,</span>
+<span id="cb17-367"><a href="#cb17-367" aria-hidden="true" tabindex="-1"></a>because a small arc segment is nearly straight.</span>
+<span id="cb17-368"><a href="#cb17-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-369"><a href="#cb17-369" aria-hidden="true" tabindex="-1"></a>\index{distance!great circle}</span>
+<span id="cb17-370"><a href="#cb17-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-371"><a href="#cb17-371" aria-hidden="true" tabindex="-1"></a>For two points $p_1 = (\lambda_1,\phi_1)$ and $p_2 =</span>
+<span id="cb17-372"><a href="#cb17-372" aria-hidden="true" tabindex="-1"></a>(\lambda_2,\phi_2)$ on a sphere with radius $r'$, the _great circle</span>
+<span id="cb17-373"><a href="#cb17-373" aria-hidden="true" tabindex="-1"></a>distance_ is the arc length between $p_1$ and $p_2$ on the circle</span>
+<span id="cb17-374"><a href="#cb17-374" aria-hidden="true" tabindex="-1"></a>that passes through $p_1$ and $p_2$ and has the centre of the sphere as its centre, and</span>
+<span id="cb17-375"><a href="#cb17-375" aria-hidden="true" tabindex="-1"></a>is given by $s_{12} = r ~ \theta_{12}$ with</span>
+<span id="cb17-376"><a href="#cb17-376" aria-hidden="true" tabindex="-1"></a>$$\theta_{12} = \arccos(\sin \phi_1 \cdot \sin \phi_2 + \cos \phi_1 \cdot \cos \phi_2 \cdot \cos(|\lambda_1-\lambda_2|))$$</span>
+<span id="cb17-377"><a href="#cb17-377" aria-hidden="true" tabindex="-1"></a>the angle between $p_1$ and $p_2$, in radians.</span>
+<span id="cb17-378"><a href="#cb17-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-379"><a href="#cb17-379" aria-hidden="true" tabindex="-1"></a>Arc distances between two points on a spheroid are more complicated</span>
+<span id="cb17-380"><a href="#cb17-380" aria-hidden="true" tabindex="-1"></a>to compute; a good discussion on the topic and an explanation of</span>
+<span id="cb17-381"><a href="#cb17-381" aria-hidden="true" tabindex="-1"></a>the method implemented in GeographicLib (part of PROJ) is given</span>
+<span id="cb17-382"><a href="#cb17-382" aria-hidden="true" tabindex="-1"></a>in @karney2013algorithms.</span>
+<span id="cb17-383"><a href="#cb17-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-384"><a href="#cb17-384" aria-hidden="true" tabindex="-1"></a>\index{distance!ellipsoidal}</span>
+<span id="cb17-385"><a href="#cb17-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-386"><a href="#cb17-386" aria-hidden="true" tabindex="-1"></a>To show that these distance measures actually give different</span>
+<span id="cb17-387"><a href="#cb17-387" aria-hidden="true" tabindex="-1"></a>values, we computed them for the distance Berlin - Paris. Here,</span>
+<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a><span class="in">`gc_`</span> refers to ellipsoidal and spherical great circle distances,</span>
+<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a><span class="in">`str_`</span> refers to straight line, Euclidean distances between</span>
+<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>Cartesian geocentric coordinates associated on the WGS84 ellipse</span>
+<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a>and sphere:</span>
+<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output(), message=FALSE}</span></span>
+<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">13.4050</span>, <span class="fl">52.5200</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">2.3522</span>, <span class="fl">48.8566</span>)), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=cart +ellps=sphere"))</span></span>
+<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=WGS84"</span>)</span>
+<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=sphere"</span>)</span>
+<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1, d3, d2, d4) <span class="co"># note order</span></span>
+<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
+<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
+<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span>
+<span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bounded and unbounded spaces {#sec-bounded}</span></span>
+<span id="cb17-412"><a href="#cb17-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-413"><a href="#cb17-413" aria-hidden="true" tabindex="-1"></a>\index{sphere}</span>
+<span id="cb17-414"><a href="#cb17-414" aria-hidden="true" tabindex="-1"></a>\index{space!bounded}</span>
+<span id="cb17-415"><a href="#cb17-415" aria-hidden="true" tabindex="-1"></a>\index{space!unbounded}</span>
+<span id="cb17-416"><a href="#cb17-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-417"><a href="#cb17-417" aria-hidden="true" tabindex="-1"></a>Two-dimensional and three-dimensional Euclidean spaces ($R^2$ and</span>
+<span id="cb17-418"><a href="#cb17-418" aria-hidden="true" tabindex="-1"></a>$R^3$) are unbounded. Every line in this space has infinite length,</span>
+<span id="cb17-419"><a href="#cb17-419" aria-hidden="true" tabindex="-1"></a>and areas or volumes have no natural upper limit.  In contrast,</span>
+<span id="cb17-420"><a href="#cb17-420" aria-hidden="true" tabindex="-1"></a>spaces defined on a circle ($S^1$) or sphere ($S^2$) define a bounded</span>
+<span id="cb17-421"><a href="#cb17-421" aria-hidden="true" tabindex="-1"></a>set: there may be infinitely many points but the length and area</span>
+<span id="cb17-422"><a href="#cb17-422" aria-hidden="true" tabindex="-1"></a>of the circle, and the radius, area and volume of a sphere are bounded.</span>
+<span id="cb17-423"><a href="#cb17-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-424"><a href="#cb17-424" aria-hidden="true" tabindex="-1"></a>This may sound trivial but leads to some interesting challenges</span>
+<span id="cb17-425"><a href="#cb17-425" aria-hidden="true" tabindex="-1"></a>when handling spatial data. A polygon on $R^2$ has unambiguously an</span>
+<span id="cb17-426"><a href="#cb17-426" aria-hidden="true" tabindex="-1"></a>inside and an outside. On a sphere, $S^2$, any polygon divides</span>
+<span id="cb17-427"><a href="#cb17-427" aria-hidden="true" tabindex="-1"></a>the sphere in two parts, and which of these two is to be considered</span>
+<span id="cb17-428"><a href="#cb17-428" aria-hidden="true" tabindex="-1"></a>inside and which outside is ambiguous and needs to be defined</span>
+<span id="cb17-429"><a href="#cb17-429" aria-hidden="true" tabindex="-1"></a>by the traversal direction. @sec-spherical will further discuss</span>
+<span id="cb17-430"><a href="#cb17-430" aria-hidden="true" tabindex="-1"></a>consequences when working with geometries on $S^2$.</span>
+<span id="cb17-431"><a href="#cb17-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-432"><a href="#cb17-432" aria-hidden="true" tabindex="-1"></a>\index{polygon!on the sphere}</span>
+<span id="cb17-433"><a href="#cb17-433" aria-hidden="true" tabindex="-1"></a>\index{polygon!inside, outside}</span>
+<span id="cb17-434"><a href="#cb17-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-435"><a href="#cb17-435" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coordinate reference systems {#sec-crs}</span></span>
+<span id="cb17-436"><a href="#cb17-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-437"><a href="#cb17-437" aria-hidden="true" tabindex="-1"></a>\index{coordinate reference systems}</span>
+<span id="cb17-438"><a href="#cb17-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-439"><a href="#cb17-439" aria-hidden="true" tabindex="-1"></a>We follow @lott2015 when defining the following concepts (italics indicate literal quoting):</span>
+<span id="cb17-440"><a href="#cb17-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-441"><a href="#cb17-441" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **coordinate system** is a _set of mathematical rules for specifying how coordinates are to be assigned to points_,</span>
+<span id="cb17-442"><a href="#cb17-442" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **datum** is a _parameter or set of parameters that define the position of the origin, the scale, and the orientation of a coordinate system_, </span>
+<span id="cb17-443"><a href="#cb17-443" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **geodetic datum** is a _datum describing the relationship of a two- or three-dimensional coordinate system to the Earth_, and</span>
+<span id="cb17-444"><a href="#cb17-444" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a **coordinate reference system** is a _coordinate system that is related to an object by a datum; for geodetic and vertical datums, the object will be the Earth._</span>
+<span id="cb17-445"><a href="#cb17-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-446"><a href="#cb17-446" aria-hidden="true" tabindex="-1"></a>\index{coordinate system}</span>
+<span id="cb17-447"><a href="#cb17-447" aria-hidden="true" tabindex="-1"></a>\index{geodetic datum}</span>
+<span id="cb17-448"><a href="#cb17-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-449"><a href="#cb17-449" aria-hidden="true" tabindex="-1"></a>A readable text that further explains these concepts is @iliffelott.</span>
+<span id="cb17-450"><a href="#cb17-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-451"><a href="#cb17-451" aria-hidden="true" tabindex="-1"></a>The Earth does not follow a regular shape. The topography of the</span>
+<span id="cb17-452"><a href="#cb17-452" aria-hidden="true" tabindex="-1"></a>Earth is of course known to vary strongly, but also the surface</span>
+<span id="cb17-453"><a href="#cb17-453" aria-hidden="true" tabindex="-1"></a>formed by constant gravity at mean sea level, the geoid, is</span>
+<span id="cb17-454"><a href="#cb17-454" aria-hidden="true" tabindex="-1"></a>irregular. A commonly used model that is fit to the geoid is an</span>
+<span id="cb17-455"><a href="#cb17-455" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution, which is an ellipse with two identical</span>
+<span id="cb17-456"><a href="#cb17-456" aria-hidden="true" tabindex="-1"></a>minor axes. Fitting such an ellipsoid to the Earth gives a datum.</span>
+<span id="cb17-457"><a href="#cb17-457" aria-hidden="true" tabindex="-1"></a>However, fitting it to different areas, or based on different sets of</span>
+<span id="cb17-458"><a href="#cb17-458" aria-hidden="true" tabindex="-1"></a>reference points gives different fits, and hence different datums:</span>
+<span id="cb17-459"><a href="#cb17-459" aria-hidden="true" tabindex="-1"></a>a datum can for instance be fixed to a particular tectonic plate</span>
+<span id="cb17-460"><a href="#cb17-460" aria-hidden="true" tabindex="-1"></a>(like the European Terrestrial Reference System 1989 (ETRS89)), others can be globally fit (like WGS84). More local</span>
+<span id="cb17-461"><a href="#cb17-461" aria-hidden="true" tabindex="-1"></a>fits lead to smaller approximation errors.</span>
+<span id="cb17-462"><a href="#cb17-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-463"><a href="#cb17-463" aria-hidden="true" tabindex="-1"></a>\index{geoid}</span>
+<span id="cb17-464"><a href="#cb17-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-465"><a href="#cb17-465" aria-hidden="true" tabindex="-1"></a>The definitions above imply that coordinates in degrees longitude</span>
+<span id="cb17-466"><a href="#cb17-466" aria-hidden="true" tabindex="-1"></a>and latitude only have a meaning and can only be interpreted</span>
+<span id="cb17-467"><a href="#cb17-467" aria-hidden="true" tabindex="-1"></a>unambiguously as Earth coordinates, when the datum they are</span>
+<span id="cb17-468"><a href="#cb17-468" aria-hidden="true" tabindex="-1"></a>associated with is given.</span>
+<span id="cb17-469"><a href="#cb17-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-470"><a href="#cb17-470" aria-hidden="true" tabindex="-1"></a>Note that for projected data, the data that _were_ projected</span>
+<span id="cb17-471"><a href="#cb17-471" aria-hidden="true" tabindex="-1"></a>are associated with a reference ellipsoid (datum). Going from</span>
+<span id="cb17-472"><a href="#cb17-472" aria-hidden="true" tabindex="-1"></a>one projection to another _without_ changing datum is called</span>
+<span id="cb17-473"><a href="#cb17-473" aria-hidden="true" tabindex="-1"></a>_coordinate conversion_, and passes through the ellipsoidal</span>
+<span id="cb17-474"><a href="#cb17-474" aria-hidden="true" tabindex="-1"></a>coordinates associated with the datum involved. This process is</span>
+<span id="cb17-475"><a href="#cb17-475" aria-hidden="true" tabindex="-1"></a>lossless and invertible: the parameters and equations associated</span>
+<span id="cb17-476"><a href="#cb17-476" aria-hidden="true" tabindex="-1"></a>with a _conversion_ are not empirical. Recomputing coordinates in a</span>
+<span id="cb17-477"><a href="#cb17-477" aria-hidden="true" tabindex="-1"></a>new datum is called _coordinate transformation_, and is approximate:</span>
+<span id="cb17-478"><a href="#cb17-478" aria-hidden="true" tabindex="-1"></a>because datums are a result of model fitting, transformations</span>
+<span id="cb17-479"><a href="#cb17-479" aria-hidden="true" tabindex="-1"></a>between datums are models too that have been fit; the equations</span>
+<span id="cb17-480"><a href="#cb17-480" aria-hidden="true" tabindex="-1"></a>involved are empirical, and multiple transformation paths, based</span>
+<span id="cb17-481"><a href="#cb17-481" aria-hidden="true" tabindex="-1"></a>on different model fits and associated with different accuracies,</span>
+<span id="cb17-482"><a href="#cb17-482" aria-hidden="true" tabindex="-1"></a>are possible.</span>
+<span id="cb17-483"><a href="#cb17-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-484"><a href="#cb17-484" aria-hidden="true" tabindex="-1"></a>\index{coordinate!conversion}</span>
+<span id="cb17-485"><a href="#cb17-485" aria-hidden="true" tabindex="-1"></a>\index{coordinate!transformation}</span>
+<span id="cb17-486"><a href="#cb17-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-487"><a href="#cb17-487" aria-hidden="true" tabindex="-1"></a>Plate tectonics imply that within a global datum, fixed objects may</span>
+<span id="cb17-488"><a href="#cb17-488" aria-hidden="true" tabindex="-1"></a>have coordinates that change over time, and that transformations</span>
+<span id="cb17-489"><a href="#cb17-489" aria-hidden="true" tabindex="-1"></a>from one datum to another may be time-dependent. Earthquakes are a</span>
+<span id="cb17-490"><a href="#cb17-490" aria-hidden="true" tabindex="-1"></a>cause of more local and sudden changes in coordinates. Local datums</span>
+<span id="cb17-491"><a href="#cb17-491" aria-hidden="true" tabindex="-1"></a>may be fixed to tectonic plates (such as ETRS89), or may be dynamic.</span>
+<span id="cb17-492"><a href="#cb17-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-493"><a href="#cb17-493" aria-hidden="true" tabindex="-1"></a>\index{datum!dynamic}</span>
+<span id="cb17-494"><a href="#cb17-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-495"><a href="#cb17-495" aria-hidden="true" tabindex="-1"></a><span class="fu">## PROJ and mapping accuracy {#sec-projlib}</span></span>
+<span id="cb17-496"><a href="#cb17-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-497"><a href="#cb17-497" aria-hidden="true" tabindex="-1"></a>Very few living people active in open source geospatial software</span>
+<span id="cb17-498"><a href="#cb17-498" aria-hidden="true" tabindex="-1"></a>can remember the time before PROJ. PROJ <span class="co">[</span><span class="ot">@evenden:90</span><span class="co">]</span> started in the</span>
+<span id="cb17-499"><a href="#cb17-499" aria-hidden="true" tabindex="-1"></a>1970s as a Fortran project, and was released in 1985 as a C library</span>
+<span id="cb17-500"><a href="#cb17-500" aria-hidden="true" tabindex="-1"></a>for cartographic projections. It came with command line tools for</span>
+<span id="cb17-501"><a href="#cb17-501" aria-hidden="true" tabindex="-1"></a>direct and inverse projections, and could be linked to software</span>
+<span id="cb17-502"><a href="#cb17-502" aria-hidden="true" tabindex="-1"></a>to let it support (re)projection directly. Originally, datums were</span>
+<span id="cb17-503"><a href="#cb17-503" aria-hidden="true" tabindex="-1"></a>considered implicit, and no datum transformations were allowed.</span>
+<span id="cb17-504"><a href="#cb17-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-505"><a href="#cb17-505" aria-hidden="true" tabindex="-1"></a>\index{PROJ}</span>
+<span id="cb17-506"><a href="#cb17-506" aria-hidden="true" tabindex="-1"></a>\index{PROJ!PROJ.4}</span>
+<span id="cb17-507"><a href="#cb17-507" aria-hidden="true" tabindex="-1"></a>\index{PROJ!proj4string}</span>
+<span id="cb17-508"><a href="#cb17-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-509"><a href="#cb17-509" aria-hidden="true" tabindex="-1"></a>In the early 2000s, PROJ was known as PROJ.4, after its never-changing</span>
+<span id="cb17-510"><a href="#cb17-510" aria-hidden="true" tabindex="-1"></a>major version number.  Amongst others motivated by the rise of GPS,</span>
+<span id="cb17-511"><a href="#cb17-511" aria-hidden="true" tabindex="-1"></a>the need for datum transformations increased and PROJ.4 was extended</span>
+<span id="cb17-512"><a href="#cb17-512" aria-hidden="true" tabindex="-1"></a>with rudimentary datum support. PROJ definitions for coordinate</span>
+<span id="cb17-513"><a href="#cb17-513" aria-hidden="true" tabindex="-1"></a>reference systems would look like this:</span>
+<span id="cb17-514"><a href="#cb17-514" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-515"><a href="#cb17-515" aria-hidden="true" tabindex="-1"></a><span class="in">+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</span></span>
+<span id="cb17-516"><a href="#cb17-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-517"><a href="#cb17-517" aria-hidden="true" tabindex="-1"></a>where _key_=_value_ pairs are preceded by a <span class="in">`+`</span> and separated by</span>
+<span id="cb17-518"><a href="#cb17-518" aria-hidden="true" tabindex="-1"></a>a space. This form came to be known as "PROJ.4 string", since the</span>
+<span id="cb17-519"><a href="#cb17-519" aria-hidden="true" tabindex="-1"></a>PROJ project stayed at version 4.x for several decades. Other datums</span>
+<span id="cb17-520"><a href="#cb17-520" aria-hidden="true" tabindex="-1"></a>would come with fields like:</span>
+<span id="cb17-521"><a href="#cb17-521" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-522"><a href="#cb17-522" aria-hidden="true" tabindex="-1"></a><span class="in">+ellps=bessel +towgs84=565.4,50.3,465.6,-0.399,0.344,-1.877,4.072</span></span>
+<span id="cb17-523"><a href="#cb17-523" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-524"><a href="#cb17-524" aria-hidden="true" tabindex="-1"></a>indicating another ellipse, as well as the seven (or three)</span>
+<span id="cb17-525"><a href="#cb17-525" aria-hidden="true" tabindex="-1"></a>parameters for transforming from this ellipse to WGS84 (the "World</span>
+<span id="cb17-526"><a href="#cb17-526" aria-hidden="true" tabindex="-1"></a>Geodetic System 1984" global datum once popularised by GPS),</span>
+<span id="cb17-527"><a href="#cb17-527" aria-hidden="true" tabindex="-1"></a>effectively defining the datum in terms of a transformation to WGS84.</span>
+<span id="cb17-528"><a href="#cb17-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-529"><a href="#cb17-529" aria-hidden="true" tabindex="-1"></a>Along with PROJ.4 came a set of databases with known (registered)</span>
+<span id="cb17-530"><a href="#cb17-530" aria-hidden="true" tabindex="-1"></a>projections, from which the best known is the European Petroleum Survey Group (EPSG) registry.</span>
+<span id="cb17-531"><a href="#cb17-531" aria-hidden="true" tabindex="-1"></a>National mapping agencies would provide (and update over time)</span>
+<span id="cb17-532"><a href="#cb17-532" aria-hidden="true" tabindex="-1"></a>their best guesses of <span class="in">`+towgs84=`</span> parameters for national coordinate</span>
+<span id="cb17-533"><a href="#cb17-533" aria-hidden="true" tabindex="-1"></a>reference systems, and distribute through the EPSG registry,</span>
+<span id="cb17-534"><a href="#cb17-534" aria-hidden="true" tabindex="-1"></a>which was part of PROJ distributions.</span>
+<span id="cb17-535"><a href="#cb17-535" aria-hidden="true" tabindex="-1"></a>For some transformations, _datum grids_ were available and</span>
+<span id="cb17-536"><a href="#cb17-536" aria-hidden="true" tabindex="-1"></a>distributed as part of PROJ.4: such grids are raster maps that provide</span>
+<span id="cb17-537"><a href="#cb17-537" aria-hidden="true" tabindex="-1"></a>for every location pre-computed values for the shift in longitude</span>
+<span id="cb17-538"><a href="#cb17-538" aria-hidden="true" tabindex="-1"></a>and latitude, or elevation, for a particular datum transformation.</span>
+<span id="cb17-539"><a href="#cb17-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-540"><a href="#cb17-540" aria-hidden="true" tabindex="-1"></a>In PROJ.4, every coordinate transformation had to go through a</span>
+<span id="cb17-541"><a href="#cb17-541" aria-hidden="true" tabindex="-1"></a>conversion to and from WGS84; even reprojecting data associated with</span>
+<span id="cb17-542"><a href="#cb17-542" aria-hidden="true" tabindex="-1"></a>a datum different from WGS84 had to go through a transformation to</span>
+<span id="cb17-543"><a href="#cb17-543" aria-hidden="true" tabindex="-1"></a>and from WGS84. The associated errors of up to 100 m were acceptable</span>
+<span id="cb17-544"><a href="#cb17-544" aria-hidden="true" tabindex="-1"></a>for mapping purposes for not too small areas, but some applications </span>
+<span id="cb17-545"><a href="#cb17-545" aria-hidden="true" tabindex="-1"></a>need higher accuracy transformations. Examples include precision</span>
+<span id="cb17-546"><a href="#cb17-546" aria-hidden="true" tabindex="-1"></a>agriculture, planning flights of UAV's, or object tracking.</span>
 <span id="cb17-547"><a href="#cb17-547" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-548"><a href="#cb17-548" aria-hidden="true" tabindex="-1"></a>In 2018, after a successful "GDAL Coordinate System Barn Raising"</span>
 <span id="cb17-549"><a href="#cb17-549" aria-hidden="true" tabindex="-1"></a>initiative, a number of companies profiting from the open source</span>
@@ -1734,7 +1735,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-573"><a href="#cb17-573" aria-hidden="true" tabindex="-1"></a>and unit transformations </span>
 <span id="cb17-574"><a href="#cb17-574" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>datum grids, of which there are now _many_ more, are no longer distributed</span>
 <span id="cb17-575"><a href="#cb17-575" aria-hidden="true" tabindex="-1"></a>with the library but are accessible from a content delivery network (CDN); PROJ allows enabling and</span>
-<span id="cb17-576"><a href="#cb17-576" aria-hidden="true" tabindex="-1"></a>disabling network access to access these grids, and only downloads the section(s)</span>
+<span id="cb17-576"><a href="#cb17-576" aria-hidden="true" tabindex="-1"></a>disabling network access to these grids and only downloads the section(s)</span>
 <span id="cb17-577"><a href="#cb17-577" aria-hidden="true" tabindex="-1"></a>of the grid actually needed, storing it in a cache on the user's machine for </span>
 <span id="cb17-578"><a href="#cb17-578" aria-hidden="true" tabindex="-1"></a>future use </span>
 <span id="cb17-579"><a href="#cb17-579" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>coordinate transformations receive support for epochs, time-dependent</span>
@@ -1771,7 +1772,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-610"><a href="#cb17-610" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb17-611"><a href="#cb17-611" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
 <span id="cb17-612"><a href="#cb17-612" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-613"><a href="#cb17-613" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(admin <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-613"><a href="#cb17-613" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ADMIN <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb17-614"><a href="#cb17-614" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
 <span id="cb17-615"><a href="#cb17-615" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
 <span id="cb17-616"><a href="#cb17-616" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
@@ -1891,14 +1892,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-734"><a href="#cb17-734" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-735"><a href="#cb17-735" aria-hidden="true" tabindex="-1"></a>Examples of a horizontal datum grids, downloaded from cdn.proj.org,</span>
 <span id="cb17-736"><a href="#cb17-736" aria-hidden="true" tabindex="-1"></a>are shown in @fig-horizontalgrid  and for a vertical</span>
-<span id="cb17-737"><a href="#cb17-737" aria-hidden="true" tabindex="-1"></a>datum grid in @fig-verticalgrid . Datum grids may carry</span>
+<span id="cb17-737"><a href="#cb17-737" aria-hidden="true" tabindex="-1"></a>datum grid in @fig-verticalgrid. Datum grids may carry</span>
 <span id="cb17-738"><a href="#cb17-738" aria-hidden="true" tabindex="-1"></a>per-pixel accuracy values.</span>
 <span id="cb17-739"><a href="#cb17-739" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-740"><a href="#cb17-740" aria-hidden="true" tabindex="-1"></a><span class="fu">## WKT-2 {#sec-wkt2}</span></span>
 <span id="cb17-741"><a href="#cb17-741" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-742"><a href="#cb17-742" aria-hidden="true" tabindex="-1"></a>@lott2015 describes a standard for encoding coordinate reference</span>
-<span id="cb17-743"><a href="#cb17-743" aria-hidden="true" tabindex="-1"></a>systems, as well as transformations between them using _well</span>
-<span id="cb17-744"><a href="#cb17-744" aria-hidden="true" tabindex="-1"></a>known text_; the standard (and format) is referred to informally as</span>
+<span id="cb17-743"><a href="#cb17-743" aria-hidden="true" tabindex="-1"></a>systems, as well as transformations between them using _well-known text_; </span>
+<span id="cb17-744"><a href="#cb17-744" aria-hidden="true" tabindex="-1"></a>the standard (and format) is referred to informally as</span>
 <span id="cb17-745"><a href="#cb17-745" aria-hidden="true" tabindex="-1"></a>WKT-2. As mentioned above, GDAL and PROJ fully support this encoding.</span>
 <span id="cb17-746"><a href="#cb17-746" aria-hidden="true" tabindex="-1"></a>An example of WKT-2 for CRS <span class="in">`EPSG:4326`</span> is:</span>
 <span id="cb17-747"><a href="#cb17-747" aria-hidden="true" tabindex="-1"></a></span>
@@ -1934,14 +1935,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-777"><a href="#cb17-777" aria-hidden="true" tabindex="-1"></a><span class="in">    ID["EPSG",4326]]</span></span>
 <span id="cb17-778"><a href="#cb17-778" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-779"><a href="#cb17-779" aria-hidden="true" tabindex="-1"></a>This shows a coordinate system with the axis order _latitude,</span>
-<span id="cb17-780"><a href="#cb17-780" aria-hidden="true" tabindex="-1"></a>longitude_ , although in most practical cases the axis order used is</span>
+<span id="cb17-780"><a href="#cb17-780" aria-hidden="true" tabindex="-1"></a>longitude_, although in most practical cases the axis order used is</span>
 <span id="cb17-781"><a href="#cb17-781" aria-hidden="true" tabindex="-1"></a>_longitude, latitude_.  The _ensemble_ of WGS84 ellipsoids listed</span>
 <span id="cb17-782"><a href="#cb17-782" aria-hidden="true" tabindex="-1"></a>represents its various updates over time.  Ambiguity about _which_</span>
 <span id="cb17-783"><a href="#cb17-783" aria-hidden="true" tabindex="-1"></a>of these ensemble members a particular dataset should use leads to</span>
 <span id="cb17-784"><a href="#cb17-784" aria-hidden="true" tabindex="-1"></a>an uncertainty of several meters. The coordinate reference system</span>
 <span id="cb17-785"><a href="#cb17-785" aria-hidden="true" tabindex="-1"></a><span class="in">`OGC:CRS84`</span> disambiguates the axis order and explicitly states it</span>
 <span id="cb17-786"><a href="#cb17-786" aria-hidden="true" tabindex="-1"></a>to be <span class="in">`longitude, latitude`</span>, and is the recommended alternative to</span>
-<span id="cb17-787"><a href="#cb17-787" aria-hidden="true" tabindex="-1"></a>for WGS84 datasets using this axis order. It does not disambiguate</span>
+<span id="cb17-787"><a href="#cb17-787" aria-hidden="true" tabindex="-1"></a>WGS84 datasets using this axis order. It does not disambiguate</span>
 <span id="cb17-788"><a href="#cb17-788" aria-hidden="true" tabindex="-1"></a>the datum ensemble problem.</span>
 <span id="cb17-789"><a href="#cb17-789" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-790"><a href="#cb17-790" aria-hidden="true" tabindex="-1"></a>\index{axis order!disambiguate}</span>
@@ -1958,9 +1959,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-801"><a href="#cb17-801" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-802"><a href="#cb17-802" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>list three _geographic_ measures that do not have a natural zero origin</span>
 <span id="cb17-803"><a href="#cb17-803" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- latitude, longitude, elevation --&gt;</span></span>
-<span id="cb17-804"><a href="#cb17-804" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>convert the $(x,y)$ points $(10,2)$, $(-10,-2)$, $(10,-2)$ and $(0,10)$ to polar coordinates</span>
-<span id="cb17-805"><a href="#cb17-805" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>convert the polar $(r,\phi)$ points $(10,45^{\circ})$, $(0,100^{\circ})$ and $(5,359^{\circ})$ to Cartesian coordinates</span>
-<span id="cb17-806"><a href="#cb17-806" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>assuming the Earth is a sphere with a radius of 6371 km, compute for $(\lambda,\phi)$ points the great circle distance between $(10,10)$ and $(11,10)$, between $(10,80)$ and $(11,80)$, between $(10,10)$ and $(10,11)$ and between $(10,80)$ and $(10,81)$ (units: degree). What are the distance units?</span>
+<span id="cb17-804"><a href="#cb17-804" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>convert the $(x,y)$ points $(10,2)$, $(-10,-2)$, $(10,-2)$, and $(0,10)$ to polar coordinates</span>
+<span id="cb17-805"><a href="#cb17-805" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>convert the polar $(r,\phi)$ points $(10,45^{\circ})$, $(0,100^{\circ})$, and $(5,359^{\circ})$ to Cartesian coordinates</span>
+<span id="cb17-806"><a href="#cb17-806" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>assuming the Earth is a sphere with a radius of 6371 km, compute for $(\lambda,\phi)$ points the great circle distance between $(10,10)$ and $(11,10)$, between $(10,80)$ and $(11,80)$, between $(10,10)$ and $(10,11)$, and between $(10,80)$ and $(10,81)$ (units: degree). What are the distance units?</span>
 <span id="cb17-807"><a href="#cb17-807" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-808"><a href="#cb17-808" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

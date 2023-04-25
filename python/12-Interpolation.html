@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -168,7 +168,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -284,7 +284,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,7 +294,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +314,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -345,7 +345,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">12.8</span>  Exercises</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/12-Interpolation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/12-Interpolation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -368,8 +368,8 @@ div.csl-indent {
 </header>
 
 <p> </p>
-<p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
-<p>In this chapter we will show simple approaches for handling geostatistical data, will demonstrate simple interpolation methods, explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in e.g. <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparisons of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Matthew J. Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction, and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
+<p>In this chapter we will show simple approaches for handling geostatistical data, demonstrate simple interpolation methods, and explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparison of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
 <p></p>
 <div class="cell">
 
@@ -385,7 +385,7 @@ div.csl-indent {
 <p>and convert it into an <code>sf</code> object with an appropriate UTM projection using</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.11.1, GDAL 3.6.1, PROJ 9.1.1; sf_use_s2() is TRUE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.11.1, GDAL 3.6.2, PROJ 9.1.1; sf_use_s2() is TRUE</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span> </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
@@ -405,13 +405,13 @@ div.csl-indent {
 <div id="fig-plotDE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-plotDE-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.1: Mean NO<span class="math inline">\(_2\)</span> concentrations in air for rural background stations in Germany over 2017</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12.1: Mean NO<span class="math inline">\(_2\)</span> concentrations in air for rural background stations in Germany, in 2017</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p> </p>
-<p>If we want to interpolate, we first need to decide where. This is typically done on a regular grid covering the area of interest. Starting with the country outline in object <code>de</code> we can create a regular grid with 10 km grid cells (pixels) over Germany by</p>
+<p>If we want to interpolate, we first need to decide where. This is typically done on a regular grid covering the area of interest. Starting with the country outline in object <code>de</code> we can create a regular 10 km <span class="math inline">\(\times\)</span> 10 km grid over Germany by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span></span>
@@ -427,13 +427,13 @@ div.csl-indent {
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># x    1 65  280741  10000 WGS 84 / UTM z... [x]</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># y    1 87 6101239 -10000 WGS 84 / UTM z... [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Here, we chose grid cells to be not too fine, so that we still see them in plots.</p>
+<p>Here, we chose grid cells not too fine, so that we still see them in plots.</p>
 <p>Perhaps the simplest interpolation method is inverse distance weighted interpolation, which is a weighted average, using weights inverse proportional to distances from the interpolation location:</p>
 <p> </p>
 <p><span class="math display">\[
 \hat{z}(s_0) = \frac{\sum_{i=1}^{n} w_i z(s_i)}{\sum_{i=1}^n w_i}
 \]</span></p>
-<p>with <span class="math inline">\(w_i = |s_0-s_i|^{-p}\)</span>, and the inverse distance power <span class="math inline">\(p\)</span> typically taken as 2, or optimised using cross validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
+<p>with <span class="math inline">\(w_i = |s_0-s_i|^{-p}\)</span>, and the inverse distance power <span class="math inline">\(p\)</span> typically taken as 2, or optimised using cross-validation. We can compute inverse distance interpolated values using <code>gstat::idw</code>,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">idw</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, grd)</span>
@@ -487,7 +487,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Function <code>variogram</code> chooses default for maximum distance (<code>cutoff</code>: one third of the length of the bounding box diagonal) and (constant) interval widths (<code>width</code>: cutoff divided by 15). These defaults can be changed, e.g.&nbsp;by</p>
+<p>Function <code>variogram</code> chooses default for maximum distance (<code>cutoff</code>: one-third of the length of the bounding box diagonal) and (constant) interval widths (<code>width</code>: cutoff divided by 15). These defaults can be changed by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, <span class="at">cutoff =</span> <span class="dv">100000</span>, <span class="at">width =</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -513,13 +513,13 @@ div.csl-indent {
 <section id="fitting-variogram-models" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="fitting-variogram-models"><span class="header-section-number">12.3</span> Fitting variogram models</h2>
 <p></p>
-<p>In order to progress toward spatial predictions, we need a variogram <em>model</em> <span class="math inline">\(\gamma(h)\)</span> for (potentially) all distances <span class="math inline">\(h\)</span>, rather than the set of estimates derived above. If we would connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, it would lead to statistical models with non-positive definite covariance matrices, which would block using them in prediction.</p>
+<p>In order to progress towards spatial predictions, we need a variogram <em>model</em> <span class="math inline">\(\gamma(h)\)</span> for (potentially) all distances <span class="math inline">\(h\)</span>, rather than the set of estimates derived above. If we would connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, it would lead to statistical models with non-positive definite covariance matrices, which would block using them in prediction.</p>
 <p> </p>
-<p>To avoid this we fit parametric models <span class="math inline">\(\gamma(h)\)</span> to the estimates <span class="math inline">\(\hat{\gamma}(h_i)\)</span>, where we take <span class="math inline">\(h_i\)</span> as the mean value of all the <span class="math inline">\(h'\)</span> values involved in estimating <span class="math inline">\(\hat{\gamma}(h_i)\)</span>. We can fit for instance a model with an exponential variogram by</p>
+<p>To avoid this, we fit parametric models <span class="math inline">\(\gamma(h)\)</span> to the estimates <span class="math inline">\(\hat{\gamma}(h_i)\)</span>, where we take <span class="math inline">\(h_i\)</span> as the mean value of all the <span class="math inline">\(h'\)</span> values involved in estimating <span class="math inline">\(\hat{\gamma}(h_i)\)</span>. We can fit for instance a model with an exponential variogram by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>v.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(v, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>shown by the drawn line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>.</p>
+<p>shown by the solid line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -594,21 +594,21 @@ div.csl-indent {
 <div id="fig-fitvariogrammodel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-fitvariogrammodel-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (circles) with models fitted using weighted least squares (drawn line) and maximum likelihood estimation (dashed line)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (circles) with models fitted using weighted least squares (solid line) and maximum likelihood estimation (dashed line)</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The fitting for the drawn line was done by weighted least squares, minimising <span id="eq-wlsweights"><span class="math display">\[
 \sum_{i=1}^{n}w_i(\gamma(h_i)-\hat{\gamma}(h_i))^2,
-\tag{12.2}\]</span></span> with weights <span class="math inline">\(w_i\)</span> by default equal to <span class="math inline">\(N(h_i)/h^2\)</span>, other weight options are available through argument <code>fit.method</code>.</p>
+\tag{12.2}\]</span></span> with weights <span class="math inline">\(w_i\)</span> by default equal to <span class="math inline">\(N(h_i)/h^2\)</span>. Other weight options are available through argument <code>fit.method</code>.</p>
 <p></p>
-<p>As an alternative to weighted least squares fitting one can use maximum likelihood (ML) or restricted maximum likelihood parameter estimation <span class="citation" data-cites="kitanidis1985maximum">(e.g., <a href="references.html#ref-kitanidis1985maximum" role="doc-biblioref">Kitanidis and Lane 1985</a>)</span>, which for this case leads to a relatively similar fitted model, shown as the dashed line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>. An advantage of ML-type approaches is that they do not require choosing distance intervals <span class="math inline">\(h_i\)</span> in <a href="#eq-samplevariogram">Equation&nbsp;<span>12.1</span></a> or weights <span class="math inline">\(w_i\)</span> in <a href="#eq-wlsweights">Equation&nbsp;<span>12.2</span></a>. Disadvantages are that they lean on stronger assumptions of multivariate normally distributed data, and for larger datasets require iteratively solving linear systems of size equal to the number of observations; <span class="citation" data-cites="heaton">Matthew J. Heaton et al. (<a href="references.html#ref-heaton" role="doc-biblioref">2019</a>)</span> compares approaches dedicated to fitting models to large datasets.</p>
+<p>As an alternative to weighted least squares fitting, one can use maximum likelihood (ML) or restricted maximum likelihood parameter estimation <span class="citation" data-cites="kitanidis1985maximum">(<a href="references.html#ref-kitanidis1985maximum" role="doc-biblioref">Kitanidis and Lane 1985</a>)</span>, which for this case leads to a relatively similar fitted model, shown as the dashed line in <a href="#fig-fitvariogrammodel">Figure&nbsp;<span>12.5</span></a>. An advantage of ML-type approaches is that they do not require choosing distance intervals <span class="math inline">\(h_i\)</span> in <a href="#eq-samplevariogram">Equation&nbsp;<span>12.1</span></a> or weights <span class="math inline">\(w_i\)</span> in <a href="#eq-wlsweights">Equation&nbsp;<span>12.2</span></a>. Disadvantages are that they lean on stronger assumptions of multivariate normally distributed data, and for larger datasets require iteratively solving linear systems of size equal to the number of observations; <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span> compare approaches dedicated to fitting models to large datasets.</p>
 </section>
 <section id="sec-kriging" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="sec-kriging"><span class="header-section-number">12.4</span> Kriging interpolation</h2>
 <p> </p>
-<p>Typically, when we interpolate a variable, we do that on points on a regular grid covering the target area. We first create a <code>stars</code> object with a raster covering the target area, and NA’s outside it.</p>
+<p>Typically, when we interpolate a variable, we do that on points on a regular grid covering the target area. We first create a <code>stars</code> object with a raster covering the target area, and <code>NA</code>s outside it.</p>
 <p>Kriging involves the prediction of <span class="math inline">\(Z(s_0)\)</span> at arbitrary locations <span class="math inline">\(s_0\)</span>. We can krige NO<span class="math inline">\(_2\)</span> by using <code>gstat::krige</code>, with the model for the trend, the data, the prediction grid, and the variogram model as arguments (<a href="#fig-krigeovergermany">Figure&nbsp;<span>12.6</span></a>) by:</p>
 <p></p>
 <div class="cell">
@@ -634,7 +634,7 @@ div.csl-indent {
 <section id="sec-blockkriging" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="sec-blockkriging"><span class="header-section-number">12.5</span> Areal means: block kriging</h2>
 <p> </p>
-<p>Computing areal means can be done in several ways. The simples is to take the average of point samples falling inside the target polygons:</p>
+<p>Computing areal means can be done in several ways. The simplest is to take the average of point samples falling inside the target polygons:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], <span class="at">by =</span> de, <span class="at">FUN =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -670,7 +670,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sqrt</span>(<span class="fu">var</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], de, SE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.4</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate, and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple averaging approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
+<p>which would have been the actual estimate in design-based inference (<a href="10-Models.html#sec-design"><span>Section&nbsp;10.4</span></a>) if the sample were obtained by spatially random sampling. The block kriging variance is the model-based estimate and is a by-product of kriging. We can compare the two in <a href="#fig-aggrSE">Figure&nbsp;<span>12.8</span></a> where we see that the simple averaging approach gives more variability and mostly larger values for prediction errors of areal means, compared to block kriging.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -756,7 +756,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <section id="a-population-grid" class="level3">
 <h3 class="anchored" data-anchor-id="a-population-grid">A population grid</h3>
 <p></p>
-<p>As a potential predictor for NO<span class="math inline">\(_2\)</span> in the air, we use population density. NO<span class="math inline">\(_2\)</span> is mostly caused by traffic, and traffic is more intense in densely populated areas. Population density is obtained from the <a href="https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html">2011 census</a>, and is downloaded as a csv file with the number of inhabitants per 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</p>
+<p>As a potential predictor for NO<span class="math inline">\(_2\)</span> in the air, we use population density. NO<span class="math inline">\(_2\)</span> is mostly caused by traffic, and traffic is more intense in densely populated areas. Population density is obtained from the <a href="https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html">2011 census</a> and is downloaded as a csv file with the number of inhabitants per 100 m <span class="math inline">\(\times\)</span> 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> vroom<span class="sc">::</span><span class="fu">vroom</span>(<span class="st">"aq/pop/Zensus_Bevoelkerung_100m-Gitter.csv"</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>v <span class="sc">|&gt;</span> <span class="fu">filter</span>(Einwohner <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
@@ -777,7 +777,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    units<span class="sc">::</span><span class="fu">set_units</span>(grd<span class="sc">$</span>values, m<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area[iii<span class="sc">$</span>ID] <span class="ot">&lt;-</span> <span class="fu">st_area</span>(iii)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Instead of doing the two-stage procedure above: first finding cells that have a border crossing it, then computing its area, we could also directly use <code>st_intersection</code> on all cells, but that takes considerably longer. From the counts and areas we can compute densities (<a href="#fig-popdens">Figure&nbsp;<span>12.10</span></a>), and verify totals</p>
+<p>Instead of doing the two-stage procedure above, first finding cells that have a border crossing it then computing its area, we could also directly use <code>st_intersection</code> on all cells, but that takes considerably longer. From the counts and areas we can compute densities (<a href="#fig-popdens">Figure&nbsp;<span>12.10</span></a>) and verify totals</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>pop_dens <span class="ot">&lt;-</span> a<span class="sc">$</span>Einwohner <span class="sc">/</span> grd<span class="sc">$</span>area</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(grd<span class="sc">$</span>pop_dens <span class="sc">*</span> grd<span class="sc">$</span>area, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># verify</span></span>
@@ -785,7 +785,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(b<span class="sc">$</span>Einwohner)</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 80324282</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which indicates we did not loose many: using <code>st_interpolate_aw</code> should have given an exact match.</p>
+<p>which indicates strong agreement. Using <code>st_interpolate_aw</code> would have given an exact match.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -795,12 +795,12 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <div id="fig-popdens" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-popdens-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.10: Population density for 100 m $ imes$ 100 m grid cells</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;12.10: Population density for 100 m <span class="math inline">\(\times\)</span> 100 m grid cells</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We need to divide the number of inhabitants by the number of 100 m grid points contributing to it, in order to convert population counts into population density.</p>
+<p>We need to divide the number of inhabitants by the number of 100 m <span class="math inline">\(\times\)</span> 100 m grid cells contributing to it, in order to convert population counts into population density.</p>
 <p> To obtain population density values at monitoring network stations, we can use <code>st_extract</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>grd <span class="sc">|&gt;</span></span>
@@ -853,7 +853,6 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="fu">sqrt</span>(pop_dens), no2.sf)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>vr.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(vr, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>which is shown in (<a href="#fig-predictusingpopulationdensity">Figure&nbsp;<span>12.12</span></a>).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -868,7 +867,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 </div>
 </div>
 </div>
-<p>Subsequently, kriging prediction (<a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a>) is done by</p>
+<p>which is shown in <a href="#fig-predictusingpopulationdensity">Figure&nbsp;<span>12.12</span></a>. Subsequently, kriging prediction (<a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a>) is done by</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kr <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf, </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>            grd[<span class="st">"pop_dens"</span>], vr.m)</span>
@@ -897,16 +896,16 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 </div>
 </div>
 <p>where, critically, the <code>pop_dens</code> values are now available for prediction locations in the <code>newdata</code> object <code>grd</code>.</p>
-<p>Compared to (ordinary) kriging We see some clear differences: the map using population density in the trend follows the extremes of the population density rather than those of the measurement stations, and has a value range that extends that of ordinary kriging. It should be taken with a large grain of salt however, since the stations used were filtered for the category “rural background”, indicating that they only represent conditions of lower populations density. The scatter plot of <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a> reveals that the the population density at the locations of stations is much more limited than that in the population density map, and hence the right-hand side map is based on strongly extrapolating the relationship shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
+<p>Compared to (ordinary) kriging We see some clear differences: the map using population density in the trend follows the extremes of the population density rather than those of the measurement stations, and has a value range that extends that of ordinary kriging. It should be taken with a large grain of salt however, since the stations used were filtered for the category “rural background”, indicating that they only represent conditions of lower populations density. The scatter-plot of <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a> reveals that the the population density at the locations of stations is much more limited than that in the population density map, and hence the right-hand side map is based on strongly extrapolating the relationship shown in <a href="#fig-no2scat">Figure&nbsp;<span>12.11</span></a>.</p>
 </section>
 </section>
 <section id="exercises" class="level2" data-number="12.8">
 <h2 data-number="12.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.8</span> Exercises</h2>
 <ol type="1">
-<li>Create a plot like the one in <a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a> that has the inverse distance interpolated map of <a href="#fig-idw">Figure&nbsp;<span>12.2</span></a> added on left side.</li>
-<li>Create a scatter plot of the map values of the idw and kriging map, and a scatter plot of map values of idw and residual kriging.</li>
-<li>Carry out a <em>block kriging</em>, predicting block averages for blocks centred over grid cells, by setting the <code>block</code> argument in <code>krige()</code>, and do this for block sizes of 10 km (the grid cell size), 50 km and 200 km. Compare the resulting maps of estimates for these three blocks sizes with those obtained by point kriging, and do the same thing for all associated kriging standard errors.</li>
-<li>Based on the residual kriging results obtained above, compute maps of the lower and upper boundary of a 95% confidence interval, when assuming that the kriging error is normally distributed, and show them in a plot with a single (joint) legend</li>
+<li>Create a plot like the one in <a href="#fig-residualkriging">Figure&nbsp;<span>12.13</span></a> that has the inverse distance interpolated map of <a href="#fig-idw">Figure&nbsp;<span>12.2</span></a> added on the left side.</li>
+<li>Create a scatter-plot of the map values of the idw and kriging map, and a scatter-plot of map values of idw and residual kriging.</li>
+<li>Carry out a <em>block kriging</em>, predicting block averages for blocks centred over grid cells, by setting the <code>block</code> argument in <code>krige()</code>, and do this for block sizes of 10 km (grid cell size), 50 km, and 200 km. Compare the resulting maps of estimates for these three block sizes with those obtained by point kriging, and do the same thing for all associated kriging standard errors.</li>
+<li>Based on the residual kriging results obtained above, compute maps of the lower and upper boundary of a 95% confidence interval, when assuming that the kriging error is normally distributed, and show them in a plot with a single (joint) legend.</li>
 <li>Compute and show the map with the probabilities that NO<span class="math inline">\(_2\)</span> point values exceed the level of 15 ppm, assuming normally distributed kriging errors.</li>
 </ol>
 <div class="cell">
@@ -944,14 +943,11 @@ Diggle, P. J., J. A. Tawn, and R. A. Moyeed. 1998. <span>“Model-Based Geostati
 <div id="ref-Heaton2018" class="csl-entry" role="doc-biblioentry">
 Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em>, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">https://doi.org/10.1007/s13253-018-00348-w</a>.
 </div>
-<div id="ref-heaton" class="csl-entry" role="doc-biblioentry">
-Heaton, Matthew J, Abhirup Datta, Andrew O Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2019. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em> 24 (3): 398–425. <a href="https://link.springer.com/article/10.1007/s13253-018-00348-w">https://link.springer.com/article/10.1007/s13253-018-00348-w</a>.
-</div>
 <div id="ref-jh78" class="csl-entry" role="doc-biblioentry">
-Journel, Andre G, and Charles J Huijbregts. 1978. <em>Mining Geostatistics</em>. Academic press London.
+Journel, Andre G., and Charles J. Huijbregts. 1978. <em>Mining Geostatistics</em>. Academic Press, London.
 </div>
 <div id="ref-kitanidis1985maximum" class="csl-entry" role="doc-biblioentry">
-Kitanidis, Peter K, and Robert W Lane. 1985. <span>“Maximum Likelihood Parameter Estimation of Hydrologic Spatial Processes by the Gauss-Newton Method.”</span> <em>Journal of Hydrology</em> 79 (1-2): 53–71. <a href="https://doi.org/10.1016/0022-1694(85)90181-7">https://doi.org/10.1016/0022-1694(85)90181-7</a>.
+Kitanidis, Peter K., and Robert W. Lane. 1985. <span>“Maximum Likelihood Parameter Estimation of Hydrologic Spatial Processes by the Gauss-Newton Method.”</span> <em>Journal of Hydrology</em> 79 (1-2): 53–71. <a href="https://doi.org/10.1016/0022-1694(85)90181-7">https://doi.org/10.1016/0022-1694(85)90181-7</a>.
 </div>
 <div id="ref-gstatcg" class="csl-entry" role="doc-biblioentry">
 Pebesma, Edzer. 2004. <span>“Multivariable Geostatistics in <span>S</span>: The Gstat Package.”</span> <em>Computers &amp; Geosciences</em> 30: 683–91.
@@ -960,7 +956,7 @@ Pebesma, Edzer. 2004. <span>“Multivariable Geostatistics in <span>S</span>: Th
 Pebesma, Edzer, and Benedikt Graeler. 2022. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://github.com/r-spatial/gstat/">https://github.com/r-spatial/gstat/</a>.
 </div>
 <div id="ref-schlather" class="csl-entry" role="doc-biblioentry">
-Schlather, Martin. 2011. <span>“Construction of Covariance Functions and Unconditional Simulation of Random Fields.”</span> In <em>Porcu, e., Montero, j.m. And Schlather, m., Space-Time Processes and Challenges Related to Environmental Problems</em>. New York: Springer.
+Schlather, Martin. 2011. <span>“Construction of Covariance Functions and Unconditional Simulation of Random Fields.”</span> In <em>Space-Time Processes and Challenges Related to Environmental Problems</em>, edited by E. Porcu, Montero J. M., and M. Schlather. New York: Springer.
 </div>
 <div id="ref-wikle2019spatio" class="csl-entry" role="doc-biblioentry">
 Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-Temporal Statistics with <span>R</span></em>. CRC Press.
@@ -1174,7 +1170,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>continuous variables (fields) for spatial locations where they have not</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>been observed, based on observations.  The statistical methodology</span>
 <span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>for spatial interpolation, called geostatistics, is concerned with</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>the modelling, prediction and simulation of spatially continuous</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>the modelling, prediction, and simulation of spatially continuous</span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>phenomena.  The typical problem is a missing value problem: we</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>observe a property of a phenomenon $Z(s)$ at a limited number</span>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>of sample locations $s_i, i = 1,...,n$, and are interested in</span>
@@ -1187,16 +1183,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>than $Z(s)$, which may be called _spatial filtering_ or _smoothing_.</span>
 <span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>In this chapter we will show simple approaches for handling</span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>geostatistical data, will demonstrate simple interpolation methods,</span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>explore modelling spatial correlation, spatial prediction and</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>geostatistical data, demonstrate simple interpolation methods,</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>and explore modelling spatial correlation, spatial prediction and</span>
 <span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>simulation. @sec-stgeostatistics focuses on more complex</span>
 <span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>multivariate and spatiotemporal geostatistical models.  We will</span>
 <span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>use package **gstat** <span class="co">[</span><span class="ot">@R-gstat; @gstatcg</span><span class="co">]</span>, which offers a fairly</span>
 <span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>wide palette of models and options for non-Bayesian geostatistical</span>
 <span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>analysis.  Bayesian methods with R implementations are found in</span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>e.g. @DiggleTawnMoyeed:98, @Diggle:2007, @blangiardo2015spatial,</span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>and @wikle2019spatio. An overview and comparisons of methods for</span>
-<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>large datasets is given in @Heaton2018.</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>@DiggleTawnMoyeed:98, @Diggle:2007, @blangiardo2015spatial, and</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>@wikle2019spatio. An overview and comparison of methods for large</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>datasets is given in @Heaton2018.</span>
 <span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>\index{spatial autocorrelation in fields}</span>
 <span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a></span>
@@ -1230,7 +1226,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-plotDE, echo = !knitr::is_latex_output()}</span></span>
-<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Mean NO$_2$ concentrations in air for rural background stations in Germany over 2017"</span></span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Mean NO$_2$ concentrations in air for rural background stations in Germany, in 2017"</span></span>
 <span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span> </span>
 <span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span>
@@ -1242,7 +1238,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a>If we want to interpolate, we first need to decide where. This</span>
 <span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a>is typically done on a regular grid covering the area of</span>
 <span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a>interest. Starting with the country outline in object <span class="in">`de`</span> we can</span>
-<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a>create a regular grid with 10 km grid cells (pixels) over Germany by</span>
+<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a>create a regular 10 km $\times$ 10 km grid over Germany by</span>
 <span id="cb35-81"><a href="#cb35-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r buildgridgermany}</span></span>
 <span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
@@ -1252,7 +1248,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a>grd</span>
 <span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a>Here, we chose grid cells to be not too fine, so that we still see</span>
+<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a>Here, we chose grid cells not too fine, so that we still see</span>
 <span id="cb35-91"><a href="#cb35-91" aria-hidden="true" tabindex="-1"></a>them in plots.</span>
 <span id="cb35-92"><a href="#cb35-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-93"><a href="#cb35-93" aria-hidden="true" tabindex="-1"></a>Perhaps the simplest interpolation method is inverse distance weighted</span>
@@ -1267,7 +1263,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-102"><a href="#cb35-102" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb35-103"><a href="#cb35-103" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-104"><a href="#cb35-104" aria-hidden="true" tabindex="-1"></a>with $w_i = |s_0-s_i|^{-p}$, and the inverse distance power $p$ typically</span>
-<span id="cb35-105"><a href="#cb35-105" aria-hidden="true" tabindex="-1"></a>taken as 2, or optimised using cross validation. We can compute</span>
+<span id="cb35-105"><a href="#cb35-105" aria-hidden="true" tabindex="-1"></a>taken as 2, or optimised using cross-validation. We can compute</span>
 <span id="cb35-106"><a href="#cb35-106" aria-hidden="true" tabindex="-1"></a>inverse distance interpolated values using <span class="in">`gstat::idw`</span>, </span>
 <span id="cb35-107"><a href="#cb35-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
 <span id="cb35-108"><a href="#cb35-108" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
@@ -1311,7 +1307,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-146"><a href="#cb35-146" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">gamma</span>(h)),</span>
 <span id="cb35-147"><a href="#cb35-147" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.055</span> <span class="sc">*</span> <span class="fu">max</span>(v<span class="sc">$</span>dist)))</span>
 <span id="cb35-148"><a href="#cb35-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-149"><a href="#cb35-149" aria-hidden="true" tabindex="-1"></a>Function <span class="in">`variogram`</span> chooses default for maximum distance (<span class="in">`cutoff`</span>: one third of the length of the bounding box diagonal) and (constant) interval widths (<span class="in">`width`</span>: cutoff divided by 15). These defaults can be changed, e.g. by</span>
+<span id="cb35-149"><a href="#cb35-149" aria-hidden="true" tabindex="-1"></a>Function <span class="in">`variogram`</span> chooses default for maximum distance (<span class="in">`cutoff`</span>: one-third of the length of the bounding box diagonal) and (constant) interval widths (<span class="in">`width`</span>: cutoff divided by 15). These defaults can be changed by</span>
 <span id="cb35-150"><a href="#cb35-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r controlcutoff}</span></span>
 <span id="cb35-151"><a href="#cb35-151" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, <span class="at">cutoff =</span> <span class="dv">100000</span>, <span class="at">width =</span> <span class="dv">10000</span>)</span>
 <span id="cb35-152"><a href="#cb35-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1329,18 +1325,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-164"><a href="#cb35-164" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-165"><a href="#cb35-165" aria-hidden="true" tabindex="-1"></a>\index{variogram!model}</span>
 <span id="cb35-166"><a href="#cb35-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-167"><a href="#cb35-167" aria-hidden="true" tabindex="-1"></a>In order to progress toward spatial predictions, we need a variogram _model_ $\gamma(h)$ for (potentially) all distances $h$, rather than the set of estimates derived above. If we would connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, it would lead to statistical models with non-positive definite covariance matrices, which would block using them in prediction.</span>
+<span id="cb35-167"><a href="#cb35-167" aria-hidden="true" tabindex="-1"></a>In order to progress towards spatial predictions, we need a variogram _model_ $\gamma(h)$ for (potentially) all distances $h$, rather than the set of estimates derived above. If we would connect these estimates with straight lines, or assume they reflect constant values over their respective distance intervals, it would lead to statistical models with non-positive definite covariance matrices, which would block using them in prediction.</span>
 <span id="cb35-168"><a href="#cb35-168" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-169"><a href="#cb35-169" aria-hidden="true" tabindex="-1"></a>\index{variogram!model!WLS fitting}</span>
 <span id="cb35-170"><a href="#cb35-170" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{fit.variogram}</span>
 <span id="cb35-171"><a href="#cb35-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-172"><a href="#cb35-172" aria-hidden="true" tabindex="-1"></a>To avoid this we fit parametric models $\gamma(h)$ to the estimates $\hat{\gamma}(h_i)$, where we take $h_i$ as the mean value of all the $h'$ values involved in estimating $\hat{\gamma}(h_i)$. We can fit for instance a model with an exponential variogram by</span>
+<span id="cb35-172"><a href="#cb35-172" aria-hidden="true" tabindex="-1"></a>To avoid this, we fit parametric models $\gamma(h)$ to the estimates $\hat{\gamma}(h_i)$, where we take $h_i$ as the mean value of all the $h'$ values involved in estimating $\hat{\gamma}(h_i)$. We can fit for instance a model with an exponential variogram by</span>
 <span id="cb35-175"><a href="#cb35-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb35-176"><a href="#cb35-176" aria-hidden="true" tabindex="-1"></a>v.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(v, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span>
 <span id="cb35-177"><a href="#cb35-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-178"><a href="#cb35-178" aria-hidden="true" tabindex="-1"></a>shown by the drawn line in @fig-fitvariogrammodel.</span>
+<span id="cb35-178"><a href="#cb35-178" aria-hidden="true" tabindex="-1"></a>shown by the solid line in @fig-fitvariogrammodel.</span>
 <span id="cb35-179"><a href="#cb35-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-fitvariogrammodel, echo = !knitr::is_latex_output()}</span></span>
-<span id="cb35-180"><a href="#cb35-180" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Sample variogram (circles) with models fitted using weighted least squares (drawn line) and maximum likelihood estimation (dashed line)"</span></span>
+<span id="cb35-180"><a href="#cb35-180" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Sample variogram (circles) with models fitted using weighted least squares (solid line) and maximum likelihood estimation (dashed line)"</span></span>
 <span id="cb35-181"><a href="#cb35-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb35-182"><a href="#cb35-182" aria-hidden="true" tabindex="-1"></a>fit.variogram_ml <span class="ot">&lt;-</span> <span class="cf">function</span>(formula, data, init, ...) {</span>
 <span id="cb35-183"><a href="#cb35-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">nrow</span>(init) <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="fu">inherits</span>(data, <span class="st">"sf"</span>), <span class="fu">inherits</span>(formula, <span class="st">"formula"</span>),</span>
@@ -1414,14 +1410,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-251"><a href="#cb35-251" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb35-252"><a href="#cb35-252" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{n}w_i(\gamma(h_i)-\hat{\gamma}(h_i))^2,</span>
 <span id="cb35-253"><a href="#cb35-253" aria-hidden="true" tabindex="-1"></a>$$ {#eq-wlsweights}</span>
-<span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a>with weights $w_i$ by default equal to $N(h_i)/h^2$, other weight</span>
+<span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a>with weights $w_i$ by default equal to $N(h_i)/h^2$. Other weight</span>
 <span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a>options are available through argument <span class="in">`fit.method`</span>.</span>
 <span id="cb35-256"><a href="#cb35-256" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-257"><a href="#cb35-257" aria-hidden="true" tabindex="-1"></a>\index{variogram!model!maximum likelihood estimation}</span>
 <span id="cb35-258"><a href="#cb35-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-259"><a href="#cb35-259" aria-hidden="true" tabindex="-1"></a>As an alternative to weighted least squares fitting one can</span>
+<span id="cb35-259"><a href="#cb35-259" aria-hidden="true" tabindex="-1"></a>As an alternative to weighted least squares fitting, one can</span>
 <span id="cb35-260"><a href="#cb35-260" aria-hidden="true" tabindex="-1"></a>use maximum likelihood (ML) or restricted maximum likelihood</span>
-<span id="cb35-261"><a href="#cb35-261" aria-hidden="true" tabindex="-1"></a>parameter estimation <span class="co">[</span><span class="ot">e.g., @kitanidis1985maximum</span><span class="co">]</span>, which for</span>
+<span id="cb35-261"><a href="#cb35-261" aria-hidden="true" tabindex="-1"></a>parameter estimation <span class="co">[</span><span class="ot">@kitanidis1985maximum</span><span class="co">]</span>, which for</span>
 <span id="cb35-262"><a href="#cb35-262" aria-hidden="true" tabindex="-1"></a>this case leads to a relatively similar fitted model, shown</span>
 <span id="cb35-263"><a href="#cb35-263" aria-hidden="true" tabindex="-1"></a>as the dashed line in @fig-fitvariogrammodel. An advantage of</span>
 <span id="cb35-264"><a href="#cb35-264" aria-hidden="true" tabindex="-1"></a>ML-type approaches is that they do not require choosing distance</span>
@@ -1429,7 +1425,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-266"><a href="#cb35-266" aria-hidden="true" tabindex="-1"></a>@eq-wlsweights. Disadvantages are that they lean on stronger</span>
 <span id="cb35-267"><a href="#cb35-267" aria-hidden="true" tabindex="-1"></a>assumptions of multivariate normally distributed data, and for</span>
 <span id="cb35-268"><a href="#cb35-268" aria-hidden="true" tabindex="-1"></a>larger datasets require iteratively solving linear systems of size</span>
-<span id="cb35-269"><a href="#cb35-269" aria-hidden="true" tabindex="-1"></a>equal to the number of observations; @heaton compares approaches</span>
+<span id="cb35-269"><a href="#cb35-269" aria-hidden="true" tabindex="-1"></a>equal to the number of observations; @Heaton2018 compare approaches</span>
 <span id="cb35-270"><a href="#cb35-270" aria-hidden="true" tabindex="-1"></a>dedicated to fitting models to large datasets.</span>
 <span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kriging interpolation {#sec-kriging}</span></span>
@@ -1440,7 +1436,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a>Typically, when we interpolate a variable, we do that on</span>
 <span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a>points on a regular grid covering the target area. We first create</span>
-<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a>a <span class="in">`stars`</span> object with a raster covering the target area, and NA's</span>
+<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a>a <span class="in">`stars`</span> object with a raster covering the target area, and <span class="in">`NA`</span>s</span>
 <span id="cb35-281"><a href="#cb35-281" aria-hidden="true" tabindex="-1"></a>outside it.</span>
 <span id="cb35-282"><a href="#cb35-282" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a>Kriging involves the prediction of $Z(s_0)$ at arbitrary locations</span>
@@ -1467,7 +1463,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a>\index{kriging!block}</span>
 <span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a>\index{kriging!areal means}</span>
 <span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a>Computing areal means can be done in several ways. The simples is to take</span>
+<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a>Computing areal means can be done in several ways. The simplest is to take</span>
 <span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a>the average of point samples falling inside the target polygons:</span>
 <span id="cb35-313"><a href="#cb35-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb35-314"><a href="#cb35-314" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], <span class="at">by =</span> de, <span class="at">FUN =</span> mean)</span>
@@ -1508,7 +1504,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-353"><a href="#cb35-353" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-354"><a href="#cb35-354" aria-hidden="true" tabindex="-1"></a>which would have been the actual estimate in design-based inference (@sec-design)</span>
 <span id="cb35-355"><a href="#cb35-355" aria-hidden="true" tabindex="-1"></a>if the sample were obtained by spatially random sampling.</span>
-<span id="cb35-356"><a href="#cb35-356" aria-hidden="true" tabindex="-1"></a>The block kriging variance is the model-based estimate, and is</span>
+<span id="cb35-356"><a href="#cb35-356" aria-hidden="true" tabindex="-1"></a>The block kriging variance is the model-based estimate and is</span>
 <span id="cb35-357"><a href="#cb35-357" aria-hidden="true" tabindex="-1"></a>a by-product of kriging. We can compare the two in @fig-aggrSE where</span>
 <span id="cb35-358"><a href="#cb35-358" aria-hidden="true" tabindex="-1"></a>we see that the simple averaging approach gives more variability and mostly</span>
 <span id="cb35-359"><a href="#cb35-359" aria-hidden="true" tabindex="-1"></a>larger values for prediction errors of areal means, compared to</span>
@@ -1611,7 +1607,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-456"><a href="#cb35-456" aria-hidden="true" tabindex="-1"></a>As a potential predictor for NO$_2$ in the air, we use population</span>
 <span id="cb35-457"><a href="#cb35-457" aria-hidden="true" tabindex="-1"></a>density. NO$_2$ is mostly caused by traffic, and traffic is more intense</span>
 <span id="cb35-458"><a href="#cb35-458" aria-hidden="true" tabindex="-1"></a>in densely populated areas.</span>
-<span id="cb35-459"><a href="#cb35-459" aria-hidden="true" tabindex="-1"></a>Population density is obtained from the <span class="co">[</span><span class="ot">2011 census</span><span class="co">](https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html)</span>, and is downloaded as a csv file with the number of inhabitants per 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</span>
+<span id="cb35-459"><a href="#cb35-459" aria-hidden="true" tabindex="-1"></a>Population density is obtained from the <span class="co">[</span><span class="ot">2011 census</span><span class="co">](https://www.zensus2011.de/DE/Home/Aktuelles/DemografischeGrunddaten.html)</span> and is downloaded as a csv file with the number of inhabitants per 100 m $\times$ 100 m grid cell. We can aggregate these data to the target grid cells by summing the inhabitants:</span>
 <span id="cb35-460"><a href="#cb35-460" aria-hidden="true" tabindex="-1"></a><span class="in">```{r vroom1, message=FALSE}</span></span>
 <span id="cb35-461"><a href="#cb35-461" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> vroom<span class="sc">::</span><span class="fu">vroom</span>(<span class="st">"aq/pop/Zensus_Bevoelkerung_100m-Gitter.csv"</span>)</span>
 <span id="cb35-462"><a href="#cb35-462" aria-hidden="true" tabindex="-1"></a>v <span class="sc">|&gt;</span> <span class="fu">filter</span>(Einwohner <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
@@ -1635,25 +1631,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-480"><a href="#cb35-480" aria-hidden="true" tabindex="-1"></a>    units<span class="sc">::</span><span class="fu">set_units</span>(grd<span class="sc">$</span>values, m<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb35-481"><a href="#cb35-481" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>area[iii<span class="sc">$</span>ID] <span class="ot">&lt;-</span> <span class="fu">st_area</span>(iii)</span>
 <span id="cb35-482"><a href="#cb35-482" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-483"><a href="#cb35-483" aria-hidden="true" tabindex="-1"></a>Instead of doing the two-stage procedure above: first finding cells that</span>
-<span id="cb35-484"><a href="#cb35-484" aria-hidden="true" tabindex="-1"></a>have a border crossing it, then computing its area, we could also directly</span>
+<span id="cb35-483"><a href="#cb35-483" aria-hidden="true" tabindex="-1"></a>Instead of doing the two-stage procedure above, first finding cells that</span>
+<span id="cb35-484"><a href="#cb35-484" aria-hidden="true" tabindex="-1"></a>have a border crossing it then computing its area, we could also directly</span>
 <span id="cb35-485"><a href="#cb35-485" aria-hidden="true" tabindex="-1"></a>use <span class="in">`st_intersection`</span> on all cells, but that takes considerably longer.</span>
-<span id="cb35-486"><a href="#cb35-486" aria-hidden="true" tabindex="-1"></a>From the counts and areas we can compute densities (@fig-popdens),</span>
+<span id="cb35-486"><a href="#cb35-486" aria-hidden="true" tabindex="-1"></a>From the counts and areas we can compute densities (@fig-popdens)</span>
 <span id="cb35-487"><a href="#cb35-487" aria-hidden="true" tabindex="-1"></a>and verify totals </span>
 <span id="cb35-490"><a href="#cb35-490" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb35-491"><a href="#cb35-491" aria-hidden="true" tabindex="-1"></a>grd<span class="sc">$</span>pop_dens <span class="ot">&lt;-</span> a<span class="sc">$</span>Einwohner <span class="sc">/</span> grd<span class="sc">$</span>area</span>
 <span id="cb35-492"><a href="#cb35-492" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(grd<span class="sc">$</span>pop_dens <span class="sc">*</span> grd<span class="sc">$</span>area, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># verify</span></span>
 <span id="cb35-493"><a href="#cb35-493" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(b<span class="sc">$</span>Einwohner)</span>
 <span id="cb35-494"><a href="#cb35-494" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-495"><a href="#cb35-495" aria-hidden="true" tabindex="-1"></a>which indicates we did not loose many: using <span class="in">`st_interpolate_aw`</span> should</span>
+<span id="cb35-495"><a href="#cb35-495" aria-hidden="true" tabindex="-1"></a>which indicates strong agreement. Using <span class="in">`st_interpolate_aw`</span> would</span>
 <span id="cb35-496"><a href="#cb35-496" aria-hidden="true" tabindex="-1"></a>have given an exact match.</span>
 <span id="cb35-497"><a href="#cb35-497" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-popdens, echo = !knitr::is_latex_output()}</span></span>
-<span id="cb35-498"><a href="#cb35-498" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Population density for 100 m $\times$ 100 m grid cells"</span></span>
+<span id="cb35-498"><a href="#cb35-498" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Population density for 100 m $\\times$ 100 m grid cells"</span></span>
 <span id="cb35-499"><a href="#cb35-499" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb35-500"><a href="#cb35-500" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_stars</span>(<span class="at">data =</span> grd, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">sqrt</span>(pop_dens), <span class="at">x =</span> x, <span class="at">y =</span> y))</span>
 <span id="cb35-501"><a href="#cb35-501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-502"><a href="#cb35-502" aria-hidden="true" tabindex="-1"></a>We need to divide the number of inhabitants by the number of 100</span>
-<span id="cb35-503"><a href="#cb35-503" aria-hidden="true" tabindex="-1"></a>m grid points contributing to it, in order to convert population</span>
+<span id="cb35-503"><a href="#cb35-503" aria-hidden="true" tabindex="-1"></a>m $\times$ 100 m grid cells contributing to it, in order to convert population</span>
 <span id="cb35-504"><a href="#cb35-504" aria-hidden="true" tabindex="-1"></a>counts into population density.</span>
 <span id="cb35-505"><a href="#cb35-505" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-506"><a href="#cb35-506" aria-hidden="true" tabindex="-1"></a>\index{st<span class="sc">\_</span>extract}</span>
@@ -1688,12 +1684,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-541"><a href="#cb35-541" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> <span class="fu">variogram</span>(NO2<span class="sc">~</span><span class="fu">sqrt</span>(pop_dens), no2.sf)</span>
 <span id="cb35-542"><a href="#cb35-542" aria-hidden="true" tabindex="-1"></a>vr.m <span class="ot">&lt;-</span> <span class="fu">fit.variogram</span>(vr, <span class="fu">vgm</span>(<span class="dv">1</span>, <span class="st">"Exp"</span>, <span class="dv">50000</span>, <span class="dv">1</span>))</span>
 <span id="cb35-543"><a href="#cb35-543" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-544"><a href="#cb35-544" aria-hidden="true" tabindex="-1"></a>which is shown in (@fig-predictusingpopulationdensity).</span>
-<span id="cb35-545"><a href="#cb35-545" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-predictusingpopulationdensity,echo=!knitr::is_latex_output()}</span></span>
-<span id="cb35-546"><a href="#cb35-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Residual variogram after subtracting population density trend"</span></span>
-<span id="cb35-547"><a href="#cb35-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb35-548"><a href="#cb35-548" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vr, vr.m, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-549"><a href="#cb35-549" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-544"><a href="#cb35-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-predictusingpopulationdensity,echo=!knitr::is_latex_output()}</span></span>
+<span id="cb35-545"><a href="#cb35-545" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Residual variogram after subtracting population density trend"</span></span>
+<span id="cb35-546"><a href="#cb35-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb35-547"><a href="#cb35-547" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vr, vr.m, <span class="at">plot.numbers =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-548"><a href="#cb35-548" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-549"><a href="#cb35-549" aria-hidden="true" tabindex="-1"></a>which is shown in @fig-predictusingpopulationdensity.</span>
 <span id="cb35-550"><a href="#cb35-550" aria-hidden="true" tabindex="-1"></a>Subsequently, kriging prediction (@fig-residualkriging) is done by </span>
 <span id="cb35-553"><a href="#cb35-553" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb35-554"><a href="#cb35-554" aria-hidden="true" tabindex="-1"></a>kr <span class="ot">&lt;-</span> <span class="fu">krige</span>(NO2 <span class="sc">~</span> <span class="fu">sqrt</span>(pop_dens), no2.sf, </span>
@@ -1723,7 +1719,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-578"><a href="#cb35-578" aria-hidden="true" tabindex="-1"></a>should be taken with a large grain of salt however, since the</span>
 <span id="cb35-579"><a href="#cb35-579" aria-hidden="true" tabindex="-1"></a>stations used were filtered for the category "rural background",</span>
 <span id="cb35-580"><a href="#cb35-580" aria-hidden="true" tabindex="-1"></a>indicating that they only represent conditions of lower populations</span>
-<span id="cb35-581"><a href="#cb35-581" aria-hidden="true" tabindex="-1"></a>density. The scatter plot of @fig-no2scat  reveals that the the</span>
+<span id="cb35-581"><a href="#cb35-581" aria-hidden="true" tabindex="-1"></a>density. The scatter-plot of @fig-no2scat  reveals that the the</span>
 <span id="cb35-582"><a href="#cb35-582" aria-hidden="true" tabindex="-1"></a>population density at the locations of stations is much more limited</span>
 <span id="cb35-583"><a href="#cb35-583" aria-hidden="true" tabindex="-1"></a>than that in the population density map, and hence the right-hand</span>
 <span id="cb35-584"><a href="#cb35-584" aria-hidden="true" tabindex="-1"></a>side map is based on strongly extrapolating the relationship shown</span>
@@ -1733,19 +1729,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-588"><a href="#cb35-588" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-589"><a href="#cb35-589" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Create a plot like the one in @fig-residualkriging </span>
 <span id="cb35-590"><a href="#cb35-590" aria-hidden="true" tabindex="-1"></a>that has the inverse distance interpolated map of </span>
-<span id="cb35-591"><a href="#cb35-591" aria-hidden="true" tabindex="-1"></a>@fig-idw added on left side.</span>
-<span id="cb35-592"><a href="#cb35-592" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Create a scatter plot of the map values of the idw and kriging</span>
-<span id="cb35-593"><a href="#cb35-593" aria-hidden="true" tabindex="-1"></a>map, and a scatter plot of map values of idw and residual kriging.</span>
+<span id="cb35-591"><a href="#cb35-591" aria-hidden="true" tabindex="-1"></a>@fig-idw added on the left side.</span>
+<span id="cb35-592"><a href="#cb35-592" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Create a scatter-plot of the map values of the idw and kriging</span>
+<span id="cb35-593"><a href="#cb35-593" aria-hidden="true" tabindex="-1"></a>map, and a scatter-plot of map values of idw and residual kriging.</span>
 <span id="cb35-594"><a href="#cb35-594" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Carry out a _block kriging_, predicting block averages for blocks</span>
 <span id="cb35-595"><a href="#cb35-595" aria-hidden="true" tabindex="-1"></a>centred over grid cells, by setting the <span class="in">`block`</span> argument in</span>
-<span id="cb35-596"><a href="#cb35-596" aria-hidden="true" tabindex="-1"></a><span class="in">`krige()`</span>, and do this for block sizes of 10 km (the grid cell size),</span>
-<span id="cb35-597"><a href="#cb35-597" aria-hidden="true" tabindex="-1"></a>50 km and 200 km. Compare the resulting maps of estimates for these</span>
-<span id="cb35-598"><a href="#cb35-598" aria-hidden="true" tabindex="-1"></a>three blocks sizes with those obtained by point kriging, and</span>
+<span id="cb35-596"><a href="#cb35-596" aria-hidden="true" tabindex="-1"></a><span class="in">`krige()`</span>, and do this for block sizes of 10 km (grid cell size),</span>
+<span id="cb35-597"><a href="#cb35-597" aria-hidden="true" tabindex="-1"></a>50 km, and 200 km. Compare the resulting maps of estimates for these</span>
+<span id="cb35-598"><a href="#cb35-598" aria-hidden="true" tabindex="-1"></a>three block sizes with those obtained by point kriging, and</span>
 <span id="cb35-599"><a href="#cb35-599" aria-hidden="true" tabindex="-1"></a>do the same thing for all associated kriging standard errors.</span>
 <span id="cb35-600"><a href="#cb35-600" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Based on the residual kriging results obtained above, compute</span>
 <span id="cb35-601"><a href="#cb35-601" aria-hidden="true" tabindex="-1"></a>maps of the lower and upper boundary of a 95% confidence interval,</span>
 <span id="cb35-602"><a href="#cb35-602" aria-hidden="true" tabindex="-1"></a>when assuming that the kriging error is normally distributed,</span>
-<span id="cb35-603"><a href="#cb35-603" aria-hidden="true" tabindex="-1"></a>and show them in a plot with a single (joint) legend</span>
+<span id="cb35-603"><a href="#cb35-603" aria-hidden="true" tabindex="-1"></a>and show them in a plot with a single (joint) legend.</span>
 <span id="cb35-604"><a href="#cb35-604" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Compute and show the map with the probabilities that NO$_2$ point</span>
 <span id="cb35-605"><a href="#cb35-605" aria-hidden="true" tabindex="-1"></a>values exceed the level of 15 ppm, assuming normally distributed</span>
 <span id="cb35-606"><a href="#cb35-606" aria-hidden="true" tabindex="-1"></a>kriging errors.</span>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -168,7 +168,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -284,7 +284,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of spatial autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,7 +294,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial econometrics models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +314,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -339,7 +339,7 @@ div.csl-indent {
   <li><a href="#validity-on-the-sphere" id="toc-validity-on-the-sphere" class="nav-link" data-scroll-target="#validity-on-the-sphere"><span class="toc-section-number">4.4</span>  Validity on the sphere</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">4.5</span>  Exercises</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/edit/main/04-Spherical.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/04-Spherical.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -362,17 +362,17 @@ div.csl-indent {
 </header>
 
 <p>“<em>There are too many false conclusions drawn and stupid measurements made when geographic software, built for projected Cartesian coordinates in a local setting, is applied at the global scale</em>” <span class="citation" data-cites="chrisman">(<a href="references.html#ref-chrisman" role="doc-biblioref">Chrisman 2012</a>)</span></p>
-<p>The previous chapter discussed geometries defined on the plane, <span class="math inline">\(R^2\)</span>. This chapter discusses what changeas when we consider geometries not on the plane, but on the sphere (<span class="math inline">\(S^2\)</span>).</p>
-<p>Although we learned in <a href="02-Spaces.html"><span>Chapter&nbsp;2</span></a> that the shape of the Earth is usually approximated by an ellipsoid, none of the libraries shown in green in <a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a> provide access to a comprehensive set of functions that compute on an ellipsoid. Only the s2geometry <span class="citation" data-cites="R-s2 s2geometry">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2022</a>; <a href="references.html#ref-s2geometry" role="doc-biblioref">Veach et al. 2020</a>)</span> library does provide it using a sphere rather than an ellipsoid. However, when compared to using a flat (projected) space as we did in the previous chapter, a sphere is a <em>much</em> better approximation to an ellipsoid.</p>
+<p>The previous chapter discussed geometries defined on the plane, <span class="math inline">\(R^2\)</span>. This chapter discusses what changes when we consider geometries not on the plane, but on the sphere (<span class="math inline">\(S^2\)</span>).</p>
+<p>Although we learned in <a href="02-Spaces.html"><span>Chapter&nbsp;2</span></a> that the shape of the Earth is usually approximated by an ellipsoid, none of the libraries shown in green in <a href="01-hello.html#fig-gdal-fig-nodetails">Figure&nbsp;<span>1.7</span></a> provide access to a comprehensive set of functions that compute on an ellipsoid. Only the s2geometry <span class="citation" data-cites="R-s2 s2geometry">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>; <a href="references.html#ref-s2geometry" role="doc-biblioref">Veach et al. 2020</a>)</span> library does provide it using a sphere rather than an ellipsoid. However, when compared to using a flat (projected) space as we did in the previous chapter, a sphere is a <em>much</em> better approximation to an ellipsoid.</p>
 <p></p>
 <section id="sec-straight" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-straight"><span class="header-section-number">4.1</span> Straight lines</h2>
-<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the centre of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length. Note that the GeoJSON standard (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) has its own definition of straight lines in geodetic coordinates (see Exercise 1).</p>
+<p>The basic premise of <em>simple features</em> of <a href="03-Geometries.html"><span>Chapter&nbsp;3</span></a> is that geometries are represented by sequences of points <em>connected by straight lines</em>. On <span class="math inline">\(R^2\)</span> (or any Cartesian space), this is trivial, but on a sphere straight lines do not exist. The shortest line connecting two points is an arc of the circle through both points and the centre of the sphere, also called a <em>great circle segment</em>. A consequence is that “the” shortest distance line connecting two points on opposing sides of the sphere does not exist, as any great circle segment connecting them has equal length. Note that the GeoJSON standard <span class="citation" data-cites="geojson">(<a href="references.html#ref-geojson" role="doc-biblioref">Butler et al. 2016</a>)</span> has its own definition of straight lines in geodetic coordinates (see Exercise 1 at the end of this chapter).</p>
 <p> </p>
 </section>
 <section id="ring-direction-and-full-polygon" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="ring-direction-and-full-polygon"><span class="header-section-number">4.2</span> Ring direction and full polygon</h2>
-<p>Any polygon on the sphere divides the sphere surface in two parts with finite area: the inside and the outside. Using the “counter clockwise rule” as was done for <span class="math inline">\(R^2\)</span> will not work, because the direction interpretation depends on what is defined as inside. A convention here is to define the inside as the left (or right) side of the polygon boundary when traversing its points in sequence. Reversal of the node order then switches inside and outside.</p>
+<p>Any polygon on the sphere divides the sphere surface in two parts with finite area: the inside and the outside. Using the “counter-clockwise rule” as was done for <span class="math inline">\(R^2\)</span> will not work because the direction interpretation depends on what is defined as inside. A convention here is to define the inside as the left (or right) side of the polygon boundary when traversing its points in sequence. Reversal of the node order then switches inside and outside.</p>
 <p> </p>
 <p>In addition to empty polygons, one can define the <em>full polygon</em> on a sphere, which comprises its entire surface. This is useful, for instance for computing the oceans as the geometric difference between the full polygon and the union of the land mass (see <a href="08-Plotting.html#fig-world">Figure&nbsp;<span>8.1</span></a> and <a href="11-PointPattern.html#fig-srsglobe">Figure&nbsp;<span>11.6</span></a>).</p>
 <p> </p>
@@ -380,7 +380,7 @@ div.csl-indent {
 <section id="bounding-box-rectangle-and-cap" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="bounding-box-rectangle-and-cap"><span class="header-section-number">4.3</span> Bounding box, rectangle, and cap</h2>
 <p> </p>
-<p>Where in <span class="math inline">\(R^2\)</span> one can easily define bounding boxes as the range of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, for ellipsoidal coordinates these ranges are not of much use when geometries cross the antimeridian (longitude +/- 180) or one of the poles. The assumption in <span class="math inline">\(R^2\)</span> that lower <span class="math inline">\(x\)</span> values are Westwards of higher ones does not hold when crossing the antimeridian. An alternative to delineating an area on a sphere that is more natural is the <em>bounding cap</em>, defined by its centre coordinates and a radius. For Antarctica, as depicted in <a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> (a) and (c), the bounding box formed by coordinate ranges is</p>
+<p>Where in <span class="math inline">\(R^2\)</span> one can easily define bounding boxes as the range of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, for ellipsoidal coordinates these ranges are not of much use when geometries cross the antimeridian (longitude +/- 180) or one of the poles. The assumption in <span class="math inline">\(R^2\)</span> that lower <span class="math inline">\(x\)</span> values are Westwards of higher ones does not hold when crossing the antimeridian. An alternative to delineating an area on a sphere that is more natural is the <em>bounding cap</em>, defined by its centre coordinates and a radius. For Antarctica, as depicted in Figures -<a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> (a) and (c), the bounding box formed by coordinate ranges is</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -495,7 +495,7 @@ div.csl-indent {
 <li>geometries crossing the antimeridian (longitude +/- 180) are cut in half, such that they no longer cross it (but nearly touch each other)</li>
 <li>geometries including a pole, like Antarctica, are cut at +/- 180 and make an excursion through -180,-90 and 180,-90 (both representing the Geographic South Pole)</li>
 </ul>
-<p><a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> shows two different representation of Antarctica, plotted with ellipsoidal coordinates taken as <span class="math inline">\(R^2\)</span> (top) and in a Polar Stereographic projection (bottom), without (left) and with (right) an excursion through the Geographic South Pole. In the projections as plotted, polygons (b) and (c) are valid; polygon (a) is not valid as it self-intersects, polygon (d) is not valid because it traverses the same edge to the South Pole twice. On the sphere (<span class="math inline">\(S^2\)</span>), polygon (a) is valid but (b) is not, for the same reason as (d) is not valid.</p>
+<p><a href="#fig-antarctica">Figure&nbsp;<span>4.1</span></a> shows two different representations of Antarctica, plotted with ellipsoidal coordinates taken as <span class="math inline">\(R^2\)</span> (top) and in a Polar Stereographic projection (bottom), without (left) and with (right) an excursion through the Geographic South Pole. In the projections as plotted, polygons (b) and (c) are valid, polygon (a) is not valid as it self-intersects, and polygon (d) is not valid because it traverses the same edge to the South Pole twice. On the sphere (<span class="math inline">\(S^2\)</span>), polygon (a) is valid but (b) is not, for the same reason as (d) is not valid.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -598,7 +598,7 @@ div.csl-indent {
 <h2 data-number="4.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.5</span> Exercises</h2>
 <p>For the following exercises, use R where possible or relevant.</p>
 <ol type="1">
-<li>How does the <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> format (<span class="citation" data-cites="geojson">Butler et al. (<a href="references.html#ref-geojson" role="doc-biblioref">2016</a>)</span>) define “straight” lines between ellipsoidal coordinates (section 3.1.1)? Using this definition of straight, how does <code>LINESTRING(0 85,180 85)</code> look like in an Arctic polar projection? How could this geometry be modified to have it cross the North Pole?</li>
+<li>How does the <a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> format <span class="citation" data-cites="geojson">(<a href="references.html#ref-geojson" role="doc-biblioref">Butler et al. 2016</a>)</span> define “straight” lines between ellipsoidal coordinates (Section 3.1.1)? Using this definition of straight, how does <code>LINESTRING(0 85,180 85)</code> look like in an Arctic polar projection? How could this geometry be modified to have it cross the North Pole?</li>
 <li>For a typical polygon on <span class="math inline">\(S^2\)</span>, how can you find out ring direction?</li>
 <li>Are there advantages of using bounding caps over using bounding boxes? If so, list them.</li>
 <li>Why is, for small areas, the orthographic projection centred at the area a good approximation of the geometry as handled on <span class="math inline">\(S^2\)</span>?</li>
@@ -629,7 +629,7 @@ Butler, H., M. Daly, A. Doyl, S. Gillies, S. Hagen, and T. Schaub. 2016. <span>�
 Chrisman, Nicholas. 2012. <span>“A Deflationary Approach to Fundamental Principles in <span>GIScience</span>.”</span> In <em>Francis Harvey (Ed.) Are There Fundamental Principles in Geographic Information Science?</em>, 42–64. CreateSpace, United States.
 </div>
 <div id="ref-R-s2" class="csl-entry" role="doc-biblioentry">
-Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2022. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>. <a href="https://CRAN.R-project.org/package=s2">https://CRAN.R-project.org/package=s2</a>.
+Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2023. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>. <a href="https://CRAN.R-project.org/package=s2">https://CRAN.R-project.org/package=s2</a>.
 </div>
 <div id="ref-s2geometry" class="csl-entry" role="doc-biblioentry">
 Veach, Eric, Jesse Rosenstock, Eric Engle, Robert Snedegar, Julien Basch, and Tom Manshreck. 2020. <span>“S2 Geometry.”</span> <em>Website</em>. <a href="https://s2geometry.io/">https://s2geometry.io/</a>.
@@ -842,7 +842,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@chrisman</span><span class="co">]</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>The previous chapter discussed geometries defined on the plane,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>$R^2$.  This chapter discusses what changeas when we consider</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>$R^2$.  This chapter discusses what changes when we consider</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>geometries not on the plane, but on the sphere ($S^2$).</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>Although we learned in @sec-cs that the shape of the Earth</span>
@@ -867,261 +867,260 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>segment_. A consequence is that "the" shortest distance line</span>
 <span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>connecting two points on opposing sides of the sphere does not exist,</span>
 <span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>as any great circle segment connecting them has equal length.</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>Note that the GeoJSON standard (@geojson) has its own definition</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>of straight lines in geodetic coordinates (see Exercise 1).</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>\index{coordinates!straight line}</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>\index{coordinates!great circle}</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>\index{great circle segment}</span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ring direction and full polygon</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>Any polygon on the sphere divides the sphere surface in two parts</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>with finite area: the inside and the outside. Using the "counter</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>clockwise rule" as was done for $R^2$ will not work, because the</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>direction interpretation depends on what is defined as inside. A</span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>convention here is to define the inside as the left (or right)</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>side of the polygon boundary when traversing its points in</span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>sequence. Reversal of the node order then switches inside and</span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>outside.</span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>\index{polygon!inside or outside on sphere}</span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>\index{polygon!ring direction}</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>In addition to empty polygons, one can define the _full polygon_</span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>on a sphere, which comprises its entire surface. This is useful,</span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>for instance for computing the oceans as the geometric difference</span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>between the full polygon and the union of the land mass (see</span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>@fig-world and @fig-srsglobe).</span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>\index{polygon!full vs. empty}</span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>\index{full polygon}</span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bounding box, rectangle, and cap</span></span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>\index{coordinates!bounding box}</span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>\index{bounding cap}</span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>\index{bounding box}</span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>\index{bounding rectangle}</span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>\index{antimeridian}</span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>Where in $R^2$ one can easily define bounding boxes as the range</span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>of the $x$ and $y$ coordinates, for ellipsoidal coordinates these</span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>ranges are not of much use when geometries cross the antimeridian</span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>(longitude +/- 180) or one of the poles. The assumption in $R^2$</span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>that lower $x$ values are Westwards of higher ones does not hold</span>
-<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>when crossing the antimeridian. An alternative to delineating</span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>an area on a sphere that is more natural is the _bounding cap_,</span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>defined by its centre coordinates and a radius. For Antarctica,</span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>as depicted in @fig-antarctica (a) and (c), the</span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>bounding box formed by coordinate ranges is</span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-caprect, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 100%</span></span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="st">"Antarctica"</span>) <span class="ot">-&gt;</span> a</span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(a)</span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 100%</span></span>
-<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
-<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a>antarctica <span class="op">=</span> ne[ne[<span class="st">"continent"</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
-<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> antarctica.total_bounds</span>
-<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a>bbox</span>
-<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>Note that the GeoJSON standard <span class="co">[</span><span class="ot">@geojson</span><span class="co">]</span> has its own definition</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>of straight lines in geodetic coordinates (see Exercise 1 at the</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>end of this chapter).</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>\index{coordinates!straight line}</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>\index{coordinates!great circle}</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>\index{great circle segment}</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ring direction and full polygon</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>Any polygon on the sphere divides the sphere surface in two parts</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>with finite area: the inside and the outside. Using the</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>"counter-clockwise rule" as was done for $R^2$ will not work</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>because the direction interpretation depends on what is defined</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>as inside. A convention here is to define the inside as the left</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>(or right) side of the polygon boundary when traversing its points</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>in sequence. Reversal of the node order then switches inside and</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>outside.</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>\index{polygon!inside or outside on sphere}</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>\index{polygon!ring direction}</span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>In addition to empty polygons, one can define the _full polygon_</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>on a sphere, which comprises its entire surface. This is useful,</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>for instance for computing the oceans as the geometric difference</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>between the full polygon and the union of the land mass (see</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>@fig-world and @fig-srsglobe).</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>\index{polygon!full vs. empty}</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>\index{full polygon}</span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bounding box, rectangle, and cap</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>\index{coordinates!bounding box}</span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>\index{bounding cap}</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>\index{bounding box}</span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>\index{bounding rectangle}</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>\index{antimeridian}</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>Where in $R^2$ one can easily define bounding boxes as the range</span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>of the $x$ and $y$ coordinates, for ellipsoidal coordinates these</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>ranges are not of much use when geometries cross the antimeridian</span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>(longitude +/- 180) or one of the poles. The assumption in $R^2$</span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>that lower $x$ values are Westwards of higher ones does not hold</span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>when crossing the antimeridian. An alternative to delineating</span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>an area on a sphere that is more natural is the _bounding cap_,</span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>defined by its centre coordinates and a radius. For Antarctica,</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>as depicted in Figures -@fig-antarctica (a) and (c), the</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>bounding box formed by coordinate ranges is</span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-caprect, echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 100%</span></span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="st">"Antarctica"</span>) <span class="ot">-&gt;</span> a</span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(a)</span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 100%</span></span>
+<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
+<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a>antarctica <span class="op">=</span> ne[ne[<span class="st">"continent"</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
+<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> antarctica.total_bounds</span>
+<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a>bbox</span>
+<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a>which clearly does not contain the region (<span class="in">`ymin`</span> being -90 and <span class="in">`xmax`</span> 180).</span>
-<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a>Two geometries that do contain the region are the bounding cap:</span>
-<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(s2)</span>
-<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_cap</span>(a)</span>
-<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a>and the bounding _rectangle_:</span>
-<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_rect</span>(a)</span>
-<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a>For an area spanning the antimeridian, here the Fiji island country,</span>
-<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a>the bounding box:</span>
-<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
-<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="st">"Fiji"</span>) <span class="ot">-&gt;</span> Fiji</span>
-<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(Fiji)</span>
-<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
-<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
-<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a>Fiji <span class="op">=</span> ne[ne[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"Fiji"</span>]</span>
-<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> Fiji.total_bounds</span>
-<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a>bbox</span>
-<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a>seems to span most of the Earth, as opposed to the bounding rectangle:</span>
-<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_rect</span>(Fiji)</span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a>where a value <span class="in">`lng_lo`</span> _larger_ than <span class="in">`lng_hi`</span> indicates that the</span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a>bounding rectangle spans the antimeridian. This property could not</span>
-<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>be inferred from the coordinate ranges.</span>
-<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validity on the sphere</span></span>
-<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a>\index{geometry!valid on the sphere}</span>
-<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a>\index{polygon!valid on the sphere}</span>
-<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a>Many global datasets are given in ellipsoidal coordinates but are</span>
-<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a>prepared in a way that they "work" when interpreted on the $R^2$</span>
-<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a>space <span class="co">[</span><span class="ot">-180,180</span><span class="co">]</span> $\times$ <span class="co">[</span><span class="ot">-90,90</span><span class="co">]</span>. This means that:</span>
-<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>geometries crossing the antimeridian (longitude +/- 180) are cut in</span>
-<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a>half, such that they no longer cross it (but nearly touch each other)</span>
-<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>geometries including a pole, like Antarctica, are cut at +/- 180 and</span>
-<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a>make an excursion through -180,-90 and 180,-90 (both representing the</span>
-<span id="cb16-176"><a href="#cb16-176" aria-hidden="true" tabindex="-1"></a>Geographic South Pole)</span>
-<span id="cb16-177"><a href="#cb16-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-178"><a href="#cb16-178" aria-hidden="true" tabindex="-1"></a>@fig-antarctica  shows two different representation of</span>
-<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a>Antarctica, plotted with ellipsoidal coordinates taken as $R^2$</span>
-<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a>(top) and in a Polar Stereographic projection (bottom), without</span>
-<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a>(left) and with (right) an excursion through the Geographic South</span>
-<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a>Pole. In the projections as plotted, polygons (b) and</span>
-<span id="cb16-183"><a href="#cb16-183" aria-hidden="true" tabindex="-1"></a>(c) are valid; polygon (a) is not valid as it self-intersects,</span>
-<span id="cb16-184"><a href="#cb16-184" aria-hidden="true" tabindex="-1"></a>polygon (d) is not valid because it traverses the same edge to the</span>
-<span id="cb16-185"><a href="#cb16-185" aria-hidden="true" tabindex="-1"></a>South Pole twice.  On the sphere ($S^2$), polygon (a) is valid but</span>
-<span id="cb16-186"><a href="#cb16-186" aria-hidden="true" tabindex="-1"></a>(b) is not, for the same reason as (d) is not valid.</span>
-<span id="cb16-187"><a href="#cb16-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a>which clearly does not contain the region (<span class="in">`ymin`</span> being -90 and <span class="in">`xmax`</span> 180).</span>
+<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a>Two geometries that do contain the region are the bounding cap:</span>
+<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(s2)</span>
+<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_cap</span>(a)</span>
+<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a>and the bounding _rectangle_:</span>
+<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_rect</span>(a)</span>
+<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a>For an area spanning the antimeridian, here the Fiji island country,</span>
+<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a>the bounding box:</span>
+<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
+<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">==</span> <span class="st">"Fiji"</span>) <span class="ot">-&gt;</span> Fiji</span>
+<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(Fiji)</span>
+<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
+<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
+<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a>Fiji <span class="op">=</span> ne[ne[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"Fiji"</span>]</span>
+<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> Fiji.total_bounds</span>
+<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a>bbox</span>
+<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a>seems to span most of the Earth, as opposed to the bounding rectangle:</span>
+<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a><span class="fu">s2_bounds_rect</span>(Fiji)</span>
+<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a>where a value <span class="in">`lng_lo`</span> _larger_ than <span class="in">`lng_hi`</span> indicates that the</span>
+<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>bounding rectangle spans the antimeridian. This property could not</span>
+<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a>be inferred from the coordinate ranges.</span>
+<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validity on the sphere</span></span>
+<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a>\index{geometry!valid on the sphere}</span>
+<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a>\index{polygon!valid on the sphere}</span>
+<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a>Many global datasets are given in ellipsoidal coordinates but are</span>
+<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a>prepared in a way that they "work" when interpreted on the $R^2$</span>
+<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a>space <span class="co">[</span><span class="ot">-180,180</span><span class="co">]</span> $\times$ <span class="co">[</span><span class="ot">-90,90</span><span class="co">]</span>. This means that:</span>
+<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>geometries crossing the antimeridian (longitude +/- 180) are cut in</span>
+<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a>half, such that they no longer cross it (but nearly touch each other)</span>
+<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>geometries including a pole, like Antarctica, are cut at +/- 180 and</span>
+<span id="cb16-176"><a href="#cb16-176" aria-hidden="true" tabindex="-1"></a>make an excursion through -180,-90 and 180,-90 (both representing the</span>
+<span id="cb16-177"><a href="#cb16-177" aria-hidden="true" tabindex="-1"></a>Geographic South Pole)</span>
+<span id="cb16-178"><a href="#cb16-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a>@fig-antarctica  shows two different representations of</span>
+<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a>Antarctica, plotted with ellipsoidal coordinates taken as $R^2$</span>
+<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a>(top) and in a Polar Stereographic projection (bottom), without</span>
+<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a>(left) and with (right) an excursion through the Geographic South</span>
+<span id="cb16-183"><a href="#cb16-183" aria-hidden="true" tabindex="-1"></a>Pole. In the projections as plotted, polygons (b) and</span>
+<span id="cb16-184"><a href="#cb16-184" aria-hidden="true" tabindex="-1"></a>(c) are valid, polygon (a) is not valid as it self-intersects, and</span>
+<span id="cb16-185"><a href="#cb16-185" aria-hidden="true" tabindex="-1"></a>polygon (d) is not valid because it traverses the same edge to the</span>
+<span id="cb16-186"><a href="#cb16-186" aria-hidden="true" tabindex="-1"></a>South Pole twice.  On the sphere ($S^2$), polygon (a) is valid but</span>
+<span id="cb16-187"><a href="#cb16-187" aria-hidden="true" tabindex="-1"></a>(b) is not, for the same reason as (d) is not valid.</span>
 <span id="cb16-188"><a href="#cb16-188" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-189"><a href="#cb16-189" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb16-190"><a href="#cb16-190" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
-<span id="cb16-191"><a href="#cb16-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-antarctica, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb16-192"><a href="#cb16-192" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-193"><a href="#cb16-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.height: 70%</span></span>
-<span id="cb16-194"><a href="#cb16-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Antarctica polygon, (a, c): _not_ passing through `POINT(-180 -90)`; (b, d): passing through `POINT(-180 -90)` and `POINT(180 -90)`"</span></span>
-<span id="cb16-195"><a href="#cb16-195" aria-hidden="true" tabindex="-1"></a><span class="co"># maps:</span></span>
-<span id="cb16-196"><a href="#cb16-196" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb16-197"><a href="#cb16-197" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">1.2</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb16-198"><a href="#cb16-198" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="fu">map</span>(<span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>))</span>
-<span id="cb16-199"><a href="#cb16-199" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> m[m<span class="sc">$</span>ID <span class="sc">==</span> <span class="st">"Antarctica"</span>, ]</span>
-<span id="cb16-200"><a href="#cb16-200" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(m), <span class="at">asp =</span> <span class="dv">2</span>)</span>
-<span id="cb16-201"><a href="#cb16-201" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"a (not valid)"</span>)</span>
-<span id="cb16-202"><a href="#cb16-202" aria-hidden="true" tabindex="-1"></a><span class="co"># ne:</span></span>
-<span id="cb16-203"><a href="#cb16-203" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb16-204"><a href="#cb16-204" aria-hidden="true" tabindex="-1"></a>ne <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
-<span id="cb16-205"><a href="#cb16-205" aria-hidden="true" tabindex="-1"></a>ne <span class="ot">&lt;-</span> ne[ne<span class="sc">$</span>region_un <span class="sc">==</span> <span class="st">"Antarctica"</span>, <span class="st">"region_un"</span>]</span>
-<span id="cb16-206"><a href="#cb16-206" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ne), <span class="at">asp =</span> <span class="dv">2</span>)</span>
-<span id="cb16-207"><a href="#cb16-207" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"b (valid)"</span>)</span>
-<span id="cb16-208"><a href="#cb16-208" aria-hidden="true" tabindex="-1"></a><span class="co"># 3031</span></span>
-<span id="cb16-209"><a href="#cb16-209" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span></span>
-<span id="cb16-210"><a href="#cb16-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span></span>
-<span id="cb16-211"><a href="#cb16-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3031</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-212"><a href="#cb16-212" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
-<span id="cb16-213"><a href="#cb16-213" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"c (valid)"</span>)</span>
-<span id="cb16-214"><a href="#cb16-214" aria-hidden="true" tabindex="-1"></a>ne <span class="sc">|&gt;</span></span>
-<span id="cb16-215"><a href="#cb16-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span></span>
-<span id="cb16-216"><a href="#cb16-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3031</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-217"><a href="#cb16-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
-<span id="cb16-218"><a href="#cb16-218" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"d (not valid)"</span>)</span>
-<span id="cb16-219"><a href="#cb16-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-220"><a href="#cb16-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-221"><a href="#cb16-221" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
-<span id="cb16-224"><a href="#cb16-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb16-225"><a href="#cb16-225" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb16-226"><a href="#cb16-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.height: 70%</span></span>
-<span id="cb16-227"><a href="#cb16-227" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Antarctica polygon, (a, c): _not_ passing through `POINT(-180 -90)`; (b, d): passing through `POINT(-180 -90)` and `POINT(180 -90)`"</span></span>
-<span id="cb16-228"><a href="#cb16-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-229"><a href="#cb16-229" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-230"><a href="#cb16-230" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb16-231"><a href="#cb16-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-232"><a href="#cb16-232" aria-hidden="true" tabindex="-1"></a><span class="co"># create a 2 by 2 grid of plots</span></span>
-<span id="cb16-233"><a href="#cb16-233" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb16-234"><a href="#cb16-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-235"><a href="#cb16-235" aria-hidden="true" tabindex="-1"></a><span class="co"># get map data for Antarctica</span></span>
-<span id="cb16-236"><a href="#cb16-236" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
-<span id="cb16-237"><a href="#cb16-237" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> m[m[<span class="st">'name'</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
-<span id="cb16-238"><a href="#cb16-238" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">"a (not valid)"</span>)</span>
-<span id="cb16-239"><a href="#cb16-239" aria-hidden="true" tabindex="-1"></a>m.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb16-240"><a href="#cb16-240" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_aspect(<span class="dv">2</span>)</span>
-<span id="cb16-241"><a href="#cb16-241" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">0</span>].axis(<span class="va">False</span>)</span>
-<span id="cb16-242"><a href="#cb16-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-243"><a href="#cb16-243" aria-hidden="true" tabindex="-1"></a><span class="co"># get country data for Antarctica</span></span>
-<span id="cb16-244"><a href="#cb16-244" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(<span class="st">'data/ne_110m_admin_0_countries.shp'</span>)</span>
-<span id="cb16-245"><a href="#cb16-245" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> ne[ne[<span class="st">'REGION_WB'</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
-<span id="cb16-246"><a href="#cb16-246" aria-hidden="true" tabindex="-1"></a>ne.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">1</span>])</span>
-<span id="cb16-247"><a href="#cb16-247" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">"b (valid)"</span>)</span>
-<span id="cb16-248"><a href="#cb16-248" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_aspect(<span class="dv">2</span>)</span>
-<span id="cb16-249"><a href="#cb16-249" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">1</span>].axis(<span class="va">False</span>)</span>
-<span id="cb16-250"><a href="#cb16-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-251"><a href="#cb16-251" aria-hidden="true" tabindex="-1"></a><span class="co"># transform the map data to EPSG:3031 projection and plot it</span></span>
-<span id="cb16-252"><a href="#cb16-252" aria-hidden="true" tabindex="-1"></a>m_conv <span class="op">=</span> m.to_crs(<span class="st">"EPSG:3031"</span>)</span>
-<span id="cb16-253"><a href="#cb16-253" aria-hidden="true" tabindex="-1"></a>m_conv.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">1</span>, <span class="dv">0</span>])</span>
-<span id="cb16-254"><a href="#cb16-254" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">"c (valid)"</span>)</span>
-<span id="cb16-255"><a href="#cb16-255" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">0</span>].axis(<span class="va">False</span>)</span>
-<span id="cb16-256"><a href="#cb16-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-257"><a href="#cb16-257" aria-hidden="true" tabindex="-1"></a><span class="co"># transform the country data to EPSG:3031 projection and plot it</span></span>
-<span id="cb16-258"><a href="#cb16-258" aria-hidden="true" tabindex="-1"></a>ne_conv <span class="op">=</span> ne.to_crs(<span class="st">"EPSG:3031"</span>)</span>
-<span id="cb16-259"><a href="#cb16-259" aria-hidden="true" tabindex="-1"></a>ne_conv.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">1</span>, <span class="dv">1</span>])</span>
-<span id="cb16-260"><a href="#cb16-260" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].set_title(<span class="st">"d (not valid)"</span>)</span>
-<span id="cb16-261"><a href="#cb16-261" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">1</span>].axis(<span class="va">False</span>)</span>
-<span id="cb16-262"><a href="#cb16-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-263"><a href="#cb16-263" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb16-264"><a href="#cb16-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-190"><a href="#cb16-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-191"><a href="#cb16-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
+<span id="cb16-192"><a href="#cb16-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-antarctica, echo=!knitr::is_latex_output()}</span></span>
+<span id="cb16-193"><a href="#cb16-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-194"><a href="#cb16-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.height: 70%</span></span>
+<span id="cb16-195"><a href="#cb16-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Antarctica polygon, (a, c): _not_ passing through `POINT(-180 -90)`; (b, d): passing through `POINT(-180 -90)` and `POINT(180 -90)`"</span></span>
+<span id="cb16-196"><a href="#cb16-196" aria-hidden="true" tabindex="-1"></a><span class="co"># maps:</span></span>
+<span id="cb16-197"><a href="#cb16-197" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb16-198"><a href="#cb16-198" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">1.2</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb16-199"><a href="#cb16-199" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(<span class="fu">map</span>(<span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>))</span>
+<span id="cb16-200"><a href="#cb16-200" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> m[m<span class="sc">$</span>ID <span class="sc">==</span> <span class="st">"Antarctica"</span>, ]</span>
+<span id="cb16-201"><a href="#cb16-201" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(m), <span class="at">asp =</span> <span class="dv">2</span>)</span>
+<span id="cb16-202"><a href="#cb16-202" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"a (not valid)"</span>)</span>
+<span id="cb16-203"><a href="#cb16-203" aria-hidden="true" tabindex="-1"></a><span class="co"># ne:</span></span>
+<span id="cb16-204"><a href="#cb16-204" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb16-205"><a href="#cb16-205" aria-hidden="true" tabindex="-1"></a>ne <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb16-206"><a href="#cb16-206" aria-hidden="true" tabindex="-1"></a>ne <span class="ot">&lt;-</span> ne[ne<span class="sc">$</span>region_un <span class="sc">==</span> <span class="st">"Antarctica"</span>, <span class="st">"region_un"</span>]</span>
+<span id="cb16-207"><a href="#cb16-207" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(ne), <span class="at">asp =</span> <span class="dv">2</span>)</span>
+<span id="cb16-208"><a href="#cb16-208" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"b (valid)"</span>)</span>
+<span id="cb16-209"><a href="#cb16-209" aria-hidden="true" tabindex="-1"></a><span class="co"># 3031</span></span>
+<span id="cb16-210"><a href="#cb16-210" aria-hidden="true" tabindex="-1"></a>m <span class="sc">|&gt;</span></span>
+<span id="cb16-211"><a href="#cb16-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-212"><a href="#cb16-212" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3031</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-213"><a href="#cb16-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
+<span id="cb16-214"><a href="#cb16-214" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"c (valid)"</span>)</span>
+<span id="cb16-215"><a href="#cb16-215" aria-hidden="true" tabindex="-1"></a>ne <span class="sc">|&gt;</span></span>
+<span id="cb16-216"><a href="#cb16-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-217"><a href="#cb16-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">3031</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-218"><a href="#cb16-218" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span>
+<span id="cb16-219"><a href="#cb16-219" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"d (not valid)"</span>)</span>
+<span id="cb16-220"><a href="#cb16-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-221"><a href="#cb16-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-222"><a href="#cb16-222" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
+<span id="cb16-225"><a href="#cb16-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb16-226"><a href="#cb16-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb16-227"><a href="#cb16-227" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.height: 70%</span></span>
+<span id="cb16-228"><a href="#cb16-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Antarctica polygon, (a, c): _not_ passing through `POINT(-180 -90)`; (b, d): passing through `POINT(-180 -90)` and `POINT(180 -90)`"</span></span>
+<span id="cb16-229"><a href="#cb16-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-230"><a href="#cb16-230" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-231"><a href="#cb16-231" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb16-232"><a href="#cb16-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-233"><a href="#cb16-233" aria-hidden="true" tabindex="-1"></a><span class="co"># create a 2 by 2 grid of plots</span></span>
+<span id="cb16-234"><a href="#cb16-234" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb16-235"><a href="#cb16-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-236"><a href="#cb16-236" aria-hidden="true" tabindex="-1"></a><span class="co"># get map data for Antarctica</span></span>
+<span id="cb16-237"><a href="#cb16-237" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
+<span id="cb16-238"><a href="#cb16-238" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> m[m[<span class="st">'name'</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
+<span id="cb16-239"><a href="#cb16-239" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">"a (not valid)"</span>)</span>
+<span id="cb16-240"><a href="#cb16-240" aria-hidden="true" tabindex="-1"></a>m.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb16-241"><a href="#cb16-241" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">0</span>].set_aspect(<span class="dv">2</span>)</span>
+<span id="cb16-242"><a href="#cb16-242" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">0</span>].axis(<span class="va">False</span>)</span>
+<span id="cb16-243"><a href="#cb16-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-244"><a href="#cb16-244" aria-hidden="true" tabindex="-1"></a><span class="co"># get country data for Antarctica</span></span>
+<span id="cb16-245"><a href="#cb16-245" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gpd.read_file(<span class="st">'data/ne_110m_admin_0_countries.shp'</span>)</span>
+<span id="cb16-246"><a href="#cb16-246" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> ne[ne[<span class="st">'REGION_WB'</span>] <span class="op">==</span> <span class="st">"Antarctica"</span>]</span>
+<span id="cb16-247"><a href="#cb16-247" aria-hidden="true" tabindex="-1"></a>ne.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb16-248"><a href="#cb16-248" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">"b (valid)"</span>)</span>
+<span id="cb16-249"><a href="#cb16-249" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>, <span class="dv">1</span>].set_aspect(<span class="dv">2</span>)</span>
+<span id="cb16-250"><a href="#cb16-250" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">1</span>].axis(<span class="va">False</span>)</span>
+<span id="cb16-251"><a href="#cb16-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-252"><a href="#cb16-252" aria-hidden="true" tabindex="-1"></a><span class="co"># transform the map data to EPSG:3031 projection and plot it</span></span>
+<span id="cb16-253"><a href="#cb16-253" aria-hidden="true" tabindex="-1"></a>m_conv <span class="op">=</span> m.to_crs(<span class="st">"EPSG:3031"</span>)</span>
+<span id="cb16-254"><a href="#cb16-254" aria-hidden="true" tabindex="-1"></a>m_conv.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb16-255"><a href="#cb16-255" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">0</span>].set_title(<span class="st">"c (valid)"</span>)</span>
+<span id="cb16-256"><a href="#cb16-256" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">0</span>].axis(<span class="va">False</span>)</span>
+<span id="cb16-257"><a href="#cb16-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-258"><a href="#cb16-258" aria-hidden="true" tabindex="-1"></a><span class="co"># transform the country data to EPSG:3031 projection and plot it</span></span>
+<span id="cb16-259"><a href="#cb16-259" aria-hidden="true" tabindex="-1"></a>ne_conv <span class="op">=</span> ne.to_crs(<span class="st">"EPSG:3031"</span>)</span>
+<span id="cb16-260"><a href="#cb16-260" aria-hidden="true" tabindex="-1"></a>ne_conv.geometry.plot(ax<span class="op">=</span>axs[<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb16-261"><a href="#cb16-261" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>, <span class="dv">1</span>].set_title(<span class="st">"d (not valid)"</span>)</span>
+<span id="cb16-262"><a href="#cb16-262" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>,<span class="dv">1</span>].axis(<span class="va">False</span>)</span>
+<span id="cb16-263"><a href="#cb16-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-264"><a href="#cb16-264" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
 <span id="cb16-265"><a href="#cb16-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb16-266"><a href="#cb16-266" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-267"><a href="#cb16-267" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb16-268"><a href="#cb16-268" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-269"><a href="#cb16-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-270"><a href="#cb16-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-271"><a href="#cb16-271" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a>For the following exercises, use R where possible or relevant.</span>
-<span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>How does the <span class="co">[</span><span class="ot">GeoJSON</span><span class="co">](https://tools.ietf.org/html/rfc7946)</span> format (@geojson) define</span>
-<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a>   "straight" lines between ellipsoidal coordinates (section 3.1.1)?</span>
-<span id="cb16-277"><a href="#cb16-277" aria-hidden="true" tabindex="-1"></a>   Using this definition of straight, how does <span class="in">`LINESTRING(0 85,180 85)`</span> </span>
-<span id="cb16-278"><a href="#cb16-278" aria-hidden="true" tabindex="-1"></a>   look like in an Arctic polar projection? How could this geometry be modified to</span>
-<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a>   have it cross the North Pole?</span>
-<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>For a typical polygon on $S^2$, how can you find out ring direction?</span>
-<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Are there advantages of using bounding caps over using bounding boxes? If so, list them.</span>
-<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Why is, for small areas, the orthographic projection centred</span>
-<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a>   at the area a good approximation of the geometry as handled on $S^2$?</span>
-<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>For `rnaturalearth::ne_countries(country = "Fiji",</span>
-<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a>   returnclass = "sf")`, check whether the geometry is valid on $R^2$,</span>
-<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a>   on an orthographic projection centred on the country, and on $S^2$.</span>
-<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a>   How can the geometry be made valid on $S^2$? Plot the resulting</span>
-<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a>   geometry back on $R^2$.  Compare the centroid of the country,</span>
-<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a>   as computed on $R^2$ and on $S^2$, and the distance between the two.</span>
-<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Consider dataset <span class="in">`gisco_countries`</span> in R package **giscoR**, and select</span>
-<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>   the country with <span class="in">`NAME_ENGL == "Fiji"`</span>. Does it have a valid geometry</span>
-<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a>   on the sphere? If so, how was this accomplished?</span>
-<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span>
+<span id="cb16-270"><a href="#cb16-270" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb16-271"><a href="#cb16-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a>For the following exercises, use R where possible or relevant.</span>
+<span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>How does the <span class="co">[</span><span class="ot">GeoJSON</span><span class="co">](https://tools.ietf.org/html/rfc7946)</span> format <span class="co">[</span><span class="ot">@geojson</span><span class="co">]</span> define</span>
+<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a>   "straight" lines between ellipsoidal coordinates (Section 3.1.1)?</span>
+<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a>   Using this definition of straight, how does <span class="in">`LINESTRING(0 85,180 85)`</span> </span>
+<span id="cb16-277"><a href="#cb16-277" aria-hidden="true" tabindex="-1"></a>   look like in an Arctic polar projection? How could this geometry be modified to</span>
+<span id="cb16-278"><a href="#cb16-278" aria-hidden="true" tabindex="-1"></a>   have it cross the North Pole?</span>
+<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>For a typical polygon on $S^2$, how can you find out ring direction?</span>
+<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Are there advantages of using bounding caps over using bounding boxes? If so, list them.</span>
+<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Why is, for small areas, the orthographic projection centred</span>
+<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a>   at the area a good approximation of the geometry as handled on $S^2$?</span>
+<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>For `rnaturalearth::ne_countries(country = "Fiji",</span>
+<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a>   returnclass = "sf")`, check whether the geometry is valid on $R^2$,</span>
+<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a>   on an orthographic projection centred on the country, and on $S^2$.</span>
+<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a>   How can the geometry be made valid on $S^2$? Plot the resulting</span>
+<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a>   geometry back on $R^2$.  Compare the centroid of the country,</span>
+<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a>   as computed on $R^2$ and on $S^2$, and the distance between the two.</span>
+<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Consider dataset <span class="in">`gisco_countries`</span> in R package **giscoR**, and select</span>
+<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a>   the country with <span class="in">`NAME_ENGL == "Fiji"`</span>. Does it have a valid geometry</span>
+<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>   on the sphere? If so, how was this accomplished?</span>
+<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
