@@ -504,13 +504,12 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(cI <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(r))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># style: quantile</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   [-2.82,-0.85)  [-0.85,-0.547) [-0.547,-0.323) [-0.323,0.0261) </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  [-2.04,-0.975) [-0.975,-0.579) [-0.579,-0.186)  [-0.186,0.102) </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#              13              12              13              12 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  [0.0261,0.357)   [0.357,0.755)    [0.755,1.05)     [1.05,2.26] </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   [0.102,0.365)   [0.365,0.893)    [0.893,1.32)     [1.32,2.07] </span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#              12              13              12              13</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>cI<span class="sc">$</span>brks</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.8205 -0.8503 -0.5472 -0.3232  0.0261  0.3573  0.7548  1.0499</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [9]  2.2596</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -2.042 -0.975 -0.579 -0.186  0.102  0.365  0.893  1.321  2.074</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>it takes argument <code>n</code> for the number of intervals, and a <code>style</code> that can be one of “fixed”, “sd”, “equal”, “pretty”, “quantile”, “kmeans”, “hclust”, “bclust”, “fisher” or “jenks”. Style “pretty” may not obey <code>n</code>; if <code>n</code> is missing, <code>nclass.Sturges</code> is used; two other methods are available for choosing <code>n</code> automatically. If the number of observations is greater than 3000, a 10% sample is used to create the breaks for “fisher” and “jenks”.</p>
 </section>

@@ -2,98 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://r-spatial.org/book/index.html</loc>
-    <lastmod>2023-05-16T07:51:35.955Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.193Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/part-1.html</loc>
-    <lastmod>2023-05-16T07:51:35.963Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.201Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/01-hello.html</loc>
-    <lastmod>2023-05-16T07:51:36.007Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.245Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/02-Spaces.html</loc>
-    <lastmod>2023-05-16T07:51:36.075Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.309Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/03-Geometries.html</loc>
-    <lastmod>2023-05-16T07:51:36.155Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.393Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/04-Spherical.html</loc>
-    <lastmod>2023-05-16T07:51:36.171Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.413Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/05-Attributes.html</loc>
-    <lastmod>2023-05-16T07:51:36.203Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.445Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/06-Cubes.html</loc>
-    <lastmod>2023-05-16T07:51:36.467Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.701Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/part-2.html</loc>
-    <lastmod>2023-05-16T07:51:36.475Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.705Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/07-Introsf.html</loc>
-    <lastmod>2023-05-16T07:51:36.635Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.857Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/08-Plotting.html</loc>
-    <lastmod>2023-05-16T07:51:36.679Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.893Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/09-Large.html</loc>
-    <lastmod>2023-05-16T07:51:36.723Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.937Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/part-3.html</loc>
-    <lastmod>2023-05-16T07:51:36.727Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.941Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/10-Models.html</loc>
-    <lastmod>2023-05-16T07:51:36.751Z</lastmod>
+    <lastmod>2023-05-16T09:14:03.965Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/11-PointPattern.html</loc>
-    <lastmod>2023-05-16T07:51:36.799Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.009Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/12-Interpolation.html</loc>
-    <lastmod>2023-05-16T07:51:36.859Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.065Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/13-Geostatistics.html</loc>
-    <lastmod>2023-05-16T07:51:36.895Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.101Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/14-Areal.html</loc>
-    <lastmod>2023-05-16T07:51:36.955Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.165Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/15-Measures.html</loc>
-    <lastmod>2023-05-16T07:51:37.095Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.297Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/16-SpatialRegression.html</loc>
-    <lastmod>2023-05-16T07:51:37.143Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.349Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/17-Econometrics.html</loc>
-    <lastmod>2023-05-16T07:51:37.191Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.389Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/sp-raster.html</loc>
-    <lastmod>2023-05-16T07:51:37.199Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.401Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/rbasics.html</loc>
-    <lastmod>2023-05-16T07:51:37.247Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.441Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/book/references.html</loc>
-    <lastmod>2023-05-16T07:51:37.267Z</lastmod>
+    <lastmod>2023-05-16T09:14:04.461Z</lastmod>
   </url>
 </urlset>
