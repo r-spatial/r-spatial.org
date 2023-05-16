@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-2.html">R for Spatial Data Science</a></li><li class="breadcrumb-item"><a href="./07-Introsf.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,163 +140,188 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-1.html" class="sidebar-item-text sidebar-link">Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-hello.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+  <a href="./01-hello.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></a>
+  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></a>
+  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></a>
+  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></a>
+  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></a>
+  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-2.html" class="sidebar-item-text sidebar-link">R for Spatial Data Science</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Spatial Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a>
+  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-3.html" class="sidebar-item-text sidebar-link">Models for Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-Models.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></a>
+  <a href="./10-Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></a>
+  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></a>
+  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></a>
+  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></a>
+  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></a>
+  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -327,13 +329,14 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-sfintro" id="toc-sec-sfintro" class="nav-link active" data-scroll-target="#sec-sfintro"><span class="toc-section-number">7.1</span>  Package <strong>sf</strong></a>
+  <li><a href="#sec-sfintro" id="toc-sec-sfintro" class="nav-link active" data-scroll-target="#sec-sfintro"><span class="header-section-number">7.1</span> Package <strong>sf</strong></a>
   <ul class="collapse">
   <li><a href="#creation" id="toc-creation" class="nav-link" data-scroll-target="#creation">Creation</a></li>
   <li><a href="#reading-and-writing" id="toc-reading-and-writing" class="nav-link" data-scroll-target="#reading-and-writing">Reading and writing</a></li>
@@ -341,12 +344,12 @@ div.csl-indent {
   <li><a href="#binary-predicates" id="toc-binary-predicates" class="nav-link" data-scroll-target="#binary-predicates">Binary predicates</a></li>
   <li><a href="#tidyverse" id="toc-tidyverse" class="nav-link" data-scroll-target="#tidyverse">tidyverse</a></li>
   </ul></li>
-  <li><a href="#spatial-joins" id="toc-spatial-joins" class="nav-link" data-scroll-target="#spatial-joins"><span class="toc-section-number">7.2</span>  Spatial joins</a>
+  <li><a href="#spatial-joins" id="toc-spatial-joins" class="nav-link" data-scroll-target="#spatial-joins"><span class="header-section-number">7.2</span> Spatial joins</a>
   <ul class="collapse">
   <li><a href="#sampling-gridding-interpolating" id="toc-sampling-gridding-interpolating" class="nav-link" data-scroll-target="#sampling-gridding-interpolating">Sampling, gridding, interpolating</a></li>
   </ul></li>
-  <li><a href="#sec-ccw" id="toc-sec-ccw" class="nav-link" data-scroll-target="#sec-ccw"><span class="toc-section-number">7.3</span>  Ellipsoidal coordinates</a></li>
-  <li><a href="#package-stars" id="toc-package-stars" class="nav-link" data-scroll-target="#package-stars"><span class="toc-section-number">7.4</span>  Package <strong>stars</strong></a>
+  <li><a href="#sec-ccw" id="toc-sec-ccw" class="nav-link" data-scroll-target="#sec-ccw"><span class="header-section-number">7.3</span> Ellipsoidal coordinates</a></li>
+  <li><a href="#package-stars" id="toc-package-stars" class="nav-link" data-scroll-target="#package-stars"><span class="header-section-number">7.4</span> Package <strong>stars</strong></a>
   <ul class="collapse">
   <li><a href="#reading-and-writing-raster-data" id="toc-reading-and-writing-raster-data" class="nav-link" data-scroll-target="#reading-and-writing-raster-data">Reading and writing raster data</a></li>
   <li><a href="#subsetting-stars-data-cubes" id="toc-subsetting-stars-data-cubes" class="nav-link" data-scroll-target="#subsetting-stars-data-cubes">Subsetting <code>stars</code> data cubes</a></li>
@@ -359,18 +362,18 @@ div.csl-indent {
   <li><a href="#curvilinear-rasters" id="toc-curvilinear-rasters" class="nav-link" data-scroll-target="#curvilinear-rasters">Curvilinear rasters</a></li>
   <li><a href="#gdal-utils" id="toc-gdal-utils" class="nav-link" data-scroll-target="#gdal-utils">GDAL utils</a></li>
   </ul></li>
-  <li><a href="#vector-data-cube-examples" id="toc-vector-data-cube-examples" class="nav-link" data-scroll-target="#vector-data-cube-examples"><span class="toc-section-number">7.5</span>  Vector data cube examples</a>
+  <li><a href="#vector-data-cube-examples" id="toc-vector-data-cube-examples" class="nav-link" data-scroll-target="#vector-data-cube-examples"><span class="header-section-number">7.5</span> Vector data cube examples</a>
   <ul class="collapse">
   <li><a href="#example-aggregating-air-quality-time-series" id="toc-example-aggregating-air-quality-time-series" class="nav-link" data-scroll-target="#example-aggregating-air-quality-time-series">Example: aggregating air quality time series</a></li>
   <li><a href="#sec-oddc" id="toc-sec-oddc" class="nav-link" data-scroll-target="#sec-oddc">Example: Bristol origin-destination data cube</a></li>
   <li><a href="#tidy-array-data" id="toc-tidy-array-data" class="nav-link" data-scroll-target="#tidy-array-data">Tidy array data</a></li>
   <li><a href="#file-formats-for-vector-data-cubes" id="toc-file-formats-for-vector-data-cubes" class="nav-link" data-scroll-target="#file-formats-for-vector-data-cubes">File formats for vector data cubes</a></li>
   </ul></li>
-  <li><a href="#sec-raster-to-vector" id="toc-sec-raster-to-vector" class="nav-link" data-scroll-target="#sec-raster-to-vector"><span class="toc-section-number">7.6</span>  Raster-to-vector, vector-to-raster</a>
+  <li><a href="#sec-raster-to-vector" id="toc-sec-raster-to-vector" class="nav-link" data-scroll-target="#sec-raster-to-vector"><span class="header-section-number">7.6</span> Raster-to-vector, vector-to-raster</a>
   <ul class="collapse">
   <li><a href="#vector-to-raster" id="toc-vector-to-raster" class="nav-link" data-scroll-target="#vector-to-raster">Vector-to-raster</a></li>
   </ul></li>
-  <li><a href="#sec-projsf" id="toc-sec-projsf" class="nav-link" data-scroll-target="#sec-projsf"><span class="toc-section-number">7.7</span>  Coordinate transformations and conversions</a>
+  <li><a href="#sec-projsf" id="toc-sec-projsf" class="nav-link" data-scroll-target="#sec-projsf"><span class="header-section-number">7.7</span> Coordinate transformations and conversions</a>
   <ul class="collapse">
   <li><a href="#st_crs" id="toc-st_crs" class="nav-link" data-scroll-target="#st_crs"><code>st_crs</code></a></li>
   <li><a href="#st_transform-sf_project" id="toc-st_transform-sf_project" class="nav-link" data-scroll-target="#st_transform-sf_project"><code>st_transform</code>, <code>sf_project</code></a></li>
@@ -379,8 +382,8 @@ div.csl-indent {
   <li><a href="#sec-pipelines" id="toc-sec-pipelines" class="nav-link" data-scroll-target="#sec-pipelines">Transformation pipelines</a></li>
   <li><a href="#sec-axisorder" id="toc-sec-axisorder" class="nav-link" data-scroll-target="#sec-axisorder">Axis order and direction</a></li>
   </ul></li>
-  <li><a href="#sec-warp" id="toc-sec-warp" class="nav-link" data-scroll-target="#sec-warp"><span class="toc-section-number">7.8</span>  Transforming and warping rasters</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">7.9</span>  Exercises</a></li>
+  <li><a href="#sec-warp" id="toc-sec-warp" class="nav-link" data-scroll-target="#sec-warp"><span class="header-section-number">7.8</span> Transforming and warping rasters</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7.9</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/07-Introsf.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -389,7 +392,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-sf" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-sf" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -436,7 +439,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="creation">Creation</h3>
 <p>An <code>sf</code> object can be created from scratch by</p>
 <p></p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
@@ -488,7 +491,7 @@ div.csl-indent {
 <div id="fig-sfobj" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/sf_obj.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.1: components of an <code>sf</code> object</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.1: components of an <code>sf</code> object</figcaption>
 </figure>
 </div>
 </div>
@@ -507,17 +510,17 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="reading-and-writing">Reading and writing</h3>
 <p>Reading datasets from an external “data source” (file, web service, or even string) is done using <code>st_read</code>:</p>
 <p></p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/home/edzer/R/x86_64-pc-linux-gnu-library/4.3/sf/gpkg/nc.gpkg"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(file)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading layer `nc.gpkg' from data source </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/home/edzer/R/x86_64-pc-linux-gnu-library/4.0/sf/gpkg/nc.gpkg' </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/home/edzer/R/x86_64-pc-linux-gnu-library/4.3/sf/gpkg/nc.gpkg' </span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   using driver `GPKG'</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple feature collection with 100 features and 14 fields</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometry type: MULTIPOLYGON</span></span>
@@ -548,10 +551,10 @@ div.csl-indent {
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".gpkg"</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/RtmpX3hr0f/file13944767082b4.gpkg"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "/tmp/Rtmp7fOaVK/file21c601e2b81d7.gpkg"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(nc, file, <span class="at">layer =</span> <span class="st">"layer_nc"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/RtmpX3hr0f/file13944767082b4.gpkg' using driver `GPKG'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   `/tmp/Rtmp7fOaVK/file21c601e2b81d7.gpkg' using driver `GPKG'</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset, it will err if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted using <code>st_delete</code>, which is convenient in particular when they are associated with tables in a database.</p>
@@ -575,7 +578,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="binary-predicates">Binary predicates</h3>
 <p></p>
 <p>Binary predicates like <code>st_intersects</code>, <code>st_covers</code> and such (<a href="03-Geometries.html#sec-de9im"><span>Section&nbsp;3.2.2</span></a>) take two sets of features or feature geometries and return for all pairs whether the predicate is <code>TRUE</code> or <code>FALSE</code>. For large sets this would potentially result in a huge matrix, typically filled mostly with <code>FALSE</code> values and for that reason a sparse representation is returned by default:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
@@ -602,7 +605,7 @@ div.csl-indent {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>nc7 <span class="op">=</span> nc[:<span class="dv">7</span>]</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> nc5.intersects(nc7)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># /home/edzer/anaconda3/lib/python3.9/site-packages/geopandas/base.py:32: UserWarning: The indices of the two GeoSeries are different.</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># /home/edzer/.local/lib/python3.10/site-packages/geopandas/base.py:31: UserWarning: The indices of the two GeoSeries are different.</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   warn("The indices of the two GeoSeries are different.")</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>i</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 0     True</span></span>
@@ -617,7 +620,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
@@ -633,7 +636,7 @@ div.csl-indent {
 <div id="fig-fig57" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-fig57-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.2: First seven North Carolina counties</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.2: First seven North Carolina counties</figcaption>
 </figure>
 </div>
 </div>
@@ -652,7 +655,7 @@ div.csl-indent {
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>nc7 <span class="op">=</span> nc[:<span class="dv">7</span>]</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> nc5.intersects(nc7)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># /home/edzer/anaconda3/lib/python3.9/site-packages/geopandas/base.py:32: UserWarning: The indices of the two GeoSeries are different.</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># /home/edzer/.local/lib/python3.10/site-packages/geopandas/base.py:31: UserWarning: The indices of the two GeoSeries are different.</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   warn("The indices of the two GeoSeries are different.")</span></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> nc7.plot()</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>nc5.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">'brown'</span>)</span>
@@ -668,7 +671,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">First seven North Carolina counties</figcaption><p></p>
+<figcaption class="figure-caption">First seven North Carolina counties</figcaption>
 </figure>
 </div>
 </div>
@@ -677,7 +680,7 @@ div.csl-indent {
 </div>
 </div>
 <p><a href="#fig-fig57">Figure&nbsp;<span>7.2</span></a> shows how the intersections of the first five with the first seven counties can be understood. We can transform the sparse logical matrix into a dense matrix by</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
@@ -732,7 +735,7 @@ div.csl-indent {
 <li>overwrite existing data by default.</li>
 </ul>
 <p>Further <strong>tidyverse</strong> generics with methods for <code>sf</code> objects include <code>filter</code>, <code>select</code>, <code>group_by</code>, <code>ungroup</code>, <code>mutate</code>, <code>transmute</code>, <code>rowwise</code>, <code>rename</code>, <code>slice</code>, <code>summarise</code>, <code>distinct</code>, <code>gather</code>, <code>pivot_longer</code>, <code>spread</code>, <code>nest</code>, <code>unnest</code>, <code>unite</code>, <code>separate</code>, <code>separate_rows</code>, <code>sample_n</code>, and <code>sample_frac</code>. Most of these methods simply manage the metadata of <code>sf</code> objects and make sure the geometry remains present. In case a user wants the geometry to be removed, one can use <code>st_drop_geometry</code> or simply coerce to a <code>tibble</code> or <code>data.frame</code> before selecting:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
@@ -791,7 +794,7 @@ div.csl-indent {
 <div id="fig-orangebuffer" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-orangebuffer-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.3: Orange County (orange), counties within a 50 km radius (black), a 50~km buffer around Orange County (brown), and remaining counties (grey)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.3: Orange County (orange), counties within a 50 km radius (black), a 50~km buffer around Orange County (brown), and remaining counties (grey)</figcaption>
 </figure>
 </div>
 </div>
@@ -830,7 +833,7 @@ div.csl-indent {
 <div id="fig-largest" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-largest-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.4: Example of <code>st_join</code> with <code>largest = TRUE</code>: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.4: Example of <code>st_join</code> with <code>largest = TRUE</code>: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure.</figcaption>
 </figure>
 </div>
 </div>
@@ -849,7 +852,7 @@ div.csl-indent {
 <section id="sec-ccw" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="sec-ccw"><span class="header-section-number">7.3</span> Ellipsoidal coordinates</h2>
 <p>Unprojected data have ellipsoidal coordinates, expressed in degrees east and north. As explained in <a href="04-Spherical.html#sec-straight"><span>Section&nbsp;4.1</span></a>, “straight” lines between points are the curved shortest paths (“geodesic”). By default, <strong>sf</strong> uses geometrical operations from the <code>s2geometry</code> library, interfaced through the <strong>s2</strong> package <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>)</span>, and we see for instance that the point</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
@@ -869,7 +872,7 @@ div.csl-indent {
 </div>
 </div>
 <p>falls <em>inside</em> the polygon:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
@@ -894,7 +897,7 @@ div.csl-indent {
 </div>
 </div>
 <p>as illustrated by <a href="#fig-figs2">Figure&nbsp;<span>7.5</span></a> (left: straight lines on an orthographic projection centred at the plot area).</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
@@ -915,7 +918,7 @@ div.csl-indent {
 <div id="fig-figs2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-figs2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -967,7 +970,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)</figcaption><p></p>
+<figcaption class="figure-caption">Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -1017,7 +1020,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="reading-and-writing-raster-data">Reading and writing raster data</h3>
 <p> </p>
 <p>Raster data typically are read from a file. We use a dataset containing a section of Landsat 7 scene, with the six 30~m-resolution bands (bands 1-5 and 7) for a region covering the city of Olinda, Brazil. We can read the example GeoTIFF file holding a regular, non-rotated grid from the package <strong>stars</strong>:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
@@ -1064,7 +1067,7 @@ div.csl-indent {
 <li>in case of a discrete dimension, the band names or labels associated with the dimension values</li>
 </ul>
 <p>The object <code>r</code> is of class <code>stars</code> and is a simple list of length one, holding a three-dimensional array:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
@@ -1122,7 +1125,7 @@ div.csl-indent {
 <li>followed by each dimension.</li>
 </ul>
 <p>This means that <code>r[1:2, 101:200,, 5:10]</code> selects from <code>r</code> attributes 1-2, index 101-200 for dimension 1, and index 5-10 for dimension 3; omitting dimension 2 means that no subsetting takes place. For attributes, attribute name, index or logical vectors can be used. For dimensions, logical vectors are not supported. Selecting discontinuous ranges is supported only when it is a regular sequence. By default, <code>drop</code> is FALSE, when set to <code>TRUE</code> dimensions with a single value are dropped:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
@@ -1202,7 +1205,7 @@ div.csl-indent {
 <div id="fig-circr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-circr-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)</figcaption>
 </figure>
 </div>
 </div>
@@ -1330,9 +1333,6 @@ div.csl-indent {
 <p>which results in a vector data cube with 20 points and 6 bands. (Setting the seed guarantees an identical sample when reproducing, it should not be set generate further randomly generated points.)</p>
 <p>Another way of extracting information from data cubes is by aggregating it. One way of doing this is by spatially aggregating values over spatial polygons or lines (<a href="06-Cubes.html#sec-vectordatacubes"><span>Section&nbsp;6.4</span></a>). We can for instance compute the maximum pixel value for each of the six bands and for each of the three circles shown in <a href="01-hello.html#fig-ras">Figure&nbsp;<span>1.4</span></a> (d) by</p>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>circles <span class="ot">&lt;-</span> <span class="fu">st_sample</span>(<span class="fu">st_as_sfc</span>(<span class="fu">st_bbox</span>(r)), <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_buffer</span>(<span class="dv">500</span>)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(r, circles, max)</span>
@@ -1378,7 +1378,7 @@ div.csl-indent {
 <div id="fig-rsample" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-rsample-1.png" class="img-fluid figure-img" style="width:80.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.7: Randomly chosen sample locations for training data; red: water, yellow: land</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.7: Randomly chosen sample locations for training data; red: water, yellow: land</figcaption>
 </figure>
 </div>
 </div>
@@ -1403,7 +1403,7 @@ div.csl-indent {
 <div id="fig-lda" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-lda-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.8: Linear discriminant classifier for land/water, based on training data of <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a></figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.8: Linear discriminant classifier for land/water, based on training data of <a href="#fig-rsample">Figure&nbsp;<span>7.7</span></a></figcaption>
 </figure>
 </div>
 </div>
@@ -1422,7 +1422,7 @@ div.csl-indent {
 <div id="fig-firststars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-firststars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.9: Six 30 m Landsat bands downsampled to 90m for Olinda, Br.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.9: Six 30 m Landsat bands downsampled to 90m for Olinda, Br.</figcaption>
 </figure>
 </div>
 </div>
@@ -1439,7 +1439,7 @@ div.csl-indent {
 <div id="fig-starsrgb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-starsrgb-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.10: Two colour composites</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.10: Two colour composites</figcaption>
 </figure>
 </div>
 </div>
@@ -1611,9 +1611,6 @@ div.csl-indent {
 <p>We use a small excert from the <a href="https://www.eea.europa.eu/data-and-maps/data/aqereporting-9">European air quality data base</a> to illustrate aggregation operations on vector data cubes. The same data source was used by <span class="citation" data-cites="RJ-2016-014">Gräler, Pebesma, and Heuvelink (<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">2016</a>)</span>, and will be used in <a href="12-Interpolation.html"><span>Chapter&nbsp;12</span></a> and <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>. Daily average PM<span class="math inline">\(_{10}\)</span> values were computed for rural background stations in Germany, over the period 1998-2009.</p>
 <p>We can create a <code>stars</code> object from the <code>air</code> matrix, the <code>dates</code> Date vector and the <code>stations</code> <code>SpatialPoints</code> objects by</p>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/air.rda"</span>) <span class="co"># this loads several datasets in .GlobalEnv</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(air)</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># space  time </span></span>
@@ -1646,7 +1643,7 @@ div.csl-indent {
 <div id="fig-airst" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-airst-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.11: Space time diagram of PM<span class="math inline">\(_{10}\)</span> measurements by time and station</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.11: Space time diagram of PM<span class="math inline">\(_{10}\)</span> measurements by time and station</figcaption>
 </figure>
 </div>
 </div>
@@ -1663,7 +1660,7 @@ div.csl-indent {
 <div id="fig-airmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-airmap-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.12: Locations of PM<span class="math inline">\(_{10}\)</span> measurement stations, showing mean values</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.12: Locations of PM<span class="math inline">\(_{10}\)</span> measurement stations, showing mean values</figcaption>
 </figure>
 </div>
 </div>
@@ -1692,7 +1689,7 @@ div.csl-indent {
 <div id="fig-airagg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-airagg-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.13: Areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.13: Areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days</figcaption>
 </figure>
 </div>
 </div>
@@ -1706,7 +1703,7 @@ div.csl-indent {
 <div id="fig-airts" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-airts-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.14: Areal mean PM<span class="math inline">\(_{10}\)</span> time series for a single state</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.14: Areal mean PM<span class="math inline">\(_{10}\)</span> time series for a single state</figcaption>
 </figure>
 </div>
 </div>
@@ -1727,7 +1724,7 @@ div.csl-indent {
 <div id="fig-bristol1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-bristol1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) coloured red</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) coloured red</figcaption>
 </figure>
 </div>
 </div>
@@ -1818,7 +1815,7 @@ div.csl-indent {
 <div id="fig-odm33" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-odm33-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.16: OD matrix sliced for destination zone 33, by transportation mode</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.16: OD matrix sliced for destination zone 33, by transportation mode</figcaption>
 </figure>
 </div>
 </div>
@@ -1883,7 +1880,7 @@ div.csl-indent {
 <div id="fig-odjoined" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-odjoined-1.png" style="width:100.0%;height:90.0%" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.17: Total commutes, summed by origin (left) or destination (right)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.17: Total commutes, summed by origin (left) or destination (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -1902,7 +1899,7 @@ div.csl-indent {
 <div id="fig-odbykm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-odbykm-1.png" style="width:100.0%;height:90.0%" class="figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.18: Total commutes per square km, by area of origin (left) or destination (right)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.18: Total commutes per square km, by area of origin (left) or destination (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -1945,7 +1942,7 @@ div.csl-indent {
 <div id="fig-asstars" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-asstars-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.19: Rasterising vector geometry using <code>st_as_stars</code></figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.19: Rasterising vector geometry using <code>st_as_stars</code></figcaption>
 </figure>
 </div>
 </div>
@@ -1983,7 +1980,7 @@ div.csl-indent {
 <div id="fig-lineras" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="07-Introsf_files/figure-html/fig-lineras-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.20: Rasterising the North Carolina county boundaries</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7.20: Rasterising the North Carolina county boundaries</figcaption>
 </figure>
 </div>
 </div>
@@ -2217,7 +2214,6 @@ div.csl-indent {
 <li>Use <code>st_warp</code> to warp the <code>L7_ETMs.tif</code> object to <code>OGC:CRS84</code>, and plot the resulting object with <code>axes=TRUE</code>. Why is the plot created much faster than after <code>st_transform</code>?</li>
 <li>Using a vector representation of the raster <code>L7_ETMs</code>, plot the intersection with a circular area around <code>POINT(293716 9113692)</code> with radius 75 m, and compute the area-weighted mean pixel values for this circle. Compare the area-weighted values with those obtained by <code>aggregate</code> using the vector data, and by <code>aggregate</code> using the raster data, using <code>exact=FALSE</code> (default) and <code>exact=FALSE</code>. Explain the differences.</li>
 </ol>
-<div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -2228,64 +2224,63 @@ div.csl-indent {
   ga('send', 'pageview');
 
 </script>
-</div>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-R-s2" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-s2" class="csl-entry" role="listitem">
 Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2023. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>. <a href="https://CRAN.R-project.org/package=s2">https://CRAN.R-project.org/package=s2</a>.
 </div>
-<div id="ref-cf" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cf" class="csl-entry" role="listitem">
 Eaton, Brian, Jonathan Gregory, Bob Drach, Karl Taylor, Steve Hankin, Jon Blower, John Caron, et al. 2022. <em>NetCDF Climate and Forecast (CF) Metadata Conventions, Version 1.10</em>. <a href="https://cfconventions.org/">https://cfconventions.org/</a>.
 </div>
-<div id="ref-eddelbuettel2013seamless" class="csl-entry" role="doc-biblioentry">
+<div id="ref-eddelbuettel2013seamless" class="csl-entry" role="listitem">
 Eddelbuettel, Dirk. 2013. <em>Seamless <span>R</span> and <span>C++</span> Integration with <span>Rcpp</span></em>. Springer.
 </div>
-<div id="ref-RJ-2016-014" class="csl-entry" role="doc-biblioentry">
+<div id="ref-RJ-2016-014" class="csl-entry" role="listitem">
 Gräler, Benedikt, Edzer Pebesma, and Gerard Heuvelink. 2016. <span>“<span class="nocase">Spatio-Temporal Interpolation using gstat</span>.”</span> <em><span>The R Journal</span></em> 8 (1): 204–18. <a href="https://doi.org/10.32614/RJ-2016-014">https://doi.org/10.32614/RJ-2016-014</a>.
 </div>
-<div id="ref-herring2011opengis" class="csl-entry" role="doc-biblioentry">
+<div id="ref-herring2011opengis" class="csl-entry" role="listitem">
 Herring, J. R. et al. 2011. <span>“Opengis<span></span> Implementation Standard for Geographic Information-Simple Feature Access-Part 1: Common Architecture [Corrigendum].”</span>
 </div>
-<div id="ref-R-raster" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-raster" class="csl-entry" role="listitem">
 Hijmans, Robert J. 2023a. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://rspatial.org/raster">https://rspatial.org/raster</a>.
 </div>
-<div id="ref-R-terra" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-terra" class="csl-entry" role="listitem">
 ———. 2023b. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/terra/">https://rspatial.org/terra/</a>.
 </div>
-<div id="ref-geocomp" class="csl-entry" role="doc-biblioentry">
+<div id="ref-geocomp" class="csl-entry" role="listitem">
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with <span>R</span></em>. Chapman &amp; Hall/CRC.<a href=" https://geocompr.robinlovelace.net/ ">https://geocompr.robinlovelace.net/ </a>.
 </div>
-<div id="ref-R-gdalUtilities" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-gdalUtilities" class="csl-entry" role="listitem">
 O’Brien, Joshua. 2022. <em>gdalUtilities: Wrappers for GDAL Utilities Executables</em>. <a href="https://github.com/JoshOBrien/gdalUtilities/">https://github.com/JoshOBrien/gdalUtilities/</a>.
 </div>
-<div id="ref-spacetime2012" class="csl-entry" role="doc-biblioentry">
+<div id="ref-spacetime2012" class="csl-entry" role="listitem">
 Pebesma, Edzer. 2012. <span>“<span class="nocase">spacetime</span>: Spatio-Temporal Data in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 51 (7): 1–30. <a href="https://www.jstatsoft.org/v51/i07/">https://www.jstatsoft.org/v51/i07/</a>.
 </div>
-<div id="ref-rjsf" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rjsf" class="csl-entry" role="listitem">
 ———. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
 </div>
-<div id="ref-R-spacetime" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-spacetime" class="csl-entry" role="listitem">
 ———. 2022. <em>Spacetime: Classes and Methods for Spatio-Temporal Data</em>. <a href="https://github.com/edzer/spacetime">https://github.com/edzer/spacetime</a>.
 </div>
-<div id="ref-R-abind" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-abind" class="csl-entry" role="listitem">
 Plate, Tony, and Richard Heiberger. 2016. <em>Abind: Combine Multidimensional Arrays</em>. <a href="https://CRAN.R-project.org/package=abind">https://CRAN.R-project.org/package=abind</a>.
 </div>
-<div id="ref-R-sftime" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-sftime" class="csl-entry" role="listitem">
 Teickner, Henning, Edzer Pebesma, and Benedikt Graeler. 2022. <em>Sftime: Classes and Methods for Simple Feature Objects That Have a Time Column</em>. <a href="https://CRAN.R-project.org/package=sftime">https://CRAN.R-project.org/package=sftime</a>.
 </div>
-<div id="ref-R-tsibble" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-tsibble" class="csl-entry" role="listitem">
 Wang, Earo, Di Cook, Rob Hyndman, and Mitchell O’Hara-Wild. 2022. <em>Tsibble: Tidy Temporal Data Frames and Tools</em>. <a href="https://tsibble.tidyverts.org">https://tsibble.tidyverts.org</a>.
 </div>
-<div id="ref-tidy" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tidy" class="csl-entry" role="listitem">
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software</em> 59 (1).<a href=" https://www.jstatsoft.org/article/view/v059i10 ">https://www.jstatsoft.org/article/view/v059i10 </a>.
 </div>
-<div id="ref-welcome" class="csl-entry" role="doc-biblioentry">
+<div id="ref-welcome" class="csl-entry" role="listitem">
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the Tidyverse.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://joss.theoj.org/papers/10.21105/joss.01686">https://joss.theoj.org/papers/10.21105/joss.01686</a>.
 </div>
-<div id="ref-r4ds" class="csl-entry" role="doc-biblioentry">
+<div id="ref-r4ds" class="csl-entry" role="listitem">
 Wickham, Hadley, and Garret Grolemund. 2017. <em>R for Data Science</em>. O’Reilly. <a href="http://r4ds.had.co.nz/">http://r4ds.had.co.nz/</a>.
 </div>
 </div>
@@ -2319,9 +2314,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -2437,6 +2446,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

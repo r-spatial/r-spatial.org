@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./17-Econometrics.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,163 +140,188 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-1.html" class="sidebar-item-text sidebar-link">Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-hello.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+  <a href="./01-hello.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></a>
+  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></a>
+  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></a>
+  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></a>
+  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></a>
+  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-2.html" class="sidebar-item-text sidebar-link">R for Spatial Data Science</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Spatial Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a>
+  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-3.html" class="sidebar-item-text sidebar-link">Models for Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-Models.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></a>
+  <a href="./10-Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></a>
+  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></a>
+  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></a>
+  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></a>
+  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></a>
+  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -327,20 +329,21 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#spatial-econometric-models-definitions" id="toc-spatial-econometric-models-definitions" class="nav-link active" data-scroll-target="#spatial-econometric-models-definitions"><span class="toc-section-number">17.1</span>  Spatial econometric models: definitions</a></li>
-  <li><a href="#maximum-likelihood-estimation-in-spatialreg" id="toc-maximum-likelihood-estimation-in-spatialreg" class="nav-link" data-scroll-target="#maximum-likelihood-estimation-in-spatialreg"><span class="toc-section-number">17.2</span>  Maximum likelihood estimation in <strong>spatialreg</strong></a>
+  <li><a href="#spatial-econometric-models-definitions" id="toc-spatial-econometric-models-definitions" class="nav-link active" data-scroll-target="#spatial-econometric-models-definitions"><span class="header-section-number">17.1</span> Spatial econometric models: definitions</a></li>
+  <li><a href="#maximum-likelihood-estimation-in-spatialreg" id="toc-maximum-likelihood-estimation-in-spatialreg" class="nav-link" data-scroll-target="#maximum-likelihood-estimation-in-spatialreg"><span class="header-section-number">17.2</span> Maximum likelihood estimation in <strong>spatialreg</strong></a>
   <ul class="collapse">
   <li><a href="#boston-house-value-dataset-examples" id="toc-boston-house-value-dataset-examples" class="nav-link" data-scroll-target="#boston-house-value-dataset-examples">Boston house value dataset examples</a></li>
   </ul></li>
-  <li><a href="#impacts" id="toc-impacts" class="nav-link" data-scroll-target="#impacts"><span class="toc-section-number">17.3</span>  Impacts</a></li>
-  <li><a href="#sec-spateconpred" id="toc-sec-spateconpred" class="nav-link" data-scroll-target="#sec-spateconpred"><span class="toc-section-number">17.4</span>  Predictions</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">17.5</span>  Exercises</a></li>
+  <li><a href="#impacts" id="toc-impacts" class="nav-link" data-scroll-target="#impacts"><span class="header-section-number">17.3</span> Impacts</a></li>
+  <li><a href="#sec-spateconpred" id="toc-sec-spateconpred" class="nav-link" data-scroll-target="#sec-spateconpred"><span class="header-section-number">17.4</span> Predictions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">17.5</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/17-Econometrics.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -349,7 +352,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-spatecon" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-spatecon" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -365,12 +368,6 @@ div.csl-indent {
 </header>
 
 <p></p>
-<div class="cell">
-
-</div>
-<div class="cell">
-
-</div>
 <p>Spatial autoregression models using spatial weights matrices were described in some detail using maximum likelihood estimation some time ago <span class="citation" data-cites="cliff+ord:73 cliff+ord:81">(<a href="references.html#ref-cliff+ord:73" role="doc-biblioref">Cliff and Ord 1973</a>, <a href="references.html#ref-cliff+ord:81" role="doc-biblioref">1981</a>)</span>. A family of models was elaborated in spatial econometric terms extending earlier work, and in many cases using the simultaneous autoregressive framework and row standardisation of spatial weights <span class="citation" data-cites="a88">(<a href="references.html#ref-a88" role="doc-biblioref">Anselin 1988</a>)</span>. The simultaneous and conditional autoregressive frameworks can be compared, and both can be supplemented using case weights to reflect the relative importance of different observations <span class="citation" data-cites="WallerGotway:2004">(<a href="references.html#ref-WallerGotway:2004" role="doc-biblioref">Waller and Gotway 2004</a>)</span>.</p>
 <p>Before moving to presentations of issues raised in fitting spatial regression models, it is worth making a few further points. A recent review of spatial regression in a spatial econometrics setting is given by Kelejian and Piras <span class="citation" data-cites="kelejian+piras:17">(<a href="references.html#ref-kelejian+piras:17" role="doc-biblioref">2017</a>)</span>; note that their usage is to call the spatial coefficient of the lagged response <span class="math inline">\(\lambda\)</span> and that of the lagged residuals <span class="math inline">\(\rho\)</span>, the reverse of other usage <span class="citation" data-cites="a88 lesage+pace:09">(<a href="references.html#ref-a88" role="doc-biblioref">Anselin 1988</a>; <a href="references.html#ref-lesage+pace:09" role="doc-biblioref">LeSage and Pace 2009</a>)</span>; here we use <span class="math inline">\(\rho_{\mathrm{Lag}}\)</span> for the spatial coefficient in the spatial lag model, and <span class="math inline">\(\rho_{\mathrm{Err}}\)</span> for the spatial error model. One interesting finding is that relatively dense spatial weights matrices may down-weight model estimates, suggesting that sparser weights are preferable <span class="citation" data-cites="smith:09">(<a href="references.html#ref-smith:09" role="doc-biblioref">Smith 2009</a>)</span>. Another useful finding is that the presence of residual spatial autocorrelation need not bias the estimates of variance of regression coefficients, provided that the covariates themselves do not exhibit spatial autocorrelation <span class="citation" data-cites="smith+lee12">(<a href="references.html#ref-smith+lee12" role="doc-biblioref">Smith and Lee 2012</a>)</span>. In general, however, the footprints of the spatial processes of the response and covariates may not be aligned, and if covariates and the residual are autocorrelated, it is likely that the estimates of variance of regression coefficients will be biased downwards if attempts are not made to model the spatial processes.</p>
 <section id="spatial-econometric-models-definitions" class="level2" data-number="17.1">
@@ -494,8 +491,22 @@ div.csl-indent {
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>SDEM_94 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data=</span>boston_94, <span class="at">listw=</span>lw_q_94,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Durbin =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig=</span>eigs_94))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>SEM_94 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_94, <span class="at">listw =</span> lw_q_94,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_94))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># abseps</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># abseps</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># abseps</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># abseps</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># abseps</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>SEM_94 <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(form, <span class="at">data =</span> boston_94, <span class="at">listw =</span> lw_q_94,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">control =</span> <span class="fu">list</span>(<span class="at">pre_eig =</span> eigs_94))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For the 94 air pollution model output zones, the Hausman tests find little difference between coefficients:</p>
 <div class="cell">
@@ -684,7 +695,7 @@ div.csl-indent {
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: foreach</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: parallel</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading required package: sp</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This is INLA_22.05.07 built 2022-05-07 09:52:03 UTC.</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This is INLA_23.04.24 built 2023-04-24 19:15:35 UTC.</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  - See www.r-inla.org/contact-us for how to get help.</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  - To enable PARDISO sparse library; see inla.pardiso()</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
@@ -725,23 +736,23 @@ div.csl-indent {
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">INLA_slm =</span> mv_mean, <span class="at">censored =</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, <span class="st">"region.id"</span>))])</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    31087    right</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   28126   27001   28516    31376    right</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    41006    right</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    21068    right</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     6879     left</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6892     left</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56318    right</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46530    right</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42839    right</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47961    right</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41418    right</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45798    right</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    49112    right</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    47645    right</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46287    right</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    43783    right</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41521    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   23912   29477   28147    30638    right</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   28126   27001   28516    31260    right</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   30553   36184   32476    39394    right</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   18518   19621   18878    20490    right</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 43    9564    6817    7561     7169     left</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 50    8371    7196    7383     6952     left</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 312  51477   53301   54173    56468    right</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 313  45921   45823   47095    46689    right</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 314  44196   44586   45361    42808    right</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 317  43427   45707   45442    47503    right</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 337  39879   42072   41127    41215    right</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 346  44708   46694   46108    45363    right</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 355  48188   49068   48911    48908    right</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 376  42881   45883   44966    46894    right</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 408  44294   44615   45670    46538    right</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 418  38211   43375   41914    42808    right</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 434  41647   41690   42398    41257    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others’ understandings and advances.</p>
 </section>
@@ -754,7 +765,6 @@ div.csl-indent {
 <li>Fit GNM specifications to the properties-only and the properties with added municipality department variables models; can these models be simplified to say SDM or SDEM representations?</li>
 <li>Do the model estimates reached in the <a href="16-SpatialRegression.html"><span>Chapter&nbsp;16</span></a> exercises provide more clarity than those in this chapter?</li>
 </ol>
-<div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -765,115 +775,114 @@ div.csl-indent {
   ga('send', 'pageview');
 
 </script>
-</div>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-a88" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-a88" class="csl-entry" role="listitem">
 Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Kluwer Academic Publishers.
 </div>
-<div id="ref-bivand:02" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivand:02" class="csl-entry" role="listitem">
 Bivand, Roger. 2002. <span>“Spatial Econometrics Functions in <span>R</span>: Classes and Methods.”</span> <em>Journal of Geographical Systems</em> 4: 405–21.
 </div>
-<div id="ref-bivand:12" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivand:12" class="csl-entry" role="listitem">
 ———. 2012. <span>“<span class="nocase">After ’Raising the Bar’: Applied Maximum Likelihood Estimation of Families of Models in Spatial Econometrics</span>.”</span> <em>Estadística Española</em> 54: 71–88.
 </div>
-<div id="ref-bivand17" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivand17" class="csl-entry" role="listitem">
 ———. 2017. <span>“Revisiting the <span>B</span>oston Data Set — Changing the Units of Observation Affects Estimated Willingness to Pay for Clean Air.”</span> <em>REGION</em> 4 (1): 109–27. <a href="https://doi.org/10.18335/region.v4i1.107">https://doi.org/10.18335/region.v4i1.107</a>.
 </div>
-<div id="ref-math9111276" class="csl-entry" role="doc-biblioentry">
+<div id="ref-math9111276" class="csl-entry" role="listitem">
 Bivand, Roger, Giovanni Millo, and Gianfranco Piras. 2021. <span>“A Review of Software for Spatial Econometrics in <span>R</span>.”</span> <em>Mathematics</em> 9 (11). <a href="https://doi.org/10.3390/math9111276">https://doi.org/10.3390/math9111276</a>.
 </div>
-<div id="ref-bivand+piras:15" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivand+piras:15" class="csl-entry" role="listitem">
 Bivand, Roger, and Gianfranco Piras. 2015. <span>“Comparing Implementations of Estimation Methods for Spatial Econometrics.”</span> <em>Journal of Statistical Software</em> 63 (1): 1–36. <a href="https://doi.org/10.18637/jss.v063.i18">https://doi.org/10.18637/jss.v063.i18</a>.
 </div>
-<div id="ref-R-spatialreg" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-spatialreg" class="csl-entry" role="listitem">
 ———. 2022. <em>Spatialreg: Spatial Regression Analysis</em>. <a href="https://CRAN.R-project.org/package=spatialreg">https://CRAN.R-project.org/package=spatialreg</a>.
 </div>
-<div id="ref-cliff+ord:73" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cliff+ord:73" class="csl-entry" role="listitem">
 Cliff, A. D., and J. K. Ord. 1973. <em>Spatial Autocorrelation</em>. London: Pion.
 </div>
-<div id="ref-cliff+ord:81" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cliff+ord:81" class="csl-entry" role="listitem">
 ———. 1981. <em>Spatial Processes</em>. London: Pion.
 </div>
-<div id="ref-elhorst:10" class="csl-entry" role="doc-biblioentry">
+<div id="ref-elhorst:10" class="csl-entry" role="listitem">
 Elhorst, J. Paul. 2010. <span>“Applied Spatial Econometrics: Raising the Bar.”</span> <em>Spatial Economic Analysis</em> 5: 9–28.
 </div>
-<div id="ref-fingleton:99" class="csl-entry" role="doc-biblioentry">
+<div id="ref-fingleton:99" class="csl-entry" role="listitem">
 Fingleton, B. 1999. <span>“<span class="nocase">Spurious spatial regression: Some Monte Carlo results with a spatial unit root and spatial cointegration</span>.”</span> <em><span>Journal of Regional Science</span></em> 9: 1–19.
 </div>
-<div id="ref-FLORAX2006300" class="csl-entry" role="doc-biblioentry">
+<div id="ref-FLORAX2006300" class="csl-entry" role="listitem">
 Florax, Raymond J. G. M., Hendrik Folmer, and Sergio J. Rey. 2006. <span>“A Comment on Specification Searches in Spatial Econometrics: The Relevance of Hendry’s Methodology: A Reply.”</span> <em>Regional Science and Urban Economics</em> 36 (2): 300–308. <a href="https://doi.org/10.1016/j.regsciurbeco.2005.10.002">https://doi.org/10.1016/j.regsciurbeco.2005.10.002</a>.
 </div>
-<div id="ref-FLORAX2003557" class="csl-entry" role="doc-biblioentry">
+<div id="ref-FLORAX2003557" class="csl-entry" role="listitem">
 Florax, Raymond J. G. M, Hendrik Folmer, and Sergio J Rey. 2003. <span>“Specification Searches in Spatial Econometrics: The Relevance of Hendry’s Methodology.”</span> <em>Regional Science and Urban Economics</em> 33 (5): 557–79. <a href="https://doi.org/10.1016/S0166-0462(03)00002-4">https://doi.org/10.1016/S0166-0462(03)00002-4</a>.
 </div>
-<div id="ref-GOMEZRUBIO2015116" class="csl-entry" role="doc-biblioentry">
+<div id="ref-GOMEZRUBIO2015116" class="csl-entry" role="listitem">
 Gómez-Rubio, Virgilio, Roger Bivand, and Håvard Rue. 2015. <span>“A New Latent Class to Fit Spatial Econometrics Models with Integrated Nested Laplace Approximations.”</span> <em>Procedia Environmental Sciences</em> 27: 116–18. <a href="https://doi.org/10.1016/j.proenv.2015.07.119">https://doi.org/10.1016/j.proenv.2015.07.119</a>.
 </div>
-<div id="ref-goulardetal:17" class="csl-entry" role="doc-biblioentry">
+<div id="ref-goulardetal:17" class="csl-entry" role="listitem">
 Goulard, Michel, Thibault Laurent, and Christine Thomas-Agnan. 2017. <span>“About Predictions in Spatial Autoregressive Models: Optimal and Almost Optimal Strategies.”</span> <em>Spatial Economic Analysis</em> 12 (2-3): 304–25. <a href="https://doi.org/10.1080/17421772.2017.1300679">https://doi.org/10.1080/17421772.2017.1300679</a>.
 </div>
-<div id="ref-halleck-vega+elhorst:15" class="csl-entry" role="doc-biblioentry">
+<div id="ref-halleck-vega+elhorst:15" class="csl-entry" role="listitem">
 Halleck Vega, Solmaria, and J. Paul Elhorst. 2015. <span>“The <span>SLX</span> Model.”</span> <em>Journal of Regional Science</em> 55 (3): 339–63. <a href="https://doi.org/10.1111/jors.12188">https://doi.org/10.1111/jors.12188</a>.
 </div>
-<div id="ref-HENDRY2006309" class="csl-entry" role="doc-biblioentry">
+<div id="ref-HENDRY2006309" class="csl-entry" role="listitem">
 Hendry, David F. 2006. <span>“A Comment on <span>‘Specification Searches in Spatial Econometrics: The Relevance of Hendry’s Methodology’</span>.”</span> <em>Regional Science and Urban Economics</em> 36 (2): 309–12. <a href="https://doi.org/10.1016/j.regsciurbeco.2005.10.001">https://doi.org/10.1016/j.regsciurbeco.2005.10.001</a>.
 </div>
-<div id="ref-kelejian+piras:17" class="csl-entry" role="doc-biblioentry">
+<div id="ref-kelejian+piras:17" class="csl-entry" role="listitem">
 Kelejian, Harry, and Gianfranco Piras. 2017. <em>Spatial Econometrics</em>. London: Academic Press.
 </div>
-<div id="ref-Laurent2021" class="csl-entry" role="doc-biblioentry">
+<div id="ref-Laurent2021" class="csl-entry" role="listitem">
 Laurent, Thibault, and Paula Margaretic. 2021. <span>“Predictions in Spatial Econometric Models: Application to Unemployment Data.”</span> In <em>Advances in Contemporary Statistics and Econometrics: Festschrift in Honor of Christine Thomas-Agnan</em>, edited by Abdelaati Daouia and Anne Ruiz-Gazen, 409–26. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-030-73249-3_21">https://doi.org/10.1007/978-3-030-73249-3_21</a>.
 </div>
-<div id="ref-lesage:14" class="csl-entry" role="doc-biblioentry">
+<div id="ref-lesage:14" class="csl-entry" role="listitem">
 LeSage, James P. 2014. <span>“What Regional Scientists Need to Know about Spatial Econometrics.”</span> <em>Review of Regional Studies</em> 44: 13–32. <a href="https://journal.srsa.org/ojs/index.php/RRS/article/view/44.1.2">https://journal.srsa.org/ojs/index.php/RRS/article/view/44.1.2</a>.
 </div>
-<div id="ref-lesage+pace:09" class="csl-entry" role="doc-biblioentry">
+<div id="ref-lesage+pace:09" class="csl-entry" role="listitem">
 LeSage, James P., and Kelley R. Pace. 2009. <em>Introduction to Spatial Econometrics</em>. Boca Raton, FL: CRC Press.
 </div>
-<div id="ref-MARTINETTI201730" class="csl-entry" role="doc-biblioentry">
+<div id="ref-MARTINETTI201730" class="csl-entry" role="listitem">
 Martinetti, Davide, and Ghislain Geniaux. 2017. <span>“Approximate Likelihood Estimation of Spatial Probit Models.”</span> <em>Regional Science and Urban Economics</em> 64: 30–45. <a href="https://doi.org/10.1016/j.regsciurbeco.2017.02.002">https://doi.org/10.1016/j.regsciurbeco.2017.02.002</a>.
 </div>
-<div id="ref-mcmillen:13" class="csl-entry" role="doc-biblioentry">
+<div id="ref-mcmillen:13" class="csl-entry" role="listitem">
 McMillen, Daniel P. 2013. <em>Quantile Regression for Spatial Data</em>. Heidelberg: Springer-Verlag.
 </div>
-<div id="ref-millo+piras:12" class="csl-entry" role="doc-biblioentry">
+<div id="ref-millo+piras:12" class="csl-entry" role="listitem">
 Millo, Giovanni, and Gianfranco Piras. 2012. <span>“<span class="nocase">splm</span>: Spatial Panel Data Models in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 47 (1): 1–38.
 </div>
-<div id="ref-mur+angulo:06" class="csl-entry" role="doc-biblioentry">
+<div id="ref-mur+angulo:06" class="csl-entry" role="listitem">
 Mur, Jesús, and Ana Angulo. 2006. <span>“The Spatial Durbin Model and the Common Factor Tests.”</span> <em>Spatial Economic Analysis</em> 1 (2): 207–26. <a href="https://doi.org/10.1080/17421770601009841">https://doi.org/10.1080/17421770601009841</a>.
 </div>
-<div id="ref-ord:75" class="csl-entry" role="doc-biblioentry">
+<div id="ref-ord:75" class="csl-entry" role="listitem">
 Ord, J. K. 1975. <span>“<span class="nocase">Estimation Methods for Models of Spatial Interaction</span>.”</span> <em>Journal of the American Statistical Association</em> 70 (349): 120–26.
 </div>
-<div id="ref-pace+lesage:08" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pace+lesage:08" class="csl-entry" role="listitem">
 Pace, R. K., and James P. LeSage. 2008. <span>“A Spatial <span>H</span>ausman Test.”</span> <em>Economics Letters</em> 101: 282–84.
 </div>
-<div id="ref-PIRAS2014103" class="csl-entry" role="doc-biblioentry">
+<div id="ref-PIRAS2014103" class="csl-entry" role="listitem">
 Piras, Gianfranco, and Ingmar R. Prucha. 2014. <span>“On the Finite Sample Properties of Pre-Test Estimators of Spatial Models.”</span> <em>Regional Science and Urban Economics</em> 46: 103–15. <a href="https://doi.org/10.1016/j.regsciurbeco.2014.03.002">https://doi.org/10.1016/j.regsciurbeco.2014.03.002</a>.
 </div>
-<div id="ref-spldv-package" class="csl-entry" role="doc-biblioentry">
+<div id="ref-spldv-package" class="csl-entry" role="listitem">
 Sarrias, Mauricio, and Gianfranco Piras. 2022. <em>Spldv: Spatial Models for Limited Dependent Variables</em>. <a href="https://CRAN.R-project.org/package=spldv">https://CRAN.R-project.org/package=spldv</a>.
 </div>
-<div id="ref-smith:09" class="csl-entry" role="doc-biblioentry">
+<div id="ref-smith:09" class="csl-entry" role="listitem">
 Smith, Tony E. 2009. <span>“Estimation Bias in Spatial Models with Strongly Connected Weight Matrices.”</span> <em>Geographical Analysis</em> 41 (3): 307–32. <a href="https://doi.org/10.1111/j.1538-4632.2009.00758.x">https://doi.org/10.1111/j.1538-4632.2009.00758.x</a>.
 </div>
-<div id="ref-smith+lee12" class="csl-entry" role="doc-biblioentry">
+<div id="ref-smith+lee12" class="csl-entry" role="listitem">
 Smith, Tony E., and K. L. Lee. 2012. <span>“<span class="nocase">The effects of spatial autoregressive dependencies on inference in ordinary least squares: a geometric approach</span>.”</span> <em>Journal of Geographical Systems</em> 14 (January): 91–124. <a href="https://doi.org/10.1007/s10109-011-0152-x">https://doi.org/10.1007/s10109-011-0152-x</a>.
 </div>
-<div id="ref-suesse:18" class="csl-entry" role="doc-biblioentry">
+<div id="ref-suesse:18" class="csl-entry" role="listitem">
 Suesse, Thomas. 2018. <span>“Marginal Maximum Likelihood Estimation of SAR Models with Missing Data.”</span> <em>Computational Statistics &amp; Data Analysis</em> 120: 98–110. <a href="https://doi.org/10.1016/j.csda.2017.11.004">https://doi.org/10.1016/j.csda.2017.11.004</a>.
 </div>
-<div id="ref-wagner+zeileis:19" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wagner+zeileis:19" class="csl-entry" role="listitem">
 Wagner, Martin, and Achim Zeileis. 2019. <span>“Heterogeneity and Spatial Dependence of Regional Growth in the <span>EU</span>: A Recursive Partitioning Approach.”</span> <em>German Economic Review</em> 20 (1): 67–82. <a href="https://doi.org/10.1111/geer.12146">https://doi.org/10.1111/geer.12146</a>.
 </div>
-<div id="ref-WallerGotway:2004" class="csl-entry" role="doc-biblioentry">
+<div id="ref-WallerGotway:2004" class="csl-entry" role="listitem">
 Waller, Lance A., and Carol A. Gotway. 2004. <em>Applied Spatial Statistics for Public Health Data</em>. Hoboken, NJ: John Wiley &amp; Sons.
 </div>
-<div id="ref-RJ-2013-013" class="csl-entry" role="doc-biblioentry">
+<div id="ref-RJ-2013-013" class="csl-entry" role="listitem">
 Wilhelm, Stefan, and Miguel Godinho de Matos. 2013. <span>“<span class="nocase">Estimating Spatial Probit Models in R</span>.”</span> <em><span>The R Journal</span></em> 5 (1): 130–43. <a href="https://doi.org/10.32614/RJ-2013-013">https://doi.org/10.32614/RJ-2013-013</a>.
 </div>
 </div>
@@ -907,9 +916,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1025,6 +1048,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

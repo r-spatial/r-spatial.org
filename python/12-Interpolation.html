@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./12-Interpolation.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,163 +140,188 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-1.html" class="sidebar-item-text sidebar-link">Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-hello.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+  <a href="./01-hello.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></a>
+  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></a>
+  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></a>
+  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></a>
+  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></a>
+  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-2.html" class="sidebar-item-text sidebar-link">R for Spatial Data Science</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Spatial Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a>
+  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-3.html" class="sidebar-item-text sidebar-link">Models for Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-Models.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></a>
+  <a href="./10-Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></a>
+  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></a>
+  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></a>
+  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></a>
+  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></a>
+  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -327,23 +329,24 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#a-first-dataset" id="toc-a-first-dataset" class="nav-link active" data-scroll-target="#a-first-dataset"><span class="toc-section-number">12.1</span>  A first dataset</a></li>
-  <li><a href="#sample-variogram" id="toc-sample-variogram" class="nav-link" data-scroll-target="#sample-variogram"><span class="toc-section-number">12.2</span>  Sample variogram</a></li>
-  <li><a href="#fitting-variogram-models" id="toc-fitting-variogram-models" class="nav-link" data-scroll-target="#fitting-variogram-models"><span class="toc-section-number">12.3</span>  Fitting variogram models</a></li>
-  <li><a href="#sec-kriging" id="toc-sec-kriging" class="nav-link" data-scroll-target="#sec-kriging"><span class="toc-section-number">12.4</span>  Kriging interpolation</a></li>
-  <li><a href="#sec-blockkriging" id="toc-sec-blockkriging" class="nav-link" data-scroll-target="#sec-blockkriging"><span class="toc-section-number">12.5</span>  Areal means: block kriging</a></li>
-  <li><a href="#conditional-simulation" id="toc-conditional-simulation" class="nav-link" data-scroll-target="#conditional-simulation"><span class="toc-section-number">12.6</span>  Conditional simulation</a></li>
-  <li><a href="#trend-models" id="toc-trend-models" class="nav-link" data-scroll-target="#trend-models"><span class="toc-section-number">12.7</span>  Trend models</a>
+  <li><a href="#a-first-dataset" id="toc-a-first-dataset" class="nav-link active" data-scroll-target="#a-first-dataset"><span class="header-section-number">12.1</span> A first dataset</a></li>
+  <li><a href="#sample-variogram" id="toc-sample-variogram" class="nav-link" data-scroll-target="#sample-variogram"><span class="header-section-number">12.2</span> Sample variogram</a></li>
+  <li><a href="#fitting-variogram-models" id="toc-fitting-variogram-models" class="nav-link" data-scroll-target="#fitting-variogram-models"><span class="header-section-number">12.3</span> Fitting variogram models</a></li>
+  <li><a href="#sec-kriging" id="toc-sec-kriging" class="nav-link" data-scroll-target="#sec-kriging"><span class="header-section-number">12.4</span> Kriging interpolation</a></li>
+  <li><a href="#sec-blockkriging" id="toc-sec-blockkriging" class="nav-link" data-scroll-target="#sec-blockkriging"><span class="header-section-number">12.5</span> Areal means: block kriging</a></li>
+  <li><a href="#conditional-simulation" id="toc-conditional-simulation" class="nav-link" data-scroll-target="#conditional-simulation"><span class="header-section-number">12.6</span> Conditional simulation</a></li>
+  <li><a href="#trend-models" id="toc-trend-models" class="nav-link" data-scroll-target="#trend-models"><span class="header-section-number">12.7</span> Trend models</a>
   <ul class="collapse">
   <li><a href="#a-population-grid" id="toc-a-population-grid" class="nav-link" data-scroll-target="#a-population-grid">A population grid</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">12.8</span>  Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.8</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/12-Interpolation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -352,7 +355,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-interpolation" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-interpolation" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -371,9 +374,6 @@ div.csl-indent {
 <p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction, and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
 <p>In this chapter we will show simple approaches for handling geostatistical data, demonstrate simple interpolation methods, and explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparison of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
 <p></p>
-<div class="cell">
-
-</div>
 <section id="a-first-dataset" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="a-first-dataset"><span class="header-section-number">12.1</span> A first dataset</h2>
 <p>We can read station mean NO<span class="math inline">\(_2\)</span> values, a dataset that is prepared in <a href="13-Geostatistics.html"><span>Chapter&nbsp;13</span></a>, by loading it from package <strong>gstat</strong> using</p>
@@ -405,7 +405,7 @@ div.csl-indent {
 <div id="fig-plotDE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-plotDE-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.1: Mean NO<span class="math inline">\(_2\)</span> concentrations in air for rural background stations in Germany, in 2017</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.1: Mean NO<span class="math inline">\(_2\)</span> concentrations in air for rural background stations in Germany, in 2017</figcaption>
 </figure>
 </div>
 </div>
@@ -453,7 +453,7 @@ div.csl-indent {
 <div id="fig-idw" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-idw-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.2: Inverse distance weighted interpolated values for NO<span class="math inline">\(_2\)</span> over Germany</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.2: Inverse distance weighted interpolated values for NO<span class="math inline">\(_2\)</span> over Germany</figcaption>
 </figure>
 </div>
 </div>
@@ -482,7 +482,7 @@ div.csl-indent {
 <div id="fig-vgm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-vgm-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.3: Sample variogram plot</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.3: Sample variogram plot</figcaption>
 </figure>
 </div>
 </div>
@@ -503,7 +503,7 @@ div.csl-indent {
 <div id="fig-vgm2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-vgm2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.4: Sample variogram plot with adjusted cutoff and lag width</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.4: Sample variogram plot with adjusted cutoff and lag width</figcaption>
 </figure>
 </div>
 </div>
@@ -594,7 +594,7 @@ div.csl-indent {
 <div id="fig-fitvariogrammodel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-fitvariogrammodel-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (circles) with models fitted using weighted least squares (solid line) and maximum likelihood estimation (dashed line)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.5: Sample variogram (circles) with models fitted using weighted least squares (solid line) and maximum likelihood estimation (dashed line)</figcaption>
 </figure>
 </div>
 </div>
@@ -625,7 +625,7 @@ div.csl-indent {
 <div id="fig-krigeovergermany" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-krigeovergermany-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.6: Kriged NO<span class="math inline">\(_2\)</span> concentrations over Germany</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.6: Kriged NO<span class="math inline">\(_2\)</span> concentrations over Germany</figcaption>
 </figure>
 </div>
 </div>
@@ -658,7 +658,7 @@ div.csl-indent {
 <div id="fig-aggregations" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-aggregations-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.7: Aggregated NO<span class="math inline">\(_2\)</span> values from simple averaging (left) and block kriging (right)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.7: Aggregated NO<span class="math inline">\(_2\)</span> values from simple averaging (left) and block kriging (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -689,7 +689,7 @@ div.csl-indent {
 <div id="fig-aggrSE" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-aggrSE-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.8: Standard errors for mean NO<span class="math inline">\(_2\)</span> values obtained by simple averaging (left) and block kriging (right)</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.8: Standard errors for mean NO<span class="math inline">\(_2\)</span> values obtained by simple averaging (left) and block kriging (right)</figcaption>
 </figure>
 </div>
 </div>
@@ -740,7 +740,7 @@ div.csl-indent {
 <div id="fig-plotkrigingvalues" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-plotkrigingvalues-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.9: Six conditional simulations for NO<span class="math inline">\(_2\)</span> values</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.9: Six conditional simulations for NO<span class="math inline">\(_2\)</span> values</figcaption>
 </figure>
 </div>
 </div>
@@ -795,7 +795,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <div id="fig-popdens" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-popdens-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.10: Population density for 100 m <span class="math inline">\(\times\)</span> 100 m grid cells</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.10: Population density for 100 m <span class="math inline">\(\times\)</span> 100 m grid cells</figcaption>
 </figure>
 </div>
 </div>
@@ -842,7 +842,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <div id="fig-no2scat" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-no2scat-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.11: Scatter plot of 2017 annual mean NO<span class="math inline">\(_2\)</span> concentration against population density, for rural background air quality stations</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.11: Scatter plot of 2017 annual mean NO<span class="math inline">\(_2\)</span> concentration against population density, for rural background air quality stations</figcaption>
 </figure>
 </div>
 </div>
@@ -862,7 +862,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <div id="fig-predictusingpopulationdensity" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-predictusingpopulationdensity-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.12: Residual variogram after subtracting population density trend</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.12: Residual variogram after subtracting population density trend</figcaption>
 </figure>
 </div>
 </div>
@@ -890,7 +890,7 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <div id="fig-residualkriging" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="12-Interpolation_files/figure-html/fig-residualkriging-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12.13: Kriging NO<span class="math inline">\(_2\)</span> values using population density as a trend variable</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12.13: Kriging NO<span class="math inline">\(_2\)</span> values using population density as a trend variable</figcaption>
 </figure>
 </div>
 </div>
@@ -908,10 +908,6 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
 <li>Based on the residual kriging results obtained above, compute maps of the lower and upper boundary of a 95% confidence interval, when assuming that the kriging error is normally distributed, and show them in a plot with a single (joint) legend.</li>
 <li>Compute and show the map with the probabilities that NO<span class="math inline">\(_2\)</span> point values exceed the level of 15 ppm, assuming normally distributed kriging errors.</li>
 </ol>
-<div class="cell">
-
-</div>
-<div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -922,43 +918,42 @@ Z(s) = \sum_{j=0}^p \beta_j X_j(s) + e(s)
   ga('send', 'pageview');
 
 </script>
-</div>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-blangiardo2015spatial" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-blangiardo2015spatial" class="csl-entry" role="listitem">
 Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. John Wiley &amp; Sons.
 </div>
-<div id="ref-JSSv055i09" class="csl-entry" role="doc-biblioentry">
+<div id="ref-JSSv055i09" class="csl-entry" role="listitem">
 Davies, Tilman, and David Bryant. 2013. <span>“On Circulant Embedding for Gaussian Random Fields in <span>R</span>.”</span> <em>Journal of Statistical Software, Articles</em> 55 (9): 1–21. <a href="https://doi.org/10.18637/jss.v055.i09">https://doi.org/10.18637/jss.v055.i09</a>.
 </div>
-<div id="ref-Diggle:2007" class="csl-entry" role="doc-biblioentry">
+<div id="ref-Diggle:2007" class="csl-entry" role="listitem">
 Diggle, P. J., and P. J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York: Springer.
 </div>
-<div id="ref-DiggleTawnMoyeed:98" class="csl-entry" role="doc-biblioentry">
+<div id="ref-DiggleTawnMoyeed:98" class="csl-entry" role="listitem">
 Diggle, P. J., J. A. Tawn, and R. A. Moyeed. 1998. <span>“Model-Based Geostatistics.”</span> <em>Applied Statistics</em>, 299–350.
 </div>
-<div id="ref-Heaton2018" class="csl-entry" role="doc-biblioentry">
+<div id="ref-Heaton2018" class="csl-entry" role="listitem">
 Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em>, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">https://doi.org/10.1007/s13253-018-00348-w</a>.
 </div>
-<div id="ref-jh78" class="csl-entry" role="doc-biblioentry">
+<div id="ref-jh78" class="csl-entry" role="listitem">
 Journel, Andre G., and Charles J. Huijbregts. 1978. <em>Mining Geostatistics</em>. Academic Press, London.
 </div>
-<div id="ref-kitanidis1985maximum" class="csl-entry" role="doc-biblioentry">
+<div id="ref-kitanidis1985maximum" class="csl-entry" role="listitem">
 Kitanidis, Peter K., and Robert W. Lane. 1985. <span>“Maximum Likelihood Parameter Estimation of Hydrologic Spatial Processes by the Gauss-Newton Method.”</span> <em>Journal of Hydrology</em> 79 (1-2): 53–71. <a href="https://doi.org/10.1016/0022-1694(85)90181-7">https://doi.org/10.1016/0022-1694(85)90181-7</a>.
 </div>
-<div id="ref-gstatcg" class="csl-entry" role="doc-biblioentry">
+<div id="ref-gstatcg" class="csl-entry" role="listitem">
 Pebesma, Edzer. 2004. <span>“Multivariable Geostatistics in <span>S</span>: The Gstat Package.”</span> <em>Computers &amp; Geosciences</em> 30: 683–91.
 </div>
-<div id="ref-R-gstat" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-gstat" class="csl-entry" role="listitem">
 Pebesma, Edzer, and Benedikt Graeler. 2022. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://github.com/r-spatial/gstat/">https://github.com/r-spatial/gstat/</a>.
 </div>
-<div id="ref-schlather" class="csl-entry" role="doc-biblioentry">
+<div id="ref-schlather" class="csl-entry" role="listitem">
 Schlather, Martin. 2011. <span>“Construction of Covariance Functions and Unconditional Simulation of Random Fields.”</span> In <em>Space-Time Processes and Challenges Related to Environmental Problems</em>, edited by E. Porcu, Montero J. M., and M. Schlather. New York: Springer.
 </div>
-<div id="ref-wikle2019spatio" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wikle2019spatio" class="csl-entry" role="listitem">
 Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-Temporal Statistics with <span>R</span></em>. CRC Press.
 </div>
 </div>
@@ -992,9 +987,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1110,6 +1119,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

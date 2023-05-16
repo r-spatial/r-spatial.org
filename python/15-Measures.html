@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./15-Measures.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,163 +140,188 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-1.html" class="sidebar-item-text sidebar-link">Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-hello.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></a>
+  <a href="./01-hello.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></a>
+  <a href="./02-Spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></a>
+  <a href="./03-Geometries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></a>
+  <a href="./04-Spherical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></a>
+  <a href="./05-Attributes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></a>
+  <a href="./06-Cubes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-2.html" class="sidebar-item-text sidebar-link">R for Spatial Data Science</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R for Spatial Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a>
+  <a href="./07-Introsf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></a>
+  <a href="./08-Plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-Large.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></a>
+  <a href="./09-Large.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Large data and cloud native</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-3.html" class="sidebar-item-text sidebar-link">Models for Spatial Data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models for Spatial Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-Models.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></a>
+  <a href="./10-Models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></a>
+  <a href="./11-PointPattern.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></a>
+  <a href="./12-Interpolation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></a>
+  <a href="./13-Geostatistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Multivariate and Spatiotemporal Geostatistics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></a>
+  <a href="./14-Areal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Proximity and Areal Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></a>
+  <a href="./15-Measures.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></a>
+  <a href="./16-SpatialRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a>
+  <a href="./17-Econometrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a>
+  <a href="./sp-raster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rbasics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></a>
+  <a href="./rbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -327,26 +329,27 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-measprocmisspec" id="toc-sec-measprocmisspec" class="nav-link active" data-scroll-target="#sec-measprocmisspec"><span class="toc-section-number">15.1</span>  Measures and process misspecification</a></li>
-  <li><a href="#global-measures" id="toc-global-measures" class="nav-link" data-scroll-target="#global-measures"><span class="toc-section-number">15.2</span>  Global measures</a>
+  <li><a href="#sec-measprocmisspec" id="toc-sec-measprocmisspec" class="nav-link active" data-scroll-target="#sec-measprocmisspec"><span class="header-section-number">15.1</span> Measures and process misspecification</a></li>
+  <li><a href="#global-measures" id="toc-global-measures" class="nav-link" data-scroll-target="#global-measures"><span class="header-section-number">15.2</span> Global measures</a>
   <ul class="collapse">
   <li><a href="#join-count-tests-for-categorical-data" id="toc-join-count-tests-for-categorical-data" class="nav-link" data-scroll-target="#join-count-tests-for-categorical-data">Join-count tests for categorical data</a></li>
   <li><a href="#morans-i" id="toc-morans-i" class="nav-link" data-scroll-target="#morans-i">Moran’s <span class="math inline">\(I\)</span></a></li>
   </ul></li>
-  <li><a href="#local-measures" id="toc-local-measures" class="nav-link" data-scroll-target="#local-measures"><span class="toc-section-number">15.3</span>  Local measures</a>
+  <li><a href="#local-measures" id="toc-local-measures" class="nav-link" data-scroll-target="#local-measures"><span class="header-section-number">15.3</span> Local measures</a>
   <ul class="collapse">
   <li><a href="#local-morans-i_i" id="toc-local-morans-i_i" class="nav-link" data-scroll-target="#local-morans-i_i">Local Moran’s <span class="math inline">\(I_i\)</span></a></li>
   <li><a href="#local-getis-ord-g_i" id="toc-local-getis-ord-g_i" class="nav-link" data-scroll-target="#local-getis-ord-g_i">Local Getis-Ord <span class="math inline">\(G_i\)</span></a></li>
   <li><a href="#local-gearys-c_i" id="toc-local-gearys-c_i" class="nav-link" data-scroll-target="#local-gearys-c_i">Local Geary’s <span class="math inline">\(C_i\)</span></a></li>
   <li><a href="#the-rgeoda-package" id="toc-the-rgeoda-package" class="nav-link" data-scroll-target="#the-rgeoda-package">The <strong>rgeoda</strong> package</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">15.4</span>  Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">15.4</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/15-Measures.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -355,7 +358,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-spatautocorr" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-spatautocorr" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -371,9 +374,6 @@ div.csl-indent {
 </header>
 
 <p></p>
-<div class="cell">
-
-</div>
 <!---
 might options("width") be set to a smaller value to prevent right margin 
 overruns in cals to  arg(), etc.? Maybe in each chapter? in R 80, 
@@ -592,7 +592,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-moranplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-moranplot-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.1: Moran plot of I round turnout, row standardised weights</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.1: Moran plot of I round turnout, row standardised weights</figcaption>
 </figure>
 </div>
 </div>
@@ -606,7 +606,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-moranhat" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-moranhat-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.2: Moran plot hat values, row standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.2: Moran plot hat values, row standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -664,7 +664,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pva</span>() <span class="ot">-&gt;</span> pvsp</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pvsp, <span class="dv">2</span>, f)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       none        FDR         BY Bonferroni </span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        379        149         63         40</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        380        148         64         39</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Since the variable under analysis may not be normally distributed, the p-values can also be calculated by finding the rank of the observed <span class="math inline">\(I_i\)</span> among the rank-based simulated values, and looking up the probability value from the uniform distribution taking the <code>alternative=</code> choice into account:</p>
 <div class="cell">
@@ -673,7 +673,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pva</span>() <span class="ot">-&gt;</span> pvsp</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pvsp, <span class="dv">2</span>, f)</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       none        FDR         BY Bonferroni </span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        394        125          0          0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        391        127          0          0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now the <code>"BY"</code> and Bonferroni counts of <em>interesting</em> locations are zero with 9999 samples, but may be recovered by increasing the sample count to 999999 if required; the FDR adjustment and <em>interesting</em> cutoff 0.005 yields about 5% locations.</p>
 <div class="cell">
@@ -701,7 +701,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localmoranPr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localmoranPr-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.3: Local Moran’s I FDR probability values: left upper panel: analytical conditional p-values; right upper panel: permutation standard deviate conditional p-values; left lower panel: permutation rank conditional p-values, first-round turnout, row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.3: Local Moran’s I FDR probability values: left upper panel: analytical conditional p-values; right upper panel: permutation standard deviate conditional p-values; left lower panel: permutation rank conditional p-values, first-round turnout, row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -729,11 +729,11 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># High-High                  978               96</span></span>
 <span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;NA&gt;                         0             2346</span></span>
 <span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#           Permutation std. cond. Permutation rank cond.</span></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Low-Low                       53                     55</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Low-Low                       53                     56</span></span>
 <span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># High-Low                       0                      0</span></span>
 <span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Low-High                       0                      0</span></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co"># High-High                     96                     70</span></span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;NA&gt;                        2346                   2370</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co"># High-High                     95                     71</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;NA&gt;                        2347                   2368</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pol_pres15<span class="sc">$</span>hs_an_q <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(pol_pres15<span class="sc">$</span>hs_an_q)</span>
@@ -757,7 +757,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-Iihotspots" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-Iihotspots-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.4: Local Moran's I FDR hotspot cluster core maps <span class="math inline">\(\alpha = 0.005\)</span>: left upper panel: analytical conditional p-values; right upper panel: permutation standard deviate conditional p-values; left lower panel: permutation rank conditional p-values, first-round turnout, row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.4: Local Moran's I FDR hotspot cluster core maps <span class="math inline">\(\alpha = 0.005\)</span>: left upper panel: analytical conditional p-values; right upper panel: permutation standard deviate conditional p-values; left lower panel: permutation rank conditional p-values, first-round turnout, row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -816,7 +816,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localmoranHsad" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localmoranHsad-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.5: Local Moran's I FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left upper panel: permutation rank conditional p-values; right upper panel: null (intercept only) model saddlepoint p-values; left lower panel: weighted null (intercept only) model saddlepoint p-values; right lower panel: weighted types model saddlepoint p-values, for first-round turnout, row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.5: Local Moran's I FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left upper panel: permutation rank conditional p-values; right upper panel: null (intercept only) model saddlepoint p-values; left lower panel: weighted null (intercept only) model saddlepoint p-values; right lower panel: weighted types model saddlepoint p-values, for first-round turnout, row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -861,7 +861,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localmoranHsadex" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localmoranHsadex-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.6: Local Moran’s I FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: weighted types model saddlepoint p-values; right panel: weighted types model exact p-values, for first-round turnout, row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.6: Local Moran’s I FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: weighted types model saddlepoint p-values; right panel: weighted types model exact p-values, for first-round turnout, row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -950,7 +950,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localIGC" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localIGC-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.7: FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: local Moran's <span class="math inline">\(I_i\)</span>; centre panel: local Getis-Ord <span class="math inline">\(G_i\)</span>; right panel: local Geary's <span class="math inline">\(C_i\)</span>; first-round turnout, row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.7: FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: local Moran's <span class="math inline">\(I_i\)</span>; centre panel: local Getis-Ord <span class="math inline">\(G_i\)</span>; right panel: local Geary's <span class="math inline">\(C_i\)</span>; first-round turnout, row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -1011,7 +1011,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localCmulti" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localCmulti-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.8: FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: local <span class="math inline">\(C_i\)</span>, first-round turnout; centre panel: local <span class="math inline">\(C_i\)</span>, second-round turnout; right panel: local multivariate <span class="math inline">\(C_i\)</span>, both turnout rounds; row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.8: FDR hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.005\)</span>: left panel: local <span class="math inline">\(C_i\)</span>, first-round turnout; centre panel: local <span class="math inline">\(C_i\)</span>, second-round turnout; right panel: local multivariate <span class="math inline">\(C_i\)</span>, both turnout rounds; row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -1023,14 +1023,15 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">addNA</span>(pol_pres15<span class="sc">$</span>hs_MvC))</span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                      </span></span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                       Positive &lt;NA&gt;</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   High-High:High-High       74    0</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:High-High              55   16</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   Low-Low:Low-Low           24    0</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:Low-Low                53   11</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   High-High:High-High       81    0</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:High-High              41   27</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   Low-Low:Low-Low           25    0</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:Low-Low                43   11</span></span>
 <span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:Other Positive          1    0</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   High-High:NA              13    4</span></span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   Low-Low:NA                 8    3</span></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:NA                     73 2160</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:Negative                0    1</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   High-High:NA              15    0</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   Low-Low:NA                11    3</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   NA:NA                     36 2200</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For these permutation outcomes, 47 observations in the multivariate case are found <em>interesting</em> where neither of the univariate <span class="math inline">\(C_i\)</span> were found <em>interesting</em> (FDR, cutoff <span class="math inline">\(0.005\)</span>). Almost all of the observations found <em>interesting</em> in both first and second round, are also interesting in the multivariate case, but outcomes are more mixed when observations were only found interesting in one of the two rounds.</p>
 </section>
@@ -1081,7 +1082,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Pr(folded) Sim"</span>)], <span class="dv">2</span>, range)</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      Pr(z != E(Ci)) Sim Pr(folded) Sim</span></span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]             0.0002         0.0001</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]             0.9988         0.4994</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]             0.9990         0.4995</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This means that the cutoff corresponding to <span class="math inline">\(0.005\)</span> over <span class="math inline">\([0, 1]\)</span> is <span class="math inline">\(0.0025\)</span> over <span class="math inline">\([0, 0.5]\)</span>:</p>
 <div class="cell">
@@ -1101,9 +1102,9 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">rgeoda =</span> <span class="fu">addNA</span>(pol_pres15<span class="sc">$</span>geoda_mvc)))</span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#           rgeoda</span></span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># spdep      Positive &lt;NA&gt;  Sum</span></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   Positive      292    9  301</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   &lt;NA&gt;           35 2159 2194</span></span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   Sum           327 2168 2495</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   Positive      249    4  253</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   &lt;NA&gt;           75 2167 2242</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   Sum           324 2171 2495</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details>
@@ -1124,7 +1125,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <div id="fig-localCmultix" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="15-Measures_files/figure-html/fig-localCmultix-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15.9: FDR local multivariate <span class="math inline">\(C_i\)</span> hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.0025\)</span> over <span class="math inline">\([0, 0.5]\)</span>: left panel: <strong>spdep</strong>, both turnout rounds; right panel: <strong>rgeoda</strong>, both turnout rounds; row-standardised neighbours</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15.9: FDR local multivariate <span class="math inline">\(C_i\)</span> hotspot cluster core maps, two-sided, <em>interesting</em> cutoff <span class="math inline">\(\alpha = 0.0025\)</span> over <span class="math inline">\([0, 0.5]\)</span>: left panel: <strong>spdep</strong>, both turnout rounds; right panel: <strong>rgeoda</strong>, both turnout rounds; row-standardised neighbours</figcaption>
 </figure>
 </div>
 </div>
@@ -1140,7 +1141,6 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <li>Why is false discovery rate adjustment recommended for local measures of spatial autocorrelation?</li>
 <li>Compare the local Moran’s <span class="math inline">\(I_i\)</span> standard deviate values for the simulated data from exercise 2 (above) for the analytical conditional approach, and saddlepoint approximation. Consider the advantages and disadvantages of the saddlepoint approximation approach.</li>
 </ol>
-<div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -1151,106 +1151,105 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
   ga('send', 'pageview');
 
 </script>
-</div>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-anselin:95" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-anselin:95" class="csl-entry" role="listitem">
 Anselin, Luc. 1995. <span>“<span class="nocase">Local indicators of spatial association - LISA</span>.”</span> <em><span>Geographical Analysis</span></em> <span>27</span> (<span>2</span>): 93–115.
 </div>
-<div id="ref-anselin:96" class="csl-entry" role="doc-biblioentry">
+<div id="ref-anselin:96" class="csl-entry" role="listitem">
 ———. 1996. <span>“The <span>Moran</span> Scatterplot as an <span>ESDA</span> Tool to Assess Local Instability in Spatial Association.”</span> In <em>Spatial Analytical Perspectives on <span>GIS</span></em>, edited by M. M. Fischer, H. J. Scholten, and D. Unwin, 111–25. London: Taylor &amp; Francis.
 </div>
-<div id="ref-https://doi.org/10.1111/gean.12164" class="csl-entry" role="doc-biblioentry">
+<div id="ref-https://doi.org/10.1111/gean.12164" class="csl-entry" role="listitem">
 ———. 2019. <span>“A Local Indicator of Multivariate Spatial Association: Extending <span>G</span>eary’s c.”</span> <em>Geographical Analysis</em> 51 (2): 133–50. <a href="https://doi.org/10.1111/gean.12164">https://doi.org/10.1111/gean.12164</a>.
 </div>
-<div id="ref-https://doi.org/10.1111/gean.12311" class="csl-entry" role="doc-biblioentry">
+<div id="ref-https://doi.org/10.1111/gean.12311" class="csl-entry" role="listitem">
 Anselin, Luc, Xun Li, and Julia Koschinsky. 2021. <span>“<span>GeoDa</span>, from the Desktop to an Ecosystem for Exploring Spatial Data.”</span> <em>Geographical Analysis</em>. <a href="https://doi.org/10.1111/gean.12311">https://doi.org/10.1111/gean.12311</a>.
 </div>
-<div id="ref-assuncao+reis:99" class="csl-entry" role="doc-biblioentry">
+<div id="ref-assuncao+reis:99" class="csl-entry" role="listitem">
 Assunção, R. M., and E. A. Reis. 1999. <span>“A New Proposal to Adjust <span>M</span>oran’s <span><span class="math inline">\(I\)</span></span> for Population Density.”</span> <em>Statistics in Medicine</em> 18: 2147–62.
 </div>
-<div id="ref-benjaminetal:18" class="csl-entry" role="doc-biblioentry">
+<div id="ref-benjaminetal:18" class="csl-entry" role="listitem">
 Benjamin, Daniel J., James O. Berger, Johannesson Magnus, Brian A. Nosek, Wagenmakers E-J, Richard Berk, Kenneth A. Bollen, et al. 2018. <span>“Redefine Statistical Significance.”</span> <em>Nature Human Behaviour</em> 2 (1): 6–10.
 </div>
-<div id="ref-fdr-BH" class="csl-entry" role="doc-biblioentry">
+<div id="ref-fdr-BH" class="csl-entry" role="listitem">
 Benjamini, Yoav, and Yosef Hochberg. 1995. <span>“Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing.”</span> <em>Journal of the Royal Statistical Society. Series B (Methodological)</em> 57 (1): 289–300. <a href="https://doi.org/10.1111/j.2517-6161.1995.tb02031.x">https://doi.org/10.1111/j.2517-6161.1995.tb02031.x</a>.
 </div>
-<div id="ref-10.1214/aos/1013699998" class="csl-entry" role="doc-biblioentry">
+<div id="ref-10.1214/aos/1013699998" class="csl-entry" role="listitem">
 Benjamini, Yoav, and Daniel Yekutieli. 2001. <span>“<span class="nocase">The control of the false discovery rate in multiple testing under dependency</span>.”</span> <em>The Annals of Statistics</em> 29 (4): 1165–88. <a href="https://doi.org/10.1214/aos/1013699998">https://doi.org/10.1214/aos/1013699998</a>.
 </div>
-<div id="ref-bivand:22" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivand:22" class="csl-entry" role="listitem">
 Bivand, Roger. 2022a. <span>“R Packages for Analyzing Spatial Data: A Comparative Case Study with Areal Data.”</span> <em>Geographical Analysis</em> 54 (3): 488–518. <a href="https://doi.org/10.1111/gean.12319">https://doi.org/10.1111/gean.12319</a>.
 </div>
-<div id="ref-R-spdep" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-spdep" class="csl-entry" role="listitem">
 ———. 2022b. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics</em>.
 </div>
-<div id="ref-bivandetal:09" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bivandetal:09" class="csl-entry" role="listitem">
 Bivand, Roger, W. Müller, and M. Reder. 2009. <span>“Power Calculations for Global and Local <span>M</span>oran’s <span><span class="math inline">\(I\)</span></span>.”</span> <em>Computational Statistics and Data Analysis</em> 53: 2859–72.
 </div>
-<div id="ref-Bivand2018" class="csl-entry" role="doc-biblioentry">
+<div id="ref-Bivand2018" class="csl-entry" role="listitem">
 Bivand, Roger, and David W. S. Wong. 2018. <span>“Comparing Implementations of Global and Local Indicators of Spatial Association.”</span> <em>TEST</em> 27 (3): 716–48. <a href="https://doi.org/10.1007/s11749-018-0599-x">https://doi.org/10.1007/s11749-018-0599-x</a>.
 </div>
-<div id="ref-BRODY200064" class="csl-entry" role="doc-biblioentry">
+<div id="ref-BRODY200064" class="csl-entry" role="listitem">
 Brody, Howard, Michael Russell Rip, Peter Vinten-Johansen, Nigel Paneth, and Stephen Rachman. 2000. <span>“Map-Making and Myth-Making in <span>B</span>road <span>S</span>treet: The <span>L</span>ondon Cholera Epidemic, 1854.”</span> <em>The Lancet</em> 356 (9223): 64–68. <a href="https://doi.org/10.1016/S0140-6736(00)02442-9">https://doi.org/10.1016/S0140-6736(00)02442-9</a>.
 </div>
-<div id="ref-https://doi.org/10.1111/j.0016-7363.2006.00682.x" class="csl-entry" role="doc-biblioentry">
+<div id="ref-https://doi.org/10.1111/j.0016-7363.2006.00682.x" class="csl-entry" role="listitem">
 Caldas de Castro, Marcia, and Burton H. Singer. 2006. <span>“Controlling the False Discovery Rate: A New Application to Account for Multiple and Dependent Tests in Local Statistics of Spatial Association.”</span> <em>Geographical Analysis</em> 38 (2): 180–208. <a href="https://doi.org/10.1111/j.0016-7363.2006.00682.x">https://doi.org/10.1111/j.0016-7363.2006.00682.x</a>.
 </div>
-<div id="ref-cliff+ord:73" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cliff+ord:73" class="csl-entry" role="listitem">
 Cliff, A. D., and J. K. Ord. 1973. <em>Spatial Autocorrelation</em>. London: Pion.
 </div>
-<div id="ref-cliff+ord:81" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cliff+ord:81" class="csl-entry" role="listitem">
 ———. 1981. <em>Spatial Processes</em>. London: Pion.
 </div>
-<div id="ref-duncanetal61" class="csl-entry" role="doc-biblioentry">
+<div id="ref-duncanetal61" class="csl-entry" role="listitem">
 Duncan, O. D., R. P. Cuzzort, and B. Duncan. 1961. <em>Statistical Geography: Problems in Analyzing Areal Data</em>. Glencoe, IL: Free Press.
 </div>
-<div id="ref-geary:54" class="csl-entry" role="doc-biblioentry">
+<div id="ref-geary:54" class="csl-entry" role="listitem">
 Geary, R. C. 1954. <span>“The Contiguity Ratio and Statistical Mapping.”</span> <em>The Incorporated Statistician</em> 5: 115–45.
 </div>
-<div id="ref-getis+ord:92" class="csl-entry" role="doc-biblioentry">
+<div id="ref-getis+ord:92" class="csl-entry" role="listitem">
 Getis, A., and J. K. Ord. 1992. <span>“The Analysis of Spatial Association by the Use of Distance Statistics.”</span> <em>Geographical Analysis</em> 24 (2): 189–206.
 </div>
-<div id="ref-getis+ord:96" class="csl-entry" role="doc-biblioentry">
+<div id="ref-getis+ord:96" class="csl-entry" role="listitem">
 ———. 1996. <span>“Local Spatial Statistics: An Overview.”</span> In <em>Spatial Analysis: Modelling in a GIS Environment</em>, edited by P. Longley and M Batty, 261–77. Cambridge: GeoInformation International.
 </div>
-<div id="ref-rgeoda-package" class="csl-entry" role="doc-biblioentry">
+<div id="ref-rgeoda-package" class="csl-entry" role="listitem">
 Li, Xun, and Luc Anselin. 2021. <em>Rgeoda: <span>R</span> Library for Spatial Data Analysis</em>. <a href="https://CRAN.R-project.org/package=rgeoda">https://CRAN.R-project.org/package=rgeoda</a>.
 </div>
-<div id="ref-R-rgeoda" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-rgeoda" class="csl-entry" role="listitem">
 ———. 2022. <em>Rgeoda: R Library for Spatial Data Analysis</em>. <a href="https://CRAN.R-project.org/package=rgeoda">https://CRAN.R-project.org/package=rgeoda</a>.
 </div>
-<div id="ref-McMillen:2003" class="csl-entry" role="doc-biblioentry">
+<div id="ref-McMillen:2003" class="csl-entry" role="listitem">
 McMillen, Daniel P. 2003. <span>“Spatial Autocorrelation or Model Misspecification?”</span> <em>International Regional Science Review</em> 26: 208–17.
 </div>
-<div id="ref-moran48" class="csl-entry" role="doc-biblioentry">
+<div id="ref-moran48" class="csl-entry" role="listitem">
 Moran, P. A. P. 1948. <span>“The Interpretation of Statistical Maps.”</span> <em>Journal of the Royal Statistical Society, Series B (Methodological)</em> 10 (2): 243–51.
 </div>
-<div id="ref-10.2307/143140" class="csl-entry" role="doc-biblioentry">
+<div id="ref-10.2307/143140" class="csl-entry" role="listitem">
 Olsson, Gunnar. 1970. <span>“Explanation, Prediction, and Meaning Variance: An Assessment of Distance Interaction Models.”</span> <em>Economic Geography</em> 46: 223–33. <a href="https://doi.org/10.2307/143140">https://doi.org/10.2307/143140</a>.
 </div>
-<div id="ref-ord+getis:01" class="csl-entry" role="doc-biblioentry">
+<div id="ref-ord+getis:01" class="csl-entry" role="listitem">
 Ord, J. K., and A. Getis. 2001. <span>“Testing for Local Spatial Autocorrelation in the Presence of Global Autocorrelation.”</span> <em>Journal of Regional Science</em> 41 (3): 411–32.
 </div>
-<div id="ref-sauer_oshan_rey_wolf_2021" class="csl-entry" role="doc-biblioentry">
+<div id="ref-sauer_oshan_rey_wolf_2021" class="csl-entry" role="listitem">
 Sauer, Jeffery, Taylor Oshan, Sergio Rey, and Levi John Wolf. 2021. <span>“The Importance of Null Hypotheses: Understanding Differences in Local Moran’s <span class="math inline">\(I_i\)</span> Under Heteroskedasticity.”</span> <em>Geographical Analysis</em>. <a href="https://doi.org/10.1111/gean.12304">https://doi.org/10.1111/gean.12304</a>.
 </div>
-<div id="ref-schabenberger+gotway:2005" class="csl-entry" role="doc-biblioentry">
+<div id="ref-schabenberger+gotway:2005" class="csl-entry" role="listitem">
 Schabenberger, O., and C. A. Gotway. 2005. <em>Statistical Methods for Spatial Data Analysis</em>. Boca Raton/London: Chapman &amp; Hall/CRC.
 </div>
-<div id="ref-sokaletal:98" class="csl-entry" role="doc-biblioentry">
+<div id="ref-sokaletal:98" class="csl-entry" role="listitem">
 Sokal, R. R, N. L. Oden, and B. A. Thomson. 1998. <span>“Local Spatial Autocorrelation in a Biological Model.”</span> <em>Geographical Analysis</em> 30: 331–54.
 </div>
-<div id="ref-tiefelsdorf:02" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tiefelsdorf:02" class="csl-entry" role="listitem">
 Tiefelsdorf, M. 2002. <span>“The Saddlepoint Approximation of <span>Moran</span>’s <span>I</span> and Local <span>Moran</span>’s <span class="math inline">\({I}_i\)</span> Reference Distributions and Their Numerical Evaluation.”</span> <em>Geographical Analysis</em> 34: 187–206.
 </div>
-<div id="ref-10.2307/143141" class="csl-entry" role="doc-biblioentry">
+<div id="ref-10.2307/143141" class="csl-entry" role="listitem">
 Tobler, W. R. 1970. <span>“A Computer Movie Simulating Urban Growth in the Detroit Region.”</span> <em>Economic Geography</em> 46: 234–40. <a href="https://doi.org/10.2307/143141">https://doi.org/10.2307/143141</a>.
 </div>
-<div id="ref-upton+fingleton:85" class="csl-entry" role="doc-biblioentry">
+<div id="ref-upton+fingleton:85" class="csl-entry" role="listitem">
 Upton, G., and B. Fingleton. 1985. <em>Spatial Data Analysis by Example: Point Pattern and Qualitative Data</em>. New York: Wiley.
 </div>
 </div>
@@ -1284,9 +1283,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1402,6 +1415,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
