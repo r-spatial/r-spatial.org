@@ -1,0 +1,94 @@
+---
+title: "First Workshop on Spatial Data Science across Languages"
+format: html
+editor: visual
+---
+
+## Date
+Sep 18-19, 2023
+
+## Goals
+
+Spatial data science is concerned with finding answers to spatial
+questions on the basis of available data, and communicating that
+effort. Scripting languages are often used for this to make the
+act of communication easier. Currently, the dominant scripting
+languages are **Python**, **Julia** and **R** (in no particular
+order). 
+
+Differences between the APIs and implementations found in the three
+languages may come from the differences between the associated
+communities, the history and the goals of the language involved,
+but also from a lack of communication between the communities.
+Commonalities include the reuse by all three languages of existing
+C++ components like the OSGEO libraries GDAL, PROJ and GEOS, or the
+s2geometry or h3 libraries. 
+
+This first Workshop on _Spatial Data Science across Languages_ will
+look at differences and commonalities in the approaches taken by
+the different languages.  Particular topics that will be addressed
+include but may not be limited to
+
+* Vector data cubes
+* Vector data encodings (WKB, geoarrow, geoparquet, CF conventions)
+* Spherical geometry
+* Packaging with complex dependencies like GDAL/PROJ/GEOS/…
+* Large data cubes, APIs
+* Interoperability and file formats, geozarr, geoarrow/geoparquet
+* Aligning teaching materials across languages, see e.g.
+    * https://edsbook.org/welcome.html
+    * https://r-spatial.org/python/
+* Community dynamics: openness, DEI, retirement, …
+
+The goal of the workshop is to attract maximally 30 attendees to
+discuss these issues, and plan for future collaborations.
+
+## Venue
+
+The workshop will be held Sept 18 & 19, 2023, at the
+[Institute for Geoinformatics of the University of
+Münster](https://ifgi.uni-muenster.de/en).
+
+The address is: 
+
+```
+Heisenbergstrasse 2
+48149 Münster, Germany
+```
+([google maps](https://goo.gl/maps/o4XRcakq37y8cjJX8))
+
+## Confirmed attendees
+
+* Martin Fleischmann
+* Benoît Bovy 
+* Joris Vandenbossche
+* Rafael Schouten
+* Fabian Gans
+* Carsten Kessler
+* Dewey Dunnington
+* Edzer Pebesma
+* Marius Appel
+* Anita Graser (online)
+* Robert Hijmans (online)
+
+## Local committee
+
+* Yomna Eid
+* Edzer Pebesma
+
+## Program
+
+t.b.d.
+
+## Registration Fee
+
+t.b.d.
+
+## Hotel suggestions
+
+t.b.d.
+
+## Financial support
+
+Requests for financial support (travel, hotel) can be addressed at
+[Edzer Pebesma](mailto:edzer.pebesma@uni-muenster.de).
