@@ -1,5 +1,5 @@
 ---
-title: "First Workshop on Spatial Data Science across Languages"
+title: "First Workshop on Spatial Data Science across Languages (SDSL)"
 format: html
 editor: visual
 ---
