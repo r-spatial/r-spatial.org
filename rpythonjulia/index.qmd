@@ -1,5 +1,5 @@
 ---
-title: "First Workshop on Spatial Data Science across Languages (SDSL)"
+title: "Spatial Data Science across Languages (SDSL)"
 format: html
 editor: visual
 ---
@@ -24,10 +24,10 @@ Commonalities include the reuse by all three languages of existing
 C++ components like the OSGEO libraries GDAL, PROJ and GEOS, or the
 s2geometry or h3 libraries. 
 
-This first Workshop on _Spatial Data Science across Languages_ will
-look at differences and commonalities in the approaches taken by
-the different languages.  Particular topics that will be addressed
-include but may not be limited to
+This first Workshop on _Spatial Data Science across Languages_
+(SDSL) will look at differences and commonalities in the approaches
+taken by the different languages.  Particular topics that will be
+addressed include but may not be limited to
 
 * Vector data cubes
 * Vector data encodings (WKB, geoarrow, geoparquet, CF conventions)
