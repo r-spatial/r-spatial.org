@@ -46,8 +46,9 @@ addressed include but may not be limited to
 * Large data cubes, APIs
 * Interoperability and file formats
 * Aligning teaching materials across languages, see e.g.
-    * https://edsbook.org/welcome.html
-    * https://r-spatial.org/python/
+    * [Environmental Data Science book](https://edsbook.org/welcome.html)
+	* [Spatial Data Science: With applications in R and Python](https://r-spatial.org/python/)
+    * [geocompx](https://geocompx.org/): [Geocomputation with R](https://r.geocompx.org/), [Geocomputation with Python](https://py.geocompx.org/)
 * Community dynamics: openness, DEI, retirement, …
 
 The goal of the workshop is to attract maximally 30 on-site attendees
