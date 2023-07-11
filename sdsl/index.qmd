@@ -59,21 +59,21 @@ Heisenbergstrasse 2
 
 ## Confirmed attendees
 
-* Martin Fleischmann
-* Benoît Bovy 
-* Joris Vandenbossche
-* Rafael Schouten
-* Fabian Gans
-* Carsten Kessler
-* Dewey Dunnington
-* Edzer Pebesma
-* Marius Appel
-* Anita Graser (online)
-* Robert Hijmans (online)
+* [Martin Fleischmann](https://martinfleischmann.net/)
+* [Benoît Bovy](https://github.com/benbovy)
+* [Joris Vandenbossche](https://jorisvandenbossche.github.io/pages/about.html)
+* [Rafael Schouten](https://github.com/rafaqz)
+* [Fabian Gans](https://www.bgc-jena.mpg.de/person/fgans/4777761)
+* [Carsten Kessler](https://www.hochschule-bochum.de/fbg/team/kessler/)
+* [Dewey Dunnington](https://dewey.dunnington.ca/)
+* [Edzer Pebesma](https://www.uni-muenster.de/Geoinformatics/institute/staff/index.php/119/Edzer_Pebesma)
+* [Marius Appel](https://appel.staff.ifgi.de/)
+* [Anita Graser](https://anitagraser.com/about/) (online)
+* [Robert Hijmans](https://desp.ucdavis.edu/people/robert-j-hijmans) (online)
 
 ## Local committee
 
-* Yomna Eid
+* [Yomna Eid](https://www.uni-muenster.de/Geoinformatics/en/institute/staff/index.php/413/Yomna_Eid)
 * Edzer Pebesma
 
 ## Program
