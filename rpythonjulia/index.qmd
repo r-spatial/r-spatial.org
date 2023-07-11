@@ -30,11 +30,11 @@ taken by the different languages.  Particular topics that will be
 addressed include but may not be limited to
 
 * Vector data cubes
-* Vector data encodings (WKB, geoarrow, geoparquet, CF conventions)
+* Vector data encodings (WKB, geoarrow/geoparquet, CF conventions)
 * Spherical geometry
 * Packaging with complex dependencies like GDAL/PROJ/GEOS/…
 * Large data cubes, APIs
-* Interoperability and file formats, geozarr, geoarrow/geoparquet
+* Interoperability and file formats
 * Aligning teaching materials across languages, see e.g.
     * https://edsbook.org/welcome.html
     * https://r-spatial.org/python/
@@ -82,7 +82,11 @@ Heisenbergstrasse 2
 
 ## Registration Fee
 
-75 euro (regular), 25 euro (student). Registration and payment instructions to follow. 
+* 150 euro (industry)
+* 75 euro (academic) 
+* 25 euro (student)
+
+Registration and payment instructions will follow. 
 
 ## Hotel suggestions
 
