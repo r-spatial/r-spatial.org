@@ -82,7 +82,7 @@ t.b.d.
 
 ## Registration Fee
 
-t.b.d.
+75 euro (regular), 25 euro (student). Registration and payment instructions to follow. 
 
 ## Hotel suggestions
 
@@ -90,5 +90,5 @@ t.b.d.
 
 ## Financial support
 
-Requests for financial support (travel, hotel) can be addressed at
+Requests for financial support (waving registration fee, travel, hotel) can be addressed at
 [Edzer Pebesma](mailto:edzer.pebesma@uni-muenster.de).
