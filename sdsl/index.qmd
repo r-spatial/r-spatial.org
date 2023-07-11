@@ -117,8 +117,12 @@ t.b.d.
 Requests for financial support (waving registration fee, travel, hotel) can be addressed at
 [Edzer Pebesma](mailto:edzer.pebesma@uni-muenster.de).
 
+::: {layout-ncol=3}
+
 [![](https://www.nfdi4earth.de/templates/nfdi4earth/images/NFDI4Earth_logo.png){width=200}](https://www.nfdi4earth.de/)
 
 [![](Logo_ifgi_short.png){width=200}](https://www.uni-muenster.de/Geoinformatics/en/index.html)
 
 [![](https://www.uni-muenster.de/imperia/md/images/allgemein/farbunabhaengig/wwu.svg){width=200}](https://www.uni-muenster.de/en/)
+
+:::
