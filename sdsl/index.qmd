@@ -61,6 +61,8 @@ Heisenbergstrasse 2
 ```
 ([google maps](https://goo.gl/maps/o4XRcakq37y8cjJX8))
 
+Room numbers: 242, 323, 201
+
 ## Confirmed attendees
 
 * [Martin Fleischmann](https://martinfleischmann.net/)
@@ -108,3 +110,9 @@ t.b.d.
 
 Requests for financial support (waving registration fee, travel, hotel) can be addressed at
 [Edzer Pebesma](mailto:edzer.pebesma@uni-muenster.de).
+
+[![](https://www.nfdi4earth.de/templates/nfdi4earth/images/NFDI4Earth_logo.png){width=200}](https://www.nfdi4earth.de/)
+
+[![](Logo_ifgi_short.png){width=200}](https://www.uni-muenster.de/Geoinformatics/en/index.html)
+
+[![](https://www.uni-muenster.de/imperia/md/images/allgemein/farbunabhaengig/wwu.svg){width=200}](https://www.uni-muenster.de/en/)
