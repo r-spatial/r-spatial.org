@@ -5,7 +5,7 @@ editor: visual
 ---
 
 ## Date
-Sep 18-19, 2023
+Sept 18-19, 2023
 
 ## Goals
 
