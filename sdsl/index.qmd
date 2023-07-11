@@ -40,8 +40,8 @@ addressed include but may not be limited to
     * https://r-spatial.org/python/
 * Community dynamics: openness, DEI, retirement, …
 
-The goal of the workshop is to attract maximally 30 attendees to
-discuss these issues, and plan for future collaborations.
+The goal of the workshop is to attract maximally 30 on-site attendees
+to discuss these issues, and plan for future collaborations.
 
 ## Venue
 
@@ -80,13 +80,21 @@ Heisenbergstrasse 2
 
 * social event: informal workshop dinner Mon Sept 18, 19:00 (included)
 
-## Registration Fee
+## Registration 
+
+Please apply for on-site participation by filling in [this
+form](https://forms.gle/dSRzhq6myanZjyUB6).  Applying does not
+guarantee acceptance; when too many people apply the organizers
+will have to make a selection. When you applied, you will receive a
+notification by Aug 11 about whether your application was accepted
+(with instructions for paying the registration fee), or rejected
+due to capacity constraints. (If you cannot
+
+Registration fees are:
 
 * 150 euro (industry)
 * 75 euro (academic) 
 * 25 euro (student)
-
-Registration and payment instructions will follow. 
 
 ## Hotel suggestions
 
