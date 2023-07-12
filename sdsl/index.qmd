@@ -104,11 +104,18 @@ notification by Aug 11 about whether your application was accepted
 (with instructions for paying the registration fee), or rejected
 due to capacity constraints.
 
-Registration fees are:
+Registration fees for on-site participation:
 
 * 150 euro (industry)
 * 75 euro (academic) 
 * 25 euro (student)
+
+## On-line attendence
+
+On-line attendence will be possible and realized through a regular
+zoom session (no webinar). Only one room mic + camera installation
+will be available per session room. Sessions will take place 9:00 -
+17:00 CEST.
 
 ## Hotel suggestions
 
