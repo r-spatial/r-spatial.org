@@ -1,5 +1,5 @@
 ---
 layout: page
-title: Spatial Data Science across Languages (SDSL)
+title: SDSL
 permalink: sdsl/
 ---
