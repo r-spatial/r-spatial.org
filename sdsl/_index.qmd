@@ -146,8 +146,8 @@ Tips:
 ## Program
 
 
-| Day/time        | topic                                                         |
-|-----------------|---------------------------------------------------------------|
+| Day/time           | topic                                                         |
+|--------------------|---------------------------------------------------------------|
 | **Mon, Sep 18** |                                                               |
 |9:00-10:30 | Introduction round (30 mins), scope, workshop program and goals, outcomes |
 |10:30-11:00| Coffee/tea (ground floor) |
@@ -168,6 +168,7 @@ Tips:
 |15:30-17:00| Statistical models: neighbourhood lists, spatial weights, covariance functions; future joint activities; closing |
 | | |
 
+: {tbl-colwidths="[20,80]"}
 
 #### Sponsored by
 
