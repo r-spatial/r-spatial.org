@@ -151,19 +151,20 @@ Tips:
 | **Mon, Sep 18** |                                                               |
 |9:00-10:30 | Introduction round (30 mins), scope, workshop program and goals, outcomes |
 |10:30-11:00| Coffee/tea (ground floor) |
-|11:00-12:30| Vector data formats, incl geoarrow/geoparque |
+|11:00-12:30| Vector data formats, incl [geoarrow](https://github.com/geoarrow/geoarrow)/[geoparquet](https://github.com/opengeospatial/geoparquet/) |
 |12:30-13:30| Lunch break (ground floor) |
-|13:30-15:00| Handling geodetic coordinates, handling coordinate reference systems |
+|13:30-15:00| Handling [geodetic coordinates](https://r-spatial.org/book/02-Spaces.html#spherical-or-ellipsoidal-coordinates), handling [coordinate reference systems](https://en.wikipedia.org/wiki/Spatial_reference_system); plotting; what is assumed when [no CRS is specified](https://github.com/r-spatial/sf/blob/main/R/read.R#L471-L474)? [1](https://github.com/r-spatial/sf/issues/2049) |
 |15:00-15:30| Coffee/tea |
-|15:30-17:00| Discrete global grids; datacubes, pyramids, geozarr  |
+|15:30-17:00| [Discrete global grids](https://en.wikipedia.org/wiki/Discrete_global_grid); [datacubes](https://r-spatial.org/book/06-Cubes.html), pyramids, [geozarr](https://github.com/zarr-developers/geozarr-spec)  |
 |           | |
 |19:00      | Informal dinner (included) at [Brasserie](https://www.deine-brasserie.de/brasserie-muenster) ([map](https://goo.gl/maps/XavTYHtaPJ9qVd3dA)) |
 |**Tue, Sep 19**|
-|9:00-10:30 | Attribute-geometry relationships, extracting attributes from polygons at point locations, spatially extensive/intensive variables, area-weighted interpolation, merge & split rules |
+|9:00-10:30 | Extracting attributes from polygons at point locations: [attribute-geometry relationship](https://r-spatial.org/book/05-Attributes.html#sec-agr),
+[spatially extensive/intensive variables, area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted), OGR field domain and [merge & split rules](https://gdal.org/doxygen/classOGRFieldDomain.html) |
 |10:30-11:00| Coffee/tea |
 |11:00-12:30| Packaging (GDAL/GEOS/PROJ/ … upstream dependencies)|
 |12:30-13:30| Lunch break |
-|13:30-15:00| Educational resources, multi-language resources and case studies;  Community: user vs. developer community, community management and building,  retirement,  diversity and equity |
+|13:30-15:00| Educational resources, multi-language resources [1](https://r-spatial.org/python/), [2](https://geocompx.org/) and case studies [3](https://doi.org/10.1111/gean.12319);  Community: user vs. developer community, community management and building,  [retirement/evolution](https://github.com/r-spatial/evolution),  diversity and equity |
 |15:00-15:30| Coffee/tea
 |15:30-17:00| Statistical models: neighbourhood lists, spatial weights, covariance functions; future joint activities; closing |
 | | |
