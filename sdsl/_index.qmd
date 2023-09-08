@@ -70,7 +70,7 @@ Heisenbergstrasse 2
 
 Room number: 242 (second floor, right - NE corner)
 
-## Confirmed attendees
+## Program committee
 
 * [Martin Fleischmann](https://martinfleischmann.net/)
 * [Benoît Bovy](https://github.com/benbovy)
