@@ -68,7 +68,7 @@ Heisenbergstrasse 2
 ```
 ([google maps](https://goo.gl/maps/o4XRcakq37y8cjJX8))
 
-Room numbers: 242, 323, 201
+Room number: 242 (second floor, right - NE corner)
 
 ## Confirmed attendees
 
@@ -117,6 +117,7 @@ zoom session (no webinar). Only one room mic + camera installation
 will be available per session room. Sessions will take place 9:00 -
 17:00 CEST. On-line participation is free of charge. 
  
+<!--
 ## Hotel suggestions
 
 Some suggestions are: 
@@ -140,10 +141,35 @@ Tips:
 * look for hotels not too far from the station (in case you arrive there) and not too far from the institute.
 * if you are comfortable with riding a bicycle, book a hotel that can rent you a bike and reserve one: Muenster is a bike city. The bike station at the railway station also [rents out bikes](https://www.radstation.de/mieten#c76) for 9 euro per day, make sure to book if you want that.
 
-## Financial support
+-->
 
-Requests for financial support (waving registration fee, travel, hotel) can be addressed at
-[Edzer Pebesma](mailto:edzer.pebesma@uni-muenster.de).
+## Program
+
+
+| Day/time        | topic                                                         |
+|-----------------|---------------------------------------------------------------|
+| **Mon, Sep 18** |                                                               |
+|9:00-10:30 | Introduction round (30 mins), scope, workshop program and goals, outcomes |
+|10:30-11:00| Coffee/tea (ground floor) |
+|11:00-12:30| Vector data formats, incl geoarrow/geoparque |
+|12:30-13:30| Lunch break (ground floor) |
+|13:30-15:00| Handling geodetic coordinates, handling coordinate reference systems |
+|15:00-15:30| Coffee/tea |
+|15:30-17:00| Discrete global grids; datacubes, pyramids, geozarr  |
+|           | |
+|19:00      | Informal dinner (included) at [Brasserie](https://www.deine-brasserie.de/brasserie-muenster) ([map](https://goo.gl/maps/XavTYHtaPJ9qVd3dA)) |
+|**Tue, Sep 19**|
+|9:00-10:30 | Attribute-geometry relationships, extracting attributes from polygons at point locations, spatially extensive/intensive variables, area-weighted interpolation, merge & split rules |
+|10:30-11:00| Coffee/tea |
+|11:00-12:30| Packaging (GDAL/GEOS/PROJ/ … upstream dependencies)|
+|12:30-13:30| Lunch break |
+|13:30-15:00| Educational resources, multi-language resources and case studies;  Community: user vs. developer community, community management and building,  retirement,  diversity and equity |
+|15:00-15:30| Coffee/tea
+|15:30-17:00| Statistical models: neighbourhood lists, spatial weights, covariance functions; future joint activities; closing |
+| | |
+
+
+#### Sponsored by
 
 ::: {layout-ncol=3}
 
