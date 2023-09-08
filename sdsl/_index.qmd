@@ -159,8 +159,7 @@ Tips:
 |           | |
 |19:00      | Informal dinner (included) at [Brasserie](https://www.deine-brasserie.de/brasserie-muenster) ([map](https://goo.gl/maps/XavTYHtaPJ9qVd3dA)) |
 |**Tue, Sep 19**|
-|9:00-10:30 | Extracting attributes from polygons at point locations: [attribute-geometry relationship](https://r-spatial.org/book/05-Attributes.html#sec-agr),
-[spatially extensive/intensive variables, area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted), OGR field domain and [merge & split rules](https://gdal.org/doxygen/classOGRFieldDomain.html) |
+|9:00-10:30 | Extracting attributes from polygons at point locations: [attribute-geometry relationship](https://r-spatial.org/book/05-Attributes.html#sec-agr), [spatially extensive/intensive variables, area-weighted interpolation](https://r-spatial.org/book/05-Attributes.html#sec-area-weighted), OGR field domain and [merge & split rules](https://gdal.org/doxygen/classOGRFieldDomain.html) |
 |10:30-11:00| Coffee/tea |
 |11:00-12:30| Packaging (GDAL/GEOS/PROJ/ … upstream dependencies)|
 |12:30-13:30| Lunch break |
