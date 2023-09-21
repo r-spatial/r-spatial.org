@@ -62,7 +62,7 @@ Since this data does not fit in memory, we have to load it as a proxy (actually,
 we will only load the metadata describing these rasters). To do this, we use the
 `read_stars()` function with the arguments `proxy = TRUE` and `along = 3`. This
 second argument will cause the bands (layers) to be combined into a
-three-dimensional matrix: $[longitude, \ latitude, \ spectral \ band]$.
+three-dimensional array: [longitude, latitude, spectral band].
 
 ```{r}
 rasters = read_stars(files, proxy = TRUE, along = 3)
