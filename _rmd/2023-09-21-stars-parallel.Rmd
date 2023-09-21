@@ -5,7 +5,6 @@ date:  "21 September, 2023"
 comments: false
 layout: post
 categories: r
-output: md_document
 ---
 
 ```{r include=FALSE}
