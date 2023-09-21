@@ -6,7 +6,7 @@ comments: false
 layout: post
 categories: r
 ---
-* TOC 
+* TOC
 {:toc}
 
 \[[view raw
@@ -63,7 +63,7 @@ Since this data does not fit in memory, we have to load it as a proxy
 do this, we use the `read_stars()` function with the arguments
 `proxy = TRUE` and `along = 3`. This second argument will cause the
 bands (layers) to be combined into a three-dimensional matrix:
-\[*l**o**n**g**i**t**u**d**e*, *l**a**t**i**t**u**d**e*, *s**p**e**c**t**r**a**l* *b**a**n**d*\].
+[longitude, latitude, spectral band].
 
     rasters = read_stars(files, proxy = TRUE, along = 3)
 
@@ -177,7 +177,7 @@ memory.
     for (i in seq_len(nrow(tiles))) {
       tile = read_stars(files, proxy = FALSE, RasterIO = tiles[i, ])
       names(tile) = bands # rename bands
-      
+
       pr = predict(tile, mdl, drop_dimensions = TRUE)
       pr = pr[1] # select only clusters from output
       save_path = file.path(tempdir(), paste0("tile_", i, ".tif"))
@@ -220,7 +220,7 @@ Then we use the `%dopar%` operator and write the core of the function
     tifs = foreach(i = seq_len(nrow(tiles)), .packages = packages) %dopar% {
       tile = read_stars(files, proxy = FALSE, RasterIO = tiles[i, ], NA_value = 0)
       names(tile) = bands
-      
+
       pr = predict(tile, mdl, drop_dimensions = TRUE)
       pr = pr[1]
       save_path = file.path(tempdir(), paste0("tile_", i, ".tif"))
