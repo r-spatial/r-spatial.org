@@ -1,0 +1,341 @@
+---
+title: "How to load and save vector data in R"
+author: "Krzysztof Dyba"
+date:  "08 December, 2023"
+comments: false
+layout: post
+categories: r
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.path = "images/")
+```
+
+TOC
+
+[DOWNLOADHERE]
+
+**Summary**:
+
+If you have spatial vector data and are wondering how to load / save it in R,
+this tutorial is the answer to your questions. This tutorial shows examples
+for the most popular formats using the [**sf**](https://r-spatial.github.io/sf/)
+package. We will use free vector layers from
+[Natural Earth](https://www.naturalearthdata.com/) as a data source.
+
+# Introduction
+
+For convenience, all necessary files are located in the
+[GitHub repository](https://github.com/kadyb/sf_load_save):
+
+- countries.shp (and related files)
+- rivers.gpkg
+- cities.geojson
+
+We can download the mentioned data and interactive notebook (.Rmd) manually
+from the repository ("Code" button > "Download ZIP") or use the following script.
+
+```{r eval=FALSE}
+url = "https://github.com/kadyb/sf_load_save/archive/refs/heads/main.zip"
+download.file(url, "sf_load_save.zip")
+unzip("sf_load_save.zip")
+```
+
+In the first step, we need to download the **sf** package using the
+`install.packages()` function, and then use the `library()` function to load it
+into the session.
+
+```{r eval=FALSE}
+install.packages("sf")
+```
+
+```{r message=FALSE}
+library("sf")
+```
+
+# Vector loading
+
+## Shapefile (.shp)
+
+Let's start by loading the shapefile format, which actually consists of several
+files (e.g., .shp, .shx, .dbf, .prj). More information can be found on
+[Wikipedia](https://en.wikipedia.org/wiki/Shapefile), but currently it is not
+recommended to use this format due to its
+[many limitations](http://switchfromshapefile.org/).
+
+Generally, we can use the `read_sf()` function to load data. It requires
+providing a path to the file. The file path can be defined in two ways in R
+and this is the most common source of problems (errors like: `Error: Cannot
+open "file.shp"; The file doesn't seem to exist.`).
+
+The first way (easier) is to provide an **absolute path**, i.e. we
+must provide the exact location where the file is located. For instance:
+
+```
+path = "C:/Users/Krzysztof/Documents/file.shp"
+```
+
+However, this [is not](https://r4ds.hadley.nz/workflow-scripts#relative-and-absolute-paths)
+the recommended method, as it makes it impossible to locate files on different
+operating systems. The second way is to specify a **relative path**. In this
+case, we specify the location of the file relative to the current working
+directory (or project). To find out where the working directory is, we can
+use the `getwd()` function, and to change it the `setwd()` function. For instance:
+
+```
+getwd()
+#> "C:/Users/Krzysztof/Documents"
+path = "file.shp"
+```
+
+Let's load the shapefile using a relative path (all data can be found in the
+`data` folder).
+
+```{r}
+countries = read_sf("data/countries/countries.shp")
+```
+
+We can then print the metadata about this vector layer by referring to the
+`countries` object.
+
+```{r}
+countries
+```
+
+We can see that this layer consists of 52 features (rows) and 168 fields (columns).
+The next information is about geometry type, dimension, spatial extent (bounding box)
+and coordinate reference system (CRS). In addition, the first 10 rows were
+printed.
+
+After loading the data, it is a good idea to present it on a map. A simple
+`plot()` function can be used for this purpose. The `countries` object has many
+fields (attributes), but to start with we only need geometry. It can be obtained
+by using the `st_geometry()` function.
+
+```{r label="sf-load-save-1"}
+plot(st_geometry(countries))
+```
+
+## GeoPackage (.gpkg)
+
+The next dataset is rivers (linear geometry) saved in
+[GeoPackage format](https://www.geopackage.org/). It is loaded in exactly the
+same way as the shapefile before. Note that this format can consist of multiple
+layers of different types. In this case, we must define which layer exactly we
+want to load. To check what layers are in the geopackage, use the `st_layers()`
+function, and then specify it using the `layer` argument in `read_sf()`.
+If the file only contains one layer, we don't need to do this.
+
+```{r}
+st_layers("data/rivers.gpkg")
+rivers = read_sf("data/rivers.gpkg", layer = "rivers")
+```
+
+We can also display metadata as in the previous example.
+
+```{r}
+rivers
+```
+
+And make a visualization, but this time we will plot rivers against the
+background of country borders. Adding more layers to the visualization is
+done with the `add = TRUE` argument in `plot()` function. Note that the order
+in which objects are added is important -- the objects added last are displayed
+at the top. The `col` argument is used to set the color of the object.
+
+```{r label="sf-load-save-2"}
+plot(st_geometry(countries))
+plot(st_geometry(rivers), add = TRUE, col = "blue")
+```
+
+## GeoJSON (.geojson)
+
+The last GeoJSON file contains cities in the world. In this case, we also use
+the `read_sf()` function to load this file.
+
+```{r}
+cities = read_sf("data/cities.geojson")
+cities
+```
+
+In this dataset, there is the `featurecla` column that indicates the type of city.
+So let's try to print them and then select only state capitals.
+
+We can print a column (attribute) in two ways, i.e. by specifying the column
+name in:
+
+1. Single square brackets -- a spatial object will be printed
+2. Double square brackets (alternatively a dollar sign) -- only the text will
+be printed
+
+```{r}
+cities["featurecla"]
+```
+
+```{r}
+# the `head()` function prints only the first 6 elements
+head(cities[["featurecla"]])
+
+# or alternatively
+# head(cities$featurecla)
+```
+This layer contains 1287 different cities. To find out what types of cities
+these are, we can use the `table()` function, which will summarize them.
+
+```{r}
+table(cities[["featurecla"]])
+```
+
+We are interested in `Admin-0 capital` and `Admin-0 capital alt` types because
+some countries have two capitals. We make selection as follows using the `|` (OR)
+operator:
+
+```{r}
+sel = cities$featurecla == "Admin-0 capital" | cities$featurecla == "Admin-0 capital alt"
+head(sel)
+```
+
+As a result of this operation, we got a logical vector with TRUE and FALSE
+values (if the city is / is not the capital). Now let's create a new object
+named `capitals`, which will contain only capitals.
+
+```{r}
+# select only those cities that meet the above conditions
+capitals = cities[sel, ]
+capitals["name"]
+```
+
+In the last step, we prepare the final visualization. We can add a title
+(`main` argument), axes (`axes` argument) and change the background color
+(`bgc` argument) of the figure. We can also change the point symbol (`pch`
+argument), set its size (`cex` argument) and fill color (`bg` argument).
+
+```{r label="sf-load-save-3"}
+plot(st_geometry(countries), main = "Africa", axes = TRUE, bgc = "deepskyblue",
+     col = "burlywood")
+plot(st_geometry(rivers), add = TRUE, col = "blue")
+plot(st_geometry(capitals), add = TRUE, pch = 24, bg = "red", cex = 0.8)
+```
+
+# Vector saving
+
+Saving vector data is as easy as loading. There is a dedicated `write_sf()`
+function for this purpose and it requires two arguments:
+
+1. The object we want to save
+2. The path to save with file extension
+
+For example, let's save our `capital` object as a GeoPackage (.gpkg), but as an
+exercise you can save it in other formats as well (you just need to change the
+extension).
+
+```{r}
+write_sf(capitals, "data/capitals.gpkg")
+```
+
+# Synopsis
+
+The **sf** package allows loading vector data with the `read_sf()` function
+and saving it with the `write_sf()` function in R. A list of all supported vector
+formats can be found on the [GDAL website](https://gdal.org/drivers/vector/index.html).
+
+For more information, see:
+
+1. **sf** introductory vignette: [Reading, Writing and Converting Simple Features](https://r-spatial.github.io/sf/articles/sf2.html)
+2. Introduction to **sf** and **stars** in [Spatial Data Science: With Applications in R](https://r-spatial.org/book/07-Introsf.html)
+(Pebesma E. & Bivand R., 2023)
+
+# Supplement
+
+In the previous part of the tutorial, we looked at simple examples of loading
+vector data, while in this section we will check out more advanced ways.
+
+## Zipped shapefile (.shz)
+
+As we noted earlier, a shapefile consists of several files, which can be
+cumbersome. Some solution is to use zipped shapefiles, which is de facto an
+archive. To create such a file, the extension .shz (or .shp.zip) and the
+`ESRI Shapefile` driver are required. Loading is done in a standard way by
+specifying the path to the ".shz" file.
+
+```{r}
+write_sf(capitals, "data/capitals.shz", driver = "ESRI Shapefile")
+```
+
+Hooray, only one file on the disk!
+
+## Virtual File Systems
+
+GDAL provides some facilities for loading files using some abstraction by 
+[Virtual File Systems](https://gdal.org/user/virtual_file_systems.html).
+In practice, this means that we can refer directly to the files without
+first unpacking or downloading them in R. For example, we can directly open
+the shapefile that is in the archive on the website. To do this, we must
+use two prefixes:
+
+1. `/vsicurl/` to download the file
+2. `/vsizip/` to unpack the archive
+
+```{r}
+# URL is file path
+url = "https://raw.githubusercontent.com/OSGeo/gdal/master/autotest/ogr/data/shp/poly.zip"
+# note that the order of the prefixes is reverse
+f = paste0("/vsizip/", "/vsicurl/", url)
+read_sf(f)
+```
+
+## SQL preselection
+
+We can use [SQL queries](https://en.wikipedia.org/wiki/SQL) to pre-filter
+features, so only selected objects / attributes will be loaded. This allows us
+to limit the size of the object in memory and speed up the operation time.
+Moreover, we can also make spatial selection, i.e. limit the loading of data
+only to a selected area.
+
+### Columns filtering
+
+The `query` argument in the `read_sf()` function is used to pass SQL queries.
+Let's go back to the `countries` dataset and load only the column with the names
+of countries (`NAME_LONG`).
+
+```{r}
+sql = "SELECT NAME_LONG FROM countries"
+f = "data/countries/countries.shp"
+read_sf(f, query = sql)
+```
+
+### Rows filtering
+
+We can also select rows using a condition, e.g. population (`POP_EST`) greater
+than 25 million.
+
+```{r}
+sql = "SELECT * FROM countries WHERE POP_EST > 25000000"
+f = "data/countries/countries.shp"
+read_sf(f, query = sql) # 17 countries
+```
+
+### Spatial filtering
+
+Finally, to perform spatial filtering, we must first define the spatial extent
+/ bounding box (`st_bbox()` function) and specify its coordinate reference
+system (CRS). Then the bounding box needs to be converted into a polygon using
+the `st_as_sfc()` function and finally converted to a 
+[Well-Know Text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)
+representation using `st_as_text()` function. Therefore, prepared text is passed
+to the `wkt_filter` argument. Follow the example below of loading rivers only
+in southern Africa:
+
+```{r}
+bbox = st_bbox(c(xmin = 10, xmax = 40, ymax = -35, ymin = -20),
+               crs = st_crs(4326))
+bbox = st_as_text(st_as_sfc(bbox))
+bbox
+```
+
+```{r label="sf-load-save-4"}
+f = "data/rivers.gpkg"
+rivers_south = read_sf(f, wkt_filter = bbox)
+plot(st_geometry(rivers_south), axes = TRUE)
+```
+
