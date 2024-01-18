@@ -1,0 +1,92 @@
+---
+layout: post
+title: "RPyGeo 1.0.0"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+comments: true
+author: Marc Becker
+categories: r
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+[DOWNLOADHERE]
+
+RPyGeo 1.0.0 has been released on 14.11.2018 on CRAN. 
+The _RPyGeo_ package establishes an interface to the geoprocessing tools of _ArcGIS_ from within R. 
+[ArcGIS](https://www.esri.com/en-us/arcgis/about-arcgis/overview) is one of the leading commercial GIS applications and is being developed by Esri since 1999.
+
+ArcGIS offers access to its geoprocessing tools via a Python site-package called _ArcPy_. 
+The new version of _RPyGeo_ reads the site-package via the [reticulate](https://cran.r-project.org/web/packages/reticulate/index.html) package into the R session.
+
+If you want to run the following examples you need a working _ArcMap_ or _ArcGIS Pro_ installation. 
+
+```{r, eval=FALSE}
+library("RPyGeo")
+library("sf")
+library("raster")
+library("magrittr")
+
+data(dem, package = "RQGIS")
+writeRaster(dem, file.path(tempdir(), "dem.tif"), format = "GTiff")
+```
+
+After the environment has been set using `rpygeo_build_env()`, all geoprocessing tools of _ArcGIS_ are available in R.   
+
+```{r, eval=FALSE}
+arcpy <- rpygeo_build_env(workspace = tempdir(),
+                          overwrite = TRUE)
+```
+
+The ArcPy functions can be accessed via the `$` operator. 
+Autocompletion of all available functions is supported.
+
+```{r, eval=FALSE}
+arcpy$Slope_3d(in_raster = "dem.tif", out_raster = "slope.tif")
+```
+
+RPyGeo can load spatial objects stored in Esri's proprietary geodatabases as well as files from the hard disk with the `rpygeo_load()` function.
+
+```{r, eval=FALSE}
+slope <- rpygeo_load("slope.tif")
+
+plot(slope)
+```
+
+<img src="../images/rpygeo1.jpg", width="100%" style="display: block; margin: auto;" />
+*Figure 1: Slope computed with Slope_3d() and plotted in R.*
+
+The pipe operator can be used to chain ArcGIS geoprocessing tools and _RPyGeo_ functions.
+
+```{r, eval=FALSE}
+arcpy$Slope_3d(in_raster = "dem.tif", out_raster = "slope.tif") %>%
+  rpygeo_load()
+```
+
+Map algebra expressions can be used in _RPyGeo_ with special operators to modify _ArcPy_ raster objects. 
+The resulting temporary files can be saved to the hard disk using the function `rpygeo_save()`.
+
+```{r, eval=FALSE}
+ras <- arcpy$sa$Raster("dem.tif") 
+
+ras %rpygeo_+% 2 %>%
+  rpygeo_save("dem_2.tif")
+```
+
+With the new version many other utility functions are added. 
+Help files for all _ArcPy_ functions can be viewed directly inside R using `rpygeo_help()`.
+`rpygeo_search()` returns all available geoprocessing functions that contain a specified search term. 
+The new functions try to provide a seamless workflow between _ArcGIS_ and R.
+
+In 2015 Esri released the [R-ArcGIS Bridge](https://r-arcgis.github.io), a software that also connects _ArcGIS_ and R. 
+Essentially, the _R-ArcGIS_ Bridge offers read, write and conversion functions to transfer data from _ArcGIS_ to R and vice versa. 
+The idea is to use the large number of R packages to solve spatial problems, which cannot be solved with _ArcGIS_ alone. 
+R scripts are integrated into geoprocessing scripts, which can be run as geoprocessing tools from within _ArcGIS_. 
+The user can add a user interface to the geoprocessing tool or use it as a part of a ModelBuilder workflow in _ArcGIS_. 
+However, no extra functionality is added for the R user. 
+The _R-ArcGIS_ Bridge cannot run geoprocessing tools from within R, whereas _RPyGeo_ offers almost all geoprocessing tools of _ArcGIS_ directly from the R session. 
+The _R-ArcGIS_ Bridge is developed for users, who want to process their whole workflow from within _ArcGIS_, whereas _RPyGeo_ is developed for R users who want to integrate a geoprocessing tool into their R workflow.
+
+For detailed instructions on how to use _RPyGeo_ we would like to refer to its [vignette](https://cran.r-project.org/web/packages/RPyGeo/vignettes/RPyGeo.html). 
+It includes a tutorial with all essential _RPyGeo_ functions and the necessary data to run the above examples.
+
+The source code of _RPyGeo_ is now hosted on [Github](https://github.com/r-spatial/RPyGeo) within the [r-spatial](https://github.com/r-spatial/) organization. 
