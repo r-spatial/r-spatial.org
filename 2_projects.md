@@ -52,7 +52,7 @@ A (not exhaustive!) list of R packages (typically) under development on GitHub b
 * [fuzzyMM](https://github.com/ngort01/fuzzyMM), a package for fuzzy map matching
 * [mss](https://github.com/edzer/mss), a package with methods and classes that enable doing meaningful spatial statistics
 * [rgdal2](https://github.com/thk686/rgdal2), a package with R proxies to spatial objects living in GDAL
-* [spnetwork](https://github.com/edzer/spnetwork), provides classes and methods for road networks, using sp and igraph
+* [sfnetworks](https://github.com/luukvdmeer/sfnetworks), R package for analysis of geospatial networks, using sf and tidygraph
 * [geohash](https://github.com/chk1/geohash), R support for [geohashes](https://en.wikipedia.org/wiki/Geohash)
 * [sinkr](https://github.com/marchtaylor/sinkr), a collection of functions with emphasis on multivariate methods and handling of geographic datasets
 
