@@ -1,8 +1,20 @@
+---
+title: "Spatial analysis with geostan"
+author: "Connor Donegan"
+date:  "Aug 2, 2024"
+comments: false
+layout: post
+categories: r
+bibliography: "../bibs/geostan-introduction.bib"
+---
+* TOC
+{:toc}
+
+\[[view raw
+Rmd](https://raw.githubusercontent.com//r-spatial/r-spatial.org/gh-pages/_rmd/2024-07-15-geostan-introduction.Rmd)\]
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
-TOC
-
-\[DOWNLOADHERE\]
 
 Summary
 -------
@@ -141,7 +153,7 @@ and low-income countries and a similar geography of longevity:
          bty = 'n'
          )
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-8-1.png" alt="*Choropleth maps of GDP per capita and life expectancy.*"  />
+<img src="/images/geostan-intro-1-1.png" alt="*Choropleth maps of GDP per capita and life expectancy.*"  />
 <p class="caption">
 *Choropleth maps of GDP per capita and life expectancy.*
 </p>
@@ -243,7 +255,7 @@ spatial object, `world`:
     # add graph edges
     plot(graph, add = TRUE, type = 'l')
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-2-1.png" style="display: block; margin: auto;" />
 
     par(ogpar)
 
@@ -312,7 +324,7 @@ We should look at the revised adjacency matrix:
     plot(graph, add = TRUE, type = 'p')
     plot(graph, add = TRUE, type = 'l')
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-3-1.png" style="display: block; margin: auto;" />
 
     par(ogpar)
 
@@ -374,7 +386,7 @@ also be visualized using `plot(fit_lm)`:
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-4-1.png" style="display: block; margin: auto;" />
 
 The mean of the distribution is reported in the `mean` column. For those
 who are more familiar with concepts from sampling theory, the `mean` may
@@ -437,7 +449,7 @@ some skewness:
     rdf <- resid(fit_lm)
     moran_plot(rdf$mean, A)
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-5-1.png" style="display: block; margin: auto;" />
 
 Spatial regression
 ------------------
@@ -529,7 +541,7 @@ using the `spatial` method.
          bty = 'n'
          )
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-27-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-6-1.png" style="display: block; margin: auto;" />
 
     par(ogpar)
 
@@ -594,7 +606,7 @@ Lets plot the results this time:
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-32-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-7-1.png" style="display: block; margin: auto;" />
 
 The spatial dependence parameter is around 0.7, which indicates
 moderately strong SA. The mean life expectancy is about 71 (probably
@@ -716,7 +728,7 @@ on average.)
     lines(preds$gdpPercap, preds$`2.5%`, lty = 3)
     lines(preds$gdpPercap, preds$`97.5%`, lty = 3)
 
-<img src="2024-07-15-geostan-introduction_files/figure-markdown_strict/unnamed-chunk-37-1.png" style="display: block; margin: auto;" />
+<img src="/images/geostan-intro-8-1.png" style="display: block; margin: auto;" />
 
 Per this dataset, about 50% of the world population lives in countries
 with GDP per capita below $12,300.
