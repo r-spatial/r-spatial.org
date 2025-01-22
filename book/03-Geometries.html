@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 3&nbsp; Geometries</title>
+<title>3&nbsp; Geometries – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-1.html">Spatial Data</a></li><li class="breadcrumb-item"><a href="./03-Geometries.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -404,7 +430,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <li>tesselations, sub-divisions of larger regions into sub-regions, and</li>
 <li>networks.</li>
 </ul>
-<p>Geometries on the sphere are discussed in <a href="04-Spherical.html" class="quarto-xref"><span>Chapter&nbsp;4</span></a>, rasters and other rectangular sub-divisions of space or space time are discussed in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter&nbsp;6</span></a>.</p>
+<p>Geometries on the sphere are discussed in <a href="04-Spherical.html" class="quarto-xref"><span>Chapter 4</span></a>, rasters and other rectangular sub-divisions of space or space time are discussed in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
 <section id="sec-simplefeatures" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="sec-simplefeatures">
 <span class="header-section-number">3.1</span> Simple feature geometries</h2>
 <p> </p>
@@ -420,7 +446,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <section id="sec-seven" class="level3"><h3 class="anchored" data-anchor-id="sec-seven">The big seven</h3>
 <p> </p>
 <p>The most common simple feature geometries used to represent a <em>single</em> feature are:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 73%">
@@ -513,11 +539,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">"geometrycollection"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html">box</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-sfgeometries" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-sfgeometries" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sfgeometries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-sfgeometries-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sfgeometries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sfgeometries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.1: Sketches of the main simple feature geometry types
 </figcaption></figure>
 </div>
@@ -551,7 +577,7 @@ GEOMETRYCOLLECTION (
     POINT (5 4)
 )</code></pre>
 <p>In this representation, coordinates are separated by space, and points by commas. Sets are grouped by parentheses, and separated by commas. Polygons consist of an outer ring followed by zero or more inner rings denoting holes.</p>
-<p>Individual points in a geometry contain at least two coordinates: <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, in that order. If these coordinates refer to ellipsoidal coordinates, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> usually refer to longitude and latitude, respectively, although sometimes to latitude and longitude (see <a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section&nbsp;2.4</span></a> and <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section&nbsp;7.7.6</span></a>).</p>
+<p>Individual points in a geometry contain at least two coordinates: <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, in that order. If these coordinates refer to ellipsoidal coordinates, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> usually refer to longitude and latitude, respectively, although sometimes to latitude and longitude (see <a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section 2.4</span></a> and <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section 7.7.6</span></a>).</p>
 </section><section id="sec-valid" class="level3"><h3 class="anchored" data-anchor-id="sec-valid">Simple and valid geometries, ring direction</h3>
 <p> </p>
 <p>Linestrings are called <em>simple</em> when they do not self-intersect:</p>
@@ -575,7 +601,7 @@ GEOMETRYCOLLECTION (
 <li>in a multi-polygon, an external ring maximally touches another exterior ring in single points, not over a line</li>
 </ul>
 <p>If this is not the case, the geometry concerned is not valid. Invalid geometries typically cause errors when they are processed, but they can usually be repaired to make them valid.</p>
-<p>A further convention is that the outer ring of a polygon is winded counter-clockwise, while the holes are winded clockwise, but polygons for which this is not the case are still considered valid. For polygons on the sphere, the “clockwise” concept is not very useful: if for instance we take the equator as polygon, is the Northern Hemisphere or the Southern Hemisphere “inside”? The convention taken here is to consider the area on the left while traversing the polygon is considered the polygon’s inside (see also <a href="07-Introsf.html#sec-ccw" class="quarto-xref"><span>Section&nbsp;7.3</span></a>).</p>
+<p>A further convention is that the outer ring of a polygon is winded counter-clockwise, while the holes are winded clockwise, but polygons for which this is not the case are still considered valid. For polygons on the sphere, the “clockwise” concept is not very useful: if for instance we take the equator as polygon, is the Northern Hemisphere or the Southern Hemisphere “inside”? The convention taken here is to consider the area on the left while traversing the polygon is considered the polygon’s inside (see also <a href="07-Introsf.html#sec-ccw" class="quarto-xref"><span>Section 7.3</span></a>).</p>
 </section><section id="z-and-m-coordinates" class="level3"><h3 class="anchored" data-anchor-id="z-and-m-coordinates">Z and M coordinates</h3>
 <p> </p>
 <p>In addition to X and Y coordinates, single points (vertices) of simple feature geometries may have:</p>
@@ -601,7 +627,7 @@ GEOMETRYCOLLECTION (
 </div>
 </section><section id="empty-geometries" class="level3"><h3 class="anchored" data-anchor-id="empty-geometries">Empty geometries</h3>
 <p> </p>
-<p>A very important concept in the feature geometry framework is that of the empty geometry. Empty geometries arise naturally when we do geometrical operations (<a href="#sec-opgeom" class="quarto-xref"><span>Section&nbsp;3.2</span></a>), for instance when we want to know the intersection of <code>POINT (0 0)</code> and <code>POINT (1 1)</code>:</p>
+<p>A very important concept in the feature geometry framework is that of the empty geometry. Empty geometries arise naturally when we do geometrical operations (<a href="#sec-opgeom" class="quarto-xref"><span>Section 3.2</span></a>), for instance when we want to know the intersection of <code>POINT (0 0)</code> and <code>POINT (1 1)</code>:</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># GEOMETRYCOLLECTION EMPTY</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -619,10 +645,10 @@ GEOMETRYCOLLECTION (
 <pre><code># LINESTRING M EMPTY</code></pre>
 </div>
 </div>
-<p>and so on, but they all point to the empty set, differing only in their dimension (<a href="#sec-de9im" class="quarto-xref"><span>Section&nbsp;3.2.2</span></a>).</p>
+<p>and so on, but they all point to the empty set, differing only in their dimension (<a href="#sec-de9im" class="quarto-xref"><span>Section 3.2.2</span></a>).</p>
 </section><section id="ten-further-geometry-types" class="level3"><h3 class="anchored" data-anchor-id="ten-further-geometry-types">Ten further geometry types</h3>
 <p>There are 10 more geometry types which are more rare, but increasingly find implementation:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 27%">
 <col style="width: 72%">
@@ -683,7 +709,7 @@ GEOMETRYCOLLECTION (
 </section></section><section id="sec-opgeom" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="sec-opgeom">
 <span class="header-section-number">3.2</span> Operations on geometries</h2>
 <p></p>
-<p>Simple feature geometries can be queried for properties, or transformed or combined into new geometries, and combinations of geometries can be queried for further properties. This section gives an overview of the operations entirely focusing on <em>geometrical</em> properties. <a href="05-Attributes.html" class="quarto-xref"><span>Chapter&nbsp;5</span></a> focuses on the analysis of non-geometrical feature properties, in relationship to their geometries. Some of the material in this section appeared in <span class="citation" data-cites="rjsf">Pebesma (<a href="references.html#ref-rjsf" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Simple feature geometries can be queried for properties, or transformed or combined into new geometries, and combinations of geometries can be queried for further properties. This section gives an overview of the operations entirely focusing on <em>geometrical</em> properties. <a href="05-Attributes.html" class="quarto-xref"><span>Chapter 5</span></a> focuses on the analysis of non-geometrical feature properties, in relationship to their geometries. Some of the material in this section appeared in <span class="citation" data-cites="rjsf">Pebesma (<a href="references.html#ref-rjsf" role="doc-biblioref">2018</a>)</span>.</p>
 <p>We can categorise operations on geometries in terms of what they take as input, and what they return as output. In terms of output we have operations that return:</p>
 <ul>
 <li>
@@ -719,7 +745,7 @@ GEOMETRYCOLLECTION (
 <p>Any geometry also has an inside (I), a boundary (B), and an exterior (E); these roles are obvious for polygons, however, for:</p>
 <ul>
 <li>
-<strong>lines</strong> the boundary is formed by the end points, and the interior by all non-end points on the line</li>
+<strong>lines</strong> the boundary is formed by the end points, and the inside by all non-end points on the line</li>
 <li>
 <strong>points</strong> have a zero-dimensional inside but no boundary</li>
 </ul>
@@ -772,11 +798,11 @@ GEOMETRYCOLLECTION (
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">p0</span> <span class="op">/</span> <span class="va">po</span>, col <span class="op">=</span> <span class="st">'#ff8888'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">'darkgreen'</span><span class="op">)</span>, border <span class="op">=</span> <span class="st">'blue'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-de9im" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-de9im" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-de9im-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-de9im-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-de9im-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-de9im-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exterior of a polygon (rows) and of a linestring (columns) indicated by red
 </figcaption></figure>
 </div>
@@ -792,8 +818,8 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 </div>
 <p>where the first three characters are associated with the inside of the <em>first</em> geometry (polygon): <a href="#fig-de9im" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> is summarised row-wise. Using this ability to express relationships, we can also query pairs of geometries about particular conditions expressed in a <em>mask string</em>. As an example, the string <code>"*0*******"</code> would evaluate <code>TRUE</code> when the second geometry has one or more boundary <em>points</em> in common with the interior of the first geometry; the symbol <code>*</code> standing for “any dimensionality” (0, 1, 2 or F). The mask string <code>"T********"</code> matches pairs of geometry with intersecting interiors, where the symbol <code>T</code> stands for any non-empty intersection of dimensionality 0, 1, or 2.</p>
 <p>Binary predicates are further described using normal-language verbs, using DE-9IM definitions. For instance, the predicate <code>equals</code> corresponds to the relationship <code>"T*F**FFF*"</code>. If any two geometries obey this relationship, they are (topologically) equal, but may have a different ordering of nodes.</p>
-<p>A list of binary predicates is:</p>
-<table class="table">
+<p>A list of binary predicates, with their meaning for non-empty geometries:</p>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 27%">
 <col style="width: 58%">
@@ -801,30 +827,30 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 </colgroup>
 <thead><tr class="header">
 <th>predicate</th>
-<th>meaning</th>
+<th>meaning of A <em>predicate</em> B</th>
 <th>inverse of</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td><code>contains</code></td>
-<td>None of the points of A are outside B</td>
+<td>B has no points in the exterior of A <em>and</em> the insides of A and B have at least one point in common</td>
 <td><code>within</code></td>
 </tr>
 <tr class="even">
 <td><code>contains_properly</code></td>
-<td>A contains B and B has no points in common with the boundary of A</td>
+<td>A contains B <em>and</em> B has no points in common with the boundary of A</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><code>covers</code></td>
-<td>No points of B lie in the exterior of A</td>
+<td>B has no points in the exterior of A</td>
 <td><code>covered_by</code></td>
 </tr>
 <tr class="even">
 <td><code>covered_by</code></td>
 <td>Inverse of <code>covers</code>
 </td>
-<td></td>
+<td><code>covers</code></td>
 </tr>
 <tr class="odd">
 <td><code>crosses</code></td>
@@ -838,12 +864,12 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 </tr>
 <tr class="odd">
 <td><code>equals</code></td>
-<td>A and B are topologically equal: node order or number of nodes may differ; identical to A contains B and A within B</td>
+<td>A and B are topologically equal: node order or number of nodes may differ; identical to A contains B <em>and</em> A within B</td>
 <td></td>
 </tr>
 <tr class="even">
 <td><code>equals_exact</code></td>
-<td>A and B are geometrically equal, and have identical node order</td>
+<td>A equal B <em>and</em> A and B have identical node order</td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -853,27 +879,27 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 </tr>
 <tr class="even">
 <td><code>is_within_distance</code></td>
-<td>A is closer to B than a given distance</td>
+<td>the shortest distance from A to B is within a given distance</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><code>within</code></td>
-<td>None of the points of B are outside A</td>
+<td>A has no points in the exterior of B, <em>and</em> the insides of A and B have at least one point in common</td>
 <td><code>contains</code></td>
 </tr>
 <tr class="even">
 <td><code>touches</code></td>
-<td>A and B have at least one boundary point in common, but no interior points</td>
+<td>A and B have at least one boundary point but no interior points in common</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><code>overlaps</code></td>
-<td>A and B have some points in common; the dimension of these is identical to that of A and B</td>
+<td>A and B have the same dimension and some but not all points in common; the dimension of the common points is identical to that of A and B</td>
 <td></td>
 </tr>
 <tr class="even">
 <td><code>relate</code></td>
-<td>Given a mask pattern, return whether A and B adhere to this pattern</td>
+<td>Given a mask string, return whether A <em>relate</em> B adheres to its pattern</td>
 <td></td>
 </tr>
 </tbody>
@@ -883,10 +909,12 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 <ul>
 <li>if A <em>contains</em> B, B has no points in common with the exterior <em>or boundary</em> of A</li>
 <li>if A <em>covers</em> B, B has no points in common with the exterior of A</li>
-</ul></section><section id="unary-measures" class="level3"><h3 class="anchored" data-anchor-id="unary-measures">Unary measures</h3>
+</ul>
+<p>This implies for instance that a polygon covers its own boundary, but does not contain it.</p>
+</section><section id="unary-measures" class="level3"><h3 class="anchored" data-anchor-id="unary-measures">Unary measures</h3>
 <p></p>
 <p>Unary measures return a measure or quantity that describes a property of the geometry:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 74%">
@@ -913,12 +941,12 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 <p> </p>
 </section><section id="binary-measures" class="level3"><h3 class="anchored" data-anchor-id="binary-measures">Binary measures</h3>
 <p></p>
-<p><code>distance</code> returns the distance between pairs of geometries. The qualitative measure <code>relate</code> (without mask) gives the relation pattern. A description of the geometrical relationship between two geometries is given in <a href="#sec-de9im" class="quarto-xref"><span>Section&nbsp;3.2.2</span></a>.</p>
+<p><code>distance</code> returns the distance between pairs of geometries. The qualitative measure <code>relate</code> (without mask) gives the relation pattern. A description of the geometrical relationship between two geometries is given in <a href="#sec-de9im" class="quarto-xref"><span>Section 3.2.2</span></a>.</p>
 <p> </p>
 </section><section id="unary-transformers" class="level3"><h3 class="anchored" data-anchor-id="unary-transformers">Unary transformers</h3>
 <p></p>
 <p>Unary transformations work on a per-geometry basis, and return for each geometry a new geometry.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 73%">
@@ -986,7 +1014,7 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 </tr>
 <tr class="odd">
 <td><code>transform</code></td>
-<td>transformed or convert to a new coordinate reference system (<a href="02-Spaces.html" class="quarto-xref"><span>Chapter&nbsp;2</span></a>)</td>
+<td>transformed or convert to a new coordinate reference system (<a href="02-Spaces.html" class="quarto-xref"><span>Chapter 2</span></a>)</td>
 </tr>
 <tr class="even">
 <td><code>triangulate</code></td>
@@ -1032,11 +1060,11 @@ Figure&nbsp;3.2: DE-9IM: intersections between the interior, boundary, and exter
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_triangulate</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="cn">NA</span>, border <span class="op">=</span> <span class="st">'darkgreen'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html">box</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-vor" class="quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-vor" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-vor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-vor-1.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-vor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.3: For a set of points, left: convex hull (red); middle: Voronoi polygons; right: Delauney triangulation
 </figcaption></figure>
 </div>
@@ -1046,7 +1074,7 @@ Figure&nbsp;3.3: For a set of points, left: convex hull (red); middle: Voronoi p
 </section><section id="sec-bintrans" class="level3"><h3 class="anchored" data-anchor-id="sec-bintrans">Binary transformers</h3>
 <p></p>
 <p>Binary transformers are functions that return a geometry based on operating on a pair of geometries. They include:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 64%">
@@ -1091,32 +1119,34 @@ Figure&nbsp;3.3: For a set of points, left: convex hull (red); middle: Voronoi p
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">4</span><span class="op">)</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sq</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pt</span>, <span class="va">sz</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pt</span> <span class="op">-</span> <span class="va">sz</span><span class="op">)</span>, </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">sz</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">sz</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pt</span> <span class="op">+</span> <span class="va">sz</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">sz</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="va">sz</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pt</span> <span class="op">-</span> <span class="va">sz</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf-object.html">st_sf</a></span><span class="op">(</span>box <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.7</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>, <span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span>box <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.7</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>, <span class="fu">sq</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NA</span>, border <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">sf.colors</a></span><span class="op">(</span><span class="fl">3</span>, categorical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">sf.colors</a></span><span class="op">(</span><span class="fl">7</span>, categorical<span class="op">=</span><span class="cn">TRUE</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-boxes" class="quarto-figure quarto-figure-center anchored" width="50%">
+<div id="fig-boxes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-boxes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-boxes-1.png" class="img-fluid figure-img" style="width:50.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-boxes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.4: Left: three overlapping squares – how do we identify the small box where all three overlap? Right: unique, non-overlapping n-ary intersections
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Similarly, one can compute an n-ary <em>difference</em> from a set <span class="math inline">\(\{s_1, s_2, s_3, ...\}\)</span> by creating differences <span class="math inline">\(\{s_1, s_2-s_1, s_3-s_2-s_1, ...\}\)</span>. This is shown in <a href="#fig-diff" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>, (left) for the original set, and (right) for the set after reversing its order to make clear that the result here depends on the ordering of the input geometries. Again, resulting geometries do not overlap.</p>
+<p>Similarly, one can compute an n-ary <em>difference</em> from a set <span class="math inline">\(\{s_1, s_2,
+s_3, ...\}\)</span> by creating differences <span class="math inline">\(\{s_1, s_2-s_1, s_3-s_2-s_1,
+...\}\)</span>. This is shown in <a href="#fig-diff" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>, (left) for the original set, and (right) for the set after reversing its order to make clear that the result here depends on the ordering of the input geometries. Again, resulting geometries do not overlap.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">4</span><span class="op">)</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">xg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference</a></span><span class="op">(</span><span class="va">xg</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">sf.colors</a></span><span class="op">(</span><span class="fl">3</span>, alpha <span class="op">=</span> <span class="fl">.5</span>, categorical<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference</a></span><span class="op">(</span><span class="va">xg</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">sf.colors</a></span><span class="op">(</span><span class="fl">3</span>, alpha <span class="op">=</span> <span class="fl">.5</span>, categorical<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-diff" class="quarto-figure quarto-figure-center anchored" width="50%">
+<div id="fig-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-diff-1.png" class="img-fluid figure-img" style="width:50.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.5: Difference between subsequent boxes, left: in original order; right: in reverse order
 </figcaption></figure>
 </div>
@@ -1132,7 +1162,7 @@ Figure&nbsp;3.5: Difference between subsequent boxes, left: in original order; r
 <p></p>
 <p>The Open Geospatial Consortium defines a <em>coverage</em> as a “feature that acts as a function to return values from its range for any direct position within its spatiotemporal domain” <span class="citation" data-cites="ogccov">(<a href="references.html#ref-ogccov" role="doc-biblioref">Baumann, Hirschorn, and Masó 2017</a>)</span>. Having a <em>function</em> implies that for every space time “point”, every combination of a spatial point and a moment in time of the spatiotemporal domain, we have a <em>single</em> value for the range. This is a very common situation for spatiotemporal phenomena, a few examples can be given:</p>
 <ul>
-<li>boundary disputes aside, at a give time every point in a region (domain) belongs to a single administrative unit (range)</li>
+<li>boundary disputes aside, at a given time every point in a region (domain) belongs to a single administrative unit (range)</li>
 <li>at any given moment in time, every point in a region (domain) has a certain <em>land cover type</em> (range)</li>
 <li>every point in an area (domain) has a single surface elevation (range), which could be measured with respect to a given mean sea level surface</li>
 <li>every spatiotemporal point in a three-dimensional body of air (domain) has single value for temperature (range)</li>
@@ -1156,7 +1186,7 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf-object.html">st_sf</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">2</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_linestring</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">.9</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">2</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_linestring</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">.9</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">grd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">ls</span><span class="op">)</span>, nx <span class="op">=</span> <span class="fl">10</span>, ny <span class="op">=</span> <span class="fl">10</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.0</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>   values <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_rasterize.html">st_rasterize</a></span><span class="op">(</span><span class="va">ls</span>, <span class="va">grd</span>, options <span class="op">=</span> <span class="st">"ALL_TOUCHED=TRUE"</span><span class="op">)</span></span>
@@ -1166,18 +1196,18 @@ d_i = d_0 + [i \times \delta, (i+1) \times \delta)
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, breaks <span class="op">=</span> <span class="st">"equal"</span>, main <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="co"># ALL_TOUCHED=FALSE;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ls</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-rasterizeline" class="quarto-figure quarto-figure-center anchored" width="50%">
+<div id="fig-rasterizeline" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rasterizeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="03-Geometries_files/figure-html/fig-rasterizeline-1.png" class="img-fluid figure-img" style="width:50.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-rasterizeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rasterizeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.6: Rasterization artifact: as only top-left corners are part of the raster cell, only cells touching the red line below the diagonal line are rasterized
 </figcaption></figure>
 </div>
 </div>
 </div>
 <p></p>
-<p>Tessellating the time dimension with left-closed right-open intervals is very common, and it reflects the implicit assumption underlying time series software such as the <strong>xts</strong> package in R, where time stamps indicate the start of time intervals. Different models can be combined: one could use simple feature polygons to tessellate space and combine this with a regular tessellation of time in order to cover a space time <em>vector data cube</em>. Raster and vector data cubes are discussed in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter&nbsp;6</span></a>.</p>
+<p>Tessellating the time dimension with left-closed right-open intervals is very common, and it reflects the implicit assumption underlying time series software such as the <strong>xts</strong> package in R, where time stamps indicate the start of time intervals. Different models can be combined: one could use simple feature polygons to tessellate space and combine this with a regular tessellation of time in order to cover a space time <em>vector data cube</em>. Raster and vector data cubes are discussed in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
 <p>As mentioned above, besides square cells the other two shapes that can lead to regular tessellations of <span class="math inline">\(R^2\)</span> are triangles and hexagons. On the sphere, there are a few more, including cube, octahedron, icosahedron, and dodecahedron. A spatial index that builds on the cube is <a href="https://s2geometry.io/">s2geometry</a>, the <a href="https://eng.uber.com/h3/">H3 library</a> uses the icosahedron and densifies that with (mostly) hexagons. Mosaics that cover the entire Earth are also called <em>discrete global grids</em>.</p>
 </section></section><section id="networks" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="networks">
 <span class="header-section-number">3.5</span> Networks</h2>
@@ -1187,7 +1217,7 @@ Figure&nbsp;3.6: Rasterization artifact: as only top-left corners are part of th
 <li>start- and end-points of a linestring may be connected to other linestring start or end points, forming a set of nodes and edges</li>
 <li>edges may be directed, to only allow for connection (flow, transport) in one way</li>
 </ul>
-<p>R packages including <strong>osmar</strong> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <strong>stplanr</strong> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span>, and <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, including computation of shortest or fastest routes through a network. Package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
+<p>R packages including <strong>osmar</strong> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <strong>stplanr</strong> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span>, and <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, including computation of shortest or fastest routes through a network. Package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
 </section><section id="exercises" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">3.6</span> Exercises</h2>
 <p>For the following exercises, use R where possible.</p>
@@ -1283,18 +1313,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1326,7 +1345,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1378,6 +1419,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1412,7 +1471,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1427,27 +1490,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -1462,10 +1504,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1474,8 +1520,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1696,12 +1749,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./02-Spaces.html" class="pagination-link  aria-label=">
+      <a href="./02-Spaces.html" class="pagination-link" aria-label="Coordinates">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04-Spherical.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>Spherical Geometries</span>">
+      <a href="./04-Spherical.html" class="pagination-link" aria-label="Spherical Geometries">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2093,7 +2146,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb26-385"><a href="#cb26-385" aria-hidden="true" tabindex="-1"></a>Any geometry also has an inside (I), a boundary (B), and an exterior (E); these</span>
 <span id="cb26-386"><a href="#cb26-386" aria-hidden="true" tabindex="-1"></a>roles are obvious for polygons, however, for:</span>
 <span id="cb26-387"><a href="#cb26-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-388"><a href="#cb26-388" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**lines** the boundary is formed by the end points, and the interior</span>
+<span id="cb26-388"><a href="#cb26-388" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**lines** the boundary is formed by the end points, and the inside</span>
 <span id="cb26-389"><a href="#cb26-389" aria-hidden="true" tabindex="-1"></a>by all non-end points on the line</span>
 <span id="cb26-390"><a href="#cb26-390" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**points** have a zero-dimensional inside but no boundary</span>
 <span id="cb26-391"><a href="#cb26-391" aria-hidden="true" tabindex="-1"></a></span>
@@ -2177,24 +2230,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb26-469"><a href="#cb26-469" aria-hidden="true" tabindex="-1"></a>obey this relationship, they are (topologically) equal, but may</span>
 <span id="cb26-470"><a href="#cb26-470" aria-hidden="true" tabindex="-1"></a>have a different ordering of nodes.</span>
 <span id="cb26-471"><a href="#cb26-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-472"><a href="#cb26-472" aria-hidden="true" tabindex="-1"></a>A list of binary predicates is:</span>
+<span id="cb26-472"><a href="#cb26-472" aria-hidden="true" tabindex="-1"></a>A list of binary predicates, with their meaning for non-empty geometries:</span>
 <span id="cb26-473"><a href="#cb26-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-474"><a href="#cb26-474" aria-hidden="true" tabindex="-1"></a>|predicate                     |meaning                                                          |inverse of      |</span>
+<span id="cb26-474"><a href="#cb26-474" aria-hidden="true" tabindex="-1"></a>|predicate                     |meaning of A _predicate_ B                                       |inverse of      |</span>
 <span id="cb26-475"><a href="#cb26-475" aria-hidden="true" tabindex="-1"></a>|------------------------------|-----------------------------------------------------------------|----------------|</span>
-<span id="cb26-476"><a href="#cb26-476" aria-hidden="true" tabindex="-1"></a>|<span class="in">`contains`</span>                    |None of the points of A are outside B| <span class="in">`within`</span>|</span>
-<span id="cb26-477"><a href="#cb26-477" aria-hidden="true" tabindex="-1"></a>|<span class="in">`contains_properly`</span>           |A contains B and B has no points in common with the boundary of A| |</span>
-<span id="cb26-478"><a href="#cb26-478" aria-hidden="true" tabindex="-1"></a>|<span class="in">`covers`</span>                      |No points of B lie in the exterior of A| <span class="in">`covered_by`</span>|</span>
-<span id="cb26-479"><a href="#cb26-479" aria-hidden="true" tabindex="-1"></a>|<span class="in">`covered_by`</span>                  |Inverse of <span class="in">`covers`</span>| |</span>
+<span id="cb26-476"><a href="#cb26-476" aria-hidden="true" tabindex="-1"></a>|<span class="in">`contains`</span>                    |B has no points in the exterior of A _and_ the insides of A and B have at least one point in common| <span class="in">`within`</span>|</span>
+<span id="cb26-477"><a href="#cb26-477" aria-hidden="true" tabindex="-1"></a>|<span class="in">`contains_properly`</span>           |A contains B _and_ B has no points in common with the boundary of A| |</span>
+<span id="cb26-478"><a href="#cb26-478" aria-hidden="true" tabindex="-1"></a>|<span class="in">`covers`</span>                      |B has no points in the exterior of A| <span class="in">`covered_by`</span>|</span>
+<span id="cb26-479"><a href="#cb26-479" aria-hidden="true" tabindex="-1"></a>|<span class="in">`covered_by`</span>                  |Inverse of <span class="in">`covers`</span>| <span class="in">`covers`</span>|</span>
 <span id="cb26-480"><a href="#cb26-480" aria-hidden="true" tabindex="-1"></a>|<span class="in">`crosses`</span>                     |A and B have some but not all interior points in common| |</span>
 <span id="cb26-481"><a href="#cb26-481" aria-hidden="true" tabindex="-1"></a>|<span class="in">`disjoint`</span>                    |A and B have no points in common| <span class="in">`intersects`</span>|</span>
-<span id="cb26-482"><a href="#cb26-482" aria-hidden="true" tabindex="-1"></a>|<span class="in">`equals`</span>                      |A and B are topologically equal: node order or number of nodes may differ; identical to A contains B and A within B|</span>
-<span id="cb26-483"><a href="#cb26-483" aria-hidden="true" tabindex="-1"></a>|<span class="in">`equals_exact`</span>                |A and B are geometrically equal, and have identical node order| |</span>
+<span id="cb26-482"><a href="#cb26-482" aria-hidden="true" tabindex="-1"></a>|<span class="in">`equals`</span>                      |A and B are topologically equal: node order or number of nodes may differ; identical to A contains B _and_ A within B|</span>
+<span id="cb26-483"><a href="#cb26-483" aria-hidden="true" tabindex="-1"></a>|<span class="in">`equals_exact`</span>                |A equal B _and_ A and B have identical node order| |</span>
 <span id="cb26-484"><a href="#cb26-484" aria-hidden="true" tabindex="-1"></a>|<span class="in">`intersects`</span>                  |A and B are not disjoint| <span class="in">`disjoint`</span>|</span>
-<span id="cb26-485"><a href="#cb26-485" aria-hidden="true" tabindex="-1"></a>|<span class="in">`is_within_distance`</span>          |A is closer to B than a given distance|</span>
-<span id="cb26-486"><a href="#cb26-486" aria-hidden="true" tabindex="-1"></a>|<span class="in">`within`</span>                      |None of the points of B are outside A| <span class="in">`contains`</span>|</span>
-<span id="cb26-487"><a href="#cb26-487" aria-hidden="true" tabindex="-1"></a>|<span class="in">`touches`</span>                     |A and B have at least one boundary point in common, but no interior points|  |</span>
-<span id="cb26-488"><a href="#cb26-488" aria-hidden="true" tabindex="-1"></a>|<span class="in">`overlaps`</span>                    |A and B have some points in common; the dimension of these is identical to that of A and B|  |</span>
-<span id="cb26-489"><a href="#cb26-489" aria-hidden="true" tabindex="-1"></a>|<span class="in">`relate`</span>                      |Given a mask pattern, return whether A and B adhere to this pattern| |</span>
+<span id="cb26-485"><a href="#cb26-485" aria-hidden="true" tabindex="-1"></a>|<span class="in">`is_within_distance`</span>          |the shortest distance from A to B is within a given distance|</span>
+<span id="cb26-486"><a href="#cb26-486" aria-hidden="true" tabindex="-1"></a>|<span class="in">`within`</span>                      |A has no points in the exterior of B, _and_ the insides of A and B have at least one point in common| <span class="in">`contains`</span>|</span>
+<span id="cb26-487"><a href="#cb26-487" aria-hidden="true" tabindex="-1"></a>|<span class="in">`touches`</span>                     |A and B have at least one boundary point but no interior points in common|  |</span>
+<span id="cb26-488"><a href="#cb26-488" aria-hidden="true" tabindex="-1"></a>|<span class="in">`overlaps`</span>                    |A and B have the same dimension and some but not all points in common; the dimension of the common points is identical to that of A and B|  |</span>
+<span id="cb26-489"><a href="#cb26-489" aria-hidden="true" tabindex="-1"></a>|<span class="in">`relate`</span>                      |Given a mask string, return whether A _relate_ B adheres to its pattern| |</span>
 <span id="cb26-490"><a href="#cb26-490" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-491"><a href="#cb26-491" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>contains}</span>
 <span id="cb26-492"><a href="#cb26-492" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>contains<span class="sc">\_</span>properly}</span>
@@ -2220,363 +2273,366 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb26-512"><a href="#cb26-512" aria-hidden="true" tabindex="-1"></a>boundary_ of A</span>
 <span id="cb26-513"><a href="#cb26-513" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>if A _covers_ B, B has no points in common with the exterior of A</span>
 <span id="cb26-514"><a href="#cb26-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-515"><a href="#cb26-515" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unary measures</span></span>
-<span id="cb26-516"><a href="#cb26-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-517"><a href="#cb26-517" aria-hidden="true" tabindex="-1"></a>\index{geometry!measures!unary}</span>
-<span id="cb26-518"><a href="#cb26-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-519"><a href="#cb26-519" aria-hidden="true" tabindex="-1"></a>Unary measures return a measure or quantity that describes a property of</span>
-<span id="cb26-520"><a href="#cb26-520" aria-hidden="true" tabindex="-1"></a>the geometry:</span>
+<span id="cb26-515"><a href="#cb26-515" aria-hidden="true" tabindex="-1"></a>This implies for instance that a polygon covers its own boundary, but</span>
+<span id="cb26-516"><a href="#cb26-516" aria-hidden="true" tabindex="-1"></a>does not contain it.</span>
+<span id="cb26-517"><a href="#cb26-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-518"><a href="#cb26-518" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unary measures</span></span>
+<span id="cb26-519"><a href="#cb26-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-520"><a href="#cb26-520" aria-hidden="true" tabindex="-1"></a>\index{geometry!measures!unary}</span>
 <span id="cb26-521"><a href="#cb26-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-522"><a href="#cb26-522" aria-hidden="true" tabindex="-1"></a>|measure              |returns                                                       |</span>
-<span id="cb26-523"><a href="#cb26-523" aria-hidden="true" tabindex="-1"></a>|---------------------|--------------------------------------------------------------|</span>
-<span id="cb26-524"><a href="#cb26-524" aria-hidden="true" tabindex="-1"></a>|<span class="in">`dimension`</span>          |0 for points, 1 for linear, 2 for polygons, possibly <span class="in">`NA`</span> for empty geometries|</span>
-<span id="cb26-525"><a href="#cb26-525" aria-hidden="true" tabindex="-1"></a>|<span class="in">`area`</span>               |the area of a geometry|</span>
-<span id="cb26-526"><a href="#cb26-526" aria-hidden="true" tabindex="-1"></a>|<span class="in">`length`</span>             |the length of a linear geometry|</span>
-<span id="cb26-527"><a href="#cb26-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-528"><a href="#cb26-528" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>dimension}</span>
-<span id="cb26-529"><a href="#cb26-529" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>area}</span>
-<span id="cb26-530"><a href="#cb26-530" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>length}</span>
-<span id="cb26-531"><a href="#cb26-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-532"><a href="#cb26-532" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary measures</span></span>
-<span id="cb26-533"><a href="#cb26-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-534"><a href="#cb26-534" aria-hidden="true" tabindex="-1"></a>\index{geometry!measures!binary}</span>
-<span id="cb26-535"><a href="#cb26-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-536"><a href="#cb26-536" aria-hidden="true" tabindex="-1"></a><span class="in">`distance`</span> returns the distance between pairs of geometries.</span>
-<span id="cb26-537"><a href="#cb26-537" aria-hidden="true" tabindex="-1"></a>The qualitative measure <span class="in">`relate`</span> (without mask) gives the relation</span>
-<span id="cb26-538"><a href="#cb26-538" aria-hidden="true" tabindex="-1"></a>pattern. A description of the geometrical relationship between two</span>
-<span id="cb26-539"><a href="#cb26-539" aria-hidden="true" tabindex="-1"></a>geometries is given in @sec-de9im.</span>
-<span id="cb26-540"><a href="#cb26-540" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-541"><a href="#cb26-541" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>distance}</span>
-<span id="cb26-542"><a href="#cb26-542" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>relate}</span>
+<span id="cb26-522"><a href="#cb26-522" aria-hidden="true" tabindex="-1"></a>Unary measures return a measure or quantity that describes a property of</span>
+<span id="cb26-523"><a href="#cb26-523" aria-hidden="true" tabindex="-1"></a>the geometry:</span>
+<span id="cb26-524"><a href="#cb26-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-525"><a href="#cb26-525" aria-hidden="true" tabindex="-1"></a>|measure              |returns                                                       |</span>
+<span id="cb26-526"><a href="#cb26-526" aria-hidden="true" tabindex="-1"></a>|---------------------|--------------------------------------------------------------|</span>
+<span id="cb26-527"><a href="#cb26-527" aria-hidden="true" tabindex="-1"></a>|<span class="in">`dimension`</span>          |0 for points, 1 for linear, 2 for polygons, possibly <span class="in">`NA`</span> for empty geometries|</span>
+<span id="cb26-528"><a href="#cb26-528" aria-hidden="true" tabindex="-1"></a>|<span class="in">`area`</span>               |the area of a geometry|</span>
+<span id="cb26-529"><a href="#cb26-529" aria-hidden="true" tabindex="-1"></a>|<span class="in">`length`</span>             |the length of a linear geometry|</span>
+<span id="cb26-530"><a href="#cb26-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-531"><a href="#cb26-531" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>dimension}</span>
+<span id="cb26-532"><a href="#cb26-532" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>area}</span>
+<span id="cb26-533"><a href="#cb26-533" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>length}</span>
+<span id="cb26-534"><a href="#cb26-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-535"><a href="#cb26-535" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary measures</span></span>
+<span id="cb26-536"><a href="#cb26-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-537"><a href="#cb26-537" aria-hidden="true" tabindex="-1"></a>\index{geometry!measures!binary}</span>
+<span id="cb26-538"><a href="#cb26-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-539"><a href="#cb26-539" aria-hidden="true" tabindex="-1"></a><span class="in">`distance`</span> returns the distance between pairs of geometries.</span>
+<span id="cb26-540"><a href="#cb26-540" aria-hidden="true" tabindex="-1"></a>The qualitative measure <span class="in">`relate`</span> (without mask) gives the relation</span>
+<span id="cb26-541"><a href="#cb26-541" aria-hidden="true" tabindex="-1"></a>pattern. A description of the geometrical relationship between two</span>
+<span id="cb26-542"><a href="#cb26-542" aria-hidden="true" tabindex="-1"></a>geometries is given in @sec-de9im.</span>
 <span id="cb26-543"><a href="#cb26-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-544"><a href="#cb26-544" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unary transformers</span></span>
-<span id="cb26-545"><a href="#cb26-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-546"><a href="#cb26-546" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!unary}</span>
-<span id="cb26-547"><a href="#cb26-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-548"><a href="#cb26-548" aria-hidden="true" tabindex="-1"></a>Unary transformations work on a per-geometry basis, and return for each geometry a new geometry.</span>
-<span id="cb26-549"><a href="#cb26-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-550"><a href="#cb26-550" aria-hidden="true" tabindex="-1"></a>|transformer                  |returns a geometry ...                                                            |</span>
-<span id="cb26-551"><a href="#cb26-551" aria-hidden="true" tabindex="-1"></a>|-----------------------------|----------------------------------------------------------------------------------|</span>
-<span id="cb26-552"><a href="#cb26-552" aria-hidden="true" tabindex="-1"></a>|<span class="in">`centroid`</span>|of type <span class="in">`POINT`</span> with the geometry's centroid|</span>
-<span id="cb26-553"><a href="#cb26-553" aria-hidden="true" tabindex="-1"></a>|<span class="in">`buffer`</span>|that is larger (or smaller) than the input geometry, depending on the buffer size|</span>
-<span id="cb26-554"><a href="#cb26-554" aria-hidden="true" tabindex="-1"></a>|<span class="in">`jitter`</span> |that was moved in space a certain amount, using a bivariate uniform distribution|</span>
-<span id="cb26-555"><a href="#cb26-555" aria-hidden="true" tabindex="-1"></a>|<span class="in">`wrap_dateline`</span>|cut into pieces that no longer cover or cross the dateline|</span>
-<span id="cb26-556"><a href="#cb26-556" aria-hidden="true" tabindex="-1"></a>|<span class="in">`boundary`</span>|with the boundary of the input geometry|</span>
-<span id="cb26-557"><a href="#cb26-557" aria-hidden="true" tabindex="-1"></a>|<span class="in">`convex_hull`</span>|that forms the convex hull of the input geometry (@fig-vor) |</span>
-<span id="cb26-558"><a href="#cb26-558" aria-hidden="true" tabindex="-1"></a>|<span class="in">`line_merge`</span>|after merging connecting <span class="in">`LINESTRING`</span> elements of a <span class="in">`MULTILINESTRING`</span> into longer <span class="in">`LINESTRING`</span>s.|</span>
-<span id="cb26-559"><a href="#cb26-559" aria-hidden="true" tabindex="-1"></a>|<span class="in">`make_valid`</span>|that is valid |</span>
-<span id="cb26-560"><a href="#cb26-560" aria-hidden="true" tabindex="-1"></a>|<span class="in">`node`</span>|with added nodes to linear geometries at intersections without a node; only works on individual linear geometries|</span>
-<span id="cb26-561"><a href="#cb26-561" aria-hidden="true" tabindex="-1"></a>|<span class="in">`point_on_surface`</span>|with a (arbitrary) point on a surface|</span>
-<span id="cb26-562"><a href="#cb26-562" aria-hidden="true" tabindex="-1"></a>|<span class="in">`polygonize`</span>|of type polygon, created from lines that form a closed ring|</span>
-<span id="cb26-563"><a href="#cb26-563" aria-hidden="true" tabindex="-1"></a>|<span class="in">`segmentize`</span>|a (linear) geometry with nodes at a given density or minimal distance|</span>
-<span id="cb26-564"><a href="#cb26-564" aria-hidden="true" tabindex="-1"></a>|<span class="in">`simplify`</span>|simplified by removing vertices/nodes (lines or polygons)|</span>
-<span id="cb26-565"><a href="#cb26-565" aria-hidden="true" tabindex="-1"></a>|<span class="in">`split`</span>|that has been split with a splitting linestring|</span>
-<span id="cb26-566"><a href="#cb26-566" aria-hidden="true" tabindex="-1"></a>|<span class="in">`transform`</span>|transformed or convert to a new coordinate reference system (@sec-cs)|</span>
-<span id="cb26-567"><a href="#cb26-567" aria-hidden="true" tabindex="-1"></a>|<span class="in">`triangulate`</span>|with Delauney triangulated polygon(s) (@fig-vor) |</span>
-<span id="cb26-568"><a href="#cb26-568" aria-hidden="true" tabindex="-1"></a>|<span class="in">`voronoi`</span>|with the Voronoi tessellation of an input geometry (@fig-vor) |</span>
-<span id="cb26-569"><a href="#cb26-569" aria-hidden="true" tabindex="-1"></a>|<span class="in">`zm`</span>|with removed or added <span class="in">`Z`</span> and/or <span class="in">`M`</span> coordinates|</span>
-<span id="cb26-570"><a href="#cb26-570" aria-hidden="true" tabindex="-1"></a>|<span class="in">`collection_extract`</span>|with sub-geometries from a <span class="in">`GEOMETRYCOLLECTION`</span> of a particular type|</span>
-<span id="cb26-571"><a href="#cb26-571" aria-hidden="true" tabindex="-1"></a>|<span class="in">`cast`</span>|that is converted to another type|</span>
-<span id="cb26-572"><a href="#cb26-572" aria-hidden="true" tabindex="-1"></a>|<span class="in">`+`</span>|that is shifted over a given vector|</span>
-<span id="cb26-573"><a href="#cb26-573" aria-hidden="true" tabindex="-1"></a>|<span class="in">`*`</span>|that is multiplied by a scalar or matrix|</span>
-<span id="cb26-574"><a href="#cb26-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-575"><a href="#cb26-575" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-vor, echo = !knitr::is_latex_output()}</span></span>
-<span id="cb26-576"><a href="#cb26-576" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "For a set of points, left: convex hull (red); middle: Voronoi polygons; right: Delauney triangulation"</span></span>
-<span id="cb26-577"><a href="#cb26-577" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb26-578"><a href="#cb26-578" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 60%</span></span>
-<span id="cb26-579"><a href="#cb26-579" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(0,4), mfrow = c(1, 3))</span></span>
-<span id="cb26-580"><a href="#cb26-580" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(133331)</span></span>
-<span id="cb26-581"><a href="#cb26-581" aria-hidden="true" tabindex="-1"></a><span class="in">mp &lt;- st_multipoint(matrix(runif(20), 10))</span></span>
-<span id="cb26-582"><a href="#cb26-582" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mp, cex = 2)</span></span>
-<span id="cb26-583"><a href="#cb26-583" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_convex_hull(mp), add = TRUE, col = NA, border = 'red')</span></span>
-<span id="cb26-584"><a href="#cb26-584" aria-hidden="true" tabindex="-1"></a><span class="in">box()</span></span>
+<span id="cb26-544"><a href="#cb26-544" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>distance}</span>
+<span id="cb26-545"><a href="#cb26-545" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>relate}</span>
+<span id="cb26-546"><a href="#cb26-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-547"><a href="#cb26-547" aria-hidden="true" tabindex="-1"></a><span class="fu">### Unary transformers</span></span>
+<span id="cb26-548"><a href="#cb26-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-549"><a href="#cb26-549" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!unary}</span>
+<span id="cb26-550"><a href="#cb26-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-551"><a href="#cb26-551" aria-hidden="true" tabindex="-1"></a>Unary transformations work on a per-geometry basis, and return for each geometry a new geometry.</span>
+<span id="cb26-552"><a href="#cb26-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-553"><a href="#cb26-553" aria-hidden="true" tabindex="-1"></a>|transformer                  |returns a geometry ...                                                            |</span>
+<span id="cb26-554"><a href="#cb26-554" aria-hidden="true" tabindex="-1"></a>|-----------------------------|----------------------------------------------------------------------------------|</span>
+<span id="cb26-555"><a href="#cb26-555" aria-hidden="true" tabindex="-1"></a>|<span class="in">`centroid`</span>|of type <span class="in">`POINT`</span> with the geometry's centroid|</span>
+<span id="cb26-556"><a href="#cb26-556" aria-hidden="true" tabindex="-1"></a>|<span class="in">`buffer`</span>|that is larger (or smaller) than the input geometry, depending on the buffer size|</span>
+<span id="cb26-557"><a href="#cb26-557" aria-hidden="true" tabindex="-1"></a>|<span class="in">`jitter`</span> |that was moved in space a certain amount, using a bivariate uniform distribution|</span>
+<span id="cb26-558"><a href="#cb26-558" aria-hidden="true" tabindex="-1"></a>|<span class="in">`wrap_dateline`</span>|cut into pieces that no longer cover or cross the dateline|</span>
+<span id="cb26-559"><a href="#cb26-559" aria-hidden="true" tabindex="-1"></a>|<span class="in">`boundary`</span>|with the boundary of the input geometry|</span>
+<span id="cb26-560"><a href="#cb26-560" aria-hidden="true" tabindex="-1"></a>|<span class="in">`convex_hull`</span>|that forms the convex hull of the input geometry (@fig-vor) |</span>
+<span id="cb26-561"><a href="#cb26-561" aria-hidden="true" tabindex="-1"></a>|<span class="in">`line_merge`</span>|after merging connecting <span class="in">`LINESTRING`</span> elements of a <span class="in">`MULTILINESTRING`</span> into longer <span class="in">`LINESTRING`</span>s.|</span>
+<span id="cb26-562"><a href="#cb26-562" aria-hidden="true" tabindex="-1"></a>|<span class="in">`make_valid`</span>|that is valid |</span>
+<span id="cb26-563"><a href="#cb26-563" aria-hidden="true" tabindex="-1"></a>|<span class="in">`node`</span>|with added nodes to linear geometries at intersections without a node; only works on individual linear geometries|</span>
+<span id="cb26-564"><a href="#cb26-564" aria-hidden="true" tabindex="-1"></a>|<span class="in">`point_on_surface`</span>|with a (arbitrary) point on a surface|</span>
+<span id="cb26-565"><a href="#cb26-565" aria-hidden="true" tabindex="-1"></a>|<span class="in">`polygonize`</span>|of type polygon, created from lines that form a closed ring|</span>
+<span id="cb26-566"><a href="#cb26-566" aria-hidden="true" tabindex="-1"></a>|<span class="in">`segmentize`</span>|a (linear) geometry with nodes at a given density or minimal distance|</span>
+<span id="cb26-567"><a href="#cb26-567" aria-hidden="true" tabindex="-1"></a>|<span class="in">`simplify`</span>|simplified by removing vertices/nodes (lines or polygons)|</span>
+<span id="cb26-568"><a href="#cb26-568" aria-hidden="true" tabindex="-1"></a>|<span class="in">`split`</span>|that has been split with a splitting linestring|</span>
+<span id="cb26-569"><a href="#cb26-569" aria-hidden="true" tabindex="-1"></a>|<span class="in">`transform`</span>|transformed or convert to a new coordinate reference system (@sec-cs)|</span>
+<span id="cb26-570"><a href="#cb26-570" aria-hidden="true" tabindex="-1"></a>|<span class="in">`triangulate`</span>|with Delauney triangulated polygon(s) (@fig-vor) |</span>
+<span id="cb26-571"><a href="#cb26-571" aria-hidden="true" tabindex="-1"></a>|<span class="in">`voronoi`</span>|with the Voronoi tessellation of an input geometry (@fig-vor) |</span>
+<span id="cb26-572"><a href="#cb26-572" aria-hidden="true" tabindex="-1"></a>|<span class="in">`zm`</span>|with removed or added <span class="in">`Z`</span> and/or <span class="in">`M`</span> coordinates|</span>
+<span id="cb26-573"><a href="#cb26-573" aria-hidden="true" tabindex="-1"></a>|<span class="in">`collection_extract`</span>|with sub-geometries from a <span class="in">`GEOMETRYCOLLECTION`</span> of a particular type|</span>
+<span id="cb26-574"><a href="#cb26-574" aria-hidden="true" tabindex="-1"></a>|<span class="in">`cast`</span>|that is converted to another type|</span>
+<span id="cb26-575"><a href="#cb26-575" aria-hidden="true" tabindex="-1"></a>|<span class="in">`+`</span>|that is shifted over a given vector|</span>
+<span id="cb26-576"><a href="#cb26-576" aria-hidden="true" tabindex="-1"></a>|<span class="in">`*`</span>|that is multiplied by a scalar or matrix|</span>
+<span id="cb26-577"><a href="#cb26-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-578"><a href="#cb26-578" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-vor, echo = !knitr::is_latex_output()}</span></span>
+<span id="cb26-579"><a href="#cb26-579" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "For a set of points, left: convex hull (red); middle: Voronoi polygons; right: Delauney triangulation"</span></span>
+<span id="cb26-580"><a href="#cb26-580" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb26-581"><a href="#cb26-581" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 60%</span></span>
+<span id="cb26-582"><a href="#cb26-582" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(0,4), mfrow = c(1, 3))</span></span>
+<span id="cb26-583"><a href="#cb26-583" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(133331)</span></span>
+<span id="cb26-584"><a href="#cb26-584" aria-hidden="true" tabindex="-1"></a><span class="in">mp &lt;- st_multipoint(matrix(runif(20), 10))</span></span>
 <span id="cb26-585"><a href="#cb26-585" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mp, cex = 2)</span></span>
-<span id="cb26-586"><a href="#cb26-586" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_voronoi(mp), add = TRUE, col = NA, border = 'red')</span></span>
+<span id="cb26-586"><a href="#cb26-586" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_convex_hull(mp), add = TRUE, col = NA, border = 'red')</span></span>
 <span id="cb26-587"><a href="#cb26-587" aria-hidden="true" tabindex="-1"></a><span class="in">box()</span></span>
 <span id="cb26-588"><a href="#cb26-588" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mp, cex = 2)</span></span>
-<span id="cb26-589"><a href="#cb26-589" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_triangulate(mp), add = TRUE, col = NA, border = 'darkgreen')</span></span>
+<span id="cb26-589"><a href="#cb26-589" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_voronoi(mp), add = TRUE, col = NA, border = 'red')</span></span>
 <span id="cb26-590"><a href="#cb26-590" aria-hidden="true" tabindex="-1"></a><span class="in">box()</span></span>
-<span id="cb26-591"><a href="#cb26-591" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-592"><a href="#cb26-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-593"><a href="#cb26-593" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>centroid}</span>
-<span id="cb26-594"><a href="#cb26-594" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>buffer}</span>
-<span id="cb26-595"><a href="#cb26-595" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>jitter}</span>
-<span id="cb26-596"><a href="#cb26-596" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>wrap<span class="sc">\_</span>dateline}</span>
-<span id="cb26-597"><a href="#cb26-597" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>boundary}</span>
-<span id="cb26-598"><a href="#cb26-598" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>convex<span class="sc">\_</span>hull}</span>
-<span id="cb26-599"><a href="#cb26-599" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>line<span class="sc">\_</span>merge}</span>
-<span id="cb26-600"><a href="#cb26-600" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>make<span class="sc">\_</span>valid}</span>
-<span id="cb26-601"><a href="#cb26-601" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>node}</span>
-<span id="cb26-602"><a href="#cb26-602" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>point<span class="sc">\_</span>on<span class="sc">\_</span>surface}</span>
-<span id="cb26-603"><a href="#cb26-603" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>polygonize}</span>
-<span id="cb26-604"><a href="#cb26-604" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>segmentize}</span>
-<span id="cb26-605"><a href="#cb26-605" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>simplify}</span>
-<span id="cb26-606"><a href="#cb26-606" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>split}</span>
-<span id="cb26-607"><a href="#cb26-607" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>transform}</span>
-<span id="cb26-608"><a href="#cb26-608" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>triangulate}</span>
-<span id="cb26-609"><a href="#cb26-609" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>voronoi}</span>
-<span id="cb26-610"><a href="#cb26-610" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>zm}</span>
-<span id="cb26-611"><a href="#cb26-611" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>collection<span class="sc">\_</span>extract}</span>
-<span id="cb26-612"><a href="#cb26-612" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>cast}</span>
-<span id="cb26-613"><a href="#cb26-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-614"><a href="#cb26-614" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary transformers {#sec-bintrans}</span></span>
-<span id="cb26-615"><a href="#cb26-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-616"><a href="#cb26-616" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!binary}</span>
-<span id="cb26-617"><a href="#cb26-617" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-618"><a href="#cb26-618" aria-hidden="true" tabindex="-1"></a>Binary transformers are functions that return a geometry based on</span>
-<span id="cb26-619"><a href="#cb26-619" aria-hidden="true" tabindex="-1"></a>operating on a pair of geometries.  They include:</span>
+<span id="cb26-591"><a href="#cb26-591" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mp, cex = 2)</span></span>
+<span id="cb26-592"><a href="#cb26-592" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_triangulate(mp), add = TRUE, col = NA, border = 'darkgreen')</span></span>
+<span id="cb26-593"><a href="#cb26-593" aria-hidden="true" tabindex="-1"></a><span class="in">box()</span></span>
+<span id="cb26-594"><a href="#cb26-594" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-595"><a href="#cb26-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-596"><a href="#cb26-596" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>centroid}</span>
+<span id="cb26-597"><a href="#cb26-597" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>buffer}</span>
+<span id="cb26-598"><a href="#cb26-598" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>jitter}</span>
+<span id="cb26-599"><a href="#cb26-599" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>wrap<span class="sc">\_</span>dateline}</span>
+<span id="cb26-600"><a href="#cb26-600" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>boundary}</span>
+<span id="cb26-601"><a href="#cb26-601" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>convex<span class="sc">\_</span>hull}</span>
+<span id="cb26-602"><a href="#cb26-602" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>line<span class="sc">\_</span>merge}</span>
+<span id="cb26-603"><a href="#cb26-603" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>make<span class="sc">\_</span>valid}</span>
+<span id="cb26-604"><a href="#cb26-604" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>node}</span>
+<span id="cb26-605"><a href="#cb26-605" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>point<span class="sc">\_</span>on<span class="sc">\_</span>surface}</span>
+<span id="cb26-606"><a href="#cb26-606" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>polygonize}</span>
+<span id="cb26-607"><a href="#cb26-607" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>segmentize}</span>
+<span id="cb26-608"><a href="#cb26-608" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>simplify}</span>
+<span id="cb26-609"><a href="#cb26-609" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>split}</span>
+<span id="cb26-610"><a href="#cb26-610" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>transform}</span>
+<span id="cb26-611"><a href="#cb26-611" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>triangulate}</span>
+<span id="cb26-612"><a href="#cb26-612" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>voronoi}</span>
+<span id="cb26-613"><a href="#cb26-613" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>zm}</span>
+<span id="cb26-614"><a href="#cb26-614" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>collection<span class="sc">\_</span>extract}</span>
+<span id="cb26-615"><a href="#cb26-615" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>cast}</span>
+<span id="cb26-616"><a href="#cb26-616" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-617"><a href="#cb26-617" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary transformers {#sec-bintrans}</span></span>
+<span id="cb26-618"><a href="#cb26-618" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-619"><a href="#cb26-619" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!binary}</span>
 <span id="cb26-620"><a href="#cb26-620" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-621"><a href="#cb26-621" aria-hidden="true" tabindex="-1"></a>|function           |returns                                                    |infix operator|</span>
-<span id="cb26-622"><a href="#cb26-622" aria-hidden="true" tabindex="-1"></a>|-------------------|-----------------------------------------------------------|:------------:|</span>
-<span id="cb26-623"><a href="#cb26-623" aria-hidden="true" tabindex="-1"></a>|<span class="in">`intersection`</span>     |the overlapping geometries for pair of geometries          |<span class="in">`&amp;`</span>|</span>
-<span id="cb26-624"><a href="#cb26-624" aria-hidden="true" tabindex="-1"></a>|<span class="in">`union`</span>            |the combination of the geometries; removes internal boundaries and duplicate points, nodes or line pieces|<span class="in">`|`</span>|</span>
-<span id="cb26-625"><a href="#cb26-625" aria-hidden="true" tabindex="-1"></a>|<span class="in">`difference`</span>       |the geometries of the first after removing the overlap with the second geometry|<span class="in">`/`</span>|</span>
-<span id="cb26-626"><a href="#cb26-626" aria-hidden="true" tabindex="-1"></a>|<span class="in">`sym_difference`</span>   |the combinations of the geometries after removing where they intersect; the negation (opposite) of <span class="in">`intersection`</span>|<span class="in">`%/%`</span>|</span>
-<span id="cb26-627"><a href="#cb26-627" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-628"><a href="#cb26-628" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>intersection}</span>
-<span id="cb26-629"><a href="#cb26-629" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>union}</span>
-<span id="cb26-630"><a href="#cb26-630" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>difference}</span>
-<span id="cb26-631"><a href="#cb26-631" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>sym<span class="sc">\_</span>difference}</span>
-<span id="cb26-632"><a href="#cb26-632" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-633"><a href="#cb26-633" aria-hidden="true" tabindex="-1"></a><span class="fu">### N-ary transformers {#sec-nary}</span></span>
-<span id="cb26-634"><a href="#cb26-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-635"><a href="#cb26-635" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!n-ary}</span>
-<span id="cb26-636"><a href="#cb26-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-637"><a href="#cb26-637" aria-hidden="true" tabindex="-1"></a>N-ary transformers operate on sets of geometries.</span>
-<span id="cb26-638"><a href="#cb26-638" aria-hidden="true" tabindex="-1"></a><span class="in">`union`</span> can be applied to a set of geometries to return its</span>
-<span id="cb26-639"><a href="#cb26-639" aria-hidden="true" tabindex="-1"></a>geometrical union.  Otherwise, any set of geometries can be combined</span>
-<span id="cb26-640"><a href="#cb26-640" aria-hidden="true" tabindex="-1"></a>into a <span class="in">`MULTI`</span>-type geometry when they have equal dimension, or</span>
-<span id="cb26-641"><a href="#cb26-641" aria-hidden="true" tabindex="-1"></a>else into a <span class="in">`GEOMETRYCOLLECTION`</span>. Without unioning, this may</span>
-<span id="cb26-642"><a href="#cb26-642" aria-hidden="true" tabindex="-1"></a>lead to a geometry that is not valid, for instance when two polygon</span>
-<span id="cb26-643"><a href="#cb26-643" aria-hidden="true" tabindex="-1"></a>rings have a boundary line in common.</span>
-<span id="cb26-644"><a href="#cb26-644" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-645"><a href="#cb26-645" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>union!n-ary}</span>
-<span id="cb26-646"><a href="#cb26-646" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>intersection!n-ary}</span>
-<span id="cb26-647"><a href="#cb26-647" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>difference!n-ary}</span>
-<span id="cb26-648"><a href="#cb26-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-649"><a href="#cb26-649" aria-hidden="true" tabindex="-1"></a>N-ary <span class="in">`intersection`</span> and <span class="in">`difference`</span> take a single argument</span>
-<span id="cb26-650"><a href="#cb26-650" aria-hidden="true" tabindex="-1"></a>but operate (sequentially) on all pairs, triples, quadruples, etc.</span>
-<span id="cb26-651"><a href="#cb26-651" aria-hidden="true" tabindex="-1"></a>Consider the plot in @fig-boxes: how do we identify</span>
-<span id="cb26-652"><a href="#cb26-652" aria-hidden="true" tabindex="-1"></a>the area where all three boxes overlap?  Using binary intersections</span>
-<span id="cb26-653"><a href="#cb26-653" aria-hidden="true" tabindex="-1"></a>gives us intersections for all pairs: 1-1, 1-2, 1-3, 2-1, 2-2, 2-3,</span>
-<span id="cb26-654"><a href="#cb26-654" aria-hidden="true" tabindex="-1"></a>3-1, 3-2, 3-3, but that does not let us identify areas where more than</span>
-<span id="cb26-655"><a href="#cb26-655" aria-hidden="true" tabindex="-1"></a>two geometries intersect.</span>
-<span id="cb26-656"><a href="#cb26-656" aria-hidden="true" tabindex="-1"></a>@fig-boxes (right) shows the n-ary intersection: the seven</span>
-<span id="cb26-657"><a href="#cb26-657" aria-hidden="true" tabindex="-1"></a>unique, non-overlapping geometries originating from intersection</span>
-<span id="cb26-658"><a href="#cb26-658" aria-hidden="true" tabindex="-1"></a>of one, two, _or more_ geometries.</span>
-<span id="cb26-659"><a href="#cb26-659" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-660"><a href="#cb26-660" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-boxes, eval=TRUE, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb26-661"><a href="#cb26-661" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb26-662"><a href="#cb26-662" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
-<span id="cb26-663"><a href="#cb26-663" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Left: three overlapping squares -- how do we identify the small box where all three overlap? Right: unique, non-overlapping n-ary intersections"</span></span>
-<span id="cb26-664"><a href="#cb26-664" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(.1, 4), mfrow = c(1, 2))</span></span>
-<span id="cb26-665"><a href="#cb26-665" aria-hidden="true" tabindex="-1"></a><span class="in">sq &lt;- function(pt, sz = 1) st_polygon(list(rbind(c(pt - sz), </span></span>
-<span id="cb26-666"><a href="#cb26-666" aria-hidden="true" tabindex="-1"></a><span class="in">  c(pt[1] + sz, pt[2] - sz), c(pt + sz), c(pt[1] - sz, pt[2] + sz), c(pt - sz))))</span></span>
-<span id="cb26-667"><a href="#cb26-667" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- st_sf(box = 1:3, st_sfc(sq(c(0, 0)), sq(c(1.7, -0.5)), sq(c(0.5, 1))))</span></span>
-<span id="cb26-668"><a href="#cb26-668" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(x), col = NA, border = sf.colors(3, categorical = TRUE), lwd = 3)</span></span>
-<span id="cb26-669"><a href="#cb26-669" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_intersection(st_geometry(x)), col = sf.colors(7, categorical=TRUE, alpha = .5))</span></span>
-<span id="cb26-670"><a href="#cb26-670" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-671"><a href="#cb26-671" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-672"><a href="#cb26-672" aria-hidden="true" tabindex="-1"></a>Similarly, one can compute an n-ary _difference_ from a set $<span class="sc">\{</span>s_1, s_2,</span>
-<span id="cb26-673"><a href="#cb26-673" aria-hidden="true" tabindex="-1"></a>s_3, ...<span class="sc">\}</span>$ by creating differences $<span class="sc">\{</span>s_1, s_2-s_1, s_3-s_2-s_1,</span>
-<span id="cb26-674"><a href="#cb26-674" aria-hidden="true" tabindex="-1"></a>...<span class="sc">\}</span>$. This is shown in @fig-diff, (left) for the original</span>
-<span id="cb26-675"><a href="#cb26-675" aria-hidden="true" tabindex="-1"></a>set, and (right) for the set after reversing its order to make clear that</span>
-<span id="cb26-676"><a href="#cb26-676" aria-hidden="true" tabindex="-1"></a>the result here depends on the ordering of the input geometries. Again,</span>
-<span id="cb26-677"><a href="#cb26-677" aria-hidden="true" tabindex="-1"></a>resulting geometries do not overlap.</span>
-<span id="cb26-678"><a href="#cb26-678" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-679"><a href="#cb26-679" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-diff, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb26-680"><a href="#cb26-680" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb26-681"><a href="#cb26-681" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
-<span id="cb26-682"><a href="#cb26-682" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Difference between subsequent boxes, left: in original order; right: in reverse order"</span></span>
-<span id="cb26-683"><a href="#cb26-683" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(.1, 4), mfrow = c(1, 2)) </span></span>
-<span id="cb26-684"><a href="#cb26-684" aria-hidden="true" tabindex="-1"></a><span class="in">xg &lt;- st_geometry(x)</span></span>
-<span id="cb26-685"><a href="#cb26-685" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_difference(xg), col = sf.colors(3, alpha = .5, categorical=TRUE))</span></span>
-<span id="cb26-686"><a href="#cb26-686" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_difference(xg[3:1]), col = sf.colors(3, alpha = .5, categorical=TRUE))</span></span>
-<span id="cb26-687"><a href="#cb26-687" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-688"><a href="#cb26-688" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-689"><a href="#cb26-689" aria-hidden="true" tabindex="-1"></a><span class="fu">## Precision {#sec-precision}</span></span>
-<span id="cb26-690"><a href="#cb26-690" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-691"><a href="#cb26-691" aria-hidden="true" tabindex="-1"></a>\index{precisions}</span>
-<span id="cb26-692"><a href="#cb26-692" aria-hidden="true" tabindex="-1"></a>\index{coordinates!precisions}</span>
-<span id="cb26-693"><a href="#cb26-693" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>precision}</span>
-<span id="cb26-694"><a href="#cb26-694" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-695"><a href="#cb26-695" aria-hidden="true" tabindex="-1"></a>Geometrical operations, such as finding out whether a certain</span>
-<span id="cb26-696"><a href="#cb26-696" aria-hidden="true" tabindex="-1"></a>point is on a line, may fail when coordinates are represented by</span>
-<span id="cb26-697"><a href="#cb26-697" aria-hidden="true" tabindex="-1"></a>double precision floating point numbers, such as 8-byte doubles</span>
-<span id="cb26-698"><a href="#cb26-698" aria-hidden="true" tabindex="-1"></a>used in R. An often chosen remedy is to limit the precision of the</span>
-<span id="cb26-699"><a href="#cb26-699" aria-hidden="true" tabindex="-1"></a>coordinates before the operation.  For this, a _precision model_</span>
-<span id="cb26-700"><a href="#cb26-700" aria-hidden="true" tabindex="-1"></a>is adopted; the most common is to choose a factor $p$ and compute</span>
-<span id="cb26-701"><a href="#cb26-701" aria-hidden="true" tabindex="-1"></a>rounded coordinates $c'$ from original coordinates $c$ by</span>
-<span id="cb26-702"><a href="#cb26-702" aria-hidden="true" tabindex="-1"></a>$$c' = \mbox{round}(p \cdot c) / p$$</span>
-<span id="cb26-703"><a href="#cb26-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-704"><a href="#cb26-704" aria-hidden="true" tabindex="-1"></a>Rounding of this kind brings the coordinates to points on a</span>
-<span id="cb26-705"><a href="#cb26-705" aria-hidden="true" tabindex="-1"></a>regular grid with spacing $1/p$, which is beneficial for geometric</span>
-<span id="cb26-706"><a href="#cb26-706" aria-hidden="true" tabindex="-1"></a>computations. Of course, it also affects all computations like</span>
-<span id="cb26-707"><a href="#cb26-707" aria-hidden="true" tabindex="-1"></a>areas and distances, and may turn valid geometries into invalid</span>
-<span id="cb26-708"><a href="#cb26-708" aria-hidden="true" tabindex="-1"></a>ones. Which precision values are best for which application is</span>
-<span id="cb26-709"><a href="#cb26-709" aria-hidden="true" tabindex="-1"></a>often a matter of common sense combined with trial and error. </span>
-<span id="cb26-710"><a href="#cb26-710" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-711"><a href="#cb26-711" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coverages: tessellations and rasters {#sec-coverages}</span></span>
-<span id="cb26-712"><a href="#cb26-712" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-713"><a href="#cb26-713" aria-hidden="true" tabindex="-1"></a>\index{coverage}</span>
-<span id="cb26-714"><a href="#cb26-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-715"><a href="#cb26-715" aria-hidden="true" tabindex="-1"></a>The Open Geospatial Consortium defines a _coverage_ as a "feature</span>
-<span id="cb26-716"><a href="#cb26-716" aria-hidden="true" tabindex="-1"></a>that acts as a function to return values from its range for any</span>
-<span id="cb26-717"><a href="#cb26-717" aria-hidden="true" tabindex="-1"></a>direct position within its spatiotemporal domain" <span class="co">[</span><span class="ot">@ogccov</span><span class="co">]</span>. Having</span>
-<span id="cb26-718"><a href="#cb26-718" aria-hidden="true" tabindex="-1"></a>a _function_ implies that for every space time "point", every combination</span>
-<span id="cb26-719"><a href="#cb26-719" aria-hidden="true" tabindex="-1"></a>of a spatial point and a moment in time of the spatiotemporal domain,</span>
-<span id="cb26-720"><a href="#cb26-720" aria-hidden="true" tabindex="-1"></a>we have a _single_ value for the range. This is a very common situation</span>
-<span id="cb26-721"><a href="#cb26-721" aria-hidden="true" tabindex="-1"></a>for spatiotemporal phenomena, a few examples can be given:</span>
-<span id="cb26-722"><a href="#cb26-722" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-723"><a href="#cb26-723" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>boundary disputes aside, at a give time every point in a region (domain) belongs to a single administrative unit (range)</span>
-<span id="cb26-724"><a href="#cb26-724" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>at any given moment in time, every point in a region (domain) has a certain _land cover type_ (range)</span>
-<span id="cb26-725"><a href="#cb26-725" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>every point in an area (domain) has a single surface elevation (range), which could be measured with respect to a given mean sea level surface</span>
-<span id="cb26-726"><a href="#cb26-726" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>every spatiotemporal point in a three-dimensional body of air (domain) has single value for temperature (range)</span>
-<span id="cb26-727"><a href="#cb26-727" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-728"><a href="#cb26-728" aria-hidden="true" tabindex="-1"></a>A caveat here is that because observation or measurement always takes</span>
-<span id="cb26-729"><a href="#cb26-729" aria-hidden="true" tabindex="-1"></a>time and requires space, measured values are always an average over</span>
-<span id="cb26-730"><a href="#cb26-730" aria-hidden="true" tabindex="-1"></a>a spatiotemporal volume, and hence range variables can rarely be</span>
-<span id="cb26-731"><a href="#cb26-731" aria-hidden="true" tabindex="-1"></a>measured for true, zero-volume "points"; for many practical cases</span>
-<span id="cb26-732"><a href="#cb26-732" aria-hidden="true" tabindex="-1"></a>however the measured volume is small enough to be considered a</span>
-<span id="cb26-733"><a href="#cb26-733" aria-hidden="true" tabindex="-1"></a>"point". For a variable like _land cover type_ the volume needs to</span>
-<span id="cb26-734"><a href="#cb26-734" aria-hidden="true" tabindex="-1"></a>be chosen such that the types distinguished make sense with respect</span>
-<span id="cb26-735"><a href="#cb26-735" aria-hidden="true" tabindex="-1"></a>to the measured areal units.</span>
-<span id="cb26-736"><a href="#cb26-736" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-737"><a href="#cb26-737" aria-hidden="true" tabindex="-1"></a>In the first two of the given examples the range variable is</span>
-<span id="cb26-738"><a href="#cb26-738" aria-hidden="true" tabindex="-1"></a>_categorical_, in the last two the range variable is _continuous_.</span>
-<span id="cb26-739"><a href="#cb26-739" aria-hidden="true" tabindex="-1"></a>For categorical range variables, if large connected areas have a</span>
-<span id="cb26-740"><a href="#cb26-740" aria-hidden="true" tabindex="-1"></a>constant range value, an efficient way to represent these data</span>
-<span id="cb26-741"><a href="#cb26-741" aria-hidden="true" tabindex="-1"></a>is by storing the boundaries of the areas with constant value, such</span>
-<span id="cb26-742"><a href="#cb26-742" aria-hidden="true" tabindex="-1"></a>as country boundaries. Although this can be done (and is often done)</span>
-<span id="cb26-743"><a href="#cb26-743" aria-hidden="true" tabindex="-1"></a>by a set of simple feature geometries (polygons or multi-polygons),</span>
-<span id="cb26-744"><a href="#cb26-744" aria-hidden="true" tabindex="-1"></a>this brings along some challenges:</span>
-<span id="cb26-745"><a href="#cb26-745" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-746"><a href="#cb26-746" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>it is hard to guarantee for such a set of simple feature polygons that they do not overlap, or that there are no unwanted gaps between them</span>
-<span id="cb26-747"><a href="#cb26-747" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>simple features have no way of assigning points _on_ the boundary of two adjacent polygons uniquely to a single polygon, which conflicts with the interpretation as coverage</span>
+<span id="cb26-621"><a href="#cb26-621" aria-hidden="true" tabindex="-1"></a>Binary transformers are functions that return a geometry based on</span>
+<span id="cb26-622"><a href="#cb26-622" aria-hidden="true" tabindex="-1"></a>operating on a pair of geometries.  They include:</span>
+<span id="cb26-623"><a href="#cb26-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-624"><a href="#cb26-624" aria-hidden="true" tabindex="-1"></a>|function           |returns                                                    |infix operator|</span>
+<span id="cb26-625"><a href="#cb26-625" aria-hidden="true" tabindex="-1"></a>|-------------------|-----------------------------------------------------------|:------------:|</span>
+<span id="cb26-626"><a href="#cb26-626" aria-hidden="true" tabindex="-1"></a>|<span class="in">`intersection`</span>     |the overlapping geometries for pair of geometries          |<span class="in">`&amp;`</span>|</span>
+<span id="cb26-627"><a href="#cb26-627" aria-hidden="true" tabindex="-1"></a>|<span class="in">`union`</span>            |the combination of the geometries; removes internal boundaries and duplicate points, nodes or line pieces|<span class="in">`|`</span>|</span>
+<span id="cb26-628"><a href="#cb26-628" aria-hidden="true" tabindex="-1"></a>|<span class="in">`difference`</span>       |the geometries of the first after removing the overlap with the second geometry|<span class="in">`/`</span>|</span>
+<span id="cb26-629"><a href="#cb26-629" aria-hidden="true" tabindex="-1"></a>|<span class="in">`sym_difference`</span>   |the combinations of the geometries after removing where they intersect; the negation (opposite) of <span class="in">`intersection`</span>|<span class="in">`%/%`</span>|</span>
+<span id="cb26-630"><a href="#cb26-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-631"><a href="#cb26-631" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>intersection}</span>
+<span id="cb26-632"><a href="#cb26-632" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>union}</span>
+<span id="cb26-633"><a href="#cb26-633" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>difference}</span>
+<span id="cb26-634"><a href="#cb26-634" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>sym<span class="sc">\_</span>difference}</span>
+<span id="cb26-635"><a href="#cb26-635" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-636"><a href="#cb26-636" aria-hidden="true" tabindex="-1"></a><span class="fu">### N-ary transformers {#sec-nary}</span></span>
+<span id="cb26-637"><a href="#cb26-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-638"><a href="#cb26-638" aria-hidden="true" tabindex="-1"></a>\index{geometry!transformers!n-ary}</span>
+<span id="cb26-639"><a href="#cb26-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-640"><a href="#cb26-640" aria-hidden="true" tabindex="-1"></a>N-ary transformers operate on sets of geometries.</span>
+<span id="cb26-641"><a href="#cb26-641" aria-hidden="true" tabindex="-1"></a><span class="in">`union`</span> can be applied to a set of geometries to return its</span>
+<span id="cb26-642"><a href="#cb26-642" aria-hidden="true" tabindex="-1"></a>geometrical union.  Otherwise, any set of geometries can be combined</span>
+<span id="cb26-643"><a href="#cb26-643" aria-hidden="true" tabindex="-1"></a>into a <span class="in">`MULTI`</span>-type geometry when they have equal dimension, or</span>
+<span id="cb26-644"><a href="#cb26-644" aria-hidden="true" tabindex="-1"></a>else into a <span class="in">`GEOMETRYCOLLECTION`</span>. Without unioning, this may</span>
+<span id="cb26-645"><a href="#cb26-645" aria-hidden="true" tabindex="-1"></a>lead to a geometry that is not valid, for instance when two polygon</span>
+<span id="cb26-646"><a href="#cb26-646" aria-hidden="true" tabindex="-1"></a>rings have a boundary line in common.</span>
+<span id="cb26-647"><a href="#cb26-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-648"><a href="#cb26-648" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>union!n-ary}</span>
+<span id="cb26-649"><a href="#cb26-649" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>intersection!n-ary}</span>
+<span id="cb26-650"><a href="#cb26-650" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>difference!n-ary}</span>
+<span id="cb26-651"><a href="#cb26-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-652"><a href="#cb26-652" aria-hidden="true" tabindex="-1"></a>N-ary <span class="in">`intersection`</span> and <span class="in">`difference`</span> take a single argument</span>
+<span id="cb26-653"><a href="#cb26-653" aria-hidden="true" tabindex="-1"></a>but operate (sequentially) on all pairs, triples, quadruples, etc.</span>
+<span id="cb26-654"><a href="#cb26-654" aria-hidden="true" tabindex="-1"></a>Consider the plot in @fig-boxes: how do we identify</span>
+<span id="cb26-655"><a href="#cb26-655" aria-hidden="true" tabindex="-1"></a>the area where all three boxes overlap?  Using binary intersections</span>
+<span id="cb26-656"><a href="#cb26-656" aria-hidden="true" tabindex="-1"></a>gives us intersections for all pairs: 1-1, 1-2, 1-3, 2-1, 2-2, 2-3,</span>
+<span id="cb26-657"><a href="#cb26-657" aria-hidden="true" tabindex="-1"></a>3-1, 3-2, 3-3, but that does not let us identify areas where more than</span>
+<span id="cb26-658"><a href="#cb26-658" aria-hidden="true" tabindex="-1"></a>two geometries intersect.</span>
+<span id="cb26-659"><a href="#cb26-659" aria-hidden="true" tabindex="-1"></a>@fig-boxes (right) shows the n-ary intersection: the seven</span>
+<span id="cb26-660"><a href="#cb26-660" aria-hidden="true" tabindex="-1"></a>unique, non-overlapping geometries originating from intersection</span>
+<span id="cb26-661"><a href="#cb26-661" aria-hidden="true" tabindex="-1"></a>of one, two, _or more_ geometries.</span>
+<span id="cb26-662"><a href="#cb26-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-663"><a href="#cb26-663" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-boxes, eval=TRUE, echo=!knitr::is_latex_output()}</span></span>
+<span id="cb26-664"><a href="#cb26-664" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb26-665"><a href="#cb26-665" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
+<span id="cb26-666"><a href="#cb26-666" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Left: three overlapping squares -- how do we identify the small box where all three overlap? Right: unique, non-overlapping n-ary intersections"</span></span>
+<span id="cb26-667"><a href="#cb26-667" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(.1, 4), mfrow = c(1, 2))</span></span>
+<span id="cb26-668"><a href="#cb26-668" aria-hidden="true" tabindex="-1"></a><span class="in">sq &lt;- function(pt, sz = 1) st_polygon(list(rbind(c(pt - sz), </span></span>
+<span id="cb26-669"><a href="#cb26-669" aria-hidden="true" tabindex="-1"></a><span class="in">  c(pt[1] + sz, pt[2] - sz), c(pt + sz), c(pt[1] - sz, pt[2] + sz), c(pt - sz))))</span></span>
+<span id="cb26-670"><a href="#cb26-670" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- st_sf(box = 1:3, st_sfc(sq(c(0, 0)), sq(c(1.7, -0.5)), sq(c(0.5, 1))))</span></span>
+<span id="cb26-671"><a href="#cb26-671" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(x), col = NA, border = sf.colors(3, categorical = TRUE), lwd = 3)</span></span>
+<span id="cb26-672"><a href="#cb26-672" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_intersection(st_geometry(x)), col = sf.colors(7, categorical=TRUE, alpha = .5))</span></span>
+<span id="cb26-673"><a href="#cb26-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-674"><a href="#cb26-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-675"><a href="#cb26-675" aria-hidden="true" tabindex="-1"></a>Similarly, one can compute an n-ary _difference_ from a set $<span class="sc">\{</span>s_1, s_2,</span>
+<span id="cb26-676"><a href="#cb26-676" aria-hidden="true" tabindex="-1"></a>s_3, ...<span class="sc">\}</span>$ by creating differences $<span class="sc">\{</span>s_1, s_2-s_1, s_3-s_2-s_1,</span>
+<span id="cb26-677"><a href="#cb26-677" aria-hidden="true" tabindex="-1"></a>...<span class="sc">\}</span>$. This is shown in @fig-diff, (left) for the original</span>
+<span id="cb26-678"><a href="#cb26-678" aria-hidden="true" tabindex="-1"></a>set, and (right) for the set after reversing its order to make clear that</span>
+<span id="cb26-679"><a href="#cb26-679" aria-hidden="true" tabindex="-1"></a>the result here depends on the ordering of the input geometries. Again,</span>
+<span id="cb26-680"><a href="#cb26-680" aria-hidden="true" tabindex="-1"></a>resulting geometries do not overlap.</span>
+<span id="cb26-681"><a href="#cb26-681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-682"><a href="#cb26-682" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-diff, echo=!knitr::is_latex_output()}</span></span>
+<span id="cb26-683"><a href="#cb26-683" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb26-684"><a href="#cb26-684" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
+<span id="cb26-685"><a href="#cb26-685" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Difference between subsequent boxes, left: in original order; right: in reverse order"</span></span>
+<span id="cb26-686"><a href="#cb26-686" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(.1, 4), mfrow = c(1, 2)) </span></span>
+<span id="cb26-687"><a href="#cb26-687" aria-hidden="true" tabindex="-1"></a><span class="in">xg &lt;- st_geometry(x)</span></span>
+<span id="cb26-688"><a href="#cb26-688" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_difference(xg), col = sf.colors(3, alpha = .5, categorical=TRUE))</span></span>
+<span id="cb26-689"><a href="#cb26-689" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_difference(xg[3:1]), col = sf.colors(3, alpha = .5, categorical=TRUE))</span></span>
+<span id="cb26-690"><a href="#cb26-690" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-691"><a href="#cb26-691" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-692"><a href="#cb26-692" aria-hidden="true" tabindex="-1"></a><span class="fu">## Precision {#sec-precision}</span></span>
+<span id="cb26-693"><a href="#cb26-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-694"><a href="#cb26-694" aria-hidden="true" tabindex="-1"></a>\index{precisions}</span>
+<span id="cb26-695"><a href="#cb26-695" aria-hidden="true" tabindex="-1"></a>\index{coordinates!precisions}</span>
+<span id="cb26-696"><a href="#cb26-696" aria-hidden="true" tabindex="-1"></a>\index<span class="co">[</span><span class="ot">function</span><span class="co">]</span>{st<span class="sc">\_</span>precision}</span>
+<span id="cb26-697"><a href="#cb26-697" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-698"><a href="#cb26-698" aria-hidden="true" tabindex="-1"></a>Geometrical operations, such as finding out whether a certain</span>
+<span id="cb26-699"><a href="#cb26-699" aria-hidden="true" tabindex="-1"></a>point is on a line, may fail when coordinates are represented by</span>
+<span id="cb26-700"><a href="#cb26-700" aria-hidden="true" tabindex="-1"></a>double precision floating point numbers, such as 8-byte doubles</span>
+<span id="cb26-701"><a href="#cb26-701" aria-hidden="true" tabindex="-1"></a>used in R. An often chosen remedy is to limit the precision of the</span>
+<span id="cb26-702"><a href="#cb26-702" aria-hidden="true" tabindex="-1"></a>coordinates before the operation.  For this, a _precision model_</span>
+<span id="cb26-703"><a href="#cb26-703" aria-hidden="true" tabindex="-1"></a>is adopted; the most common is to choose a factor $p$ and compute</span>
+<span id="cb26-704"><a href="#cb26-704" aria-hidden="true" tabindex="-1"></a>rounded coordinates $c'$ from original coordinates $c$ by</span>
+<span id="cb26-705"><a href="#cb26-705" aria-hidden="true" tabindex="-1"></a>$$c' = \mbox{round}(p \cdot c) / p$$</span>
+<span id="cb26-706"><a href="#cb26-706" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-707"><a href="#cb26-707" aria-hidden="true" tabindex="-1"></a>Rounding of this kind brings the coordinates to points on a</span>
+<span id="cb26-708"><a href="#cb26-708" aria-hidden="true" tabindex="-1"></a>regular grid with spacing $1/p$, which is beneficial for geometric</span>
+<span id="cb26-709"><a href="#cb26-709" aria-hidden="true" tabindex="-1"></a>computations. Of course, it also affects all computations like</span>
+<span id="cb26-710"><a href="#cb26-710" aria-hidden="true" tabindex="-1"></a>areas and distances, and may turn valid geometries into invalid</span>
+<span id="cb26-711"><a href="#cb26-711" aria-hidden="true" tabindex="-1"></a>ones. Which precision values are best for which application is</span>
+<span id="cb26-712"><a href="#cb26-712" aria-hidden="true" tabindex="-1"></a>often a matter of common sense combined with trial and error. </span>
+<span id="cb26-713"><a href="#cb26-713" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-714"><a href="#cb26-714" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coverages: tessellations and rasters {#sec-coverages}</span></span>
+<span id="cb26-715"><a href="#cb26-715" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-716"><a href="#cb26-716" aria-hidden="true" tabindex="-1"></a>\index{coverage}</span>
+<span id="cb26-717"><a href="#cb26-717" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-718"><a href="#cb26-718" aria-hidden="true" tabindex="-1"></a>The Open Geospatial Consortium defines a _coverage_ as a "feature</span>
+<span id="cb26-719"><a href="#cb26-719" aria-hidden="true" tabindex="-1"></a>that acts as a function to return values from its range for any</span>
+<span id="cb26-720"><a href="#cb26-720" aria-hidden="true" tabindex="-1"></a>direct position within its spatiotemporal domain" <span class="co">[</span><span class="ot">@ogccov</span><span class="co">]</span>. Having</span>
+<span id="cb26-721"><a href="#cb26-721" aria-hidden="true" tabindex="-1"></a>a _function_ implies that for every space time "point", every combination</span>
+<span id="cb26-722"><a href="#cb26-722" aria-hidden="true" tabindex="-1"></a>of a spatial point and a moment in time of the spatiotemporal domain,</span>
+<span id="cb26-723"><a href="#cb26-723" aria-hidden="true" tabindex="-1"></a>we have a _single_ value for the range. This is a very common situation</span>
+<span id="cb26-724"><a href="#cb26-724" aria-hidden="true" tabindex="-1"></a>for spatiotemporal phenomena, a few examples can be given:</span>
+<span id="cb26-725"><a href="#cb26-725" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-726"><a href="#cb26-726" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>boundary disputes aside, at a given time every point in a region (domain) belongs to a single administrative unit (range)</span>
+<span id="cb26-727"><a href="#cb26-727" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>at any given moment in time, every point in a region (domain) has a certain _land cover type_ (range)</span>
+<span id="cb26-728"><a href="#cb26-728" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>every point in an area (domain) has a single surface elevation (range), which could be measured with respect to a given mean sea level surface</span>
+<span id="cb26-729"><a href="#cb26-729" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>every spatiotemporal point in a three-dimensional body of air (domain) has single value for temperature (range)</span>
+<span id="cb26-730"><a href="#cb26-730" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-731"><a href="#cb26-731" aria-hidden="true" tabindex="-1"></a>A caveat here is that because observation or measurement always takes</span>
+<span id="cb26-732"><a href="#cb26-732" aria-hidden="true" tabindex="-1"></a>time and requires space, measured values are always an average over</span>
+<span id="cb26-733"><a href="#cb26-733" aria-hidden="true" tabindex="-1"></a>a spatiotemporal volume, and hence range variables can rarely be</span>
+<span id="cb26-734"><a href="#cb26-734" aria-hidden="true" tabindex="-1"></a>measured for true, zero-volume "points"; for many practical cases</span>
+<span id="cb26-735"><a href="#cb26-735" aria-hidden="true" tabindex="-1"></a>however the measured volume is small enough to be considered a</span>
+<span id="cb26-736"><a href="#cb26-736" aria-hidden="true" tabindex="-1"></a>"point". For a variable like _land cover type_ the volume needs to</span>
+<span id="cb26-737"><a href="#cb26-737" aria-hidden="true" tabindex="-1"></a>be chosen such that the types distinguished make sense with respect</span>
+<span id="cb26-738"><a href="#cb26-738" aria-hidden="true" tabindex="-1"></a>to the measured areal units.</span>
+<span id="cb26-739"><a href="#cb26-739" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-740"><a href="#cb26-740" aria-hidden="true" tabindex="-1"></a>In the first two of the given examples the range variable is</span>
+<span id="cb26-741"><a href="#cb26-741" aria-hidden="true" tabindex="-1"></a>_categorical_, in the last two the range variable is _continuous_.</span>
+<span id="cb26-742"><a href="#cb26-742" aria-hidden="true" tabindex="-1"></a>For categorical range variables, if large connected areas have a</span>
+<span id="cb26-743"><a href="#cb26-743" aria-hidden="true" tabindex="-1"></a>constant range value, an efficient way to represent these data</span>
+<span id="cb26-744"><a href="#cb26-744" aria-hidden="true" tabindex="-1"></a>is by storing the boundaries of the areas with constant value, such</span>
+<span id="cb26-745"><a href="#cb26-745" aria-hidden="true" tabindex="-1"></a>as country boundaries. Although this can be done (and is often done)</span>
+<span id="cb26-746"><a href="#cb26-746" aria-hidden="true" tabindex="-1"></a>by a set of simple feature geometries (polygons or multi-polygons),</span>
+<span id="cb26-747"><a href="#cb26-747" aria-hidden="true" tabindex="-1"></a>this brings along some challenges:</span>
 <span id="cb26-748"><a href="#cb26-748" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-749"><a href="#cb26-749" aria-hidden="true" tabindex="-1"></a><span class="fu">### Topological models</span></span>
-<span id="cb26-750"><a href="#cb26-750" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-751"><a href="#cb26-751" aria-hidden="true" tabindex="-1"></a>\index{topology}</span>
-<span id="cb26-752"><a href="#cb26-752" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-753"><a href="#cb26-753" aria-hidden="true" tabindex="-1"></a>A data model that guarantees no inadvertent gaps or overlaps of</span>
-<span id="cb26-754"><a href="#cb26-754" aria-hidden="true" tabindex="-1"></a>polygonal coverages is the _topological_ model, examples of which</span>
-<span id="cb26-755"><a href="#cb26-755" aria-hidden="true" tabindex="-1"></a>are found in geographic information systems (GIS) like GRASS GIS</span>
-<span id="cb26-756"><a href="#cb26-756" aria-hidden="true" tabindex="-1"></a>or ArcGIS. Topological models store boundaries between polygons</span>
-<span id="cb26-757"><a href="#cb26-757" aria-hidden="true" tabindex="-1"></a>only once and register which polygonal area is on either side</span>
-<span id="cb26-758"><a href="#cb26-758" aria-hidden="true" tabindex="-1"></a>of a boundary. </span>
-<span id="cb26-759"><a href="#cb26-759" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-760"><a href="#cb26-760" aria-hidden="true" tabindex="-1"></a>Deriving the set of (multi)polygons for each area with a constant</span>
-<span id="cb26-761"><a href="#cb26-761" aria-hidden="true" tabindex="-1"></a>range value from a topological model is straightforward; the other</span>
-<span id="cb26-762"><a href="#cb26-762" aria-hidden="true" tabindex="-1"></a>way around, reconstructing topology from a set of polygons typically</span>
-<span id="cb26-763"><a href="#cb26-763" aria-hidden="true" tabindex="-1"></a>involves setting thresholds on errors and handling gaps or overlaps.</span>
-<span id="cb26-764"><a href="#cb26-764" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-765"><a href="#cb26-765" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raster tessellations</span></span>
-<span id="cb26-766"><a href="#cb26-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-767"><a href="#cb26-767" aria-hidden="true" tabindex="-1"></a>\index{tesselation}</span>
-<span id="cb26-768"><a href="#cb26-768" aria-hidden="true" tabindex="-1"></a>\index{coverage!tesselation}</span>
-<span id="cb26-769"><a href="#cb26-769" aria-hidden="true" tabindex="-1"></a>\index{polygon!tesselation}</span>
-<span id="cb26-770"><a href="#cb26-770" aria-hidden="true" tabindex="-1"></a>\index{raster!tesselation}</span>
-<span id="cb26-771"><a href="#cb26-771" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-772"><a href="#cb26-772" aria-hidden="true" tabindex="-1"></a>A tessellation is a sub-division of a space (area, volume) into</span>
-<span id="cb26-773"><a href="#cb26-773" aria-hidden="true" tabindex="-1"></a>smaller elements by ways of polygons. A regular tessellation</span>
-<span id="cb26-774"><a href="#cb26-774" aria-hidden="true" tabindex="-1"></a>does this with regular polygons: triangles, squares, or hexagons.</span>
-<span id="cb26-775"><a href="#cb26-775" aria-hidden="true" tabindex="-1"></a>Tessellations using squares are commonly used for spatial data</span>
-<span id="cb26-776"><a href="#cb26-776" aria-hidden="true" tabindex="-1"></a>and are called _raster data_. Raster data</span>
-<span id="cb26-777"><a href="#cb26-777" aria-hidden="true" tabindex="-1"></a>tessellate each spatial dimension $d$ into regular cells,</span>
-<span id="cb26-778"><a href="#cb26-778" aria-hidden="true" tabindex="-1"></a>formed by left-closed and right-open intervals $d_i$:</span>
-<span id="cb26-779"><a href="#cb26-779" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
-<span id="cb26-780"><a href="#cb26-780" aria-hidden="true" tabindex="-1"></a>d_i = d_0 + [i \times \delta, (i+1) \times \delta)</span>
-<span id="cb26-781"><a href="#cb26-781" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
-<span id="cb26-782"><a href="#cb26-782" aria-hidden="true" tabindex="-1"></a>with $d_0$ an offset, $\delta$ the interval (cell or</span>
-<span id="cb26-783"><a href="#cb26-783" aria-hidden="true" tabindex="-1"></a>pixel) size, and where the cell index $i$ is an arbitrary but</span>
-<span id="cb26-784"><a href="#cb26-784" aria-hidden="true" tabindex="-1"></a>consecutive set of integers. The $\delta$ value is often taken</span>
-<span id="cb26-785"><a href="#cb26-785" aria-hidden="true" tabindex="-1"></a>negative for the $y$-axis (Northing), indicating that raster</span>
-<span id="cb26-786"><a href="#cb26-786" aria-hidden="true" tabindex="-1"></a>row numbers increasing Southwards correspond to $y$-coordinates</span>
-<span id="cb26-787"><a href="#cb26-787" aria-hidden="true" tabindex="-1"></a>increasing Northwards.</span>
-<span id="cb26-788"><a href="#cb26-788" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-789"><a href="#cb26-789" aria-hidden="true" tabindex="-1"></a>Whereas in arbitrary polygon tessellations the assignment of points</span>
-<span id="cb26-790"><a href="#cb26-790" aria-hidden="true" tabindex="-1"></a>to polygons is ambiguous for points falling on a boundary shared</span>
-<span id="cb26-791"><a href="#cb26-791" aria-hidden="true" tabindex="-1"></a>by two polygons, using left-closed "[" and right-open ")" intervals</span>
-<span id="cb26-792"><a href="#cb26-792" aria-hidden="true" tabindex="-1"></a>in regular tessellations removes this ambiguity. This means that for</span>
-<span id="cb26-793"><a href="#cb26-793" aria-hidden="true" tabindex="-1"></a>rasters with negative $\delta$ values for the $y$-coordinate and</span>
-<span id="cb26-794"><a href="#cb26-794" aria-hidden="true" tabindex="-1"></a>positive for the $x$-coordinate, only the top-left corner point</span>
-<span id="cb26-795"><a href="#cb26-795" aria-hidden="true" tabindex="-1"></a>is part of each raster cell. An artifact resulting from this is</span>
-<span id="cb26-796"><a href="#cb26-796" aria-hidden="true" tabindex="-1"></a>shown in @fig-rasterizeline.</span>
-<span id="cb26-797"><a href="#cb26-797" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-798"><a href="#cb26-798" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-rasterizeline, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb26-799"><a href="#cb26-799" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
-<span id="cb26-800"><a href="#cb26-800" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Rasterization artifact: as only top-left corners are part of the raster cell, only cells touching the red line below the diagonal line are rasterized"</span></span>
-<span id="cb26-801"><a href="#cb26-801" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb26-802"><a href="#cb26-802" aria-hidden="true" tabindex="-1"></a><span class="in">library(stars) |&gt; suppressPackageStartupMessages()</span></span>
-<span id="cb26-803"><a href="#cb26-803" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(1, 4))</span></span>
-<span id="cb26-804"><a href="#cb26-804" aria-hidden="true" tabindex="-1"></a><span class="in">ls &lt;- st_sf(a = 2, st_sfc(st_linestring(rbind(c(0.1, 0), c(1, .9)))))</span></span>
-<span id="cb26-805"><a href="#cb26-805" aria-hidden="true" tabindex="-1"></a><span class="in">grd &lt;- st_as_stars(st_bbox(ls), nx = 10, ny = 10, xlim = c(0, 1.0), ylim = c(0, 1),</span></span>
-<span id="cb26-806"><a href="#cb26-806" aria-hidden="true" tabindex="-1"></a><span class="in">   values = -1)</span></span>
-<span id="cb26-807"><a href="#cb26-807" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- st_rasterize(ls, grd, options = "ALL_TOUCHED=TRUE")</span></span>
-<span id="cb26-808"><a href="#cb26-808" aria-hidden="true" tabindex="-1"></a><span class="in">r[r == -1] &lt;- NA</span></span>
-<span id="cb26-809"><a href="#cb26-809" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(st_as_sf(grd)), border = 'orange', col = NA, </span></span>
-<span id="cb26-810"><a href="#cb26-810" aria-hidden="true" tabindex="-1"></a><span class="in">     reset = FALSE, key.pos = NULL)</span></span>
-<span id="cb26-811"><a href="#cb26-811" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r, axes = FALSE, add = TRUE, breaks = "equal", main = NA) # ALL_TOUCHED=FALSE;</span></span>
-<span id="cb26-812"><a href="#cb26-812" aria-hidden="true" tabindex="-1"></a><span class="in">plot(ls, add = TRUE, col = "red", lwd = 2)</span></span>
-<span id="cb26-813"><a href="#cb26-813" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-814"><a href="#cb26-814" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-815"><a href="#cb26-815" aria-hidden="true" tabindex="-1"></a>\index{tesselation!time}</span>
-<span id="cb26-816"><a href="#cb26-816" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-817"><a href="#cb26-817" aria-hidden="true" tabindex="-1"></a>Tessellating the time dimension with left-closed right-open intervals</span>
-<span id="cb26-818"><a href="#cb26-818" aria-hidden="true" tabindex="-1"></a>is very common, and it reflects the implicit assumption underlying</span>
-<span id="cb26-819"><a href="#cb26-819" aria-hidden="true" tabindex="-1"></a>time series software such as the **xts** package in R, where time</span>
-<span id="cb26-820"><a href="#cb26-820" aria-hidden="true" tabindex="-1"></a>stamps indicate the start of time intervals.  Different models can</span>
-<span id="cb26-821"><a href="#cb26-821" aria-hidden="true" tabindex="-1"></a>be combined: one could use simple feature polygons to tessellate</span>
-<span id="cb26-822"><a href="#cb26-822" aria-hidden="true" tabindex="-1"></a>space and combine this with a regular tessellation of time in order</span>
-<span id="cb26-823"><a href="#cb26-823" aria-hidden="true" tabindex="-1"></a>to cover a space time _vector data cube_.  Raster and vector data</span>
-<span id="cb26-824"><a href="#cb26-824" aria-hidden="true" tabindex="-1"></a>cubes are discussed in @sec-datacube.</span>
-<span id="cb26-825"><a href="#cb26-825" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-826"><a href="#cb26-826" aria-hidden="true" tabindex="-1"></a>As mentioned above, besides square cells the other two shapes</span>
-<span id="cb26-827"><a href="#cb26-827" aria-hidden="true" tabindex="-1"></a>that can lead to regular tessellations of $R^2$ are triangles</span>
-<span id="cb26-828"><a href="#cb26-828" aria-hidden="true" tabindex="-1"></a>and hexagons. On the sphere, there are a few more, including cube,</span>
-<span id="cb26-829"><a href="#cb26-829" aria-hidden="true" tabindex="-1"></a>octahedron, icosahedron, and dodecahedron. A spatial index that</span>
-<span id="cb26-830"><a href="#cb26-830" aria-hidden="true" tabindex="-1"></a>builds on the cube is <span class="co">[</span><span class="ot">s2geometry</span><span class="co">](https://s2geometry.io/)</span>, the</span>
-<span id="cb26-831"><a href="#cb26-831" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">H3 library</span><span class="co">](https://eng.uber.com/h3/)</span> uses the icosahedron and</span>
-<span id="cb26-832"><a href="#cb26-832" aria-hidden="true" tabindex="-1"></a>densifies that with (mostly) hexagons. Mosaics that cover the entire</span>
-<span id="cb26-833"><a href="#cb26-833" aria-hidden="true" tabindex="-1"></a>Earth are also called _discrete global grids_.</span>
-<span id="cb26-834"><a href="#cb26-834" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-835"><a href="#cb26-835" aria-hidden="true" tabindex="-1"></a><span class="fu">## Networks</span></span>
-<span id="cb26-836"><a href="#cb26-836" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-837"><a href="#cb26-837" aria-hidden="true" tabindex="-1"></a>\index{networks}</span>
-<span id="cb26-838"><a href="#cb26-838" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-839"><a href="#cb26-839" aria-hidden="true" tabindex="-1"></a>Spatial networks are typically composed of linear (<span class="in">`LINESTRING`</span>)</span>
-<span id="cb26-840"><a href="#cb26-840" aria-hidden="true" tabindex="-1"></a>elements, but possess further topological properties describing</span>
-<span id="cb26-841"><a href="#cb26-841" aria-hidden="true" tabindex="-1"></a>the network coherence:</span>
-<span id="cb26-842"><a href="#cb26-842" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-843"><a href="#cb26-843" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>start- and end-points of a linestring may be connected to other linestring</span>
-<span id="cb26-844"><a href="#cb26-844" aria-hidden="true" tabindex="-1"></a>start or end points, forming a set of nodes and edges</span>
-<span id="cb26-845"><a href="#cb26-845" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>edges may be directed, to only allow for connection (flow,</span>
-<span id="cb26-846"><a href="#cb26-846" aria-hidden="true" tabindex="-1"></a>transport) in one way</span>
-<span id="cb26-847"><a href="#cb26-847" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-848"><a href="#cb26-848" aria-hidden="true" tabindex="-1"></a>R packages including **osmar** [@R-osmar], **stplanr** <span class="co">[</span><span class="ot">@R-stplanr</span><span class="co">]</span>, and</span>
-<span id="cb26-849"><a href="#cb26-849" aria-hidden="true" tabindex="-1"></a>**sfnetworks** <span class="co">[</span><span class="ot">@R-sfnetworks</span><span class="co">]</span> provide functionality for constructing</span>
-<span id="cb26-850"><a href="#cb26-850" aria-hidden="true" tabindex="-1"></a>network objects, and working with them, including computation of shortest or</span>
-<span id="cb26-851"><a href="#cb26-851" aria-hidden="true" tabindex="-1"></a>fastest routes through a network. Package **spatstat** [@R-spatstat;</span>
-<span id="cb26-852"><a href="#cb26-852" aria-hidden="true" tabindex="-1"></a>@baddeley2015spatial] has infrastructure for analysing point</span>
-<span id="cb26-853"><a href="#cb26-853" aria-hidden="true" tabindex="-1"></a>patterns on linear networks (@sec-pointpatterns). Chapter 12 of</span>
-<span id="cb26-854"><a href="#cb26-854" aria-hidden="true" tabindex="-1"></a>@geocomp has a transportation application using networks.</span>
-<span id="cb26-855"><a href="#cb26-855" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-856"><a href="#cb26-856" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises </span></span>
-<span id="cb26-857"><a href="#cb26-857" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-858"><a href="#cb26-858" aria-hidden="true" tabindex="-1"></a>For the following exercises, use R where possible.</span>
-<span id="cb26-859"><a href="#cb26-859" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-860"><a href="#cb26-860" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Give two examples of geometries in 2-D (flat) space that cannot be represented as simple feature geometries, and create a plot of them.</span>
-<span id="cb26-861"><a href="#cb26-861" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Recompute the coordinates 10.542, 0.01, 45321.6789 using precision values 1, 1e3, 1e6, and 1e-2.</span>
-<span id="cb26-862"><a href="#cb26-862" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Describe a practical problem for which an n-ary intersection would be needed. </span>
-<span id="cb26-863"><a href="#cb26-863" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>How can you create a Voronoi diagram (@fig-vor)  that has one closed polygons for every single point?</span>
-<span id="cb26-864"><a href="#cb26-864" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Give the unary measure <span class="in">`dimension`</span> for geometries <span class="in">`POINT Z (0 1 1)`</span>, <span class="in">`LINESTRING Z (0 0 1,1 1 2)`</span>, and <span class="in">`POLYGON Z ((0 0 0,1 0 0,1 1 0,0 0 0))`</span></span>
-<span id="cb26-865"><a href="#cb26-865" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Give the DE-9IM relation between <span class="in">`LINESTRING(0 0,1 0)`</span> and <span class="in">`LINESTRING(0.5 0,0.5 1)`</span>; explain the individual characters.</span>
-<span id="cb26-866"><a href="#cb26-866" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Can a set of simple feature polygons form a coverage? If so, under which constraints?</span>
-<span id="cb26-867"><a href="#cb26-867" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>For the <span class="in">`nc`</span> counties in the dataset that comes with R package **sf**, find the points touched by four counties.</span>
-<span id="cb26-868"><a href="#cb26-868" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>How would @fig-rasterizeline  look like if $\delta$ for the $y$-coordinate was positive?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-749"><a href="#cb26-749" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>it is hard to guarantee for such a set of simple feature polygons that they do not overlap, or that there are no unwanted gaps between them</span>
+<span id="cb26-750"><a href="#cb26-750" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>simple features have no way of assigning points _on_ the boundary of two adjacent polygons uniquely to a single polygon, which conflicts with the interpretation as coverage</span>
+<span id="cb26-751"><a href="#cb26-751" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-752"><a href="#cb26-752" aria-hidden="true" tabindex="-1"></a><span class="fu">### Topological models</span></span>
+<span id="cb26-753"><a href="#cb26-753" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-754"><a href="#cb26-754" aria-hidden="true" tabindex="-1"></a>\index{topology}</span>
+<span id="cb26-755"><a href="#cb26-755" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-756"><a href="#cb26-756" aria-hidden="true" tabindex="-1"></a>A data model that guarantees no inadvertent gaps or overlaps of</span>
+<span id="cb26-757"><a href="#cb26-757" aria-hidden="true" tabindex="-1"></a>polygonal coverages is the _topological_ model, examples of which</span>
+<span id="cb26-758"><a href="#cb26-758" aria-hidden="true" tabindex="-1"></a>are found in geographic information systems (GIS) like GRASS GIS</span>
+<span id="cb26-759"><a href="#cb26-759" aria-hidden="true" tabindex="-1"></a>or ArcGIS. Topological models store boundaries between polygons</span>
+<span id="cb26-760"><a href="#cb26-760" aria-hidden="true" tabindex="-1"></a>only once and register which polygonal area is on either side</span>
+<span id="cb26-761"><a href="#cb26-761" aria-hidden="true" tabindex="-1"></a>of a boundary. </span>
+<span id="cb26-762"><a href="#cb26-762" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-763"><a href="#cb26-763" aria-hidden="true" tabindex="-1"></a>Deriving the set of (multi)polygons for each area with a constant</span>
+<span id="cb26-764"><a href="#cb26-764" aria-hidden="true" tabindex="-1"></a>range value from a topological model is straightforward; the other</span>
+<span id="cb26-765"><a href="#cb26-765" aria-hidden="true" tabindex="-1"></a>way around, reconstructing topology from a set of polygons typically</span>
+<span id="cb26-766"><a href="#cb26-766" aria-hidden="true" tabindex="-1"></a>involves setting thresholds on errors and handling gaps or overlaps.</span>
+<span id="cb26-767"><a href="#cb26-767" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-768"><a href="#cb26-768" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raster tessellations</span></span>
+<span id="cb26-769"><a href="#cb26-769" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-770"><a href="#cb26-770" aria-hidden="true" tabindex="-1"></a>\index{tesselation}</span>
+<span id="cb26-771"><a href="#cb26-771" aria-hidden="true" tabindex="-1"></a>\index{coverage!tesselation}</span>
+<span id="cb26-772"><a href="#cb26-772" aria-hidden="true" tabindex="-1"></a>\index{polygon!tesselation}</span>
+<span id="cb26-773"><a href="#cb26-773" aria-hidden="true" tabindex="-1"></a>\index{raster!tesselation}</span>
+<span id="cb26-774"><a href="#cb26-774" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-775"><a href="#cb26-775" aria-hidden="true" tabindex="-1"></a>A tessellation is a sub-division of a space (area, volume) into</span>
+<span id="cb26-776"><a href="#cb26-776" aria-hidden="true" tabindex="-1"></a>smaller elements by ways of polygons. A regular tessellation</span>
+<span id="cb26-777"><a href="#cb26-777" aria-hidden="true" tabindex="-1"></a>does this with regular polygons: triangles, squares, or hexagons.</span>
+<span id="cb26-778"><a href="#cb26-778" aria-hidden="true" tabindex="-1"></a>Tessellations using squares are commonly used for spatial data</span>
+<span id="cb26-779"><a href="#cb26-779" aria-hidden="true" tabindex="-1"></a>and are called _raster data_. Raster data</span>
+<span id="cb26-780"><a href="#cb26-780" aria-hidden="true" tabindex="-1"></a>tessellate each spatial dimension $d$ into regular cells,</span>
+<span id="cb26-781"><a href="#cb26-781" aria-hidden="true" tabindex="-1"></a>formed by left-closed and right-open intervals $d_i$:</span>
+<span id="cb26-782"><a href="#cb26-782" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
+<span id="cb26-783"><a href="#cb26-783" aria-hidden="true" tabindex="-1"></a>d_i = d_0 + [i \times \delta, (i+1) \times \delta)</span>
+<span id="cb26-784"><a href="#cb26-784" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
+<span id="cb26-785"><a href="#cb26-785" aria-hidden="true" tabindex="-1"></a>with $d_0$ an offset, $\delta$ the interval (cell or</span>
+<span id="cb26-786"><a href="#cb26-786" aria-hidden="true" tabindex="-1"></a>pixel) size, and where the cell index $i$ is an arbitrary but</span>
+<span id="cb26-787"><a href="#cb26-787" aria-hidden="true" tabindex="-1"></a>consecutive set of integers. The $\delta$ value is often taken</span>
+<span id="cb26-788"><a href="#cb26-788" aria-hidden="true" tabindex="-1"></a>negative for the $y$-axis (Northing), indicating that raster</span>
+<span id="cb26-789"><a href="#cb26-789" aria-hidden="true" tabindex="-1"></a>row numbers increasing Southwards correspond to $y$-coordinates</span>
+<span id="cb26-790"><a href="#cb26-790" aria-hidden="true" tabindex="-1"></a>increasing Northwards.</span>
+<span id="cb26-791"><a href="#cb26-791" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-792"><a href="#cb26-792" aria-hidden="true" tabindex="-1"></a>Whereas in arbitrary polygon tessellations the assignment of points</span>
+<span id="cb26-793"><a href="#cb26-793" aria-hidden="true" tabindex="-1"></a>to polygons is ambiguous for points falling on a boundary shared</span>
+<span id="cb26-794"><a href="#cb26-794" aria-hidden="true" tabindex="-1"></a>by two polygons, using left-closed "[" and right-open ")" intervals</span>
+<span id="cb26-795"><a href="#cb26-795" aria-hidden="true" tabindex="-1"></a>in regular tessellations removes this ambiguity. This means that for</span>
+<span id="cb26-796"><a href="#cb26-796" aria-hidden="true" tabindex="-1"></a>rasters with negative $\delta$ values for the $y$-coordinate and</span>
+<span id="cb26-797"><a href="#cb26-797" aria-hidden="true" tabindex="-1"></a>positive for the $x$-coordinate, only the top-left corner point</span>
+<span id="cb26-798"><a href="#cb26-798" aria-hidden="true" tabindex="-1"></a>is part of each raster cell. An artifact resulting from this is</span>
+<span id="cb26-799"><a href="#cb26-799" aria-hidden="true" tabindex="-1"></a>shown in @fig-rasterizeline.</span>
+<span id="cb26-800"><a href="#cb26-800" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-801"><a href="#cb26-801" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-rasterizeline, echo=!knitr::is_latex_output()}</span></span>
+<span id="cb26-802"><a href="#cb26-802" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 50%</span></span>
+<span id="cb26-803"><a href="#cb26-803" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Rasterization artifact: as only top-left corners are part of the raster cell, only cells touching the red line below the diagonal line are rasterized"</span></span>
+<span id="cb26-804"><a href="#cb26-804" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb26-805"><a href="#cb26-805" aria-hidden="true" tabindex="-1"></a><span class="in">library(stars) |&gt; suppressPackageStartupMessages()</span></span>
+<span id="cb26-806"><a href="#cb26-806" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(1, 4))</span></span>
+<span id="cb26-807"><a href="#cb26-807" aria-hidden="true" tabindex="-1"></a><span class="in">ls &lt;- st_sf(a = 2, st_sfc(st_linestring(rbind(c(0.1, 0), c(1, .9)))))</span></span>
+<span id="cb26-808"><a href="#cb26-808" aria-hidden="true" tabindex="-1"></a><span class="in">grd &lt;- st_as_stars(st_bbox(ls), nx = 10, ny = 10, xlim = c(0, 1.0), ylim = c(0, 1),</span></span>
+<span id="cb26-809"><a href="#cb26-809" aria-hidden="true" tabindex="-1"></a><span class="in">   values = -1)</span></span>
+<span id="cb26-810"><a href="#cb26-810" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- st_rasterize(ls, grd, options = "ALL_TOUCHED=TRUE")</span></span>
+<span id="cb26-811"><a href="#cb26-811" aria-hidden="true" tabindex="-1"></a><span class="in">r[r == -1] &lt;- NA</span></span>
+<span id="cb26-812"><a href="#cb26-812" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(st_as_sf(grd)), border = 'orange', col = NA, </span></span>
+<span id="cb26-813"><a href="#cb26-813" aria-hidden="true" tabindex="-1"></a><span class="in">     reset = FALSE, key.pos = NULL)</span></span>
+<span id="cb26-814"><a href="#cb26-814" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r, axes = FALSE, add = TRUE, breaks = "equal", main = NA) # ALL_TOUCHED=FALSE;</span></span>
+<span id="cb26-815"><a href="#cb26-815" aria-hidden="true" tabindex="-1"></a><span class="in">plot(ls, add = TRUE, col = "red", lwd = 2)</span></span>
+<span id="cb26-816"><a href="#cb26-816" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-817"><a href="#cb26-817" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-818"><a href="#cb26-818" aria-hidden="true" tabindex="-1"></a>\index{tesselation!time}</span>
+<span id="cb26-819"><a href="#cb26-819" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-820"><a href="#cb26-820" aria-hidden="true" tabindex="-1"></a>Tessellating the time dimension with left-closed right-open intervals</span>
+<span id="cb26-821"><a href="#cb26-821" aria-hidden="true" tabindex="-1"></a>is very common, and it reflects the implicit assumption underlying</span>
+<span id="cb26-822"><a href="#cb26-822" aria-hidden="true" tabindex="-1"></a>time series software such as the **xts** package in R, where time</span>
+<span id="cb26-823"><a href="#cb26-823" aria-hidden="true" tabindex="-1"></a>stamps indicate the start of time intervals.  Different models can</span>
+<span id="cb26-824"><a href="#cb26-824" aria-hidden="true" tabindex="-1"></a>be combined: one could use simple feature polygons to tessellate</span>
+<span id="cb26-825"><a href="#cb26-825" aria-hidden="true" tabindex="-1"></a>space and combine this with a regular tessellation of time in order</span>
+<span id="cb26-826"><a href="#cb26-826" aria-hidden="true" tabindex="-1"></a>to cover a space time _vector data cube_.  Raster and vector data</span>
+<span id="cb26-827"><a href="#cb26-827" aria-hidden="true" tabindex="-1"></a>cubes are discussed in @sec-datacube.</span>
+<span id="cb26-828"><a href="#cb26-828" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-829"><a href="#cb26-829" aria-hidden="true" tabindex="-1"></a>As mentioned above, besides square cells the other two shapes</span>
+<span id="cb26-830"><a href="#cb26-830" aria-hidden="true" tabindex="-1"></a>that can lead to regular tessellations of $R^2$ are triangles</span>
+<span id="cb26-831"><a href="#cb26-831" aria-hidden="true" tabindex="-1"></a>and hexagons. On the sphere, there are a few more, including cube,</span>
+<span id="cb26-832"><a href="#cb26-832" aria-hidden="true" tabindex="-1"></a>octahedron, icosahedron, and dodecahedron. A spatial index that</span>
+<span id="cb26-833"><a href="#cb26-833" aria-hidden="true" tabindex="-1"></a>builds on the cube is <span class="co">[</span><span class="ot">s2geometry</span><span class="co">](https://s2geometry.io/)</span>, the</span>
+<span id="cb26-834"><a href="#cb26-834" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">H3 library</span><span class="co">](https://eng.uber.com/h3/)</span> uses the icosahedron and</span>
+<span id="cb26-835"><a href="#cb26-835" aria-hidden="true" tabindex="-1"></a>densifies that with (mostly) hexagons. Mosaics that cover the entire</span>
+<span id="cb26-836"><a href="#cb26-836" aria-hidden="true" tabindex="-1"></a>Earth are also called _discrete global grids_.</span>
+<span id="cb26-837"><a href="#cb26-837" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-838"><a href="#cb26-838" aria-hidden="true" tabindex="-1"></a><span class="fu">## Networks</span></span>
+<span id="cb26-839"><a href="#cb26-839" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-840"><a href="#cb26-840" aria-hidden="true" tabindex="-1"></a>\index{networks}</span>
+<span id="cb26-841"><a href="#cb26-841" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-842"><a href="#cb26-842" aria-hidden="true" tabindex="-1"></a>Spatial networks are typically composed of linear (<span class="in">`LINESTRING`</span>)</span>
+<span id="cb26-843"><a href="#cb26-843" aria-hidden="true" tabindex="-1"></a>elements, but possess further topological properties describing</span>
+<span id="cb26-844"><a href="#cb26-844" aria-hidden="true" tabindex="-1"></a>the network coherence:</span>
+<span id="cb26-845"><a href="#cb26-845" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-846"><a href="#cb26-846" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>start- and end-points of a linestring may be connected to other linestring</span>
+<span id="cb26-847"><a href="#cb26-847" aria-hidden="true" tabindex="-1"></a>start or end points, forming a set of nodes and edges</span>
+<span id="cb26-848"><a href="#cb26-848" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>edges may be directed, to only allow for connection (flow,</span>
+<span id="cb26-849"><a href="#cb26-849" aria-hidden="true" tabindex="-1"></a>transport) in one way</span>
+<span id="cb26-850"><a href="#cb26-850" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-851"><a href="#cb26-851" aria-hidden="true" tabindex="-1"></a>R packages including **osmar** [@R-osmar], **stplanr** <span class="co">[</span><span class="ot">@R-stplanr</span><span class="co">]</span>, and</span>
+<span id="cb26-852"><a href="#cb26-852" aria-hidden="true" tabindex="-1"></a>**sfnetworks** <span class="co">[</span><span class="ot">@R-sfnetworks</span><span class="co">]</span> provide functionality for constructing</span>
+<span id="cb26-853"><a href="#cb26-853" aria-hidden="true" tabindex="-1"></a>network objects, and working with them, including computation of shortest or</span>
+<span id="cb26-854"><a href="#cb26-854" aria-hidden="true" tabindex="-1"></a>fastest routes through a network. Package **spatstat** [@R-spatstat;</span>
+<span id="cb26-855"><a href="#cb26-855" aria-hidden="true" tabindex="-1"></a>@baddeley2015spatial] has infrastructure for analysing point</span>
+<span id="cb26-856"><a href="#cb26-856" aria-hidden="true" tabindex="-1"></a>patterns on linear networks (@sec-pointpatterns). Chapter 12 of</span>
+<span id="cb26-857"><a href="#cb26-857" aria-hidden="true" tabindex="-1"></a>@geocomp has a transportation application using networks.</span>
+<span id="cb26-858"><a href="#cb26-858" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-859"><a href="#cb26-859" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises </span></span>
+<span id="cb26-860"><a href="#cb26-860" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-861"><a href="#cb26-861" aria-hidden="true" tabindex="-1"></a>For the following exercises, use R where possible.</span>
+<span id="cb26-862"><a href="#cb26-862" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-863"><a href="#cb26-863" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Give two examples of geometries in 2-D (flat) space that cannot be represented as simple feature geometries, and create a plot of them.</span>
+<span id="cb26-864"><a href="#cb26-864" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Recompute the coordinates 10.542, 0.01, 45321.6789 using precision values 1, 1e3, 1e6, and 1e-2.</span>
+<span id="cb26-865"><a href="#cb26-865" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Describe a practical problem for which an n-ary intersection would be needed. </span>
+<span id="cb26-866"><a href="#cb26-866" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>How can you create a Voronoi diagram (@fig-vor)  that has one closed polygons for every single point?</span>
+<span id="cb26-867"><a href="#cb26-867" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Give the unary measure <span class="in">`dimension`</span> for geometries <span class="in">`POINT Z (0 1 1)`</span>, <span class="in">`LINESTRING Z (0 0 1,1 1 2)`</span>, and <span class="in">`POLYGON Z ((0 0 0,1 0 0,1 1 0,0 0 0))`</span></span>
+<span id="cb26-868"><a href="#cb26-868" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Give the DE-9IM relation between <span class="in">`LINESTRING(0 0,1 0)`</span> and <span class="in">`LINESTRING(0.5 0,0.5 1)`</span>; explain the individual characters.</span>
+<span id="cb26-869"><a href="#cb26-869" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Can a set of simple feature polygons form a coverage? If so, under which constraints?</span>
+<span id="cb26-870"><a href="#cb26-870" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>For the <span class="in">`nc`</span> counties in the dataset that comes with R package **sf**, find the points touched by four counties.</span>
+<span id="cb26-871"><a href="#cb26-871" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>How would @fig-rasterizeline  look like if $\delta$ for the $y$-coordinate was positive?</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/03-Geometries.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

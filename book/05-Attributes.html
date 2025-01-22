@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 5&nbsp; Attributes and Support</title>
+<title>5&nbsp; Attributes and Support – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-1.html">Spatial Data</a></li><li class="breadcrumb-item"><a href="./05-Attributes.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -384,8 +410,8 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <li>body weight or heart beat rate of an animal</li>
 <li>NO<span class="math inline">\(_2\)</span> concentration measured at an air quality monitoring station</li>
 </ul>
-<p>In some cases, time properties can be seen as attributes of features, for instance the date of birth of a person or the construction year of a road. When an attribute such as for instance air quality is a function of both space and time, time is best handled on equal footing with geometry (often in a data cube, see <a href="06-Cubes.html" class="quarto-xref"><span>Chapter&nbsp;6</span></a>).</p>
-<p>Spatial data science software implementing simple features typically organises data in tables that contain both geometries and attributes for features; this is true for <code>geopandas</code> in Python, <code>PostGIS</code> tables in PostgreSQL, and <code>sf</code> objects in R. The geometric operations described in <a href="03-Geometries.html#sec-opgeom" class="quarto-xref"><span>Section&nbsp;3.2</span></a> operate on geometries <em>only</em>, and may occasionally yield new attributes (predicates, measures, or transformations), but they do not operate on attributes present.</p>
+<p>In some cases, time properties can be seen as attributes of features, for instance the date of birth of a person or the construction year of a road. When an attribute such as for instance air quality is a function of both space and time, time is best handled on equal footing with geometry (often in a data cube, see <a href="06-Cubes.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
+<p>Spatial data science software implementing simple features typically organises data in tables that contain both geometries and attributes for features; this is true for <code>geopandas</code> in Python, <code>PostGIS</code> tables in PostgreSQL, and <code>sf</code> objects in R. The geometric operations described in <a href="03-Geometries.html#sec-opgeom" class="quarto-xref"><span>Section 3.2</span></a> operate on geometries <em>only</em>, and may occasionally yield new attributes (predicates, measures, or transformations), but they do not operate on attributes present.</p>
 <p>When, while manipulating geometries, attribute <em>values</em> are retained unmodified, support problems may arise. If we look into a simple case of replacing a county polygon with the centroid of that polygon on a dataset that has attributes, we see that R package <strong>sf</strong> issues a warning:</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -403,7 +429,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <div style="page-break-after: always;"></div>
 <p>The reason for this is that the dataset contains variables with values that are associated with entire polygons – in this case population counts – meaning they are not associated with a <code>POINT</code> geometry replacing the polygon.</p>
 <p></p>
-<p>In <a href="01-hello.html#sec-support" class="quarto-xref"><span>Section&nbsp;1.6</span></a> we already described that for non-point geometries (lines, polygons), feature attribute values either have <em>point support</em>, meaning that the value applies to <em>every point</em>, or they have <em>block support</em>, meaning that the value <em>summarises all points</em> in the geometry. (Other options, non-point support smaller than the geometry, or support larger than the associated geometry, may also occur.) This chapter will describe different ways in which an attribute may relate to the geometry, its consequences on analysing such data, and ways to derive attribute data for different geometries (up- and downscaling).</p>
+<p>In <a href="01-hello.html#sec-support" class="quarto-xref"><span>Section 1.6</span></a> we already described that for non-point geometries (lines, polygons), feature attribute values either have <em>point support</em>, meaning that the value applies to <em>every point</em>, or they have <em>block support</em>, meaning that the value <em>summarises all points</em> in the geometry. (Other options, non-point support smaller than the geometry, or support larger than the associated geometry, may also occur.) This chapter will describe different ways in which an attribute may relate to the geometry, its consequences on analysing such data, and ways to derive attribute data for different geometries (up- and downscaling).</p>
 <p> </p>
 <section id="sec-agr" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="sec-agr">
 <span class="header-section-number">5.1</span> Attribute-geometry relationships and support</h2>
@@ -434,7 +460,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <li>other socio-economic variables, summarised by area</li>
 <li>average reflectance over a remote sensing pixel</li>
 <li>total emission of pollutants by region</li>
-<li>block mean NO<span class="math inline">\(_2\)</span> concentrations, such as obtained by block kriging over square blocks (<a href="12-Interpolation.html#sec-blockkriging" class="quarto-xref"><span>Section&nbsp;12.5</span></a>) or by a dispersion model that predicts areal means</li>
+<li>block mean NO<span class="math inline">\(_2\)</span> concentrations, such as obtained by block kriging over square blocks (<a href="12-Interpolation.html#sec-blockkriging" class="quarto-xref"><span>Section 12.5</span></a>) or by a dispersion model that predicts areal means</li>
 </ul>
 <p>A typical property of such variables is that associated geometries come for instance from legislation, observation devices or analysis choices, but not intrinsically from the observed variable.</p>
 <p></p>
@@ -472,7 +498,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <pre><code>SELECT GroupID, SUM(population) FROM table GROUP BY GroupID;</code></pre>
 <p>indicating the aggregation <em>function</em> (<code>SUM</code>) and the <em>grouping predicate</em> (<code>GroupID</code>).</p>
 <p>R package <strong>dplyr</strong> for instance uses two steps to accomplish this: function <code>group_by</code> specifies the group membership of records, <code>summarise</code> computes data summaries (such as <code>sum</code> or <code>mean</code>) for each of the groups. The (base) R method <code>aggregate</code> combines both in a single function call that takes the table, the grouping predicate(s), and the aggregation function(s) as arguments.</p>
-<p>An example for the North Carolina counties is shown in <a href="#fig-ncaggregation" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. Here, we grouped counties by their position (according to the quadrant in which the county centroid is with respect to ellipsoidal coordinate <code>POINT(-79, 35.5)</code>) and summed the number of disease cases per group. The result shows that the geometries of the resulting groups have been unioned (<a href="03-Geometries.html#sec-bintrans" class="quarto-xref"><span>Section&nbsp;3.2.6</span></a>): this is necessary because the <code>MULTIPOLYGON</code> formed by just putting all the county geometries together would have many duplicate boundaries, and hence would not be <em>valid</em> (<a href="03-Geometries.html#sec-valid" class="quarto-xref"><span>Section&nbsp;3.1.2</span></a>).</p>
+<p>An example for the North Carolina counties is shown in <a href="#fig-ncaggregation" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. Here, we grouped counties by their position (according to the quadrant in which the county centroid is with respect to ellipsoidal coordinate <code>POINT(-79, 35.5)</code>) and summed the number of disease cases per group. The result shows that the geometries of the resulting groups have been unioned (<a href="03-Geometries.html#sec-bintrans" class="quarto-xref"><span>Section 3.2.6</span></a>): this is necessary because the <code>MULTIPOLYGON</code> formed by just putting all the county geometries together would have many duplicate boundaries, and hence would not be <em>valid</em> (<a href="03-Geometries.html#sec-valid" class="quarto-xref"><span>Section 3.1.2</span></a>).</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"gpkg/nc.gpkg"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># encode quadrant by two logicals:</span></span>
@@ -482,11 +508,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="va">nc.grp</span><span class="op">[</span><span class="st">"SID74"</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">'EPSG:32119'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>graticule <span class="op">=</span> <span class="cn">TRUE</span>, axes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-ncaggregation" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-ncaggregation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ncaggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="05-Attributes_files/figure-html/fig-ncaggregation-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-ncaggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ncaggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5.1: SID74 total incidences aggregated to four areas
 </figcaption></figure>
 </div>
@@ -496,17 +522,17 @@ Figure&nbsp;5.1: SID74 total incidences aggregated to four areas
 <p>One particular property of aggregation in this way is that each record is assigned to a single group; this has the advantage that the sum of the group-wise sums equals the sum of the un-grouped data: for variables that reflect <em>amount</em>, nothing gets lost and nothing is added. The newly formed geometry is the result of unioning the geometries of the contributing records.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, <span class="fl">2264</span><span class="op">)</span></span>
-<span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf-object.html">st_sf</a></span><span class="op">(</span></span>
+<span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span></span>
 <span>   label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste0</span>, collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>,</span>
 <span>   geom <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html">st_make_grid</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, border <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-ncblocks" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-ncblocks" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ncblocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="05-Attributes_files/figure-html/fig-ncblocks-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-ncblocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ncblocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties
 </figcaption></figure>
 </div>
@@ -566,7 +592,7 @@ Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties
 <p> </p>
 <p>Up- and downscaling refers in general to obtaining high-resolution information from low-resolution data (downscaling) or obtaining low-resolution information from high-resolution data (upscaling). Both activities involve the attributes’ relation to geometries and both change support. They are synonymous with aggregation (upscaling) and disaggregation (downscaling). The simplest form of downscaling is sampling (or extracting) polygon, line or grid cell values at point locations. This works well for variables with point-support (“constant” AGR), but is at best approximate when the values are aggregates. Challenging applications for downscaling include high-resolution prediction of variables obtained by low-resolution weather prediction models or climate change models, and the high-resolution prediction of satellite image derived variables based on the fusion of sensors with different spatial and temporal resolutions.</p>
 <p>The application of areal interpolation using (<a href="#eq-aw" class="quarto-xref">Equation&nbsp;<span>5.1</span></a>) with its realisations for extensive (<a href="#eq-awextensive" class="quarto-xref">Equation&nbsp;<span>5.2</span></a>) and intensive (<a href="#eq-awintensive" class="quarto-xref">Equation&nbsp;<span>5.3</span></a>) variables allows moving information from any source area <span class="math inline">\(S_i\)</span> to any target area <span class="math inline">\(T_j\)</span> as long as the two areas have some overlap. This means that one can go arbitrarily to much larger units (aggregation) or to much smaller units (disaggregation). Of course this makes only sense to the extent that the assumptions hold: over the source regions extensive variables need to be uniformly distributed and intensive variables need to have a constant value.</p>
-<p>The ultimate disaggregation involves retrieving (extracting) point values from line or area data. For this, we cannot work with equations -<a href="#eq-awextensive" class="quarto-xref">Equation&nbsp;<span>5.2</span></a> or -<a href="#eq-awintensive" class="quarto-xref">Equation&nbsp;<span>5.3</span></a> because <span class="math inline">\(|A_{ij}| = 0\)</span> for points, but under the assumption of having a constant value over the geometry, for intensive variables the value <span class="math inline">\(Y_i(S_i)\)</span> can be assigned to points as long as all points can be uniquely assigned to a single source area <span class="math inline">\(S_i\)</span>. For polygon data, this implies that <span class="math inline">\(Y\)</span> needs to be a coverage variable (<a href="03-Geometries.html#sec-coverages" class="quarto-xref"><span>Section&nbsp;3.4</span></a>). For extensive variables, extracting a value at a point is rather meaningless, as it should always give a zero value.</p>
+<p>The ultimate disaggregation involves retrieving (extracting) point values from line or area data. For this, we cannot work with equations -<a href="#eq-awextensive" class="quarto-xref">Equation&nbsp;<span>5.2</span></a> or -<a href="#eq-awintensive" class="quarto-xref">Equation&nbsp;<span>5.3</span></a> because <span class="math inline">\(|A_{ij}| = 0\)</span> for points, but under the assumption of having a constant value over the geometry, for intensive variables the value <span class="math inline">\(Y_i(S_i)\)</span> can be assigned to points as long as all points can be uniquely assigned to a single source area <span class="math inline">\(S_i\)</span>. For polygon data, this implies that <span class="math inline">\(Y\)</span> needs to be a coverage variable (<a href="03-Geometries.html#sec-coverages" class="quarto-xref"><span>Section 3.4</span></a>). For extensive variables, extracting a value at a point is rather meaningless, as it should always give a zero value.</p>
 <p>In cases where values associated with areas are <strong>aggregate</strong> values over the area, the assumptions made by area-weighted interpolation or dasymetric mapping – uniformity or constant values over the source areas – are highly unrealistic. In such cases, these simple approaches could still be reasonable approximations, for instance when:</p>
 <ul>
 <li>the source and target area are nearly identical</li>
@@ -575,8 +601,8 @@ Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties
 <div style="page-break-after: always;"></div>
 <p>In other cases, results obtained using these methods are merely consequences of unjustified assumptions. Statistical aggregation methods that can estimate quantities for larger regions from points or smaller regions include:</p>
 <ul>
-<li>design-based methods, which require that a probability sample is available from the target region, with known inclusion probabilities <span class="citation" data-cites="brus2021">(<a href="references.html#ref-brus2021" role="doc-biblioref">Brus 2021</a>, <a href="references.html#sec-design" class="quarto-xref" role="doc-biblioref"><span>Section&nbsp;10.4</span></a>)</span>, and</li>
-<li>model-based methods, which assume a random field model with spatially correlated values (block kriging, <a href="12-Interpolation.html#sec-blockkriging" class="quarto-xref"><span>Section&nbsp;12.5</span></a>)</li>
+<li>design-based methods, which require that a probability sample is available from the target region, with known inclusion probabilities <span class="citation" data-cites="brus2021">(<a href="references.html#ref-brus2021" role="doc-biblioref">Brus 2021</a>, <a href="references.html#sec-design" class="quarto-xref" role="doc-biblioref"><span>Section 10.4</span></a>)</span>, and</li>
+<li>model-based methods, which assume a random field model with spatially correlated values (block kriging, <a href="12-Interpolation.html#sec-blockkriging" class="quarto-xref"><span>Section 12.5</span></a>)</li>
 </ul>
 <p></p>
 <p>Alternative disaggregation methods include:</p>
@@ -594,7 +620,7 @@ Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties
 <li>Create a new <code>sf</code> object from the geometry obtained by <code>st_union(nc)</code>, and assign <code>"North Carolina"</code> to the variable <code>State</code>. Which <code>agr</code> can you now assign to this attribute variable?</li>
 <li>Use <code>st_area</code> to add a variable with name <code>area</code> to <code>nc</code>. Compare the <code>area</code> and <code>AREA</code> variables in the <code>nc</code> dataset. What are the units of <code>AREA</code>? Are the two linearly related? If there are discrepancies, what could be the cause?</li>
 <li>Is the <code>area</code> variable intensive or extensive? Is its agr equal to <code>constant</code>, <code>identity</code> or <code>aggregate</code>?</li>
-<li>Consider <a href="#fig-awiex" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>: using the equations in <a href="#sec-extensiveintensive" class="quarto-xref"><span>Section&nbsp;5.3.1</span></a>, compute the area-weighted interpolations for (a) the dashed cell and (b) for the square enclosing all four solid cells, first for the case where the four cells represent (i) an extensive variable, and (ii) an intensive variable. The red numbers are the data values of the source areas.</li>
+<li>Consider <a href="#fig-awiex" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>: using the equations in <a href="#sec-extensiveintensive" class="quarto-xref"><span>Section 5.3.1</span></a>, compute the area-weighted interpolations for (a) the dashed cell and (b) for the square enclosing all four solid cells, first for the case where the four cells represent (i) an extensive variable, and (ii) an intensive variable. The red numbers are the data values of the source areas.</li>
 </ol>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html">st_make_grid</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"LINESTRING(0 0,1 1)"</span><span class="op">)</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -603,11 +629,11 @@ Figure&nbsp;5.2: Example target blocks plotted over North Carolina counties
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.125</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.2</span>, <span class="fl">.8</span>, <span class="fl">.2</span>, <span class="fl">.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.2</span>, <span class="fl">.2</span>, <span class="fl">.8</span>, <span class="fl">.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">8</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-awiex" class="quarto-figure quarto-figure-center anchored" width="40%">
+<div id="fig-awiex" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-awiex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="05-Attributes_files/figure-html/fig-awiex-1.png" class="img-fluid figure-img" style="width:40.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-awiex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-awiex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5.3: Example data for area-weighted interpolation
 </figcaption></figure>
 </div>
@@ -704,18 +730,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -747,7 +762,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -799,6 +836,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -833,7 +888,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -848,27 +907,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -883,10 +921,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -895,8 +937,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1117,12 +1166,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./04-Spherical.html" class="pagination-link  aria-label=" geometries="">
+      <a href="./04-Spherical.html" class="pagination-link" aria-label="Spherical Geometries">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Spherical Geometries</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06-Cubes.html" class="pagination-link" aria-label="<span class='chapter-number'>6</span>&nbsp; <span class='chapter-title'>Data Cubes</span>">
+      <a href="./06-Cubes.html" class="pagination-link" aria-label="Data Cubes">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1652,10 +1701,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-523"><a href="#cb9-523" aria-hidden="true" tabindex="-1"></a><span class="co">* Find the name of the county that contains `POINT(-78.34046 35.017)`</span></span>
 <span id="cb9-524"><a href="#cb9-524" aria-hidden="true" tabindex="-1"></a><span class="co">* Find the names of all counties with boundaries that touch county `Sampson`.</span></span>
 <span id="cb9-525"><a href="#cb9-525" aria-hidden="true" tabindex="-1"></a><span class="co">* List the names of all counties that are less than 50 km away from county `Sampson`.</span></span>
-<span id="cb9-526"><a href="#cb9-526" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-526"><a href="#cb9-526" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/05-Attributes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

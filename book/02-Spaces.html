@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 2&nbsp; Coordinates</title>
+<title>2&nbsp; Coordinates – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-1.html">Spatial Data</a></li><li class="breadcrumb-item"><a href="./02-Spaces.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coordinates</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -405,11 +431,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3.3</span>, <span class="fl">0.3</span>, label <span class="op">=</span> <span class="st">"x"</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">4.3</span>, label <span class="op">=</span> <span class="st">"y"</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-polar" class="quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-polar" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-Spaces_files/figure-html/fig-polar-1.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2.1: Two-dimensional polar (red) and Cartesian (blue) coordinates
 </figcaption></figure>
 </div>
@@ -532,11 +558,11 @@ Figure&nbsp;2.1: Two-dimensional polar (red) and Cartesian (blue) coordinates
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">100000</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="fl">50000</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">phi</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="co"># lat</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">20000</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fl">50000</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="co"># lng</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-sphere" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-sphere" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sphere-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-Spaces_files/figure-html/fig-sphere-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sphere-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sphere-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2.2: Cartesian geocentric coordinates (left) measure three distances, ellipsoidal coordinates (right) measure two angles, and possibly an ellipsoidal height
 </figcaption></figure>
 </div>
@@ -583,11 +609,11 @@ Figure&nbsp;2.2: Cartesian geocentric coordinates (left) measure three distances
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">0.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"psi"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"phi"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-ellipse" class="quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-ellipse" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ellipse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-Spaces_files/figure-html/fig-ellipse-1.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-ellipse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ellipse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) latitude
 </figcaption></figure>
 </div>
@@ -602,14 +628,15 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <li>which direction is “straight up”: perpendicular to the ellipsoid surface, or in the direction of gravity, perpendicular to the surface of the geoid?</li>
 </ul>
 <p>All these choices may matter, depending on the application area and required measurement accuracies.</p>
-<p>The shape of the Earth is not a perfect ellipsoid. As a consequence, several ellipsoids with different shape parameters and bound to the Earth in different ways are being used. Such ellipsoids are called <em>datums</em>, and are briefly discussed in <a href="#sec-crs" class="quarto-xref"><span>Section&nbsp;2.3</span></a>, along with <em>coordinate reference systems</em>.</p>
+<p>The shape of the Earth is not a perfect ellipsoid. As a consequence, several ellipsoids with different shape parameters and bound to the Earth in different ways are being used. Such ellipsoids are called <em>datums</em>, and are briefly discussed in <a href="#sec-crs" class="quarto-xref"><span>Section 2.3</span></a>, along with <em>coordinate reference systems</em>.</p>
 </section><section id="sec-projections" class="level3"><h3 class="anchored" data-anchor-id="sec-projections">Projected coordinates, distances</h3>
 <p>Because paper maps and computer screens are much more abundant and practical than globes, when we look at spatial data we see it <em>projected</em>: drawn on a flat, two-dimensional surface. Computing the locations in a two-dimensional space means that we work with <em>projected</em> coordinates. Projecting ellipsoidal coordinates means that shapes, directions, areas, or even all three, are distorted <span class="citation" data-cites="iliffelott">(<a href="references.html#ref-iliffelott" role="doc-biblioref">Iliffe and Lott 2008</a>)</span>.</p>
 <p> </p>
 <p>Distances between two points <span class="math inline">\(p_i\)</span> and <span class="math inline">\(p_j\)</span> in Cartesian coordinates are computed as Euclidean distances, in two dimensions by <span class="math display">\[d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2}\]</span> with <span class="math inline">\(p_i = (x_i,y_i)\)</span> and in three dimensions by <span class="math display">\[d_{ij} = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2+(z_i-z_j)^2}\]</span> with <span class="math inline">\(p_i = (x_i,y_i,z_i).\)</span> These distances represent the length of a <em>straight</em> line between two points <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>.</p>
-<p>For two points on a circle, the length of the arc of two points <span class="math inline">\(c_1 = (r,{\phi}_i)\)</span> and <span class="math inline">\(c_2 = (r, \phi_2)\)</span> is <span class="math display">\[s_{ij}=r~|\phi_1-\phi_2| = r ~\theta\]</span> with <span class="math inline">\(\theta\)</span> the angle between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> in radians. For very small values of <span class="math inline">\(\theta\)</span>, we will have <span class="math inline">\(s_{ij} \approx d_{ij}\)</span>, because a small arc segment is nearly straight.</p>
+<p>For two points on a circle, the length of the arc of two points <span class="math inline">\(c_1 = (r,{\phi}_1)\)</span> and <span class="math inline">\(c_2 = (r, \phi_2)\)</span> is <span class="math display">\[s_{ij}=r~|\phi_1-\phi_2| = r ~\theta\]</span> with <span class="math inline">\(\theta\)</span> the angle between <span class="math inline">\(\phi_1\)</span> and <span class="math inline">\(\phi_2\)</span> in radians. For very small values of <span class="math inline">\(\theta\)</span>, we will have <span class="math inline">\(s_{ij} \approx d_{ij}\)</span>, because a small arc segment is nearly straight.</p>
 <p></p>
-<p>For two points <span class="math inline">\(p_1 = (\lambda_1,\phi_1)\)</span> and <span class="math inline">\(p_2 = (\lambda_2,\phi_2)\)</span> on a sphere with radius <span class="math inline">\(r'\)</span>, the <em>great circle distance</em> is the arc length between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> on the circle that passes through <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> and has the centre of the sphere as its centre, and is given by <span class="math inline">\(s_{12} = r ~ \theta_{12}\)</span> with <span class="math display">\[\theta_{12} = \arccos(\sin \phi_1 \cdot \sin \phi_2 + \cos \phi_1 \cdot \cos \phi_2 \cdot \cos(|\lambda_1-\lambda_2|))\]</span> the angle between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>, in radians.</p>
+<p>For two points <span class="math inline">\(p_1 = (\lambda_1,\phi_1)\)</span> and <span class="math inline">\(p_2 =
+(\lambda_2,\phi_2)\)</span> on a sphere with radius <span class="math inline">\(r'\)</span>, the <em>great circle distance</em> is the arc length between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> on the circle that passes through <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> and has the centre of the sphere as its centre, and is given by <span class="math inline">\(s_{12} = r ~ \theta_{12}\)</span> with <span class="math display">\[\theta_{12} = \arccos(\sin \phi_1 \cdot \sin \phi_2 + \cos \phi_1 \cdot \cos \phi_2 \cdot \cos(|\lambda_1-\lambda_2|))\]</span> the angle between <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>, in radians.</p>
 <p>Arc distances between two points on a spheroid are more complicated to compute; a good discussion on the topic and an explanation of the method implemented in GeographicLib (part of PROJ) is given in <span class="citation" data-cites="karney2013algorithms">Karney (<a href="references.html#ref-karney2013algorithms" role="doc-biblioref">2013</a>)</span>.</p>
 <p></p>
 <p>To show that these distance measures actually give different values, we computed them for the distance Berlin - Paris. Here, <code>gc_</code> refers to ellipsoidal and spherical great circle distances, <code>str_</code> refers to straight line, Euclidean distances between Cartesian geocentric coordinates associated on the WGS84 ellipse and sphere:</p>
@@ -637,7 +664,7 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 </section><section id="sec-bounded" class="level3"><h3 class="anchored" data-anchor-id="sec-bounded">Bounded and unbounded spaces</h3>
 <p> </p>
 <p>Two-dimensional and three-dimensional Euclidean spaces (<span class="math inline">\(R^2\)</span> and <span class="math inline">\(R^3\)</span>) are unbounded. Every line in this space has infinite length, and areas or volumes have no natural upper limit. In contrast, spaces defined on a circle (<span class="math inline">\(S^1\)</span>) or sphere (<span class="math inline">\(S^2\)</span>) define a bounded set: there may be infinitely many points but the length and area of the circle, and the radius, area and volume of a sphere are bounded.</p>
-<p>This may sound trivial but leads to some interesting challenges when handling spatial data. A polygon on <span class="math inline">\(R^2\)</span> has unambiguously an inside and an outside. On a sphere, <span class="math inline">\(S^2\)</span>, any polygon divides the sphere in two parts, and which of these two is to be considered inside and which outside is ambiguous and needs to be defined by the traversal direction. <a href="04-Spherical.html" class="quarto-xref"><span>Chapter&nbsp;4</span></a> will further discuss consequences when working with geometries on <span class="math inline">\(S^2\)</span>.</p>
+<p>This may sound trivial but leads to some interesting challenges when handling spatial data. A polygon on <span class="math inline">\(R^2\)</span> has unambiguously an inside and an outside. On a sphere, <span class="math inline">\(S^2\)</span>, any polygon divides the sphere in two parts, and which of these two is to be considered inside and which outside is ambiguous and needs to be defined by the traversal direction. <a href="04-Spherical.html" class="quarto-xref"><span>Chapter 4</span></a> will further discuss consequences when working with geometries on <span class="math inline">\(S^2\)</span>.</p>
 <p> </p>
 </section></section><section id="sec-crs" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="sec-crs">
 <span class="header-section-number">2.3</span> Coordinate reference systems</h2>
@@ -652,7 +679,7 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 </ul>
 <p> </p>
 <p>A readable text that further explains these concepts is <span class="citation" data-cites="iliffelott">Iliffe and Lott (<a href="references.html#ref-iliffelott" role="doc-biblioref">2008</a>)</span>.</p>
-<p>The Earth does not follow a regular shape. The topography of the Earth is of course known to vary strongly, but also the surface formed by constant gravity at mean sea level, the geoid, is irregular. A commonly used model that is fit to the geoid is an ellipsoid of revolution, which is an ellipse with two identical minor axes. Fitting such an ellipsoid to the Earth gives a datum. However, fitting it to different areas, or based on different sets of reference points gives different fits, and hence different datums: a datum can for instance be fixed to a particular tectonic plate (like the European Terrestrial Reference System 1989 (ETRS89)), others can be globally fit (like WGS84). More local fits lead to smaller approximation errors.</p>
+<p>The Earth does not follow a regular shape. The topography of the Earth is of course known to vary strongly, but also the surface formed by constant gravity at mean sea level, the geoid, is irregular. A commonly used model that is fit to the geoid is an ellipsoid of revolution, which is an ellipsoid with two identical minor axes. Fitting such an ellipsoid to the Earth gives a datum. However, fitting it to different areas, or based on different sets of reference points gives different fits, and hence different datums: a datum can for instance be fixed to a particular tectonic plate (like the European Terrestrial Reference System 1989 (ETRS89)), others can be globally fit (like WGS84). More local fits lead to smaller approximation errors.</p>
 <p></p>
 <p>The definitions above imply that coordinates in degrees longitude and latitude only have a meaning and can only be interpreted unambiguously as Earth coordinates, when the datum they are associated with is given.</p>
 <p>Note that for projected data, the data that <em>were</em> projected are associated with a reference ellipsoid (datum). Going from one projection to another <em>without</em> changing datum is called <em>coordinate conversion</em>, and passes through the ellipsoidal coordinates associated with the datum involved. This process is lossless and invertible: the parameters and equations associated with a <em>conversion</em> are not empirical. Recomputing coordinates in a new datum is called <em>coordinate transformation</em>, and is approximate: because datums are a result of model fitting, transformations between datums are models too that have been fit; the equations involved are empirical, and multiple transformation paths, based on different model fits and associated with different accuracies, are possible.</p>
@@ -681,10 +708,10 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <li>datum grids, of which there are now <em>many</em> more, are no longer distributed with the library but are accessible from a content delivery network (CDN); PROJ allows enabling and disabling network access to these grids and only downloads the section(s) of the grid actually needed, storing it in a cache on the user’s machine for future use</li>
 <li>coordinate transformations receive support for epochs, time-dependent transformations (and hence: four-dimensional coordinates, including the source and target time)</li>
 <li>the set of files with registered coordinate reference systems is handled in an SQLite database</li>
-<li>instead of always handling axis order (longitude, latitude), when the authority defines differently this is now obeyed (but see <a href="#sec-wkt2" class="quarto-xref"><span>Section&nbsp;2.5</span></a> and <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section&nbsp;7.7.6</span></a>)</li>
+<li>instead of always handling axis order (longitude, latitude), when the authority defines differently this is now obeyed (but see <a href="#sec-wkt2" class="quarto-xref"><span>Section 2.5</span></a> and <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section 7.7.6</span></a>)</li>
 </ul>
 <p> </p>
-<p>All these points sound like massive improvements, and accuracies of transformation can be below 1 metre. An interesting point is the last: Where we could safely assume for many decades that spatial data with ellipsoidal coordinates would have axis order (longitude, latitude), this is no longer the case. We will see in <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section&nbsp;7.7.6</span></a> how to deal with this.</p>
+<p>All these points sound like massive improvements, and accuracies of transformation can be below 1 metre. An interesting point is the last: Where we could safely assume for many decades that spatial data with ellipsoidal coordinates would have axis order (longitude, latitude), this is no longer the case. We will see in <a href="07-Introsf.html#sec-axisorder" class="quarto-xref"><span>Section 7.7.6</span></a> how to deal with this.</p>
 <p></p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
@@ -705,11 +732,11 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, hook <span class="op">=</span> <span class="va">hook</span>, key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-horizontalgrid" class="quarto-figure quarto-figure-center anchored" width="70%">
+<div id="fig-horizontalgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-horizontalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-Spaces_files/figure-html/fig-horizontalgrid-1.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-horizontalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-horizontalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2.4: UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to datum ETRS89 (EPSG:4258); units arc-seconds
 </figcaption></figure>
 </div>
@@ -725,11 +752,11 @@ Figure&nbsp;2.4: UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to d
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">h</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">uk</span>, border <span class="op">=</span> <span class="st">"orange"</span>, col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-verticalgrid" class="quarto-figure quarto-figure-center anchored" width="70%">
+<div id="fig-verticalgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-verticalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="02-Spaces_files/figure-html/fig-verticalgrid-1.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-verticalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-verticalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2.5: UK vertical datum grid, from ETRS89 (EPSG:4937) to ODN height (EPSG:5701), units m
 </figcaption></figure>
 </div>
@@ -854,18 +881,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -897,7 +913,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -949,6 +987,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -983,7 +1039,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -998,27 +1058,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -1033,10 +1072,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1045,8 +1088,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1267,12 +1317,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./01-hello.html" class="pagination-link  aria-label=" started="">
+      <a href="./01-hello.html" class="pagination-link" aria-label="Getting Started">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03-Geometries.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Geometries</span>">
+      <a href="./03-Geometries.html" class="pagination-link" aria-label="Geometries">
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geometries</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1638,7 +1688,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a>These distances represent the length of a _straight_ line between</span>
 <span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a>two points $i$ and $j$.</span>
 <span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a>For two points on a circle, the length of the arc of two points $c_1 = (r,{\phi}_i)$ and</span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a>For two points on a circle, the length of the arc of two points $c_1 = (r,{\phi}_1)$ and</span>
 <span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a>$c_2 = (r, \phi_2)$ is</span>
 <span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a>$$s_{ij}=r~|\phi_1-\phi_2| = r ~\theta$$</span>
 <span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a>with $\theta$ the angle between $\phi_1$ and $\phi_2$ in radians.</span>
@@ -1731,7 +1781,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a>Earth is of course known to vary strongly, but also the surface</span>
 <span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>formed by constant gravity at mean sea level, the geoid, is</span>
 <span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a>irregular. A commonly used model that is fit to the geoid is an</span>
-<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution, which is an ellipse with two identical</span>
+<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>ellipsoid of revolution, which is an ellipsoid with two identical</span>
 <span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a>minor axes. Fitting such an ellipsoid to the Earth gives a datum.</span>
 <span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a>However, fitting it to different areas, or based on different sets of</span>
 <span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a>reference points gives different fits, and hence different datums:</span>
@@ -1988,10 +2038,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-709"><a href="#cb15-709" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- latitude, longitude, elevation --&gt;</span></span>
 <span id="cb15-710"><a href="#cb15-710" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>convert the $(x,y)$ points $(10,2)$, $(-10,-2)$, $(10,-2)$, and $(0,10)$ to polar coordinates</span>
 <span id="cb15-711"><a href="#cb15-711" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>convert the polar $(r,\phi)$ points $(10,45^{\circ})$, $(0,100^{\circ})$, and $(5,359^{\circ})$ to Cartesian coordinates</span>
-<span id="cb15-712"><a href="#cb15-712" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>assuming the Earth is a sphere with a radius of 6371 km, compute for $(\lambda,\phi)$ points the great circle distance between $(10,10)$ and $(11,10)$, between $(10,80)$ and $(11,80)$, between $(10,10)$ and $(10,11)$, and between $(10,80)$ and $(10,81)$ (units: degree). What are the distance units?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-712"><a href="#cb15-712" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>assuming the Earth is a sphere with a radius of 6371 km, compute for $(\lambda,\phi)$ points the great circle distance between $(10,10)$ and $(11,10)$, between $(10,80)$ and $(11,80)$, between $(10,10)$ and $(10,11)$, and between $(10,80)$ and $(10,81)$ (units: degree). What are the distance units?</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/02-Spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

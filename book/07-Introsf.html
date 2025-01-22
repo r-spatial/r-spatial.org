@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 7&nbsp; Introduction to sf and stars</title>
+<title>7&nbsp; Introduction to sf and stars – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-2.html">R for Spatial Data Science</a></li><li class="breadcrumb-item"><a href="./07-Introsf.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Introduction to sf and stars</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -422,7 +448,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 
 
 </header><p></p>
-<p>This chapter introduces R packages <strong>sf</strong> and <strong>stars</strong>. <strong>sf</strong> provides a table format for simple features, where feature geometries are stored in a list-column. R package <strong>stars</strong> was written to support raster and vector data cubes (<a href="06-Cubes.html" class="quarto-xref"><span>Chapter&nbsp;6</span></a>), supporting raster layers, raster stacks and feature time series as special cases. <strong>sf</strong> first appeared on CRAN in 2016, <strong>stars</strong> in 2018. Development of both packages received support from the R Consortium as well as strong community engagement. The packages were designed to work together. Functions or methods operating on <strong>sf</strong> or <strong>stars</strong> objects start with <code>st_</code>, making it easy to recognise them or to search for them when using command line completion.</p>
+<p>This chapter introduces R packages <strong>sf</strong> and <strong>stars</strong>. <strong>sf</strong> provides a table format for simple features, where feature geometries are stored in a list-column. R package <strong>stars</strong> was written to support raster and vector data cubes (<a href="06-Cubes.html" class="quarto-xref"><span>Chapter 6</span></a>), supporting raster layers, raster stacks and feature time series as special cases. <strong>sf</strong> first appeared on CRAN in 2016, <strong>stars</strong> in 2018. Development of both packages received support from the R Consortium as well as strong community engagement. The packages were designed to work together. Functions or methods operating on <strong>sf</strong> or <strong>stars</strong> objects start with <code>st_</code>, making it easy to recognise them or to search for them when using command line completion.</p>
 <section id="sec-sfintro" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="sec-sfintro">
 <span class="header-section-number">7.1</span> Package <strong>sf</strong>
 </h2>
@@ -431,13 +457,13 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <p></p>
 <p>To do so, R package <strong>sf</strong> provides simple features access <span class="citation" data-cites="herring2011opengis">(<a href="references.html#ref-herring2011opengis" role="doc-biblioref">Herring et al. 2011</a>)</span>, natively, to R. It provides an interface to several <strong>tidyverse</strong> packages, in particular to <strong>ggplot2</strong>, <strong>dplyr</strong>, and <strong>tidyr</strong>. It can read and write data through GDAL, execute geometrical operations using GEOS (for projected coordinates) or s2geometry (for ellipsoidal coordinates), and carry out coordinate transformations or conversions using PROJ. External C++ libraries are interfaced using R package <strong>Rcpp</strong> <span class="citation" data-cites="eddelbuettel2013seamless">(<a href="references.html#ref-eddelbuettel2013seamless" role="doc-biblioref">Eddelbuettel 2013</a>)</span>.</p>
 <p> </p>
-<p>Package <strong>sf</strong> represents sets of simple features in <code>sf</code> objects, a sub-class of a <code>data.frame</code> or tibble. <code>sf</code> objects contain at least one <em>geometry list-column</em> of class <code>sfc</code>, which for each element contains the geometry as an R object of class <code>sfg</code>. A geometry list-column acts as a variable in a <code>data.frame</code> or tibble, but has a more complex structure than basic vectors such as numeric or character variables <a href="rbasics.html#sec-dissecting" class="quarto-xref"><span>Section&nbsp;B.3</span></a>.</p>
+<p>Package <strong>sf</strong> represents sets of simple features in <code>sf</code> objects, a sub-class of a <code>data.frame</code> or tibble. <code>sf</code> objects contain at least one <em>geometry list-column</em> of class <code>sfc</code>, which for each element contains the geometry as an R object of class <code>sfg</code>. A geometry list-column acts as a variable in a <code>data.frame</code> or tibble, but has a more complex structure than basic vectors such as numeric or character variables <a href="rbasics.html#sec-dissecting" class="quarto-xref"><span>Section B.3</span></a>.</p>
 <p> </p>
 <p>An <code>sf</code> object has the following metadata:</p>
 <ul>
 <li>the name of the (active) geometry column, held in attribute <code>sf_column</code>
 </li>
-<li>for each non-geometry variable, the attribute-geometry relationship (<a href="05-Attributes.html#sec-agr" class="quarto-xref"><span>Section&nbsp;5.1</span></a>), held in attribute <code>agr</code>
+<li>for each non-geometry variable, the attribute-geometry relationship (<a href="05-Attributes.html#sec-agr" class="quarto-xref"><span>Section 5.1</span></a>), held in attribute <code>agr</code>
 </li>
 </ul>
 <p> </p>
@@ -460,18 +486,18 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <p> An <code>sf</code> object can be created from scratch by</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="co"># Linking to GEOS 3.11.1, GDAL 3.6.4, PROJ 9.1.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7.35</span>, <span class="fl">52.42</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7.22</span>, <span class="fl">52.18</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7.44</span>, <span class="fl">52.19</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span><span class="op">)</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf-object.html">st_sf</a></span><span class="op">(</span>elev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33.2</span>, <span class="fl">52.1</span>, <span class="fl">81.2</span><span class="op">)</span>, </span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span>elev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33.2</span>, <span class="fl">52.1</span>, <span class="fl">81.2</span><span class="op">)</span>, </span>
 <span>      marker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Id01"</span>, <span class="st">"Id02"</span>, <span class="st">"Id03"</span><span class="op">)</span>, geom <span class="op">=</span> <span class="va">sfc</span><span class="op">)</span></span>
 <span><span class="co"># Simple feature collection with 3 features and 2 fields</span></span>
 <span><span class="co"># Geometry type: POINT</span></span>
 <span><span class="co"># Dimension:     XY</span></span>
 <span><span class="co"># Bounding box:  xmin: 7.22 ymin: 52.2 xmax: 7.44 ymax: 52.4</span></span>
-<span><span class="co"># Geodetic CRS:  WGS 84</span></span>
+<span><span class="co"># Geodetic CRS:  WGS 84 (CRS84)</span></span>
 <span><span class="co">#   elev marker              geom</span></span>
 <span><span class="co"># 1 33.2   Id01 POINT (7.35 52.4)</span></span>
 <span><span class="co"># 2 52.1   Id02 POINT (7.22 52.2)</span></span>
@@ -479,11 +505,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sfobj" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-sfobj" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sfobj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/sf_obj.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sfobj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sfobj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.1: components of an <code>sf</code> object
 </figcaption></figure>
 </div>
@@ -497,17 +523,17 @@ Figure&nbsp;7.1: components of an <code>sf</code> object
 <li>request to a web service</li>
 <li>dataset held in some form in another R package</li>
 </ul>
-<p>The next section introduces reading from files. <a href="09-Large.html#sec-largesf" class="quarto-xref"><span>Section&nbsp;9.1</span></a> discusses handling of datasets too large to fit into working memory.</p>
+<p>The next section introduces reading from files. <a href="09-Large.html#sec-largesf" class="quarto-xref"><span>Section 9.1</span></a> discusses handling of datasets too large to fit into working memory.</p>
 </section><section id="reading-and-writing" class="level3"><h3 class="anchored" data-anchor-id="reading-and-writing">Reading and writing</h3>
 <p>Reading datasets from an external “data source” (file, web service, or even string) is done using <code>st_read</code>:</p>
 <p></p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"gpkg/nc.gpkg"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># [1] "/home/edzer/R/x86_64-pc-linux-gnu-library/4.3/sf/gpkg/nc.gpkg"</span></span>
+<span><span class="co"># [1] "/home/edzer/R/x86_64-pc-linux-gnu-library/4.4/sf/gpkg/nc.gpkg"</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="co"># Reading layer `nc.gpkg' from data source </span></span>
-<span><span class="co">#   `/home/edzer/R/x86_64-pc-linux-gnu-library/4.3/sf/gpkg/nc.gpkg' </span></span>
+<span><span class="co">#   `/home/edzer/R/x86_64-pc-linux-gnu-library/4.4/sf/gpkg/nc.gpkg' </span></span>
 <span><span class="co">#   using driver `GPKG'</span></span>
 <span><span class="co"># Simple feature collection with 100 features and 14 fields</span></span>
 <span><span class="co"># Geometry type: MULTIPOLYGON</span></span>
@@ -528,10 +554,10 @@ Figure&nbsp;7.1: components of an <code>sf</code> object
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">file</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".gpkg"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># [1] "/tmp/Rtmpm9lGRF/file361e653fae4a9.gpkg"</span></span>
+<span><span class="co"># [1] "/tmp/RtmpkkMEP2/file1b633a7dc82c53.gpkg"</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">nc</span>, <span class="va">file</span>, layer <span class="op">=</span> <span class="st">"layer_nc"</span><span class="op">)</span></span>
 <span><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span><span class="co">#   `/tmp/Rtmpm9lGRF/file361e653fae4a9.gpkg' using driver `GPKG'</span></span>
+<span><span class="co">#   `/tmp/RtmpkkMEP2/file1b633a7dc82c53.gpkg' using driver `GPKG'</span></span>
 <span><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset, it will err if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted using <code>st_delete</code>, which is convenient in particular when they are associated with tables in a database.</p>
@@ -546,10 +572,10 @@ Figure&nbsp;7.1: components of an <code>sf</code> object
 <p>but with a few additional features, in particular:</p>
 <ul>
 <li>the <code>drop</code> argument is by default <code>FALSE</code> meaning that the geometry column is <em>always</em> selected, and an <code>sf</code> object is returned; when it is set to <code>TRUE</code> and the geometry column is <em>not</em> selected, it is dropped and a <code>data.frame</code> is returned</li>
-<li>selection with a spatial (<code>sf</code>, <code>sfc</code> or <code>sfg</code>) object as first argument leads to selection of the features that spatially <em>intersect</em> with that object (see next section); other predicates than <em>intersects</em> can be chosen by setting parameter <code>op</code> to a function such as <code>st_covers</code> or any other binary predicate function listed in <a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section&nbsp;3.2.2</span></a>.</li>
+<li>selection with a spatial (<code>sf</code>, <code>sfc</code> or <code>sfg</code>) object as first argument leads to selection of the features that spatially <em>intersect</em> with that object (see next section); other predicates than <em>intersects</em> can be chosen by setting parameter <code>op</code> to a function such as <code>st_covers</code> or any other binary predicate function listed in <a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section 3.2.2</span></a>.</li>
 </ul></section><section id="binary-predicates" class="level3"><h3 class="anchored" data-anchor-id="binary-predicates">Binary predicates</h3>
 <p></p>
-<p>Binary predicates like <code>st_intersects</code>, <code>st_covers</code> and such (<a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section&nbsp;3.2.2</span></a>) take two sets of features or feature geometries and return for all pairs whether the predicate is <code>TRUE</code> or <code>FALSE</code>. For large sets this would potentially result in a huge matrix, typically filled mostly with <code>FALSE</code> values and for that reason a sparse representation is returned by default:</p>
+<p>Binary predicates like <code>st_intersects</code>, <code>st_covers</code> and such (<a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section 3.2.2</span></a>) take two sets of features or feature geometries and return for all pairs whether the predicate is <code>TRUE</code> or <code>FALSE</code>. For large sets this would potentially result in a huge matrix, typically filled mostly with <code>FALSE</code> values and for that reason a sparse representation is returned by default:</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nc5</span> <span class="op">&lt;-</span> <span class="va">nc</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span></span>
 <span><span class="va">nc7</span> <span class="op">&lt;-</span> <span class="va">nc</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="op">]</span></span>
@@ -568,11 +594,11 @@ Figure&nbsp;7.1: components of an <code>sf</code> object
 <span><span class="va">cc</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc7</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">cc</span>, labels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">nc7</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-fig57" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-fig57" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-fig57-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-fig57-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-fig57-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig57-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.2: First seven North Carolina counties
 </figcaption></figure>
 </div>
@@ -655,11 +681,11 @@ Figure&nbsp;7.2: First seven North Carolina counties
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">buf50</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="cn">NA</span>, border <span class="op">=</span> <span class="st">'brown'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-orangebuffer" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-orangebuffer" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-orangebuffer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-orangebuffer-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-orangebuffer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-orangebuffer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.3: Orange County (orange), counties within a 50 km radius (black), a 50~km buffer around Orange County (brown), and remaining counties (grey)
 </figcaption></figure>
 </div>
@@ -668,14 +694,14 @@ Figure&nbsp;7.3: Orange County (orange), counties within a 50 km radius (black),
 </section></section><section id="spatial-joins" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="spatial-joins">
 <span class="header-section-number">7.2</span> Spatial joins</h2>
 <p> </p>
-<p>In regular (left, right, or inner) joins, <em>joined</em> records from a pair of tables are reported when one or more selected attributes match (are identical) in both tables. A spatial join is similar, but the criterion to join records is not equality of attributes but a spatial predicate. This leaves a wide variety of options in order to define <em>spatially</em> matching records, using binary predicates listed in <a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section&nbsp;3.2.2</span></a>. The concepts of “left”, “right”, “inner”, or “full” joins remain identical to the non-spatial join as the options for handling records that have no spatial match.</p>
+<p>In regular (left, right, or inner) joins, <em>joined</em> records from a pair of tables are reported when one or more selected attributes match (are identical) in both tables. A spatial join is similar, but the criterion to join records is not equality of attributes but a spatial predicate. This leaves a wide variety of options in order to define <em>spatially</em> matching records, using binary predicates listed in <a href="03-Geometries.html#sec-de9im" class="quarto-xref"><span>Section 3.2.2</span></a>. The concepts of “left”, “right”, “inner”, or “full” joins remain identical to the non-spatial join as the options for handling records that have no spatial match.</p>
 <p>When using spatial joins, each record may have several matched records, yielding a large result table. A way to reduce this complexity may be to select from the matching records the one with the largest overlap with the target geometry. An example of this is shown (visually) in <a href="#fig-largest" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>; this is done using <code>st_join</code> with argument <code>largest = TRUE</code>.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># example of largest = TRUE:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"gpkg/nc.gpkg"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">'EPSG:2264'</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">nc</span></span>
-<span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf-object.html">st_sf</a></span><span class="op">(</span></span>
+<span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span></span>
 <span>         label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste0</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
 <span>         geom <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html">st_make_grid</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gr</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">sf.colors</a></span><span class="op">(</span><span class="fl">10</span>, categorical <span class="op">=</span> <span class="cn">TRUE</span>, alpha <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span></span>
@@ -691,27 +717,27 @@ Figure&nbsp;7.3: Orange County (orange), counties within a 50 km radius (black),
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc_j</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, labels <span class="op">=</span> <span class="va">nc_j</span><span class="op">$</span><span class="va">label</span>, cex <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">gr</span><span class="op">)</span>, border <span class="op">=</span> <span class="st">'#88ff88aa'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-largest" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-largest" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-largest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-largest-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-largest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-largest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.4: Example of <code>st_join</code> with <code>largest = TRUE</code>: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <p> </p>
-<p>Another way to reduce the result set is to use <code>aggregate</code> after a join, to merge all matching records, and union their geometries; see <a href="05-Attributes.html#sec-updownscaling" class="quarto-xref"><span>Section&nbsp;5.4</span></a>.</p>
+<p>Another way to reduce the result set is to use <code>aggregate</code> after a join, to merge all matching records, and union their geometries; see <a href="05-Attributes.html#sec-updownscaling" class="quarto-xref"><span>Section 5.4</span></a>.</p>
 <section id="sampling-gridding-interpolating" class="level3"><h3 class="anchored" data-anchor-id="sampling-gridding-interpolating">Sampling, gridding, interpolating</h3>
-<p>Several convenience functions are available in package <strong>sf</strong>, some of which will be discussed here. Function <code>st_sample</code> generates a sample of points randomly sampled from target geometries, where target geometries can be point, line, or polygon geometries. Sampling strategies can be (completely) random, regular, or (with polygons) triangular. <a href="11-PointPattern.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a> explains how spatial sampling (or point pattern simulation) methods available in package <strong>spatstat</strong> are interfaced through <code>st_sample</code>.</p>
+<p>Several convenience functions are available in package <strong>sf</strong>, some of which will be discussed here. Function <code>st_sample</code> generates a sample of points randomly sampled from target geometries, where target geometries can be point, line, or polygon geometries. Sampling strategies can be (completely) random, regular, or (with polygons) triangular. <a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a> explains how spatial sampling (or point pattern simulation) methods available in package <strong>spatstat</strong> are interfaced through <code>st_sample</code>.</p>
 <p>Function <code>st_make_grid</code> creates a square, rectangular, or hexagonal grid over a region, or points with the grid centres or corners. It was used to create the rectangular grid in <a href="#fig-largest" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>.</p>
 <p></p>
-<p>Function <code>st_interpolate_aw</code> “interpolates” area values to new areas, as explained in <a href="05-Attributes.html#sec-area-weighted" class="quarto-xref"><span>Section&nbsp;5.3</span></a>, both for intensive and extensive variables.</p>
+<p>Function <code>st_interpolate_aw</code> “interpolates” area values to new areas, as explained in <a href="05-Attributes.html#sec-area-weighted" class="quarto-xref"><span>Section 5.3</span></a>, both for intensive and extensive variables.</p>
 <p> </p>
 </section></section><section id="sec-ccw" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="sec-ccw">
 <span class="header-section-number">7.3</span> Ellipsoidal coordinates</h2>
-<p>Unprojected data have ellipsoidal coordinates, expressed in degrees east and north. As explained in <a href="04-Spherical.html#sec-straight" class="quarto-xref"><span>Section&nbsp;4.1</span></a>, “straight” lines between points are the curved shortest paths (“geodesic”). By default, <strong>sf</strong> uses geometrical operations from the <code>s2geometry</code> library, interfaced through the <strong>s2</strong> package <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>)</span>, and we see for instance that the point</p>
+<p>Unprojected data have ellipsoidal coordinates, expressed in degrees east and north. As explained in <a href="04-Spherical.html#sec-straight" class="quarto-xref"><span>Section 4.1</span></a>, “straight” lines between points are the curved shortest paths (“geodesic”). By default, <strong>sf</strong> uses geometrical operations from the <code>s2geometry</code> library, interfaced through the <strong>s2</strong> package <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>)</span>, and we see for instance that the point</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"POINT(50 50.1)"</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="st">"OGC:CRS84"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -736,11 +762,11 @@ Figure&nbsp;7.4: Example of <code>st_join</code> with <code>largest = TRUE</code
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pol</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, graticule <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">'GEOS'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pt</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-figs2" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-figs2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-figs2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-figs2-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-figs2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-figs2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle arcs (left: s2) or Cartesian coordinates (right)
 </figcaption></figure>
 </div>
@@ -764,13 +790,13 @@ Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle a
 <ul>
 <li>certain operations may be much faster in one compared to the other,</li>
 <li>certain functions may be available in only one of them (like <code>st_relate</code> being only present in GEOS),</li>
-<li>when using transformers, <strong>GEOS</strong> returns exterior polygon rings noded clockwise (<code>st_sfc(..., check_ring_dir = TRUE)</code> can be used to revert to counter-clockwise), <strong>s2geometry</strong> retuns them counter-clockwise</li>
+<li>when using transformers, <strong>GEOS</strong> returns exterior polygon rings noded clockwise (<code>st_sfc(..., check_ring_dir = TRUE)</code> can be used to revert to counter-clockwise), <strong>s2geometry</strong> returns them counter-clockwise</li>
 </ul></section><section id="package-stars" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="package-stars">
 <span class="header-section-number">7.4</span> Package <strong>stars</strong>
 </h2>
 <p> </p>
 <p>Although package <strong>sp</strong> has always had limited support for raster data, over the last decade R package <strong>raster</strong> <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2023a</a>)</span> has clearly been dominant as the prime package for powerful, flexible, and scalable raster analysis. The raster data model of package <strong>raster</strong> (and its successor, <strong>terra</strong> <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2023b</a>)</span>) is that of a 2D regular raster, or a set of raster layers (“raster stack”). This aligns with the classical static “GIS view”, where the world is modelled as a set of layers, each representing a different theme. A lot of data available today however is dynamic, and comes as time series of rasters or raster stacks. A raster stack does not meaningfully reflect this, requiring the user to keep a register of which layer represents what.</p>
-<p>Also, the <strong>raster</strong> package and its successor <strong>terra</strong> do an excellent job in scaling computations up to data sizes no larger than the local storage (the computer’s hard drives), and doing this fast. Recent datasets, however, including satellite imagery, climate model or weather forecasting data, often no longer fit in local storage (<a href="09-Large.html" class="quarto-xref"><span>Chapter&nbsp;9</span></a>). Package <strong>spacetime</strong> <span class="citation" data-cites="spacetime2012 R-spacetime">(<a href="references.html#ref-spacetime2012" role="doc-biblioref">Pebesma 2012</a>, <a href="references.html#ref-R-spacetime" role="doc-biblioref">2022</a>)</span> did address the analysis of time series of vector geometries or raster grid cells, but did not extend to higher-dimensional arrays or datasets too large to fit in main memory.</p>
+<p>Also, the <strong>raster</strong> package and its successor <strong>terra</strong> do an excellent job in scaling computations up to data sizes no larger than the local storage (the computer’s hard drives), and doing this fast. Recent datasets, however, including satellite imagery, climate model or weather forecasting data, often no longer fit in local storage (<a href="09-Large.html" class="quarto-xref"><span>Chapter 9</span></a>). Package <strong>spacetime</strong> <span class="citation" data-cites="spacetime2012 R-spacetime">(<a href="references.html#ref-spacetime2012" role="doc-biblioref">Pebesma 2012</a>, <a href="references.html#ref-R-spacetime" role="doc-biblioref">2022</a>)</span> did address the analysis of time series of vector geometries or raster grid cells, but did not extend to higher-dimensional arrays or datasets too large to fit in main memory.</p>
 <p> </p>
 <p>Here, we introduce package <strong>stars</strong> for analysing raster and vector data cubes. The package:</p>
 <ul>
@@ -784,7 +810,7 @@ Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle a
 </li>
 <li>follows the tidyverse design principles</li>
 </ul>
-<p>Vector data cubes include for instance time series for simple features, or spatial graph data such as potentially dynamic origin-destination matrices. The concept of spatial vector and raster data cubes was explained in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter&nbsp;6</span></a>. Irregular spacetime observations can be represented by <code>sftime</code> objects provided by package <strong>sftime</strong> <span class="citation" data-cites="R-sftime">(<a href="references.html#ref-R-sftime" role="doc-biblioref">Teickner, Pebesma, and Graeler 2022</a>)</span>, which extend <code>sf</code> objects with a time column (<a href="13-Geostatistics.html#sec-stgeos" class="quarto-xref"><span>Section&nbsp;13.3</span></a>).</p>
+<p>Vector data cubes include for instance time series for simple features, or spatial graph data such as potentially dynamic origin-destination matrices. The concept of spatial vector and raster data cubes was explained in <a href="06-Cubes.html" class="quarto-xref"><span>Chapter 6</span></a>. Irregular spacetime observations can be represented by <code>sftime</code> objects provided by package <strong>sftime</strong> <span class="citation" data-cites="R-sftime">(<a href="references.html#ref-R-sftime" role="doc-biblioref">Teickner, Pebesma, and Graeler 2022</a>)</span>, which extend <code>sf</code> objects with a time column (<a href="13-Geostatistics.html#sec-stgeos" class="quarto-xref"><span>Section 13.3</span></a>).</p>
 <section id="reading-and-writing-raster-data" class="level3"><h3 class="anchored" data-anchor-id="reading-and-writing-raster-data">Reading and writing raster data</h3>
 <p> </p>
 <p>Raster data typically are read from a file. We use a dataset containing a section of Landsat 7 scene, with the six 30~m-resolution bands (bands 1-5 and 7) for a region covering the city of Olinda, Brazil. We can read the example GeoTIFF file holding a regular, non-rotated grid from the package <strong>stars</strong>:</p>
@@ -863,7 +889,7 @@ Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle a
 <li>attributes first (by name, index, or logical vector)</li>
 <li>followed by each dimension.</li>
 </ul>
-<p>This means that <code>r[1:2, 101:200,, 5:10]</code> selects from <code>r</code> attributes 1-2, index 101-200 for dimension 1, and index 5-10 for dimension 3; omitting dimension 2 means that no subsetting takes place. For attributes, attribute name, index or logical vectors can be used. For dimensions, logical vectors are not supported. Selecting discontinuous ranges is supported only when it is a regular sequence. By default, <code>drop</code> is FALSE, when set to <code>TRUE</code> dimensions with a single value are dropped:</p>
+<p>This means that <code>r[1:2, 101:200, , 5:10]</code> selects from <code>r</code> attributes 1-2, index 101-200 for dimension 1, and index 5-10 for dimension 3; omitting dimension 2 means that no subsetting takes place. For attributes, attribute name, index or logical vectors can be used. For dimensions, logical vectors are not supported. Selecting discontinuous ranges is supported only when it is a regular sequence. By default, <code>drop</code> is FALSE, when set to <code>TRUE</code> dimensions with a single value are dropped:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">r</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">250</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fl">4</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#    x    y band </span></span>
@@ -923,11 +949,11 @@ Figure&nbsp;7.5: Intersection depends on whether we use geodesics/great circle a
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span><span class="va">b</span><span class="op">]</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">]</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">b</span>, border <span class="op">=</span> <span class="st">'brown'</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-circr" class="quarto-figure quarto-figure-center anchored" width="70%">
+<div id="fig-circr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-circr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-circr-1.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-circr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)
 </figcaption></figure>
 </div>
@@ -1001,7 +1027,7 @@ Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)
 <span><span class="co"># y       1 352 9120761 -28.5 SIRGAS 2000 / ... FALSE      NULL [y]</span></span>
 <span><span class="co"># band    1   6      NA    NA                NA    NA X1,...,X6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>split distributes the <code>band</code> dimension over six attributes of a two-dimensional array, <code>merge</code> reverses this operation. <code>st_redimension</code> can be used for more generic operations, such as splitting a single array dimension over two new dimensions:</p>
+<p><code>split</code> distributes the <code>band</code> dimension over six attributes of a two-dimensional array, <code>merge</code> reverses this operation. <code>st_redimension</code> can be used for more generic operations, such as splitting a single array dimension over two new dimensions:</p>
 <div class="cell">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/redimension.html">st_redimension</a></span><span class="op">(</span><span class="va">r</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">349</span>, y <span class="op">=</span> <span class="fl">352</span>, b1 <span class="op">=</span> <span class="fl">3</span>, b2 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># stars object with 4 dimensions and 1 attribute</span></span>
@@ -1029,7 +1055,7 @@ Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)
 <span><span class="co"># band       1   6      NA    NA                NA    NA    </span></span>
 <span><span class="co"># new_dim    1   2      NA    NA                NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>the use of this is illustrated in <a href="#sec-oddc" class="quarto-xref"><span>Section&nbsp;7.5.2</span></a>.</p>
+<p>the use of this is illustrated in <a href="#sec-oddc" class="quarto-xref"><span>Section 7.5.2</span></a>.</p>
 </section><section id="extracting-point-samples-aggregating" class="level3"><h3 class="anchored" data-anchor-id="extracting-point-samples-aggregating">Extracting point samples, aggregating</h3>
 <p> </p>
 <p>A very common use case for raster data cube analysis is the extraction of values at certain locations, or computing aggregations over certain geometries. <code>st_extract</code> extracts point values. We will do this for a few randomly sampled points over the bounding box of <code>r</code>:</p>
@@ -1050,7 +1076,7 @@ Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)
 <span><span class="co"># band                                        NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>which results in a vector data cube with 20 points and 6 bands. (Setting the seed guarantees an identical sample when reproducing, it should not be set to generate further randomly generated points.)</p>
-<p>Another way of extracting information from data cubes is by aggregating it. One way of doing this is by spatially aggregating values over spatial polygons or lines (<a href="06-Cubes.html#sec-vectordatacubes" class="quarto-xref"><span>Section&nbsp;6.4</span></a>). We can for instance compute the maximum pixel value for each of the six bands and for each of the three circles shown in <a href="01-hello.html#fig-ras" class="quarto-xref">Figure&nbsp;<span>1.4</span></a> (d) by</p>
+<p>Another way of extracting information from data cubes is by aggregating it. One way of doing this is by spatially aggregating values over spatial polygons or lines (<a href="06-Cubes.html#sec-vectordatacubes" class="quarto-xref"><span>Section 6.4</span></a>). We can for instance compute the maximum pixel value for each of the six bands and for each of the three circles shown in <a href="01-hello.html#fig-ras" class="quarto-xref">Figure&nbsp;<span>1.4</span></a> (d) by</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">circles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
@@ -1089,11 +1115,11 @@ Figure&nbsp;7.6: Circular centre region of the Landsat 7 scene (band 1)
 <span><span class="va">col</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">18</span>, <span class="fl">19</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="st">"red"</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, col <span class="op">=</span> <span class="va">col</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-rsample" class="quarto-figure quarto-figure-center anchored" width="80%">
+<div id="fig-rsample" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rsample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-rsample-1.png" class="img-fluid figure-img" style="width:80.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-rsample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rsample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.7: Randomly chosen sample locations for training data; red: water, yellow: land
 </figcaption></figure>
 </div>
@@ -1113,11 +1139,11 @@ Figure&nbsp;7.7: Randomly chosen sample locations for training data; red: water,
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, key.pos <span class="op">=</span> <span class="fl">4</span>, key.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">lcm</a></span><span class="op">(</span><span class="fl">3.5</span><span class="op">)</span>, key.length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">lcm</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-lda" class="quarto-figure quarto-figure-center anchored" width="70%">
+<div id="fig-lda" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-lda-1.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-lda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.8: Linear discriminant classifier for land/water, based on training data of <a href="#fig-rsample" class="quarto-xref">Figure&nbsp;<span>7.7</span></a>
 </figcaption></figure>
 </div>
@@ -1129,11 +1155,11 @@ Figure&nbsp;7.8: Linear discriminant classifier for land/water, based on trainin
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-firststars" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-firststars" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-firststars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-firststars-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-firststars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-firststars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.9: Six 30 m Landsat bands downsampled to 90m for Olinda, Br.
 </figcaption></figure>
 </div>
@@ -1145,20 +1171,20 @@ Figure&nbsp;7.9: Six 30 m Landsat bands downsampled to 90m for Olinda, Br.
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span>, rgb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"RGB"</span><span class="op">)</span>    <span class="co"># rgb</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span>, rgb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"False colour (NIR-R-G)"</span><span class="op">)</span> <span class="co"># false colour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-starsrgb" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-starsrgb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-starsrgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-starsrgb-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-starsrgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-starsrgb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.10: Two colour composites
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>Further details and options are given in <a href="08-Plotting.html" class="quarto-xref"><span>Chapter&nbsp;8</span></a>.</p>
+<p>Further details and options are given in <a href="08-Plotting.html" class="quarto-xref"><span>Chapter 8</span></a>.</p>
 </section><section id="analysing-raster-data" class="level3"><h3 class="anchored" data-anchor-id="analysing-raster-data">Analysing raster data</h3>
 <p> </p>
-<p>Element-wise mathematical functions (<a href="06-Cubes.html#sec-applydimension" class="quarto-xref"><span>Section&nbsp;6.3.2</span></a>) on <code>stars</code> objects are just passed on to the arrays. This means that we can call functions and create expressions:</p>
+<p>Element-wise mathematical functions (<a href="06-Cubes.html#sec-applydimension" class="quarto-xref"><span>Section 6.3.2</span></a>) on <code>stars</code> objects are just passed on to the arrays. This means that we can call functions and create expressions:</p>
 <div class="cell">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
 <span><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
@@ -1211,7 +1237,7 @@ Figure&nbsp;7.10: Two colour composites
 <span><span class="co"># band    1   6      NA    NA                NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p> </p>
-<p>Dimension-wise, we can apply functions to selected array dimensions (<a href="06-Cubes.html#sec-reducedimension" class="quarto-xref"><span>Section&nbsp;6.3.3</span></a>) of stars objects similar to how <code>apply</code> does this to arrays. For instance, we can compute for each pixel the mean of the six band values by</p>
+<p>Dimension-wise, we can apply functions to selected array dimensions (<a href="06-Cubes.html#sec-reducedimension" class="quarto-xref"><span>Section 6.3.3</span></a>) of stars objects similar to how <code>apply</code> does this to arrays. For instance, we can compute for each pixel the mean of the six band values by</p>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_apply.html">st_apply</a></span><span class="op">(</span><span class="va">r</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span></span>
 <span><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
@@ -1251,7 +1277,7 @@ Figure&nbsp;7.10: Two colour composites
 <span><span class="co"># 5    5 83.2</span></span>
 <span><span class="co"># 6    6 60.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>the result of which is small enough to be printed here as a <code>data.frame</code>. In these two examples, entire dimensions disappear. Sometimes, this does not happen (<a href="06-Cubes.html#sec-applydimension" class="quarto-xref"><span>Section&nbsp;6.3.2</span></a>); we can for instance compute the three quartiles for each band</p>
+<p>the result of which is small enough to be printed here as a <code>data.frame</code>. In these two examples, entire dimensions disappear. Sometimes, this does not happen (<a href="06-Cubes.html#sec-applydimension" class="quarto-xref"><span>Section 6.3.2</span></a>); we can for instance compute the three quartiles for each band</p>
 <div class="cell">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_apply.html">st_apply</a></span><span class="op">(</span><span class="va">r</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"band"</span><span class="op">)</span>, <span class="va">quantile</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.25</span>, <span class="fl">.5</span>, <span class="fl">.75</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
@@ -1284,7 +1310,7 @@ Figure&nbsp;7.10: Two colour composites
 <p></p>
 <p>There are several reasons why non-regular rasters occur (<a href="01-hello.html#fig-rastertypes01" class="quarto-xref">Figure&nbsp;<span>1.6</span></a>). For one, when the data is Earth-bound, a regular raster does not fit the Earth’s surface, which is curved. Other reasons are:</p>
 <ul>
-<li>when we convert or transform a regular raster data into another coordinate reference system, it will become curvilinear unless we resample (warp; <a href="#sec-warp" class="quarto-xref"><span>Section&nbsp;7.8</span></a>); warping always comes at the cost of some loss of data and is not reversible</li>
+<li>when we convert or transform a regular raster data into another coordinate reference system, it will become curvilinear unless we resample (warp; <a href="#sec-warp" class="quarto-xref"><span>Section 7.8</span></a>); warping always comes at the cost of some loss of data and is not reversible</li>
 <li>observation may lead to irregular rasters: for lower-level satellite products, we may have a regular raster in the direction of the satellite (not aligned with <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>), and rectilinear in the direction perpendicular to that (e.g., when the sensor discretises the viewing <em>angle</em> in equal parts)</li>
 </ul></section><section id="gdal-utils" class="level3"><h3 class="anchored" data-anchor-id="gdal-utils">GDAL utils</h3>
 <p> </p>
@@ -1320,7 +1346,7 @@ Figure&nbsp;7.10: Two colour composites
 <p> </p>
 <section id="example-aggregating-air-quality-time-series" class="level3"><h3 class="anchored" data-anchor-id="example-aggregating-air-quality-time-series">Example: aggregating air quality time series</h3>
 <p></p>
-<p>We use a small excert from the <a href="https://www.eea.europa.eu/data-and-maps/data/aqereporting-9">European air quality data base</a> to illustrate aggregation operations on vector data cubes. The same data source was used by <span class="citation" data-cites="RJ-2016-014">Gräler, Pebesma, and Heuvelink (<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">2016</a>)</span>, and will be used in <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a> and <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter&nbsp;13</span></a>. Daily average PM<span class="math inline">\(_{10}\)</span> values were computed for rural background stations in Germany, over the period 1998-2009.</p>
+<p>We use a small excert from the <a href="https://www.eea.europa.eu/data-and-maps/data/aqereporting-9">European air quality data base</a> to illustrate aggregation operations on vector data cubes. The same data source was used by <span class="citation" data-cites="RJ-2016-014">Gräler, Pebesma, and Heuvelink (<a href="references.html#ref-RJ-2016-014" role="doc-biblioref">2016</a>)</span>, and will be used in <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter 12</span></a> and <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter 13</span></a>. Daily average PM<span class="math inline">\(_{10}\)</span> values were computed for rural background stations in Germany, over the period 1998-2009.</p>
 <p>We can create a <code>stars</code> object from the <code>air</code> matrix, the <code>dates</code> Date vector and the <code>stations</code> <code>SpatialPoints</code> objects by</p>
 <div class="cell">
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/air.rda"</span><span class="op">)</span> <span class="co"># this loads several datasets in .GlobalEnv</span></span>
@@ -1349,11 +1375,11 @@ Figure&nbsp;7.10: Two colour composites
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/aperm.html">aperm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">aq</span><span class="op">)</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>, main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-airst" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-airst" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airst-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-airst-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-airst-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-airst-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.11: Space time diagram of PM<span class="math inline">\(_{10}\)</span> measurements by time and station
 </figcaption></figure>
 </div>
@@ -1365,11 +1391,11 @@ Figure&nbsp;7.11: Space time diagram of PM<span class="math inline">\(_{10}\)</s
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>reset <span class="op">=</span> <span class="cn">FALSE</span>, pch <span class="op">=</span> <span class="fl">16</span>, extent <span class="op">=</span> <span class="va">de_nuts1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="va">de_nuts1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-airmap" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-airmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-airmap-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-airmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-airmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.12: Locations of PM<span class="math inline">\(_{10}\)</span> measurement stations, showing mean values
 </figcaption></figure>
 </div>
@@ -1396,11 +1422,11 @@ Figure&nbsp;7.12: Locations of PM<span class="math inline">\(_{10}\)</span> meas
 <span><span class="va">a</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">time</span> <span class="op">&gt;=</span> <span class="st">"2008-01-01"</span>, <span class="va">time</span> <span class="op">&lt;</span> <span class="st">"2008-01-07"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-airagg" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-airagg" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airagg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-airagg-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-airagg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-airagg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.13: Areal mean PM<span class="math inline">\(_{10}\)</span> values, for six days
 </figcaption></figure>
 </div>
@@ -1409,14 +1435,14 @@ Figure&nbsp;7.13: Areal mean PM<span class="math inline">\(_{10}\)</span> values
 <div style="page-break-after: always;"></div>
 <p>or create a time series plot of mean values for a single state (<a href="#fig-airts" class="quarto-xref">Figure&nbsp;<span>7.14</span></a>) by</p>
 <div class="cell">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/xts">xts</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/as.xts.html">as.xts</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span>, main <span class="op">=</span> <span class="va">de_nuts1</span><span class="op">$</span><span class="va">NAME_1</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-airts" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-airts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-airts-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-airts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-airts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.14: Areal mean PM<span class="math inline">\(_{10}\)</span> time series for a single state
 </figcaption></figure>
 </div>
@@ -1430,11 +1456,11 @@ Figure&nbsp;7.14: Areal mean PM<span class="math inline">\(_{10}\)</span> time s
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">bristol_zones</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, graticule <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">bristol_zones</span><span class="op">)</span><span class="op">[</span><span class="fl">33</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">'red'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-bristol1" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-bristol1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-bristol1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-bristol1-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bristol1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bristol1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E02003043) coloured red
 </figcaption></figure>
 </div>
@@ -1523,11 +1549,11 @@ Figure&nbsp;7.15: Origin destination data zones for Bristol, UK, with zone 33 (E
 <div class="cell">
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/abind/man/adrop.html">adrop</a></span><span class="op">(</span><span class="va">odm</span><span class="op">[</span>,,<span class="fl">33</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, logz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-odm33" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-odm33" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-odm33-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-odm33-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-odm33-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-odm33-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.16: OD matrix sliced for destination zone 33, by transportation mode
 </figcaption></figure>
 </div>
@@ -1590,11 +1616,11 @@ Figure&nbsp;7.16: OD matrix sliced for destination zone 33, by transportation mo
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">o</span>, <span class="va">d</span>, along <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>od <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span>, <span class="st">"destination"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, logz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-odjoined" class="quarto-figure quarto-figure-center anchored" height="90%" width="100%">
+<div id="fig-odjoined" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-odjoined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-odjoined-1.png" style="width:100.0%;height:90.0%" class="figure-img">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-odjoined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-odjoined-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.17: Total commutes, summed by origin (left) or destination (right)
 </figcaption></figure>
 </div>
@@ -1611,11 +1637,11 @@ Figure&nbsp;7.17: Total commutes, summed by origin (left) or destination (right)
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>od <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span>, <span class="st">"destination"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">od</span>, logz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-odbykm" class="quarto-figure quarto-figure-center anchored" height="90%" width="100%">
+<div id="fig-odbykm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-odbykm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-odbykm-1.png" style="width:100.0%;height:90.0%" class="figure-img">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-odbykm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-odbykm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.18: Total commutes per square km, by area of origin (left) or destination (right)
 </figcaption></figure>
 </div>
@@ -1635,14 +1661,14 @@ Figure&nbsp;7.18: Total commutes per square km, by area of origin (left) or dest
 <p>To put this argument to the extreme, consider for instance that all image, video and sound data are stored in array form; few people would make a real case for storing them in a long table form instead. Nevertheless, R packages like <strong>tsibble</strong> <span class="citation" data-cites="R-tsibble">(<a href="references.html#ref-R-tsibble" role="doc-biblioref">Wang et al. 2022</a>)</span> take this approach, and have to deal with ambiguous ordering of multiple records with identical time steps for different spatial features and index them, which is solved for both <em>automatically</em> by using the array form – at the cost of using dense arrays, in package <strong>stars</strong>.</p>
 <p>Package <strong>stars</strong> tries to follow the <a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">tidy manifesto</a> to handle array sets and has particularly developed support for the case where one or more of the dimensions refer to space and/or time.</p>
 </section><section id="file-formats-for-vector-data-cubes" class="level3"><h3 class="anchored" data-anchor-id="file-formats-for-vector-data-cubes">File formats for vector data cubes</h3>
-<p>Regular table forms, including the long table form, are possible but clumsy to use: the origin-destination data example above and <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter&nbsp;13</span></a> illustrate the complexity of recreating a vector data cube from table forms. Array formats like NetCDF or Zarr are designed for storing array data. They can however be used for <em>any</em> data structure, and carry the risk that files once written are hard to reuse. For vector cubes that have a <em>single</em> geometry dimension that consists of either points, (multi)linestrings or (multi)polygons, the CF conventions <span class="citation" data-cites="cf">(<a href="references.html#ref-cf" role="doc-biblioref">Eaton et al. 2022</a>)</span> describe a way to encode such geometries. <code><a href="https://r-spatial.github.io/stars/reference/mdim.html">stars::read_mdim</a></code> and <code><a href="https://r-spatial.github.io/stars/reference/mdim.html">stars::write_mdim</a></code> can read and write vector data cubes following these conventions.</p>
+<p>Regular table forms, including the long table form, are possible but clumsy to use: the origin-destination data example above and <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter 13</span></a> illustrate the complexity of recreating a vector data cube from table forms. Array formats like NetCDF or Zarr are designed for storing array data. They can however be used for <em>any</em> data structure, and carry the risk that files once written are hard to reuse. For vector cubes that have a <em>single</em> geometry dimension that consists of either points, (multi)linestrings or (multi)polygons, the CF conventions <span class="citation" data-cites="cf">(<a href="references.html#ref-cf" role="doc-biblioref">Eaton et al. 2022</a>)</span> describe a way to encode such geometries. <code><a href="https://r-spatial.github.io/stars/reference/mdim.html">stars::read_mdim</a></code> and <code><a href="https://r-spatial.github.io/stars/reference/mdim.html">stars::write_mdim</a></code> can read and write vector data cubes following these conventions.</p>
 <p> </p>
 </section></section><section id="sec-raster-to-vector" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="sec-raster-to-vector">
 <span class="header-section-number">7.6</span> Raster-to-vector, vector-to-raster</h2>
-<p><a href="01-hello.html#sec-rasterize" class="quarto-xref"><span>Section&nbsp;1.3</span></a> already showed some examples of raster-to-vector and vector-to-raster conversions. This section will add some code details and examples.</p>
+<p><a href="01-hello.html#sec-rasterize" class="quarto-xref"><span>Section 1.3</span></a> already showed some examples of raster-to-vector and vector-to-raster conversions. This section will add some code details and examples.</p>
 <section id="vector-to-raster" class="level3"><h3 class="anchored" data-anchor-id="vector-to-raster">Vector-to-raster</h3>
 <p> </p>
-<p><code>st_as_stars</code> is meant as a method to transform objects into <code>stars</code> objects. However, not all stars objects are <code>raster</code> objects, and the method for <code>sf</code> objects creates a vector data cube with the geometry as its spatial (vector) dimension, and attributes as attributes. When given a feature <em>geometry</em> (<code>sfc</code>) object, <code>st_as_stars</code> will rasterise it, as shown in <a href="#sec-warp" class="quarto-xref"><span>Section&nbsp;7.8</span></a> and in <a href="#fig-asstars" class="quarto-xref">Figure&nbsp;<span>7.19</span></a>.</p>
+<p><code>st_as_stars</code> is meant as a method to transform objects into <code>stars</code> objects. However, not all stars objects are <code>raster</code> objects, and the method for <code>sf</code> objects creates a vector data cube with the geometry as its spatial (vector) dimension, and attributes as attributes. When given a feature <em>geometry</em> (<code>sfc</code>) object, <code>st_as_stars</code> will rasterise it, as shown in <a href="#sec-warp" class="quarto-xref"><span>Section 7.8</span></a> and in <a href="#fig-asstars" class="quarto-xref">Figure&nbsp;<span>7.19</span></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"gpkg/nc.gpkg"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1650,11 +1676,11 @@ Figure&nbsp;7.18: Total commutes per square km, by area of origin (left) or dest
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-asstars" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-asstars" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-asstars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-asstars-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-asstars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asstars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.19: Rasterising vector geometry using <code>st_as_stars</code>
 </figcaption></figure>
 </div>
@@ -1690,11 +1716,11 @@ Figure&nbsp;7.19: Rasterising vector geometry using <code>st_as_stars</code>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_rasterize.html">st_rasterize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-lineras" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-lineras" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lineras-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="07-Introsf_files/figure-html/fig-lineras-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-lineras-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineras-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 </figcaption></figure>
 </div>
@@ -1705,7 +1731,7 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <p> </p>
 <section id="st_crs" class="level3"><h3 class="anchored" data-anchor-id="st_crs"><code>st_crs</code></h3>
 <p></p>
-<p>Spatial objects of class <code>sf</code> or <code>stars</code> contain a coordinate reference system that can be retrieved or replaced with <code>st_crs</code>, or can be set or replaced in a pipe with <code>st_set_crs</code>. Coordinate reference systems can be set with an EPSG code, like <code>st_crs(4326)</code> which will be converted to <code>st_crs('EPSG:4326')</code>, or with a PROJ.4 string like <code>"+proj=utm +zone=25 +south"</code>, a name like “WGS84”, or a name preceded by an authority like “OGC:CRS84”. Alternatives include a coordinate reference system definition in WKT, WKT-2 (<a href="02-Spaces.html#sec-wkt2" class="quarto-xref"><span>Section&nbsp;2.5</span></a>) or <a href="https://proj.org/specifications/projjson.html">PROJJSON</a>. The object returned by <code>st_crs</code> contains two fields:</p>
+<p>Spatial objects of class <code>sf</code> or <code>stars</code> contain a coordinate reference system that can be retrieved or replaced with <code>st_crs</code>, or can be set or replaced in a pipe with <code>st_set_crs</code>. Coordinate reference systems can be set with an EPSG code, like <code>st_crs(4326)</code> which will be converted to <code>st_crs('EPSG:4326')</code>, or with a PROJ.4 string like <code>"+proj=utm +zone=25 +south"</code>, a name like “WGS84”, or a name preceded by an authority like “OGC:CRS84”. Alternatives include a coordinate reference system definition in WKT, WKT-2 (<a href="02-Spaces.html#sec-wkt2" class="quarto-xref"><span>Section 2.5</span></a>) or <a href="https://proj.org/specifications/projjson.html">PROJJSON</a>. The object returned by <code>st_crs</code> contains two fields:</p>
 <ul>
 <li>
 <code>wkt</code> with the WKT-2 representation</li>
@@ -1723,7 +1749,7 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <code>st_transform</code>, <code>sf_project</code>
 </h3>
 <p> </p>
-<p>Coordinate transformations or conversions (<a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section&nbsp;2.4</span></a>) for <code>sf</code> or <code>stars</code> objects are carried out with <code>st_transform</code>, which takes as its first argument a spatial object of class <code>sf</code> or <code>stars</code> that has a coordinate reference system set, and as a second argument with an <code>crs</code> object (or something that can be converted to it with <code>st_crs</code>). When PROJ finds more than one possibility to transform or convert from the source <code>crs</code> to the target <code>crs</code>, it chooses the one with the highest declared accuracy. More fine-grained control over the options is explained in <a href="#sec-pipelines" class="quarto-xref"><span>Section&nbsp;7.7.5</span></a>. For <code>stars</code> objects with regular raster dimensions, <code>st_transform</code> will <em>only</em> transform coordinates and always result in a curvilinear grid. <code>st_warp</code> can be used to create a regular raster in a new coordinate reference system, using regridding (<a href="#sec-warp" class="quarto-xref"><span>Section&nbsp;7.8</span></a>).</p>
+<p>Coordinate transformations or conversions (<a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section 2.4</span></a>) for <code>sf</code> or <code>stars</code> objects are carried out with <code>st_transform</code>, which takes as its first argument a spatial object of class <code>sf</code> or <code>stars</code> that has a coordinate reference system set, and as a second argument with an <code>crs</code> object (or something that can be converted to it with <code>st_crs</code>). When PROJ finds more than one possibility to transform or convert from the source <code>crs</code> to the target <code>crs</code>, it chooses the one with the highest declared accuracy. More fine-grained control over the options is explained in <a href="#sec-pipelines" class="quarto-xref"><span>Section 7.7.5</span></a>. For <code>stars</code> objects with regular raster dimensions, <code>st_transform</code> will <em>only</em> transform coordinates and always result in a curvilinear grid. <code>st_warp</code> can be used to create a regular raster in a new coordinate reference system, using regridding (<a href="#sec-warp" class="quarto-xref"><span>Section 7.8</span></a>).</p>
 <p>A lower-level function to transform or convert coordinates <em>not</em> in <code>sf</code> or <code>stars</code> objects is <code>sf_project</code>: it takes a matrix with coordinates and a source and target <code>crs</code>, and it returns transformed or converted coordinates.</p>
 </section><section id="sf_proj_info" class="level3"><h3 class="anchored" data-anchor-id="sf_proj_info"><code>sf_proj_info</code></h3>
 <p></p>
@@ -1739,7 +1765,7 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <code>type = "prime_meridians"</code> lists the prime meridians with their position with respect to the Greenwich meridian</li>
 </ul></section><section id="datum-grids-proj.db-cdn.proj.org-local-cache" class="level3"><h3 class="anchored" data-anchor-id="datum-grids-proj.db-cdn.proj.org-local-cache">Datum grids, proj.db, cdn.proj.org, local cache</h3>
 <p> </p>
-<p>Datum grids (<a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section&nbsp;2.4</span></a>) can be installed locally, or be read from the PROJ datum grid CDN at <a href="https://cdn.proj.org/" class="uri">https://cdn.proj.org/</a>. If installed locally, they are read from the PROJ search path, which is shown by</p>
+<p>Datum grids (<a href="02-Spaces.html#sec-projlib" class="quarto-xref"><span>Section 2.4</span></a>) can be installed locally, or be read from the PROJ datum grid CDN at <a href="https://cdn.proj.org/" class="uri">https://cdn.proj.org/</a>. If installed locally, they are read from the PROJ search path, which is shown by</p>
 <div class="cell">
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/proj_tools.html">sf_proj_search_paths</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># [1] "/home/edzer/.local/share/proj" "/usr/share/proj"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1754,7 +1780,7 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <div class="cell">
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf_extSoftVersion.html">sf_extSoftVersion</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"PROJ"</span><span class="op">]</span></span>
 <span><span class="co">#    PROJ </span></span>
-<span><span class="co"># "9.1.1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># "9.4.0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If for a particular coordinate transformation datum grids are not locally found, PROJ will search for online datum grids in the PROJ CDN when</p>
 <div class="cell">
@@ -1801,10 +1827,19 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <span><span class="co"># Axis order auth compl:  FALSE </span></span>
 <span><span class="co"># Source:  OGC:CRS84 </span></span>
 <span><span class="co"># Target:  EPSG:22525 </span></span>
-<span><span class="co"># Best instantiable operation has accuracy: 2 m</span></span>
+<span><span class="co"># Best instantiable operation has accuracy: 5 m</span></span>
 <span><span class="co"># Description: axis order change (2D) + Inverse of Corrego Alegre</span></span>
-<span><span class="co">#              1970-72 to WGS 84 (2) + UTM zone 25S</span></span>
-<span><span class="co"># Definition:  +</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#              1970-72 to WGS 84 (4) + UTM zone 25S</span></span>
+<span><span class="co"># Definition:  +proj=pipeline +step +proj=unitconvert +xy_in=deg</span></span>
+<span><span class="co">#              +xy_out=rad +step +proj=push +v_3 +step</span></span>
+<span><span class="co">#              +proj=cart +ellps=WGS84 +step</span></span>
+<span><span class="co">#              +proj=helmert +x=206.05 +y=-168.28</span></span>
+<span><span class="co">#              +z=3.82 +step +inv +proj=cart</span></span>
+<span><span class="co">#              +ellps=intl +step +proj=pop +v_3 +step</span></span>
+<span><span class="co">#              +proj=utm +zone=25 +south +ellps=intl</span></span>
+<span><span class="co"># Operation 4 is lacking 1 grid with accuracy 2 m</span></span>
+<span><span class="co"># Missing grid: br_ibge_CA7072_003.tif </span></span>
+<span><span class="co"># URL: https://cdn.proj.org/br_ibge_CA7072_003.tif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and a report that a datum grid is missing. The object returned by <code>sf_proj_pipelines</code> is a sub-classed <code>data.frame</code>, with columns</p>
 <div class="cell">
@@ -1836,7 +1871,7 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <p>The default, most accurate pipeline chosen by <code>st_transform</code> can be overridden by specifying <code>pipeline</code> argument, as selected from the set of options in <code>p$definition</code>.</p>
 </section><section id="sec-axisorder" class="level3"><h3 class="anchored" data-anchor-id="sec-axisorder">Axis order and direction</h3>
 <p> </p>
-<p>As mentioned in <a href="02-Spaces.html#sec-wkt2" class="quarto-xref"><span>Section&nbsp;2.5</span></a>, <code>EPSG:4326</code> defines the first axis to be associated with latitude and the second with longitude; this is also the case for a number of other ellipsoidal coordinate reference systems. Although this is how the authority (EPSG) prescribes this, it is not how most datasets are currently stored. As most other software, package <strong>sf</strong> by default ignores this and interprets ellipsoidal coordinate pairs as (longitude, latitude) by default. If however data needs to be read from a data source that is compliant to the authority, for instance from a WFS service, one can set</p>
+<p>As mentioned in <a href="02-Spaces.html#sec-wkt2" class="quarto-xref"><span>Section 2.5</span></a>, <code>EPSG:4326</code> defines the first axis to be associated with latitude and the second with longitude; this is also the case for a number of other ellipsoidal coordinate reference systems. Although this is how the authority (EPSG) prescribes this, it is not how most datasets are currently stored. As most other software, package <strong>sf</strong> by default ignores this and interprets ellipsoidal coordinate pairs as (longitude, latitude) by default. If however data needs to be read from a data source that is compliant to the authority, for instance from a WFS service, one can set</p>
 <div class="cell">
 <div class="sourceCode" id="cb93"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_axis_order</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1869,10 +1904,10 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <span><span class="co">#              Min. 1st Qu. Median Mean 3rd Qu. Max.</span></span>
 <span><span class="co"># L7_ETMs.tif     1      54     69 68.9      86  255</span></span>
 <span><span class="co"># dimension(s):</span></span>
-<span><span class="co">#      from  to refsys point                    values x/y</span></span>
-<span><span class="co"># x       1 349 WGS 84 FALSE [349x352] -34.9,...,-34.8 [x]</span></span>
-<span><span class="co"># y       1 352 WGS 84 FALSE [349x352] -8.04,...,-7.95 [y]</span></span>
-<span><span class="co"># band    1   6     NA    NA                      NULL    </span></span>
+<span><span class="co">#      from  to         refsys point                    values x/y</span></span>
+<span><span class="co"># x       1 349 WGS 84 (CRS84) FALSE [349x352] -34.9,...,-34.8 [x]</span></span>
+<span><span class="co"># y       1 352 WGS 84 (CRS84) FALSE [349x352] -8.04,...,-7.95 [y]</span></span>
+<span><span class="co"># band    1   6             NA    NA                      NULL    </span></span>
 <span><span class="co"># curvilinear grid</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>we see that a <em>curvilinear</em> is created, which means that for every grid cell the coordinates are computed in the new CRS, which no longer form a <em>regular</em> grid. Plotting such data is extremely slow, as small polygons are computed for every grid cell and then plotted. The advantage of this is that no information is lost: grid cell values remain identical after the projection.</p>
@@ -1882,10 +1917,10 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">tif</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_warp.html">st_warp</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="st">'OGC:CRS84'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_dimensions.html">st_dimensions</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#      from  to offset     delta refsys x/y</span></span>
-<span><span class="co"># x       1 350  -34.9  0.000259 WGS 84 [x]</span></span>
-<span><span class="co"># y       1 352  -7.95 -0.000259 WGS 84 [y]</span></span>
-<span><span class="co"># band    1   6     NA        NA     NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#      from  to offset     delta         refsys x/y</span></span>
+<span><span class="co"># x       1 350  -34.9  0.000259 WGS 84 (CRS84) [x]</span></span>
+<span><span class="co"># y       1 352  -7.95 -0.000259 WGS 84 (CRS84) [y]</span></span>
+<span><span class="co"># band    1   6     NA        NA             NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>which creates a pretty close raster, but then the transformation is also relatively modest. For a workflow that creates a target raster first, here with exactly the same number of rows and columns as the original raster, one could use:</p>
 <div class="cell">
@@ -1901,10 +1936,10 @@ Figure&nbsp;7.20: Rasterising the North Carolina county boundaries
 <span><span class="co">#              Min. 1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
 <span><span class="co"># L7_ETMs.tif     1      54     69 68.9      86  255 6180</span></span>
 <span><span class="co"># dimension(s):</span></span>
-<span><span class="co">#      from  to offset     delta refsys x/y</span></span>
-<span><span class="co"># x       1 349  -34.9   0.00026 WGS 84 [x]</span></span>
-<span><span class="co"># y       1 352  -7.95 -0.000259 WGS 84 [y]</span></span>
-<span><span class="co"># band    1   6     NA        NA     NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#      from  to offset     delta         refsys x/y</span></span>
+<span><span class="co"># x       1 349  -34.9   0.00026 WGS 84 (CRS84) [x]</span></span>
+<span><span class="co"># y       1 352  -7.95 -0.000259 WGS 84 (CRS84) [y]</span></span>
+<span><span class="co"># band    1   6     NA        NA             NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where we see that grid resolution in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> directions slightly varies.</p>
 </section><section id="exercises" class="level2" data-number="7.9"><h2 data-number="7.9" class="anchored" data-anchor-id="exercises">
@@ -2015,18 +2050,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2058,7 +2082,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -2110,6 +2156,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -2144,7 +2208,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2159,27 +2227,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -2194,10 +2241,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -2206,8 +2257,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2428,12 +2486,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./part-2.html" class="pagination-link  aria-label=" r="" for="" spatial="" data="" science="">
+      <a href="./part-2.html" class="pagination-link" aria-label="R for Spatial Data Science">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R for Spatial Data Science</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./08-Plotting.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Plotting spatial data</span>">
+      <a href="./08-Plotting.html" class="pagination-link" aria-label="Plotting spatial data">
         <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Plotting spatial data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2809,7 +2867,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb98-387"><a href="#cb98-387" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Example of `st_join` with `largest = TRUE`: the label of the polygon in the top figure with the largest intersection with polygons in the bottom figure is assigned to the polygons of the bottom figure."</span></span>
 <span id="cb98-388"><a href="#cb98-388" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
 <span id="cb98-389"><a href="#cb98-389" aria-hidden="true" tabindex="-1"></a><span class="in"># example of largest = TRUE:</span></span>
-<span id="cb98-390"><a href="#cb98-390" aria-hidden="true" tabindex="-1"></a><span class="in">system.file("shape/nc.shp", package="sf") |&gt; </span></span>
+<span id="cb98-390"><a href="#cb98-390" aria-hidden="true" tabindex="-1"></a><span class="in">system.file("gpkg/nc.gpkg", package="sf") |&gt; </span></span>
 <span id="cb98-391"><a href="#cb98-391" aria-hidden="true" tabindex="-1"></a><span class="in">    read_sf() |&gt;</span></span>
 <span id="cb98-392"><a href="#cb98-392" aria-hidden="true" tabindex="-1"></a><span class="in">    st_transform('EPSG:2264') -&gt; nc</span></span>
 <span id="cb98-393"><a href="#cb98-393" aria-hidden="true" tabindex="-1"></a><span class="in">gr &lt;- st_sf(</span></span>
@@ -2916,7 +2974,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb98-500"><a href="#cb98-500" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>certain functions may be available in only one of them (like <span class="in">`st_relate`</span> being only present in GEOS),</span>
 <span id="cb98-501"><a href="#cb98-501" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>when using transformers, **GEOS** returns exterior polygon rings</span>
 <span id="cb98-502"><a href="#cb98-502" aria-hidden="true" tabindex="-1"></a>  noded clockwise (<span class="in">`st_sfc(..., check_ring_dir = TRUE)`</span> can be used</span>
-<span id="cb98-503"><a href="#cb98-503" aria-hidden="true" tabindex="-1"></a>  to revert to counter-clockwise), **s2geometry** retuns them</span>
+<span id="cb98-503"><a href="#cb98-503" aria-hidden="true" tabindex="-1"></a>  to revert to counter-clockwise), **s2geometry** returns them</span>
 <span id="cb98-504"><a href="#cb98-504" aria-hidden="true" tabindex="-1"></a>  counter-clockwise</span>
 <span id="cb98-505"><a href="#cb98-505" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-506"><a href="#cb98-506" aria-hidden="true" tabindex="-1"></a><span class="fu">## Package **stars**</span></span>
@@ -3050,7 +3108,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb98-642"><a href="#cb98-642" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>attributes first (by name, index, or logical vector)</span>
 <span id="cb98-643"><a href="#cb98-643" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>followed by each dimension. </span>
 <span id="cb98-644"><a href="#cb98-644" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-645"><a href="#cb98-645" aria-hidden="true" tabindex="-1"></a>This means that <span class="in">`r[1:2, 101:200,, 5:10]`</span></span>
+<span id="cb98-645"><a href="#cb98-645" aria-hidden="true" tabindex="-1"></a>This means that <span class="in">`r[1:2, 101:200, , 5:10]`</span></span>
 <span id="cb98-646"><a href="#cb98-646" aria-hidden="true" tabindex="-1"></a>selects from <span class="in">`r`</span> attributes 1-2, index 101-200 for dimension 1, and index</span>
 <span id="cb98-647"><a href="#cb98-647" aria-hidden="true" tabindex="-1"></a>5-10 for dimension 3; omitting dimension 2 means that no subsetting</span>
 <span id="cb98-648"><a href="#cb98-648" aria-hidden="true" tabindex="-1"></a>takes place. For attributes, attribute name, index or logical vectors</span>
@@ -3138,7 +3196,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb98-746"><a href="#cb98-746" aria-hidden="true" tabindex="-1"></a>(rs <span class="ot">&lt;-</span> <span class="fu">split</span>(r))</span>
 <span id="cb98-747"><a href="#cb98-747" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(rs, <span class="at">name =</span> <span class="st">"band"</span>) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="st">"L7_ETMs"</span>)</span>
 <span id="cb98-748"><a href="#cb98-748" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb98-749"><a href="#cb98-749" aria-hidden="true" tabindex="-1"></a>split distributes the <span class="in">`band`</span> dimension over six attributes of a</span>
+<span id="cb98-749"><a href="#cb98-749" aria-hidden="true" tabindex="-1"></a><span class="in">`split`</span> distributes the <span class="in">`band`</span> dimension over six attributes of a</span>
 <span id="cb98-750"><a href="#cb98-750" aria-hidden="true" tabindex="-1"></a>two-dimensional array, <span class="in">`merge`</span> reverses this operation. <span class="in">`st_redimension`</span></span>
 <span id="cb98-751"><a href="#cb98-751" aria-hidden="true" tabindex="-1"></a>can be used for more generic operations, such as splitting a single array</span>
 <span id="cb98-752"><a href="#cb98-752" aria-hidden="true" tabindex="-1"></a>dimension over two new dimensions:</span>
@@ -4019,10 +4077,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb98-1717"><a href="#cb98-1717" aria-hidden="true" tabindex="-1"></a>by <span class="in">`aggregate`</span> using the vector data, and by <span class="in">`aggregate`</span> using</span>
 <span id="cb98-1718"><a href="#cb98-1718" aria-hidden="true" tabindex="-1"></a>the raster data, using <span class="in">`exact=FALSE`</span> (default) and <span class="in">`exact=TRUE`</span>.</span>
 <span id="cb98-1719"><a href="#cb98-1719" aria-hidden="true" tabindex="-1"></a>Explain the differences.</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/07-Introsf.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

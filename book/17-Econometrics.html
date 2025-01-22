@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 17&nbsp; Spatial Econometrics Models</title>
+<title>17&nbsp; Spatial Econometrics Models – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./17-Econometrics.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -411,7 +437,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span class="header-section-number">17.2</span> Maximum likelihood estimation in <strong>spatialreg</strong>
 </h2>
 <p>For models with single spatial coefficients (SEM and SDEM using <code><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">errorsarlm()</a></code>, SLM and SDM using <code><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">lagsarlm()</a></code>), the methods initially described by Ord <span class="citation" data-cites="ord:75">(<a href="references.html#ref-ord:75" role="doc-biblioref">1975</a>)</span> are used. The following table shows the functions that can be used to estimate the models described above using maximum likelihood.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
 <col style="width: 41%">
@@ -466,7 +492,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <p>The <code><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">sacsarlm()</a></code> function may take second spatial weights and interval arguments if the spatial weights used to model the two spatial processes in the SAC and GNM specifications differ. By default, the same spatial weights are used. By default, <code><a href="https://rdrr.io/r/stats/nlminb.html">stats::nlminb()</a></code> is used for numerical optimisation, using a heuristic to choose starting values. Like <code><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">lagsarlm()</a></code>, this function does not take a <code>weights</code> argument.</p>
 <p>Where larger datasets are used, a numerical Hessian approach is used to calculate the variance-covariance matrix of coefficients, rather than an analytical asymptotic approach.</p>
 <section id="boston-house-value-dataset-examples" class="level3"><h3 class="anchored" data-anchor-id="boston-house-value-dataset-examples">Boston house value dataset examples</h3>
-<p>The examples use the objects read and created in <a href="16-SpatialRegression.html" class="quarto-xref"><span>Chapter&nbsp;16</span></a>, based on <span class="citation" data-cites="bivand17">Bivand (<a href="references.html#ref-bivand17" role="doc-biblioref">2017</a>)</span>.</p>
+<p>The examples use the objects read and created in <a href="16-SpatialRegression.html" class="quarto-xref"><span>Chapter 16</span></a>, based on <span class="citation" data-cites="bivand17">Bivand (<a href="references.html#ref-bivand17" role="doc-biblioref">2017</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spatialreg/">spatialreg</a></span><span class="op">)</span></span>
 <span><span class="va">eigs_489</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spatialreg/reference/eigenw.html">eigenw</a></span><span class="op">(</span><span class="va">lw_q_489</span><span class="op">)</span></span>
@@ -492,17 +518,6 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="va">SDEM_94</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">errorsarlm</a></span><span class="op">(</span><span class="va">form</span>, data<span class="op">=</span><span class="va">boston_94</span>, listw<span class="op">=</span><span class="va">lw_q_94</span>,</span>
 <span>                      Durbin <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                      control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pre_eig<span class="op">=</span><span class="va">eigs_94</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
-<span><span class="co"># abseps</span></span>
-<span></span>
-<span><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
-<span><span class="co"># abseps</span></span>
-<span></span>
-<span><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
-<span><span class="co"># abseps</span></span>
-<span></span>
-<span><span class="co"># Warning in RET$pfunction("adjusted", ...): Completion with error &gt;</span></span>
-<span><span class="co"># abseps</span></span>
 <span><span class="va">SEM_94</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/spatialreg/reference/ML_models.html">errorsarlm</a></span><span class="op">(</span><span class="va">form</span>, data <span class="op">=</span> <span class="va">boston_94</span>, listw <span class="op">=</span> <span class="va">lw_q_94</span>,</span>
 <span>                     control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pre_eig <span class="op">=</span> <span class="va">eigs_94</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -674,6 +689,8 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nd</span> <span class="op">&lt;-</span> <span class="va">boston_506</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">$</span><span class="va">median</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">t0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">SDEM_489</span>, newdata <span class="op">=</span> <span class="va">nd</span>, listw <span class="op">=</span> <span class="va">lw_q</span>,</span>
 <span>                  pred.type <span class="op">=</span> <span class="st">"TS"</span>, zero.policy  <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Warning in subset.nb(x = nb, subset = subset): subsetting caused</span></span>
+<span><span class="co"># increase in subgraph count</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">SDEM_489</span>, newdata <span class="op">=</span> <span class="va">nd</span>,</span>
 <span>                                    listw <span class="op">=</span> <span class="va">lw_q</span>,</span>
 <span>                                    pred.type <span class="op">=</span> <span class="st">"KP2"</span>,</span>
@@ -731,23 +748,23 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span>    INLA_slm <span class="op">=</span> <span class="va">mv_mean</span>, censored <span class="op">=</span> </span>
 <span>      <span class="va">boston_506</span><span class="op">$</span><span class="va">censored</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">t0</span>, <span class="st">"region.id"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
-<span><span class="co"># 13   23912   29477   28147    31112    right</span></span>
-<span><span class="co"># 14   28126   27001   28516    31314    right</span></span>
-<span><span class="co"># 15   30553   36184   32476    41298    right</span></span>
-<span><span class="co"># 17   18518   19621   18878    21160    right</span></span>
-<span><span class="co"># 43    9564    6817    7561     6830     left</span></span>
-<span><span class="co"># 50    8371    7196    7383     6885     left</span></span>
-<span><span class="co"># 312  51477   53301   54173    56274    right</span></span>
-<span><span class="co"># 313  45921   45823   47095    46447    right</span></span>
-<span><span class="co"># 314  44196   44586   45361    42805    right</span></span>
-<span><span class="co"># 317  43427   45707   45442    48025    right</span></span>
-<span><span class="co"># 337  39879   42072   41127    41462    right</span></span>
-<span><span class="co"># 346  44708   46694   46108    45847    right</span></span>
-<span><span class="co"># 355  48188   49068   48911    49138    right</span></span>
-<span><span class="co"># 376  42881   45883   44966    47747    right</span></span>
-<span><span class="co"># 408  44294   44615   45670    46164    right</span></span>
-<span><span class="co"># 418  38211   43375   41914    43913    right</span></span>
-<span><span class="co"># 434  41647   41690   42398    41551    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># 13   23912   29477   28147    29945    right</span></span>
+<span><span class="co"># 14   28126   27001   28516    31142    right</span></span>
+<span><span class="co"># 15   30553   36184   32476    37074    right</span></span>
+<span><span class="co"># 17   18518   19621   18878    19638    right</span></span>
+<span><span class="co"># 43    9564    6817    7561     7641     left</span></span>
+<span><span class="co"># 50    8371    7196    7383     7056     left</span></span>
+<span><span class="co"># 312  51477   53301   54173    56473    right</span></span>
+<span><span class="co"># 313  45921   45823   47095    46791    right</span></span>
+<span><span class="co"># 314  44196   44586   45361    42738    right</span></span>
+<span><span class="co"># 317  43427   45707   45442    46973    right</span></span>
+<span><span class="co"># 337  39879   42072   41127    40885    right</span></span>
+<span><span class="co"># 346  44708   46694   46108    44728    right</span></span>
+<span><span class="co"># 355  48188   49068   48911    48632    right</span></span>
+<span><span class="co"># 376  42881   45883   44966    45875    right</span></span>
+<span><span class="co"># 408  44294   44615   45670    47014    right</span></span>
+<span><span class="co"># 418  38211   43375   41914    41388    right</span></span>
+<span><span class="co"># 434  41647   41690   42398    40950    right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others’ understandings and advances.</p>
 </section><section id="exercises" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="exercises">
@@ -757,7 +774,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <li>Could the inclusion of municipality department dummies, or a municipality department regimes model assist in reducing residual spatial dependence?</li>
 <li>Attempt to fit a SEM specification by maximum likelihood (see <span class="citation" data-cites="math9111276">Bivand, Millo, and Piras (<a href="references.html#ref-math9111276" role="doc-biblioref">2021</a>)</span> for GMM code examples) to the properties-only and the properties with added municipality department variables models; extend to an SDEM model. Repeat with SLX models; how might the changes in the tests of residual autocorrelation in the SLX models be interpreted? How might you interpret the highly significant outcomes of Hausman tests on the SEM and SDEM models?</li>
 <li>Fit GNM specifications to the properties-only and the properties with added municipality department variables models; can these models be simplified to say SDM or SDEM representations?</li>
-<li>Do the model estimates reached in the <a href="16-SpatialRegression.html" class="quarto-xref"><span>Chapter&nbsp;16</span></a> exercises provide more clarity than those in this chapter?</li>
+<li>Do the model estimates reached in the <a href="16-SpatialRegression.html" class="quarto-xref"><span>Chapter 16</span></a> exercises provide more clarity than those in this chapter?</li>
 </ol>
 
 
@@ -905,18 +922,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -948,7 +954,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1000,6 +1028,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1034,7 +1080,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1049,27 +1099,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -1084,10 +1113,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1096,8 +1129,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1318,12 +1358,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./16-SpatialRegression.html" class="pagination-link  aria-label=" regression="">
+      <a href="./16-SpatialRegression.html" class="pagination-link" aria-label="Spatial Regression">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sp-raster.html" class="pagination-link" aria-label="<span class='chapter-number'>A</span>&nbsp; <span class='chapter-title'>Older R Spatial Packages</span>">
+      <a href="./sp-raster.html" class="pagination-link" aria-label="Older R Spatial Packages">
         <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1652,10 +1692,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Attempt to fit a SEM specification by maximum likelihood (see @math9111276 for GMM code examples) to the properties-only and the properties with added municipality department variables models; extend to an SDEM model. Repeat with SLX models; how might the changes in the tests of residual autocorrelation in the SLX models be interpreted? How might you interpret the highly significant outcomes of Hausman tests on the SEM and SDEM models?</span>
 <span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fit GNM specifications to the properties-only and the properties with added municipality department variables models; can these models be simplified to say SDM or SDEM representations?</span>
 <span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Do the model estimates reached in the @sec-spatglmm exercises provide more clarity than those in this chapter?</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/17-Econometrics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

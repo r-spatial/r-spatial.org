@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 6&nbsp; Data Cubes</title>
+<title>6&nbsp; Data Cubes – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-1.html">Spatial Data</a></li><li class="breadcrumb-item"><a href="./06-Cubes.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Cubes</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -382,7 +408,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 
 
 </header><p> </p>
-<p>Data cubes arise naturally when we observe properties of a set of geometries repeatedly over time. Time information may sometimes be considered as an attribute of a feature, such as when we register the year of construction of a building or the date of birth of a person (<a href="05-Attributes.html" class="quarto-xref"><span>Chapter&nbsp;5</span></a>). In other cases it may refer to the time of observing an attribute, or the time for which a prediction of an attribute has been made. In these cases, time is on equal footing with space, and time and space together describe the physical dimensions over which we observe, model, predict, or make forecasts for.</p>
+<p>Data cubes arise naturally when we observe properties of a set of geometries repeatedly over time. Time information may sometimes be considered as an attribute of a feature, such as when we register the year of construction of a building or the date of birth of a person (<a href="05-Attributes.html" class="quarto-xref"><span>Chapter 5</span></a>). In other cases it may refer to the time of observing an attribute, or the time for which a prediction of an attribute has been made. In these cases, time is on equal footing with space, and time and space together describe the physical dimensions over which we observe, model, predict, or make forecasts for.</p>
 <p>One way of considering our world is that of a four-dimensional space, with three space dimensions and one time dimension. In that view, events become “things” or “objects” that have as duration their size on the time dimension <span class="citation" data-cites="galton">(<a href="references.html#ref-galton" role="doc-biblioref">Galton 2004</a>)</span>. Although such a view does not align well with how we experience and describe the world, from a data analytical perspective, four numbers, along with their reference systems, suffice to describe space and time coordinates of an observation associated with a point location and time instance.</p>
 <p>We define data cubes as array data with one or more array dimensions associated with space and/or time <span class="citation" data-cites="lu2018multidimensional">(<a href="references.html#ref-lu2018multidimensional" role="doc-biblioref">Lu, Appel, and Pebesma 2018</a>)</span>. This implies that raster data, features with attributes, and time series data are all special cases of data cubes. Since we do not restrict to three-dimensional structures, we actually mean <em>hypercubes</em> rather than cubes, and as the cube extent of the different dimensions does not have to be identical, or have comparable units, the better term would be <em>hyper-rectangle</em>. For simplicity, we talk about data cubes instead.</p>
 <p></p>
@@ -448,11 +474,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,  <span class="fl">6.5</span>, <span class="st">"latitude"</span>, srt <span class="op">=</span> <span class="fl">25</span>, col <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span> <span class="fl">5</span>,  <span class="fl">8.5</span>, <span class="st">"longitude"</span>, srt <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube" class="quarto-figure quarto-figure-center anchored" width="70%">
+<div id="fig-cube" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube-1.png" class="img-fluid figure-img" style="width:70.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.1: Raster data cube with dimensions latitude, longitude, and time
 </figcaption></figure>
 </div>
@@ -629,11 +655,11 @@ Figure&nbsp;6.1: Raster data cube with dimensions latitude, longitude, and time
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3.5</span> <span class="op">+</span> <span class="va">offset</span>, <span class="va">y</span>, <span class="st">"2020-10-13"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3.5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">offset</span>, <span class="va">y</span>, <span class="st">"2020-10-25"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4d" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4d" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4d-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.2: Four-dimensional raster data cube with dimensions x, y, bands, and time
 </figcaption></figure>
 </div>
@@ -688,11 +714,11 @@ Figure&nbsp;6.2: Four-dimensional raster data cube with dimensions x, y, bands, 
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13.5</span>, <span class="st">"2020-10-13"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3.5</span>, <span class="st">"2020-10-25"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4d2" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4d2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4d2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4d2-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4d2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4d2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.3: Four-dimensional raster data cube layed out flat over two dimensions
 </figcaption></figure>
 </div>
@@ -711,12 +737,12 @@ Figure&nbsp;6.3: Four-dimensional raster data cube layed out flat over two dimen
 <p><span class="math display">\[Z = f(x, y, t)\]</span></p>
 <p>is the archetype of a spatiotemporal array or <em>data cube</em>: the shape of the volume where points regularly discretising the domain forms a cube. We call the variables that form the range (here: <span class="math inline">\(x, y, t\)</span>) the cube <em>dimensions</em>. Data cubes may have multiple attributes, as in</p>
 <p><span class="math display">\[\{Z_1,Z_2,...,Z_p\} = f(x, y, t)\]</span></p>
-<p>and if <span class="math inline">\(Z\)</span> is functional, for instance reflectance values measured over the electromagnetic spectrum, the spectral wavelengths <span class="math inline">\(\lambda\)</span> may form an additional dimension, as in <span class="math inline">\(Z = f(x,y,t,\lambda)\)</span>. <a href="#sec-switching" class="quarto-xref"><span>Section&nbsp;6.5</span></a> discusses the alternative of representing colour bands as attributes.</p>
+<p>and if <span class="math inline">\(Z\)</span> is functional, for instance reflectance values measured over the electromagnetic spectrum, the spectral wavelengths <span class="math inline">\(\lambda\)</span> may form an additional dimension, as in <span class="math inline">\(Z = f(x,y,t,\lambda)\)</span>. <a href="#sec-switching" class="quarto-xref"><span>Section 6.5</span></a> discusses the alternative of representing colour bands as attributes.</p>
 <p>Multiple time dimensions arise for instance when making forecasts for different times in the future <span class="math inline">\(t'\)</span> at different times <span class="math inline">\(t\)</span>, or when time is split over multiple dimensions (as in year, day-of-year, and hour-of-day). The most general definition of a data cube is a functional mapping from <span class="math inline">\(n\)</span> dimensions to <span class="math inline">\(p\)</span> attributes:</p>
 <p><span class="math display">\[\{Z_1,Z_2,...,Z_p\} = f(D_1,D_2,...,D_n)\]</span></p>
 <p>Here, we will consider any dataset with one or more space dimensions and zero or more time dimensions as data cubes. That includes:</p>
 <ul>
-<li>simple features (<a href="03-Geometries.html#sec-simplefeatures" class="quarto-xref"><span>Section&nbsp;3.1</span></a>)</li>
+<li>simple features (<a href="03-Geometries.html#sec-simplefeatures" class="quarto-xref"><span>Section 3.1</span></a>)</li>
 <li>time series for sets of features</li>
 <li>raster data</li>
 <li>multi-spectral raster data (images)</li>
@@ -738,8 +764,8 @@ Figure&nbsp;6.3: Four-dimensional raster data cube layed out flat over two dimen
 <p> </p>
 </section><section id="support-along-cube-dimensions" class="level3"><h3 class="anchored" data-anchor-id="support-along-cube-dimensions">Support along cube dimensions</h3>
 <p> </p>
-<p><a href="05-Attributes.html#sec-agr" class="quarto-xref"><span>Section&nbsp;5.1</span></a> defined <em>spatial</em> support of an attribute variable as the size (length, area, volume) of a geometry associated with a particular observation or prediction. The same notion applies to temporal support. Although time is rarely reported by explicit time periods having a start- and end-time, in many cases either the time stamp implies a period (ISO-8601 uses “2021” for the full year, “2021-01” for the full month) or the time period is taken as the period from the time stamp of the current record up to but not including the time stamp of the next record.</p>
-<p>An example is MODIS satellite imagery, where vegetation indexes (NDVI and EVI) are available as 16-day composites, meaning that over 16-day periods all available imagery is aggregated into a single image; such composites have temporal “block support”. Sentinel-2 or Landsat-8 data on the other hand are “snapshot” images and have temporal “point support”. When temporally aggregating data with temporal point support, for instance to monthly values, all images falling in the target time interval are selected. When aggregating temporal block support imagery such as the MODIS 16-day composite, one might weigh images according to the amount of overlap of the 16-day composite period and the target period, similar to area-weighted interpolation <a href="05-Attributes.html#sec-area-weighted" class="quarto-xref"><span>Section&nbsp;5.3</span></a> but over the time dimension.</p>
+<p><a href="05-Attributes.html#sec-agr" class="quarto-xref"><span>Section 5.1</span></a> defined <em>spatial</em> support of an attribute variable as the size (length, area, volume) of a geometry associated with a particular observation or prediction. The same notion applies to temporal support. Although time is rarely reported by explicit time periods having a start- and end-time, in many cases either the time stamp implies a period (ISO-8601 uses “2021” for the full year, “2021-01” for the full month) or the time period is taken as the period from the time stamp of the current record up to but not including the time stamp of the next record.</p>
+<p>An example is MODIS satellite imagery, where vegetation indexes (NDVI and EVI) are available as 16-day composites, meaning that over 16-day periods all available imagery is aggregated into a single image; such composites have temporal “block support”. Sentinel-2 or Landsat-8 data on the other hand are “snapshot” images and have temporal “point support”. When temporally aggregating data with temporal point support, for instance to monthly values, all images falling in the target time interval are selected. When aggregating temporal block support imagery such as the MODIS 16-day composite, one might weigh images according to the amount of overlap of the 16-day composite period and the target period, similar to area-weighted interpolation <a href="05-Attributes.html#sec-area-weighted" class="quarto-xref"><span>Section 5.3</span></a> but over the time dimension.</p>
 </section></section><section id="sec-dcoperations" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="sec-dcoperations">
 <span class="header-section-number">6.3</span> Operations on data cubes</h2>
 <section id="slicing-a-cube-filter" class="level3"><h3 class="anchored" data-anchor-id="slicing-a-cube-filter">Slicing a cube: filter</h3>
@@ -849,11 +875,11 @@ Figure&nbsp;6.3: Four-dimensional raster data cube layed out flat over two dimen
 <span><span class="fu">print_labels</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="fl">28</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">30</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">-</span><span class="fl">26.5</span>, off <span class="op">=</span> <span class="fl">1</span>, lab <span class="op">=</span> <span class="va">ylabels</span>,</span>
 <span>             horizontal <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4filter" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4filter" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4filter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4filter-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4filter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4filter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.4: Data cube filtering by time, band or spatially
 </figcaption></figure>
 </div>
@@ -932,11 +958,11 @@ Figure&nbsp;6.4: Data cube filtering by time, band or spatially
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">4.3</span> <span class="op">+</span> <span class="fl">15.7</span>, <span class="fl">4.3</span> <span class="op">+</span> <span class="fl">2</span>, <span class="st">"NA"</span>, cex <span class="op">=</span> <span class="va">cex</span><span class="op">)</span></span>
 <span><span class="fu">print_segments</span><span class="op">(</span><span class="fl">25.7</span>, <span class="fl">1.7</span>, seg <span class="op">=</span> <span class="va">time_arrow_seg</span>, col <span class="op">=</span> <span class="st">"forestgreen"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4apply1" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4apply1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4apply1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4apply1-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4apply1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4apply1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.5: Low-pass filtering of time series
 </figcaption></figure>
 </div>
@@ -952,7 +978,7 @@ Figure&nbsp;6.5: Low-pass filtering of time series
 <span>                         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">apply_filter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">pad</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">padValue</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">ras</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/focal.html">focal</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.2</span>,<span class="fl">0</span>, <span class="fl">0.2</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>, <span class="fl">0</span>,<span class="fl">0.2</span>,<span class="fl">0</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, pad <span class="op">=</span> <span class="va">pad</span>, padValue <span class="op">=</span> <span class="va">padValue</span><span class="op">)</span></span>
+<span>  <span class="va">ras</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/focal.html">focal</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.2</span>,<span class="fl">0</span>, <span class="fl">0.2</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>, <span class="fl">0</span>,<span class="fl">0.2</span>,<span class="fl">0</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, pad <span class="op">=</span> <span class="va">pad</span>, padValue <span class="op">=</span> <span class="va">padValue</span><span class="op">)</span></span>
 <span>  <span class="va">ras</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">ras</span><span class="op">)</span></span>
 <span>  <span class="va">ras</span><span class="op">[</span><span class="va">ras</span> <span class="op">==</span> <span class="st">"NaN"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">999</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="va">ras</span><span class="op">)</span><span class="op">)</span></span>
@@ -984,11 +1010,11 @@ Figure&nbsp;6.5: Low-pass filtering of time series
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">14.3</span>, <span class="fl">2.5</span>, <span class="st">"0.2"</span>, cex <span class="op">=</span> <span class="va">cex</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">14.3</span>, <span class="fl">.5</span>, <span class="st">"0.2"</span>, cex <span class="op">=</span> <span class="va">cex</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4apply2" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4apply2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4apply2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4apply2-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4apply2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4apply2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.6: Low pass filtering of spatial slices
 </figcaption></figure>
 </div>
@@ -1099,11 +1125,11 @@ Figure&nbsp;6.6: Low pass filtering of spatial slices
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">57</span>,<span class="fl">49</span>, <span class="st">"reduce bands"</span>, srt <span class="op">=</span> <span class="fl">90</span>, col <span class="op">=</span> <span class="st">"black"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">91.5</span>,<span class="fl">49</span>, <span class="st">"reduce spatially"</span>, srt <span class="op">=</span> <span class="op">-</span><span class="fl">55.5</span>, col <span class="op">=</span> <span class="st">"black"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4reduce" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4reduce" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4reduce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4reduce-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4reduce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4reduce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.7: Reducing data cube dimensions
 </figcaption></figure>
 </div>
@@ -1235,11 +1261,11 @@ Figure&nbsp;6.7: Reducing data cube dimensions
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html">arrows</a></span><span class="op">(</span><span class="fl">69.5</span>, <span class="fl">15</span>, <span class="fl">72.5</span>, <span class="fl">12</span>, angle <span class="op">=</span> <span class="fl">20</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># print_segments(30, 35, seg = arrow_seg)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-cube4agg" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-cube4agg" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cube4agg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-cube4agg-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-cube4agg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cube4agg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.8: Aggregating a raster data cube to a vector data cube
 </figcaption></figure>
 </div>
@@ -1259,8 +1285,8 @@ Figure&nbsp;6.8: Aggregating a raster data cube to a vector data cube
 <p>which forms an array with <span class="math inline">\(n m p\)</span> elements.</p>
 <p>For spatial data science, handling vector and raster data cubes is extremely useful, because many variables are both spatially and temporaly varying, and because we often want to either change dimensions or aggregate them out, but in a fully flexible manner and order. Examples of changing dimensions are:</p>
 <ul>
-<li>interpolating air quality measurements to values on a regular grid (raster; <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a>)</li>
-<li>estimating density maps from points or lines, for instance estimating the number of flights passing by per week within a range of 1 km (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a>)</li>
+<li>interpolating air quality measurements to values on a regular grid (raster; <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter 12</span></a>)</li>
+<li>estimating density maps from points or lines, for instance estimating the number of flights passing by per week within a range of 1 km (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a>)</li>
 <li>aggregating climate model predictions to summary indicators for administrative regions</li>
 <li>combining Earth observation data from different sensors, such as MODIS (250~m pixels, every 16 days) with Sentinel-2 (10~m pixels, every 5 days)</li>
 </ul>
@@ -1268,7 +1294,7 @@ Figure&nbsp;6.8: Aggregating a raster data cube to a vector data cube
 <ul>
 <li>which air quality monitoring stations indicate unhealthy conditions (time)</li>
 <li>which region has the highest increase in disease incidence (space, time)</li>
-<li>global warming (global change in degrees Celcius per decade)</li>
+<li>global warming (global change in degrees Celsius per decade)</li>
 </ul></section><section id="sec-switching" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="sec-switching">
 <span class="header-section-number">6.5</span> Switching dimension with attributes</h2>
 <p> </p>
@@ -1360,11 +1386,11 @@ Figure&nbsp;6.8: Aggregating a raster data cube to a vector data cube
 <span><span class="va">seg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">cent</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,<span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span><span class="va">seg</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">seg</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, <span class="va">seg</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span>, <span class="va">seg</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-aqdc" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-aqdc" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-aqdc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06-Cubes_files/figure-html/fig-aqdc-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-aqdc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aqdc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.9: Vector data cube with air quality time series
 </figcaption></figure>
 </div>
@@ -1374,7 +1400,7 @@ Figure&nbsp;6.9: Vector data cube with air quality time series
 </section><section id="sec-otherdynamic" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="sec-otherdynamic">
 <span class="header-section-number">6.6</span> Other dynamic spatial data</h2>
 <p> </p>
-<p>We have seen several dynamic raster and vector data examples that match the data cube structure well. Other data examples do less so: in particular spatiotemporal point patterns (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a>) and trajectories [movement data; for a recent review, see <span class="citation" data-cites="https://doi.org/10.1111/1365-2656.13116">Joo et al. (<a href="references.html#ref-https://doi.org/10.1111/1365-2656.13116" role="doc-biblioref">2020</a>)</span>] are often more straightforward to not handle as a data cube. Spatiotemporal point patterns are the sets of spatiotemporal coordinates of events or objects: accidents, disease cases, traffic jams, lightning strikes, and so on. Trajectory data are time sequences of spatial locations of moving objects (persons, cars, satellites, animals). For such data, the primary information is in the coordinates, and shifting these to a limited set of regularly discretised grid cells covering the space may help some analysis, for instance to quickly explore patterns in areas of higher densities, but the loss of the exact coordinates also hinders a number of analysis approaches involving distance, direction, or speed calculations. Nevertheless, for such data often the first computational steps involves generation of data cube representations by aggregating to a time-fixed spatial and/or space-fixed temporal discretisation.</p>
+<p>We have seen several dynamic raster and vector data examples that match the data cube structure well. Other data examples do less so: in particular spatiotemporal point patterns (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a>) and trajectories [movement data; for a recent review, see <span class="citation" data-cites="https://doi.org/10.1111/1365-2656.13116">Joo et al. (<a href="references.html#ref-https://doi.org/10.1111/1365-2656.13116" role="doc-biblioref">2020</a>)</span>] are often more straightforward to not handle as a data cube. Spatiotemporal point patterns are the sets of spatiotemporal coordinates of events or objects: accidents, disease cases, traffic jams, lightning strikes, and so on. Trajectory data are time sequences of spatial locations of moving objects (persons, cars, satellites, animals). For such data, the primary information is in the coordinates, and shifting these to a limited set of regularly discretised grid cells covering the space may help some analysis, for instance to quickly explore patterns in areas of higher densities, but the loss of the exact coordinates also hinders a number of analysis approaches involving distance, direction, or speed calculations. Nevertheless, for such data often the first computational steps involves generation of data cube representations by aggregating to a time-fixed spatial and/or space-fixed temporal discretisation.</p>
 <p>Using sparse array representations of data cubes to represent point pattern or trajectory data, which is possible for instance with SciDB <span class="citation" data-cites="brown2010overview">(<a href="references.html#ref-brown2010overview" role="doc-biblioref">Brown 2010</a>)</span> or TileDB <span class="citation" data-cites="tiledb">(<a href="references.html#ref-tiledb" role="doc-biblioref">Papadopoulos et al. 2016</a>)</span>, may strongly limit the loss of coordinate accuracy by choosing dimensions that represent an extremely dense grid, and storing only those grid cells that contain data points. For trajectory data, such representations would need to add a grouping dimension to identify individuals, or individual sequences of consecutive movement observations.</p>
 </section><section id="exercises" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">6.7</span> Exercises</h2>
@@ -1453,18 +1479,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1496,7 +1511,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1548,6 +1585,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1582,7 +1637,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1597,27 +1656,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -1632,10 +1670,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1644,8 +1686,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1866,7 +1915,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./05-Attributes.html" class="pagination-link  aria-label=" and="" support="">
+      <a href="./05-Attributes.html" class="pagination-link" aria-label="Attributes and Support">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Attributes and Support</span></span>
       </a>          
   </div>
@@ -2941,7 +2990,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-1063"><a href="#cb10-1063" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-1064"><a href="#cb10-1064" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which air quality monitoring stations indicate unhealthy conditions (time)</span>
 <span id="cb10-1065"><a href="#cb10-1065" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which region has the highest increase in disease incidence (space, time)</span>
-<span id="cb10-1066"><a href="#cb10-1066" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>global warming (global change in degrees Celcius per decade)</span>
+<span id="cb10-1066"><a href="#cb10-1066" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>global warming (global change in degrees Celsius per decade)</span>
 <span id="cb10-1067"><a href="#cb10-1067" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-1068"><a href="#cb10-1068" aria-hidden="true" tabindex="-1"></a><span class="fu">## Switching dimension with attributes {#sec-switching}</span></span>
 <span id="cb10-1069"><a href="#cb10-1069" aria-hidden="true" tabindex="-1"></a></span>
@@ -3126,10 +3175,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-1248"><a href="#cb10-1248" aria-hidden="true" tabindex="-1"></a>    corresponding extent</span>
 <span id="cb10-1249"><a href="#cb10-1249" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>from a 10-year period with global daily sea surface temperature</span>
 <span id="cb10-1250"><a href="#cb10-1250" aria-hidden="true" tabindex="-1"></a>    (SST) raster maps, find the area with the 10% largest and 10%</span>
-<span id="cb10-1251"><a href="#cb10-1251" aria-hidden="true" tabindex="-1"></a>    smallest temporal trends in SST values.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-1251"><a href="#cb10-1251" aria-hidden="true" tabindex="-1"></a>    smallest temporal trends in SST values.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/06-Cubes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

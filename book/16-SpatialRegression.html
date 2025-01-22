@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 16&nbsp; Spatial Regression</title>
+<title>16&nbsp; Spatial Regression – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./16-SpatialRegression.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spatial Regression</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -411,7 +437,7 @@ Y = X \beta + Z u + \varepsilon
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jakubnowosad.com/spData/">spData</a></span><span class="op">)</span></span>
-<span><span class="va">boston_506</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shapes/boston_tracts.shp"</span>,</span>
+<span><span class="va">boston_506</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shapes/boston_tracts.gpkg"</span>,</span>
 <span>                      package <span class="op">=</span> <span class="st">"spData"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -435,10 +461,14 @@ Y = X \beta + Z u + \varepsilon
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boston_506</span><span class="op">$</span><span class="va">CHAS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">$</span><span class="va">CHAS</span><span class="op">)</span></span>
 <span><span class="va">boston_489</span> <span class="op">&lt;-</span> <span class="va">boston_506</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">$</span><span class="va">median</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">nb_q_489</span> <span class="op">&lt;-</span> <span class="fu">spdep</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/poly2nb.html">poly2nb</a></span><span class="op">(</span><span class="va">boston_489</span><span class="op">)</span></span>
+<span><span class="co"># Warning in spdep::poly2nb(boston_489): some observations have no neighbours;</span></span>
+<span><span class="co"># if this seems unexpected, try increasing the snap argument.</span></span>
+<span><span class="co"># Warning in spdep::poly2nb(boston_489): neighbour object has 3 sub-graphs;</span></span>
+<span><span class="co"># if this sub-graph count seems unexpected, try increasing the snap argument.</span></span>
 <span><span class="va">lw_q_489</span> <span class="op">&lt;-</span> <span class="fu">spdep</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html">nb2listw</a></span><span class="op">(</span><span class="va">nb_q_489</span>, style <span class="op">=</span> <span class="st">"W"</span>,</span>
 <span>                            zero.policy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>NOX_ID</code> variable specifies the upper-level aggregation, letting us aggregate the tracts to air pollution model output zones. We can create aggregate neighbour and row standardised spatial weights objects, and aggregate the <code>NOX</code> variable taking means, and the <code>CHAS</code> Charles River dummy variable for observations on the river. Here we follow the principles outlined in <a href="05-Attributes.html#sec-extensiveintensive" class="quarto-xref"><span>Section&nbsp;5.3.1</span></a> for spatially extensive and intensive variables; neither <code>NOX</code> nor <code>CHAS</code> can be summed, as they are not count variables.</p>
+<p>The <code>NOX_ID</code> variable specifies the upper-level aggregation, letting us aggregate the tracts to air pollution model output zones. We can create aggregate neighbour and row standardised spatial weights objects, and aggregate the <code>NOX</code> variable taking means, and the <code>CHAS</code> Charles River dummy variable for observations on the river. Here we follow the principles outlined in <a href="05-Attributes.html#sec-extensiveintensive" class="quarto-xref"><span>Section 5.3.1</span></a> for spatially extensive and intensive variables; neither <code>NOX</code> nor <code>CHAS</code> can be summed, as they are not count variables.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">agg_96</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">$</span><span class="va">NOX_ID</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">boston_96</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">[</span>, <span class="st">"NOX_ID"</span><span class="op">]</span>, by <span class="op">=</span> <span class="va">agg_96</span>,</span>
@@ -484,6 +514,10 @@ Y = X \beta + Z u + \varepsilon
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boston_94a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">boston_489</span><span class="op">[</span>,<span class="st">"NOX_ID"</span><span class="op">]</span>, </span>
 <span>                        <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">boston_489</span><span class="op">$</span><span class="va">NOX_ID</span><span class="op">)</span>, <span class="va">unique</span><span class="op">)</span></span>
 <span><span class="va">nb_q_94a</span> <span class="op">&lt;-</span> <span class="fu">spdep</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/poly2nb.html">poly2nb</a></span><span class="op">(</span><span class="va">boston_94a</span><span class="op">)</span></span>
+<span><span class="co"># Warning in spdep::poly2nb(boston_94a): some observations have no neighbours;</span></span>
+<span><span class="co"># if this seems unexpected, try increasing the snap argument.</span></span>
+<span><span class="co"># Warning in spdep::poly2nb(boston_94a): neighbour object has 2 sub-graphs;</span></span>
+<span><span class="co"># if this sub-graph count seems unexpected, try increasing the snap argument.</span></span>
 <span><span class="va">NOX_ID_no_neighs</span> <span class="op">&lt;-</span></span>
 <span>        <span class="va">boston_94a</span><span class="op">$</span><span class="va">NOX_ID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu">spdep</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/spdep/reference/card.html">card</a></span><span class="op">(</span><span class="va">nb_q_94a</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">boston_487</span> <span class="op">&lt;-</span> <span class="va">boston_489</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">boston_489</span><span class="op">$</span><span class="va">NOX_ID</span>,</span>
@@ -605,7 +639,7 @@ Y = X \beta + Z u + \varepsilon
 </div>
 <p>The sparse Leroux representation as given by <span class="citation" data-cites="gómez2020bayesian">Gómez-Rubio (<a href="references.html#ref-g%C3%B3mez2020bayesian" role="doc-biblioref">2020</a>)</span> can be constructed in the following way:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/Diagonal.html">Diagonal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="va">W</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/Diagonal.html">Diagonal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html">rowSums</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="va">W</span></span>
 <span><span class="va">Cmatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/Diagonal.html">Diagonal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">-</span>  <span class="va">M</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This model can be estimated using the <code>"generic1"</code> model with the specified precision matrix:</p>
@@ -648,19 +682,30 @@ Y = X \beta + Z u + \varepsilon
 <p>Unfortunately, the coefficient estimates for the air pollution variable for these multilevel models are not helpful. All are negative as expected, but the inclusion of the model output zone level effects, IID or spatially structured, makes it is hard to disentangle the influence of the scale of observation from that of covariates observed at that scale rather than at the tract level.</p>
 <p><a href="#fig-multi-levelmaps1" class="quarto-xref">Figure&nbsp;<span>16.1</span></a> shows that the air pollution model output zone level IID random effects are very similar across the four model fitting functions reported. In all the maps, the central downtown zones have stronger negative random effect values, but strong positive values are also found in close proximity; suburban areas take values closer to zero.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-tmap.github.io/tmap/">tmap</a></span>, warn.conflicts<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-tmap/tmap">tmap</a></span>, warn.conflicts<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">tmap4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"tmap"</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="st">"3.99"</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">tmap4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">boston_93</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_polygons</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MLM_re"</span>, <span class="st">"HGLM_re"</span>, <span class="st">"INLA_re"</span>, <span class="st">"BX_re"</span><span class="op">)</span>,</span>
+<span>        fill.legend <span class="op">=</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_legend.html">tm_legend</a></span><span class="op">(</span><span class="st">"IID"</span>, frame<span class="op">=</span><span class="cn">FALSE</span>, item.r <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>        fill.free <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>        fill.scale <span class="op">=</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_scale.html">tm_scale</a></span><span class="op">(</span>midpoint <span class="op">=</span> <span class="fl">0</span>, values <span class="op">=</span> <span class="st">"brewer.rd_yl_gn"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_facets.html">tm_facets_wrap</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lmer"</span>, <span class="st">"hglm"</span>, <span class="st">"inla"</span>, <span class="st">"bayesx"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">boston_93</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MLM_re"</span>, <span class="st">"HGLM_re"</span>, <span class="st">"INLA_re"</span>, <span class="st">"BX_re"</span><span class="op">)</span>,</span>
 <span>          midpoint <span class="op">=</span> <span class="fl">0</span>, title <span class="op">=</span> <span class="st">"IID"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_facets.html">tm_facets</a></span><span class="op">(</span>free.scales <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">0.3</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lmer"</span>, <span class="st">"hglm"</span>, <span class="st">"inla"</span>, <span class="st">"bayesx"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lmer"</span>, <span class="st">"hglm"</span>, <span class="st">"inla"</span>, <span class="st">"bayesx"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-multi-levelmaps1" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-multi-levelmaps1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-multi-levelmaps1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps1-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-multi-levelmaps1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multi-levelmaps1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;16.1: Air pollution model output zone level IID random effects estimated using <strong>lme4</strong>, <strong>hglm</strong>, <strong>INLA</strong> and <strong>R2BayesX</strong>; the range of the response, <code>log(median)</code> is 2.1893
 </figcaption></figure>
 </div>
@@ -668,19 +713,31 @@ Figure&nbsp;16.1: Air pollution model output zone level IID random effects estim
 </div>
 <p><a href="#fig-multi-levelmaps2" class="quarto-xref">Figure&nbsp;<span>16.2</span></a> shows that the spatially structured random effects are also very similar to each other, with the <code>"SAR"</code> spatial smooth being perhaps a little smoother than the <code>"CAR"</code> smooths when considering the range of values taken by the random effect term.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">boston_93</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">tmap4</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">boston_93</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_polygons</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HGLM_ss"</span>, <span class="st">"INLA_lr"</span>, <span class="st">"INLA_ss"</span>, <span class="st">"BX_ss"</span>, </span>
+<span>            <span class="st">"GAM_ss"</span><span class="op">)</span>,</span>
+<span>        fill.legend <span class="op">=</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_legend.html">tm_legend</a></span><span class="op">(</span><span class="st">"SSRE"</span>, frame<span class="op">=</span><span class="cn">FALSE</span>, item.r <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>        fill.free <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>        fill.scale <span class="op">=</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_scale.html">tm_scale</a></span><span class="op">(</span>midpoint <span class="op">=</span> <span class="fl">0</span>, values <span class="op">=</span> <span class="st">"brewer.rd_yl_gn"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_facets.html">tm_facets_wrap</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">3</span>, rows <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hglm CAR"</span>, <span class="st">"inla Leroux"</span>,</span>
+<span>             <span class="st">"inla ICAR"</span>, <span class="st">"bayesx ICAR"</span>, <span class="st">"gam ICAR"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">boston_93</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HGLM_ss"</span>, <span class="st">"INLA_lr"</span>, <span class="st">"INLA_ss"</span>, <span class="st">"BX_ss"</span>, </span>
 <span>            <span class="st">"GAM_ss"</span><span class="op">)</span>, midpoint <span class="op">=</span> <span class="fl">0</span>, title <span class="op">=</span> <span class="st">"SSRE"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_facets.html">tm_facets</a></span><span class="op">(</span>free.scales <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">0.3</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hglm CAR"</span>, <span class="st">"inla Leroux"</span>,</span>
-<span>             <span class="st">"inla ICAR"</span>, <span class="st">"bayesx ICAR"</span>, <span class="st">"gam ICAR"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>             <span class="st">"inla ICAR"</span>, <span class="st">"bayesx ICAR"</span>, <span class="st">"gam ICAR"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-multi-levelmaps2" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-multi-levelmaps2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-multi-levelmaps2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="16-SpatialRegression_files/figure-html/fig-multi-levelmaps2-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-multi-levelmaps2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multi-levelmaps2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;16.2: Air pollution model output zone level spatially structured random effects estimated using <strong>hglm</strong>, <strong>HSAR</strong>, <strong>INLA</strong>, <strong>R2BayesX</strong> and <strong>mgcv</strong>
 </figcaption></figure>
 </div>
@@ -832,18 +889,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -875,7 +921,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -927,6 +995,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -961,7 +1047,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -976,27 +1066,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -1011,10 +1080,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1023,8 +1096,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1245,12 +1325,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./15-Measures.html" class="pagination-link  aria-label=" of="" spatial="" autocorrelation="">
+      <a href="./15-Measures.html" class="pagination-link" aria-label="Measures of Spatial Autocorrelation">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Measures of Spatial Autocorrelation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./17-Econometrics.html" class="pagination-link" aria-label="<span class='chapter-number'>17</span>&nbsp; <span class='chapter-title'>Spatial Econometrics Models</span>">
+      <a href="./17-Econometrics.html" class="pagination-link" aria-label="Spatial Econometrics Models">
         <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1329,7 +1409,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-72"><a href="#cb38-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
 <span id="cb38-73"><a href="#cb38-73" aria-hidden="true" tabindex="-1"></a><span class="in">library(sf)</span></span>
 <span id="cb38-74"><a href="#cb38-74" aria-hidden="true" tabindex="-1"></a><span class="in">library(spData)</span></span>
-<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a><span class="in">boston_506 &lt;- st_read(system.file("shapes/boston_tracts.shp",</span></span>
+<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a><span class="in">boston_506 &lt;- st_read(system.file("shapes/boston_tracts.gpkg",</span></span>
 <span id="cb38-76"><a href="#cb38-76" aria-hidden="true" tabindex="-1"></a><span class="in">                      package = "spData")[1], quiet = TRUE)</span></span>
 <span id="cb38-77"><a href="#cb38-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-80"><a href="#cb38-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -1623,45 +1703,68 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-414"><a href="#cb38-414" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
 <span id="cb38-415"><a href="#cb38-415" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Air pollution model output zone level IID random effects estimated using **lme4**, **hglm**, **INLA** and **R2BayesX**; the range of the response, `log(median)` is 2.1893"</span></span>
 <span id="cb38-416"><a href="#cb38-416" aria-hidden="true" tabindex="-1"></a><span class="in">library(tmap, warn.conflicts=FALSE)</span></span>
-<span id="cb38-417"><a href="#cb38-417" aria-hidden="true" tabindex="-1"></a><span class="in">tm_shape(boston_93) +</span></span>
-<span id="cb38-418"><a href="#cb38-418" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_fill(c("MLM_re", "HGLM_re", "INLA_re", "BX_re"),</span></span>
-<span id="cb38-419"><a href="#cb38-419" aria-hidden="true" tabindex="-1"></a><span class="in">          midpoint = 0, title = "IID") +</span></span>
-<span id="cb38-420"><a href="#cb38-420" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_facets(free.scales = FALSE) +</span></span>
-<span id="cb38-421"><a href="#cb38-421" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_borders(lwd = 0.3, alpha = 0.4) + </span></span>
-<span id="cb38-422"><a href="#cb38-422" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_layout(panel.labels = c("lmer", "hglm", "inla", "bayesx"))</span></span>
-<span id="cb38-423"><a href="#cb38-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-424"><a href="#cb38-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-425"><a href="#cb38-425" aria-hidden="true" tabindex="-1"></a>@fig-multi-levelmaps2 shows that the spatially structured random effects are also very similar to each other, with the <span class="in">`"SAR"`</span> spatial smooth being perhaps a little smoother than the <span class="in">`"CAR"`</span> smooths when considering the range of values taken by the random effect term.</span>
-<span id="cb38-426"><a href="#cb38-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-427"><a href="#cb38-427" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-multi-levelmaps2, echo=!knitr::is_latex_output(), message=FALSE, eval = eval_inla}</span></span>
-<span id="cb38-428"><a href="#cb38-428" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb38-429"><a href="#cb38-429" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Air pollution model output zone level spatially structured random effects estimated using **hglm**, **HSAR**, **INLA**, **R2BayesX** and **mgcv**"</span></span>
-<span id="cb38-430"><a href="#cb38-430" aria-hidden="true" tabindex="-1"></a><span class="in">tm_shape(boston_93) +</span></span>
-<span id="cb38-431"><a href="#cb38-431" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_fill(c("HGLM_ss", "INLA_lr", "INLA_ss", "BX_ss", </span></span>
-<span id="cb38-432"><a href="#cb38-432" aria-hidden="true" tabindex="-1"></a><span class="in">            "GAM_ss"), midpoint = 0, title = "SSRE") +</span></span>
-<span id="cb38-433"><a href="#cb38-433" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_facets(free.scales = FALSE) + </span></span>
-<span id="cb38-434"><a href="#cb38-434" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_borders(lwd = 0.3, alpha = 0.4) +</span></span>
-<span id="cb38-435"><a href="#cb38-435" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_layout(panel.labels = c("hglm CAR", "inla Leroux",</span></span>
-<span id="cb38-436"><a href="#cb38-436" aria-hidden="true" tabindex="-1"></a><span class="in">             "inla ICAR", "bayesx ICAR", "gam ICAR"))</span></span>
-<span id="cb38-437"><a href="#cb38-437" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-438"><a href="#cb38-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-439"><a href="#cb38-439" aria-hidden="true" tabindex="-1"></a>Although there is still a great need for more thorough comparative studies of model fitting functions for spatial regression including multilevel capabilities, there has been much progress over recent years. @VRANCKX2019100302 offer a recent comparative survey of disease mapping spatial regression, typically set in a Poisson regression framework offset by an expected count. In @doi:10.1177/1471082X20967158, methods for estimating spatial survival models using spatial weights matrices are compared with spatial probit models. </span>
-<span id="cb38-440"><a href="#cb38-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-441"><a href="#cb38-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-442"><a href="#cb38-442" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb38-443"><a href="#cb38-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-444"><a href="#cb38-444" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construct a multilevel dataset using the Athens housing data from the archived **HSAR** package: &lt;https://cran.r-project.org/src/contrib/Archive/HSAR/HSAR_0.5.1.tar.gz&gt;, and included in **spData** from version 2.2.1. At which point do the municipality department attribute values get copied out to all the point observations within each municipality department?</span>
-<span id="cb38-445"><a href="#cb38-445" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Create neighbour objects at both levels. Test <span class="in">`greensp`</span> for spatial autocorrelation at the upper level, and then at the lower level. What has been the chief consequence of copying out the area of green spaces in square meters for the municipality departments to the point support property level?</span>
-<span id="cb38-446"><a href="#cb38-446" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Using the formula object from the vignette, assess whether adding the copied out upper-level variables seems sensible. Use <span class="in">`mgcv::gam`</span> to fit a linear mixed effects model (IID of <span class="in">`num_dep`</span> identifying the municipality departments) using just the lower-level variables and the lower- and upper-level variables. Do your conclusions differ?</span>
-<span id="cb38-447"><a href="#cb38-447" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Complete the analysis by replacing the IID random effects with an <span class="in">`"mrf"`</span> Markov random field and the contiguity neighbour object created above. Do you think that it is reasonable to, for example, draw any conclusions based on the municipality department level variables such as <span class="in">`greensp`</span>?</span>
-<span id="cb38-448"><a href="#cb38-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-449"><a href="#cb38-449" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb38-450"><a href="#cb38-450" aria-hidden="true" tabindex="-1"></a><span class="in">save(list = ls(), file = "ch16.RData")</span></span>
-<span id="cb38-451"><a href="#cb38-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-417"><a href="#cb38-417" aria-hidden="true" tabindex="-1"></a><span class="in">tmap4 &lt;- packageVersion("tmap") &gt;= "3.99"</span></span>
+<span id="cb38-418"><a href="#cb38-418" aria-hidden="true" tabindex="-1"></a><span class="in">if (tmap4) {</span></span>
+<span id="cb38-419"><a href="#cb38-419" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_shape(boston_93) +</span></span>
+<span id="cb38-420"><a href="#cb38-420" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_polygons(fill = c("MLM_re", "HGLM_re", "INLA_re", "BX_re"),</span></span>
+<span id="cb38-421"><a href="#cb38-421" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.legend = tm_legend("IID", frame=FALSE, item.r = 0),</span></span>
+<span id="cb38-422"><a href="#cb38-422" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.free = FALSE, lwd = 0.01,</span></span>
+<span id="cb38-423"><a href="#cb38-423" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.scale = tm_scale(midpoint = 0, values = "brewer.rd_yl_gn")) +</span></span>
+<span id="cb38-424"><a href="#cb38-424" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_facets_wrap(columns = 2, rows = 2) + </span></span>
+<span id="cb38-425"><a href="#cb38-425" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_layout(panel.labels = c("lmer", "hglm", "inla", "bayesx"))</span></span>
+<span id="cb38-426"><a href="#cb38-426" aria-hidden="true" tabindex="-1"></a><span class="in">} else {</span></span>
+<span id="cb38-427"><a href="#cb38-427" aria-hidden="true" tabindex="-1"></a><span class="in">tm_shape(boston_93) +</span></span>
+<span id="cb38-428"><a href="#cb38-428" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_fill(c("MLM_re", "HGLM_re", "INLA_re", "BX_re"),</span></span>
+<span id="cb38-429"><a href="#cb38-429" aria-hidden="true" tabindex="-1"></a><span class="in">          midpoint = 0, title = "IID") +</span></span>
+<span id="cb38-430"><a href="#cb38-430" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_facets(free.scales = FALSE) +</span></span>
+<span id="cb38-431"><a href="#cb38-431" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_borders(lwd = 0.3, alpha = 0.4) + </span></span>
+<span id="cb38-432"><a href="#cb38-432" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_layout(panel.labels = c("lmer", "hglm", "inla", "bayesx"))</span></span>
+<span id="cb38-433"><a href="#cb38-433" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb38-434"><a href="#cb38-434" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-435"><a href="#cb38-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-436"><a href="#cb38-436" aria-hidden="true" tabindex="-1"></a>@fig-multi-levelmaps2 shows that the spatially structured random effects are also very similar to each other, with the <span class="in">`"SAR"`</span> spatial smooth being perhaps a little smoother than the <span class="in">`"CAR"`</span> smooths when considering the range of values taken by the random effect term.</span>
+<span id="cb38-437"><a href="#cb38-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-438"><a href="#cb38-438" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-multi-levelmaps2, echo=!knitr::is_latex_output(), message=FALSE, eval = eval_inla}</span></span>
+<span id="cb38-439"><a href="#cb38-439" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb38-440"><a href="#cb38-440" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Air pollution model output zone level spatially structured random effects estimated using **hglm**, **HSAR**, **INLA**, **R2BayesX** and **mgcv**"</span></span>
+<span id="cb38-441"><a href="#cb38-441" aria-hidden="true" tabindex="-1"></a><span class="in">if (tmap4) {</span></span>
+<span id="cb38-442"><a href="#cb38-442" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_shape(boston_93) +</span></span>
+<span id="cb38-443"><a href="#cb38-443" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_polygons(fill = c("HGLM_ss", "INLA_lr", "INLA_ss", "BX_ss", </span></span>
+<span id="cb38-444"><a href="#cb38-444" aria-hidden="true" tabindex="-1"></a><span class="in">            "GAM_ss"),</span></span>
+<span id="cb38-445"><a href="#cb38-445" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.legend = tm_legend("SSRE", frame=FALSE, item.r = 0),</span></span>
+<span id="cb38-446"><a href="#cb38-446" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.free = FALSE, lwd = 0.1,</span></span>
+<span id="cb38-447"><a href="#cb38-447" aria-hidden="true" tabindex="-1"></a><span class="in">        fill.scale = tm_scale(midpoint = 0, values = "brewer.rd_yl_gn")) +</span></span>
+<span id="cb38-448"><a href="#cb38-448" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_facets_wrap(columns = 3, rows = 2) + </span></span>
+<span id="cb38-449"><a href="#cb38-449" aria-hidden="true" tabindex="-1"></a><span class="in">    tm_layout(panel.labels = c("hglm CAR", "inla Leroux",</span></span>
+<span id="cb38-450"><a href="#cb38-450" aria-hidden="true" tabindex="-1"></a><span class="in">             "inla ICAR", "bayesx ICAR", "gam ICAR"))</span></span>
+<span id="cb38-451"><a href="#cb38-451" aria-hidden="true" tabindex="-1"></a><span class="in">} else {</span></span>
+<span id="cb38-452"><a href="#cb38-452" aria-hidden="true" tabindex="-1"></a><span class="in">tm_shape(boston_93) +</span></span>
+<span id="cb38-453"><a href="#cb38-453" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_fill(c("HGLM_ss", "INLA_lr", "INLA_ss", "BX_ss", </span></span>
+<span id="cb38-454"><a href="#cb38-454" aria-hidden="true" tabindex="-1"></a><span class="in">            "GAM_ss"), midpoint = 0, title = "SSRE") +</span></span>
+<span id="cb38-455"><a href="#cb38-455" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_facets(free.scales = FALSE) + </span></span>
+<span id="cb38-456"><a href="#cb38-456" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_borders(lwd = 0.3, alpha = 0.4) +</span></span>
+<span id="cb38-457"><a href="#cb38-457" aria-hidden="true" tabindex="-1"></a><span class="in">  tm_layout(panel.labels = c("hglm CAR", "inla Leroux",</span></span>
+<span id="cb38-458"><a href="#cb38-458" aria-hidden="true" tabindex="-1"></a><span class="in">             "inla ICAR", "bayesx ICAR", "gam ICAR"))</span></span>
+<span id="cb38-459"><a href="#cb38-459" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb38-460"><a href="#cb38-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb38-461"><a href="#cb38-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-462"><a href="#cb38-462" aria-hidden="true" tabindex="-1"></a>Although there is still a great need for more thorough comparative studies of model fitting functions for spatial regression including multilevel capabilities, there has been much progress over recent years. @VRANCKX2019100302 offer a recent comparative survey of disease mapping spatial regression, typically set in a Poisson regression framework offset by an expected count. In @doi:10.1177/1471082X20967158, methods for estimating spatial survival models using spatial weights matrices are compared with spatial probit models. </span>
+<span id="cb38-463"><a href="#cb38-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-464"><a href="#cb38-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-465"><a href="#cb38-465" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb38-466"><a href="#cb38-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-467"><a href="#cb38-467" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Construct a multilevel dataset using the Athens housing data from the archived **HSAR** package: &lt;https://cran.r-project.org/src/contrib/Archive/HSAR/HSAR_0.5.1.tar.gz&gt;, and included in **spData** from version 2.2.1. At which point do the municipality department attribute values get copied out to all the point observations within each municipality department?</span>
+<span id="cb38-468"><a href="#cb38-468" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Create neighbour objects at both levels. Test <span class="in">`greensp`</span> for spatial autocorrelation at the upper level, and then at the lower level. What has been the chief consequence of copying out the area of green spaces in square meters for the municipality departments to the point support property level?</span>
+<span id="cb38-469"><a href="#cb38-469" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Using the formula object from the vignette, assess whether adding the copied out upper-level variables seems sensible. Use <span class="in">`mgcv::gam`</span> to fit a linear mixed effects model (IID of <span class="in">`num_dep`</span> identifying the municipality departments) using just the lower-level variables and the lower- and upper-level variables. Do your conclusions differ?</span>
+<span id="cb38-470"><a href="#cb38-470" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Complete the analysis by replacing the IID random effects with an <span class="in">`"mrf"`</span> Markov random field and the contiguity neighbour object created above. Do you think that it is reasonable to, for example, draw any conclusions based on the municipality department level variables such as <span class="in">`greensp`</span>?</span>
+<span id="cb38-471"><a href="#cb38-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-472"><a href="#cb38-472" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb38-473"><a href="#cb38-473" aria-hidden="true" tabindex="-1"></a><span class="in">save(list = ls(), file = "ch16.RData")</span></span>
+<span id="cb38-474"><a href="#cb38-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/16-SpatialRegression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

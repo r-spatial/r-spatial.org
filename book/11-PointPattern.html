@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Spatial Data Science - 11&nbsp; Point Pattern Analysis</title>
+<title>11&nbsp; Point Pattern Analysis – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -111,6 +111,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -126,19 +127,44 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-3.html">Models for Spatial Data</a></li><li class="breadcrumb-item"><a href="./11-PointPattern.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Point Pattern Analysis</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -169,7 +195,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +242,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -245,7 +271,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -302,9 +328,9 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -368,7 +394,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 
 
 </header><p> </p>
-<p>Point pattern analysis is concerned with describing patterns of points over space and making inference about the process that could have generated an observed pattern. The main focus here lies on the information carried in the locations of the points, and typically these locations are not controlled by sampling but a result of a process we are interested in, such as animal sightings, accidents, disease cases, or tree locations. This is opposed to geostatistical processes (<a href="12-Interpolation.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a>) where we have values of some phenomenon everywhere but observations limited to a set of locations <em>that we can control</em>, at least in principle. Hence, in geostatistical problems the prime interest is not in the observation locations but in estimating the value of the observed phenomenon at unobserved locations. Point pattern analysis typically assumes that for an observed area, all points are available, meaning that locations without a point are not unobserved as in a geostatistical process, but are observed and contain no point. In terms of random processes, in point processes locations are random variables, where, in geostatistical processes the measured variable is a random field with locations fixed.</p>
+<p>Point pattern analysis is concerned with describing patterns of points over space and making inference about the process that could have generated an observed pattern. The main focus here lies on the information carried in the locations of the points, and typically these locations are not controlled by sampling but a result of a process we are interested in, such as animal sightings, accidents, disease cases, or tree locations. This is opposed to geostatistical processes (<a href="12-Interpolation.html" class="quarto-xref"><span>Chapter 12</span></a>) where we have values of some phenomenon everywhere but observations limited to a set of locations <em>that we can control</em>, at least in principle. Hence, in geostatistical problems the prime interest is not in the observation locations but in estimating the value of the observed phenomenon at unobserved locations. Point pattern analysis typically assumes that for an observed area, all points are available, meaning that locations without a point are not unobserved as in a geostatistical process, but are observed and contain no point. In terms of random processes, in point processes locations are random variables, where, in geostatistical processes the measured variable is a random field with locations fixed.</p>
 <p>This chapter is confined to describing the very basics of point pattern analysis, using package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>)</span>, and related packages by the same authors. The <strong>spatstat</strong> book of <span class="citation" data-cites="baddeley2015spatial">Baddeley, Rubak, and Turner (<a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">2015</a>)</span> gives a comprehensive introduction to point pattern theory and the use of the <strong>spatstat</strong> package family, which we will not try to copy. Inclusion of particular topics in this chapter should not be seen as an expression that these are more relevant than others. In particular, this chapter tries to illustrate interfaces existing between <strong>spatstat</strong> and the more spatial data science oriented packages <strong>sf</strong> and <strong>stars</strong>. A further book that introduces point patterns analysis is <span class="citation" data-cites="STOYAN2017125">Stoyan et al. (<a href="references.html#ref-STOYAN2017125" role="doc-biblioref">2017</a>)</span>. R package <strong>stpp</strong> <span class="citation" data-cites="R-stpp">(<a href="references.html#ref-R-stpp" role="doc-biblioref">Gabriel et al. 2022</a>)</span> for analysing spatiotemporal point processes is discussed in <span class="citation" data-cites="stpp">Gabriel, Rowlingson, and Diggle (<a href="references.html#ref-stpp" role="doc-biblioref">2013</a>)</span>.</p>
 <p>Important concepts of point patterns analysis are the distinction between a point <em>pattern</em> and a point <em>process</em>: the latter is the stochastic process that, when sampled, generates a point pattern. A dataset is always a point pattern, and inference involves figuring out the properties of a process that could have generated a pattern like the one we observed. Properties of a spatial point process include</p>
 <ul>
@@ -381,7 +407,7 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <p>Point patterns have an observation window. Consider the points generated randomly by</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="co"># Linking to GEOS 3.11.1, GDAL 3.6.4, PROJ 9.1.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">13531</span><span class="op">)</span> <span class="co"># remove this to create another random sequence</span></span>
 <span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -401,11 +427,11 @@ gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">w2</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">xy</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, cex <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-pp1" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-pp1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-pp1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-pp1-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-pp1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pp1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.1: Depending on the observation window (grey), the same point pattern can appear completely spatially random (left), or clustered (right)
 </figcaption></figure>
 </div>
@@ -443,11 +469,11 @@ Figure&nbsp;11.1: Depending on the observation window (grey), the same point pat
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">q2</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">xy</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-quadrat" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-quadrat" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-quadrat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-quadrat-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-quadrat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quadrat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.2: 3 <span class="math inline">\(\times\)</span> 3 quadrat counts for the two point patterns
 </figcaption></figure>
 </div>
@@ -491,11 +517,11 @@ Figure&nbsp;11.2: 3 <span class="math inline">\(\times\)</span> 3 quadrat counts
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">den2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pp1</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-bwdiggle" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-bwdiggle" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-bwdiggle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-bwdiggle-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-bwdiggle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bwdiggle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.3: Kernel densities for both point patterns
 </figcaption></figure>
 </div>
@@ -512,9 +538,9 @@ Figure&nbsp;11.3: Kernel densities for both point patterns
 <span><span class="co">#        Min.  1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
 <span><span class="co"># v  6.28e-15 0.000153  0.304 6.77    13.1 42.7 3492</span></span>
 <span><span class="co"># dimension(s):</span></span>
-<span><span class="co">#   from  to offset   delta x/y</span></span>
-<span><span class="co"># x    1 128   -0.2  0.0187 [x]</span></span>
-<span><span class="co"># y    1 128    1.7 -0.0187 [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#   from  to offset  delta x/y</span></span>
+<span><span class="co"># x    1 128   -0.2 0.0187 [x]</span></span>
+<span><span class="co"># y    1 128   -0.7 0.0188 [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and we can verify that the area under the density surface is similar to the sample size (30), by</p>
 <div class="cell">
@@ -542,21 +568,21 @@ Figure&nbsp;11.3: Kernel densities for both point patterns
 <span><span class="co"># </span></span>
 <span><span class="co"># Fitted trend coefficients:</span></span>
 <span><span class="co"># (Intercept)        dist </span></span>
-<span><span class="co">#        4.54       -4.24 </span></span>
+<span><span class="co">#        4.54       -4.25 </span></span>
 <span><span class="co"># </span></span>
 <span><span class="co">#             Estimate  S.E. CI95.lo CI95.hi Ztest  Zval</span></span>
 <span><span class="co"># (Intercept)     4.54 0.341    3.87    5.21   *** 13.32</span></span>
-<span><span class="co"># dist           -4.24 0.700   -5.62   -2.87   *** -6.06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># dist           -4.25 0.701   -5.62   -2.88   *** -6.06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The returned object is of class <code>ppm</code>, and can be plotted: <a href="#fig-ppm" class="quarto-xref">Figure&nbsp;<span>11.4</span></a> shows the predicted surface. The prediction standard error can also be plotted.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">m</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-ppm" class="quarto-figure quarto-figure-center anchored" width="50%">
+<div id="fig-ppm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ppm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-ppm-1.png" class="img-fluid figure-img" style="width:50.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-ppm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ppm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.4: Predicted densities of a ppm model
 </figcaption></figure>
 </div>
@@ -569,11 +595,11 @@ Figure&nbsp;11.4: Predicted densities of a ppm model
 <span><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
 <span><span class="co"># attribute(s):</span></span>
 <span><span class="co">#      Min. 1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
-<span><span class="co"># v  0.0698   0.529   2.13 6.62     7.3 89.7 3492</span></span>
+<span><span class="co"># v  0.0694   0.527   2.12 6.62     7.3 89.9 3492</span></span>
 <span><span class="co"># dimension(s):</span></span>
-<span><span class="co">#   from  to offset   delta x/y</span></span>
-<span><span class="co"># x    1 128   -0.2  0.0187 [x]</span></span>
-<span><span class="co"># y    1 128    1.7 -0.0188 [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#   from  to offset  delta x/y</span></span>
+<span><span class="co"># x    1 128   -0.2 0.0187 [x]</span></span>
+<span><span class="co"># y    1 128   -0.7 0.0187 [y]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="coordinate-reference-systems" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="coordinate-reference-systems">
 <span class="header-section-number">11.2</span> Coordinate reference systems</h2>
@@ -587,7 +613,7 @@ Figure&nbsp;11.4: Predicted densities of a ppm model
 <span><span class="co"># Error: Only projected coordinates may be converted to spatstat</span></span>
 <span><span class="co"># class objects</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When converting to a <strong>spatstat</strong> data structure we loose the coordinate reference system we started with. It can be set back to <code>sf</code> or <code>stars</code> objects by using <code>st_set_crs</code>.</p>
+<p>When converting to a <strong>spatstat</strong> data structure we lose the coordinate reference system we started with. It can be set back to <code>sf</code> or <code>stars</code> objects by using <code>st_set_crs</code>.</p>
 </section><section id="marked-point-patterns-points-on-linear-networks" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="marked-point-patterns-points-on-linear-networks">
 <span class="header-section-number">11.3</span> Marked point patterns, points on linear networks</h2>
 <p></p>
@@ -613,10 +639,8 @@ Figure&nbsp;11.4: Predicted densities of a ppm model
 <p>Values can be converted back to <code>ppp</code> with</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/as.ppp.html">as.ppp</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span></span>
-<span><span class="co"># Warning in as.ppp.sf(ll): only first attribute column is used for</span></span>
-<span><span class="co"># marks</span></span>
 <span><span class="co"># Marked planar point pattern: 584 points</span></span>
-<span><span class="co"># marks are numeric, of storage type  'double'</span></span>
+<span><span class="co"># Mark variables: spatstat.geom..marks.x., label </span></span>
 <span><span class="co"># window: polygonal boundary</span></span>
 <span><span class="co"># enclosing rectangle: [0, 200] x [0, 200] units</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -662,7 +686,7 @@ Figure&nbsp;11.4: Predicted densities of a ppm model
 <p>Potential information about network <em>structure</em>, how <code>LINESTRING</code> geometries are connected, is not present in the <code>sf</code> object. Package <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> would be a candidate package to hold such information in R or to pass on network data imported from OpenStreetMaps to <strong>spatstat</strong>.</p>
 </section><section id="spatial-sampling-and-simulating-a-point-process" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="spatial-sampling-and-simulating-a-point-process">
 <span class="header-section-number">11.4</span> Spatial sampling and simulating a point process</h2>
-<p> Package <strong>sf</strong> contains an <code>st_sample</code> method that samples points from <code>MULTIPOINT</code>, linear or polygonal geometries, using different spatial sampling strategies. It natively supports strategies “random”, “hexagonal”, “Fibonacci” (<a href="#sec-simsphere" class="quarto-xref"><span>Section&nbsp;11.5</span></a>), and “regular”, where “regular” refers to sampling on a square regular grid and “hexagonal” essentially gives a triangular grid. For type “random”, it can return exactly the number of requested points, for other types this is approximate.</p>
+<p> Package <strong>sf</strong> contains an <code>st_sample</code> method that samples points from <code>MULTIPOINT</code>, linear or polygonal geometries, using different spatial sampling strategies. It natively supports strategies “random”, “hexagonal”, “Fibonacci” (<a href="#sec-simsphere" class="quarto-xref"><span>Section 11.5</span></a>), and “regular”, where “regular” refers to sampling on a square regular grid and “hexagonal” essentially gives a triangular grid. For type “random”, it can return exactly the number of requested points, for other types this is approximate.</p>
 <p><code>st_sample</code> also interfaces point process simulation functions of <strong>spatstat</strong>, when other values for sampling type are chosen. For instance the <strong>spatstat</strong> function <code>rThomas</code> is invoked when setting <code>type = Thomas</code> (<a href="#fig-rThomas" class="quarto-xref">Figure&nbsp;<span>11.5</span></a>):</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kappa</span> <span class="op">&lt;-</span> <span class="fl">30</span> <span class="op">/</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_area</a></span><span class="op">(</span><span class="va">w2</span><span class="op">)</span> <span class="co"># intensity</span></span>
@@ -676,11 +700,11 @@ Figure&nbsp;11.4: Predicted densities of a ppm model
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">w2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">th</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-rThomas" class="quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-rThomas" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rThomas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-rThomas-1.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-rThomas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rThomas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.5: Thomas process with mu = 3 and scale = 0.05
 </figcaption></figure>
 </div>
@@ -705,10 +729,14 @@ Figure&nbsp;11.5: Thomas process with mu = 3 and scale = 0.05
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="va">co</span><span class="op">)</span>, <span class="va">ortho</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span>
 <span><span class="co"># sampling randomly from globe:</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="fl">1000</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"sf"</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="st">"1.0.16"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">globe</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># st_sample only needs bbox</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="va">globe</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">pts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="va">globe</span>, <span class="fl">1000</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">pts</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/s2/reference/s2_boundary.html">s2_intersection</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/s2/reference/s2_boundary.html">s2_intersection</a></span><span class="op">(</span><span class="va">pts</span>, <span class="va">i</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
 <span><span class="co"># add:</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">pts</span>, <span class="va">ortho</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>add <span class="op">=</span> <span class="cn">TRUE</span>, pch <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span>
 <span><span class="co"># right: background:</span></span>
@@ -716,17 +744,16 @@ Figure&nbsp;11.5: Thomas process with mu = 3 and scale = 0.05
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="va">co</span><span class="op">)</span>, <span class="va">ortho</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span>
 <span><span class="co"># Fibonacci:</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_as_stars.html">st_as_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="fl">1000</span>, type <span class="op">=</span> <span class="st">"Fibonacci"</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="va">globe</span>, <span class="fl">1000</span>, type <span class="op">=</span> <span class="st">"Fibonacci"</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">pts</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/s2/reference/s2_boundary.html">s2_intersection</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">pts</span>, <span class="va">ortho</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>add <span class="op">=</span> <span class="cn">TRUE</span>, pch <span class="op">=</span> <span class="fl">3</span>, cex <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
-<div id="fig-srsglobe" class="quarto-figure quarto-figure-center anchored" width="100%">
+<div id="fig-srsglobe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-srsglobe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-PointPattern_files/figure-html/fig-srsglobe-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-srsglobe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-srsglobe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.6: Points sampled on the globe over the oceans: randomly (left) and approximately regular (Fibonacci; right), shown in an orthographic projection
 </figcaption></figure>
 </div>
@@ -736,7 +763,7 @@ Figure&nbsp;11.6: Points sampled on the globe over the oceans: randomly (left) a
 <span class="header-section-number">11.6</span> Exercises</h2>
 <ol type="1">
 <li>After loading <strong>spatstat</strong>, recreate the plot obtained by <code>plot(longleaf)</code> by using <strong>ggplot2</strong> and <code>geom_sf()</code>, and by <code><a href="https://r-spatial.github.io/sf/reference/plot.html">sf::plot()</a></code>.</li>
-<li>Convert the sample locations of the NO<span class="math inline">\(_2\)</span> data used in <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter&nbsp;12</span></a> to a <code>ppp</code> object, with a proper window.</li>
+<li>Convert the sample locations of the NO<span class="math inline">\(_2\)</span> data used in <a href="12-Interpolation.html" class="quarto-xref"><span>Chapter 12</span></a> to a <code>ppp</code> object, with a proper window.</li>
 <li>Compute and plot the density of the NO<span class="math inline">\(_2\)</span> dataset, import the density as a <code>stars</code> object, and compute the volume under the surface.</li>
 </ol>
 
@@ -801,18 +828,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -844,7 +860,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -896,6 +934,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/book\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -930,7 +986,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -945,27 +1005,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -980,10 +1019,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -992,8 +1035,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1214,12 +1264,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./10-Models.html" class="pagination-link  aria-label=" modelling="" of="" spatial="" data="">
+      <a href="./10-Models.html" class="pagination-link" aria-label="Statistical modelling of spatial data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistical modelling of spatial data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./12-Interpolation.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Spatial Interpolation</span>">
+      <a href="./12-Interpolation.html" class="pagination-link" aria-label="Spatial Interpolation">
         <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spatial Interpolation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1453,7 +1503,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-249"><a href="#cb25-249" aria-hidden="true" tabindex="-1"></a><span class="in">    as.ppp()</span></span>
 <span id="cb25-250"><a href="#cb25-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-251"><a href="#cb25-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-252"><a href="#cb25-252" aria-hidden="true" tabindex="-1"></a>When converting to a **spatstat** data structure we loose</span>
+<span id="cb25-252"><a href="#cb25-252" aria-hidden="true" tabindex="-1"></a>When converting to a **spatstat** data structure we lose</span>
 <span id="cb25-253"><a href="#cb25-253" aria-hidden="true" tabindex="-1"></a>the coordinate reference system we started with. It can be set</span>
 <span id="cb25-254"><a href="#cb25-254" aria-hidden="true" tabindex="-1"></a>back to <span class="in">`sf`</span> or <span class="in">`stars`</span> objects by using <span class="in">`st_set_crs`</span>.</span>
 <span id="cb25-255"><a href="#cb25-255" aria-hidden="true" tabindex="-1"></a></span>
@@ -1564,54 +1614,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-372"><a href="#cb25-372" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(st_as_sfc(co), ortho) |&gt; plot(col = NA, add = TRUE, border = 'grey')</span></span>
 <span id="cb25-373"><a href="#cb25-373" aria-hidden="true" tabindex="-1"></a><span class="in"># sampling randomly from globe:</span></span>
 <span id="cb25-374"><a href="#cb25-374" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(FALSE) |&gt; suppressMessages()</span></span>
-<span id="cb25-375"><a href="#cb25-375" aria-hidden="true" tabindex="-1"></a><span class="in">st_as_stars() |&gt; st_bbox() |&gt; st_as_sfc() |&gt; st_sample(1000, exact = FALSE) |&gt;</span></span>
-<span id="cb25-376"><a href="#cb25-376" aria-hidden="true" tabindex="-1"></a><span class="in">  suppressMessages() -&gt; pts</span></span>
-<span id="cb25-377"><a href="#cb25-377" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(TRUE) |&gt; suppressMessages()</span></span>
-<span id="cb25-378"><a href="#cb25-378" aria-hidden="true" tabindex="-1"></a><span class="in">pts |&gt; s2_intersection(i) |&gt; st_as_sfc() -&gt; pts</span></span>
-<span id="cb25-379"><a href="#cb25-379" aria-hidden="true" tabindex="-1"></a><span class="in"># add:</span></span>
-<span id="cb25-380"><a href="#cb25-380" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(pts, ortho) |&gt; plot(add = TRUE, pch = 3, cex = .5)</span></span>
-<span id="cb25-381"><a href="#cb25-381" aria-hidden="true" tabindex="-1"></a><span class="in"># right: background:</span></span>
-<span id="cb25-382"><a href="#cb25-382" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(st_as_sfc(i), ortho) |&gt; plot(col = 'lightblue')</span></span>
-<span id="cb25-383"><a href="#cb25-383" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(st_as_sfc(co), ortho) |&gt; plot(col = NA, add = TRUE, border = 'grey')</span></span>
-<span id="cb25-384"><a href="#cb25-384" aria-hidden="true" tabindex="-1"></a><span class="in"># Fibonacci:</span></span>
-<span id="cb25-385"><a href="#cb25-385" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(FALSE) |&gt; suppressMessages()</span></span>
-<span id="cb25-386"><a href="#cb25-386" aria-hidden="true" tabindex="-1"></a><span class="in">st_as_stars() |&gt; st_bbox() |&gt; st_as_sfc() |&gt; </span></span>
-<span id="cb25-387"><a href="#cb25-387" aria-hidden="true" tabindex="-1"></a><span class="in">  st_sample(1000, type = "Fibonacci", exact = FALSE) |&gt; suppressMessages() -&gt; pts</span></span>
-<span id="cb25-388"><a href="#cb25-388" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(TRUE) |&gt; suppressMessages()</span></span>
-<span id="cb25-389"><a href="#cb25-389" aria-hidden="true" tabindex="-1"></a><span class="in">pts |&gt; s2_intersection(i) |&gt; st_as_sfc() -&gt; pts</span></span>
-<span id="cb25-390"><a href="#cb25-390" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(pts, ortho) |&gt; plot(add = TRUE, pch = 3, cex = .5)</span></span>
-<span id="cb25-391"><a href="#cb25-391" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-392"><a href="#cb25-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-393"><a href="#cb25-393" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb25-394"><a href="#cb25-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-395"><a href="#cb25-395" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>After loading **spatstat**, recreate the plot obtained by <span class="in">`plot(longleaf)`</span> </span>
-<span id="cb25-396"><a href="#cb25-396" aria-hidden="true" tabindex="-1"></a>by using **ggplot2** and <span class="in">`geom_sf()`</span>, and by <span class="in">`sf::plot()`</span>.</span>
-<span id="cb25-397"><a href="#cb25-397" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Convert the sample locations of the NO$_2$ data used in @sec-interpolation</span>
-<span id="cb25-398"><a href="#cb25-398" aria-hidden="true" tabindex="-1"></a>   to a <span class="in">`ppp`</span> object, with a proper window.</span>
-<span id="cb25-399"><a href="#cb25-399" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Compute and plot the density of the NO$_2$ dataset, import the density as a <span class="in">`stars`</span></span>
-<span id="cb25-400"><a href="#cb25-400" aria-hidden="true" tabindex="-1"></a>   object, and compute the volume under the surface. </span>
-<span id="cb25-401"><a href="#cb25-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-402"><a href="#cb25-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb25-403"><a href="#cb25-403" aria-hidden="true" tabindex="-1"></a><span class="in"># we need to detach, to avoid name clashes of using idw() and diagnose() later on</span></span>
-<span id="cb25-404"><a href="#cb25-404" aria-hidden="true" tabindex="-1"></a><span class="in">library(spatstat)</span></span>
-<span id="cb25-405"><a href="#cb25-405" aria-hidden="true" tabindex="-1"></a><span class="in">w &lt;- function(x) which(x == search())</span></span>
-<span id="cb25-406"><a href="#cb25-406" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat"))</span></span>
-<span id="cb25-407"><a href="#cb25-407" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.linnet"))</span></span>
-<span id="cb25-408"><a href="#cb25-408" aria-hidden="true" tabindex="-1"></a><span class="in">pc &lt;- w("package:spatstat.core")</span></span>
-<span id="cb25-409"><a href="#cb25-409" aria-hidden="true" tabindex="-1"></a><span class="in">if (length(pc)) {</span></span>
-<span id="cb25-410"><a href="#cb25-410" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.core"))</span></span>
-<span id="cb25-411"><a href="#cb25-411" aria-hidden="true" tabindex="-1"></a><span class="in">} else { # &gt; 3.0.0</span></span>
-<span id="cb25-412"><a href="#cb25-412" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.model"))</span></span>
-<span id="cb25-413"><a href="#cb25-413" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.explore"))</span></span>
-<span id="cb25-414"><a href="#cb25-414" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb25-415"><a href="#cb25-415" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.random"))</span></span>
-<span id="cb25-416"><a href="#cb25-416" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.geom"))</span></span>
-<span id="cb25-417"><a href="#cb25-417" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.data"))</span></span>
-<span id="cb25-418"><a href="#cb25-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-375"><a href="#cb25-375" aria-hidden="true" tabindex="-1"></a><span class="in">if (packageVersion("sf") &gt;= "1.0.16") {</span></span>
+<span id="cb25-376"><a href="#cb25-376" aria-hidden="true" tabindex="-1"></a><span class="in">  globe = st_as_stars() |&gt; st_bbox() # st_sample only needs bbox</span></span>
+<span id="cb25-377"><a href="#cb25-377" aria-hidden="true" tabindex="-1"></a><span class="in">} else {</span></span>
+<span id="cb25-378"><a href="#cb25-378" aria-hidden="true" tabindex="-1"></a><span class="in">  globe = st_as_stars() |&gt; st_bbox() |&gt; st_as_sfc()</span></span>
+<span id="cb25-379"><a href="#cb25-379" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb25-380"><a href="#cb25-380" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- st_sample(globe, 1000, exact = FALSE) |&gt; suppressMessages()</span></span>
+<span id="cb25-381"><a href="#cb25-381" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(TRUE) |&gt; suppressMessages()</span></span>
+<span id="cb25-382"><a href="#cb25-382" aria-hidden="true" tabindex="-1"></a><span class="in">s2_intersection(pts, i) |&gt; st_as_sfc() -&gt; pts</span></span>
+<span id="cb25-383"><a href="#cb25-383" aria-hidden="true" tabindex="-1"></a><span class="in"># add:</span></span>
+<span id="cb25-384"><a href="#cb25-384" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(pts, ortho) |&gt; plot(add = TRUE, pch = 3, cex = .5)</span></span>
+<span id="cb25-385"><a href="#cb25-385" aria-hidden="true" tabindex="-1"></a><span class="in"># right: background:</span></span>
+<span id="cb25-386"><a href="#cb25-386" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(st_as_sfc(i), ortho) |&gt; plot(col = 'lightblue')</span></span>
+<span id="cb25-387"><a href="#cb25-387" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(st_as_sfc(co), ortho) |&gt; plot(col = NA, add = TRUE, border = 'grey')</span></span>
+<span id="cb25-388"><a href="#cb25-388" aria-hidden="true" tabindex="-1"></a><span class="in"># Fibonacci:</span></span>
+<span id="cb25-389"><a href="#cb25-389" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(FALSE) |&gt; suppressMessages()</span></span>
+<span id="cb25-390"><a href="#cb25-390" aria-hidden="true" tabindex="-1"></a><span class="in">st_sample(globe, 1000, type = "Fibonacci", exact = FALSE) |&gt; suppressMessages() -&gt; pts</span></span>
+<span id="cb25-391"><a href="#cb25-391" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(TRUE) |&gt; suppressMessages()</span></span>
+<span id="cb25-392"><a href="#cb25-392" aria-hidden="true" tabindex="-1"></a><span class="in">pts |&gt; s2_intersection(i) |&gt; st_as_sfc() -&gt; pts</span></span>
+<span id="cb25-393"><a href="#cb25-393" aria-hidden="true" tabindex="-1"></a><span class="in">st_transform(pts, ortho) |&gt; plot(add = TRUE, pch = 3, cex = .5)</span></span>
+<span id="cb25-394"><a href="#cb25-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-395"><a href="#cb25-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-396"><a href="#cb25-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb25-397"><a href="#cb25-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-398"><a href="#cb25-398" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>After loading **spatstat**, recreate the plot obtained by <span class="in">`plot(longleaf)`</span> </span>
+<span id="cb25-399"><a href="#cb25-399" aria-hidden="true" tabindex="-1"></a>by using **ggplot2** and <span class="in">`geom_sf()`</span>, and by <span class="in">`sf::plot()`</span>.</span>
+<span id="cb25-400"><a href="#cb25-400" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Convert the sample locations of the NO$_2$ data used in @sec-interpolation</span>
+<span id="cb25-401"><a href="#cb25-401" aria-hidden="true" tabindex="-1"></a>   to a <span class="in">`ppp`</span> object, with a proper window.</span>
+<span id="cb25-402"><a href="#cb25-402" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Compute and plot the density of the NO$_2$ dataset, import the density as a <span class="in">`stars`</span></span>
+<span id="cb25-403"><a href="#cb25-403" aria-hidden="true" tabindex="-1"></a>   object, and compute the volume under the surface. </span>
+<span id="cb25-404"><a href="#cb25-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-405"><a href="#cb25-405" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb25-406"><a href="#cb25-406" aria-hidden="true" tabindex="-1"></a><span class="in"># we need to detach, to avoid name clashes of using idw() and diagnose() later on</span></span>
+<span id="cb25-407"><a href="#cb25-407" aria-hidden="true" tabindex="-1"></a><span class="in">library(spatstat)</span></span>
+<span id="cb25-408"><a href="#cb25-408" aria-hidden="true" tabindex="-1"></a><span class="in">w &lt;- function(x) which(x == search())</span></span>
+<span id="cb25-409"><a href="#cb25-409" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat"))</span></span>
+<span id="cb25-410"><a href="#cb25-410" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.linnet"))</span></span>
+<span id="cb25-411"><a href="#cb25-411" aria-hidden="true" tabindex="-1"></a><span class="in">pc &lt;- w("package:spatstat.core")</span></span>
+<span id="cb25-412"><a href="#cb25-412" aria-hidden="true" tabindex="-1"></a><span class="in">if (length(pc)) {</span></span>
+<span id="cb25-413"><a href="#cb25-413" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.core"))</span></span>
+<span id="cb25-414"><a href="#cb25-414" aria-hidden="true" tabindex="-1"></a><span class="in">} else { # &gt; 3.0.0</span></span>
+<span id="cb25-415"><a href="#cb25-415" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.model"))</span></span>
+<span id="cb25-416"><a href="#cb25-416" aria-hidden="true" tabindex="-1"></a><span class="in">    detach(pos = w("package:spatstat.explore"))</span></span>
+<span id="cb25-417"><a href="#cb25-417" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb25-418"><a href="#cb25-418" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.random"))</span></span>
+<span id="cb25-419"><a href="#cb25-419" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.geom"))</span></span>
+<span id="cb25-420"><a href="#cb25-420" aria-hidden="true" tabindex="-1"></a><span class="in">detach(pos = w("package:spatstat.data"))</span></span>
+<span id="cb25-421"><a href="#cb25-421" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/main/11-PointPattern.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
