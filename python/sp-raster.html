@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Spatial Data Science - Appendix A — Older R Spatial Packages</title>
+<title>Appendix A — Older R Spatial Packages – Spatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,10 +116,26 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-04YTZNEH1K"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+ 
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
+</script>
 
 
 </head>
@@ -123,12 +146,12 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sp-raster.html">Appendices</a></li><li class="breadcrumb-item"><a href="./sp-raster.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sp-raster.html">Appendices</a></li><li class="breadcrumb-item"><a href="./sp-raster.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -138,12 +161,12 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Data Science</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/edzer/sdsr/tree/python" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/edzer/sdsr/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -164,7 +187,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="./part-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -211,7 +234,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="./part-2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R for Spatial Data Science</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -240,7 +263,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="./part-3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Models for Spatial Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -297,9 +320,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,6 +341,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ERRATA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Errata to the printed ed.</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -327,7 +356,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -337,14 +366,14 @@ div.csl-indent {
   <li><a href="#sec-retire" id="toc-sec-retire" class="nav-link active" data-scroll-target="#sec-retire"><span class="header-section-number">A.1</span> Retiring <strong>rgdal</strong> and <strong>rgeos</strong></a></li>
   <li><a href="#links-and-differences-between-sf-and-sp" id="toc-links-and-differences-between-sf-and-sp" class="nav-link" data-scroll-target="#links-and-differences-between-sf-and-sp"><span class="header-section-number">A.2</span> Links and differences between sf and sp</a></li>
   <li><a href="#migration-code-and-packages" id="toc-migration-code-and-packages" class="nav-link" data-scroll-target="#migration-code-and-packages"><span class="header-section-number">A.3</span> Migration code and packages</a></li>
-  <li><a href="#package-raster-and-terra" id="toc-package-raster-and-terra" class="nav-link" data-scroll-target="#package-raster-and-terra"><span class="header-section-number">A.4</span> Package raster and terra</a></li>
+  <li><a href="#packages-raster-and-terra" id="toc-packages-raster-and-terra" class="nav-link" data-scroll-target="#packages-raster-and-terra"><span class="header-section-number">A.4</span> Packages raster and terra</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/edzer/sdsr/tree/python/edit/main/sp-raster.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/edzer/sdsr/edit/python/sp-raster.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sp-raster.html">Appendices</a></li><li class="breadcrumb-item"><a href="./sp-raster.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Older R Spatial Packages</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-older" class="quarto-section-identifier">Appendix A — Older R Spatial Packages</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
@@ -359,14 +388,16 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <section id="sec-retire" class="level2" data-number="A.1">
 <h2 data-number="A.1" class="anchored" data-anchor-id="sec-retire"><span class="header-section-number">A.1</span> Retiring <strong>rgdal</strong> and <strong>rgeos</strong></h2>
 <p> </p>
-<p>R users who have been around a bit longer, in particular before packages like <strong>sf</strong> and <strong>stars</strong> were developed, may be more familiar with older packages like <strong>maptools</strong>, <strong>sp</strong>, <strong>rgeos</strong>, and <strong>rgdal</strong>. A fair question is whether they should migrate existing code and/or existing R packages depending on these packages. The answer is: yes.</p>
-<p>Packages <strong>maptools</strong>, <strong>rgdal</strong>, and <strong>rgeos</strong> will retire during 2023. Retirement means that maintenance will halt, and that as a consequence the packages will be archived on CRAN. The source code repositories on R-Forge will remain as long as R-Forge does itself. One reason for retirement is that their maintainer has retired, a more important reason that their role has been superseded by the newer packages. We hold it most unlikely that a new maintainer will take over the R-Forge repositories, in part because much of the code of these packages has gradually evolved along with developments in the GEOS, GDAL, and PROJ libraries, and contains numerous constructs that are outdated and make it forbidding to read.</p>
-<p>Before <strong>rgeos</strong> and <strong>rgdal</strong> retire, existing ties that package <strong>sp</strong> has to <strong>rgdal</strong> and <strong>rgeos</strong> can and will be replaced by ties to package <strong>sf</strong>. This involves for example validation of coordinate reference system identifiers, and checking whether rings are holes or exterior rings. Chosen <strong>maptools</strong> functions may also be moved to <strong>sp</strong>.</p>
+<p>R users who have been around a bit longer, in particular before packages like <strong>sf</strong> and <strong>stars</strong> were developed, may be more familiar with older packages like <strong>maptools</strong>, <strong>sp</strong>, <strong>rgeos</strong>, and <strong>rgdal</strong>. These users need to migrate existing code and/or existing R packages depending on these packages.</p>
+<p>Packages <strong>maptools</strong>, <strong>rgdal</strong>, and <strong>rgeos</strong> retired in 2023. Retirement means that maintenance halts, and that as a consequence the packages has been archived on CRAN. The source code repositories on R-Forge will remain as long as R-Forge does itself. One reason for retirement is that their maintainer has retired, a more important reason that their role has been superseded by the newer packages. We have refrained from seeking new maintainers because much of the code of these packages has gradually evolved along with developments in the GEOS, GDAL, and PROJ libraries, and contains numerous constructs that are outdated and make it forbidding to read.</p>
+<p>With retirement of <strong>rgeos</strong> and <strong>rgdal</strong>, existing ties that package <strong>sp</strong> had to <strong>rgdal</strong> and <strong>rgeos</strong> has been replaced by ties to package <strong>sf</strong>. This involved for example validation of coordinate reference system identifiers, and checking whether rings are holes or exterior rings. Chosen <strong>maptools</strong> functions were also be moved to <strong>sp</strong>.</p>
 </section>
 <section id="links-and-differences-between-sf-and-sp" class="level2" data-number="A.2">
 <h2 data-number="A.2" class="anchored" data-anchor-id="links-and-differences-between-sf-and-sp"><span class="header-section-number">A.2</span> Links and differences between sf and sp</h2>
@@ -383,7 +414,7 @@ div.csl-indent {
 <p>There are some limitations to conversions like this:</p>
 <ul>
 <li><strong>sp</strong> does not distinguish between <code>LINESTRING</code> and <code>MULTILINESTRING</code> geometries, or between <code>POLYGON</code> or <code>MULTIPOLYGON</code>. For example, a <code>LINESTRING</code> will after conversion to <code>sp</code> come back as a <code>MULTILINESTRING</code></li>
-<li><strong>sp</strong> does not have a representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometry types <em>not</em> in the “big seven” (<a href="03-Geometries.html#sec-seven"><span>Section&nbsp;3.1.1</span></a>)</li>
+<li><strong>sp</strong> does not have a representation for <code>GEOMETRYCOLLECTION</code> geometries, or <code>sf</code> objects with geometry types <em>not</em> in the “big seven” (<a href="03-Geometries.html#sec-seven" class="quarto-xref"><span>Section 3.1.1</span></a>)</li>
 <li><code>sf</code> or <code>sfc</code> objects of geometry type <code>GEOMETRY</code>, with mixed geometry types, cannot be converted into <code>sp</code> objects</li>
 <li>attribute-geometry relationship attributes get lost when converting to <strong>sp</strong></li>
 <li><code>sf</code> objects with more than one geometry list-column will, when converting to <strong>sp</strong>, lose their secondary list-column(s).</li>
@@ -399,28 +430,18 @@ div.csl-indent {
 </div>
 <p>however possible arguments to <code>readOGR</code>, when used, would need more care. An effort by us is underway to convert all code of our earlier book <em>Applied Spatial Data Analysis with R</em> (with Virgilio Gómez-Rubio, <span class="citation" data-cites="asdar">Bivand, Pebesma, and Gómez-Rubio (<a href="references.html#ref-asdar" role="doc-biblioref">2013</a>)</span>) to run entirely without <strong>rgdal</strong>, <strong>rgeos</strong>, and <strong>maptools</strong> and where possible without <strong>sp</strong>. The scripts are found at <a href="https://github.com/rsbivand/sf_asdar2ed" class="uri">https://github.com/rsbivand/sf_asdar2ed</a>.</p>
 </section>
-<section id="package-raster-and-terra" class="level2" data-number="A.4">
-<h2 data-number="A.4" class="anchored" data-anchor-id="package-raster-and-terra"><span class="header-section-number">A.4</span> Package raster and terra</h2>
+<section id="packages-raster-and-terra" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="packages-raster-and-terra"><span class="header-section-number">A.4</span> Packages raster and terra</h2>
 <p> </p>
 <p>Package <strong>raster</strong> has been a workhorse package for analysing raster data with R since 2010, and has since grown into a package for “Geographic Data Analysis and Modeling” <span class="citation" data-cites="R-raster">(<a href="references.html#ref-R-raster" role="doc-biblioref">Hijmans 2023a</a>)</span>, indicating that it is used for all kinds of spatial data. The <strong>raster</strong> package uses <strong>sp</strong> objects for vector data, and <strong>terra</strong> to read and write data to formats served by the GDAL library. Its successor package <strong>terra</strong>, for “Spatial Data Analysis” <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2023b</a>)</span>, “is very similar to the <code>raster</code> package; but […] can do more, is easier to use, and […] is faster”. The <strong>terra</strong> package comes with its own classes for vector data, but accepts many <strong>sf</strong> objects, with similar restrictions as listed above for conversion to <strong>sp</strong>. Package <strong>terra</strong> has its own direct links to GDAL, GEOS, and PROJ, so, no longer needs other packages for that.</p>
 <p>Raster maps, or stacks of them from package <strong>raster</strong> or <strong>terra</strong> can be converted to <code>stars</code> objects using <code>st_as_stars()</code>. Package <strong>sf</strong> contains an <code>st_as_sf()</code> method for <code>SpatVector</code> objects from package <strong>terra</strong>.</p>
-<p>The online book <em>Spatial Data Science with R</em>, written by Robert Hijmans and found at <a href="https://rspatial.org/terra" class="uri">https://rspatial.org/terra</a> details the <strong>terra</strong> approach to spatial data analysis. Package <strong>sf</strong> and <strong>stars</strong> and several other r-spatial packages discussed in this book reside on the <code>r-spatial</code> GitHub organisation (note the hyphen between <code>r</code> and <code>spatial</code>, which is absent on Hijmans’ organisation), which has a blog site, with links to this book, found at <a href="https://r-spatial.org/book" class="uri">https://r-spatial.org/book</a>.</p>
+<p>The online book <em>Spatial Data Science with R and “terra”</em>, written by Robert Hijmans and found at <a href="https://rspatial.org/terra" class="uri">https://rspatial.org/terra</a> details the <strong>terra</strong> approach to spatial data analysis. Package <strong>sf</strong> and <strong>stars</strong> and several other r-spatial packages discussed in this book reside on the <code>r-spatial</code> GitHub organisation (note the hyphen between <code>r</code> and <code>spatial</code>, which is absent on Hijmans’ organisation), which has a blog site, with links to this book, found at <a href="https://r-spatial.org/book" class="uri">https://r-spatial.org/book</a>.</p>
 <p>Packages <strong>sf</strong> and <strong>stars</strong> on one hand and <strong>terra</strong> on the other have many goals in common, but try to reach them in slightly different ways, emphasising different aspects of data analysis, software engineering, and community management. Although this may confuse some users, we believe that these differences enrich the R package ecosystem, are beneficial to users, encourage diversity and choice, and hopefully work as an encouragement for others to continue trying out new ideas when using R for spatial data problems, and to help carrying the R spatial flag.</p>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-74430894-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-asdar" class="csl-entry" role="listitem">
 Bivand, Roger, Edzer Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with <span>R</span>, Second Edition</em>. Springer, NY. <a href="http://www.asdar-book.org/">http://www.asdar-book.org/</a>.
 </div>
@@ -469,18 +490,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -512,7 +522,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -564,10 +596,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/python\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -577,8 +626,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -590,7 +648,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -634,6 +815,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -659,6 +841,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -720,12 +928,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./17-Econometrics.html" class="pagination-link">
+      <a href="./17-Econometrics.html" class="pagination-link" aria-label="Spatial Econometrics Models">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spatial Econometrics Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rbasics.html" class="pagination-link">
+      <a href="./rbasics.html" class="pagination-link" aria-label="R Basics">
         <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -737,28 +945,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>\index{rgeos!retirement}</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>R users who have been around a bit longer, in particular before</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>packages like **sf** and **stars** were developed, may be more familiar</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>with older packages like **maptools**, **sp**, **rgeos**, and **rgdal**. A</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fair question is whether they should migrate existing code and/or</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>existing R packages depending on these packages.  The answer is: yes.</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>packages like **sf** and **stars** were developed, may be more</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>familiar with older packages like **maptools**, **sp**, **rgeos**,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>and **rgdal**. These users need to migrate existing code and/or</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>existing R packages depending on these packages.</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>Packages **maptools**, **rgdal**, and **rgeos** will retire during</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2023. </span>Retirement means that maintenance will halt, and that as a</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>consequence the packages will be archived on CRAN. The source code</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>Packages **maptools**, **rgdal**, and **rgeos** retired in</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2023. </span>Retirement means that maintenance halts, and that as a</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>consequence the packages has been archived on CRAN. The source code</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>repositories on R-Forge will remain as long as R-Forge does itself.</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>One reason for retirement is that their maintainer has retired,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>a more important reason that their role has been superseded by the newer packages.</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>We hold it most unlikely that a new maintainer will take over the </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>R-Forge repositories, in part because much of the code of these packages </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>has gradually evolved along with developments in the GEOS,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>GDAL, and PROJ libraries, and contains numerous constructs that</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>are outdated and make it forbidding to read.</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>a more important reason that their role has been superseded by the</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>newer packages. We have refrained from seeking new maintainers</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>because much of the code of these packages has gradually evolved</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>along with developments in the GEOS, GDAL, and PROJ libraries,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>and contains numerous constructs that are outdated and make it</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>forbidding to read.</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Before **rgeos** and **rgdal** retire, existing ties that package **sp**</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>has to **rgdal** and **rgeos** can and will be replaced by ties to</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>package **sf**. This involves for example validation of coordinate reference</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>With retirement of **rgeos** and **rgdal**, existing ties that package **sp**</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>had to **rgdal** and **rgeos** has been replaced by ties to</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>package **sf**. This involved for example validation of coordinate reference</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>system identifiers, and checking whether rings are holes or exterior</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>rings. Chosen **maptools** functions may also be moved to **sp**.</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>rings. Chosen **maptools** functions were also be moved to **sp**.</span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Links and differences between sf and sp</span></span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>\index{sp!differences from sf}</span>
@@ -776,12 +984,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>a list-column. Conversion from an <span class="in">`sf`</span> object <span class="in">`x`</span> to its **sp**</span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>equivalent is done by</span>
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">as</span>(x, <span class="st">"Spatial"</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="in">library(sp)</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="in">y = as(x, "Spatial")</span></span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>and the conversion the other way around is done by</span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">st_as_sf</span>(y)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="in">x0 = st_as_sf(y)</span></span>
 <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>There are some limitations to conversions like this:</span>
@@ -812,7 +1020,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>A simple approach to migrate code is when only <span class="in">`rgdal::readOGR`</span> is</span>
 <span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>used to read <span class="in">`file`</span>. As an alternative, one might use</span>
 <span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">as</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"file"</span>), <span class="st">"Spatial"</span>)</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="in">x = as(sf::read_sf("file"), "Spatial")</span></span>
 <span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>however possible arguments to <span class="in">`readOGR`</span>, when used, would need more</span>
 <span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>care.</span>
@@ -822,7 +1030,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>where possible without **sp**. The scripts are found at</span>
 <span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/rsbivand/sf_asdar2ed&gt;</span>.</span>
 <span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Package raster and terra</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Packages raster and terra</span></span>
 <span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>\index{raster}</span>
 <span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>\index{terra}</span>
 <span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
@@ -845,7 +1053,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>**sf** contains an <span class="in">`st_as_sf()`</span> method for <span class="in">`SpatVector`</span> objects</span>
 <span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>from package **terra**. </span>
 <span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>The online book _Spatial Data Science with R_, written by</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>The online book _Spatial Data Science with R and "terra"_, written by</span>
 <span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>Robert Hijmans and found at <span class="ot">&lt;https://rspatial.org/terra&gt;</span> details</span>
 <span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>the **terra** approach to spatial data analysis. Package **sf**</span>
 <span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>and **stars** and several other r-spatial packages discussed in</span>
@@ -862,12 +1070,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>R package ecosystem, are beneficial to users, encourage diversity</span>
 <span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>and choice, and hopefully work as an encouragement for others to</span>
 <span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>continue trying out new ideas when using R for spatial data problems,</span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>and to help carrying the R spatial flag.</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>{{&lt; include ga.qmd &gt;}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>and to help carrying the R spatial flag.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sdsr/edit/python/sp-raster.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

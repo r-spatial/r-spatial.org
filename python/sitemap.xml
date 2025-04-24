@@ -2,98 +2,102 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://r-spatial.org/python/index.html</loc>
-    <lastmod>2023-05-16T08:16:09.882Z</lastmod>
-  </url>
-  <url>
-    <loc>https://r-spatial.org/python/part-1.html</loc>
-    <lastmod>2023-05-16T08:16:09.886Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.617Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/01-hello.html</loc>
-    <lastmod>2023-05-16T08:16:09.962Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.537Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/02-Spaces.html</loc>
-    <lastmod>2023-05-16T08:16:10.038Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/03-Geometries.html</loc>
-    <lastmod>2023-05-16T08:16:10.138Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/04-Spherical.html</loc>
-    <lastmod>2023-05-16T08:16:10.166Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/05-Attributes.html</loc>
-    <lastmod>2023-05-16T08:16:10.198Z</lastmod>
+    <lastmod>2023-12-06T14:36:14.222Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/06-Cubes.html</loc>
-    <lastmod>2023-05-16T08:16:10.450Z</lastmod>
-  </url>
-  <url>
-    <loc>https://r-spatial.org/python/part-2.html</loc>
-    <lastmod>2023-05-16T08:16:10.454Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/07-Introsf.html</loc>
-    <lastmod>2023-05-16T08:16:10.630Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.539Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/08-Plotting.html</loc>
-    <lastmod>2023-05-16T08:16:10.678Z</lastmod>
+    <lastmod>2025-04-23T12:58:47.539Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/09-Large.html</loc>
-    <lastmod>2023-05-16T08:16:10.722Z</lastmod>
-  </url>
-  <url>
-    <loc>https://r-spatial.org/python/part-3.html</loc>
-    <lastmod>2023-05-16T08:16:10.730Z</lastmod>
+    <lastmod>2023-08-21T12:38:40.907Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/10-Models.html</loc>
-    <lastmod>2023-05-16T08:16:10.754Z</lastmod>
+    <lastmod>2023-12-06T14:36:14.222Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/11-PointPattern.html</loc>
-    <lastmod>2023-05-16T08:16:10.842Z</lastmod>
+    <lastmod>2024-06-27T13:48:33.033Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/12-Interpolation.html</loc>
-    <lastmod>2023-05-16T08:16:10.906Z</lastmod>
+    <lastmod>2025-04-24T06:47:45.954Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/13-Geostatistics.html</loc>
-    <lastmod>2023-05-16T08:16:10.942Z</lastmod>
+    <lastmod>2023-08-21T12:38:40.907Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/14-Areal.html</loc>
-    <lastmod>2023-05-16T08:16:11.010Z</lastmod>
+    <lastmod>2024-09-07T18:49:49.362Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/15-Measures.html</loc>
-    <lastmod>2023-05-16T08:16:11.098Z</lastmod>
+    <lastmod>2024-09-07T18:49:49.363Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/16-SpatialRegression.html</loc>
-    <lastmod>2023-05-16T08:16:11.146Z</lastmod>
+    <lastmod>2025-04-23T16:05:15.945Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/17-Econometrics.html</loc>
-    <lastmod>2023-05-16T08:16:11.194Z</lastmod>
+    <lastmod>2023-12-06T14:36:14.222Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/sp-raster.html</loc>
-    <lastmod>2023-05-16T08:16:11.202Z</lastmod>
+    <lastmod>2024-09-07T18:49:49.367Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/rbasics.html</loc>
-    <lastmod>2023-05-16T08:16:11.246Z</lastmod>
+    <lastmod>2024-06-27T13:48:33.033Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-spatial.org/python/ERRATA.html</loc>
+    <lastmod>2023-06-16T18:52:07.000Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/references.html</loc>
-    <lastmod>2023-05-16T08:16:11.262Z</lastmod>
+    <lastmod>2023-05-22T16:17:06.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-spatial.org/python/part-2.html</loc>
+    <lastmod>2023-05-22T16:17:06.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-spatial.org/python/part-3.html</loc>
+    <lastmod>2023-12-06T14:36:14.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-spatial.org/python/part-1.html</loc>
+    <lastmod>2023-05-22T16:17:06.000Z</lastmod>
   </url>
 </urlset>
