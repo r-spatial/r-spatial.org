@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://r-spatial.org/python/index.html</loc>
-    <lastmod>2025-04-23T12:58:47.617Z</lastmod>
+    <lastmod>2025-08-11T20:27:16.307Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/01-hello.html</loc>
-    <lastmod>2025-04-23T12:58:47.537Z</lastmod>
+    <lastmod>2025-08-13T14:34:41.478Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/02-Spaces.html</loc>
-    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
+    <lastmod>2025-08-11T20:27:16.208Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/03-Geometries.html</loc>
-    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
+    <lastmod>2025-08-11T20:27:16.209Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/04-Spherical.html</loc>
-    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
+    <lastmod>2025-08-11T20:27:16.209Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/05-Attributes.html</loc>
@@ -26,15 +26,15 @@
   </url>
   <url>
     <loc>https://r-spatial.org/python/06-Cubes.html</loc>
-    <lastmod>2025-04-23T12:58:47.538Z</lastmod>
+    <lastmod>2025-08-13T14:35:31.534Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/07-Introsf.html</loc>
-    <lastmod>2025-04-23T12:58:47.539Z</lastmod>
+    <lastmod>2025-08-29T15:49:42.795Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/08-Plotting.html</loc>
-    <lastmod>2025-04-23T12:58:47.539Z</lastmod>
+    <lastmod>2025-08-13T14:35:31.535Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/09-Large.html</loc>
@@ -46,11 +46,11 @@
   </url>
   <url>
     <loc>https://r-spatial.org/python/11-PointPattern.html</loc>
-    <lastmod>2024-06-27T13:48:33.033Z</lastmod>
+    <lastmod>2025-08-11T20:27:16.212Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/12-Interpolation.html</loc>
-    <lastmod>2025-04-24T06:47:45.954Z</lastmod>
+    <lastmod>2025-08-29T12:42:26.608Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/13-Geostatistics.html</loc>
@@ -62,11 +62,11 @@
   </url>
   <url>
     <loc>https://r-spatial.org/python/15-Measures.html</loc>
-    <lastmod>2024-09-07T18:49:49.363Z</lastmod>
+    <lastmod>2025-08-13T14:35:31.535Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/16-SpatialRegression.html</loc>
-    <lastmod>2025-04-23T16:05:15.945Z</lastmod>
+    <lastmod>2025-08-13T14:35:31.535Z</lastmod>
   </url>
   <url>
     <loc>https://r-spatial.org/python/17-Econometrics.html</loc>
