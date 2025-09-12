@@ -683,12 +683,13 @@ Figure&nbsp;8.2: Germany in equirectangular projection: with axis units degrees 
 <span><span class="op">(</span><span class="va">cI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/classInt/reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># style: quantile</span></span>
 <span><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span><span class="co">#  [-1.63,-0.974) [-0.974,-0.585) [-0.585,-0.252) [-0.252,-0.014) </span></span>
-<span><span class="co">#              13              12              13              12 </span></span>
-<span><span class="co">#  [-0.014,0.281)   [0.281,0.533)   [0.533,0.948)    [0.948,2.12] </span></span>
-<span><span class="co">#              12              13              12              13</span></span>
+<span><span class="co">#   [-2.19,-0.952)  [-0.952,-0.464) [-0.464,-0.0851)  [-0.0851,0.261) </span></span>
+<span><span class="co">#               13               12               13               12 </span></span>
+<span><span class="co">#    [0.261,0.657)      [0.657,1.1)       [1.1,1.53)      [1.53,2.48] </span></span>
+<span><span class="co">#               12               13               12               13</span></span>
 <span><span class="va">cI</span><span class="op">$</span><span class="va">brks</span></span>
-<span><span class="co"># [1] -1.631 -0.974 -0.585 -0.252 -0.014  0.281  0.533  0.948  2.116</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># [1] -2.1916 -0.9518 -0.4644 -0.0851  0.2613  0.6566  1.1013  1.5289</span></span>
+<span><span class="co"># [9]  2.4761</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
@@ -750,6 +751,7 @@ Figure&nbsp;8.3: Annotating base plots with a legend
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
 <span><span class="co"># Loading required package: abind</span></span>
+<span><span class="co"># No methods found in package 'CFtime' for request: 'range' when loading 'stars'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"tif/L7_ETMs.tif"</span>, package <span class="op">=</span> <span class="st">"stars"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">r</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

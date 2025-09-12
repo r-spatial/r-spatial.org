@@ -474,14 +474,16 @@ window.Quarto = {
 <span>    user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"DB_USERNAME"</span><span class="op">)</span>,</span>
 <span>    dbname <span class="op">=</span> <span class="st">"postgis"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="va">pg</span>, query <span class="op">=</span> </span>
-<span>        <span class="st">"select BIR74,wkb_geometry from nc limit 3"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>        <span class="st">"select BIR74,wkb_geometry from nc limit 3"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>where the database host and user name are obtained from environment variables, and the database name is <code>postgis</code>.</p>
 <p>A spatial query might look like</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="st">"SELECT BIR74,wkb_geometry FROM nc WHERE \</span></span>
 <span><span class="st">ST_Intersects(wkb_geometry, 'SRID=4267;POINT (-81.50 36.43)');"</span></span>
-<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="va">pg</span>, query <span class="op">=</span> <span class="va">q</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="va">pg</span>, query <span class="op">=</span> <span class="va">q</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, the intersection is carried out inside the database, and uses a spatial index when present. The same mechanism works when using <code>dplyr</code> with a database backend:</p>
 <p></p>
@@ -495,7 +497,24 @@ window.Quarto = {
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">ST_Intersects</span><span class="op">(</span><span class="va">wkb_geometry</span>, </span>
 <span>                        <span class="st">'SRID=4267;POINT (-81.50 36.43)'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">nc_db</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">ST_Area</span><span class="op">(</span><span class="va">wkb_geometry</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># # A tibble: 1 × 16</span></span>
+<span><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name  fips  fipsno cress_id</span></span>
+<span><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;    &lt;int&gt;</span></span>
+<span><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe  37009  37009        5</span></span>
+<span><span class="co"># # ℹ 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;, nwbir74 &lt;dbl&gt;,</span></span>
+<span><span class="co"># #   bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
+<span><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;</span></span>
+<span><span class="va">nc_db</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">ST_Area</span><span class="op">(</span><span class="va">wkb_geometry</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co"># # Source:   SQL [?? x 16]</span></span>
+<span><span class="co"># # Database: postgres  [edzer@localhost:5432/postgis]</span></span>
+<span><span class="co">#   ogc_fid  area perimeter cnty_ cnty_id name   fips  fipsno cress_id</span></span>
+<span><span class="co">#     &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;    &lt;int&gt;</span></span>
+<span><span class="co"># 1       1 0.114      1.44  1825    1825 Ashe   37009  37009        5</span></span>
+<span><span class="co"># 2       3 0.143      1.63  1828    1828 Surry  37171  37171       86</span></span>
+<span><span class="co"># 3       5 0.153      2.21  1832    1832 North… 37131  37131       66</span></span>
+<span><span class="co"># # ℹ 7 more variables: bir74 &lt;dbl&gt;, sid74 &lt;dbl&gt;, nwbir74 &lt;dbl&gt;,</span></span>
+<span><span class="co"># #   bir79 &lt;dbl&gt;, sid79 &lt;dbl&gt;, nwbir79 &lt;dbl&gt;,</span></span>
+<span><span class="co"># #   wkb_geometry &lt;pq_gmtry&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(Note that PostGIS’ <code>ST_Area</code> computes the same area as the <code>AREA</code> field in <code>nc</code>, which is the meaningless value obtained by interpreting the coordinates as projected, where they are ellipsoidal.)</p>
 </section><section id="sec-vsi" class="level3"><h3 class="anchored" data-anchor-id="sec-vsi">Reading from online resources or web services</h3>
@@ -575,6 +594,7 @@ Figure&nbsp;9.1: OpenStreetMap vector data
 <p>We can “load” a Sentinel-2 image from it by</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># No methods found in package 'CFtime' for request: 'range' when loading 'stars'</span></span>
 <span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206"</span>,</span>
 <span>           <span class="st">"_R051_T32ULE_20180221T134037.zip"</span><span class="op">)</span></span>
 <span><span class="va">granule</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">f</span>, package <span class="op">=</span> <span class="st">"starsdata"</span><span class="op">)</span></span>
@@ -645,14 +665,15 @@ Figure&nbsp;9.2: Downsampled 10 m bands of a Sentinel-2 scene
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"stars_proxy"</span><span class="op">)</span></span>
 <span><span class="co">#  [1] [               [[&lt;-            [&lt;-             adrop          </span></span>
 <span><span class="co">#  [5] aggregate       aperm           as.data.frame   c              </span></span>
-<span><span class="co">#  [9] coerce          dim             droplevels      hist           </span></span>
-<span><span class="co"># [13] image           initialize      is.na           Math           </span></span>
-<span><span class="co"># [17] merge           Ops             plot            prcomp         </span></span>
-<span><span class="co"># [21] predict         print           show            slotsFromS3    </span></span>
-<span><span class="co"># [25] split           st_apply        st_as_sf        st_as_stars    </span></span>
-<span><span class="co"># [29] st_crop         st_dimensions&lt;- st_downsample   st_mosaic      </span></span>
-<span><span class="co"># [33] st_normalize    st_redimension  st_sample       st_set_bbox    </span></span>
-<span><span class="co"># [37] write_stars    </span></span>
+<span><span class="co">#  [9] coerce          dim             droplevels      filter         </span></span>
+<span><span class="co"># [13] hist            image           initialize      is.na          </span></span>
+<span><span class="co"># [17] Math            merge           mutate          Ops            </span></span>
+<span><span class="co"># [21] plot            prcomp          predict         print          </span></span>
+<span><span class="co"># [25] pull            rename          select          show           </span></span>
+<span><span class="co"># [29] slice           slotsFromS3     split           st_apply       </span></span>
+<span><span class="co"># [33] st_as_sf        st_as_stars     st_crop         st_dimensions&lt;-</span></span>
+<span><span class="co"># [37] st_downsample   st_mosaic       st_normalize    st_redimension </span></span>
+<span><span class="co"># [41] st_sample       st_set_bbox     transmute       write_stars    </span></span>
 <span><span class="co"># see '?methods' for accessing help and source code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We have seen <code>plot</code> and <code>print</code> in action; <code>dim</code> reads out the dimension from the dimensions metadata table.</p>
