@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>2&nbsp; Coordinates – Spatial Data Science</title>
 <style>
@@ -18,8 +18,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -82,15 +83,17 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./03-Geometries.html" rel="next">
 <link href="./01-hello.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-ebf5fc6056d39c43b0363bdccaddf56c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -138,7 +141,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -154,7 +157,7 @@ window.Quarto = {
 };
 </script>
 </head>
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
@@ -414,7 +417,7 @@ window.Quarto = {
 </section><section id="ellipsoidal-coordinates" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="ellipsoidal-coordinates">
 <span class="header-section-number">2.2</span> Ellipsoidal coordinates</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, pos <span class="op">=</span> <span class="fl">0</span>, at <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">2</span>, pos <span class="op">=</span> <span class="fl">0</span>, at <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
@@ -429,7 +432,7 @@ window.Quarto = {
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3.3</span>, <span class="fl">0.3</span>, label <span class="op">=</span> <span class="st">"x"</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">4.3</span>, label <span class="op">=</span> <span class="st">"y"</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">4.3</span>, label <span class="op">=</span> <span class="st">"y"</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-polar" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -455,7 +458,7 @@ Figure&nbsp;2.1: Two-dimensional polar (red) and Cartesian (blue) coordinates
 </ul>
 <p><a href="#fig-sphere" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> illustrates Cartesian geocentric and ellipsoidal coordinates.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="op">-</span><span class="fl">90</span><span class="op">:</span><span class="fl">90</span>,<span class="fl">0</span><span class="op">)</span> <span class="co"># equator</span></span>
 <span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">90</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span> <span class="co"># 0/antimerid.</span></span>
 <span><span class="va">f2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">90</span>, <span class="op">-</span><span class="fl">90</span><span class="op">:</span><span class="fl">90</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">270</span>, <span class="fl">90</span><span class="op">:</span><span class="op">-</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span><span class="co"># +/- 90</span></span>
@@ -556,7 +559,7 @@ Figure&nbsp;2.1: Two-dimensional polar (red) and Cartesian (blue) coordinates
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">circ</span>, col <span class="op">=</span> <span class="st">'blue'</span>, lwd <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">100000</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">+</span><span class="fl">50000</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">phi</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="co"># lat</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">20000</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fl">50000</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="co"># lng</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">20000</span>, <span class="va">pt</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fl">50000</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="co"># lng</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-sphere" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sphere-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -572,16 +575,16 @@ Figure&nbsp;2.2: Cartesian geocentric coordinates (left) measure three distances
 <div style="page-break-after: always;"></div>
 <p>It should be noted that this is just <em>a</em> definition, one could for instance also choose to measure polar angle, the angle between the vector and <span class="math inline">\(z\)</span>, instead of latitude. There is also a long tradition of specifying points as <span class="math inline">\((\phi,\lambda)\)</span> but throughout this book we will stick to longitude-latitude, <span class="math inline">\((\lambda,\phi)\)</span>. The point denoted in <a href="#fig-sphere" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> has <span class="math inline">\((\lambda,\phi)\)</span> or ellipsoidal coordinates with angular values</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"POINT(60 47)"</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span></span>
-<span><span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"POINT(60 47)"</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stderr">
 <pre><code># POINT (60 47)</code></pre>
 </div>
 </div>
 <p>measured in degrees, and geocentric coordinates</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"POINT(60 47)"</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=geocent"</span><span class="op">)</span></span>
-<span><span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"POINT(60 47)"</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=geocent"</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stderr">
 <pre><code># POINT Z (2178844 3773868 4641765)</code></pre>
 </div>
@@ -590,7 +593,7 @@ Figure&nbsp;2.2: Cartesian geocentric coordinates (left) measure three distances
 <p></p>
 <p>For points on an ellipse, there are two ways in which angle can be expressed (<a href="#fig-ellipse" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>): measured from the centre of the ellipse (<span class="math inline">\(\psi\)</span>), or measured perpendicular to the tangent on the ellipse at the target point (<span class="math inline">\(\phi\)</span>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">/</span><span class="fl">8</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">48</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">8</span>,<span class="fl">8</span><span class="op">)</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -607,7 +610,7 @@ Figure&nbsp;2.2: Cartesian geocentric coordinates (left) measure three distances
 <span><span class="va">x0</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">-</span> <span class="va">y</span> <span class="op">/</span> <span class="va">b</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html">arrows</a></span><span class="op">(</span><span class="va">x0</span>, <span class="fl">0</span>, <span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'blue'</span>, length <span class="op">=</span> <span class="fl">.15</span>, angle <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">0.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"psi"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"phi"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.5</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"phi"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-ellipse" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ellipse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -641,7 +644,7 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <p></p>
 <p>To show that these distance measures actually give different values, we computed them for the distance Berlin - Paris. Here, <code>gc_</code> refers to ellipsoidal and spherical great circle distances, <code>str_</code> refers to straight line, Euclidean distances between Cartesian geocentric coordinates associated on the WGS84 ellipse and sphere:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13.4050</span>, <span class="fl">52.5200</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3522</span>, <span class="fl">48.8566</span><span class="op">)</span><span class="op">)</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13.4050</span>, <span class="fl">52.5200</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3522</span>, <span class="fl">48.8566</span><span class="op">)</span><span class="op">)</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span></span>
 <span><span class="va">s2_orig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>gc_ellipse <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance</a></span><span class="op">(</span><span class="va">pts</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -654,7 +657,7 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">d1</span>, <span class="va">d3</span>, <span class="va">d2</span>, <span class="va">d4</span><span class="op">)</span> <span class="co"># note order</span></span>
 <span><span class="co"># print as km, re-add names:</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/s2.html">sf_use_s2</a></span><span class="op">(</span><span class="va">s2_orig</span><span class="op">)</span> <span class="co"># back to what it was before changing</span></span>
-<span><span class="va">res</span> <span class="op">|&gt;</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html">set_units</a></span><span class="op">(</span><span class="va">km</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">res</span> <span class="op">|&gt;</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html">set_units</a></span><span class="op">(</span><span class="va">km</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code># Units: [km]
 #  gc_ellipse str_ellipse   gc_sphere  str_sphere 
@@ -715,13 +718,13 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <p></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Python</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearth/">rnaturalearth</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">countries110</span> <span class="op">|&gt;</span> </span>
@@ -737,7 +740,7 @@ Figure&nbsp;2.3: Angles on an ellipse: geodetic (blue) and geocentric (red) lati
 <span><span class="va">hook</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">uk</span>, border <span class="op">=</span> <span class="st">"orange"</span>, col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, hook <span class="op">=</span> <span class="va">hook</span>, key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">[</span>,,,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, hook <span class="op">=</span> <span class="va">hook</span>, key.pos <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-horizontalgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-horizontalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -752,7 +755,7 @@ Figure&nbsp;2.4: UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to d
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path</span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.plot <span class="im">as</span> rioplot</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -792,8 +795,8 @@ Figure&nbsp;2.4: UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to d
 <span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="va">True</span>)</span>
 <span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co"># (np.float64(-9.008333333333333), np.float64(2.008333333333333), np.float64(48.99583333333334), np.float64(61.00416666666667))</span></span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x705bd431cd70&gt;</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x78aad1a12000&gt;</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="02-Spaces_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -806,20 +809,20 @@ Figure&nbsp;2.4: UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to d
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Python</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">filename</span> <span class="op">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">filename</span> <span class="op">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
 <span><span class="va">h</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">h</span>, axes <span class="op">=</span> <span class="cn">TRUE</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">uk</span>, border <span class="op">=</span> <span class="st">"orange"</span>, col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">uk</span>, border <span class="op">=</span> <span class="st">"orange"</span>, col <span class="op">=</span> <span class="cn">NA</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-verticalgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-verticalgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -834,7 +837,7 @@ Figure&nbsp;2.5: UK vertical datum grid, from ETRS89 (EPSG:4937) to ODN height (
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path</span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.plot <span class="im">as</span> rioplot</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -866,8 +869,8 @@ Figure&nbsp;2.5: UK vertical datum grid, from ETRS89 (EPSG:4937) to ODN height (
 <span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="va">True</span>)</span>
 <span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># (np.float64(-9.400175143506939), np.float64(3.5566845254796124), np.float64(49.76315756569858), np.float64(61.13587920351422))</span></span>
 <span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x705bd437b7a0&gt;</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x78aad1aac380&gt;</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="02-Spaces_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -963,290 +966,294 @@ Lott, Roger. 2015. <span>“Geographic Information-Well-Known Text Representatio
 </div>
 </div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/r-spatial\.org\/python\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
           } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
         }
-        return container.innerHTML
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/r-spatial\.org\/python\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1254,185 +1261,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./01-hello.html" class="pagination-link" aria-label="Getting Started">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span>
       </a>          
@@ -1443,7 +1426,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Coordinates {#sec-cs}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Coordinates {#sec-cs}</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>"_Data are not just numbers, they are numbers with a context_";</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>"_In data analysis, context provides meaning_"  <span class="co">[</span><span class="ot">@cobbmoore</span><span class="co">]</span></span>
@@ -1520,25 +1503,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ellipsoidal coordinates</span></span>
 <span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-polar, echo=!knitr::is_latex_output() }</span></span>
-<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 60%</span></span>
-<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Two-dimensional polar (red) and Cartesian (blue) coordinates"</span></span>
-<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(0,4))</span></span>
-<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a><span class="in">plot(3, 4, xlim = c(-6,6), ylim = c(-6,6), asp = 1)</span></span>
-<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="in">axis(1, pos = 0, at = 0:6)</span></span>
-<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="in">axis(2, pos = 0, at = -6:6)</span></span>
-<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="in">xd &lt;- seq(-5, 5, by = .1)</span></span>
-<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="in">lines(xd, sqrt(25 - xd^2), col = 'grey')</span></span>
-<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="in">lines(xd, -sqrt(25 - xd^2), col = 'grey')</span></span>
-<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(0, 0, 3, 4, col = 'red', length = .15, angle = 20)</span></span>
-<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="in">text(1.5, 2.7, label = "r", col = 'red')</span></span>
-<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="in">xd &lt;- seq(3/5, 1, by = .1)</span></span>
-<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="in">lines(xd, sqrt(1 - xd^2), col = 'red')</span></span>
-<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="in">text(1.2, 0.5, label = parse(text = "phi"), col = 'red')</span></span>
-<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="in">lines(c(3,3), c(0,4), lty = 2, col = 'blue')</span></span>
-<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="in">lines(c(0,3), c(4,4), lty = 2, col = 'blue')</span></span>
-<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="in">text(3.3, 0.3, label = "x", col = 'blue')</span></span>
-<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="in">text(0.3, 4.3, label = "y", col = 'blue')</span></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 60%</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Two-dimensional polar (red) and Cartesian (blue) coordinates"</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">6</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="fu">sqrt</span>(<span class="dv">25</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">25</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">2.7</span>, <span class="at">label =</span> <span class="st">"r"</span>, <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">3</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">1</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">3.3</span>, <span class="fl">0.3</span>, <span class="at">label =</span> <span class="st">"x"</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.3</span>, <span class="fl">4.3</span>, <span class="at">label =</span> <span class="st">"y"</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span>
 <span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a>@fig-polar  shows both polar and Cartesian coordinates</span>
@@ -1573,110 +1556,110 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a>ellipsoidal coordinates.</span>
 <span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-sphere, echo=!knitr::is_latex_output()}</span></span>
-<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Cartesian geocentric coordinates (left) measure three distances, ellipsoidal coordinates (right) measure two angles, and possibly an ellipsoidal height"</span></span>
-<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="in">library(sf) |&gt; suppressPackageStartupMessages()</span></span>
-<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a><span class="in">e &lt;- cbind(-90:90,0) # equator</span></span>
-<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a><span class="in">f1 &lt;- rbind(cbind(0, -90:90)) # 0/antimerid.</span></span>
-<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a><span class="in">f2 &lt;- rbind(cbind(90, -90:90), cbind(270, 90:-90))# +/- 90</span></span>
-<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="in">eq &lt;- st_sfc(st_linestring(e), st_linestring(f1), st_linestring(f2), crs='OGC:CRS84')</span></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Cartesian geocentric coordinates (left) measure three distances, ellipsoidal coordinates (right) measure two angles, and possibly an ellipsoidal height"</span></span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>,<span class="dv">0</span>) <span class="co"># equator</span></span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>)) <span class="co"># 0/antimerid.</span></span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">90</span>, <span class="sc">-</span><span class="dv">90</span><span class="sc">:</span><span class="dv">90</span>), <span class="fu">cbind</span>(<span class="dv">270</span>, <span class="dv">90</span><span class="sc">:-</span><span class="dv">90</span>))<span class="co"># +/- 90</span></span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_linestring</span>(e), <span class="fu">st_linestring</span>(f1), <span class="fu">st_linestring</span>(f2), <span class="at">crs=</span><span class="st">'OGC:CRS84'</span>)</span>
 <span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="in">geoc &lt;- st_transform(eq, "+proj=geocent")</span></span>
-<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="in">cc &lt;- rbind(geoc[[1]], NA, geoc[[2]], NA, geoc[[3]])</span></span>
-<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="in">from3d &lt;- function(x, offset, maxz, minz) {</span></span>
-<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="in">    x = x[,c(2,3,1)] + offset # move to y right, x up, z backw</span></span>
-<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="in">    x[,2] = x[,2] - maxz      # shift y to left</span></span>
-<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="in">    d = maxz</span></span>
-<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a><span class="in">    z = x[,3] - minz + offset</span></span>
-<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a><span class="in">    x[,1] = x[,1] * (d/z)</span></span>
-<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="in">    x[,2] = x[,2] * (d/z)</span></span>
-<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a><span class="in">    x[,1:2]</span></span>
-<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a><span class="in">maxz &lt;- max(cc[,3], na.rm = TRUE)</span></span>
-<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a><span class="in">minz &lt;- min(cc[,3], na.rm = TRUE)</span></span>
-<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a><span class="in">offset &lt;- 3e7</span></span>
-<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a><span class="in">circ &lt;- from3d(cc, offset, maxz, minz)</span></span>
-<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="in">mx &lt;- max(cc, na.rm = TRUE) * 1.1</span></span>
-<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rbind(c(0, 0, 0), c(mx, 0, 0))</span></span>
-<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- rbind(c(0, 0, 0), c(0, mx, 0))</span></span>
-<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rbind(c(0, 0, 0), c(0, 0, mx))</span></span>
-<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a><span class="in">ll &lt;- rbind(x, NA, y, NA, z)</span></span>
-<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a><span class="in">l0 &lt;-  from3d(ll, offset, maxz, minz)</span></span>
-<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a><span class="in">mx &lt;- max(cc, na.rm = TRUE) * 1.2</span></span>
-<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rbind(c(0, 0, 0), c(mx, 0, 0))</span></span>
-<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- rbind(c(0, 0, 0), c(0, mx, 0))</span></span>
-<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rbind(c(0, 0, 0), c(0, 0, mx))</span></span>
-<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a><span class="in">ll &lt;- rbind(x, NA, y, NA, z)</span></span>
-<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a><span class="in">l &lt;-  from3d(ll, offset, maxz, minz)</span></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a>geoc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(eq, <span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(geoc[[<span class="dv">1</span>]], <span class="cn">NA</span>, geoc[[<span class="dv">2</span>]], <span class="cn">NA</span>, geoc[[<span class="dv">3</span>]])</span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a>from3d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, offset, maxz, minz) {</span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> x[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>)] <span class="sc">+</span> offset <span class="co"># move to y right, x up, z backw</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a>    x[,<span class="dv">2</span>] <span class="ot">=</span> x[,<span class="dv">2</span>] <span class="sc">-</span> maxz      <span class="co"># shift y to left</span></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">=</span> maxz</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">=</span> x[,<span class="dv">3</span>] <span class="sc">-</span> minz <span class="sc">+</span> offset</span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a>    x[,<span class="dv">1</span>] <span class="ot">=</span> x[,<span class="dv">1</span>] <span class="sc">*</span> (d<span class="sc">/</span>z)</span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a>    x[,<span class="dv">2</span>] <span class="ot">=</span> x[,<span class="dv">2</span>] <span class="sc">*</span> (d<span class="sc">/</span>z)</span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a>    x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a>maxz <span class="ot">&lt;-</span> <span class="fu">max</span>(cc[,<span class="dv">3</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a>minz <span class="ot">&lt;-</span> <span class="fu">min</span>(cc[,<span class="dv">3</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a>offset <span class="ot">&lt;-</span> <span class="fl">3e7</span></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a>circ <span class="ot">&lt;-</span> <span class="fu">from3d</span>(cc, offset, maxz, minz)</span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> <span class="fu">max</span>(cc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="fl">1.1</span></span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(mx, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, mx, <span class="dv">0</span>))</span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, mx))</span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x, <span class="cn">NA</span>, y, <span class="cn">NA</span>, z)</span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a>l0 <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(ll, offset, maxz, minz)</span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a>mx <span class="ot">&lt;-</span> <span class="fu">max</span>(cc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="fl">1.2</span></span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(mx, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, mx, <span class="dv">0</span>))</span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, mx))</span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x, <span class="cn">NA</span>, y, <span class="cn">NA</span>, z)</span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(ll, offset, maxz, minz)</span>
 <span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 2))</span></span>
-<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(0,4))</span></span>
-<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="in">plot.new()</span></span>
-<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="in">plot.window(xlim = c(min(circ[,1],na.rm = TRUE), 3607103*1.02), </span></span>
-<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="in">                        ylim = c(min(circ[,2],na.rm = TRUE), 2873898*1.1), asp = 1)</span></span>
-<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="in">lines(circ)</span></span>
-<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="in">lines(l0)</span></span>
-<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a><span class="in">text(l[c(2,5,8),], labels = c("x", "y", "z"), col = 'red')</span></span>
-<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a><span class="in"># add POINT(60 47)</span></span>
-<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- st_as_sfc("POINT(60 47)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- p[[1]]</span></span>
-<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p[1],0,0), c(p[1],p[2],0), c(p[1],p[2],p[2]))</span></span>
-<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a><span class="in">ptsl &lt;- from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a><span class="in">lines(ptsl, col = 'blue', lty = 2, lwd = 2)</span></span>
-<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="in">points(ptsl[4,1], ptsl[4,2], col = 'blue', cex = 1, pch = 16)</span></span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(circ[,<span class="dv">1</span>],<span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3607103</span><span class="sc">*</span><span class="fl">1.02</span>), </span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fu">min</span>(circ[,<span class="dv">2</span>],<span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2873898</span><span class="sc">*</span><span class="fl">1.1</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(circ)</span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(l0)</span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(l[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span>),], <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a><span class="co"># add POINT(60 47)</span></span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p[<span class="dv">1</span>],<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p[<span class="dv">1</span>],p[<span class="dv">2</span>],<span class="dv">0</span>), <span class="fu">c</span>(p[<span class="dv">1</span>],p[<span class="dv">2</span>],p[<span class="dv">2</span>]))</span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a>ptsl <span class="ot">&lt;-</span> <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(ptsl, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(ptsl[<span class="dv">4</span>,<span class="dv">1</span>], ptsl[<span class="dv">4</span>,<span class="dv">2</span>], <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a><span class="in">plot.new()</span></span>
-<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a><span class="in">plot.window(xlim = c(min(circ[,1],na.rm = TRUE), 3607103*1.02), </span></span>
-<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a><span class="in">                        ylim = c(min(circ[,2],na.rm = TRUE), 2873898*1.1), asp = 1)</span></span>
-<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a><span class="in">lines(circ)</span></span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(circ[,<span class="dv">1</span>],<span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3607103</span><span class="sc">*</span><span class="fl">1.02</span>), </span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fu">min</span>(circ[,<span class="dv">2</span>],<span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2873898</span><span class="sc">*</span><span class="fl">1.1</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(circ)</span>
 <span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- st_as_sfc("POINT(60 47)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- p[[1]]</span></span>
-<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p[1],p[2],p[3]))</span></span>
-<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a><span class="in">pt &lt;-  from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a><span class="in">lines(pt)</span></span>
-<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="in">points(pt[2,1], pt[2,2], col = 'blue', cex = 1, pch = 16)</span></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p[[<span class="dv">1</span>]]</span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p[<span class="dv">1</span>],p[<span class="dv">2</span>],p[<span class="dv">3</span>]))</span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a>pt <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pt)</span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pt[<span class="dv">2</span>,<span class="dv">1</span>], pt[<span class="dv">2</span>,<span class="dv">2</span>], <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- st_as_sfc("POINT(60 0)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- p0[[1]]</span></span>
-<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p0[1],p0[2],p0[3]))</span></span>
-<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a><span class="in">pt &lt;-  from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a><span class="in">lines(pt)</span></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 0)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> p0[[<span class="dv">1</span>]]</span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p0[<span class="dv">1</span>],p0[<span class="dv">2</span>],p0[<span class="dv">3</span>]))</span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a>pt <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pt)</span>
 <span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- st_as_sfc("POINT(0 0)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- p0[[1]]</span></span>
-<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p0[1],p0[2],p0[3]))</span></span>
-<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a><span class="in">pt &lt;-  from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="in">lines(pt)</span></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(0 0)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> p0[[<span class="dv">1</span>]]</span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p0[<span class="dv">1</span>],p0[<span class="dv">2</span>],p0[<span class="dv">3</span>]))</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a>pt <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pt)</span>
 <span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- st_as_sfc("POINT(0 90)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- p0[[1]]</span></span>
-<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p0[1],p0[2],p0[3]))</span></span>
-<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a><span class="in">pt &lt;-  from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a><span class="in">lines(pt, lty = 2)</span></span>
+<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(0 90)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> p0[[<span class="dv">1</span>]]</span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p0[<span class="dv">1</span>],p0[<span class="dv">2</span>],p0[<span class="dv">3</span>]))</span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a>pt <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pt, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- st_as_sfc("POINT(90 0)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a><span class="in">p0 &lt;- p0[[1]]</span></span>
-<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- rbind(c(0,0,0), c(p0[1],p0[2],p0[3]))</span></span>
-<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a><span class="in">pt &lt;-  from3d(pts, offset, maxz, minz)</span></span>
-<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="in">lines(pt, lty = 2)</span></span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(90 0)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> p0[[<span class="dv">1</span>]]</span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">c</span>(p0[<span class="dv">1</span>],p0[<span class="dv">2</span>],p0[<span class="dv">3</span>]))</span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a>pt <span class="ot">&lt;-</span>  <span class="fu">from3d</span>(pts, offset, maxz, minz)</span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pt, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a><span class="in">f1 &lt;- rbind(cbind(0:60, 0))</span></span>
-<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a><span class="in">arc &lt;- st_sfc(st_linestring(f1), crs='OGC:CRS84')</span></span>
-<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a><span class="in">geoc &lt;- st_transform(arc, "+proj=geocent")</span></span>
-<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a><span class="in">cc &lt;- rbind(geoc[[1]])</span></span>
-<span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a><span class="in">circ &lt;- from3d(cc, offset, maxz, minz)</span></span>
-<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="in">lines(circ, col = 'red', lwd = 2, lty = 2)</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">0</span>))</span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a>arc <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_linestring</span>(f1), <span class="at">crs=</span><span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a>geoc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(arc, <span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(geoc[[<span class="dv">1</span>]])</span>
+<span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a>circ <span class="ot">&lt;-</span> <span class="fu">from3d</span>(cc, offset, maxz, minz)</span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(circ, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="in">f1 &lt;- rbind(cbind(60, 0:47))</span></span>
-<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a><span class="in">arc &lt;- st_sfc(st_linestring(f1), crs='OGC:CRS84')</span></span>
-<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="in">geoc &lt;- st_transform(arc, "+proj=geocent")</span></span>
-<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a><span class="in">cc &lt;- rbind(geoc[[1]])</span></span>
-<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a><span class="in">circ &lt;- from3d(cc, offset, maxz, minz)</span></span>
-<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a><span class="in">lines(circ, col = 'blue', lwd = 2, lty = 2)</span></span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="dv">60</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">47</span>))</span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a>arc <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_linestring</span>(f1), <span class="at">crs=</span><span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>geoc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(arc, <span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(geoc[[<span class="dv">1</span>]])</span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a>circ <span class="ot">&lt;-</span> <span class="fu">from3d</span>(cc, offset, maxz, minz)</span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(circ, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a><span class="in">text(pt[1,1]+100000, pt[1,2]+50000, labels = expression(phi), col = 'blue') # lat</span></span>
-<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="in">text(pt[1,1]+20000, pt[1,2]-50000, labels = expression(lambda), col = 'red') # lng</span></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(pt[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">100000</span>, pt[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">+</span><span class="dv">50000</span>, <span class="at">labels =</span> <span class="fu">expression</span>(phi), <span class="at">col =</span> <span class="st">'blue'</span>) <span class="co"># lat</span></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(pt[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">20000</span>, pt[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">-</span><span class="dv">50000</span>, <span class="at">labels =</span> <span class="fu">expression</span>(lambda), <span class="at">col =</span> <span class="st">'red'</span>) <span class="co"># lng</span></span>
 <span id="cb17-235"><a href="#cb17-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a>$\lambda$ typically varies between $-180^{\circ}$ and $180^{\circ}$</span>
@@ -1694,17 +1677,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a>The point denoted in @fig-sphere  has $(\lambda,\phi)$ or ellipsoidal</span>
 <span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a>coordinates with angular values</span>
 <span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a><span class="in">#| collapse: false</span></span>
-<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- st_as_sfc("POINT(60 47)", crs = 'OGC:CRS84')</span></span>
-<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a><span class="in">p[[1]]</span></span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
 <span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a>measured in degrees, and geocentric coordinates</span>
 <span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output()}</span></span>
-<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a><span class="in">#| collapse: false</span></span>
-<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- st_as_sfc("POINT(60 47)", crs = 'OGC:CRS84') |&gt; st_transform("+proj=geocent")</span></span>
-<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a><span class="in">p[[1]]</span></span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(60 47)"</span>, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">"+proj=geocent"</span>)</span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a>p[[<span class="dv">1</span>]]</span>
 <span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a>measured in metres.</span>
 <span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a></span>
@@ -1717,27 +1700,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-ellipse, echo=!knitr::is_latex_output() }</span></span>
-<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 60%</span></span>
-<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Angles on an ellipse: geodetic (blue) and geocentric (red) latitude"</span></span>
-<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = rep(0,4))</span></span>
-<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- 4</span></span>
-<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 5/8 * sqrt(48)</span></span>
-<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="in">plot(x, y, xlim = c(-6,6), ylim = c(-8,8), asp = 1)</span></span>
-<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a><span class="in">axis(1, pos = 0, at = 0:9)</span></span>
-<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a><span class="in">axis(2, pos = 0, at = -5:5)</span></span>
-<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a><span class="in">xd &lt;- seq(-8, 8, by = .1)</span></span>
-<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a><span class="in">lines(xd, 5/8 * sqrt(64 - xd^2), col = 'grey')</span></span>
-<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a><span class="in">lines(xd, 5/8 * -sqrt(64 - xd^2), col = 'grey')</span></span>
-<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(0, 0, x, y, col = 'red', length = .15, angle = 20)</span></span>
-<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a><span class="in">b &lt;- (x * 25) / (-y * 64)</span></span>
-<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a><span class="in">a &lt;- y - x * b</span></span>
-<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a><span class="in">abline(a, b, col = 'grey')</span></span>
-<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a><span class="in">b &lt;- -1/b</span></span>
-<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a><span class="in">x0 &lt;- x - y / b</span></span>
-<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(x0, 0, x, y, col = 'blue', length = .15, angle = 20)</span></span>
-<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="in">text(1.2, 0.5, label = parse(text = "psi"), col = 'red')</span></span>
-<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="in">text(3, 0.5, label = parse(text = "phi"), col = 'blue')</span></span>
+<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 60%</span></span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Angles on an ellipse: geodetic (blue) and geocentric (red) latitude"</span></span>
+<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">48</span>)</span>
+<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>), <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">at =</span> <span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a>xd <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">8</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xd, <span class="dv">5</span><span class="sc">/</span><span class="dv">8</span> <span class="sc">*</span> <span class="sc">-</span><span class="fu">sqrt</span>(<span class="dv">64</span> <span class="sc">-</span> xd<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (x <span class="sc">*</span> <span class="dv">25</span>) <span class="sc">/</span> (<span class="sc">-</span>y <span class="sc">*</span> <span class="dv">64</span>)</span>
+<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">-</span> x <span class="sc">*</span> b</span>
+<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">'grey'</span>)</span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span>b</span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> x <span class="sc">-</span> y <span class="sc">/</span> b</span>
+<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(x0, <span class="dv">0</span>, x, y, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">length =</span> .<span class="dv">15</span>, <span class="at">angle =</span> <span class="dv">20</span>)</span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.2</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"psi"</span>), <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">0.5</span>, <span class="at">label =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"phi"</span>), <span class="at">col =</span> <span class="st">'blue'</span>)</span>
 <span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>The most commonly used parametric model for the Earth is _an</span>
@@ -1835,22 +1818,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>Cartesian geocentric coordinates associated on the WGS84 ellipse</span>
 <span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a>and sphere:</span>
 <span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=!knitr::is_latex_output(), message=FALSE}</span></span>
-<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a><span class="in">#| collapse: false</span></span>
-<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a><span class="in">pts &lt;- st_sfc(st_point(c(13.4050, 52.5200)), st_point(c(2.3522, 48.8566)), crs = 'OGC:CRS84')</span></span>
-<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a><span class="in">s2_orig &lt;- sf_use_s2(FALSE)</span></span>
-<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a><span class="in">d1 &lt;- c(gc_ellipse = st_distance(pts)[1,2])</span></span>
-<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(TRUE)</span></span>
-<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a><span class="in"># or, without using s2, use st_distance(st_transform(pts, "+proj=cart +ellps=sphere"))</span></span>
-<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a><span class="in">d2 &lt;- c(gc_sphere = st_distance(pts)[1,2])</span></span>
-<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- st_transform(pts, "+proj=cart +ellps=WGS84")</span></span>
-<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a><span class="in">d3 &lt;- c(str_ellipse = units::set_units(sqrt(sum(apply(do.call(cbind, p), 1, diff)^2)), m))</span></span>
-<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a><span class="in">p2 &lt;- st_transform(pts, "+proj=cart +ellps=sphere")</span></span>
-<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a><span class="in">d4 &lt;- c(str_sphere = units::set_units(sqrt(sum(apply(do.call(cbind, p2), 1, diff)^2)), m))</span></span>
-<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a><span class="in">res &lt;- c(d1, d3, d2, d4) # note order</span></span>
-<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="in"># print as km, re-add names:</span></span>
-<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="in">sf_use_s2(s2_orig) # back to what it was before changing</span></span>
-<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a><span class="in">res |&gt; units::set_units(km) |&gt; setNames(names(res)) |&gt; print(digits = 5)</span></span>
+<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: false</span></span>
+<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">st_sfc</span>(<span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">13.4050</span>, <span class="fl">52.5200</span>)), <span class="fu">st_point</span>(<span class="fu">c</span>(<span class="fl">2.3522</span>, <span class="fl">48.8566</span>)), <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)</span>
+<span id="cb17-396"><a href="#cb17-396" aria-hidden="true" tabindex="-1"></a>s2_orig <span class="ot">&lt;-</span> <span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb17-397"><a href="#cb17-397" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_ellipse =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without using s2, use st_distance(st_transform(pts, "+proj=cart +ellps=sphere"))</span></span>
+<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">gc_sphere =</span> <span class="fu">st_distance</span>(pts)[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=WGS84"</span>)</span>
+<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_ellipse =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pts, <span class="st">"+proj=cart +ellps=sphere"</span>)</span>
+<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">str_sphere =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">apply</span>(<span class="fu">do.call</span>(cbind, p2), <span class="dv">1</span>, diff)<span class="sc">^</span><span class="dv">2</span>)), m))</span>
+<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">c</span>(d1, d3, d2, d4) <span class="co"># note order</span></span>
+<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="co"># print as km, re-add names:</span></span>
+<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="fu">sf_use_s2</span>(s2_orig) <span class="co"># back to what it was before changing</span></span>
+<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a>res <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km) <span class="sc">|&gt;</span> <span class="fu">setNames</span>(<span class="fu">names</span>(res)) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">5</span>)</span>
 <span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bounded and unbounded spaces {#sec-bounded}</span></span>
@@ -2047,26 +2030,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-602"><a href="#cb17-602" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-603"><a href="#cb17-603" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
 <span id="cb17-604"><a href="#cb17-604" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-horizontalgrid, echo=!knitr::is_latex_output(), message = FALSE}</span></span>
-<span id="cb17-605"><a href="#cb17-605" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 70%</span></span>
-<span id="cb17-606"><a href="#cb17-606" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to datum ETRS89 (EPSG:4258); units arc-seconds"</span></span>
-<span id="cb17-607"><a href="#cb17-607" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-608"><a href="#cb17-608" aria-hidden="true" tabindex="-1"></a><span class="in">library(stars)</span></span>
-<span id="cb17-609"><a href="#cb17-609" aria-hidden="true" tabindex="-1"></a><span class="in">library(rnaturalearth)</span></span>
-<span id="cb17-610"><a href="#cb17-610" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr) |&gt; suppressPackageStartupMessages()</span></span>
-<span id="cb17-611"><a href="#cb17-611" aria-hidden="true" tabindex="-1"></a><span class="in">countries110 |&gt; </span></span>
-<span id="cb17-612"><a href="#cb17-612" aria-hidden="true" tabindex="-1"></a><span class="in">    st_as_sf() |&gt;</span></span>
-<span id="cb17-613"><a href="#cb17-613" aria-hidden="true" tabindex="-1"></a><span class="in">    filter(ADMIN == "United Kingdom") |&gt;</span></span>
-<span id="cb17-614"><a href="#cb17-614" aria-hidden="true" tabindex="-1"></a><span class="in">    st_geometry() -&gt; uk</span></span>
-<span id="cb17-615"><a href="#cb17-615" aria-hidden="true" tabindex="-1"></a><span class="in">filename = "data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
-<span id="cb17-616"><a href="#cb17-616" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- if (file.exists(filename)) {</span></span>
-<span id="cb17-617"><a href="#cb17-617" aria-hidden="true" tabindex="-1"></a><span class="in">    r &lt;- read_stars(filename)</span></span>
-<span id="cb17-618"><a href="#cb17-618" aria-hidden="true" tabindex="-1"></a><span class="in">  } else {</span></span>
-<span id="cb17-619"><a href="#cb17-619" aria-hidden="true" tabindex="-1"></a><span class="in">    read_stars("/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif")</span></span>
-<span id="cb17-620"><a href="#cb17-620" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb17-621"><a href="#cb17-621" aria-hidden="true" tabindex="-1"></a><span class="in">hook &lt;- function() {</span></span>
-<span id="cb17-622"><a href="#cb17-622" aria-hidden="true" tabindex="-1"></a><span class="in">        plot(uk, border = "orange", col = NA, add = TRUE)</span></span>
-<span id="cb17-623"><a href="#cb17-623" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb17-624"><a href="#cb17-624" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r[,,,1:2], axes = TRUE, hook = hook, key.pos = 4)</span></span>
+<span id="cb17-605"><a href="#cb17-605" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 70%</span></span>
+<span id="cb17-606"><a href="#cb17-606" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "UK horizontal datum grid, from datum OSGB 1936 (EPSG:4277) to datum ETRS89 (EPSG:4258); units arc-seconds"</span></span>
+<span id="cb17-607"><a href="#cb17-607" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-608"><a href="#cb17-608" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb17-609"><a href="#cb17-609" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb17-610"><a href="#cb17-610" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
+<span id="cb17-611"><a href="#cb17-611" aria-hidden="true" tabindex="-1"></a>countries110 <span class="sc">|&gt;</span> </span>
+<span id="cb17-612"><a href="#cb17-612" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-613"><a href="#cb17-613" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ADMIN <span class="sc">==</span> <span class="st">"United Kingdom"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-614"><a href="#cb17-614" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_geometry</span>() <span class="ot">-&gt;</span> uk</span>
+<span id="cb17-615"><a href="#cb17-615" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span></span>
+<span id="cb17-616"><a href="#cb17-616" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb17-617"><a href="#cb17-617" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(filename)</span>
+<span id="cb17-618"><a href="#cb17-618" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb17-619"><a href="#cb17-619" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSTN15_NTv2_OSGBtoETRS.tif"</span>)</span>
+<span id="cb17-620"><a href="#cb17-620" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-621"><a href="#cb17-621" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb17-622"><a href="#cb17-622" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-623"><a href="#cb17-623" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-624"><a href="#cb17-624" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">hook =</span> hook, <span class="at">key.pos =</span> <span class="dv">4</span>)</span>
 <span id="cb17-625"><a href="#cb17-625" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-626"><a href="#cb17-626" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
 <span id="cb17-629"><a href="#cb17-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
@@ -2119,17 +2102,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-676"><a href="#cb17-676" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-677"><a href="#cb17-677" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
 <span id="cb17-678"><a href="#cb17-678" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-verticalgrid, echo=!knitr::is_latex_output(), message = FALSE}</span></span>
-<span id="cb17-679"><a href="#cb17-679" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: 70%</span></span>
-<span id="cb17-680"><a href="#cb17-680" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "UK vertical datum grid, from ETRS89 (EPSG:4937) to ODN height (EPSG:5701), units m"</span></span>
-<span id="cb17-681"><a href="#cb17-681" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb17-682"><a href="#cb17-682" aria-hidden="true" tabindex="-1"></a><span class="in">filename = "data/uk_os_OSGM15_GB.tif"</span></span>
-<span id="cb17-683"><a href="#cb17-683" aria-hidden="true" tabindex="-1"></a><span class="in">h &lt;- if (file.exists(filename)) {</span></span>
-<span id="cb17-684"><a href="#cb17-684" aria-hidden="true" tabindex="-1"></a><span class="in">    read_stars(filename)</span></span>
-<span id="cb17-685"><a href="#cb17-685" aria-hidden="true" tabindex="-1"></a><span class="in">  } else {</span></span>
-<span id="cb17-686"><a href="#cb17-686" aria-hidden="true" tabindex="-1"></a><span class="in">    read_stars("/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif")</span></span>
-<span id="cb17-687"><a href="#cb17-687" aria-hidden="true" tabindex="-1"></a><span class="in">  } </span></span>
-<span id="cb17-688"><a href="#cb17-688" aria-hidden="true" tabindex="-1"></a><span class="in">plot(h, axes = TRUE, reset = FALSE)</span></span>
-<span id="cb17-689"><a href="#cb17-689" aria-hidden="true" tabindex="-1"></a><span class="in">plot(uk, border = "orange", col = NA, add = TRUE)</span></span>
+<span id="cb17-679"><a href="#cb17-679" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: 70%</span></span>
+<span id="cb17-680"><a href="#cb17-680" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "UK vertical datum grid, from ETRS89 (EPSG:4937) to ODN height (EPSG:5701), units m"</span></span>
+<span id="cb17-681"><a href="#cb17-681" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-682"><a href="#cb17-682" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="st">"data/uk_os_OSGM15_GB.tif"</span></span>
+<span id="cb17-683"><a href="#cb17-683" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb17-684"><a href="#cb17-684" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(filename)</span>
+<span id="cb17-685"><a href="#cb17-685" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb17-686"><a href="#cb17-686" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>(<span class="st">"/vsicurl/https://cdn.proj.org/uk_os_OSGM15_GB.tif"</span>)</span>
+<span id="cb17-687"><a href="#cb17-687" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb17-688"><a href="#cb17-688" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-689"><a href="#cb17-689" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(uk, <span class="at">border =</span> <span class="st">"orange"</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb17-690"><a href="#cb17-690" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-691"><a href="#cb17-691" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
 <span id="cb17-694"><a href="#cb17-694" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
@@ -2247,7 +2230,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-806"><a href="#cb17-806" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>convert the $(x,y)$ points $(10,2)$, $(-10,-2)$, $(10,-2)$, and $(0,10)$ to polar coordinates</span>
 <span id="cb17-807"><a href="#cb17-807" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>convert the polar $(r,\phi)$ points $(10,45^{\circ})$, $(0,100^{\circ})$, and $(5,359^{\circ})$ to Cartesian coordinates</span>
 <span id="cb17-808"><a href="#cb17-808" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>assuming the Earth is a sphere with a radius of 6371 km, compute for $(\lambda,\phi)$ points the great circle distance between $(10,10)$ and $(11,10)$, between $(10,80)$ and $(11,80)$, between $(10,10)$ and $(10,11)$, and between $(10,80)$ and $(10,81)$ (units: degree). What are the distance units?</span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
