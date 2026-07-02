@@ -6,6 +6,15 @@ permalink: /events/
  
 # R-spatial events
 
+### 2026
+
+* List maintained by [Jakub Nowosad](https://jakubnowosad.com/): [here](https://github.com/Nowosad/conferences_2026)
+
+### 2025
+
+* List maintained by [Jakub Nowosad](https://jakubnowosad.com/): [here](https://github.com/Nowosad/conferences_2025) 
+
+
 ### 2020
 * July 6, 2020, [Geospatial Developer Day at useR! 2020](https://github.com/useR-stl/geospatial-dev-day), full-day dedicated hackathon for spatial packages prior to useR! 2020
 * July 7-10, 2020, [useR! 2020](https://user2020.r-project.org/), first useR! with dedicated Geospatial Track, including tutorials, sessions, and reception, organized by Angela Li
