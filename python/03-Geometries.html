@@ -2,10 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>3&nbsp; Geometries – Spatial Data Science</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -56,7 +59,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -85,15 +87,14 @@ div.csl-indent {
 <link href="./02-Spaces.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ebf5fc6056d39c43b0363bdccaddf56c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-b6fc8b4dd8953456be1cbb8993890607.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -130,7 +131,7 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -909,7 +910,7 @@ GEOMETRYCOLLECTION (
 <p> </p>
 </section><section id="sec-de9im" class="level3"><h3 class="anchored" data-anchor-id="sec-de9im">Binary predicates and DE-9IM</h3>
 <p> </p>
-<p>The Dimensionally Extended Nine-Intersection Model <span class="citation" data-cites="de9im1 de9im2">(DE-9IM, <a href="references.html#ref-de9im1" role="doc-biblioref">Clementini, Di Felice, and Oosterom 1993</a>; <a href="references.html#ref-de9im2" role="doc-biblioref">Egenhofer and Franzosa 1991</a>)</span> is a model that describes the qualitative relation between any two geometries in two-dimensional space (<span class="math inline">\(R^2\)</span>). Any geometry has a <em>dimension</em> value that is:</p>
+<p>The Dimensionally Extended Nine-Intersection Model <span class="citation" data-cites="de9im1 de9im2">(DE-9IM, <a href="references.html#ref-de9im1" role="doc-biblioref">Clementini et al. 1993</a>; <a href="references.html#ref-de9im2" role="doc-biblioref">Egenhofer and Franzosa 1991</a>)</span> is a model that describes the qualitative relation between any two geometries in two-dimensional space (<span class="math inline">\(R^2\)</span>). Any geometry has a <em>dimension</em> value that is:</p>
 <ul>
 <li>0 for points,</li>
 <li>1 for linear geometries,</li>
@@ -1359,7 +1360,7 @@ Figure&nbsp;3.5: Difference between subsequent boxes, left: in original order; r
 </section><section id="sec-coverages" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="sec-coverages">
 <span class="header-section-number">3.4</span> Coverages: tessellations and rasters</h2>
 <p></p>
-<p>The Open Geospatial Consortium defines a <em>coverage</em> as a “feature that acts as a function to return values from its range for any direct position within its spatiotemporal domain” <span class="citation" data-cites="ogccov">(<a href="references.html#ref-ogccov" role="doc-biblioref">Baumann, Hirschorn, and Masó 2017</a>)</span>. Having a <em>function</em> implies that for every space time “point”, every combination of a spatial point and a moment in time of the spatiotemporal domain, we have a <em>single</em> value for the range. This is a very common situation for spatiotemporal phenomena, a few examples can be given:</p>
+<p>The Open Geospatial Consortium defines a <em>coverage</em> as a “feature that acts as a function to return values from its range for any direct position within its spatiotemporal domain” <span class="citation" data-cites="ogccov">(<a href="references.html#ref-ogccov" role="doc-biblioref">Baumann et al. 2017</a>)</span>. Having a <em>function</em> implies that for every space time “point”, every combination of a spatial point and a moment in time of the spatiotemporal domain, we have a <em>single</em> value for the range. This is a very common situation for spatiotemporal phenomena, a few examples can be given:</p>
 <ul>
 <li>boundary disputes aside, at a given time every point in a region (domain) belongs to a single administrative unit (range)</li>
 <li>at any given moment in time, every point in a region (domain) has a certain <em>land cover type</em> (range)</li>
@@ -1416,7 +1417,7 @@ Figure&nbsp;3.6: Rasterization artifact: as only top-left corners are part of th
 <li>start- and end-points of a linestring may be connected to other linestring start or end points, forming a set of nodes and edges</li>
 <li>edges may be directed, to only allow for connection (flow, transport) in one way</li>
 </ul>
-<p>R packages including <strong>osmar</strong> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <strong>stplanr</strong> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace, Ellison, and Morgan 2022</a>)</span>, and <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref">van der Meer et al. 2022</a>)</span> provide functionality for constructing network objects, and working with them, including computation of shortest or fastest routes through a network. Package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>; <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
+<p>R packages including <strong>osmar</strong> <span class="citation" data-cites="R-osmar">(<a href="references.html#ref-R-osmar" role="doc-biblioref">Schlesinger and Eugster 2013</a>)</span>, <strong>stplanr</strong> <span class="citation" data-cites="R-stplanr">(<a href="references.html#ref-R-stplanr" role="doc-biblioref">Lovelace et al. 2022</a>)</span>, and <strong>sfnetworks</strong> <span class="citation" data-cites="R-sfnetworks">(<a href="references.html#ref-R-sfnetworks" role="doc-biblioref"><span class="nocase">van der Meer et al.</span> 2022</a>)</span> provide functionality for constructing network objects, and working with them, including computation of shortest or fastest routes through a network. Package <strong>spatstat</strong> <span class="citation" data-cites="R-spatstat baddeley2015spatial">(<a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley et al. 2022</a>, <a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">2015</a>)</span> has infrastructure for analysing point patterns on linear networks (<a href="11-PointPattern.html" class="quarto-xref"><span>Chapter 11</span></a>). Chapter 12 of <span class="citation" data-cites="geocomp">Lovelace et al. (<a href="references.html#ref-geocomp" role="doc-biblioref">2019</a>)</span> has a transportation application using networks.</p>
 </section><section id="exercises" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">3.6</span> Exercises</h2>
 <p>For the following exercises, use R where possible.</p>
@@ -1436,7 +1437,7 @@ Figure&nbsp;3.6: Rasterization artifact: as only top-left corners are part of th
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-baddeley2015spatial" class="csl-entry" role="listitem">
 Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with <span>R</span></em>. Chapman &amp; Hall/CRC.
 </div>
@@ -1450,7 +1451,7 @@ Barthélemy, Marc. 2011. <span>“Spatial Networks.”</span> <em>Physics Report
 Baumann, Peter, Eric Hirschorn, and Joan Masó. 2017. <span>“OGC Coverage Implementation Schema.”</span> <em>OGC Implementation Standard</em>. <a href="https://docs.opengeospatial.org/is/09-146r6/09-146r6.html">https://docs.opengeospatial.org/is/09-146r6/09-146r6.html</a>.
 </div>
 <div id="ref-de9im1" class="csl-entry" role="listitem">
-Clementini, Eliseo, Paolino Di Felice, and Peter van Oosterom. 1993. <span>“A Small Set of Formal Topological Relationships Suitable for End-User Interaction.”</span> In <em>Advances in Spatial Databases</em>, edited by David Abel and Beng Chin Ooi, 277–95. Berlin, Heidelberg: Springer Berlin Heidelberg.
+Clementini, Eliseo, Paolino Di Felice, and Peter van Oosterom. 1993. <span>“A Small Set of Formal Topological Relationships Suitable for End-User Interaction.”</span> In <em>Advances in Spatial Databases</em>, edited by David Abel and Beng Chin Ooi. Springer Berlin Heidelberg.
 </div>
 <div id="ref-de9im2" class="csl-entry" role="listitem">
 Egenhofer, Max J., and Robert D. Franzosa. 1991. <span>“Point-Set Topological Spatial Relations.”</span> <em>International Journal of Geographical Information Systems</em> 5 (2): 161–74. <a href="https://doi.org/10.1080/02693799108927841">https://doi.org/10.1080/02693799108927841</a>.
@@ -1459,7 +1460,7 @@ Egenhofer, Max J., and Robert D. Franzosa. 1991. <span>“Point-Set Topological 
 Herring, J. R. 2010. <span>“OpenGIS Implementation Standard for Geographic Information-Simple Feature Access-Part 2: SQL Option.”</span> <em>Open Geospatial Consortium Inc</em>. <a href="http://portal.opengeospatial.org/files/?artifact_id=25354">http://portal.opengeospatial.org/files/?artifact_id=25354</a>.
 </div>
 <div id="ref-sfa" class="csl-entry" role="listitem">
-———. 2011. <span>“OpenGIS Implementation Standard for Geographic Information-Simple Feature Access-Part 1: Common Architecture.”</span> <em>Open Geospatial Consortium Inc</em>, 111. <a href="http://portal.opengeospatial.org/files/?artifact_id=25355">http://portal.opengeospatial.org/files/?artifact_id=25355</a>.
+Herring, J. R. 2011. <span>“OpenGIS Implementation Standard for Geographic Information-Simple Feature Access-Part 1: Common Architecture.”</span> <em>Open Geospatial Consortium Inc</em>, 111. <a href="http://portal.opengeospatial.org/files/?artifact_id=25355">http://portal.opengeospatial.org/files/?artifact_id=25355</a>.
 </div>
 <div id="ref-iso" class="csl-entry" role="listitem">
 ISO. 2004. <em>Geographic Information – Simple Feature Access – Part 1: Common Architecture</em>.<a href="https://www.iso.org/standard/40114.html%20">https://www.iso.org/standard/40114.html </a>.
@@ -1477,7 +1478,7 @@ Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Stand
 Schlesinger, Thomas, and Manuel J. A. Eugster. 2013. <em>Osmar: OpenStreetMap and r</em>. <a href="http://osmar.r-forge.r-project.org/">http://osmar.r-forge.r-project.org/</a>.
 </div>
 <div id="ref-R-sfnetworks" class="csl-entry" role="listitem">
-van der Meer, Lucas, Lorena Abad, Andrea Gilardi, and Robin Lovelace. 2022. <em>Sfnetworks: Tidy Geospatial Networks</em>. <a href="https://CRAN.R-project.org/package=sfnetworks">https://CRAN.R-project.org/package=sfnetworks</a>.
+<span class="nocase">van der Meer, Lucas, Lorena Abad, Andrea Gilardi, and Robin Lovelace</span>. 2022. <em>Sfnetworks: Tidy Geospatial Networks</em>. <a href="https://CRAN.R-project.org/package=sfnetworks">https://CRAN.R-project.org/package=sfnetworks</a>.
 </div>
 </div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

@@ -2,10 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>12&nbsp; Spatial Interpolation – Spatial Data Science</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -56,7 +59,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -85,15 +87,14 @@ div.csl-indent {
 <link href="./11-PointPattern.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ebf5fc6056d39c43b0363bdccaddf56c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-b6fc8b4dd8953456be1cbb8993890607.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -130,7 +131,7 @@ gtag('js', new Date());
     'analytics_storage': 'denied'
   });
 gtag('config', 'G-04YTZNEH1K', { 'anonymize_ip': true});
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -405,7 +406,7 @@ window.Quarto = {
 
 </header><p> </p>
 <p>Spatial interpolation is the activity of estimating values of spatially continuous variables (fields) for spatial locations where they have not been observed, based on observations. The statistical methodology for spatial interpolation, called geostatistics, is concerned with the modelling, prediction, and simulation of spatially continuous phenomena. The typical problem is a missing value problem: we observe a property of a phenomenon <span class="math inline">\(Z(s)\)</span> at a limited number of sample locations <span class="math inline">\(s_i, i = 1,...,n\)</span>, and are interested in the property value at all locations <span class="math inline">\(s_0\)</span> covering an area of interest, so we have to predict it for unobserved locations. This is also called <em>kriging</em>, or Gaussian Process prediction. In case <span class="math inline">\(Z(s)\)</span> contains a white noise component <span class="math inline">\(\epsilon\)</span>, as in <span class="math inline">\(Z(s)=S(s)+\epsilon\)</span> (possibly reflecting measurement error) an alternative but similar goal is to predict or simulate <span class="math inline">\(S(s)\)</span> rather than <span class="math inline">\(Z(s)\)</span>, which may be called <em>spatial filtering</em> or <em>smoothing</em>.</p>
-<p>In this chapter we will show simple approaches for handling geostatistical data, demonstrate simple interpolation methods, and explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter 13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle, Tawn, and Moyeed (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle, Zammit-Mangion, and Cressie (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparison of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>In this chapter we will show simple approaches for handling geostatistical data, demonstrate simple interpolation methods, and explore modelling spatial correlation, spatial prediction and simulation. <a href="13-Geostatistics.html" class="quarto-xref"><span>Chapter 13</span></a> focuses on more complex multivariate and spatiotemporal geostatistical models. We will use package <strong>gstat</strong> <span class="citation" data-cites="R-gstat gstatcg">(<a href="references.html#ref-R-gstat" role="doc-biblioref">Pebesma and Graeler 2022</a>; <a href="references.html#ref-gstatcg" role="doc-biblioref">Pebesma 2004</a>)</span>, which offers a fairly wide palette of models and options for non-Bayesian geostatistical analysis. Bayesian methods with R implementations are found in <span class="citation" data-cites="DiggleTawnMoyeed:98">Diggle et al. (<a href="references.html#ref-DiggleTawnMoyeed:98" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Diggle:2007">Diggle and Ribeiro Jr. (<a href="references.html#ref-Diggle:2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="blangiardo2015spatial">Blangiardo and Cameletti (<a href="references.html#ref-blangiardo2015spatial" role="doc-biblioref">2015</a>)</span>, and <span class="citation" data-cites="wikle2019spatio">Wikle et al. (<a href="references.html#ref-wikle2019spatio" role="doc-biblioref">2019</a>)</span>. An overview and comparison of methods for large datasets is given in <span class="citation" data-cites="Heaton2018">Heaton et al. (<a href="references.html#ref-Heaton2018" role="doc-biblioref">2018</a>)</span>.</p>
 <p></p>
 <section id="a-first-dataset" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="a-first-dataset">
 <span class="header-section-number">12.1</span> A first dataset</h2>
@@ -419,7 +420,7 @@ window.Quarto = {
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">no2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/no2.csv"</span>, </span>
+<span><span class="va">no2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/no2a.csv"</span>, </span>
 <span>    package <span class="op">=</span> <span class="st">"gstat"</span><span class="op">)</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -445,7 +446,7 @@ window.Quarto = {
 <span><span class="co"># TRUE</span></span>
 <span><span class="va">crs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="st">"EPSG:32632"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">no2</span>, crs <span class="op">=</span> <span class="st">"OGC:CRS84"</span>, coords <span class="op">=</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Longitude"</span>, <span class="st">"Latitude"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">crs</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">no2.sf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -542,7 +543,7 @@ Figure&nbsp;12.1: Mean NO<span class="math inline">\(_2\)</span> concentrations 
 <span><span class="va">grd</span></span>
 <span><span class="co"># stars object with 2 dimensions and 1 attribute</span></span>
 <span><span class="co"># attribute(s):</span></span>
-<span><span class="co">#         Min. 1st Qu. Median Mean 3rd Qu. Max. NA's</span></span>
+<span><span class="co">#         Min. 1st Qu. Median Mean 3rd Qu. Max.  NAs</span></span>
 <span><span class="co"># values     0       0      0    0       0    0 2076</span></span>
 <span><span class="co"># dimension(s):</span></span>
 <span><span class="co">#   from to  offset  delta            refsys x/y</span></span>
@@ -930,11 +931,11 @@ Figure&nbsp;12.4: Sample variogram plot with adjusted cutoff and lag width
 <span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sample variogram points</span></span>
 <span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>ax.scatter(bin_centers_cutoff, variogram_cutoff, color<span class="op">=</span><span class="st">"blue"</span>, label<span class="op">=</span><span class="st">"Sample Variogram"</span>)</span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.PathCollection object at 0x7bfa1f3fc050&gt;</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.PathCollection object at 0x718764cb7b30&gt;</span></span>
 <span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot fitted variogram model</span></span>
 <span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>ax.plot(bin_centers_cutoff, model_curve, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Fitted Model"</span>)</span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="co"># [&lt;matplotlib.lines.Line2D object at 0x7bfa54531ac0&gt;]</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="co"># [&lt;matplotlib.lines.Line2D object at 0x718764a77b00&gt;]</span></span>
 <span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels, title, and grid</span></span>
 <span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Distance h [m]"</span>)</span>
@@ -946,7 +947,7 @@ Figure&nbsp;12.4: Sample variogram plot with adjusted cutoff and lag width
 <span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.legend.Legend object at 0x7bfa54586b10&gt;</span></span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.legend.Legend object at 0x718764d327e0&gt;</span></span>
 <span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>plt.show() <span class="co"># </span><span class="al">TBD</span><span class="co">: note the negative nugget!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -1119,7 +1120,7 @@ Figure&nbsp;12.6: Kriged NO<span class="math inline">\(_2\)</span> concentration
 <span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    norm<span class="op">=</span>Normalize(vmin<span class="op">=</span>np.nanmin(z), vmax<span class="op">=</span>np.nanmax(z))</span>
 <span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>plt.colorbar(c, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Kriged NO2 Predictions"</span>)</span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x7bfa5478a630&gt;</span></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.colorbar.Colorbar object at 0x718764daf080&gt;</span></span>
 <span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlay country boundaries as multilinestrings</span></span>
 <span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>de.boundary.plot(ax<span class="op">=</span>ax, color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -1137,7 +1138,7 @@ Figure&nbsp;12.6: Kriged NO<span class="math inline">\(_2\)</span> concentration
 <span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Kriged NO2 Predictions"</span>)</span>
 <span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Text(0.5, 1.0, 'Kriged NO2 Predictions')</span></span>
 <span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.legend.Legend object at 0x7bfa1f2bec30&gt;</span></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.legend.Legend object at 0x7187649e1e80&gt;</span></span>
 <span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -1276,8 +1277,8 @@ Figure&nbsp;12.8: Standard errors for mean NO<span class="math inline">\(_2\)</s
 <span><span class="co"># [using conditional Gaussian simulation]</span></span>
 <span><span class="co"># stars object with 3 dimensions and 1 attribute</span></span>
 <span><span class="co"># attribute(s):</span></span>
-<span><span class="co">#       Min. 1st Qu. Median Mean 3rd Qu. Max.  NA's</span></span>
-<span><span class="co"># var1  -5.7    6.12   8.68 8.88    11.5 23.9 12456</span></span>
+<span><span class="co">#        Min. 1st Qu. Median Mean 3rd Qu. Max.   NAs</span></span>
+<span><span class="co"># var1  -4.69    6.22   8.68 8.88    11.3 23.7 12456</span></span>
 <span><span class="co"># dimension(s):</span></span>
 <span><span class="co">#        from to  offset  delta            refsys        values x/y</span></span>
 <span><span class="co"># x         1 65  280741  10000 WGS 84 / UTM z...          NULL [x]</span></span>
@@ -1375,18 +1376,18 @@ Figure&nbsp;12.10: Population density for 100 m <span class="math inline">\(\tim
 <span><span class="co"># </span></span>
 <span><span class="co"># Residuals:</span></span>
 <span><span class="co">#    Min     1Q Median     3Q    Max </span></span>
-<span><span class="co"># -7.990 -2.052 -0.505  1.610  8.095 </span></span>
+<span><span class="co"># -6.226 -1.842 -0.451  1.412  9.293 </span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># Coefficients:</span></span>
 <span><span class="co">#                Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co"># (Intercept)       4.537      0.685    6.62  5.5e-09 ***</span></span>
-<span><span class="co"># sqrt(pop_dens)  326.154     49.366    6.61  5.8e-09 ***</span></span>
+<span><span class="co"># (Intercept)       5.425      0.607    8.93  2.2e-13 ***</span></span>
+<span><span class="co"># sqrt(pop_dens)  239.635     39.893    6.01  6.5e-08 ***</span></span>
 <span><span class="co"># ---</span></span>
 <span><span class="co"># Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co"># </span></span>
-<span><span class="co"># Residual standard error: 3.13 on 72 degrees of freedom</span></span>
-<span><span class="co"># Multiple R-squared:  0.377,   Adjusted R-squared:  0.369 </span></span>
-<span><span class="co"># F-statistic: 43.7 on 1 and 72 DF,  p-value: 5.82e-09</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># Residual standard error: 3.14 on 74 degrees of freedom</span></span>
+<span><span class="co"># Multiple R-squared:  0.328,   Adjusted R-squared:  0.319 </span></span>
+<span><span class="co"># F-statistic: 36.1 on 1 and 74 DF,  p-value: 6.53e-08</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>for which the corresponding scatterplot is shown in <a href="#fig-no2scat" class="quarto-xref">Figure&nbsp;<span>12.11</span></a>.</p>
 <div class="cell">
@@ -1464,7 +1465,7 @@ Figure&nbsp;12.13: Kriging NO<span class="math inline">\(_2\)</span> values usin
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-blangiardo2015spatial" class="csl-entry" role="listitem">
 Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal Bayesian Models with r-INLA</em>. John Wiley &amp; Sons.
 </div>
@@ -1472,13 +1473,13 @@ Blangiardo, Marta, and Michela Cameletti. 2015. <em>Spatial and Spatio-Temporal 
 Davies, Tilman, and David Bryant. 2013. <span>“On Circulant Embedding for Gaussian Random Fields in <span>R</span>.”</span> <em>Journal of Statistical Software, Articles</em> 55 (9): 1–21. <a href="https://doi.org/10.18637/jss.v055.i09">https://doi.org/10.18637/jss.v055.i09</a>.
 </div>
 <div id="ref-Diggle:2007" class="csl-entry" role="listitem">
-Diggle, P. J., and P. J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York: Springer.
+Diggle, P. J., and P. J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. Springer.
 </div>
 <div id="ref-DiggleTawnMoyeed:98" class="csl-entry" role="listitem">
 Diggle, P. J., J. A. Tawn, and R. A. Moyeed. 1998. <span>“Model-Based Geostatistics.”</span> <em>Applied Statistics</em>, 299–350.
 </div>
 <div id="ref-Heaton2018" class="csl-entry" role="listitem">
-Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em>, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">https://doi.org/10.1007/s13253-018-00348-w</a>.
+Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, et al. 2018. <span>“A Case Study Competition Among Methods for Analyzing Large Spatial Data.”</span> <em>Journal of Agricultural, Biological and Environmental Statistics</em>, ahead of print, December 14. <a href="https://doi.org/10.1007/s13253-018-00348-w">https://doi.org/10.1007/s13253-018-00348-w</a>.
 </div>
 <div id="ref-jh78" class="csl-entry" role="listitem">
 Journel, Andre G., and Charles J. Huijbregts. 1978. <em>Mining Geostatistics</em>. Academic Press, London.
@@ -2013,7 +2014,7 @@ Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-
 <span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
 <span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
 <span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="sc">|&gt;</span> <span class="fu">suppressPackageStartupMessages</span>()</span>
-<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>, </span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2a.csv"</span>, </span>
 <span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
@@ -2031,7 +2032,7 @@ Wikle, Christopher K, Andrew Zammit-Mangion, and Noel Cressie. 2019. <em>Spatio-
 <span id="cb48-73"><a href="#cb48-73" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb48-74"><a href="#cb48-74" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
 <span id="cb48-75"><a href="#cb48-75" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span> </span>
-<span id="cb48-76"><a href="#cb48-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb48-76"><a href="#cb48-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb48-77"><a href="#cb48-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf</span>
 <span id="cb48-78"><a href="#cb48-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-79"><a href="#cb48-79" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
