@@ -746,12 +746,13 @@ Figure&nbsp;8.2: Germany in equirectangular projection: with axis units degrees 
 <span><span class="op">(</span><span class="va">cI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/classInt/reference/classIntervals.html">classIntervals</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># style: quantile</span></span>
 <span><span class="co">#   one of 1.49e+10 possible partitions of this variable into 8 classes</span></span>
-<span><span class="co">#   [-2.62,-1.35)  [-1.35,-0.951) [-0.951,-0.436) [-0.436,-0.124) </span></span>
+<span><span class="co">#  [-2.19,-0.909) [-0.909,-0.513) [-0.513,-0.268) [-0.268,0.0789) </span></span>
 <span><span class="co">#              13              12              13              12 </span></span>
-<span><span class="co">#  [-0.124,0.341)   [0.341,0.699)    [0.699,1.19)     [1.19,2.49] </span></span>
+<span><span class="co">#  [0.0789,0.433)    [0.433,0.83)     [0.83,1.09)     [1.09,2.62] </span></span>
 <span><span class="co">#              12              13              12              13</span></span>
 <span><span class="va">cI</span><span class="op">$</span><span class="va">brks</span></span>
-<span><span class="co"># [1] -2.621 -1.353 -0.951 -0.436 -0.124  0.341  0.699  1.186  2.489</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># [1] -2.1902 -0.9095 -0.5130 -0.2678  0.0789  0.4335  0.8299  1.0907</span></span>
+<span><span class="co"># [9]  2.6156</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
@@ -929,7 +930,7 @@ Figure&nbsp;8.5: Simple facet raster plot with <code>ggplot2</code> and <code>ge
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> rxr.open_rasterio(<span class="st">"data/L7_ETMs.tif"</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>da.plot.imshow(col<span class="op">=</span><span class="st">"band"</span>, col_wrap<span class="op">=</span><span class="dv">3</span>, cmap<span class="op">=</span><span class="st">"viridis"</span>, add_colorbar<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;xarray.plot.facetgrid.FacetGrid object at 0x78386c7e6c60&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;xarray.plot.facetgrid.FacetGrid object at 0x708528ad38f0&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="08-Plotting_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>

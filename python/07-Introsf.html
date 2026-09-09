@@ -608,10 +608,10 @@ Figure&nbsp;7.1: components of an <code>sf</code> object
 <p>Simple feature objects can be written with <code>st_write</code>, as in</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">file</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".gpkg"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># [1] "/tmp/RtmpQucPds/file3579c94edb2973.gpkg"</span></span>
+<span><span class="co"># [1] "/tmp/RtmpW9q3AX/file17c6f12fa0ff8.gpkg"</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">nc</span>, <span class="va">file</span>, layer <span class="op">=</span> <span class="st">"layer_nc"</span><span class="op">)</span></span>
 <span><span class="co"># Writing layer `layer_nc' to data source </span></span>
-<span><span class="co">#   `/tmp/RtmpQucPds/file3579c94edb2973.gpkg' using driver `GPKG'</span></span>
+<span><span class="co">#   `/tmp/RtmpW9q3AX/file17c6f12fa0ff8.gpkg' using driver `GPKG'</span></span>
 <span><span class="co"># Writing 100 features with 14 fields and geometry type Multi Polygon.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>where the file format (GPKG) is derived from the file name extension. Using argument <code>append</code>, <code>st_write</code> can either append records to an existing layer or replace it; if unset, it will err if a layer already exists. The tidyverse-style <code>write_sf</code> will replace silently if <code>append</code> has not been set. Layers can also be deleted using <code>st_delete</code>, which is convenient in particular when they are associated with tables in a database.</p>
@@ -1333,10 +1333,10 @@ Figure&nbsp;7.5: County level birth counts 1974 (x) and 10 km cell values aggreg
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>ax.scatter(nc[<span class="st">"BIR74"</span>], aw[<span class="st">"BIR74"</span>])</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.PathCollection object at 0x738a6bcb8e00&gt;</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.PathCollection object at 0x7d1418ce0b00&gt;</span></span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>lims <span class="op">=</span> [<span class="dv">1</span>, <span class="bu">max</span>(nc[<span class="st">"BIR74"</span>].<span class="bu">max</span>(), aw[<span class="st">"BIR74"</span>].<span class="bu">max</span>())]</span>
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>ax.plot(lims, lims, color<span class="op">=</span><span class="st">"black"</span>)</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [&lt;matplotlib.lines.Line2D object at 0x738a6ae6f9e0&gt;]</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [&lt;matplotlib.lines.Line2D object at 0x7d13e17f1a30&gt;]</span></span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>ax.set_xscale(<span class="st">"log"</span>)</span>
 <span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>ax.set_yscale(<span class="st">"log"</span>)</span>
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"county-value"</span>)</span>
@@ -1921,7 +1921,7 @@ Figure&nbsp;7.10: Circular centre region of the Landsat 7 scene (band 1)
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>cropped[<span class="dv">0</span>].plot(ax<span class="op">=</span>ax)  <span class="co"># first band</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.QuadMesh object at 0x738a697624b0&gt;</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;matplotlib.collections.QuadMesh object at 0x7d13e0783fb0&gt;</span></span>
 <span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>gdf.boundary.plot(ax<span class="op">=</span>ax, edgecolor<span class="op">=</span><span class="st">"brown"</span>, linewidth<span class="op">=</span><span class="dv">2</span>) </span>
 <span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co"># &lt;Axes: title={'center': 'band = 1, spatial_ref = 0'}, xlabel='x coordinate of projection\n[metre]', ylabel='y coordinate of projection\n[metre]'&gt;</span></span>
 <span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

@@ -2154,7 +2154,7 @@ Figure&nbsp;14.3: Relationship of shortest paths to distance for Lutowiska; left
 </div>
 <div id="tabset-39-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-39-2-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>path_lengths <span class="op">=</span> nx.single_source_shortest_path_length(g1, source<span class="op">=</span>mr)</span>
@@ -2185,7 +2185,7 @@ Figure&nbsp;14.3: Relationship of shortest paths to distance for Lutowiska; left
 <span id="cb102-29"><a href="#cb102-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-30"><a href="#cb102-30" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb102-31"><a href="#cb102-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="14-Areal_files/figure-html/unnamed-chunk-98-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
@@ -3987,62 +3987,63 @@ Wall, M. M. 2004. <span>“A Close Look at the Spatial Structure Implied by the 
 <span id="cb103-1448"><a href="#cb103-1448" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb103-1449"><a href="#cb103-1449" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
 <span id="cb103-1452"><a href="#cb103-1452" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb103-1453"><a href="#cb103-1453" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb103-1454"><a href="#cb103-1454" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb103-1455"><a href="#cb103-1455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1456"><a href="#cb103-1456" aria-hidden="true" tabindex="-1"></a>path_lengths <span class="op">=</span> nx.single_source_shortest_path_length(g1, source<span class="op">=</span>mr)</span>
-<span id="cb103-1457"><a href="#cb103-1457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1458"><a href="#cb103-1458" aria-hidden="true" tabindex="-1"></a><span class="co"># Map these lengths to the GeoDataFrame</span></span>
-<span id="cb103-1459"><a href="#cb103-1459" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'sps1'</span>] <span class="op">=</span> gdf.index.<span class="bu">map</span>(path_lengths)</span>
-<span id="cb103-1460"><a href="#cb103-1460" aria-hidden="true" tabindex="-1"></a>remote_geom <span class="op">=</span> gdf.geometry[mr]</span>
-<span id="cb103-1461"><a href="#cb103-1461" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'dist_52'</span>] <span class="op">=</span> gdf.distance(remote_geom) <span class="op">/</span> <span class="fl">1000.0</span></span>
-<span id="cb103-1462"><a href="#cb103-1462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1463"><a href="#cb103-1463" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb103-1464"><a href="#cb103-1464" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1465"><a href="#cb103-1465" aria-hidden="true" tabindex="-1"></a><span class="co"># Left Panel: Map of Shortest Path Counts</span></span>
-<span id="cb103-1466"><a href="#cb103-1466" aria-hidden="true" tabindex="-1"></a>gdf.plot(</span>
-<span id="cb103-1467"><a href="#cb103-1467" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'sps1'</span>,</span>
-<span id="cb103-1468"><a href="#cb103-1468" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'YlOrBr'</span>,</span>
-<span id="cb103-1469"><a href="#cb103-1469" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb103-1470"><a href="#cb103-1470" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"Shortest path</span><span class="ch">\n</span><span class="st">count"</span>},</span>
-<span id="cb103-1471"><a href="#cb103-1471" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax1</span>
-<span id="cb103-1472"><a href="#cb103-1472" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb103-1473"><a href="#cb103-1473" aria-hidden="true" tabindex="-1"></a>ax1.set_axis_off()</span>
-<span id="cb103-1474"><a href="#cb103-1474" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Shortest path count from Lutowiska"</span>)</span>
-<span id="cb103-1475"><a href="#cb103-1475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1476"><a href="#cb103-1476" aria-hidden="true" tabindex="-1"></a><span class="co"># Right Panel: Scatter Plot</span></span>
-<span id="cb103-1477"><a href="#cb103-1477" aria-hidden="true" tabindex="-1"></a>ax2.scatter(gdf[<span class="st">'sps1'</span>], gdf[<span class="st">'dist_52'</span>], alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb103-1478"><a href="#cb103-1478" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">"Shortest path count"</span>)</span>
-<span id="cb103-1479"><a href="#cb103-1479" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"km distance"</span>)</span>
-<span id="cb103-1480"><a href="#cb103-1480" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Shortest Path vs. Physical Distance"</span>)</span>
-<span id="cb103-1481"><a href="#cb103-1481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1482"><a href="#cb103-1482" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb103-1483"><a href="#cb103-1483" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb103-1484"><a href="#cb103-1484" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb103-1485"><a href="#cb103-1485" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb103-1486"><a href="#cb103-1486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1487"><a href="#cb103-1487" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb103-1488"><a href="#cb103-1488" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list =</span> <span class="fu">ls</span>(), <span class="at">file =</span> <span class="st">"ch14.RData"</span>)</span>
-<span id="cb103-1489"><a href="#cb103-1489" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb103-1490"><a href="#cb103-1490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1491"><a href="#cb103-1491" aria-hidden="true" tabindex="-1"></a><span class="in">```{python echo=FALSE}</span></span>
-<span id="cb103-1492"><a href="#cb103-1492" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
-<span id="cb103-1493"><a href="#cb103-1493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1494"><a href="#cb103-1494" aria-hidden="true" tabindex="-1"></a><span class="co"># save w_q </span></span>
-<span id="cb103-1495"><a href="#cb103-1495" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'w_q'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">locals</span>():</span>
-<span id="cb103-1496"><a href="#cb103-1496" aria-hidden="true" tabindex="-1"></a>    w_q <span class="op">=</span> nb_q.to_W()</span>
-<span id="cb103-1497"><a href="#cb103-1497" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1498"><a href="#cb103-1498" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the necessary variables to a file</span></span>
-<span id="cb103-1499"><a href="#cb103-1499" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'ch14_py.pkl'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
-<span id="cb103-1500"><a href="#cb103-1500" aria-hidden="true" tabindex="-1"></a>    pickle.dump({<span class="st">'gdf'</span>: gdf, <span class="st">'w_q'</span>: w_q, <span class="st">'w_q_B'</span>: w_q_B, <span class="st">'w_d183_idw_B'</span>: w_d183_idw_B}, f)</span>
-<span id="cb103-1501"><a href="#cb103-1501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb103-1502"><a href="#cb103-1502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1503"><a href="#cb103-1503" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb103-1504"><a href="#cb103-1504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-1505"><a href="#cb103-1505" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Which kinds of geometry support are appropriate for which functions creating neighbour objects?</span>
-<span id="cb103-1506"><a href="#cb103-1506" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Which functions creating neighbour objects are only appropriate for planar representations?</span>
-<span id="cb103-1507"><a href="#cb103-1507" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What difference might the choice of <span class="in">`rook`</span> rather than <span class="in">`queen`</span> contiguities make on a chessboard?</span>
-<span id="cb103-1508"><a href="#cb103-1508" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>What are the relationships between neighbour set cardinalities (neighbour counts) and row-standardised weights, and how do they open analyses up to edge effects? Use the chessboard you constructed in exercise 3 for both <span class="in">`rook`</span> and <span class="in">`queen`</span> neighbours.</span>
+<span id="cb103-1453"><a href="#cb103-1453" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb103-1454"><a href="#cb103-1454" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb103-1455"><a href="#cb103-1455" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb103-1456"><a href="#cb103-1456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1457"><a href="#cb103-1457" aria-hidden="true" tabindex="-1"></a>path_lengths <span class="op">=</span> nx.single_source_shortest_path_length(g1, source<span class="op">=</span>mr)</span>
+<span id="cb103-1458"><a href="#cb103-1458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1459"><a href="#cb103-1459" aria-hidden="true" tabindex="-1"></a><span class="co"># Map these lengths to the GeoDataFrame</span></span>
+<span id="cb103-1460"><a href="#cb103-1460" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'sps1'</span>] <span class="op">=</span> gdf.index.<span class="bu">map</span>(path_lengths)</span>
+<span id="cb103-1461"><a href="#cb103-1461" aria-hidden="true" tabindex="-1"></a>remote_geom <span class="op">=</span> gdf.geometry[mr]</span>
+<span id="cb103-1462"><a href="#cb103-1462" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'dist_52'</span>] <span class="op">=</span> gdf.distance(remote_geom) <span class="op">/</span> <span class="fl">1000.0</span></span>
+<span id="cb103-1463"><a href="#cb103-1463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1464"><a href="#cb103-1464" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb103-1465"><a href="#cb103-1465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1466"><a href="#cb103-1466" aria-hidden="true" tabindex="-1"></a><span class="co"># Left Panel: Map of Shortest Path Counts</span></span>
+<span id="cb103-1467"><a href="#cb103-1467" aria-hidden="true" tabindex="-1"></a>gdf.plot(</span>
+<span id="cb103-1468"><a href="#cb103-1468" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'sps1'</span>,</span>
+<span id="cb103-1469"><a href="#cb103-1469" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'YlOrBr'</span>,</span>
+<span id="cb103-1470"><a href="#cb103-1470" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb103-1471"><a href="#cb103-1471" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">"Shortest path</span><span class="ch">\n</span><span class="st">count"</span>},</span>
+<span id="cb103-1472"><a href="#cb103-1472" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax1</span>
+<span id="cb103-1473"><a href="#cb103-1473" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb103-1474"><a href="#cb103-1474" aria-hidden="true" tabindex="-1"></a>ax1.set_axis_off()</span>
+<span id="cb103-1475"><a href="#cb103-1475" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Shortest path count from Lutowiska"</span>)</span>
+<span id="cb103-1476"><a href="#cb103-1476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1477"><a href="#cb103-1477" aria-hidden="true" tabindex="-1"></a><span class="co"># Right Panel: Scatter Plot</span></span>
+<span id="cb103-1478"><a href="#cb103-1478" aria-hidden="true" tabindex="-1"></a>ax2.scatter(gdf[<span class="st">'sps1'</span>], gdf[<span class="st">'dist_52'</span>], alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb103-1479"><a href="#cb103-1479" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">"Shortest path count"</span>)</span>
+<span id="cb103-1480"><a href="#cb103-1480" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"km distance"</span>)</span>
+<span id="cb103-1481"><a href="#cb103-1481" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Shortest Path vs. Physical Distance"</span>)</span>
+<span id="cb103-1482"><a href="#cb103-1482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1483"><a href="#cb103-1483" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb103-1484"><a href="#cb103-1484" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb103-1485"><a href="#cb103-1485" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb103-1486"><a href="#cb103-1486" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb103-1487"><a href="#cb103-1487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1488"><a href="#cb103-1488" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb103-1489"><a href="#cb103-1489" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="at">list =</span> <span class="fu">ls</span>(), <span class="at">file =</span> <span class="st">"ch14.RData"</span>)</span>
+<span id="cb103-1490"><a href="#cb103-1490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb103-1491"><a href="#cb103-1491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1492"><a href="#cb103-1492" aria-hidden="true" tabindex="-1"></a><span class="in">```{python echo=FALSE}</span></span>
+<span id="cb103-1493"><a href="#cb103-1493" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb103-1494"><a href="#cb103-1494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1495"><a href="#cb103-1495" aria-hidden="true" tabindex="-1"></a><span class="co"># save w_q </span></span>
+<span id="cb103-1496"><a href="#cb103-1496" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'w_q'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">locals</span>():</span>
+<span id="cb103-1497"><a href="#cb103-1497" aria-hidden="true" tabindex="-1"></a>    w_q <span class="op">=</span> nb_q.to_W()</span>
+<span id="cb103-1498"><a href="#cb103-1498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1499"><a href="#cb103-1499" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the necessary variables to a file</span></span>
+<span id="cb103-1500"><a href="#cb103-1500" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'ch14_py.pkl'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb103-1501"><a href="#cb103-1501" aria-hidden="true" tabindex="-1"></a>    pickle.dump({<span class="st">'gdf'</span>: gdf, <span class="st">'w_q'</span>: w_q, <span class="st">'w_q_B'</span>: w_q_B, <span class="st">'w_d183_idw_B'</span>: w_d183_idw_B}, f)</span>
+<span id="cb103-1502"><a href="#cb103-1502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb103-1503"><a href="#cb103-1503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1504"><a href="#cb103-1504" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb103-1505"><a href="#cb103-1505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-1506"><a href="#cb103-1506" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Which kinds of geometry support are appropriate for which functions creating neighbour objects?</span>
+<span id="cb103-1507"><a href="#cb103-1507" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Which functions creating neighbour objects are only appropriate for planar representations?</span>
+<span id="cb103-1508"><a href="#cb103-1508" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What difference might the choice of <span class="in">`rook`</span> rather than <span class="in">`queen`</span> contiguities make on a chessboard?</span>
+<span id="cb103-1509"><a href="#cb103-1509" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>What are the relationships between neighbour set cardinalities (neighbour counts) and row-standardised weights, and how do they open analyses up to edge effects? Use the chessboard you constructed in exercise 3 for both <span class="in">`rook`</span> and <span class="in">`queen`</span> neighbours.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

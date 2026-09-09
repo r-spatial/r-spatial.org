@@ -1173,16 +1173,22 @@ window.Quarto = {
 <span>                 data <span class="op">=</span> <span class="va">boston_506</span>, family <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
 <span>                 control.family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>hyper <span class="op">=</span> <span class="va">zero.variance</span><span class="op">)</span>,</span>
 <span>                 control.compute <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dic <span class="op">=</span> <span class="cn">TRUE</span>, cpo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co">#  *** inla.core.safe:  rerun to try to solve negative eigenvalue(s) in the Hessian</span></span>
 <span><span class="va">mv_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">SDEM_506_slm</span><span class="op">$</span><span class="va">summary.fitted.values</span><span class="op">$</span><span class="va">mean</span><span class="op">[</span></span>
 <span>               <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">boston_506</span><span class="op">$</span><span class="va">median</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INLA has no Python port, and its "slm" model in particular is a</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># specialised, still-experimental spatial lag prior with no</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># counterpart in the Python spatial ecosystem (see @sec-spatglmm for</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the same INLA caveat).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyinla</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pyinla (see @sec-spatglmm) fits the IID and besag (ICAR) random</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># effects used earlier in the book, but its current model catalogue</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># has no counterpart for INLA's "slm" latent model: a specialised,</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># still-experimental spatial-lag prior on the response itself, built</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># from `rho.min`/`rho.max`/`W` rather than a simple id + graph</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># specification. There is therefore no `SDEM_506_slm` equivalent here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1200,23 +1206,23 @@ window.Quarto = {
 <span>    INLA_slm <span class="op">=</span> <span class="va">mv_mean</span>, censored <span class="op">=</span> </span>
 <span>      <span class="va">boston_506</span><span class="op">$</span><span class="va">censored</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">t0</span>, <span class="st">"region.id"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#     fit_TS fit_KP2 fit_KP5 INLA_slm censored</span></span>
-<span><span class="co"># 13   23912   29477   28147    31409    right</span></span>
-<span><span class="co"># 14   28126   27001   28516    31480    right</span></span>
-<span><span class="co"># 15   30553   36184   32476    42303    right</span></span>
-<span><span class="co"># 17   18518   19621   18878    21505    right</span></span>
-<span><span class="co"># 43    9564    6817    7561     6650     left</span></span>
-<span><span class="co"># 50    8371    7196    7383     6847     left</span></span>
-<span><span class="co"># 312  51477   53301   54173    56075    right</span></span>
-<span><span class="co"># 313  45921   45823   47095    46382    right</span></span>
-<span><span class="co"># 314  44196   44586   45361    42808    right</span></span>
-<span><span class="co"># 317  43427   45707   45442    48473    right</span></span>
-<span><span class="co"># 337  39879   42072   41127    41644    right</span></span>
-<span><span class="co"># 346  44708   46694   46108    46177    right</span></span>
-<span><span class="co"># 355  48188   49068   48911    49303    right</span></span>
-<span><span class="co"># 376  42881   45883   44966    48266    right</span></span>
-<span><span class="co"># 408  44294   44615   45670    46138    right</span></span>
-<span><span class="co"># 418  38211   43375   41914    44576    right</span></span>
-<span><span class="co"># 434  41647   41690   42398    41833    right</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># 13   23912   29477   28147    29712    right</span></span>
+<span><span class="co"># 14   28126   27001   28516    31375    right</span></span>
+<span><span class="co"># 15   30553   36184   32476    36035    right</span></span>
+<span><span class="co"># 17   18518   19621   18878    19244    right</span></span>
+<span><span class="co"># 43    9564    6817    7561     7895     left</span></span>
+<span><span class="co"># 50    8371    7196    7383     7104     left</span></span>
+<span><span class="co"># 312  51477   53301   54173    56782    right</span></span>
+<span><span class="co"># 313  45921   45823   47095    47061    right</span></span>
+<span><span class="co"># 314  44196   44586   45361    42776    right</span></span>
+<span><span class="co"># 317  43427   45707   45442    46926    right</span></span>
+<span><span class="co"># 337  39879   42072   41127    40614    right</span></span>
+<span><span class="co"># 346  44708   46694   46108    44358    right</span></span>
+<span><span class="co"># 355  48188   49068   48911    48507    right</span></span>
+<span><span class="co"># 376  42881   45883   44966    45555    right</span></span>
+<span><span class="co"># 408  44294   44615   45670    47349    right</span></span>
+<span><span class="co"># 418  38211   43375   41914    40745    right</span></span>
+<span><span class="co"># 434  41647   41690   42398    40861    right</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
@@ -2466,38 +2472,42 @@ Wilhelm, Stefan, and Miguel Godinho de Matos. 2013. <span>“<span class="nocase
 <span id="cb37-703"><a href="#cb37-703" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb37-704"><a href="#cb37-704" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
 <span id="cb37-707"><a href="#cb37-707" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb37-708"><a href="#cb37-708" aria-hidden="true" tabindex="-1"></a><span class="co"># INLA has no Python port, and its "slm" model in particular is a</span></span>
-<span id="cb37-709"><a href="#cb37-709" aria-hidden="true" tabindex="-1"></a><span class="co"># specialised, still-experimental spatial lag prior with no</span></span>
-<span id="cb37-710"><a href="#cb37-710" aria-hidden="true" tabindex="-1"></a><span class="co"># counterpart in the Python spatial ecosystem (see @sec-spatglmm for</span></span>
-<span id="cb37-711"><a href="#cb37-711" aria-hidden="true" tabindex="-1"></a><span class="co"># the same INLA caveat).</span></span>
-<span id="cb37-712"><a href="#cb37-712" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-713"><a href="#cb37-713" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-714"><a href="#cb37-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-715"><a href="#cb37-715" aria-hidden="true" tabindex="-1"></a>INLA also provide gridded estimates of the marginal distributions of the predictions, offering a way to assess the uncertainty associated with the predicted values.</span>
-<span id="cb37-716"><a href="#cb37-716" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-717"><a href="#cb37-717" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb37-718"><a href="#cb37-718" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
-<span id="cb37-719"><a href="#cb37-719" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=TRUE, eval=eval_inla}</span></span>
-<span id="cb37-720"><a href="#cb37-720" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">fit_TS =</span> t0[,<span class="dv">1</span>], <span class="at">fit_KP2 =</span> <span class="fu">c</span>(t1), <span class="at">fit_KP5 =</span> <span class="fu">c</span>(t2),</span>
-<span id="cb37-721"><a href="#cb37-721" aria-hidden="true" tabindex="-1"></a>    <span class="at">INLA_slm =</span> mv_mean, <span class="at">censored =</span> </span>
-<span id="cb37-722"><a href="#cb37-722" aria-hidden="true" tabindex="-1"></a>      boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, <span class="st">"region.id"</span>))])</span>
-<span id="cb37-723"><a href="#cb37-723" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-724"><a href="#cb37-724" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
-<span id="cb37-727"><a href="#cb37-727" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb37-728"><a href="#cb37-728" aria-hidden="true" tabindex="-1"></a><span class="co"># Depends on the unavailable `t0`/`t1`/`t2` predictions and `mv_mean`</span></span>
-<span id="cb37-729"><a href="#cb37-729" aria-hidden="true" tabindex="-1"></a><span class="co"># INLA result above.</span></span>
-<span id="cb37-730"><a href="#cb37-730" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb37-731"><a href="#cb37-731" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb37-732"><a href="#cb37-732" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-733"><a href="#cb37-733" aria-hidden="true" tabindex="-1"></a>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others' understandings and advances.</span>
-<span id="cb37-734"><a href="#cb37-734" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-735"><a href="#cb37-735" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb37-708"><a href="#cb37-708" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyinla</span>
+<span id="cb37-709"><a href="#cb37-709" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-710"><a href="#cb37-710" aria-hidden="true" tabindex="-1"></a><span class="co"># pyinla (see @sec-spatglmm) fits the IID and besag (ICAR) random</span></span>
+<span id="cb37-711"><a href="#cb37-711" aria-hidden="true" tabindex="-1"></a><span class="co"># effects used earlier in the book, but its current model catalogue</span></span>
+<span id="cb37-712"><a href="#cb37-712" aria-hidden="true" tabindex="-1"></a><span class="co"># has no counterpart for INLA's "slm" latent model: a specialised,</span></span>
+<span id="cb37-713"><a href="#cb37-713" aria-hidden="true" tabindex="-1"></a><span class="co"># still-experimental spatial-lag prior on the response itself, built</span></span>
+<span id="cb37-714"><a href="#cb37-714" aria-hidden="true" tabindex="-1"></a><span class="co"># from `rho.min`/`rho.max`/`W` rather than a simple id + graph</span></span>
+<span id="cb37-715"><a href="#cb37-715" aria-hidden="true" tabindex="-1"></a><span class="co"># specification. There is therefore no `SDEM_506_slm` equivalent here.</span></span>
+<span id="cb37-716"><a href="#cb37-716" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-717"><a href="#cb37-717" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb37-718"><a href="#cb37-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-719"><a href="#cb37-719" aria-hidden="true" tabindex="-1"></a>INLA also provide gridded estimates of the marginal distributions of the predictions, offering a way to assess the uncertainty associated with the predicted values.</span>
+<span id="cb37-720"><a href="#cb37-720" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-721"><a href="#cb37-721" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb37-722"><a href="#cb37-722" aria-hidden="true" tabindex="-1"></a><span class="fu">#### R</span></span>
+<span id="cb37-723"><a href="#cb37-723" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=TRUE, eval=eval_inla}</span></span>
+<span id="cb37-724"><a href="#cb37-724" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">fit_TS =</span> t0[,<span class="dv">1</span>], <span class="at">fit_KP2 =</span> <span class="fu">c</span>(t1), <span class="at">fit_KP5 =</span> <span class="fu">c</span>(t2),</span>
+<span id="cb37-725"><a href="#cb37-725" aria-hidden="true" tabindex="-1"></a>    <span class="at">INLA_slm =</span> mv_mean, <span class="at">censored =</span> </span>
+<span id="cb37-726"><a href="#cb37-726" aria-hidden="true" tabindex="-1"></a>      boston_506<span class="sc">$</span>censored[<span class="fu">as.integer</span>(<span class="fu">attr</span>(t0, <span class="st">"region.id"</span>))])</span>
+<span id="cb37-727"><a href="#cb37-727" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-728"><a href="#cb37-728" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Python</span></span>
+<span id="cb37-731"><a href="#cb37-731" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb37-732"><a href="#cb37-732" aria-hidden="true" tabindex="-1"></a><span class="co"># Depends on the unavailable `t0`/`t1`/`t2` predictions and `mv_mean`</span></span>
+<span id="cb37-733"><a href="#cb37-733" aria-hidden="true" tabindex="-1"></a><span class="co"># INLA result above.</span></span>
+<span id="cb37-734"><a href="#cb37-734" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-735"><a href="#cb37-735" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb37-736"><a href="#cb37-736" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-737"><a href="#cb37-737" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Referring to @PIRAS2014103 and @FLORAX2003557, if we choose to use a pre-test strategy, do linear models of the properties-only dataset and the properties with added municipality department variables show residual spatial dependence? Which model specifications might the pre-tests indicate?</span>
-<span id="cb37-738"><a href="#cb37-738" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Could the inclusion of municipality department dummies, or a municipality department regimes model assist in reducing residual spatial dependence?</span>
-<span id="cb37-739"><a href="#cb37-739" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Attempt to fit a SEM specification by maximum likelihood (see @math9111276 for GMM code examples) to the properties-only and the properties with added municipality department variables models; extend to an SDEM model. Repeat with SLX models; how might the changes in the tests of residual autocorrelation in the SLX models be interpreted? How might you interpret the highly significant outcomes of Hausman tests on the SEM and SDEM models?</span>
-<span id="cb37-740"><a href="#cb37-740" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fit GNM specifications to the properties-only and the properties with added municipality department variables models; can these models be simplified to say SDM or SDEM representations?</span>
-<span id="cb37-741"><a href="#cb37-741" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Do the model estimates reached in the @sec-spatglmm exercises provide more clarity than those in this chapter?</span>
+<span id="cb37-737"><a href="#cb37-737" aria-hidden="true" tabindex="-1"></a>The spatial regression toolbox remains incomplete, and it will take time to fill in blanks. It remains unfortunate that the several traditions in spatial regression seldom seem to draw on each others' understandings and advances.</span>
+<span id="cb37-738"><a href="#cb37-738" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-739"><a href="#cb37-739" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb37-740"><a href="#cb37-740" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-741"><a href="#cb37-741" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Referring to @PIRAS2014103 and @FLORAX2003557, if we choose to use a pre-test strategy, do linear models of the properties-only dataset and the properties with added municipality department variables show residual spatial dependence? Which model specifications might the pre-tests indicate?</span>
+<span id="cb37-742"><a href="#cb37-742" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Could the inclusion of municipality department dummies, or a municipality department regimes model assist in reducing residual spatial dependence?</span>
+<span id="cb37-743"><a href="#cb37-743" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Attempt to fit a SEM specification by maximum likelihood (see @math9111276 for GMM code examples) to the properties-only and the properties with added municipality department variables models; extend to an SDEM model. Repeat with SLX models; how might the changes in the tests of residual autocorrelation in the SLX models be interpreted? How might you interpret the highly significant outcomes of Hausman tests on the SEM and SDEM models?</span>
+<span id="cb37-744"><a href="#cb37-744" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fit GNM specifications to the properties-only and the properties with added municipality department variables models; can these models be simplified to say SDM or SDEM representations?</span>
+<span id="cb37-745"><a href="#cb37-745" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Do the model estimates reached in the @sec-spatglmm exercises provide more clarity than those in this chapter?</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
